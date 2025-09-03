@@ -1,0 +1,2 @@
+microCMSのAPIキー情報が含まれるため、Gitの管理対象から除外します
+config.js
