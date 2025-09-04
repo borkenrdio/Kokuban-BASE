@@ -174,9 +174,11 @@
             display: inline-block;
             background-color: white;
             color: #1E3A8A; /* blue-900 */
-            padding: 0.2em 0.4em;
-            margin-bottom: 0.2em;
-            line-height: 1.1;
+            padding: 0.3em 0.6em;
+            margin-bottom: 0.8em;
+            line-height: 1.3;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         /* ▼▼▼ ヒーロー動画の背景スタイル（最適化版） ▼▼▼ */
@@ -209,6 +211,7 @@
             background: linear-gradient(transparent 70%, #fef3c7 70%);
             background-repeat: no-repeat;
             background-size: 100% 100%;
+            padding: 0 0.2em;
         }
         /* ▼▼▼ 蛍光ペン風の下線 ▼▼▼ */
         .highlight-pink {
@@ -312,7 +315,7 @@
     <!-- ▼▼▼ ローディング画面（改訂版） ▼▼▼ -->
     <div id="preloader" class="fixed inset-0 z-50 flex justify-center items-center overflow-hidden">
         <div class="text-center text-white">
-            <h2 id="preloader-title" class="text-3xl sm:text-3xl font-bold opacity-0">Kokuban BASEへ、ようこそ</h2>
+            <h2 id="preloader-title" class="text-2xl sm:text-3xl font-bold opacity-0">Kokuban BASEへ、ようこそ</h2>
             <p id="preloader-subtitle" class="mt-4 text-lg sm:text-xl opacity-0">ここは、日本初の電子黒板の体験倉庫です。</p>
         </div>
     </div>
@@ -369,7 +372,7 @@
     
     <div class="overflow-x-hidden">
         <div id="page-content">
-            <section id="hero-section" class="relative w-full h-[85vh] md:h-[90vh] flex items-center justify-center">
+            <section id="hero-section" class="relative w-full h-[80vh] md:h-[90vh] flex items-center justify-center">
                 <!-- Desktop Video -->
                 <video loop muted playsinline autoplay preload="auto" poster="https://placehold.co/1920x1080/000000/FFFFFF?text=." class="hero-video-background hidden md:block w-full h-full object-cover">
                     <source src="top.webm" type="video/webm">
@@ -381,36 +384,45 @@
                     <source src="top-mobile.mp4" type="video/mp4">
                 </video>
                 <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
-                <div class="relative z-10 text-center sm:text-left text-white p-8 md:p-12 max-w-5xl w-full">
-                    <!-- ▼▼▼ フォントサイズ調整 ▼▼▼ -->
-                    <p class="text-2xl md:text-4xl mb-4">日本初、電子黒板体験倉庫</p>
-                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight mb-6">Kokuban BASE</h1>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 whitespace-nowrap">複数ブランドの電子黒板を徹底比較</h2>
-                    <div class="relative inline-block bg-white text-gray-800 py-3 px-5 rounded-xl mt-8 mb-12 shadow-lg">
-                        <div class="absolute left-1/2 sm:left-8 -top-2 w-4 h-4 bg-white transform -translate-x-1/2 sm:translate-x-0 rotate-45"></div>
-                        <p class="font-bold text-lg md:text-xl">学習塾や私立中学校、すべての教育関係者へ</p>
+                <div class="relative z-10 text-center text-white p-4 sm:p-8 md:p-12 max-w-5xl w-full mb-16 sm:mb-0">
+                    <!-- ▼▼▼ ヒーローテキストを更新 ▼▼▼ -->
+                    <h2 class="text-4xl sm:text-5xl md:text-5xl lg:text-7xl font-bold">複数ブランドを<br class="sm:hidden">徹底比較</h2>
+                    
+                    <!-- 比較ポイントをタグで表示 -->
+                    <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-4 mb-4">
+                        <span class="bg-purple-500/80 backdrop-blur-sm text-white text-sm sm:text-base font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-full transition-all duration-300 hover:scale-110 hover:bg-purple-500/100 shadow-lg">#書き心地</span>
+                        <span class="bg-blue-500/80 backdrop-blur-sm text-white text-sm sm:text-base font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-full transition-all duration-300 hover:scale-110 hover:bg-blue-500/100 shadow-lg">#機能</span>
+                        <span class="bg-green-500/80 backdrop-blur-sm text-white text-sm sm:text-base font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-full transition-all duration-300 hover:scale-110 hover:bg-green-500/100 shadow-lg">#サイズ</span>
+                        <span class="bg-yellow-500/80 backdrop-blur-sm text-white text-sm sm:text-base font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-full transition-all duration-300 hover:scale-110 hover:bg-yellow-500/100 shadow-lg">#コスパ</span>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
-                        <a href="contact.html" class="bg-white text-gray-800 font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:bg-gray-200 transition-colors duration-300 transform hover:scale-105">
+                    
+                    <p class="text-xl md:text-4xl my-2 font-bold">日本初！電子黒板の比較体験倉庫</p>
+                    <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-4">Kokuban BASE</h1>
+                    <!-- ▲▲▲ ヒーローテキストを更新 ▲▲▲ -->
+                    
+                    <div class="flex flex-row gap-2 sm:gap-4 justify-center mt-5">
+                        <a href="contact.html" class="bg-white text-gray-800 font-bold py-3 px-4 sm:py-4 sm:px-10 rounded-full text-sm sm:text-xl shadow-lg hover:bg-gray-200 transition-colors duration-300 transform hover:scale-105 whitespace-nowrap">
                             お問い合わせ
                         </a>
-                        <a href="reservation.html" class="bg-pink-500 text-white font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:bg-pink-600 transition-colors duration-300 transform hover:scale-105">
-                            無料で体験してみる (来場予約)
+                        <a href="reservation.html" class="bg-pink-500 text-white font-bold py-3 px-4 sm:py-4 sm:px-10 rounded-full text-sm sm:text-xl shadow-lg hover:bg-pink-600 transition-colors duration-300 transform hover:scale-105 whitespace-nowrap">
+                            <span class="sm:hidden">無料体験予約</span>
+                            <span class="hidden sm:inline">無料で体験してみる (来場予約)</span>
                         </a>
                     </div>
-                    <!-- ▲▲▲ フォントサイズ調整 ▲▲▲ -->
                 </div>
                 <!-- ▼▼▼ ブランドロゴをヒーローセクション下部に移動 ▼▼▼ -->
                 <div class="absolute bottom-6 left-0 right-0 z-10 px-4">
-                    <div class="container mx-auto">
-                        <div class="bg-white/90 backdrop-blur-sm rounded-lg p-4">
-                            <div class="flex justify-between items-center gap-x-4 sm:gap-x-8">
-                                <img src="brand-1.png" alt="Promethean" class="h-12 w-auto object-contain transition-transform hover:scale-110">
-                                <img src="brand-2.png" alt="BenQ" class="h-12 w-auto object-contain transition-transform hover:scale-110">
-                                <img src="brand-3.png" alt="StarBoard" class="h-10 w-auto object-contain transition-transform hover:scale-110">
-                                <img src="brand-4.png" alt="MAXHUB" class="h-10 w-auto object-contain transition-transform hover:scale-110">
-                                <img src="brand-5.png" alt="SHARP" class="h-10 w-auto object-contain transition-transform hover:scale-110">
+                    <div class="container mx-auto max-w-7xl">
+                        <div class="bg-white/60 backdrop-blur-sm rounded-lg p-2 sm:p-4">
+                            <!-- ▼▼▼ スマホ表示のレイアウトを修正し、PC表示で中央揃えに ▼▼▼ -->
+                            <div class="flex flex-wrap sm:flex-nowrap justify-center items-center gap-y-4 gap-x-4 sm:gap-x-8">
+                                <img src="brand-1.png" alt="Promethean" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
+                                <img src="brand-2.png" alt="BenQ" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
+                                <img src="brand-3.png" alt="StarBoard" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
+                                <img src="brand-4.png" alt="MAXHUB" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
+                                <img src="brand-5.png" alt="SHARP" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                             </div>
+                            <!-- ▲▲▲ スマホ表示のレイアウトを修正し、PC表示で中央揃えに ▲▲▲ -->
                         </div>
                     </div>
                 </div>
@@ -446,6 +458,7 @@
                                         <li>カタログだけでは実際の使い心地がわからない。</li>
                                         <li>多機能すぎて、本当に必要な機能がどれか判断できない。</li>
                                         <li>情報が点在していて、製品同士の比較が難しい。</li>
+                                        <li>1社ずつ訪問すると時間がかかり、客観的な比較がしにくい。</li>
                                     </ul>
                                 </div>
                                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
@@ -457,6 +470,7 @@
                                         <li>高価な設備投資なので、絶対に失敗したくない。</li>
                                         <li>操作が複雑で、結局使われなくなるのが不安。</li>
                                         <li>一部の職員しか使えず、活用が広まらないかもしれない。</li>
+                                        <li>導入後のサポートが手薄で、追加費用がかさむのが心配。</li>
                                     </ul>
                                 </div>
                                 <!-- ▲▲▲ デザイン変更 ▲▲▲ -->
@@ -465,10 +479,10 @@
                                 <h3 class="text-lg font-semibold text-gray-600">ほかにもこんなお悩みを耳にします</h3>
                             </div>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div class="bg-white border border-gray-200 p-4 rounded-lg text-center font-semibold text-gray-700 text-base shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">授業でどう活かすの？</div>
-                                <div class="bg-white border border-gray-200 p-4 rounded-lg text-center font-semibold text-gray-700 text-base shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">いまのやり方も大事にしたい…</div>
-                                <div class="bg-white border border-gray-200 p-4 rounded-lg text-center font-semibold text-gray-700 text-base shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">機械の操作が苦手…</div>
-                                <div class="bg-white border border-gray-200 p-4 rounded-lg text-center font-semibold text-gray-700 text-base shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">導入後のサポートが不安</div>
+                                <div class="bg-white border border-gray-200 p-4 rounded-lg text-center font-semibold text-gray-700 text-base sm:text-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center min-h-[100px] sm:min-h-0">授業でどう活かすの？</div>
+                                <div class="bg-white border border-gray-200 p-4 rounded-lg text-center font-semibold text-gray-700 text-base sm:text-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center min-h-[100px] sm:min-h-0">今のやり方も大切に…</div>
+                                <div class="bg-white border border-gray-200 p-4 rounded-lg text-center font-semibold text-gray-700 text-base sm:text-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center min-h-[100px] sm:min-h-0">機械の操作が苦手…</div>
+                                <div class="bg-white border border-gray-200 p-4 rounded-lg text-center font-semibold text-gray-700 text-base sm:text-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center min-h-[100px] sm:min-h-0">導入後のサポートが不安</div>
                             </div>
                         </div>
     
@@ -477,7 +491,7 @@
                             <div class="flex items-center justify-center space-x-4">
                                 <span class="text-5xl font-thin text-slate-400">\</span>
                                 <p class="text-[#103f99] font-bold text-2xl sm:text-4xl">
-                                    その課題、Kokuban BASEで一緒に解決しましょう
+                                    その課題、<br class="sm:hidden">Kokuban BASEで一緒に<br class="sm:hidden">解決しましょう
                                 </p>
                                 <span class="text-5xl font-thin text-slate-400">/</span>
                             </div>
@@ -487,16 +501,22 @@
                 <section id="intro-message" class="bg-blue-900 text-white">
                     <div class="container mx-auto p-4 sm:p-6 md:p-8">
                         <div class="py-8 md:py-12 max-w-4xl mx-auto">
-                            <h1 class="text-3xl md:text-5xl font-black tracking-tighter">
+                            <h1 class="text-2xl sm:text-3xl md:text-5xl font-black tracking-tighter">
                                 <span class="headline-block">学習塾の現役講師が作った</span><br>
-                                <span class="headline-block">日本初、「電子黒板」の<br class="sm:hidden">比較体験倉庫</span>
+                                <!-- Desktop Version -->
+                                <span class="headline-block hidden md:inline">日本初！電子黒板の比較体験倉庫</span>
+                                <!-- Mobile Version -->
+                                <span class="md:hidden">
+                                    <span class="headline-block">日本初、電子黒板の</span><br>
+                                    <span class="headline-block">比較体験倉庫</span>
+                                </span>
                             </h1>
                             <div class="mt-10 border-t border-blue-700 pt-6">
-                                <p class="text-2xl md:text-3xl font-bold text-gray-200">
-                                    授業での本当の使いやすさを<br class="sm:hidden">じっくり徹底比較
+                                <p class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-200">
+                                    複数ブランドの電子黒板を徹底比較
                                 </p>
-                                <p class="mt-6 text-xl text-gray-300 font-bold">
-                                    授業で電子黒板を使いこなす現役講師が集まり、教育事業者向けモデルだけを厳選。豊富な現場経験にもとづくモデル選定で、唯一ここだけの比較・体験が可能です。
+                                <p class="mt-6 text-lg sm:text-xl text-gray-300">
+                                    授業で電子黒板を使いこなす現役講師が集まり、教育事業者向けモデルを厳選。<br>豊富な現場経験にもとづくモデル選定で、ここだけの比較・体験が可能です。
                                 </p>
                             </div>
                         </div>
@@ -508,11 +528,72 @@
                     </div>
                 </section>
                 
+                <!-- ▼▼▼ ４つの徹底比較セクションをここに移動 ▼▼▼ -->
+                <section id="comparison">
+                    <!-- Kokuban BASEによる解決セクション -->
+                    <div class="bg-blue-900">
+                        <div class="container mx-auto px-4 py-12 md:py-20">
+                            <!-- メインタイトル -->
+                            <header class="text-center mb-12 md:mb-16 animate-on-scroll">
+                                <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">
+                                    もう、電子黒板選びで<br class="sm:hidden">迷わない
+                                </h2>
+                                <p class="mt-6 text-gray-200 text-2xl md:text-3xl font-bold">
+                                    Kokuban BASEでできる<br class="sm:hidden"><span class="text-pink-400">４つの徹底比較</span>
+                                </p>
+                            </header>
+                
+                            <!-- ▼▼▼ レイアウトと説明文を全面改修 ▼▼▼ -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                
+                                <!-- 1. 書き心地 -->
+                                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-on-scroll flex">
+                                    <div class="p-6 sm:p-8 flex flex-col">
+                                        <span class="inline-block bg-purple-500 text-white text-sm font-bold px-4 py-1 rounded-full shadow-md mb-4 self-start">#書き心地</span>
+                                        <h3 class="font-bold text-xl lg:text-2xl text-[#103f99]">これまでを超える、<br>ストレスフリーな<span class="highlight-underline">「書き心地」</span></h3>
+                                        <p class="text-slate-700 mt-3 text-base flex-grow">Kokuban BASEでは、普段通りの書き方で試してください。止まらず、迷わず、スムーズに書き切れるか。さらに、書くときの音や消しゴムの使い勝手まで。“講師の感覚”で選ぶための比較体験をご用意しています。</p>
+                                    </div>
+                                </div>
+                
+                                <!-- 2. 活用イメージ -->
+                                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-on-scroll flex" style="transition-delay: 0.1s;">
+                                    <div class="p-6 sm:p-8 flex flex-col">
+                                        <span class="inline-block bg-blue-500 text-white text-sm font-bold px-4 py-1 rounded-full shadow-md mb-4 self-start">#活用イメージ</span>
+                                        <h3 class="font-bold text-xl lg:text-2xl text-[#103f99]">授業が劇的に変わる<br>世界基準の<span class="highlight-underline">「活用イメージ」</span></h3>
+                                        <p class="text-slate-700 mt-3 text-base flex-grow">デジタル教科書への書き込み、PDF教材の利用、参考動画の再生まで。現役講師が、明日からの授業で本当に使える活用法を実演します。「自分の授業でどう使えるか？」、その具体的なイメージが掴めれば、導入後の成功は間違いありません。</p>
+                                    </div>
+                                </div>
+                
+                                <!-- 3. サイズ感 -->
+                                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-on-scroll flex" style="transition-delay: 0.2s;">
+                                    <div class="p-6 sm:p-8 flex flex-col">
+                                        <span class="inline-block bg-green-500 text-white text-sm font-bold px-4 py-1 rounded-full shadow-md mb-4 self-start">#サイズ感</span>
+                                        <h3 class="font-bold text-xl lg:text-2xl text-[#103f99]">教室に最適な<br><span class="highlight-underline">「サイズ感」</span></h3>
+                                        <p class="text-slate-700 mt-3 text-base flex-grow">「後ろの生徒にも文字は見える？」「西日の反射は大丈夫？」そんな授業中の不安は、導入前に解消すべきです。55〜86インチの主要サイズを全て並べ、実際の教室と同じ距離感で確認可能。講師の目線で最適な一台を選べます。</p>
+                                    </div>
+                                </div>
+                
+                                <!-- 4. コスパ -->
+                                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-on-scroll flex" style="transition-delay: 0.3s;">
+                                    <div class="p-6 sm:p-8 flex flex-col">
+                                        <span class="inline-block bg-yellow-500 text-white text-sm font-bold px-4 py-1 rounded-full shadow-md mb-4 self-start">#コストパフォーマンス</span>
+                                        <h3 class="font-bold text-xl lg:text-2xl text-[#103f99]">経営者視点で選ぶ<br><span class="highlight-underline">「コストパフォーマンス」</span></h3>
+                                        <p class="text-slate-700 mt-3 text-base flex-grow">単なる価格比較に留まらず、印刷コスト削減や準備効率化といった長期的な投資対効果もシミュレーション。最新機器による宣伝効果や満足度向上、購入後のオンライン授業での活用法まで、総合的にご提案します。</p>
+                                    </div>
+                                </div>
+                
+                            </div>
+                            <!-- ▲▲▲ レイアウトと説明文を全面改修 ▲▲▲ -->
+
+                        </div>
+                    </div>
+                </section>
+                <!-- ▲▲▲ ４つの徹底比較セクション（復元） ▲▲▲ -->
                 <section id="products" class="py-16 sm:py-24 bg-gray-100 overflow-hidden">
                     <div class="container mx-auto px-6 lg:px-8">
                         <div class="text-center animate-on-scroll">
                             <h2 class="text-2xl sm:text-4xl font-black text-[#103f99]">さわって試せる、<br class="sm:hidden">主な電子黒板ラインナップ</h2>
-                            <p class="mt-4 text-base text-gray-600">各社の最新モデルから、教育現場で評価の高い定番モデルまで、幅広くご用意しています。</p>
+                            <p class="mt-4 text-sm sm:text-base text-gray-600">各社の最新モデルから、教育現場で評価の高い定番モデルまで、<br class="sm:hidden">幅広くご用意しています。</p>
                         </div>
                         <!-- 製品スライドショー -->
                         <div class="mt-16 relative">
@@ -523,9 +604,13 @@
                                         <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col relative transition-shadow duration-300 hover:shadow-xl">
                                             <img src="product-b.jpg" alt="Promethean AP9" class="w-full h-56 object-contain" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e0e7ff/1e3a8a?text=product-b.jpg (3:2)';">
                                             <div class="p-6 flex flex-col flex-grow">
-                                                <span class="text-sm md:text-base font-semibold text-pink-600">Promethean</span>
-                                                <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">Promethean-AP9</h3>
-                                                <p class="mt-1 text-sm md:text-base font-bold text-gray-700">世界の教育市場<br>シェアNo.1</p>
+                                                <div>
+                                                    <div class="min-h-24">
+                                                        <span class="text-sm md:text-base font-semibold text-pink-600">Promethean</span>
+                                                        <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">Promethean-AP9</h3>
+                                                    </div>
+                                                    <p class="mt-1 text-sm md:text-base font-bold text-gray-700">世界の教育市場<br>シェアNo.1</p>
+                                                </div>
                                                 <p class="mt-4 text-sm md:text-base text-gray-600 flex-grow">アメリカ・シアトル発、世界126カ国で愛されるブランドです。圧倒的な操作性と洗練されたデザインが融合し、教育からビジネスまでをラグジュアリーに彩ります。</p>
                                             </div>
                                         </div>
@@ -536,9 +621,13 @@
                                             <img src="product-c.jpg" alt="All in One Meeting Board V7シリーズ" class="w-full h-56 object-contain" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/d1fae5/064e3b?text=product-c.jpg (3:2)';">
                                             <div class="p-6 flex flex-col flex-grow relative">
                                                 <span class="absolute top-6 right-6 text-xs font-bold py-1 px-2 rounded-full bg-red-500 text-white">最新製品</span>
-                                                <span class="text-sm md:text-base font-semibold text-pink-600">MAXHUB</span>
-                                                <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">All in One Meeting Board V7シリーズ</h3>
-                                                <p class="mt-1 text-sm md:text-base font-bold text-gray-700">国内会議向けツール<br>シェアNo.1</p>
+                                                <div>
+                                                    <div class="min-h-24">
+                                                        <span class="text-sm md:text-base font-semibold text-pink-600">MAXHUB</span>
+                                                        <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">All in One Meeting Board V7シリーズ</h3>
+                                                    </div>
+                                                    <p class="mt-1 text-sm md:text-base font-bold text-gray-700">国内会議向けツール<br>シェアNo.1</p>
+                                                </div>
                                                 <p class="mt-4 text-sm md:text-base text-gray-600 flex-grow">大手から中小まで幅広く導入される会議DXツール。AIが雑音を排除し、声をクリアに届ける集音マイク＆スピーカーを搭載。快適な会議環境を実現します。</p>
                                             </div>
                                         </div>
@@ -549,9 +638,13 @@
                                             <img src="product-d.jpg" alt="BIG PAD スタンダードモデル" class="w-full h-56 object-contain" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fee2e2/991b1b?text=product-d.jpg (3:2)';">
                                             <div class="p-6 flex flex-col flex-grow relative">
                                                 <span class="absolute top-6 right-6 text-xs font-bold py-1 px-2 rounded-full bg-red-500 text-white">最新製品</span>
-                                                <span class="text-sm md:text-base font-semibold text-pink-600">SHARP</span>
-                                                <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">BIG PAD スタンダードモデル</h3>
-                                                <p class="mt-1 text-sm md:text-base font-bold text-gray-700">九州圏の公教育に人気！<br>国産の安心感</p>
+                                                <div>
+                                                    <div class="min-h-24">
+                                                        <span class="text-sm md:text-base font-semibold text-pink-600">SHARP</span>
+                                                        <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">BIG PAD スタンダードモデル</h3>
+                                                    </div>
+                                                    <p class="mt-1 text-sm md:text-base font-bold text-gray-700">九州圏の公教育に人気！<br>国産の安心感</p>
+                                                </div>
                                                 <p class="mt-4 text-sm md:text-base text-gray-600 flex-grow">Sharpが誇る高品質電子黒板は、なめらかな書き心地と安定したアプリ動作が魅力。特に九州圏の公教育で高い評価を得る、信頼のスタンダードモデルです。</p>
                                             </div>
                                         </div>
@@ -562,9 +655,13 @@
                                             <img src="product-e.jpg" alt="TE-QS シリーズ(J14B)ベーシックモデル" class="w-full h-56 object-contain" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fefce8/854d0e?text=product-e.jpg (3:2)';">
                                             <div class="p-6 flex flex-col flex-grow relative">
                                                 <span class="absolute top-6 right-6 text-xs font-bold py-1 px-2 rounded-full bg-red-500 text-white">最新製品</span>
-                                                <span class="text-sm md:text-base font-semibold text-pink-600">StarBoard</span>
-                                                <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">TE-QS シリーズ(J14B)ベーシックモデル</h3>
-                                                <p class="mt-1 text-sm md:text-base font-bold text-gray-700">世界80ヵ国以上<br>総販売台数40万台以上</p>
+                                                <div>
+                                                    <div class="min-h-24">
+                                                        <span class="text-sm md:text-base font-semibold text-pink-600">StarBoard</span>
+                                                        <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">TE-QS シリーズ(J14B)ベーシックモデル</h3>
+                                                    </div>
+                                                    <p class="mt-1 text-sm md:text-base font-bold text-gray-700">世界80ヵ国以上<br>総販売台数40万台以上</p>
+                                                </div>
                                                 <p class="mt-4 text-sm md:text-base text-gray-600 flex-grow">発売は1998年、日米で日立独自開発の電子黒板。日本で販売されている電子黒板の中では最も歴史の長い電子黒板ブランドです。</p>
                                             </div>
                                         </div>
@@ -575,9 +672,13 @@
                                             <img src="product-f.jpg" alt="RPシリーズ" class="w-full h-56 object-contain" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f3e8ff/581c87?text=product-f.jpg (3:2)';">
                                             <div class="p-6 flex flex-col flex-grow relative">
                                                 <span class="absolute top-6 right-6 text-xs font-bold py-1 px-2 rounded-full bg-red-500 text-white">最新製品</span>
-                                                <span class="text-sm md:text-base font-semibold text-pink-600">BenQ</span>
-                                                <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">RPシリーズ</h3>
-                                                <p class="mt-1 text-sm md:text-base font-bold text-gray-700">Gemini標準搭載の<br>唯一の電子黒板</p>
+                                                <div>
+                                                    <div class="min-h-24">
+                                                        <span class="text-sm md:text-base font-semibold text-pink-600">BenQ</span>
+                                                        <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">RPシリーズ</h3>
+                                                    </div>
+                                                    <p class="mt-1 text-sm md:text-base font-bold text-gray-700">Gemini標準搭載の<br>唯一の電子黒板</p>
+                                                </div>
                                                 <p class="mt-4 text-sm md:text-base text-gray-600 flex-grow">Google PlayやWorkspace for Educationに対応し、直感的な操作が可能。独自アプリと組み合わせ、ICT教育に革新をもたらすプレミアム電子黒板です。</p>
                                             </div>
                                         </div>
@@ -588,9 +689,13 @@
                                             <img src="product-g.jpg" alt="RICOH Interactive Whiteboard" class="w-full h-56 object-contain" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/ecfdf5/065f46?text=product-g.jpg (3:2)';">
                                             <div class="p-6 flex flex-col flex-grow relative">
                                                 <span class="absolute top-6 right-6 text-xs font-bold py-1 px-2 rounded-full bg-red-500 text-white">最新製品</span>
-                                                <span class="text-sm md:text-base font-semibold text-pink-600">RICOH</span>
-                                                <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">RICOH Interactive Whiteboard</h3>
-                                                <p class="mt-1 text-sm md:text-base font-bold text-gray-700">自治体・学校での<br>採用実績</p>
+                                                <div>
+                                                    <div class="min-h-24">
+                                                        <span class="text-sm md:text-base font-semibold text-pink-600">RICOH</span>
+                                                        <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">RICOH Interactive Whiteboard</h3>
+                                                    </div>
+                                                    <p class="mt-1 text-sm md:text-base font-bold text-gray-700">自治体・学校での<br>採用実績</p>
+                                                </div>
                                                 <p class="mt-4 text-sm md:text-base text-gray-600 flex-grow">PC画面や電子教科書、WEB/クラウドの画像や動画など、様々なコンテンツをインタラクティブホワイトボードに投影、板書ができ、学びの質を高める効果が期待できます。</p>
                                             </div>
                                         </div>
@@ -601,9 +706,13 @@
                                             <img src="product-h.jpg" alt="IB-65UED01B" class="w-full h-56 object-contain" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f1f5f9/475569?text=product-h.jpg (3:2)';">
                                             <div class="p-6 flex flex-col flex-grow relative">
                                                 <span class="absolute top-6 right-6 text-xs font-bold py-1 px-2 rounded-full bg-red-500 text-white">最新製品</span>
-                                                <span class="text-sm md:text-base font-semibold text-pink-600">アイリスオーヤマ</span>
-                                                <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">IB-65UED01B</h3>
-                                                <p class="mt-1 text-sm md:text-base font-bold text-gray-700">コスパ最強の<br>電子黒板</p>
+                                                <div>
+                                                    <div class="min-h-24">
+                                                        <span class="text-sm md:text-base font-semibold text-pink-600">アイリスオーヤマ</span>
+                                                        <h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">IB-65UED01B</h3>
+                                                    </div>
+                                                    <p class="mt-1 text-sm md:text-base font-bold text-gray-700">コスパ最強の<br>電子黒板</p>
+                                                </div>
                                                 <p class="mt-4 text-sm md:text-base text-gray-600 flex-grow">Google モバイル サービス の標準搭載により、 Google が提供する各種アプリやサービスが利用可能。より授業の質を高め、先生と生徒の円滑なコミュニケーションを実現します。</p>
                                             </div>
                                         </div>
@@ -637,7 +746,7 @@
                         <div class="text-center mb-12 animate-on-scroll">
                             <!-- ▼▼▼ 見出し変更 ▼▼▼ -->
                             <p class="text-lg text-gray-600">ご利用の流れ</p>
-                            <h2 class="text-3xl sm:text-4xl font-bold text-[#103f99] mt-2">お申し込みはWEBで完結</h2>
+                            <h2 class="text-2xl sm:text-4xl font-bold text-[#103f99] mt-2">お申し込みはWEBで完結</h2>
                             <!-- ▲▲▲ 見出し変更 ▲▲▲ -->
                         </div>
                         <!-- ▼▼▼ 全体構造変更 ▼▼▼ -->
@@ -709,153 +818,7 @@
                 </section>
                 <!-- ▲▲▲ ご利用の流れセクション（デザイン修正） ▲▲▲ -->
 
-                <!-- ▼▼▼ ４つの徹底比較セクション（復元） ▼▼▼ -->
-                <section id="comparison">
-                    <!-- 従来のお悩みセクション -->
-                    <div class="bg-slate-100/80">
-                        <div class="container mx-auto px-4 py-12 md:py-20 text-center animate-on-scroll">
-                            <!-- 悩んでいる先生のアイコン -->
-                            <h2 class="text-3xl md:text-4xl font-bold text-slate-700">令和の電子黒板選びの課題…</h2>
-                            <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">1社ずつメーカーを訪問して体験するため、<br>時間も手間もかかり、機種ごとの客観的な比較が困難でした。</p>
-                            
-                            <div class="mt-12 flex flex-col md:flex-row items-stretch justify-center gap-4 md:gap-6 max-w-6xl w-full mx-auto">
-                                <!-- Card 1 -->
-                                <div class="bg-white p-6 rounded-lg shadow-md flex-1 flex flex-col text-center">
-                                    <p class="font-bold text-slate-800 text-lg">A社を訪問</p>
-                                    <div class="flex-grow flex items-center justify-center min-h-[5rem]">
-                                        <p class="mt-2 text-slate-600 text-lg">書き心地は良いが、<br>少し価格が高い…</p>
-                                    </div>
-                                </div>
-                                <div class="text-slate-400 my-2 md:my-0 flex items-center justify-center px-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                                </div>
-                                <!-- Card 2 -->
-                                 <div class="bg-white p-6 rounded-lg shadow-md flex-1 flex flex-col text-center">
-                                    <p class="font-bold text-slate-800 text-lg">B社を訪問</p>
-                                    <div class="flex-grow flex items-center justify-center min-h-[5rem]">
-                                        <p class="mt-2 text-slate-600 text-lg">A社とどちらが良い書き心地か<br>判断がつかない</p>
-                                    </div>
-                                </div>
-                                 <div class="text-slate-400 my-2 md:my-0 flex items-center justify-center px-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10 rotate-90 md:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                                </div>
-                                <!-- Card 3 -->
-                                 <div class="bg-white p-6 rounded-lg shadow-md flex-1 flex flex-col text-center">
-                                    <p class="font-bold text-slate-800 text-lg">C社を訪問</p>
-                                    <div class="flex-grow flex items-center justify-center min-h-[5rem]">
-                                        <p class="mt-2 text-slate-600 text-lg">安いけど、<br>本当に大丈夫だろうか…</p>
-                                    </div>
-                                </div>
-                            </div>
-                
-                            <p class="mt-12 text-xl md:text-2xl font-bold text-[#103f99] bg-blue-100 p-4 rounded-lg inline-block">結局、どれが自校に最適なのか<br class="md:hidden">決めきれない</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 解決策への転換 -->
-                    <div class="relative bg-slate-100/80">
-                        <div class="absolute inset-x-0 -top-6 flex justify-center">
-                            <div class="bg-white rounded-full p-2 shadow-lg">
-                                <div class="bg-[#103f99] text-white rounded-full p-2 animate-bounce">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                
-                    <!-- Kokuban BASEによる解決セクション -->
-                    <div class="bg-blue-900">
-                        <div class="container mx-auto px-4 py-12 md:py-20">
-                            <!-- メインタイトル -->
-                            <header class="text-center mb-12 md:mb-16 animate-on-scroll">
-                                <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">
-                                    もう、電子黒板選びで迷わない
-                                </h2>
-                                <p class="mt-6 text-gray-200 text-2xl md:text-3xl font-bold">
-                                    Kokuban BASEでできる<span class="text-pink-400">４つの徹底比較</span>
-                                </p>
-                            </header>
-                
-                            <!-- 比較セクション -->
-                            <div class="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 flex overflow-x-auto snap-x snap-mandatory md:overflow-x-visible md:snap-none gap-4 pb-4 md:pb-0 no-scrollbar">
-                
-                                <!-- 1. 書き心地 -->
-                                <div class="snap-center shrink-0 w-5/6 md:w-auto bg-white rounded-2xl shadow-lg border border-slate-200 flex flex-col text-left p-6 transition-all duration-300 hover:shadow-xl hover:border-blue-300 md:hover:-translate-y-2 animate-on-scroll">
-                                    <h3 class="font-bold text-2xl text-slate-800 text-center relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-[#103f99] after:rounded-full">書き心地</h3>
-                                    <p class="text-slate-800 mt-4 text-lg font-bold flex-grow">納得いくまで、主要メーカーの機種を<br class="md:hidden">じっくり<span class="text-[#103f99]">同時比較</span>できます。</p>
-                                    <div class="my-4 text-blue-400 text-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
-                                    <div class="flex-shrink-0 h-40">
-                                        <img src="comparison-writing.jpg" alt="書き心地を比較" class="w-full h-full rounded-lg object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E7FF/4F46E5?text=comparison-writing.jpg';">
-                                    </div>
-                                    <div class="mt-4 h-28 flex items-center justify-start">
-                                        <p class="text-xl font-bold text-slate-700 leading-relaxed">あなたに最適な一台が<br>必ず見つかります。</p>
-                                    </div>
-                                </div>
-                
-                                <!-- 2. 活用イメージ -->
-                                <div class="snap-center shrink-0 w-5/6 md:w-auto bg-white rounded-2xl shadow-lg border border-slate-200 flex flex-col text-left p-6 transition-all duration-300 hover:shadow-xl hover:border-blue-300 md:hover:-translate-y-2 animate-on-scroll" style="transition-delay: 0.1s;">
-                                    <h3 class="font-bold text-2xl text-slate-800 text-center relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-[#103f99] after:rounded-full">活用イメージ</h3>
-                                    <p class="text-slate-800 mt-4 text-lg font-bold flex-grow">現場を知る<span class="text-[#103f99]">現役講師</span>が、<br class="md:hidden">明日から使える活用法を丁寧に伝授します。</p>
-                                    <div class="my-4 text-blue-400 text-center">
-                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
-                                    <div class="flex-shrink-0 h-40">
-                                        <img src="comparison-usage.jpg" alt="授業での活用" class="w-full h-full rounded-lg object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E7FF/4F46E5?text=comparison-usage.jpg';">
-                                    </div>
-                                    <div class="mt-4 h-28 flex items-center justify-start">
-                                        <p class="text-xl font-bold text-slate-700 leading-relaxed">導入後の成功イメージが<br>具体的に描けます。</p>
-                                    </div>
-                                </div>
-                
-                                <!-- 3. サイズ感 -->
-                                <div class="snap-center shrink-0 w-5/6 md:w-auto bg-white rounded-2xl shadow-lg border border-slate-200 flex flex-col text-left p-6 transition-all duration-300 hover:shadow-xl hover:border-blue-300 md:hover:-translate-y-2 animate-on-scroll" style="transition-delay: 0.2s;">
-                                    <h3 class="font-bold text-2xl text-slate-800 text-center relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-[#103f99] after:rounded-full">サイズ感</h3>
-                                    <p class="text-slate-800 mt-4 text-lg font-bold flex-grow"><span class="text-[#103f99]">55,65,75,86インチの<br class="md:hidden">主要４サイズ</span>をすべて並べて体感できます。</p>
-                                    <div class="my-4 text-blue-400 text-center">
-                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
-                                    <div class="flex-shrink-0 h-40">
-                                        <img src="comparison-size.jpg" alt="サイズ感を体験" class="w-full h-full rounded-lg object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E7FF/4F46E5?text=comparison-size.jpg';">
-                                    </div>
-                                    <div class="mt-4 h-28 flex items-center justify-start">
-                                        <p class="text-xl font-bold text-slate-700 leading-relaxed">設置後の「しまった…」という<br>後悔を防げます。</p>
-                                    </div>
-                                </div>
-                
-                                <!-- 4. コスパ -->
-                                <div class="snap-center shrink-0 w-5/6 md:w-auto bg-white rounded-2xl shadow-lg border border-slate-200 flex flex-col text-left p-6 transition-all duration-300 hover:shadow-xl hover:border-blue-300 md:hover:-translate-y-2 animate-on-scroll" style="transition-delay: 0.3s;">
-                                    <h3 class="font-bold text-2xl text-slate-800 text-center relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-[#103f99] after:rounded-full">コスパ</h3>
-                                    <p class="text-slate-800 mt-4 text-lg font-bold flex-grow">専門家が価格と性能差を<br class="md:hidden"><span class="text-[#103f99]">論理的に言語化</span>し、選定を支援します。</p>
-                                    <div class="my-4 text-blue-400 text-center">
-                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
-                                    <div class="flex-shrink-0 h-40">
-                                        <img src="comparison-cost.jpg" alt="コストと性能を比較" class="w-full h-full rounded-lg object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/E0E7FF/4F46E5?text=comparison-cost.jpg';">
-                                    </div>
-                                    <div class="mt-4 h-28 flex items-center justify-start">
-                                        <p class="text-xl font-bold text-slate-700 leading-relaxed">予算と性能に<br>納得して購入できます。</p>
-                                    </div>
-                                </div>
-                
-                            </div>
-                            <div class="md:hidden text-center mt-4 text-slate-500 text-sm animate-pulse">→ スワイプして他の比較項目も見る →</div>
-                        </div>
-                    </div>
-                </section>
-                <!-- ▲▲▲ ４つの徹底比較セクション（復元） ▲▲▲ -->
+                <!-- ▼▼▼ ４つの徹底比較セクションを削除 ▼▼▼ -->
                 
                 <!-- ▼▼▼ 自己紹介セクション（新規追加） ▼▼▼ -->
                 <section id="about-us" class="py-16 sm:py-24 bg-gradient-to-br from-pink-50 to-rose-100">
@@ -864,11 +827,10 @@
                             <div class="text-center md:text-left">
                                 <img src="ideaspot-logo.jpg" alt="idea spot ロゴ" class="w-48 mx-auto md:mx-0 mb-4" onerror="this.onerror=null;this.src='https://placehold.co/200x100/ec4899/FFFFFF?text=idea+spot';">
                                 <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">
-                                    運営会社: idea spot京都校
+                                    運営: idea spot京都校
                                 </h2>
                                 <p class="mt-4 text-gray-600">
-                                    2016年に開校し、来年度で10周年を迎える学習塾。
-                                    会員制難関中学受験専門指導エリオをはじめとした、６講座を展開。
+                                    2016年に開校したイデアスポット京都校は、すべての講座を少人数制で実施し、一人ひとりに寄り添った丁寧な指導を徹底しています。
                                     最難関中学校・高校への合格実績はもちろん、高い指導力を有する厳選されたプロ講師が数多く活躍しております。
                                 </p>
                                 <div class="mt-6">
@@ -896,7 +858,7 @@
                     <div class="container mx-auto px-6 lg:px-8 max-w-7xl">
                         <div class="text-center mb-12 animate-on-scroll">
                             <h2 class="text-3xl sm:text-4xl font-bold text-[#103f99]">スタッフ紹介</h2>
-                            <p class="mt-4 text-gray-600">電子黒板を知り尽くしたプロが、あなたの疑問や不安に丁寧にお答えします。</p>
+                            <p class="mt-4 text-gray-600">日々、電子黒板を授業で使用している講師が、あなたの疑問や不安に丁寧にお答えします。</p>
                         </div>
                         <div class="swiper-container staff-swiper">
                             <div class="swiper-wrapper pb-12">
@@ -905,7 +867,7 @@
                                     <div class="animate-on-scroll bg-white p-8 rounded-lg shadow-lg flex flex-col items-center text-center h-full transition-shadow duration-300 hover:shadow-xl">
                                         <img src="staff-a.jpg" alt="竹山 隼矢" class="w-32 h-32 rounded-full object-cover mb-4 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/128x128/ec4899/FFFFFF?text=Staff+A';">
                                         <h3 class="text-xl font-bold text-gray-900">竹山 隼矢</h3>
-                                        <p class="text-pink-500 font-semibold mt-1">株式会社idea spot代表取締役社長</p>
+                                        <p class="text-pink-500 font-semibold mt-1">株式会社idea spot代表取締役</p>
                                         <ul class="mt-4 space-y-2 text-gray-600 list-disc list-inside text-left flex-grow text-sm md:text-base">
                                             <li>中学受験専門の現役トップ算数講師として、毎年多数の難関中学合格者を輩出。</li>
                                             <li>電子黒板の早期導入を決断し、ICT教材を駆使した算数授業は、生徒・保護者から高く評価。</li>
@@ -931,7 +893,7 @@
                                     <div class="animate-on-scroll bg-white p-8 rounded-lg shadow-lg flex flex-col items-center text-center h-full transition-shadow duration-300 hover:shadow-xl" style="transition-delay: 0.2s;">
                                         <img src="staff-c.jpg" alt="山田 将生" class="w-32 h-32 rounded-full object-cover mb-4 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/128x128/103f99/FFFFFF?text=Staff+C';">
                                         <h3 class="text-xl font-bold text-gray-900">山田 将生</h3>
-                                        <p class="text-pink-500 font-semibold mt-1">Kokuban BASE営業担当</p>
+                                        <p class="text-pink-500 font-semibold mt-1">Kokuban BASE運営担当</p>
                                         <ul class="mt-4 space-y-2 text-gray-600 list-disc list-inside text-left flex-grow text-sm md:text-base">
                                             <li>現役で社会科のトップ講師として活躍する一方、情報システムの専門家でもある。</li>
                                             <li>社内の管理システムや本LPサイトの作成も一気通貫で完結させる、教育業界トップレベルのICT知識を有する。</li>
@@ -972,7 +934,7 @@
                         <div class="space-y-4" id="faq-container">
                             <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-md">
                                 <button class="question w-full flex justify-between items-center text-left p-6 focus:outline-none" aria-expanded="false">
-                                    <span class="text-base sm:text-lg font-semibold text-gray-800">なぜ、営業担当が「現役の講師」なのですか？</span>
+                                    <span class="text-base sm:text-lg font-semibold text-gray-800">PCが苦手な先生でも、使いこなせますか？</span>
                                     <div class="text-2xl text-[#103f99] transform transition-transform duration-300">
                                         <i class="fas fa-plus" aria-hidden="true"></i>
                                     </div>
@@ -980,22 +942,7 @@
                                 <div class="answer text-gray-700">
                                     <div class="answer-content-wrapper">
                                         <div class="px-6 pt-2 pb-4">
-                                            <p class="text-sm sm:text-base md:text-lg">私たちは、単に製品を売るのではなく「教育現場の成功」をゴールにしているからです。指導経験豊富な講師が、先生方と同じ目線に立ち、授業がどう変わるのか、生徒の反応はどうなるのか、具体的な成功イメージを持ってご提案します。</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-md">
-                                <button class="question w-full flex justify-between items-center text-left p-6 focus:outline-none" aria-expanded="false">
-                                    <span class="text-base sm:text-lg font-semibold text-gray-800">PCが苦手な先生でも、使いこなせるようになりますか？</span>
-                                    <div class="text-2xl text-[#103f99] transform transition-transform duration-300">
-                                        <i class="fas fa-plus" aria-hidden="true"></i>
-                                    </div>
-                                </button>
-                                <div class="answer text-gray-700">
-                                    <div class="answer-content-wrapper">
-                                        <div class="px-6 pt-2 pb-4">
-                                            <p class="text-sm sm:text-base md:text-lg">もちろんです。弊社のベテラン講師も１か月も立たずに使いこなしております。「PCが苦手だった先生が、今では一番のヘビーユーザーです」といった嬉しいお声もいただいております。</p>
+                                            <p class="text-sm sm:text-base md:text-lg">もちろんです。実は、直感的に操作できる最新モデルほど、PCが苦手な先生方に好評です。文字を書く、色を変えるといった基本操作は、どなたでも数分で習得できます。当施設では、現役講師が「これさえできれば大丈夫」という核心的な使い方を丁寧にお伝えしますので、ご安心ください。</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1010,14 +957,14 @@
                                 <div class="answer text-gray-700">
                                     <div class="answer-content-wrapper">
                                         <div class="px-6 pt-2 pb-4">
-                                            <p class="text-sm sm:text-base md:text-lg">ご安心ください。多くの教育機関様にご導入いただけるよう、初期費用を抑えたプランや、状況に合わせた柔軟なご提案が可能です。「費用対効果」を実感いただける自信がありますので、まずは一度、貴校のご状況をお聞かせください。</p>
+                                            <p class="text-sm sm:text-base md:text-lg">ご安心ください。Kokuban BASEでは、様々な価格帯のモデルを公平な視点で比較できますので、ご予算に合わせた最適な一台が見つかります。また、初期費用を抑えるプランや、各種補助金活用のノウハウもございます。まずは一度ご来場いただき、費用対効果を実感いただける機種を一緒に探しましょう。</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-md">
                                 <button class="question w-full flex justify-between items-center text-left p-6 focus:outline-none" aria-expanded="false">
-                                    <span class="text-base sm:text-lg font-semibold text-gray-800">他社とは、何が違うのですか？</span>
+                                    <span class="text-base sm:text-lg font-semibold text-gray-800">プロジェクターからの移行がうまくいくか不安です。</span>
                                     <div class="text-2xl text-[#103f99] transform transition-transform duration-300">
                                        <i class="fas fa-plus" aria-hidden="true"></i>
                                     </div>
@@ -1025,14 +972,29 @@
                                 <div class="answer text-gray-700">
                                     <div class="answer-content-wrapper">
                                         <div class="px-6 pt-2 pb-4">
-                                            <p class="text-sm sm:text-base md:text-lg">最大の違いは、電子黒板を授業で活用する現役講師による現場目線のサポートです。また、先生方の声を反映し続けるソフトウェアを開発中で、導入後の活用レベルが圧倒的に違います。</p>
+                                            <p class="text-sm sm:text-base md:text-lg">そのお悩み、非常によくわかります。プロジェクターの手軽さも魅力ですが、電子黒板は準備の手間がなく、明るい教室でも鮮明に見えるなど、授業の質を格段に向上させます。当施設では、プロジェクターと電子黒板のメリット・デメリットを体感しながら比較できます。移行の不安が、きっと導入への期待に変わるはずです。</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-md">
                                 <button class="question w-full flex justify-between items-center text-left p-6 focus:outline-none" aria-expanded="false">
-                                    <span class="text-base sm:text-lg font-semibold text-gray-800">「正規代理店」から購入するメリットは何ですか？</span>
+                                    <span class="text-base sm:text-lg font-semibold text-gray-800">電子黒板にはいろいろな価格や機能のものがありますが、どのような違いがありますか？</span>
+                                    <div class="text-2xl text-[#103f99] transform transition-transform duration-300">
+                                        <i class="fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </button>
+                                <div class="answer text-gray-700">
+                                    <div class="answer-content-wrapper">
+                                        <div class="px-6 pt-2 pb-4">
+                                            <p class="text-sm sm:text-base md:text-lg">価格と機能のバランスは、メーカーやモデルによって大きく異なります。カタログスペックだけではわからない「書き心地」や「操作の直感性」など、実際に触れていただくことで初めてわかる違いが数多くございます。ぜひ当施設で、ご自身の目で最適な一台を見つけてください。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-md">
+                                <button class="question w-full flex justify-between items-center text-left p-6 focus:outline-none" aria-expanded="false">
+                                    <span class="text-base sm:text-lg font-semibold text-gray-800">電子黒板は小さいのでホワイトボードのかわりにならないと思っていたのですが…</span>
                                     <div class="text-2xl text-[#103f99] transform transition-transform duration-300">
                                        <i class="fas fa-plus" aria-hidden="true"></i>
                                     </div>
@@ -1040,7 +1002,37 @@
                                 <div class="answer text-gray-700">
                                     <div class="answer-content-wrapper">
                                         <div class="px-6 pt-2 pb-4">
-                                            <p class="text-sm sm:text-base md:text-lg">私たち正規代理店は、その価格に加えて、現場を熟知した講師による導入支援や迅速なサポート、教育現場の活用事例の共有といった独自の付加価値をご提供しています。機材をただ導入するだけでなく、最大限に活用し、教育効果を高めていただくこと。それが私たちの使命です。</p>
+                                            <p class="text-sm sm:text-base md:text-lg">確かにサイズだけを見るとそう感じられるかもしれません。しかし、最新の電子黒板は画面を無限に広く使えたり、過去の板書を瞬時に呼び出せたりと、従来のホワイトボードを超える利便性を備えています。その驚きの機能を、ぜひKokuban BASEでご体感ください。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-md">
+                                <button class="question w-full flex justify-between items-center text-left p-6 focus:outline-none" aria-expanded="false">
+                                    <span class="text-base sm:text-lg font-semibold text-gray-800">教育関係者（学校・学習塾関係者）ではないのですが、利用は可能ですか？</span>
+                                    <div class="text-2xl text-[#103f99] transform transition-transform duration-300">
+                                       <i class="fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </button>
+                                <div class="answer text-gray-700">
+                                    <div class="answer-content-wrapper">
+                                        <div class="px-6 pt-2 pb-4">
+                                            <p class="text-sm sm:text-base md:text-lg">はい、もちろんです。企業での会議やプレゼンテーション、地域のコミュニティ活動など、様々なシーンでご活用いただけます。教育現場で培われたノウハウを元に、お客様の用途に合わせた最適な活用法をご提案しますので、まずはお気軽にご来場ください。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="faq-item bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-md">
+                                <button class="question w-full flex justify-between items-center text-left p-6 focus:outline-none" aria-expanded="false">
+                                    <span class="text-base sm:text-lg font-semibold text-gray-800">メディアの取材は可能ですか？</span>
+                                    <div class="text-2xl text-[#103f99] transform transition-transform duration-300">
+                                       <i class="fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </button>
+                                <div class="answer text-gray-700">
+                                    <div class="answer-content-wrapper">
+                                        <div class="px-6 pt-2 pb-4">
+                                            <p class="text-sm sm:text-base md:text-lg">はい、歓迎いたします。「日本初の電子黒板体験倉庫」というユニークな取り組みですので、多くのメディア様にご関心をお寄せいただいております。取材をご希望の場合は、お手数ですが「お問い合わせ」フォームより、媒体名と企画内容を添えてご連絡ください。</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1195,7 +1187,7 @@
             <section id="contact-cta" class="bg-gray-50 py-16 sm:py-24">
                 <div class="container mx-auto px-6 text-center">
                     <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 leading-tight">
-                        各教育機関の施設状況に合わせた<br>
+                        各教育機関の施設状況に合わせた<br class="sm:hidden">
                         <span class="text-pink-500">最適なプラン</span>をご案内します
                     </h2>
                     <p class="mt-4 text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
@@ -1306,7 +1298,7 @@
                 if(errorContainer) errorContainer.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>APIクライアントの初期化に失敗しました。</p></div>`;
             }
         } else {
-             console.error('microCMSのAPIキーまたはサービスドメインが設定されていません。config.jsが正しく読み込まれているか確認してください。');
+             // console.error('microCMSのAPIキーまたはサービスドメインが設定されていません。config.jsが正しく読み込まれているか確認してください。');
              const errorContainer = document.getElementById('error-container-news');
              if(errorContainer) errorContainer.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>コンテンツの読み込みに必要な設定が不足しています。</p></div>`;
              const loading = document.getElementById('loading-list-news');
@@ -1317,20 +1309,20 @@
         document.addEventListener('DOMContentLoaded', () => {
             const preloader = document.getElementById('preloader');
             if (preloader) {
-                // ページの読み込みが完了したらローディング画面を非表示にする
                 window.addEventListener('load', () => {
                     preloader.classList.add('loaded');
+                    document.body.classList.remove('overflow-hidden');
                 });
             }
 
             // ハンバーガーメニュー
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', () => {
-                    const isHidden = mobileMenu.classList.contains('hidden');
                     mobileMenu.classList.toggle('hidden');
-                    document.body.classList.toggle('overflow-hidden', !isHidden);
+                    document.body.classList.toggle('overflow-hidden', !mobileMenu.classList.contains('hidden'));
                 });
             }
 
@@ -1344,18 +1336,7 @@
                     const icon = questionButton.querySelector('i');
                     const wasOpen = faqItem.classList.contains('open');
                     
-                    faqContainer.querySelectorAll('.faq-item').forEach(item => {
-                        if (item !== faqItem && item.classList.contains('open')) {
-                            item.classList.remove('open');
-                            const otherButton = item.querySelector('.question');
-                            if(otherButton) otherButton.setAttribute('aria-expanded', 'false');
-                            const itemIcon = item.querySelector('i');
-                            if (itemIcon) {
-                                itemIcon.classList.remove('fa-minus');
-                                itemIcon.classList.add('fa-plus');
-                            }
-                        }
-                    });
+                    // 他のアコーディオンを閉じる処理を削除
 
                     faqItem.classList.toggle('open');
                     questionButton.setAttribute('aria-expanded', !wasOpen);
@@ -1458,12 +1439,14 @@
                 try {
                     const article = await client.get({ endpoint: 'news', contentId: id });
                     
+                    // ▼▼▼ 修正点: article.content を article.body に変更 ▼▼▼
                     const detailHtml = `
                         <p class="text-gray-500 mb-2">${formatDate(article.publishedAt)}</p>
                         <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-6">${article.title}</h1>
                         ${article.eyecatch ? `<img src="${article.eyecatch.url}?w=800" alt="${article.title}" class="w-full rounded-lg mb-8 shadow-md">` : ''}
-                        <div class="article-body text-base md:text-lg leading-relaxed text-gray-800">${article.content}</div>
+                        <div class="article-body text-base md:text-lg leading-relaxed text-gray-800">${article.body || ''}</div>
                     `;
+                    // ▲▲▲ 修正点: article.content を article.body に変更 ▲▲▲
                     detailContentArea.innerHTML = detailHtml;
 
                     const allArticles = await client.get({ endpoint: 'news', queries: { limit: 4 } });
@@ -1510,7 +1493,7 @@
 
             function initProductSwiper() {
                  new Swiper('.product-swiper', {
-                    loop: false,
+                    loop: true,
                     slidesPerView: 1.2,
                     spaceBetween: 16,
                     centeredSlides: false,
@@ -1578,4 +1561,3 @@
     </script>
 </body>
 </html>
-
