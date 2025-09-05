@@ -35,6 +35,37 @@
             background-color: #ffffff;
             color: #333;
         }
+        body.overflow-hidden { overflow: hidden; }
+
+        /* ▼▼▼ ローディング画面のスタイル ▼▼▼ */
+        #preloader {
+            background-color: #103f99;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #preloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none; /* クリックイベントを透過させる */
+        }
+        #preloader-title, #preloader-subtitle {
+             opacity: 0;
+             animation: fadeInPreloaderText 0.8s ease-out forwards;
+        }
+        #preloader-title { animation-delay: 0.2s; }
+        #preloader-subtitle { animation-delay: 0.5s; }
+
+        @keyframes fadeInPreloaderText {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* ▲▲▲ ローディング画面のスタイル ▲▲▲ */
+
 
         /* 本文テキストの読みやすさを向上させるためのスタイル */
         main p, main li, .testimonial-body p, .answer p {
@@ -263,7 +294,15 @@
     <script src="config.js"></script>
     <!-- ▲▲▲ APIキー設定ファイルを<head>に移動 ▲▲▲ -->
 </head>
-<body class="bg-stone-50">
+<body class="bg-stone-50 overflow-hidden">
+    <!-- ▼▼▼ ローディング画面を再追加 ▼▼▼ -->
+    <div id="preloader" class="fixed inset-0 z-50 flex justify-center items-center overflow-hidden bg-[#103f99]">
+        <div class="text-center text-white">
+            <h2 id="preloader-title" class="text-2xl sm:text-3xl font-bold opacity-0">Kokuban BASEへ、ようこそ</h2>
+            <p id="preloader-subtitle" class="mt-4 text-lg sm:text-xl opacity-0">ここは、日本初の電子黒板の体験倉庫です。</p>
+        </div>
+    </div>
+    <!-- ▲▲▲ ローディング画面を再追加 ▲▲▲ -->
 
     <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
         <div class="px-6 lg:px-8">
@@ -318,13 +357,11 @@
         <div id="page-content">
             <section id="hero-section" class="relative w-full h-[80vh] md:h-[90vh] flex items-center justify-center">
                 <!-- Desktop Video -->
-                <!-- ▼▼▼【修正点】preload="metadata" に変更。posterには動画の最初のフレームの画像を設定してください ▼▼▼ -->
                 <video loop muted playsinline autoplay preload="metadata" poster="https://placehold.co/1920x1080/103f99/FFFFFF?text=Kokuban+BASE" class="hero-video-background hidden md:block w-full h-full object-cover">
                     <source src="top.webm" type="video/webm">
                     <source src="top.mp4" type="video/mp4">
                 </video>
                 <!-- Mobile Video -->
-                <!-- ▼▼▼【修正点】preload="metadata" に変更。posterには動画の最初のフレームの画像を設定してください ▼▼▼ -->
                 <video loop muted playsinline autoplay preload="metadata" poster="https://placehold.co/1080x1920/103f99/FFFFFF?text=Kokuban+BASE" class="hero-video-background md:hidden w-full h-full object-cover">
                     <source src="top-mobile.webm" type="video/webm">
                     <source src="top-mobile.mp4" type="video/mp4">
@@ -1669,6 +1706,17 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // ▼▼▼【修正点】ローディング画面を1.5秒表示する処理を追加 ▼▼▼
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                // 1.5秒後にローディング画面を非表示にする
+                setTimeout(() => {
+                    preloader.classList.add('loaded');
+                    document.body.classList.remove('overflow-hidden');
+                }, 1500);
+            }
+            // ▲▲▲【修正点】▲▲▲
+
             setupHeroVideo();
             setupMobileMenu();
             setupAccordions();
@@ -1692,3 +1740,4 @@
     </script>
 </body>
 </html>
+
