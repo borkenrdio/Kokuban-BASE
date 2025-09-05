@@ -294,7 +294,8 @@
                             </div>
                             <div class="flex items-center justify-center gap-4 mt-10">
                                 <button type="button" id="back-btn-2" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 transition-colors shadow-lg">修正する</button>
-                                <button type="submit" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">この内容で送信する</button>
+                                <!-- ▼▼▼ 変更点1: ボタンにIDを追加 ▼▼▼ -->
+                                <button type="submit" id="submit-btn" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">この内容で送信する</button>
                             </div>
                         </div>
 
@@ -708,8 +709,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             return;
         }
-
-        const submitButton = e.target.querySelector('button[type="submit"]');
+        
+        // ▼▼▼ 変更点2: IDを使ってボタンを確実に取得 ▼▼▼
+        const submitButton = document.getElementById('submit-btn');
         const originalButtonHTML = submitButton.innerHTML;
         submitButton.disabled = true;
         submitButton.innerHTML = `
