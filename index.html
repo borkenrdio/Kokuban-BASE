@@ -40,8 +40,8 @@
         /* ▼▼▼ ローディング画面のスタイル（改訂版） ▼▼▼ */
         #preloader {
             background-color: #103f99;
-            /* ローディング時間を短縮：遅延を1.2s、アニメーション時間を0.6sに調整 */
-            transition: opacity 0.6s ease-in-out 1.2s, visibility 0.6s ease-in-out 1.2s;
+            /* JavaScriptで制御するため、遅延を削除 */
+            transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
         }
         #preloader.loaded {
             opacity: 0;
@@ -163,7 +163,7 @@
             opacity: 0.35;
             pointer-events: none;
         }
-        .staff-pagination {
+        .staff-pagination, .testimonial-pagination {
             position: static;
             margin-top: 2rem;
         }
@@ -199,11 +199,15 @@
         
         /* ▼▼▼ 追従CTAボタンのスタイル ▼▼▼ */
         #sticky-cta {
-            transition: transform 0.4s ease-in-out;
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
             transform: translateY(100%);
+            opacity: 0;
+            visibility: hidden;
         }
         #sticky-cta.is-visible {
             transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
         }
 
         /* ▼▼▼ キャンペーンセクションのスタイル ▼▼▼ */
@@ -374,12 +378,14 @@
         <div id="page-content">
             <section id="hero-section" class="relative w-full h-[80vh] md:h-[90vh] flex items-center justify-center">
                 <!-- Desktop Video -->
-                <video loop muted playsinline autoplay preload="auto" poster="https://placehold.co/1920x1080/000000/FFFFFF?text=." class="hero-video-background hidden md:block w-full h-full object-cover">
+                <!-- 動画の最初のフレームをposter画像に設定することを推奨します -->
+                <video loop muted playsinline autoplay preload="auto" poster="https://placehold.co/1920x1080/103f99/FFFFFF?text=Kokuban+BASE" class="hero-video-background hidden md:block w-full h-full object-cover">
                     <source src="top.webm" type="video/webm">
                     <source src="top.mp4" type="video/mp4">
                 </video>
                 <!-- Mobile Video -->
-                <video loop muted playsinline autoplay preload="auto" poster="https://placehold.co/1920x1080/000000/FFFFFF?text=." class="hero-video-background md:hidden w-full h-full object-cover">
+                <!-- 動画の最初のフレームをposter画像に設定することを推奨します -->
+                <video loop muted playsinline autoplay preload="auto" poster="https://placehold.co/1080x1920/103f99/FFFFFF?text=Kokuban+BASE" class="hero-video-background md:hidden w-full h-full object-cover">
                     <source src="top-mobile.webm" type="video/webm">
                     <source src="top-mobile.mp4" type="video/mp4">
                 </video>
@@ -485,7 +491,7 @@
                                 <div class="bg-white border border-gray-200 p-4 rounded-lg text-center font-semibold text-gray-700 text-base sm:text-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-center min-h-[100px] sm:min-h-0">導入後のサポートが不安</div>
                             </div>
                         </div>
-    
+        
                         <div class="text-center mt-12 sm:mt-16 flex flex-col items-center">
                             <svg class="w-12 h-12 text-slate-400 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             <div class="flex items-center justify-center space-x-4">
@@ -498,6 +504,22 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- ▼▼▼ キャンペーンセクション（新規追加）▼▼▼ -->
+                <section id="campaign" class="py-12 bg-rose-50">
+                    <div class="container mx-auto px-6 text-center animate-on-scroll">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-rose-800">【期間限定】グランドオープン記念キャンペーン！</h2>
+                        <p class="mt-4 text-lg text-gray-700">
+                            今ご予約いただいた方限定で、<span class="font-bold highlight-pink">特別な導入支援プラン</span>をご用意しております。
+                        </p>
+                        <p class="mt-2 text-gray-600">この機会に、ぜひ一度ご来場ください。</p>
+                        <a href="reservation.html" class="mt-6 inline-block bg-pink-500 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
+                            キャンペーンの詳細を見て予約する
+                        </a>
+                    </div>
+                </section>
+                <!-- ▲▲▲ キャンペーンセクション（新規追加）▲▲▲ -->
+
                 <section id="intro-message" class="bg-blue-900 text-white">
                     <div class="container mx-auto p-4 sm:p-6 md:p-8">
                         <div class="py-8 md:py-12 max-w-4xl mx-auto">
@@ -527,6 +549,56 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- ▼▼▼ 「なぜ作ったのか」セクション（新規追加）▼▼▼ -->
+                <section id="brand-story" class="relative">
+                    <div class="page-container">
+                        <div class="story-content-wrapper">
+                            <div class="story-text-block">
+                                <p class="story-paragraph story-animated-block">
+                                    はじめまして。<br>
+                                    私たちは、京都で学習塾を運営する<br>
+                                    <span class="brand-name">idea spot</span> です。
+                                </p>
+                            </div>
+                            <div class="story-text-block">
+                                <p class="story-paragraph story-animated-block delay-1">
+                                    私たちは日々、<br>
+                                    生徒たちの未来と向き合う中で、<br>
+                                    ひとつの大きな課題を感じていました。
+                                </p>
+                            </div>
+                            <div class="story-text-block">
+                                <p class="story-paragraph story-animated-block delay-2">
+                                    それは、教育現場における<br>
+                                    「最適なツール選び」の難しさです。
+                                </p>
+                            </div>
+                            <div class="story-text-block">
+                                <p class="story-paragraph story-animated-block delay-3">
+                                    特に電子黒板は、<br>
+                                    カタログだけでは分からないことばかり。<br>
+                                    「本当にこの書き心地で大丈夫だろうか？」<br>
+                                    「私たちの授業スタイルに合うだろうか？」
+                                </p>
+                            </div>
+                            <div class="story-text-block">
+                                <p class="story-paragraph story-animated-block delay-4">
+                                    ならば、自分たちで作ってしまおう。<br>
+                                    教育のプロが、心から納得できるまで<br>
+                                    試し、比べられる場所を。
+                                </p>
+                            </div>
+                            <div class="story-text-block">
+                                <p class="story-paragraph story-animated-block delay-5">
+                                    そうして生まれたのが、<br>
+                                    この <span class="brand-name">Kokuban BASE</span> なのです。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- ▲▲▲ 「なぜ作ったのか」セクション（新規追加）▲▲▲ -->
                 
                 <!-- ▼▼▼ ４つの徹底比較セクションをここに移動 ▼▼▼ -->
                 <section id="comparison">
@@ -818,8 +890,6 @@
                 </section>
                 <!-- ▲▲▲ ご利用の流れセクション（デザイン修正） ▲▲▲ -->
 
-                <!-- ▼▼▼ ４つの徹底比較セクションを削除 ▼▼▼ -->
-                
                 <!-- ▼▼▼ 自己紹介セクション（新規追加） ▼▼▼ -->
                 <section id="about-us" class="py-16 sm:py-24 bg-gradient-to-br from-pink-50 to-rose-100">
                     <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
@@ -827,7 +897,7 @@
                             <div class="text-center md:text-left">
                                 <img src="ideaspot-logo.jpg" alt="idea spot ロゴ" class="w-48 mx-auto md:mx-0 mb-4" onerror="this.onerror=null;this.src='https://placehold.co/200x100/ec4899/FFFFFF?text=idea+spot';">
                                 <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">
-                                    運営: イデアスポット京都校
+                                    運営: idea spot京都校
                                 </h2>
                                 <p class="mt-4 text-gray-600">
                                     2016年に開校したイデアスポット京都校は、すべての講座を少人数制で実施し、一人ひとりに寄り添った丁寧な指導を徹底しています。
@@ -852,7 +922,7 @@
                     </div>
                 </section>
                 <!-- ▲▲▲ 自己紹介セクション（新規追加） ▲▲▲ -->
-    
+        
                 <!-- ▼▼▼ スタッフ紹介セクション（モバイルでスライダー化） ▼▼▼ -->
                 <section id="staff-introduction" class="py-16 sm:py-24 bg-white overflow-hidden">
                     <div class="container mx-auto px-6 lg:px-8 max-w-7xl">
@@ -907,8 +977,64 @@
                     </div>
                 </section>
                 <!-- ▲▲▲ スタッフ紹介セクション（モバイルでスライダー化） ▲▲▲ -->
+
+                <!-- ▼▼▼ お客様の声セクション（新規追加）▼▼▼ -->
+                <section id="testimonials" class="py-16 sm:py-24 bg-gray-100 overflow-hidden">
+                    <div class="container mx-auto px-6 lg:px-8">
+                        <div class="text-center mb-12 animate-on-scroll">
+                            <h2 class="text-3xl sm:text-4xl font-bold text-[#103f99]">お客様の声</h2>
+                            <p class="mt-4 text-gray-600">実際に体験された方々から、嬉しいお声をいただいています。</p>
+                        </div>
+                        <div class="relative">
+                            <div class="swiper-container testimonial-swiper">
+                                <div class="swiper-wrapper pb-16">
+                                    <!-- Testimonial 1 -->
+                                    <div class="swiper-slide h-auto">
+                                        <div class="testimonial-card bg-white p-8 rounded-lg shadow-lg">
+                                            <div class="testimonial-body">
+                                                <p class="text-gray-600">"カタログだけでは分からなかった「書き心地」の違いが明確に分かりました。各社の製品を横並びで試せるのはここだけ。本当に来てよかったです。"</p>
+                                            </div>
+                                            <div class="mt-6 pt-6 border-t border-gray-200">
+                                                <p class="text-base font-bold text-gray-900">A塾 塾長様</p>
+                                                <p class="text-sm text-gray-500">学習塾経営</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Testimonial 2 -->
+                                    <div class="swiper-slide h-auto">
+                                        <div class="testimonial-card bg-white p-8 rounded-lg shadow-lg">
+                                             <div class="testimonial-body">
+                                                <p class="text-gray-600">"現場の講師の方が、私たちの悩みに寄り添って丁寧に説明してくれました。ただ製品を売るのではなく、本当に教育のことを考えてくれているのが伝わりました。"</p>
+                                            </div>
+                                            <div class="mt-6 pt-6 border-t border-gray-200">
+                                                <p class="text-base font-bold text-gray-900">B私立中学校 教頭先生</p>
+                                                <p class="text-sm text-gray-500">学校法人</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Testimonial 3 -->
+                                    <div class="swiper-slide h-auto">
+                                        <div class="testimonial-card bg-white p-8 rounded-lg shadow-lg">
+                                            <div class="testimonial-body">
+                                                <p class="text-gray-600">"導入後の活用イメージが具体的になったのが一番の収穫です。明日からの授業ですぐに使えるヒントをたくさんいただきました。おかげで導入への不安がなくなりました。"</p>
+                                            </div>
+                                             <div class="mt-6 pt-6 border-t border-gray-200">
+                                                <p class="text-base font-bold text-gray-900">C様</p>
+                                                <p class="text-sm text-gray-500">個人塾講師</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination testimonial-pagination"></div>
+                            </div>
+                            <div class="swiper-button-prev testimonial-prev"></div>
+                            <div class="swiper-button-next testimonial-next"></div>
+                        </div>
+                    </div>
+                </section>
+                <!-- ▲▲▲ お客様の声セクション（新規追加）▲▲▲ -->
                 
-                <section id="news" class="py-16 sm:py-24 bg-gray-100 overflow-hidden">
+                <section id="news" class="py-16 sm:py-24 bg-white overflow-hidden">
                     <div class="container mx-auto px-6 lg:px-8">
                         <h2 class="text-2xl sm:text-3xl font-bold text-center text-[#103f99] mb-6">コラム</h2>
                         <p class="text-center text-sm sm:text-base text-gray-600 mb-12">導入のヒントや現場の声をまとめました。リアルな視点をご覧ください。</p>
@@ -1073,12 +1199,12 @@
                                 </div>
                             </div>
                         </div>
-    
+        
                         <div class="mb-8 shadow-lg rounded-lg overflow-hidden aspect-video w-full">
                             <!-- ▼▼▼ UPDATED IFRAME CODE ▼▼▼ -->
                             <iframe 
                                 class="w-full h-full"
-                                src="https://maps.google.com/maps?q=%E3%80%92602-0822%20%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8A%E4%BA%AC%E5%8C%BA%E6%B2%B3%E5%8E%9F%E7%94%BA%E9%80%9A%E4%BB%8A%E5%87%BA%E5%B7%9D%E4%B8%8A%E3%82%8B%E9%9D%92%E9%BE%8D%E7%94%BA252%E7%95%AA%E5%9C%B0&t=&z=17&ieUTF8&iwloc=&output=embed"
+                                src="https://maps.google.com/maps?q=%E3%80%92602-0822%20%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8A%E4%BA%AC%E5%8C%EBA%E6%B2%B3%E5%8E%9F%E7%94%BA%E9%80%9A%E4%BB%8A%E5%87%BA%E5%B7%9D%E4%B8%8A%E3%82%8B%E9%9D%92%E9%BE%8D%E7%94%BA252%E7%95%AA%E5%9C%B0&t=&z=17&ieUTF8&iwloc=&output=embed"
                                 style="border:0;" 
                                 allowfullscreen="" 
                                 loading="lazy" 
@@ -1271,6 +1397,18 @@
             </div>
         </footer>
     </div>
+
+    <!-- ▼▼▼ 追従CTAボタン（新規追加） ▼▼▼ -->
+    <div id="sticky-cta" class="fixed bottom-4 right-4 z-30">
+        <a href="reservation.html" class="flex items-center gap-3 bg-pink-500 text-white font-bold py-3 px-5 rounded-full shadow-lg hover:bg-pink-600 transition-all duration-300 transform hover:scale-105">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span class="hidden sm:inline">無料体験を予約する</span>
+            <span class="sm:hidden">体験予約</span>
+        </a>
+    </div>
+    <!-- ▲▲▲ 追従CTAボタン（新規追加） ▲▲▲ -->
     
     <!-- Swiper.jsのJS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -1299,69 +1437,96 @@
             }
         } else {
              // console.error('microCMSのAPIキーまたはサービスドメインが設定されていません。config.jsが正しく読み込まれているか確認してください。');
-             const errorContainer = document.getElementById('error-container-news');
-             if(errorContainer) errorContainer.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>コンテンツの読み込みに必要な設定が不足しています。</p></div>`;
-             const loading = document.getElementById('loading-list-news');
-             if (loading) loading.style.display = 'none';
+              const errorContainer = document.getElementById('error-container-news');
+              if(errorContainer) errorContainer.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>コンテンツの読み込みに必要な設定が不足しています。</p></div>`;
+              const loading = document.getElementById('loading-list-news');
+              if (loading) loading.style.display = 'none';
         }
         // ▲▲▲ APIクライアントの初期化とエラーハンドリングを修正 ▲▲▲
 
-        document.addEventListener('DOMContentLoaded', () => {
+        function setupPreloaderAndVideo() {
             const preloader = document.getElementById('preloader');
-            if (preloader) {
-                window.addEventListener('load', () => {
+            const desktopVideo = document.querySelector('.hero-video-background.hidden.md\\:block');
+            const mobileVideo = document.querySelector('.hero-video-background.md\\:hidden');
+
+            if (!preloader || !desktopVideo || !mobileVideo) {
+                console.error("Preloader or video elements not found.");
+                if(preloader) {
                     preloader.classList.add('loaded');
                     document.body.classList.remove('overflow-hidden');
-                });
+                }
+                return;
             }
 
-            // ハンバーガーメニュー
+            const activeVideo = window.getComputedStyle(desktopVideo).display !== 'none' ? desktopVideo : mobileVideo;
+            
+            const onVideoReady = () => {
+                if (!preloader.classList.contains('loaded')) {
+                    preloader.classList.add('loaded');
+                    document.body.classList.remove('overflow-hidden');
+                }
+                activeVideo.classList.add('is-playing');
+            };
+
+            // If the video is already loaded enough from cache, fire immediately
+            if (activeVideo.readyState >= 3) { // HAVE_FUTURE_DATA
+                onVideoReady();
+            } else {
+                // Wait for the 'canplaythrough' event which is more reliable
+                activeVideo.addEventListener('canplaythrough', onVideoReady, { once: true });
+                // Fallback for browsers that might not fire canplaythrough
+                activeVideo.addEventListener('canplay', onVideoReady, { once: true });
+            }
+        }
+
+
+        function setupMobileMenu() {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', () => {
                     mobileMenu.classList.toggle('hidden');
                     document.body.classList.toggle('overflow-hidden', !mobileMenu.classList.contains('hidden'));
                 });
             }
+        }
 
-            // FAQアコーディオン
-            const faqContainer = document.getElementById('faq-container');
-            if (faqContainer) {
-                faqContainer.addEventListener('click', (e) => {
-                    const questionButton = e.target.closest('.question');
-                    if (!questionButton) return;
-                    const faqItem = questionButton.parentElement;
-                    const icon = questionButton.querySelector('i');
-                    const wasOpen = faqItem.classList.contains('open');
-                    
-                    // 他のアコーディオンを閉じる処理を削除
+        function setupAccordions() {
+             // FAQアコーディオン
+             const faqContainer = document.getElementById('faq-container');
+             if (faqContainer) {
+                 faqContainer.addEventListener('click', (e) => {
+                     const questionButton = e.target.closest('.question');
+                     if (!questionButton) return;
+                     const faqItem = questionButton.parentElement;
+                     const icon = questionButton.querySelector('i');
+                     const wasOpen = faqItem.classList.contains('open');
+                     
+                     faqItem.classList.toggle('open');
+                     questionButton.setAttribute('aria-expanded', !wasOpen);
+                     if (icon) {
+                         icon.classList.toggle('fa-plus', wasOpen);
+                         icon.classList.toggle('fa-minus', !wasOpen);
+                     }
+                 });
+             }
 
-                    faqItem.classList.toggle('open');
-                    questionButton.setAttribute('aria-expanded', !wasOpen);
-                    if (icon) {
-                        icon.classList.toggle('fa-plus', wasOpen);
-                        icon.classList.toggle('fa-minus', !wasOpen);
-                    }
-                });
-            }
+             // アクセスアコーディオン
+             const accordionContainer = document.getElementById('accordion-container');
+             if (accordionContainer) {
+                 accordionContainer.addEventListener('click', (e) => {
+                     const header = e.target.closest('.accordion-header');
+                     if (!header) return;
+                     const item = header.closest('.accordion-item');
+                     const icon = header.querySelector('.accordion-icon');
+                     const isOpen = item.classList.toggle('open');
+                     header.setAttribute('aria-expanded', isOpen);
+                     if (icon) icon.classList.toggle('rotate-45');
+                 });
+             }
+        }
 
-            // アクセスアコーディオン
-            const accordionContainer = document.getElementById('accordion-container');
-            if (accordionContainer) {
-                accordionContainer.addEventListener('click', (e) => {
-                    const header = e.target.closest('.accordion-header');
-                    if (!header) return;
-                    const item = header.closest('.accordion-item');
-                    const icon = header.querySelector('.accordion-icon');
-                    const isOpen = item.classList.toggle('open');
-                    header.setAttribute('aria-expanded', isOpen);
-                    if (icon) icon.classList.toggle('rotate-45');
-                });
-            }
-
-            // スクロールアニメーション
+        function setupScrollAnimations() {
             const animatedElements = document.querySelectorAll('.animate-on-scroll, .story-animated-block');
             if (animatedElements.length > 0) {
                 const observer = new IntersectionObserver((entries) => {
@@ -1374,113 +1539,216 @@
                 }, { threshold: 0.1 });
                 animatedElements.forEach(el => observer.observe(el));
             }
+        }
 
-            const pageContent = document.getElementById('page-content');
-            const detailViewContainer = document.getElementById('detail-view-container');
-            const detailContentArea = document.getElementById('detail-content-area');
-            const relatedItemsContainer = document.getElementById('related-items-container');
-            const backToListBtn = document.getElementById('back-to-list-btn');
-            const relatedTitle = document.getElementById('related-title');
-
-            function formatDate(dateString) {
-                if (!dateString) return '';
-                const date = new Date(dateString);
-                return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+        function setupStickyCTA() {
+            const stickyCta = document.getElementById('sticky-cta');
+            const heroSection = document.getElementById('hero-section');
+            if (stickyCta && heroSection) {
+                const observer = new IntersectionObserver(
+                    ([entry]) => {
+                        // isIntersectingがfalseの時（ヒーローセクションが見えなくなった時）に表示
+                        if (!entry.isIntersecting) {
+                            stickyCta.classList.add('is-visible');
+                        } else {
+                            stickyCta.classList.remove('is-visible');
+                        }
+                    },
+                    { rootMargin: "0px", threshold: 0.1 }
+                );
+                observer.observe(heroSection);
             }
+        }
 
-            async function fetchAndRenderArticles(type) {
-                if (!isApiReady) return; 
-
-                const container = document.getElementById('articles-container');
-                const loading = document.getElementById('loading-list-news');
-                const errorContainer = document.getElementById('error-container-news');
-
-                if (!container || !loading || !errorContainer) return;
-
-                try {
-                    const data = await client.get({ endpoint: "news" });
-                    loading.style.display = 'none';
-                    container.innerHTML = '';
-
-                    data.contents.forEach(article => {
-                        const articleHtml = `
-                            <div class="swiper-slide h-auto">
-                                <article class="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-shadow duration-300 hover:shadow-xl cursor-pointer" data-id="${article.id}" data-type="${type}">
-                                    <img src="${article.eyecatch ? article.eyecatch.url : 'https://placehold.co/400x250/e0e7ff/1e3a8a?text=Image'}?w=400&h=250&fit=crop" alt="${article.title || '記事のアイキャッチ'}" class="w-full h-48 object-cover" loading="lazy">
-                                    <div class="p-4 sm:p-6 flex flex-col flex-grow">
-                                        <p class="text-sm text-gray-500">${formatDate(article.publishedAt)}</p>
-                                        <h3 class="mt-2 text-base sm:text-lg font-bold text-gray-800 flex-grow">${article.title}</h3>
-                                    </div>
-                                </article>
-                            </div>
-                        `;
-                        container.insertAdjacentHTML('beforeend', articleHtml);
-                    });
-                    
-                    initNewsSwiper();
-
-                } catch (err) {
-                    console.error(`Error fetching ${type}:`, err);
-                    loading.style.display = 'none';
-                    errorContainer.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>記事の読み込みに失敗しました。</p></div>`;
-                }
-            }
-
-            async function showDetailView(id, type) {
-                if (!isApiReady) return;
-                
-                detailContentArea.innerHTML = '<p class="text-gray-500">記事を読み込んでいます...</p>';
-                relatedItemsContainer.innerHTML = '';
-                
-                if (pageContent) pageContent.style.display = 'none';
-                detailViewContainer.classList.remove('hidden');
-                window.scrollTo(0, 0);
-
-                try {
-                    const article = await client.get({ endpoint: 'news', contentId: id });
-                    
-                    // ▼▼▼ 修正点: article.content を article.body に変更 ▼▼▼
-                    const detailHtml = `
-                        <p class="text-gray-500 mb-2">${formatDate(article.publishedAt)}</p>
-                        <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-6">${article.title}</h1>
-                        ${article.eyecatch ? `<img src="${article.eyecatch.url}?w=800" alt="${article.title}" class="w-full rounded-lg mb-8 shadow-md">` : ''}
-                        <div class="article-body text-base md:text-lg leading-relaxed text-gray-800">${article.body || ''}</div>
-                    `;
-                    // ▲▲▲ 修正点: article.content を article.body に変更 ▲▲▲
-                    detailContentArea.innerHTML = detailHtml;
-
-                    const allArticles = await client.get({ endpoint: 'news', queries: { limit: 4 } });
-                    const relatedArticles = allArticles.contents.filter(item => item.id !== id).slice(0, 3);
-                    
-                    if (relatedArticles.length > 0) {
-                        relatedTitle.classList.remove('hidden');
-                        relatedArticles.forEach(related => {
-                            const relatedHtml = `
-                                <article class="bg-gray-50 rounded-lg shadow-sm overflow-hidden h-full flex flex-col transition-shadow duration-300 hover:shadow-md cursor-pointer" data-id="${related.id}" data-type="${type}">
-                                    <img src="${related.eyecatch ? related.eyecatch.url : 'https://placehold.co/400x250/e0e7ff/1e3a8a?text=Image'}?w=400&h=250&fit=crop" alt="${related.title || '関連記事のアイキャッチ'}" class="w-full h-40 object-cover" loading="lazy">
-                                    <div class="p-4 flex flex-col flex-grow">
-                                         <p class="text-xs text-gray-500">${formatDate(related.publishedAt)}</p>
-                                         <h3 class="mt-1 text-sm font-bold text-gray-800 flex-grow">${related.title}</h3>
-                                    </div>
-                                </article>
-                            `;
-                            relatedItemsContainer.insertAdjacentHTML('beforeend', relatedHtml);
-                        });
-                    } else {
-                        relatedTitle.classList.add('hidden');
+        function setupNavigation() {
+            document.querySelectorAll('.nav-link').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
+                        
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                            document.body.classList.remove('overflow-hidden');
+                        }
                     }
+                });
+            });
+        }
 
-                } catch (err) {
-                    console.error('Error fetching detail:', err);
-                    detailContentArea.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>記事の詳細の読み込みに失敗しました。</p></div>`;
-                }
+        // --- MicroCMS & View Logic ---
+        const pageContent = document.getElementById('page-content');
+        const detailViewContainer = document.getElementById('detail-view-container');
+        const detailContentArea = document.getElementById('detail-content-area');
+        const relatedItemsContainer = document.getElementById('related-items-container');
+        const backToListBtn = document.getElementById('back-to-list-btn');
+        const relatedTitle = document.getElementById('related-title');
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+        }
+
+        async function fetchAndRenderArticles(type) {
+            if (!isApiReady) return; 
+
+            const container = document.getElementById('articles-container');
+            const loading = document.getElementById('loading-list-news');
+            const errorContainer = document.getElementById('error-container-news');
+
+            if (!container || !loading || !errorContainer) return;
+
+            try {
+                const data = await client.get({ endpoint: "news" });
+                loading.style.display = 'none';
+                container.innerHTML = '';
+
+                data.contents.forEach(article => {
+                    const articleHtml = `
+                        <div class="swiper-slide h-auto">
+                            <article class="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-shadow duration-300 hover:shadow-xl cursor-pointer" data-id="${article.id}" data-type="${type}">
+                                <img src="${article.eyecatch ? article.eyecatch.url : 'https://placehold.co/400x250/e0e7ff/1e3a8a?text=Image'}?w=400&h=250&fit=crop" alt="${article.title || '記事のアイキャッチ'}" class="w-full h-48 object-cover" loading="lazy">
+                                <div class="p-4 sm:p-6 flex flex-col flex-grow">
+                                    <p class="text-sm text-gray-500">${formatDate(article.publishedAt)}</p>
+                                    <h3 class="mt-2 text-base sm:text-lg font-bold text-gray-800 flex-grow">${article.title}</h3>
+                                </div>
+                            </article>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', articleHtml);
+                });
+                
+                initNewsSwiper();
+
+            } catch (err) {
+                console.error(`Error fetching ${type}:`, err);
+                loading.style.display = 'none';
+                errorContainer.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>記事の読み込みに失敗しました。</p></div>`;
             }
+        }
+
+        async function showDetailView(id, type) {
+            if (!isApiReady) return;
             
-            function showListView() {
-                detailViewContainer.classList.add('hidden');
-                if (pageContent) pageContent.style.display = 'block';
-            }
+            detailContentArea.innerHTML = '<p class="text-gray-500">記事を読み込んでいます...</p>';
+            relatedItemsContainer.innerHTML = '';
+            
+            if (pageContent) pageContent.style.display = 'none';
+            detailViewContainer.classList.remove('hidden');
+            window.scrollTo(0, 0);
 
+            try {
+                const article = await client.get({ endpoint: 'news', contentId: id });
+                
+                const detailHtml = `
+                    <p class="text-gray-500 mb-2">${formatDate(article.publishedAt)}</p>
+                    <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-6">${article.title}</h1>
+                    ${article.eyecatch ? `<img src="${article.eyecatch.url}?w=800" alt="${article.title}" class="w-full rounded-lg mb-8 shadow-md">` : ''}
+                    <div class="article-body text-base md:text-lg leading-relaxed text-gray-800">${article.body || ''}</div>
+                `;
+                detailContentArea.innerHTML = detailHtml;
+
+                const allArticles = await client.get({ endpoint: 'news', queries: { limit: 4 } });
+                const relatedArticles = allArticles.contents.filter(item => item.id !== id).slice(0, 3);
+                
+                if (relatedArticles.length > 0) {
+                    relatedTitle.classList.remove('hidden');
+                    relatedArticles.forEach(related => {
+                        const relatedHtml = `
+                            <article class="bg-gray-50 rounded-lg shadow-sm overflow-hidden h-full flex flex-col transition-shadow duration-300 hover:shadow-md cursor-pointer" data-id="${related.id}" data-type="${type}">
+                                <img src="${related.eyecatch ? related.eyecatch.url : 'https://placehold.co/400x250/e0e7ff/1e3a8a?text=Image'}?w=400&h=250&fit=crop" alt="${related.title || '関連記事のアイキャッチ'}" class="w-full h-40 object-cover" loading="lazy">
+                                <div class="p-4 flex flex-col flex-grow">
+                                     <p class="text-xs text-gray-500">${formatDate(related.publishedAt)}</p>
+                                     <h3 class="mt-1 text-sm font-bold text-gray-800 flex-grow">${related.title}</h3>
+                                </div>
+                            </article>
+                        `;
+                        relatedItemsContainer.insertAdjacentHTML('beforeend', relatedHtml);
+                    });
+                } else {
+                    relatedTitle.classList.add('hidden');
+                }
+
+            } catch (err) {
+                console.error('Error fetching detail:', err);
+                detailContentArea.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>記事の詳細の読み込みに失敗しました。</p></div>`;
+            }
+        }
+        
+        function showListView() {
+            detailViewContainer.classList.add('hidden');
+            if (pageContent) pageContent.style.display = 'block';
+        }
+
+        // --- Swiper Initializations ---
+        let newsSwiperInstance = null;
+        function initNewsSwiper() {
+            if (newsSwiperInstance) newsSwiperInstance.destroy(true, true);
+            newsSwiperInstance = new Swiper('.news-swiper', {
+                slidesPerView: 1.2,
+                spaceBetween: 16,
+                pagination: { el: '.news-pagination', clickable: true },
+                navigation: { nextEl: '.news-next', prevEl: '.news-prev' },
+                breakpoints: {
+                    640: { slidesPerView: 2, spaceBetween: 20 },
+                    1024: { slidesPerView: 3, spaceBetween: 32 },
+                }
+            });
+        }
+        
+        function initializeSwipers() {
+            new Swiper('.product-swiper', {
+                loop: true,
+                slidesPerView: 1.2,
+                spaceBetween: 16,
+                centeredSlides: false,
+                pagination: { el: '.product-pagination', clickable: true },
+                navigation: { nextEl: '.product-next', prevEl: '.product-prev' },
+                breakpoints: {
+                    640: { slidesPerView: 2, spaceBetween: 20 },
+                    768: { slidesPerView: 3, spaceBetween: 24 },
+                    1280: { slidesPerView: 4, spaceBetween: 32 },
+                }
+            });
+
+            new Swiper('.staff-swiper', {
+                slidesPerView: 1.1,
+                spaceBetween: 16,
+                pagination: { el: '.staff-pagination', clickable: true },
+                breakpoints: {
+                    768: { slidesPerView: 2, spaceBetween: 24 },
+                    1024: { slidesPerView: 3, spaceBetween: 32 },
+                }
+            });
+
+            new Swiper('.testimonial-swiper', {
+                loop: true,
+                slidesPerView: 1,
+                spaceBetween: 16,
+                pagination: { el: '.testimonial-pagination', clickable: true },
+                navigation: { nextEl: '.testimonial-next', prevEl: '.testimonial-prev' },
+                breakpoints: {
+                    768: { slidesPerView: 2, spaceBetween: 24 },
+                    1280: { slidesPerView: 3, spaceBetween: 32 },
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupPreloaderAndVideo();
+            setupMobileMenu();
+            setupAccordions();
+            setupScrollAnimations();
+            setupNavigation();
+            setupStickyCTA();
+            
+            initializeSwipers();
+            fetchAndRenderArticles('news');
+            
             document.body.addEventListener('click', e => {
                 const articleCard = e.target.closest('article[data-id]');
                 if (articleCard) {
@@ -1490,73 +1758,6 @@
             });
 
             if(backToListBtn) backToListBtn.addEventListener('click', showListView);
-
-            function initProductSwiper() {
-                 new Swiper('.product-swiper', {
-                    loop: true,
-                    slidesPerView: 1.2,
-                    spaceBetween: 16,
-                    centeredSlides: false,
-                    pagination: { el: '.product-pagination', clickable: true },
-                    navigation: { nextEl: '.product-next', prevEl: '.product-prev' },
-                    breakpoints: {
-                        640: { slidesPerView: 2, spaceBetween: 20 },
-                        768: { slidesPerView: 3, spaceBetween: 24 },
-                        1280: { slidesPerView: 4, spaceBetween: 32 },
-                    }
-                });
-            }
-            
-            let newsSwiperInstance = null;
-            function initNewsSwiper() {
-                if (newsSwiperInstance) newsSwiperInstance.destroy(true, true);
-                newsSwiperInstance = new Swiper('.news-swiper', {
-                    slidesPerView: 1.2,
-                    spaceBetween: 16,
-                    pagination: { el: '.news-pagination', clickable: true },
-                    navigation: { nextEl: '.news-next', prevEl: '.news-prev' },
-                    breakpoints: {
-                        640: { slidesPerView: 2, spaceBetween: 20 },
-                        1024: { slidesPerView: 3, spaceBetween: 32 },
-                    }
-                });
-            }
-            
-            function initStaffSwiper() {
-                new Swiper('.staff-swiper', {
-                    slidesPerView: 1.1,
-                    spaceBetween: 16,
-                    pagination: { el: '.staff-pagination', clickable: true },
-                    breakpoints: {
-                        768: { slidesPerView: 2, spaceBetween: 24 },
-                        1024: { slidesPerView: 3, spaceBetween: 32 },
-                    }
-                });
-            }
-            
-            const heroVideos = document.querySelectorAll('.hero-video-background');
-            heroVideos.forEach(video => {
-                video.addEventListener('canplay', () => video.classList.add('is-playing'), { once: true });
-            });
-
-            document.querySelectorAll('.nav-link').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    if (href && href.startsWith('#')) {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(href);
-                        if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
-                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden');
-                            document.body.classList.remove('overflow-hidden');
-                        }
-                    }
-                });
-            });
-
-            initProductSwiper();
-            initStaffSwiper();
-            fetchAndRenderArticles('news');
         });
     </script>
 </body>
