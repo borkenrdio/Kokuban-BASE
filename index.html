@@ -318,14 +318,14 @@
         <div id="page-content">
             <section id="hero-section" class="relative w-full h-[80vh] md:h-[90vh] flex items-center justify-center">
                 <!-- Desktop Video -->
-                <!-- 動画の最初のフレームをposter画像に設定することを推奨します -->
-                <video loop muted playsinline autoplay preload="auto" poster="https://placehold.co/1920x1080/103f99/FFFFFF?text=Kokuban+BASE" class="hero-video-background hidden md:block w-full h-full object-cover">
+                <!-- ▼▼▼【修正点】preload="metadata" に変更。posterには動画の最初のフレームの画像を設定してください ▼▼▼ -->
+                <video loop muted playsinline autoplay preload="metadata" poster="https://placehold.co/1920x1080/103f99/FFFFFF?text=Kokuban+BASE" class="hero-video-background hidden md:block w-full h-full object-cover">
                     <source src="top.webm" type="video/webm">
                     <source src="top.mp4" type="video/mp4">
                 </video>
                 <!-- Mobile Video -->
-                <!-- 動画の最初のフレームをposter画像に設定することを推奨します -->
-                <video loop muted playsinline autoplay preload="auto" poster="https://placehold.co/1080x1920/103f99/FFFFFF?text=Kokuban+BASE" class="hero-video-background md:hidden w-full h-full object-cover">
+                <!-- ▼▼▼【修正点】preload="metadata" に変更。posterには動画の最初のフレームの画像を設定してください ▼▼▼ -->
+                <video loop muted playsinline autoplay preload="metadata" poster="https://placehold.co/1080x1920/103f99/FFFFFF?text=Kokuban+BASE" class="hero-video-background md:hidden w-full h-full object-cover">
                     <source src="top-mobile.webm" type="video/webm">
                     <source src="top-mobile.mp4" type="video/mp4">
                 </video>
@@ -1692,4 +1692,3 @@
     </script>
 </body>
 </html>
-
