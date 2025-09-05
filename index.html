@@ -1451,7 +1451,7 @@
 
             if (!preloader || !desktopVideo || !mobileVideo) {
                 console.error("Preloader or video elements not found.");
-                if(preloader) {
+                if (preloader) {
                     preloader.classList.add('loaded');
                     document.body.classList.remove('overflow-hidden');
                 }
@@ -1459,23 +1459,36 @@
             }
 
             const activeVideo = window.getComputedStyle(desktopVideo).display !== 'none' ? desktopVideo : mobileVideo;
-            
-            const onVideoReady = () => {
+
+            const hidePreloader = () => {
                 if (!preloader.classList.contains('loaded')) {
                     preloader.classList.add('loaded');
                     document.body.classList.remove('overflow-hidden');
                 }
-                activeVideo.classList.add('is-playing');
             };
 
-            // If the video is already loaded enough from cache, fire immediately
-            if (activeVideo.readyState >= 3) { // HAVE_FUTURE_DATA
-                onVideoReady();
+            const startVideoPlayback = async () => {
+                try {
+                    // Muted autoplay is generally allowed on modern browsers
+                    await activeVideo.play();
+                    activeVideo.classList.add('is-playing');
+                } catch (error) {
+                    console.error("Video playback failed, possibly due to browser policy:", error);
+                    // If playback fails, at least show the poster image by fading it in
+                    activeVideo.classList.add('is-playing'); 
+                } finally {
+                    // Always hide the preloader once we've attempted to play the video
+                    hidePreloader();
+                }
+            };
+
+            // Check if the video can already be played
+            if (activeVideo.readyState >= 3) { // HAVE_FUTURE_DATA or more
+                startVideoPlayback();
             } else {
-                // Wait for the 'canplaythrough' event which is more reliable
-                activeVideo.addEventListener('canplaythrough', onVideoReady, { once: true });
-                // Fallback for browsers that might not fire canplaythrough
-                activeVideo.addEventListener('canplay', onVideoReady, { once: true });
+                // Wait for the 'canplay' event, which is less strict than 'canplaythrough'
+                // and fires sooner.
+                activeVideo.addEventListener('canplay', startVideoPlayback, { once: true });
             }
         }
 
