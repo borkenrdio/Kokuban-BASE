@@ -89,13 +89,13 @@
 
     <main class="py-12 sm:py-20">
         <div class="container mx-auto px-4">
-            <div class="w-full max-w-3xl mx-auto bg-white p-6 sm:p-10 rounded-2xl shadow-xl">
+            <div id="form-wrapper" class="w-full max-w-3xl mx-auto bg-white p-6 sm:p-10 rounded-2xl shadow-xl">
                 <div class="text-center mb-10">
                     <h1 class="text-3xl sm:text-4xl font-bold text-[#103f99]">お問い合わせ</h1>
                     <p class="mt-3 text-gray-600">お気軽にご質問・ご相談ください</p>
                 </div>
 
-                <form action="#" method="post" onsubmit="alert('フォームが送信されました（デモ）'); return false;" class="space-y-8">
+                <form id="contact-form" class="space-y-8">
                     <div>
                         <label for="inquiry_type" class="block text-base font-bold text-gray-700 mb-2 required-mark">お問い合わせの種別</label>
                         <select id="inquiry_type" name="inquiry_type" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
@@ -138,14 +138,40 @@
                     </div>
 
                     <div class="text-center pt-4">
-                        <button type="submit" class="w-full max-w-xs bg-pink-500 text-white font-bold py-4 px-8 rounded-full text-lg hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
+                        <button id="submit-btn" type="submit" class="w-full max-w-xs bg-pink-500 text-white font-bold py-4 px-8 rounded-full text-lg hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
                             送信する
                         </button>
                     </div>
                 </form>
             </div>
+            
+            <!-- 送信完了メッセージ -->
+            <div id="success-message" class="hidden text-center w-full max-w-3xl mx-auto bg-white p-8 sm:p-12 rounded-2xl shadow-xl">
+                <div class="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-6">
+                   <i class="fas fa-check fa-3x text-green-500"></i>
+               </div>
+               <h2 class="text-2xl sm:text-3xl font-bold text-[#103f99] mb-4">お問い合わせ<br>ありがとうございます</h2>
+               <p class="text-gray-700 max-w-lg mx-auto leading-relaxed">
+                   ご入力いただいたメールアドレス宛に、3営業日以内に担当者よりご連絡いたします。
+               </p>
+               <div class="mt-8">
+                   <a href="index.html" class="inline-block bg-gray-600 text-white font-bold py-3 px-10 rounded-full text-lg hover:bg-gray-700 transition-colors shadow-lg">
+                       トップページへ戻る
+                   </a>
+               </div>
+           </div>
         </div>
     </main>
+
+     <!-- Error Modal -->
+    <div id="error-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full text-center">
+            <i class="fas fa-exclamation-triangle text-4xl text-yellow-400 mb-4"></i>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">入力エラー</h3>
+            <p id="error-message-text" class="text-gray-600 mb-6"></p>
+            <button id="close-modal-btn" class="bg-gray-600 text-white font-bold py-2 px-8 rounded-full hover:bg-gray-700 transition-colors">閉じる</button>
+        </div>
+    </div>
 
     <!-- ▼▼▼ フッター ▼▼▼ -->
     <footer class="bg-custom-blue text-gray-200">
@@ -191,16 +217,100 @@
     </footer>
 
     <script>
-        // ハンバーガーメニューの制御
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                const isHidden = mobileMenu.classList.contains('hidden');
-                mobileMenu.classList.toggle('hidden');
-                document.body.classList.toggle('overflow-hidden', !isHidden);
+        document.addEventListener('DOMContentLoaded', function () {
+            // ハンバーガーメニューの制御
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    mobileMenu.classList.toggle('hidden');
+                    document.body.classList.toggle('overflow-hidden', !isHidden);
+                });
+            }
+
+            // お問い合わせフォームの制御
+            const formWrapper = document.getElementById('form-wrapper');
+            const contactForm = document.getElementById('contact-form');
+            const successMessage = document.getElementById('success-message');
+            const submitBtn = document.getElementById('submit-btn');
+
+            const errorModal = document.getElementById('error-modal');
+            const errorMessageText = document.getElementById('error-message-text');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+
+            function showErrorModal(message) {
+                errorMessageText.textContent = message;
+                errorModal.classList.remove('hidden');
+            }
+
+            function hideErrorModal() {
+                errorModal.classList.add('hidden');
+            }
+
+            closeModalBtn.addEventListener('click', hideErrorModal);
+            errorModal.addEventListener('click', (e) => {
+                if (e.target === errorModal) hideErrorModal();
             });
-        }
+
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                let isValid = true;
+                contactForm.querySelectorAll('[required]').forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        const label = field.previousElementSibling;
+                        if(label) label.classList.add('text-red-500');
+                    } else {
+                        const label = field.previousElementSibling;
+                        if(label) label.classList.remove('text-red-500');
+                    }
+                });
+
+                if (!isValid) {
+                    showErrorModal('すべての必須項目を入力してください。');
+                    return;
+                }
+
+                const originalButtonHTML = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin h-5 w-5 mx-auto text-white" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                `;
+
+                const formData = new FormData(this);
+                // ▼▼▼ ここにデプロイしたウェブアプリのURLを貼り付け ▼▼▼
+                const SCRIPT_URL = "ここにデプロイしたウェブアプリのURLを貼り付け";
+                // ▲▲▲ ここにデプロイしたウェブアプリのURLを貼り付け ▲▲▲
+
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result === 'success') {
+                        formWrapper.classList.add('hidden');
+                        successMessage.classList.remove('hidden');
+                        window.scrollTo(0, 0);
+                    } else {
+                        throw new Error(data.message || '送信に失敗しました。');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showErrorModal('送信中にエラーが発生しました。時間をおいて再度お試しください。');
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalButtonHTML;
+                });
+            });
+        });
     </script>
 
 </body>
