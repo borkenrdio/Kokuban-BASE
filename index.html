@@ -143,7 +143,7 @@
             opacity: 0.35;
             pointer-events: none;
         }
-        .staff-pagination, .testimonial-pagination {
+        .staff-pagination {
             position: static;
             margin-top: 2rem;
         }
@@ -177,29 +177,11 @@
             opacity: 1;
         }
         
-        /* ▼▼▼ 追従CTAボタンのスタイル ▼▼▼ */
-        #sticky-cta {
-            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
-            transform: translateY(100%);
-            opacity: 0;
-            visibility: hidden;
-        }
-        #sticky-cta.is-visible {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* ▼▼▼ キャンペーンセクションのスタイル ▼▼▼ */
+        /* ▼▼▼ 蛍光ペン風の下線 ▼▼▼ */
         .highlight-underline {
             background: linear-gradient(transparent 70%, #fef3c7 70%);
             background-repeat: no-repeat;
             background-size: 100% 100%;
-            padding: 0 0.2em;
-        }
-        /* ▼▼▼ 蛍光ペン風の下線 ▼▼▼ */
-        .highlight-pink {
-            background: linear-gradient(transparent 70%, #fecaca 70%);
             padding: 0 0.2em;
         }
         select {
@@ -207,87 +189,6 @@
             -moz-appearance: none;
             appearance: none;
         }
-        /* ▲▲▲ キャンペーンセクションのスタイル ▲▲▲ */
-
-        /* ▼▼▼ 「なぜ作ったのか」セクションのスタイル ▼▼▼ */
-        #brand-story {
-            background-color: #fdfdfc;
-            color: #3a3a3a;
-        }
-        .page-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 10vh 8vw;
-        }
-        .story-content-wrapper {
-            width: 100%;
-            max-width: 600px; /* 横幅が広がりすぎないように */
-        }
-        .story-text-block {
-           margin-bottom: 3em;
-        }
-        .story-paragraph {
-            font-family: 'Noto Serif JP', serif;
-            font-size: clamp(0.85rem, 3.5vw, 0.95rem);
-            font-weight: 400;
-            line-height: 2.2;
-            letter-spacing: 0.1em; /* Add letter-spacing for horizontal mode */
-        }
-        .brand-name {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-            letter-spacing: 0.1em;
-            margin: 0 0.2em;
-        }
-        .story-animated-block {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1.5s cubic-bezier(0.165, 0.84, 0.44, 1), transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .story-animated-block.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .delay-1 { transition-delay: 0.2s; }
-        .delay-2 { transition-delay: 0.4s; }
-        .delay-3 { transition-delay: 0.6s; }
-        .delay-4 { transition-delay: 0.8s; }
-        .delay-5 { transition-delay: 1.0s; }
-
-        @media (min-width: 769px) {
-            .page-container {
-                padding: 15vh 5vw;
-                min-height: 100vh;
-            }
-            .story-content-wrapper {
-                writing-mode: vertical-rl;
-                text-orientation: mixed;
-                letter-spacing: 0.15em;
-                display: inline-flex;
-                flex-direction: column; 
-                flex-wrap: wrap;
-                align-content: flex-start;
-                width: auto; /* 幅を自動調整 */
-                max-width: 90vw;
-                height: 70vh; /* Set a height for vertical layout */
-                gap: 0 3.5rem;
-            }
-            .brand-name {
-                text-orientation: upright;
-            }
-            .story-animated-block {
-                transform: translateX(20px);
-            }
-            .story-animated-block.is-visible {
-                transform: translateX(0);
-            }
-            .story-paragraph {
-                font-size: clamp(0.9rem, 4vw, 1rem);
-            }
-        }
-        /* ▲▲▲ 「なぜ作ったのか」セクションのスタイル ▲▲▲ */
         
     </style>
     <!-- ▼▼▼ APIキー設定ファイルを<head>に移動 ▼▼▼ -->
@@ -482,21 +383,6 @@
                     </div>
                 </section>
 
-                <!-- ▼▼▼ キャンペーンセクション（新規追加）▼▼▼ -->
-                <section id="campaign" class="py-12 bg-rose-50">
-                    <div class="container mx-auto px-6 text-center animate-on-scroll">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-rose-800">【期間限定】グランドオープン記念キャンペーン！</h2>
-                        <p class="mt-4 text-lg text-gray-700">
-                            今ご予約いただいた方限定で、<span class="font-bold highlight-pink">特別な導入支援プラン</span>をご用意しております。
-                        </p>
-                        <p class="mt-2 text-gray-600">この機会に、ぜひ一度ご来場ください。</p>
-                        <a href="reservation.html" class="mt-6 inline-block bg-pink-500 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
-                            キャンペーンの詳細を見て予約する
-                        </a>
-                    </div>
-                </section>
-                <!-- ▲▲▲ キャンペーンセクション（新規追加）▲▲▲ -->
-
                 <section id="intro-message" class="bg-blue-900 text-white">
                     <div class="container mx-auto p-4 sm:p-6 md:p-8">
                         <div class="py-8 md:py-12 max-w-4xl mx-auto">
@@ -527,57 +413,6 @@
                     </div>
                 </section>
 
-                <!-- ▼▼▼ 「なぜ作ったのか」セクション（新規追加）▼▼▼ -->
-                <section id="brand-story" class="relative">
-                    <div class="page-container">
-                        <div class="story-content-wrapper">
-                            <div class="story-text-block">
-                                <p class="story-paragraph story-animated-block">
-                                    はじめまして。<br>
-                                    私たちは、京都で学習塾を運営する<br>
-                                    <span class="brand-name">idea spot</span> です。
-                                </p>
-                            </div>
-                            <div class="story-text-block">
-                                <p class="story-paragraph story-animated-block delay-1">
-                                    私たちは日々、<br>
-                                    生徒たちの未来と向き合う中で、<br>
-                                    ひとつの大きな課題を感じていました。
-                                </p>
-                            </div>
-                            <div class="story-text-block">
-                                <p class="story-paragraph story-animated-block delay-2">
-                                    それは、教育現場における<br>
-                                    「最適なツール選び」の難しさです。
-                                </p>
-                            </div>
-                            <div class="story-text-block">
-                                <p class="story-paragraph story-animated-block delay-3">
-                                    特に電子黒板は、<br>
-                                    カタログだけでは分からないことばかり。<br>
-                                    「本当にこの書き心地で大丈夫だろうか？」<br>
-                                    「私たちの授業スタイルに合うだろうか？」
-                                </p>
-                            </div>
-                            <div class="story-text-block">
-                                <p class="story-paragraph story-animated-block delay-4">
-                                    ならば、自分たちで作ってしまおう。<br>
-                                    教育のプロが、心から納得できるまで<br>
-                                    試し、比べられる場所を。
-                                </p>
-                            </div>
-                            <div class="story-text-block">
-                                <p class="story-paragraph story-animated-block delay-5">
-                                    そうして生まれたのが、<br>
-                                    この <span class="brand-name">Kokuban BASE</span> なのです。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- ▲▲▲ 「なぜ作ったのか」セクション（新規追加）▲▲▲ -->
-                
-                <!-- ▼▼▼ ４つの徹底比較セクションをここに移動 ▼▼▼ -->
                 <section id="comparison">
                     <!-- Kokuban BASEによる解決セクション -->
                     <div class="bg-blue-900">
@@ -632,12 +467,10 @@
                                 </div>
                 
                             </div>
-                            <!-- ▲▲▲ レイアウトと説明文を全面改修 ▲▲▲ -->
 
                         </div>
                     </div>
                 </section>
-                <!-- ▲▲▲ ４つの徹底比較セクション（復元） ▲▲▲ -->
                 <section id="products" class="py-16 sm:py-24 bg-gray-100 overflow-hidden">
                     <div class="container mx-auto px-6 lg:px-8">
                         <div class="text-center animate-on-scroll">
@@ -954,62 +787,6 @@
                     </div>
                 </section>
                 <!-- ▲▲▲ スタッフ紹介セクション（モバイルでスライダー化） ▲▲▲ -->
-
-                <!-- ▼▼▼ お客様の声セクション（新規追加）▼▼▼ -->
-                <section id="testimonials" class="py-16 sm:py-24 bg-gray-100 overflow-hidden">
-                    <div class="container mx-auto px-6 lg:px-8">
-                        <div class="text-center mb-12 animate-on-scroll">
-                            <h2 class="text-3xl sm:text-4xl font-bold text-[#103f99]">お客様の声</h2>
-                            <p class="mt-4 text-gray-600">実際に体験された方々から、嬉しいお声をいただいています。</p>
-                        </div>
-                        <div class="relative">
-                            <div class="swiper-container testimonial-swiper">
-                                <div class="swiper-wrapper pb-16">
-                                    <!-- Testimonial 1 -->
-                                    <div class="swiper-slide h-auto">
-                                        <div class="testimonial-card bg-white p-8 rounded-lg shadow-lg">
-                                            <div class="testimonial-body">
-                                                <p class="text-gray-600">"カタログだけでは分からなかった「書き心地」の違いが明確に分かりました。各社の製品を横並びで試せるのはここだけ。本当に来てよかったです。"</p>
-                                            </div>
-                                            <div class="mt-6 pt-6 border-t border-gray-200">
-                                                <p class="text-base font-bold text-gray-900">A塾 塾長様</p>
-                                                <p class="text-sm text-gray-500">学習塾経営</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Testimonial 2 -->
-                                    <div class="swiper-slide h-auto">
-                                        <div class="testimonial-card bg-white p-8 rounded-lg shadow-lg">
-                                             <div class="testimonial-body">
-                                                <p class="text-gray-600">"現場の講師の方が、私たちの悩みに寄り添って丁寧に説明してくれました。ただ製品を売るのではなく、本当に教育のことを考えてくれているのが伝わりました。"</p>
-                                            </div>
-                                            <div class="mt-6 pt-6 border-t border-gray-200">
-                                                <p class="text-base font-bold text-gray-900">B私立中学校 教頭先生</p>
-                                                <p class="text-sm text-gray-500">学校法人</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Testimonial 3 -->
-                                    <div class="swiper-slide h-auto">
-                                        <div class="testimonial-card bg-white p-8 rounded-lg shadow-lg">
-                                            <div class="testimonial-body">
-                                                <p class="text-gray-600">"導入後の活用イメージが具体的になったのが一番の収穫です。明日からの授業ですぐに使えるヒントをたくさんいただきました。おかげで導入への不安がなくなりました。"</p>
-                                            </div>
-                                             <div class="mt-6 pt-6 border-t border-gray-200">
-                                                <p class="text-base font-bold text-gray-900">C様</p>
-                                                <p class="text-sm text-gray-500">個人塾講師</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="swiper-pagination testimonial-pagination"></div>
-                            </div>
-                            <div class="swiper-button-prev testimonial-prev"></div>
-                            <div class="swiper-button-next testimonial-next"></div>
-                        </div>
-                    </div>
-                </section>
-                <!-- ▲▲▲ お客様の声セクション（新規追加）▲▲▲ -->
                 
                 <section id="news" class="py-16 sm:py-24 bg-white overflow-hidden">
                     <div class="container mx-auto px-6 lg:px-8">
@@ -1374,18 +1151,6 @@
             </div>
         </footer>
     </div>
-
-    <!-- ▼▼▼ 追従CTAボタン（新規追加） ▼▼▼ -->
-    <div id="sticky-cta" class="fixed bottom-4 right-4 z-30">
-        <a href="reservation.html" class="flex items-center gap-3 bg-pink-500 text-white font-bold py-3 px-5 rounded-full shadow-lg hover:bg-pink-600 transition-all duration-300 transform hover:scale-105">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span class="hidden sm:inline">無料体験を予約する</span>
-            <span class="sm:hidden">体験予約</span>
-        </a>
-    </div>
-    <!-- ▲▲▲ 追従CTAボタン（新規追加） ▲▲▲ -->
     
     <!-- Swiper.jsのJS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -1505,25 +1270,6 @@
                     });
                 }, { threshold: 0.1 });
                 animatedElements.forEach(el => observer.observe(el));
-            }
-        }
-
-        function setupStickyCTA() {
-            const stickyCta = document.getElementById('sticky-cta');
-            const heroSection = document.getElementById('hero-section');
-            if (stickyCta && heroSection) {
-                const observer = new IntersectionObserver(
-                    ([entry]) => {
-                        // isIntersectingがfalseの時（ヒーローセクションが見えなくなった時）に表示
-                        if (!entry.isIntersecting) {
-                            stickyCta.classList.add('is-visible');
-                        } else {
-                            stickyCta.classList.remove('is-visible');
-                        }
-                    },
-                    { rootMargin: "0px", threshold: 0.1 }
-                );
-                observer.observe(heroSection);
             }
         }
 
@@ -1692,17 +1438,6 @@
                 }
             });
 
-            new Swiper('.testimonial-swiper', {
-                loop: true,
-                slidesPerView: 1,
-                spaceBetween: 16,
-                pagination: { el: '.testimonial-pagination', clickable: true },
-                navigation: { nextEl: '.testimonial-next', prevEl: '.testimonial-prev' },
-                breakpoints: {
-                    768: { slidesPerView: 2, spaceBetween: 24 },
-                    1280: { slidesPerView: 3, spaceBetween: 32 },
-                }
-            });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1722,7 +1457,6 @@
             setupAccordions();
             setupScrollAnimations();
             setupNavigation();
-            setupStickyCTA();
             
             initializeSwipers();
             fetchAndRenderArticles('news');
