@@ -1384,51 +1384,28 @@
         }
         // ▲▲▲ APIクライアントの初期化とエラーハンドリングを修正 ▲▲▲
 
-        function setupPreloaderAndVideo() {
-            const preloader = document.getElementById('preloader');
+        function setupHeroVideo() {
             const desktopVideo = document.querySelector('.hero-video-background.hidden.md\\:block');
             const mobileVideo = document.querySelector('.hero-video-background.md\\:hidden');
 
-            if (!preloader || !desktopVideo || !mobileVideo) {
-                console.error("Preloader or video elements not found.");
-                if (preloader) {
-                    preloader.classList.add('loaded');
-                    document.body.classList.remove('overflow-hidden');
-                }
+            if (!desktopVideo || !mobileVideo) {
+                console.error("Hero video elements not found.");
                 return;
             }
 
             const activeVideo = window.getComputedStyle(desktopVideo).display !== 'none' ? desktopVideo : mobileVideo;
 
-            const hidePreloader = () => {
-                if (!preloader.classList.contains('loaded')) {
-                    preloader.classList.add('loaded');
-                    document.body.classList.remove('overflow-hidden');
-                }
-            };
-
-            const startVideoPlayback = async () => {
-                try {
-                    // Muted autoplay is generally allowed on modern browsers
-                    await activeVideo.play();
-                    activeVideo.classList.add('is-playing');
-                } catch (error) {
+            const startPlayback = () => {
+                activeVideo.play().catch(error => {
                     console.error("Video playback failed, possibly due to browser policy:", error);
-                    // If playback fails, at least show the poster image by fading it in
-                    activeVideo.classList.add('is-playing'); 
-                } finally {
-                    // Always hide the preloader once we've attempted to play the video
-                    hidePreloader();
-                }
+                });
+                activeVideo.classList.add('is-playing');
             };
 
-            // Check if the video can already be played
-            if (activeVideo.readyState >= 3) { // HAVE_FUTURE_DATA or more
-                startVideoPlayback();
+            if (activeVideo.readyState >= 3) { // HAVE_FUTURE_DATA
+                startPlayback();
             } else {
-                // Wait for the 'canplay' event, which is less strict than 'canplaythrough'
-                // and fires sooner.
-                activeVideo.addEventListener('canplay', startVideoPlayback, { once: true });
+                activeVideo.addEventListener('canplay', startPlayback, { once: true });
             }
         }
 
@@ -1692,7 +1669,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            setupPreloaderAndVideo();
+            setupHeroVideo();
             setupMobileMenu();
             setupAccordions();
             setupScrollAnimations();
