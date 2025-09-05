@@ -709,23 +709,45 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        const submitButton = e.target.querySelector('button[type="submit"]');
+        const originalButtonHTML = submitButton.innerHTML;
+        submitButton.disabled = true;
+        submitButton.innerHTML = `
+            <svg class="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            送信中...
+        `;
+
         const formData = new FormData(this);
-        const data = {};
-        for (let [key, value] of formData.entries()) {
-            if (data[key]) {
-                if (!Array.isArray(data[key])) {
-                    data[key] = [data[key]];
-                }
-                data[key].push(value);
-            } else {
-                data[key] = value;
-            }
-        }
-        console.log('Form Data Submitted:', data);
         
-        formContainer.classList.add('hidden');
-        successMessage.classList.remove('hidden');
-        window.scrollTo(0, 0);
+        // ▼▼▼ ここにウェブアプリのURLを設定してください ▼▼▼
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIctpqvcyt-BU1lVflPXizet8XlEbEtOhZW00fjqNSuiNdWjQbqnN4d-MGSErjHjhOdA/exec";
+        // ▲▲▲ ここにウェブアプリのURLを設定してください ▲▲▲
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result === 'success') {
+                formContainer.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            } else {
+                throw new Error(data.message || '送信に失敗しました。');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showErrorModal('送信中にエラーが発生しました。時間をおいて再度お試しください。');
+        })
+        .finally(() => {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonHTML;
+        });
     });
     
     generateCalendar();
