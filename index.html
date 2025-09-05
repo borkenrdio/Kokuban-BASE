@@ -35,57 +35,6 @@
             background-color: #ffffff;
             color: #333;
         }
-        body.overflow-hidden { overflow: hidden; }
-
-        /* ▼▼▼ ローディング画面のスタイル（改訂版） ▼▼▼ */
-        #preloader {
-            background-color: #103f99;
-            /* JavaScriptで制御するため、遅延を削除 */
-            transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
-        }
-        #preloader.loaded {
-            opacity: 0;
-            visibility: hidden;
-        }
-        #preloader-title {
-            /* ローディング時間を短縮：アニメーション時間を0.6s、遅延を0.1sに調整 */
-            animation: fadeIn 0.6s ease-out 0.1s forwards;
-        }
-        #preloader-subtitle {
-            /* ローディング時間を短縮：アニメーション時間を0.6s、遅延を0.3sに調整 */
-            animation: fadeIn 0.6s ease-out 0.3s forwards;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* Particle animation for preloader */
-        #preloader::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 200%;
-            background-image:
-                radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px),
-                radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px);
-            background-size: 30px 30px, 50px 50px;
-            background-position: 0 0, 15px 15px;
-            animation: floatParticles 20s linear infinite;
-            pointer-events: none;
-        }
-        @keyframes floatParticles {
-            from { transform: translateY(0); }
-            to { transform: translateY(50%); }
-        }
-        /* ▲▲▲ ローディング画面のスタイル（改訂版） ▲▲▲ */
 
         /* 本文テキストの読みやすさを向上させるためのスタイル */
         main p, main li, .testimonial-body p, .answer p {
@@ -315,15 +264,6 @@
     <!-- ▲▲▲ APIキー設定ファイルを<head>に移動 ▲▲▲ -->
 </head>
 <body class="bg-stone-50">
-
-    <!-- ▼▼▼ ローディング画面（改訂版） ▼▼▼ -->
-    <div id="preloader" class="fixed inset-0 z-50 flex justify-center items-center overflow-hidden">
-        <div class="text-center text-white">
-            <h2 id="preloader-title" class="text-2xl sm:text-3xl font-bold opacity-0">Kokuban BASEへ、ようこそ</h2>
-            <p id="preloader-subtitle" class="mt-4 text-lg sm:text-xl opacity-0">ここは、日本初の電子黒板の体験倉庫です。</p>
-        </div>
-    </div>
-    <!-- ▲▲▲ ローディング画面（改訂版） ▲▲▲ -->
 
     <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
         <div class="px-6 lg:px-8">
