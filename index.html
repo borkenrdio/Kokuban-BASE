@@ -138,6 +138,23 @@
             font-size: 22px; /* アイコンを少し大きく */
             font-weight: bold;
         }
+        /* ▼▼▼ スマホ表示での製品スライダー矢印調整 ▼▼▼ */
+        @media (max-width: 640px) {
+            .product-next {
+                right: -10px;
+            }
+            .product-prev {
+                left: -10px;
+            }
+            .product-next, .product-prev {
+                width: 40px;
+                height: 40px;
+            }
+            .product-next:after, .product-prev:after {
+                font-size: 18px;
+            }
+        }
+        /* ▲▲▲ スマホ表示での製品スライダー矢印調整 ▲▲▲ */
         /* ▲▲▲ 矢印ボタンのスタイル修正 ▲▲▲ */
         .swiper-button-disabled {
             opacity: 0.35;
