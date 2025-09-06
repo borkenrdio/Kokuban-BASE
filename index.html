@@ -215,31 +215,6 @@
     <!-- ▼▼▼ APIキー設定ファイルを<head>に移動 ▼▼▼ -->
     <script src="config.js"></script>
     <!-- ▲▲▲ APIキー設定ファイルを<head>に移動 ▲▲▲ -->
-<title>Kokuban BASE｜電子黒板の比較体験倉庫（京都）</title>
-<meta name="description" content="Kokuban BASEは、主要ブランドの電子黒板を一度に試せる京都の常設倉庫。導入相談・来場予約を受付中。">
-
-<link rel="canonical" href="https://kokuban-base.com/">
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Kokuban BASE">
-<meta property="og:title" content="Kokuban BASE｜電子黒板の比較体験倉庫（京都）">
-<meta property="og:description" content="主要ブランドを比較体験。授業での使い勝手を実機で確認できます。来場予約はこちら。">
-<meta property="og:url" content="https://kokuban-base.com/">
-<meta property="og:image" content="https://kokuban-base.com/entrance.jpg">
-<meta name="twitter:card" content="summary_large_image">
-
-<!-- 構造化データ（ローカルビジネス例・値は必要に応じて更新） -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Kokuban BASE",
-  "url": "https://kokuban-base.com/",
-  "description": "電子黒板を比較体験できる常設ショールーム。",
-  "image": "https://kokuban-base.com/entrance.jpg",
-  "address": { "@type": "PostalAddress", "addressCountry": "JP" }
-}
-</script>
 </head>
 <body class="bg-stone-50 overflow-hidden">
     <!-- ▼▼▼ ローディング画面を再追加 ▼▼▼ -->
@@ -1501,7 +1476,7 @@
                     <p class="text-gray-500 mb-6">${formattedDate}</p>
                     ${imageUrl ? `<img src="${imageUrl}" alt="${article.title}" class="w-full h-auto max-h-[500px] object-cover rounded-lg mb-8">` : ''}
                     <div class="article-body text-lg leading-relaxed text-gray-800">
-                        ${article.content}
+                        ${article.body}
                     </div>
                 `;
                 displayRelatedArticles(articleId);
