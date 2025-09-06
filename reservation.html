@@ -294,7 +294,6 @@
                             </div>
                             <div class="flex items-center justify-center gap-4 mt-10">
                                 <button type="button" id="back-btn-2" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 transition-colors shadow-lg">修正する</button>
-                                <!-- ▼▼▼ 変更点1: ボタンにIDを追加 ▼▼▼ -->
                                 <button type="submit" id="submit-btn" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">この内容で送信する</button>
                             </div>
                         </div>
@@ -326,7 +325,7 @@
     <div id="error-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full text-center">
             <i class="fas fa-exclamation-triangle text-4xl text-yellow-400 mb-4"></i>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">入力エラー</h3>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">エラー</h3>
             <p id="error-message-text" class="text-gray-600 mb-6"></p>
             <button id="close-modal-btn" class="bg-gray-600 text-white font-bold py-2 px-8 rounded-full hover:bg-gray-700 transition-colors">閉じる</button>
         </div>
@@ -391,6 +390,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // 予約フォームの制御
     const formContainer = document.getElementById('form-container');
     const successMessage = document.getElementById('success-message');
+    const form = document.getElementById('reservation-form');
+    const submitBtn = document.getElementById('submit-btn');
     
     const step1 = document.getElementById('form-step-1');
     const step2 = document.getElementById('form-step-2');
@@ -535,10 +536,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const firstDay = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-        // --- MODIFIED: 本日と明日の日付オブジェクトを正しく設定 ---
         const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         const tomorrowDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-        // --- END MODIFIED ---
 
         let calendarHTML = `
             <div class="flex items-center justify-between mb-2">
@@ -559,10 +558,8 @@ document.addEventListener('DOMContentLoaded', function () {
             date.setHours(0,0,0,0);
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
             
-            // --- MODIFIED: 満席と過去日の判定ロジックを修正 ---
             const isPast = date < todayDateOnly;
             const isFull = date.getTime() === todayDateOnly.getTime() || date.getTime() === tomorrowDateOnly.getTime();
-            // --- END MODIFIED ---
             
             let dayClasses = 'calendar-day text-center p-2 cursor-pointer';
             if (isPast) dayClasses += ' text-gray-300 pointer-events-none';
@@ -673,7 +670,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function populateConfirmation() {
-        const formData = new FormData(document.getElementById('reservation-form'));
+        const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
         const confirmationDetails = document.getElementById('confirmation-details');
         const visitorsText = visitorsSelect.options[visitorsSelect.selectedIndex].text;
@@ -697,7 +694,7 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationDetails.innerHTML = detailsHTML;
     }
 
-    document.getElementById('reservation-form').addEventListener('submit', function(e) {
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
         
         if (!validateStep(step1) || !validateStep(step2) || selectedDates.length !== 3) {
@@ -710,23 +707,26 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         
-        // ▼▼▼ 変更点2: IDを使ってボタンを確実に取得 ▼▼▼
-        const submitButton = document.getElementById('submit-btn');
-        const originalButtonHTML = submitButton.innerHTML;
-        submitButton.disabled = true;
-        submitButton.innerHTML = `
-            <svg class="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24">
+        const originalButtonHTML = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+            <svg class="animate-spin h-5 w-5 mx-auto text-white" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            送信中...
         `;
 
         const formData = new FormData(this);
-        
-        // ▼▼▼ ここにウェブアプリのURLを設定してください ▼▼▼
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIctpqvcyt-BU1lVflPXizet8XlEbEtOhZW00fjqNSuiNdWjQbqnN4d-MGSErjHjhOdA/exec";
-        // ▲▲▲ ここにウェブアプリのURLを設定してください ▲▲▲
+        // ▼▼▼ ここにデプロイしたウェブアプリのURLを貼り付け ▼▼▼
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXV_jVH2JsAIl52CQkmaxCgFodnaC_Vq9AOISoK-9dD6g2QwTWFT7xp-zZMJPqPnki_w/exec";
+        // ▲▲▲ ここにデプロイしたウェブアプリのURLを貼り付け ▲▲▲
+
+        if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzXV_jVH2JsAIl52CQkmaxCgFodnaC_Vq9AOISoK-9dD6g2QwTWFT7xp-zZMJPqPnki_w/exec") {
+            showErrorModal("ウェブアプリのURLが設定されていません。HTMLファイルを編集して、正しいURLを設定してください");
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalButtonHTML;
+            return;
+        }
 
         fetch(SCRIPT_URL, {
             method: 'POST',
@@ -747,8 +747,8 @@ document.addEventListener('DOMContentLoaded', function () {
             showErrorModal('送信中にエラーが発生しました。時間をおいて再度お試しください。');
         })
         .finally(() => {
-            submitButton.disabled = false;
-            submitButton.innerHTML = originalButtonHTML;
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalButtonHTML;
         });
     });
     
