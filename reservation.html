@@ -388,18 +388,27 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const fullyBookedDates = [
-        "2025-10-14",
         "2025-10-15",
         "2025-10-16",
-        "2025-11-01"
+        "2025-10-22",
+        "2025-11-10"
     ];
 
-    // --- NEW: 予約開始日を設定 ---
-    // この日付より前の月はカレンダーに表示されず、日付も選択できません。
-    // new Date(年, 月-1, 日) の形式で指定します。（例: 10月は 9）
-    const reservationStartDate = new Date(2025, 9, 1); // 2025年10月1日
-    reservationStartDate.setHours(0, 0, 0, 0);
+    // --- NEW: 予約開始日と期間を設定 ---
+    const hardStartDate = new Date(2025, 9, 1); // 2025年10月1日 (固定の受付開始日)
+    hardStartDate.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // 予約可能な開始日は、本日と固定開始日のうち、遅い方
+    const reservationStartDate = today > hardStartDate ? today : hardStartDate;
+
+    // 予約可能な終了日は、本日から見て翌月の末日
+    const reservationEndDate = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+    reservationEndDate.setHours(0, 0, 0, 0);
     // --- END NEW ---
+
 
     // 予約フォームの制御
     const formContainer = document.getElementById('form-container');
@@ -536,14 +545,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let selectedDates = [];
     let currentSelectedDay = null;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
+    
     // --- MODIFIED: カレンダーの初期表示月を予約開始月に合わせる ---
-    let initialDisplayDate = new Date(today.getFullYear(), today.getMonth(), 1);
-    if (initialDisplayDate < reservationStartDate) {
-        initialDisplayDate = new Date(reservationStartDate);
-    }
+    let initialDisplayDate = new Date(reservationStartDate.getFullYear(), reservationStartDate.getMonth(), 1);
     let currentDisplayDate = new Date(initialDisplayDate);
     // --- END MODIFIED ---
 
@@ -576,13 +580,13 @@ document.addEventListener('DOMContentLoaded', function () {
             date.setHours(0,0,0,0);
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
             
-            // --- MODIFIED: isPast is now based on reservationStartDate ---
-            const isPast = date < reservationStartDate;
+            // --- MODIFIED: 予約期間外の日付を無効化 ---
+            const isOutsideRange = date < reservationStartDate || date > reservationEndDate;
             const isFull = fullyBookedDates.includes(dateString);
             // --- END MODIFIED ---
             
             let dayClasses = 'calendar-day text-center p-2 cursor-pointer';
-            if (isPast) dayClasses += ' text-gray-300 pointer-events-none';
+            if (isOutsideRange) dayClasses += ' text-gray-300 pointer-events-none';
             if (isFull) dayClasses += ' full';
             if (dateString === currentSelectedDay) dayClasses += ' selected';
 
@@ -593,24 +597,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
         calendarWrapper.querySelectorAll('.calendar-day').forEach(day => day.addEventListener('click', handleDayClick));
         
-        // --- MODIFIED: Prev month button logic updated ---
-        document.getElementById('prev-month-btn').addEventListener('click', () => {
-            const currentCalendarMonth = new Date(currentDisplayDate.getFullYear(), currentDisplayDate.getMonth(), 1);
-            const reservationStartMonth = new Date(reservationStartDate.getFullYear(), reservationStartDate.getMonth(), 1);
+        const prevMonthBtn = document.getElementById('prev-month-btn');
+        const nextMonthBtn = document.getElementById('next-month-btn');
 
-            if (currentCalendarMonth <= reservationStartMonth) {
-                return; // 予約開始月より前には戻れない
-            }
-            
+        // --- MODIFIED: Prev/Next month button enable/disable logic ---
+        const currentCalendarMonth = new Date(year, month, 1);
+        const reservationStartMonth = new Date(reservationStartDate.getFullYear(), reservationStartDate.getMonth(), 1);
+        const reservationEndMonth = new Date(reservationEndDate.getFullYear(), reservationEndDate.getMonth(), 1);
+        
+        prevMonthBtn.addEventListener('click', () => {
+            if(prevMonthBtn.disabled) return;
             currentDisplayDate.setMonth(currentDisplayDate.getMonth() - 1);
             generateCalendar();
         });
-        // --- END MODIFIED ---
-
-        document.getElementById('next-month-btn').addEventListener('click', () => {
+        
+        nextMonthBtn.addEventListener('click', () => {
+            if(nextMonthBtn.disabled) return;
             currentDisplayDate.setMonth(currentDisplayDate.getMonth() + 1);
             generateCalendar();
         });
+
+        if (currentCalendarMonth <= reservationStartMonth) {
+            prevMonthBtn.disabled = true;
+            prevMonthBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+
+        if (currentCalendarMonth >= reservationEndMonth) {
+            nextMonthBtn.disabled = true;
+            nextMonthBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+        // --- END MODIFIED ---
     }
 
     function updateTomeSlotsState() {
