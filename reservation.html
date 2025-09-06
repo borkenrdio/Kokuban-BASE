@@ -670,7 +670,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function populateConfirmation() {
-        const formData = new FormData(form);
+        const formData = new FormData(document.getElementById('reservation-form'));
         const data = Object.fromEntries(formData.entries());
         const confirmationDetails = document.getElementById('confirmation-details');
         const visitorsText = visitorsSelect.options[visitorsSelect.selectedIndex].text;
@@ -694,6 +694,7 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationDetails.innerHTML = detailsHTML;
     }
 
+    // --- NEW: Replaced with working logic ---
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -720,12 +721,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // ▼▼▼ ここにデプロイしたウェブアプリのURLを貼り付け ▼▼▼
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXV_jVH2JsAIl52CQkmaxCgFodnaC_Vq9AOISoK-9dD6g2QwTWFT7xp-zZMJPqPnki_w/exec";
         // ▲▲▲ ここにデプロイしたウェブアプリのURLを貼り付け ▲▲▲
-
-        if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzXV_jVH2JsAIl52CQkmaxCgFodnaC_Vq9AOISoK-9dD6g2QwTWFT7xp-zZMJPqPnki_w/exec") {
-            showErrorModal("ウェブアプリのURLが設定されていません。HTMLファイルを編集して、正しいURLを設定してください。");
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalButtonHTML;
-            return;
+        
+        const isValidScriptUrl = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(SCRIPT_URL);
+        if (!isValidScriptUrl) {
+          showErrorModal("ウェブアプリのURLが設定されていないか、形式が正しくありません。GASで発行したURL（.../execで終わるもの）を設定してください。");
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalButtonHTML;
+          return;
         }
 
         fetch(SCRIPT_URL, {
@@ -751,6 +753,7 @@ document.addEventListener('DOMContentLoaded', function () {
             submitBtn.innerHTML = originalButtonHTML;
         });
     });
+    // --- END NEW ---
     
     generateCalendar();
 });
