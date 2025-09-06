@@ -394,20 +394,24 @@ document.addEventListener('DOMContentLoaded', function () {
         "2025-11-10"
     ];
 
-    // --- NEW: 予約開始日と期間を設定 ---
+    // --- MODIFIED: 予約開始日と期間を設定 ---
     const hardStartDate = new Date(2025, 9, 1); // 2025年10月1日 (固定の受付開始日)
     hardStartDate.setHours(0, 0, 0, 0);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // 予約可能な開始日は、本日と固定開始日のうち、遅い方
+    // 予約可能な最初の日は、本日と固定開始日のうち、遅い方の日付
     const reservationStartDate = today > hardStartDate ? today : hardStartDate;
 
-    // 予約可能な終了日は、本日から見て翌月の末日
-    const reservationEndDate = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+    // 予約可能な最初の月を決定
+    const firstDayOfCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const firstBookableMonthDate = firstDayOfCurrentMonth < hardStartDate ? hardStartDate : firstDayOfCurrentMonth;
+
+    // 予約可能な終了日は、予約可能な最初の月から見て翌月の末日
+    const reservationEndDate = new Date(firstBookableMonthDate.getFullYear(), firstBookableMonthDate.getMonth() + 2, 0);
     reservationEndDate.setHours(0, 0, 0, 0);
-    // --- END NEW ---
+    // --- END MODIFIED ---
 
 
     // 予約フォームの制御
