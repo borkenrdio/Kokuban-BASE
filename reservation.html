@@ -387,15 +387,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- NEW: 満席の日付を管理するリスト ---
-    // ここに 'YYYY-MM-DD' 形式で日付を追加すると、その日がカレンダーで「満席」になります。
     const fullyBookedDates = [
         "2025-10-14",
         "2025-10-15",
         "2025-10-16",
-        "2025-10-17"
         "2025-11-01"
     ];
+
+    // --- NEW: 予約開始日を設定 ---
+    // この日付より前の月はカレンダーに表示されず、日付も選択できません。
+    // new Date(年, 月-1, 日) の形式で指定します。（例: 10月は 9）
+    const reservationStartDate = new Date(2025, 9, 1); // 2025年10月1日
+    reservationStartDate.setHours(0, 0, 0, 0);
     // --- END NEW ---
 
     // 予約フォームの制御
@@ -535,7 +538,14 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentSelectedDay = null;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    let currentDisplayDate = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    // --- MODIFIED: カレンダーの初期表示月を予約開始月に合わせる ---
+    let initialDisplayDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    if (initialDisplayDate < reservationStartDate) {
+        initialDisplayDate = new Date(reservationStartDate);
+    }
+    let currentDisplayDate = new Date(initialDisplayDate);
+    // --- END MODIFIED ---
 
     function generateCalendar() {
         const year = currentDisplayDate.getFullYear();
@@ -546,8 +556,6 @@ document.addEventListener('DOMContentLoaded', function () {
         
         const firstDay = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
         let calendarHTML = `
             <div class="flex items-center justify-between mb-2">
@@ -568,8 +576,8 @@ document.addEventListener('DOMContentLoaded', function () {
             date.setHours(0,0,0,0);
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
             
-            const isPast = date < todayDateOnly;
-            // --- MODIFIED: 満席の判定をリストで行うように変更 ---
+            // --- MODIFIED: isPast is now based on reservationStartDate ---
+            const isPast = date < reservationStartDate;
             const isFull = fullyBookedDates.includes(dateString);
             // --- END MODIFIED ---
             
@@ -584,13 +592,21 @@ document.addEventListener('DOMContentLoaded', function () {
         calendarWrapper.innerHTML = calendarHTML;
 
         calendarWrapper.querySelectorAll('.calendar-day').forEach(day => day.addEventListener('click', handleDayClick));
+        
+        // --- MODIFIED: Prev month button logic updated ---
         document.getElementById('prev-month-btn').addEventListener('click', () => {
-            const currentMonth = currentDisplayDate.getMonth();
-            const todayMonth = today.getMonth();
-            if(currentDisplayDate.getFullYear() === today.getFullYear() && currentMonth <= todayMonth) return;
-            currentDisplayDate.setMonth(currentMonth - 1);
+            const currentCalendarMonth = new Date(currentDisplayDate.getFullYear(), currentDisplayDate.getMonth(), 1);
+            const reservationStartMonth = new Date(reservationStartDate.getFullYear(), reservationStartDate.getMonth(), 1);
+
+            if (currentCalendarMonth <= reservationStartMonth) {
+                return; // 予約開始月より前には戻れない
+            }
+            
+            currentDisplayDate.setMonth(currentDisplayDate.getMonth() - 1);
             generateCalendar();
         });
+        // --- END MODIFIED ---
+
         document.getElementById('next-month-btn').addEventListener('click', () => {
             currentDisplayDate.setMonth(currentDisplayDate.getMonth() + 1);
             generateCalendar();
