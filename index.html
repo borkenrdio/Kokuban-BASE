@@ -975,7 +975,7 @@
                             <!-- ▼▼▼ UPDATED IFRAME CODE ▼▼▼ -->
                             <iframe 
                                 class="w-full h-full"
-                                src="https://maps.google.com/maps?q=%E3%80%92602-0822%20%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8A%E4%BA%AC%E5%8C%EBA%E6%B2%B3%E5%8E%9F%E7%94%BA%E9%80%9A%E4%BB%8A%E5%87%BA%E5%B7%9D%E4%B8%8A%E3%82%8B%E9%9D%92%E9%BE%8D%E7%94%BA252%E7%95%AA%E5%9C%B0&t=&z=17&ieUTF8&iwloc=&output=embed"
+                                src="https://maps.google.com/maps?q=%E3%80%92602-0822%20%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8A%E4%BA%AC%E5%8C%BA%E6%B2%B3%E5%8E%9F%E7%94%BA%E9%80%9A%E4%BB%8A%E5%87%BA%E5%B7%9D%E4%B8%8A%E3%82%8B%E9%9D%92%E9%BE%8D%E7%94%BA252%E7%95%AA%E5%9C%B0&t=&z=17&ieUTF8&iwloc=&output=embed"
                                 style="border:0;" 
                                 allowfullscreen="" 
                                 loading="lazy" 
@@ -1211,7 +1211,8 @@
                 return;
             }
 
-            const activeVideo = window.getComputedStyle(desktopVideo).display !== 'none' ? desktopVideo : mobileVideo;
+            const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+            const activeVideo = isDesktop ? desktopVideo : mobileVideo;
 
             const startPlayback = () => {
                 activeVideo.play().catch(error => {
@@ -1227,274 +1228,371 @@
             }
         }
 
-
         function setupMobileMenu() {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                    document.body.classList.toggle('overflow-hidden', !mobileMenu.classList.contains('hidden'));
-                });
-            }
+            if (!mobileMenuButton || !mobileMenu) return;
+
+            mobileMenuButton.addEventListener('click', () => {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                // スマホメニュー表示時に背景をスクロールさせない
+                document.body.classList.toggle('overflow-hidden', !isExpanded && window.innerWidth < 1024);
+            });
         }
 
         function setupAccordions() {
-             // FAQアコーディオン
-             const faqContainer = document.getElementById('faq-container');
-             if (faqContainer) {
-                 faqContainer.addEventListener('click', (e) => {
-                     const questionButton = e.target.closest('.question');
-                     if (!questionButton) return;
-                     const faqItem = questionButton.parentElement;
-                     const icon = questionButton.querySelector('i');
-                     const wasOpen = faqItem.classList.contains('open');
-                     
-                     faqItem.classList.toggle('open');
-                     questionButton.setAttribute('aria-expanded', !wasOpen);
-                     if (icon) {
-                         icon.classList.toggle('fa-plus', wasOpen);
-                         icon.classList.toggle('fa-minus', !wasOpen);
-                     }
-                 });
-             }
-
-             // アクセスアコーディオン
-             const accordionContainer = document.getElementById('accordion-container');
-             if (accordionContainer) {
-                 accordionContainer.addEventListener('click', (e) => {
-                     const header = e.target.closest('.accordion-header');
-                     if (!header) return;
-                     const item = header.closest('.accordion-item');
-                     const icon = header.querySelector('.accordion-icon');
-                     const isOpen = item.classList.toggle('open');
-                     header.setAttribute('aria-expanded', isOpen);
-                     if (icon) icon.classList.toggle('rotate-45');
-                 });
-             }
-        }
-
-        function setupScrollAnimations() {
-            const animatedElements = document.querySelectorAll('.animate-on-scroll, .story-animated-block');
-            if (animatedElements.length > 0) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            observer.unobserve(entry.target);
-                        }
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const icon = item.querySelector('.accordion-icon');
+                if (!header) return;
+                header.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+                    // 他のアコーディオンをすべて閉じる
+                    accordionItems.forEach(i => {
+                        i.classList.remove('open');
+                        i.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+                        const otherIcon = i.querySelector('.accordion-icon');
+                        if (otherIcon) otherIcon.classList.remove('rotate-45');
                     });
-                }, { threshold: 0.1 });
-                animatedElements.forEach(el => observer.observe(el));
-            }
-        }
+                    // クリックされたものを開く（もし閉じていたら）
+                    if (!isOpen) {
+                        item.classList.add('open');
+                        header.setAttribute('aria-expanded', 'true');
+                        if (icon) icon.classList.add('rotate-45');
+                    }
+                });
+            });
 
-        function setupNavigation() {
-            document.querySelectorAll('.nav-link').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    if (href && href.startsWith('#')) {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(href);
-                        if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
-                        
-                        const mobileMenu = document.getElementById('mobile-menu');
-                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden');
-                            document.body.classList.remove('overflow-hidden');
-                        }
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.question');
+                const icon = item.querySelector('.fa-plus, .fa-minus');
+                if (!question) return;
+
+                question.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+                    item.classList.toggle('open');
+                    question.setAttribute('aria-expanded', String(!isOpen));
+                    if (icon) {
+                        icon.classList.toggle('fa-plus', isOpen);
+                        icon.classList.toggle('fa-minus', !isOpen);
                     }
                 });
             });
         }
 
-        // --- MicroCMS & View Logic ---
+        function initSwipers() {
+            const productSwiper = new Swiper('.product-swiper', {
+                loop: true,
+                slidesPerView: 1,
+                spaceBetween: 20,
+                pagination: {
+                    el: '.product-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.product-next',
+                    prevEl: '.product-prev',
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                },
+            });
+
+            const staffSwiper = new Swiper('.staff-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                pagination: {
+                    el: '.staff-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 40,
+                    },
+                },
+            });
+        }
+
+        let newsSwiper;
+        function initNewsSwiper() {
+            if (newsSwiper) {
+                newsSwiper.destroy(true, true);
+            }
+            newsSwiper = new Swiper('.news-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                pagination: {
+                    el: '.news-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.news-next',
+                    prevEl: '.news-prev',
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                }
+            });
+        }
+
+        function setupScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            if (!animatedElements.length) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+        }
+
         const pageContent = document.getElementById('page-content');
         const detailViewContainer = document.getElementById('detail-view-container');
         const detailContentArea = document.getElementById('detail-content-area');
-        const relatedItemsContainer = document.getElementById('related-items-container');
         const backToListBtn = document.getElementById('back-to-list-btn');
+        const relatedItemsContainer = document.getElementById('related-items-container');
         const relatedTitle = document.getElementById('related-title');
 
-        function formatDate(dateString) {
-            if (!dateString) return '';
-            const date = new Date(dateString);
-            return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
-        }
-
-        async function fetchAndRenderArticles(type) {
-            if (!isApiReady) return; 
-
-            const container = document.getElementById('articles-container');
-            const loading = document.getElementById('loading-list-news');
-            const errorContainer = document.getElementById('error-container-news');
-
-            if (!container || !loading || !errorContainer) return;
-
-            try {
-                const data = await client.get({ endpoint: "news" });
-                loading.style.display = 'none';
-                container.innerHTML = '';
-
-                data.contents.forEach(article => {
-                    // ▼▼▼【修正】HTTPのURLをHTTPSに強制変換 ▼▼▼
-                    const eyecatchUrl = (article.eyecatch ? article.eyecatch.url : 'https://placehold.co/400x250/e0e7ff/1e3a8a?text=Image').replace(/^http:/, 'https:');
-                    const articleHtml = `
-                        <div class="swiper-slide h-auto">
-                            <article class="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-shadow duration-300 hover:shadow-xl cursor-pointer" data-id="${article.id}" data-type="${type}">
-                                <img src="${eyecatchUrl}?w=400&h=250&fit=crop" alt="${article.title || '記事のアイキャッチ'}" class="w-full h-48 object-cover" loading="lazy">
-                                <div class="p-4 sm:p-6 flex flex-col flex-grow">
-                                    <p class="text-sm text-gray-500">${formatDate(article.publishedAt)}</p>
-                                    <h3 class="mt-2 text-base sm:text-lg font-bold text-gray-800 flex-grow">${article.title}</h3>
-                                </div>
-                            </article>
-                        </div>
-                    `;
-                    container.insertAdjacentHTML('beforeend', articleHtml);
-                });
-                
-                initNewsSwiper();
-
-            } catch (err) {
-                console.error(`Error fetching ${type}:`, err);
-                loading.style.display = 'none';
-                errorContainer.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>記事の読み込みに失敗しました。</p></div>`;
-            }
-        }
-
-        async function showDetailView(id, type) {
-            if (!isApiReady) return;
-            
-            detailContentArea.innerHTML = '<p class="text-gray-500">記事を読み込んでいます...</p>';
-            relatedItemsContainer.innerHTML = '';
-            
-            if (pageContent) pageContent.style.display = 'none';
+        function showDetailView() {
+            pageContent.classList.add('hidden');
             detailViewContainer.classList.remove('hidden');
             window.scrollTo(0, 0);
-
-            try {
-                const article = await client.get({ endpoint: 'news', contentId: id });
-                
-                // ▼▼▼【修正】HTTPのURLをHTTPSに強制変換 ▼▼▼
-                const eyecatchUrl = article.eyecatch ? article.eyecatch.url.replace(/^http:/, 'https:') : '';
-                const bodyHtml = (article.body || '').replace(/src="http:\/\//g, 'src="https:\/\/');
-
-                const detailHtml = `
-                    <p class="text-gray-500 mb-2">${formatDate(article.publishedAt)}</p>
-                    <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-6">${article.title}</h1>
-                    ${eyecatchUrl ? `<img src="${eyecatchUrl}?w=800" alt="${article.title}" class="w-full rounded-lg mb-8 shadow-md">` : ''}
-                    <div class="article-body text-base md:text-lg leading-relaxed text-gray-800">${bodyHtml}</div>
-                `;
-                detailContentArea.innerHTML = detailHtml;
-
-                const allArticles = await client.get({ endpoint: 'news', queries: { limit: 4 } });
-                const relatedArticles = allArticles.contents.filter(item => item.id !== id).slice(0, 3);
-                
-                if (relatedArticles.length > 0) {
-                    relatedTitle.classList.remove('hidden');
-                    relatedArticles.forEach(related => {
-                        // ▼▼▼【修正】HTTPのURLをHTTPSに強制変換 ▼▼▼
-                        const relatedEyecatchUrl = (related.eyecatch ? related.eyecatch.url : 'https://placehold.co/400x250/e0e7ff/1e3a8a?text=Image').replace(/^http:/, 'https:');
-                        const relatedHtml = `
-                            <article class="bg-gray-50 rounded-lg shadow-sm overflow-hidden h-full flex flex-col transition-shadow duration-300 hover:shadow-md cursor-pointer" data-id="${related.id}" data-type="${type}">
-                                <img src="${relatedEyecatchUrl}?w=400&h=250&fit=crop" alt="${related.title || '関連記事のアイキャッチ'}" class="w-full h-40 object-cover" loading="lazy">
-                                <div class="p-4 flex flex-col flex-grow">
-                                     <p class="text-xs text-gray-500">${formatDate(related.publishedAt)}</p>
-                                     <h3 class="mt-1 text-sm font-bold text-gray-800 flex-grow">${related.title}</h3>
-                                </div>
-                            </article>
-                        `;
-                        relatedItemsContainer.insertAdjacentHTML('beforeend', relatedHtml);
-                    });
-                } else {
-                    relatedTitle.classList.add('hidden');
-                }
-
-            } catch (err) {
-                console.error('Error fetching detail:', err);
-                detailContentArea.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>記事の詳細の読み込みに失敗しました。</p></div>`;
-            }
         }
-        
+
         function showListView() {
             detailViewContainer.classList.add('hidden');
-            if (pageContent) pageContent.style.display = 'block';
+            pageContent.classList.remove('hidden');
+            detailContentArea.innerHTML = '<p class="text-gray-500">読み込んでいます...</p>';
+            relatedItemsContainer.innerHTML = '';
         }
 
-        // --- Swiper Initializations ---
-        let newsSwiperInstance = null;
-        function initNewsSwiper() {
-            if (newsSwiperInstance) newsSwiperInstance.destroy(true, true);
-            newsSwiperInstance = new Swiper('.news-swiper', {
-                slidesPerView: 1.2,
-                spaceBetween: 16,
-                pagination: { el: '.news-pagination', clickable: true },
-                navigation: { nextEl: '.news-next', prevEl: '.news-prev' },
-                breakpoints: {
-                    640: { slidesPerView: 2, spaceBetween: 20 },
-                    1024: { slidesPerView: 3, spaceBetween: 32 },
-                }
+        if (backToListBtn) {
+            backToListBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                history.pushState(null, '', 'index.html');
+                showListView();
             });
         }
-        
-        function initializeSwipers() {
-            new Swiper('.product-swiper', {
-                loop: true,
-                slidesPerView: 1.2,
-                spaceBetween: 16,
-                centeredSlides: false,
-                pagination: { el: '.product-pagination', clickable: true },
-                navigation: { nextEl: '.product-next', prevEl: '.product-prev' },
-                breakpoints: {
-                    640: { slidesPerView: 2, spaceBetween: 20 },
-                    768: { slidesPerView: 3, spaceBetween: 24 },
-                    1280: { slidesPerView: 4, spaceBetween: 32 },
-                }
-            });
 
-            new Swiper('.staff-swiper', {
-                slidesPerView: 1.1,
-                spaceBetween: 16,
-                pagination: { el: '.staff-pagination', clickable: true },
-                breakpoints: {
-                    768: { slidesPerView: 2, spaceBetween: 24 },
-                    1024: { slidesPerView: 3, spaceBetween: 32 },
-                }
-            });
+        async function fetchAndDisplayContent(endpoint, containerId, loadingId, cardGenerator, swiperInitializer) {
+            if (!isApiReady) {
+                const loadingElement = document.getElementById(loadingId);
+                if (loadingElement) loadingElement.textContent = 'コンテンツを読み込めませんでした。';
+                return;
+            }
+            
+            const container = document.getElementById(containerId);
+            const loading = document.getElementById(loadingId);
 
+            if (!container || !loading) return;
+
+            try {
+                const data = await client.get({ endpoint });
+                container.innerHTML = ''; // ローディングメッセージをクリア
+                if (data.contents.length > 0) {
+                    data.contents.forEach(item => {
+                        container.insertAdjacentHTML('beforeend', cardGenerator(item));
+                    });
+                    if (swiperInitializer) swiperInitializer();
+                } else {
+                    container.innerHTML = '<p class="text-gray-500 swiper-slide">記事がありません。</p>';
+                }
+            } catch (err) {
+                console.error(`${endpoint}の取得に失敗しました:`, err);
+                const errorContainer = document.getElementById(`error-container-${endpoint}`);
+                if(errorContainer) errorContainer.innerHTML = `<div class="error-message"><h3 class="font-bold">エラー</h3><p>コンテンツの読み込みに失敗しました。</p></div>`;
+                container.innerHTML = '';
+            }
         }
+
+        function createNewsCard(article) {
+            const formattedDate = new Date(article.publishedAt).toLocaleDateString('ja-JP');
+            const imageUrl = article.eyecatch?.url ? `${article.eyecatch.url}?fit=crop&w=600&h=400` : 'https://placehold.co/600x400/e0e7ff/1e3a8a?text=News';
+            return `
+                <div class="swiper-slide h-auto">
+                    <a href="?articleId=${article.id}" class="news-article-link block bg-white rounded-lg shadow-md overflow-hidden h-full group" data-id="${article.id}">
+                        <div class="overflow-hidden">
+                            <img src="${imageUrl}" alt="${article.title}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy">
+                        </div>
+                        <div class="p-4 sm:p-5">
+                            <p class="text-sm text-gray-500 mb-2">${formattedDate}</p>
+                            <h3 class="font-bold text-base sm:text-lg text-gray-800 group-hover:text-pink-500 transition-colors">${article.title}</h3>
+                        </div>
+                    </a>
+                </div>
+            `;
+        }
+
+        async function displayArticleDetail(articleId) {
+            if (!isApiReady) {
+                detailContentArea.innerHTML = `<div class="error-message">コンテンツの読み込みに失敗しました。</div>`;
+                return;
+            }
+            showDetailView();
+
+            try {
+                const article = await client.get({ endpoint: 'news', contentId: articleId });
+                const formattedDate = new Date(article.publishedAt).toLocaleDateString('ja-JP');
+                const imageUrl = article.eyecatch?.url ? `${article.eyecatch.url}?w=1200` : '';
+                
+                detailContentArea.innerHTML = `
+                    <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">${article.title}</h1>
+                    <p class="text-gray-500 mb-6">${formattedDate}</p>
+                    ${imageUrl ? `<img src="${imageUrl}" alt="${article.title}" class="w-full h-auto max-h-[500px] object-cover rounded-lg mb-8">` : ''}
+                    <div class="article-body text-lg leading-relaxed text-gray-800">
+                        ${article.content}
+                    </div>
+                `;
+                displayRelatedArticles(articleId);
+            } catch (err) {
+                console.error('記事詳細の取得に失敗しました:', err);
+                detailContentArea.innerHTML = `<div class="error-message">記事の読み込みに失敗しました。</div>`;
+            }
+        }
+
+        async function displayRelatedArticles(currentArticleId) {
+            if (!isApiReady) return;
+            try {
+                const data = await client.get({
+                    endpoint: 'news',
+                    queries: { 
+                        limit: 4, // 1つ多く取得して、現在の記事を除外できるようにする
+                    }
+                });
+                relatedItemsContainer.innerHTML = '';
+                const relatedArticles = data.contents
+                    .filter(item => item.id !== currentArticleId) // 現在表示中の記事を除外
+                    .slice(0, 3); // 最大3件表示
+
+                if (relatedArticles.length > 0) {
+                    relatedTitle.style.display = 'block';
+                    relatedArticles.forEach(item => {
+                        const imageUrl = item.eyecatch?.url ? `${item.eyecatch.url}?fit=crop&w=400&h=260` : 'https://placehold.co/400x260/e0e7ff/1e3a8a?text=News';
+                        relatedItemsContainer.innerHTML += `
+                            <a href="?articleId=${item.id}" class="news-article-link group" data-id="${item.id}">
+                                <div class="overflow-hidden rounded-lg mb-4">
+                                     <img src="${imageUrl}" alt="${item.title}" class="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-300">
+                                </div>
+                                <h3 class="font-bold text-gray-800 group-hover:text-pink-500 transition-colors">${item.title}</h3>
+                            </a>
+                        `;
+                    });
+                } else {
+                     relatedTitle.style.display = 'none';
+                }
+            } catch (err) {
+                console.error('関連記事の取得に失敗しました:', err);
+            }
+        }
+
+        function handleRouting() {
+            const params = new URLSearchParams(window.location.search);
+            const articleId = params.get('articleId');
+
+            if (articleId) {
+                displayArticleDetail(articleId);
+            } else {
+                showListView();
+            }
+        }
+
+        document.body.addEventListener('click', e => {
+            const link = e.target.closest('.news-article-link');
+            if (link) {
+                e.preventDefault();
+                const articleId = link.dataset.id;
+                history.pushState({ articleId }, '', `?articleId=${articleId}`);
+                displayArticleDetail(articleId);
+            }
+        });
+
+        window.addEventListener('popstate', handleRouting);
 
         document.addEventListener('DOMContentLoaded', () => {
-            // ▼▼▼【修正点】ローディング画面を1.5秒表示する処理を追加 ▼▼▼
             const preloader = document.getElementById('preloader');
-            if (preloader) {
-                // 1.5秒後にローディング画面を非表示にする
-                setTimeout(() => {
-                    preloader.classList.add('loaded');
-                    document.body.classList.remove('overflow-hidden');
-                }, 1500);
+            if(preloader) {
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        preloader.classList.add('loaded');
+                        if (!document.body.classList.contains('mobile-menu-open')) {
+                           document.body.classList.remove('overflow-hidden');
+                        }
+                    }, 800);
+                    setTimeout(() => {
+                         preloader.style.display = 'none';
+                    }, 1300);
+                });
+            } else {
+                document.body.classList.remove('overflow-hidden');
             }
-            // ▲▲▲【修正点】▲▲▲
 
             setupHeroVideo();
             setupMobileMenu();
             setupAccordions();
+            initSwipers();
             setupScrollAnimations();
-            setupNavigation();
             
-            initializeSwipers();
-            fetchAndRenderArticles('news');
-            
-            document.body.addEventListener('click', e => {
-                const articleCard = e.target.closest('article[data-id]');
-                if (articleCard) {
-                    const { id, type } = articleCard.dataset;
-                    if (id && type) showDetailView(id, type);
-                }
-            });
+            fetchAndDisplayContent('news', 'articles-container', 'loading-list-news', createNewsCard, initNewsSwiper);
 
-            if(backToListBtn) backToListBtn.addEventListener('click', showListView);
+            handleRouting();
+
+            document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    if (window.location.search.includes('articleId')) {
+                         window.location.href = `index.html${this.getAttribute('href')}`;
+                         return;
+                    }
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                            document.getElementById('mobile-menu-button').click();
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>
 </html>
+
