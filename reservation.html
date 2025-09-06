@@ -387,6 +387,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // --- NEW: 満席の日付を管理するリスト ---
+    // ここに 'YYYY-MM-DD' 形式で日付を追加すると、その日がカレンダーで「満席」になります。
+    const fullyBookedDates = [
+        "2025-10-14",
+        "2025-10-15",
+        "2025-10-16",
+        "2025-10-17"
+        "2025-11-01"
+    ];
+    // --- END NEW ---
+
     // 予約フォームの制御
     const formContainer = document.getElementById('form-container');
     const successMessage = document.getElementById('success-message');
@@ -537,7 +548,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
         const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        const tomorrowDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
 
         let calendarHTML = `
             <div class="flex items-center justify-between mb-2">
@@ -559,7 +569,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
             
             const isPast = date < todayDateOnly;
-            const isFull = date.getTime() === todayDateOnly.getTime() || date.getTime() === tomorrowDateOnly.getTime();
+            // --- MODIFIED: 満席の判定をリストで行うように変更 ---
+            const isFull = fullyBookedDates.includes(dateString);
+            // --- END MODIFIED ---
             
             let dayClasses = 'calendar-day text-center p-2 cursor-pointer';
             if (isPast) dayClasses += ' text-gray-300 pointer-events-none';
@@ -573,7 +585,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         calendarWrapper.querySelectorAll('.calendar-day').forEach(day => day.addEventListener('click', handleDayClick));
         document.getElementById('prev-month-btn').addEventListener('click', () => {
-            currentDisplayDate.setMonth(currentDisplayDate.getMonth() - 1);
+            const currentMonth = currentDisplayDate.getMonth();
+            const todayMonth = today.getMonth();
+            if(currentDisplayDate.getFullYear() === today.getFullYear() && currentMonth <= todayMonth) return;
+            currentDisplayDate.setMonth(currentMonth - 1);
             generateCalendar();
         });
         document.getElementById('next-month-btn').addEventListener('click', () => {
@@ -694,7 +709,6 @@ document.addEventListener('DOMContentLoaded', function () {
         confirmationDetails.innerHTML = detailsHTML;
     }
 
-    // --- NEW: Replaced with working logic ---
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -753,7 +767,6 @@ document.addEventListener('DOMContentLoaded', function () {
             submitBtn.innerHTML = originalButtonHTML;
         });
     });
-    // --- END NEW ---
     
     generateCalendar();
 });
