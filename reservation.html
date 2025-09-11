@@ -197,7 +197,8 @@
                 <div class="relative flex items-center mb-6">
                     <div id="step-1-indicator" class="step-indicator active flex-1 rounded-l-lg">1. ご希望日時</div>
                     <div id="step-2-indicator" class="step-indicator inactive flex-1">2. お客様情報</div>
-                    <div id="step-3-indicator" class="step-indicator inactive flex-1 rounded-r-lg">3. 確認・送信</div>
+                    <div id="step-3-indicator" class="step-indicator inactive flex-1">3. アンケート</div>
+                    <div id="step-4-indicator" class="step-indicator inactive flex-1 rounded-r-lg">4. 確認・送信</div>
                 </div>
 
                 <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-xl">
@@ -272,7 +273,7 @@
                                 </div>
                                 <div><label for="company_name" class="form-label required-mark">事業者名</label><input type="text" id="company_name" name="company_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div><label for="facility_name" class="form-label">施設名 (任意)</label><input type="text" id="facility_name" name="facility_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg"></div>
-                                <div><label for="contact_name" class="form-label required-mark">ご担当者名</label><input type="text" id="contact_name" name="contact_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
+                                <div><label for="contact_name" class="form-label required-mark">担当者名</label><input type="text" id="contact_name" name="contact_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div><label for="phone" class="form-label required-mark">電話番号</label><input type="tel" id="phone" name="phone" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div><label for="email" class="form-label required-mark">メールアドレス</label><input type="email" id="email" name="email" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div>
@@ -282,12 +283,61 @@
                             </div>
                             <div class="flex items-center justify-center gap-4 mt-10">
                                 <button type="button" id="back-btn-1" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 transition-colors shadow-lg">戻る</button>
-                                <button type="button" id="next-btn-2" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">確認画面へ</button>
+                                <button type="button" id="next-btn-2" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">アンケートへ</button>
+                            </div>
+                        </div>
+
+                        <!-- ステップ3: アンケート -->
+                        <div id="form-step-3" class="hidden">
+                             <div class="space-y-6">
+                                <h3 class="text-xl font-bold text-gray-800 border-l-4 border-cyan-400 pl-3">アンケートにご協力ください</h3>
+                                <div>
+                                    <label class="form-label required-mark">Q. 電子黒板の体験を実施したことはありますか？</label>
+                                    <div class="mt-2 space-y-2">
+                                        <label class="flex items-center"><input type="radio" name="experience" value="はい" class="mr-2" required><span>はい</span></label>
+                                        <label class="flex items-center"><input type="radio" name="experience" value="いいえ" class="mr-2"><span>いいえ</span></label>
+                                    </div>
+                                </div>
+                                <div id="experience_product_container" class="hidden">
+                                    <label for="experience_product" class="form-label">Q. 体験した方は体験した製品を教えてください (任意)</label>
+                                    <input type="text" id="experience_product" name="experience_product" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" placeholder="製品名をご記入ください">
+                                </div>
+                                <div>
+                                    <label class="form-label required-mark">Q. 現在、教室で使用しているのは？</label>
+                                    <div class="mt-2 space-y-2">
+                                        <label class="flex items-center"><input type="radio" name="classroom_equipment" value="ホワイトボード" class="mr-2" required><span>ホワイトボード</span></label>
+                                        <label class="flex items-center"><input type="radio" name="classroom_equipment" value="黒板" class="mr-2"><span>黒板</span></label>
+                                        <label class="flex items-center"><input type="radio" name="classroom_equipment" value="電子黒板" class="mr-2"><span>電子黒板</span></label>
+                                        <label class="flex items-center"><input type="radio" name="classroom_equipment" value="その他" class="mr-2"><span>その他</span></label>
+                                    </div>
+                                </div>
+                                 <div>
+                                    <label class="form-label required-mark">Q. 教室へのプロジェクター導入はありますか？</label>
+                                    <div class="mt-2 space-y-2">
+                                        <label class="flex items-center"><input type="radio" name="projector_installed" value="はい" class="mr-2" required><span>はい</span></label>
+                                        <label class="flex items-center"><input type="radio" name="projector_installed" value="いいえ" class="mr-2"><span>いいえ</span></label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="number_of_units" class="form-label">Q. 導入を検討している台数は？ (任意)</label>
+                                    <select id="number_of_units" name="number_of_units" class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                        <option value="" selected>選択してください</option>
+                                        <option value="1台">1台</option>
+                                        <option value="2〜5台">2〜5台</option>
+                                        <option value="6〜10台">6〜10台</option>
+                                        <option value="11台以上">11台以上</option>
+                                        <option value="未定">未定</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center gap-4 mt-10">
+                                <button type="button" id="back-btn-2" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 transition-colors shadow-lg">戻る</button>
+                                <button type="button" id="next-btn-3" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">確認画面へ</button>
                             </div>
                         </div>
                         
-                        <!-- ステップ3: 確認画面 -->
-                        <div id="form-step-3" class="hidden">
+                        <!-- ステップ4: 確認画面 -->
+                        <div id="form-step-4" class="hidden">
                             <h3 class="text-2xl font-bold main-text-color mb-6 text-center">ご予約内容の確認</h3>
                             <div class="space-y-4 bg-gray-50 p-6 rounded-lg">
                                 <div id="confirmation-details"></div>
@@ -297,7 +347,7 @@
                                 <p>内容をご確認の上、送信ボタンを押してください。<br>後日、弊社よりお送りする「予約確定メール」をもって、ご予約が完了となります。</p>
                             </div>
                             <div class="flex items-center justify-center gap-4 mt-10">
-                                <button type="button" id="back-btn-2" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 transition-colors shadow-lg">修正する</button>
+                                <button type="button" id="back-btn-3" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 transition-colors shadow-lg">修正する</button>
                                 <button type="submit" id="submit-btn" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">この内容で送信する</button>
                             </div>
                         </div>
@@ -426,15 +476,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const step1 = document.getElementById('form-step-1');
     const step2 = document.getElementById('form-step-2');
     const step3 = document.getElementById('form-step-3');
+    const step4 = document.getElementById('form-step-4');
     
     const nextBtn1 = document.getElementById('next-btn-1');
     const nextBtn2 = document.getElementById('next-btn-2');
+    const nextBtn3 = document.getElementById('next-btn-3');
     const backBtn1 = document.getElementById('back-btn-1');
     const backBtn2 = document.getElementById('back-btn-2');
+    const backBtn3 = document.getElementById('back-btn-3');
 
     const step1Indicator = document.getElementById('step-1-indicator');
     const step2Indicator = document.getElementById('step-2-indicator');
     const step3Indicator = document.getElementById('step-3-indicator');
+    const step4Indicator = document.getElementById('step-4-indicator');
 
     const visitorsSelect = document.getElementById('number_of_visitors');
     const dateSelectionContainer = document.getElementById('date-selection-container');
@@ -442,6 +496,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const errorModal = document.getElementById('error-modal');
     const errorMessageText = document.getElementById('error-message-text');
     const closeModalBtn = document.getElementById('close-modal-btn');
+
+    // --- NEW: アンケート関連の要素を取得 ---
+    const experienceRadios = document.querySelectorAll('input[name="experience"]');
+    const productContainer = document.getElementById('experience_product_container');
+    const productInput = document.getElementById('experience_product');
+    // --- END NEW ---
 
     function showErrorModal(message) {
         errorMessageText.textContent = message;
@@ -467,6 +527,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // --- NEW: アンケートの条件分岐 ---
+    experienceRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'はい') {
+                productContainer.classList.remove('hidden');
+            } else {
+                productContainer.classList.add('hidden');
+                productInput.value = ''; // 「いいえ」が選択されたら入力内容をクリア
+            }
+        });
+    });
+    // --- END NEW ---
+
+
     const goToStep = (currentStep, nextStep) => {
         currentStep.classList.add('hidden');
         nextStep.classList.remove('hidden');
@@ -475,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     
     const updateStepIndicator = (activeStepId) => {
-        [step1Indicator, step2Indicator, step3Indicator].forEach(indicator => {
+        [step1Indicator, step2Indicator, step3Indicator, step4Indicator].forEach(indicator => {
             indicator.classList.remove('active', 'inactive');
         });
 
@@ -483,14 +557,22 @@ document.addEventListener('DOMContentLoaded', function () {
             step1Indicator.classList.add('active');
             step2Indicator.classList.add('inactive');
             step3Indicator.classList.add('inactive');
+            step4Indicator.classList.add('inactive');
         } else if (activeStepId === 'form-step-2') {
             step1Indicator.classList.add('inactive');
             step2Indicator.classList.add('active');
             step3Indicator.classList.add('inactive');
+            step4Indicator.classList.add('inactive');
         } else if (activeStepId === 'form-step-3') {
             step1Indicator.classList.add('inactive');
             step2Indicator.classList.add('inactive');
             step3Indicator.classList.add('active');
+            step4Indicator.classList.add('inactive');
+        } else if (activeStepId === 'form-step-4') {
+            step1Indicator.classList.add('inactive');
+            step2Indicator.classList.add('inactive');
+            step3Indicator.classList.add('inactive');
+            step4Indicator.classList.add('active');
         }
     };
 
@@ -537,11 +619,21 @@ document.addEventListener('DOMContentLoaded', function () {
             showErrorModal('必須項目をすべて入力・選択してください。');
             return;
         }
-        populateConfirmation();
         goToStep(step2, step3);
     });
 
     backBtn2.addEventListener('click', () => goToStep(step3, step2));
+
+    nextBtn3.addEventListener('click', () => {
+        if (!validateStep(step3)) {
+            showErrorModal('必須項目をすべて入力・選択してください。');
+            return;
+        }
+        populateConfirmation();
+        goToStep(step3, step4);
+    });
+
+    backBtn3.addEventListener('click', () => goToStep(step4, step3));
 
     // Calendar Logic
     const calendarWrapper = document.getElementById('calendar-wrapper');
@@ -743,6 +835,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p class="font-semibold text-gray-500">電話番号</p><p class="sm:col-span-2">${data.phone}</p>
                 <p class="font-semibold text-gray-500">メールアドレス</p><p class="sm:col-span-2">${data.email}</p>
                 <p class="font-semibold text-gray-500">ご質問・ご要望</p><p class="sm:col-span-2 whitespace-pre-wrap">${data.questions || '未入力'}</p>
+                <hr class="sm:col-span-3 my-2">
+                <p class="font-semibold text-gray-500 sm:col-span-3 text-lg">--- アンケート ---</p>
+                <p class="font-semibold text-gray-500">電子黒板の体験有無</p><p class="sm:col-span-2">${data.experience || '未回答'}</p>
+                ${data.experience === 'はい' ? `<p class="font-semibold text-gray-500">体験した製品名</p><p class="sm:col-span-2">${data.experience_product || '未入力'}</p>` : ''}
+                <p class="font-semibold text-gray-500">現在使用中の黒板</p><p class="sm:col-span-2">${data.classroom_equipment || '未回答'}</p>
+                <p class="font-semibold text-gray-500">プロジェクター有無</p><p class="sm:col-span-2">${data.projector_installed || '未回答'}</p>
+                <p class="font-semibold text-gray-500">導入検討台数</p><p class="sm:col-span-2">${data.number_of_units || '未選択'}</p>
             </div>
         `;
         confirmationDetails.innerHTML = detailsHTML;
@@ -751,12 +850,14 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        if (!validateStep(step1) || !validateStep(step2) || selectedDates.length !== 3) {
+        if (!validateStep(step1) || !validateStep(step2) || !validateStep(step3) || selectedDates.length !== 3) {
             showErrorModal('必須項目に未入力の部分があります。入力内容をご確認ください。');
             if(!validateStep(step1) || selectedDates.length !== 3) {
-                goToStep(step3, step1);
+                goToStep(step4, step1);
             } else if (!validateStep(step2)) {
-                goToStep(step3, step2);
+                goToStep(step4, step2);
+            } else if (!validateStep(step3)) {
+                goToStep(step4, step3);
             }
             return;
         }
