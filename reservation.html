@@ -119,6 +119,45 @@
             border-width: 23px 0 23px 20px;
             border-color: transparent transparent transparent var(--step-active-bg);
         }
+
+        /* Custom Form Styles for Questionnaire */
+        .form-option-label {
+            display: block;
+            padding: 1rem;
+            border: 2px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: #f9fafb; /* gray-50 */
+            text-align: center;
+        }
+
+        .form-option-label:hover {
+            border-color: #9ca3af; /* gray-400 */
+            background-color: #f3f4f6; /* gray-100 */
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked + .form-option-label,
+        input[type="checkbox"]:checked + .form-option-label {
+            border-color: var(--step-active-bg); /* cyan-400 */
+            background-color: var(--step-inactive-bg); /* cyan-100 */
+            color: var(--step-inactive-text); /* cyan-700 */
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        input[type="radio"]:checked + .form-option-label::before,
+        input[type="checkbox"]:checked + .form-option-label::before {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            content: '\f00c'; /* check icon */
+            margin-right: 0.75rem;
+        }
     </style>
 <title>来場予約｜Kokuban BASE</title>
 <meta name="description" content="電子黒板の比較体験は完全予約制。ご希望日時を選んでお申し込みください。">
@@ -273,7 +312,7 @@
                                 </div>
                                 <div><label for="company_name" class="form-label required-mark">事業者名</label><input type="text" id="company_name" name="company_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div><label for="facility_name" class="form-label">施設名 (任意)</label><input type="text" id="facility_name" name="facility_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg"></div>
-                                <div><label for="contact_name" class="form-label required-mark">担当者名</label><input type="text" id="contact_name" name="contact_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
+                                <div><label for="contact_name" class="form-label required-mark">ご担当者名</label><input type="text" id="contact_name" name="contact_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div><label for="phone" class="form-label required-mark">電話番号</label><input type="tel" id="phone" name="phone" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div><label for="email" class="form-label required-mark">メールアドレス</label><input type="email" id="email" name="email" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div>
@@ -289,27 +328,51 @@
 
                         <!-- ステップ3: アンケート -->
                         <div id="form-step-3" class="hidden">
-                             <div class="space-y-6">
+                             <div class="space-y-8">
                                 <div>
                                     <label class="form-label required-mark">Q. 電子黒板の使用歴を教えてください。</label>
-                                    <div class="mt-2 space-y-2">
-                                        <label class="flex items-center"><input type="radio" name="experience" value="一度も触ったことない" class="mr-2" required><span>一度も触ったことない</span></label>
-                                        <label class="flex items-center"><input type="radio" name="experience" value="体験をしたことがある" class="mr-2"><span>体験をしたことがある</span></label>
-                                        <label class="flex items-center"><input type="radio" name="experience" value="日常的に使用している/使用していた" class="mr-2"><span>日常的に使用している/しようしていた</span></label>
+                                    <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                        <div>
+                                            <input type="radio" name="experience" value="一度も触ったことない" id="exp-none" required>
+                                            <label for="exp-none" class="form-option-label">一度も触ったことない</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="experience" value="体験をしたことがある" id="exp-trial">
+                                            <label for="exp-trial" class="form-option-label">体験をしたことがある</label>
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="experience" value="日常的に使用している/使用していた" id="exp-daily">
+                                            <label for="exp-daily" class="form-option-label">日常的に使用している/使用していた</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="experience_product_container" class="hidden">
-                                    <label for="experience_product" class="form-label">Q. 体験した製品名が分かれば教えてください。（任意）</label>
+                                    <label for="experience_product" class="form-label">Q. 使用、または体験した製品名が分かれば教えてください。（任意）</label>
                                     <input type="text" id="experience_product" name="experience_product" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" placeholder="製品名をご記入ください">
                                 </div>
                                 <div>
                                     <label class="form-label required-mark">Q. 現在、電子黒板の導入を検討している教室で使用している黒板は何ですか？（複数回答可）</label>
-                                    <div class="mt-2 space-y-2">
-                                        <label class="flex items-center"><input type="checkbox" name="classroom_equipment" value="ホワイトボード" class="mr-2"><span>ホワイトボード</span></label>
-                                        <label class="flex items-center"><input type="checkbox" name="classroom_equipment" value="黒板（チョーク）" class="mr-2"><span>黒板（チョーク）</span></label>
-                                        <label class="flex items-center"><input type="checkbox" name="classroom_equipment" value="電子黒板" class="mr-2"><span>電子黒板</span></label>
-                                        <label class="flex items-center"><input type="checkbox" name="classroom_equipment" value="プロジェクター" class="mr-2"><span>プロジェクター</span></label>
-                                        <label class="flex items-center"><input type="checkbox" name="classroom_equipment" value="その他" class="mr-2"><span>その他</span></label>
+                                    <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                        <div>
+                                            <input type="checkbox" name="classroom_equipment" value="ホワイトボード" id="equip-whiteboard">
+                                            <label for="equip-whiteboard" class="form-option-label">ホワイトボード</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" name="classroom_equipment" value="黒板（チョーク）" id="equip-blackboard">
+                                            <label for="equip-blackboard" class="form-option-label">黒板（チョーク）</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" name="classroom_equipment" value="電子黒板" id="equip-digital">
+                                            <label for="equip-digital" class="form-option-label">電子黒板</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" name="classroom_equipment" value="プロジェクター" id="equip-projector">
+                                            <label for="equip-projector" class="form-option-label">プロジェクター</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" name="classroom_equipment" value="その他" id="equip-other">
+                                            <label for="equip-other" class="form-option-label">その他</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
@@ -521,10 +584,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // --- NEW: アンケートの条件分岐 ---
+    // --- MODIFIED: アンケートの条件分岐を修正 ---
     experienceRadios.forEach(radio => {
         radio.addEventListener('change', (e) => {
-            if (e.target.value === '体験をしたことがある') {
+            if (e.target.value === '体験をしたことがある' || e.target.value === '日常的に使用している/使用していた') {
                 productContainer.classList.remove('hidden');
             } else {
                 productContainer.classList.add('hidden');
@@ -532,7 +595,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-    // --- END NEW ---
+    // --- END MODIFIED ---
 
 
     const goToStep = (currentStep, nextStep) => {
@@ -605,7 +668,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Custom validation for checkbox group
         if (stepElement.id === 'form-step-3') {
             const equipmentCheckboxes = stepElement.querySelectorAll('input[name="classroom_equipment"]');
-            const label = equipmentCheckboxes[0].closest('div.space-y-2').previousElementSibling;
+            const label = equipmentCheckboxes[0].closest('.grid').previousElementSibling;
             const isAtLeastOneChecked = [...equipmentCheckboxes].some(cb => cb.checked);
             
             if (!isAtLeastOneChecked) {
@@ -871,7 +934,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <hr class="sm:col-span-3 my-2">
                 <p class="font-semibold text-gray-500 sm:col-span-3 text-lg">--- アンケート ---</p>
                 <p class="font-semibold text-gray-500">電子黒板の使用歴</p><p class="sm:col-span-2">${data.experience || '未回答'}</p>
-                ${data.experience === '体験をしたことがある' ? `<p class="font-semibold text-gray-500">体験した製品名</p><p class="sm:col-span-2">${data.experience_product || '未入力'}</p>` : ''}
+                ${(data.experience === '体験をしたことがある' || data.experience === '日常的に使用している/使用していた') ? `<p class="font-semibold text-gray-500">使用・体験した製品名</p><p class="sm:col-span-2">${data.experience_product || '未入力'}</p>` : ''}
                 <p class="font-semibold text-gray-500">現在使用中のもの</p><p class="sm:col-span-2">${equipment}</p>
                 <p class="font-semibold text-gray-500">導入検討台数</p><p class="sm:col-span-2">${data.number_of_units || '未選択'}</p>
             </div>
