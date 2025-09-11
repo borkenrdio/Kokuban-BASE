@@ -273,6 +273,7 @@
                                 </div>
                                 <div><label for="company_name" class="form-label required-mark">事業者名</label><input type="text" id="company_name" name="company_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div><label for="facility_name" class="form-label">施設名 (任意)</label><input type="text" id="facility_name" name="facility_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg"></div>
+                                <div><label for="contact_name" class="form-label required-mark">担当者名</label><input type="text" id="contact_name" name="contact_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div><label for="phone" class="form-label required-mark">電話番号</label><input type="tel" id="phone" name="phone" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div><label for="email" class="form-label required-mark">メールアドレス</label><input type="email" id="email" name="email" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
                                 <div>
@@ -863,6 +864,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <p class="font-semibold text-gray-500">施設種別</p><p class="sm:col-span-2">${data.facility_type}</p>
                 <p class="font-semibold text-gray-500">事業者名</p><p class="sm:col-span-2">${data.company_name}</p>
                 <p class="font-semibold text-gray-500">施設名</p><p class="sm:col-span-2">${data.facility_name || '未入力'}</p>
+                <p class="font-semibold text-gray-500">ご担当者名</p><p class="sm:col-span-2">${data.contact_name}</p>
                 <p class="font-semibold text-gray-500">電話番号</p><p class="sm:col-span-2">${data.phone}</p>
                 <p class="font-semibold text-gray-500">メールアドレス</p><p class="sm:col-span-2">${data.email}</p>
                 <p class="font-semibold text-gray-500">ご質問・ご要望</p><p class="sm:col-span-2 whitespace-pre-wrap">${data.questions || '未入力'}</p>
@@ -961,5 +963,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </body>
 </html>
-
 
