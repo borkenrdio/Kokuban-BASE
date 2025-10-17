@@ -505,6 +505,29 @@ document.addEventListener('DOMContentLoaded', function () {
         "2025-11-01",
     ];
 
+    // --- NEW: 当日と翌日を自動的に満席にする ---
+    const todayForBooking = new Date();
+    const tomorrowForBooking = new Date();
+    tomorrowForBooking.setDate(todayForBooking.getDate() + 1);
+
+    const formatYYYYMMDD = (date) => {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    };
+
+    const todayStr = formatYYYYMMDD(todayForBooking);
+    const tomorrowStr = formatYYYYMMDD(tomorrowForBooking);
+
+    if (!fullyBookedDates.includes(todayStr)) {
+        fullyBookedDates.push(todayStr);
+    }
+    if (!fullyBookedDates.includes(tomorrowStr)) {
+        fullyBookedDates.push(tomorrowStr);
+    }
+    // --- END NEW ---
+
     // --- MODIFIED: 予約開始日と期間を設定 ---
     const hardStartDate = new Date(2025, 9, 1); // 2025年10月1日 (固定の受付開始日)
     hardStartDate.setHours(0, 0, 0, 0);
@@ -687,8 +710,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!validateStep(step1) || selectedDates.length !== 3) {
              showErrorModal('必須項目をすべて入力し、来場希望日時を3つ選択してください。');
              if(selectedDates.length !== 3) {
-                 const dateLabel = document.querySelector('#date-selection-container > label');
-                 if(dateLabel) dateLabel.classList.add('text-red-500');
+                  const dateLabel = document.querySelector('#date-selection-container > label');
+                  if(dateLabel) dateLabel.classList.add('text-red-500');
              }
              return;
         }
@@ -775,7 +798,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             // --- MODIFIED: 予約期間外の日付を無効化 ---
             const isOutsideRange = date < reservationStartDate || date > reservationEndDate;
-            const isFull = fullyBookedDates.includes(dateString);
+            const isFull = fullyBookedDates.includes(dateString) && !isOutsideRange;
             // --- END MODIFIED ---
             
             let dayClasses = 'calendar-day text-center p-2 cursor-pointer';
@@ -1027,12 +1050,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
 
