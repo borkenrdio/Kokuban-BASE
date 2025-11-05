@@ -1569,17 +1569,17 @@
 
         function createNewsCard(article) {
             const formattedDate = new Date(article.publishedAt).toLocaleDateString('ja-JP');
-            /* ▼▼▼ 修正箇所: 画像URLを正方形(400x400)に、placeholderも正方形に変更 ▼▼▼ */
-            const imageUrl = article.eyecatch?.url ? `${article.eyecatch.url}?fit=crop&w=400&h=400` : 'https://placehold.co/400x400/e0e7ff/1e3a8a?text=News';
+            /* ▼▼▼ 修正箇所: 画像URLを 3:2 (600x400)に、placeholderも 3:2 に変更 ▼▼▼ */
+            const imageUrl = article.eyecatch?.url ? `${article.eyecatch.url}?fit=crop&w=600&h=400` : 'https://placehold.co/600x400/e0e7ff/1e3a8a?text=News';
             /* ▲▲▲ 修正完了 ▲▲▲ */
             return `
                 <div class="swiper-slide h-auto">
                     <a href="?articleId=${article.id}" class="news-article-link block bg-white rounded-lg shadow-md overflow-hidden h-full group" data-id="${article.id}">
-                        /* ▼▼▼ 修正箇所: h-48 を削除し aspect-square を追加、width/height属性を 400x400 に変更 ▼▼▼ */
-                        <div class="overflow-hidden aspect-square">
-                            <img src="${imageUrl}" alt="${article.title}" width="400" height="400" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy">
+                        <!-- ▼▼▼ 修正箇所: aspect-square を aspect-[3/2] に変更、width/height属性を 600x400 に変更 ▼▼▼ -->
+                        <div class="overflow-hidden aspect-[3/2]">
+                            <img src="${imageUrl}" alt="${article.title}" width="600" height="400" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy">
                         </div>
-                        /* ▲▲▲ 修正完了 ▲▲▲ */
+                        <!-- ▲▲▲ 修正完了 ▲▲▲ -->
                         <div class="p-4 sm:p-5">
                             <p class="text-sm text-gray-500 mb-2">${formattedDate}</p>
                             <h3 class="font-bold text-base sm:text-lg text-gray-800 group-hover:text-pink-500 transition-colors">${article.title}</h3>
@@ -1643,16 +1643,16 @@
                 if (relatedArticles.length > 0) {
                     relatedTitle.style.display = 'block';
                     relatedArticles.forEach(item => {
-                        /* ▼▼▼ 修正箇所: 関連記事の画像URLも正方形(400x400)に、placeholderも正方形に変更 ▼▼▼ */
-                        const imageUrl = item.eyecatch?.url ? `${item.eyecatch.url}?fit=crop&w=400&h=400` : 'https://placehold.co/400x400/e0e7ff/1e3a8a?text=News';
+                        /* ▼▼▼ 修正箇所: 関連記事の画像URLも 3:2 (600x400)に、placeholderも 3:2 に変更 ▼▼▼ */
+                        const imageUrl = item.eyecatch?.url ? `${item.eyecatch.url}?fit=crop&w=600&h=400` : 'https://placehold.co/600x400/e0e7ff/1e3a8a?text=News';
                         /* ▲▲▲ 修正完了 ▲▲▲ */
                         relatedItemsContainer.innerHTML += `
                             <a href="?articleId=${item.id}" class="news-article-link group" data-id="${item.id}">
-                                /* ▼▼▼ 修正箇所: h-40 を削除し aspect-square を追加、width/height属性を 400x400 に変更 ▼▼▼ */
-                                <div class="overflow-hidden rounded-lg mb-4 aspect-square">
-                                     <img src="${imageUrl}" alt="${item.title}" width="400" height="400" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <!-- ▼▼▼ 修正箇所: aspect-square を aspect-[3/2] に変更、width/height属性を 600x400 に変更 ▼▼▼ -->
+                                <div class="overflow-hidden rounded-lg mb-4 aspect-[3/2]">
+                                     <img src="${imageUrl}" alt="${item.title}" width="600" height="400" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                                 </div>
-                                /* ▲▲▲ 修正完了 ▲▲▲ */
+                                <!-- ▲▲▲ 修正完了 ▲▲▲ -->
                                 <h3 class="font-bold text-gray-800 group-hover:text-pink-500 transition-colors">${item.title}</h3>
                             </a>
                         `;
