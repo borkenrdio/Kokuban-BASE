@@ -1550,9 +1550,17 @@
 
             try {
                 const data = await client.get({ endpoint });
+                
+                // ▼▼▼ 修正箇所: 公開中の記事（publishedAtが現在時刻より過去）のみフィルタリング ▼▼▼
+                const now = new Date();
+                const publishedContents = data.contents.filter(item => {
+                    return item.publishedAt && new Date(item.publishedAt) <= now;
+                });
+                // ▲▲▲ 修正完了 ▲▲▲
+
                 container.innerHTML = ''; 
-                if (data.contents.length > 0) {
-                    data.contents.forEach(item => {
+                if (publishedContents.length > 0) { // data.contents を publishedContents に変更
+                    publishedContents.forEach(item => { // data.contents を publishedContents に変更
                         container.insertAdjacentHTML('beforeend', cardGenerator(item));
                     });
                     if (swiperInitializer) swiperInitializer();
@@ -1598,6 +1606,18 @@
 
             try {
                 const article = await client.get({ endpoint: 'news', contentId: articleId });
+
+                // ▼▼▼ 修正箇所: 下書き・公開予約中の記事（publishedAtが無い or 未来）の場合はエラー表示 ▼▼▼
+                const now = new Date();
+                if (!article.publishedAt || new Date(article.publishedAt) > now) {
+                    detailContentArea.innerHTML = `<div class="error-message">指定された記事は公開されていません。</div>`;
+                    // 関連記事も非表示にする
+                    relatedTitle.style.display = 'none';
+                    relatedItemsContainer.innerHTML = '';
+                    return; // これ以降の処理を中断
+                }
+                // ▲▲▲ 修正完了 ▲▲▲
+
                 const formattedDate = new Date(article.publishedAt).toLocaleDateString('ja-JP');
                 
                 // ▼▼▼ 修正箇所: article.body の先頭にある画像タグを削除 ▼▼▼
@@ -1635,8 +1655,16 @@
                         limit: 4, 
                     }
                 });
+
+                // ▼▼▼ 修正箇所: 公開中の記事のみフィルタリング ▼▼▼
+                const now = new Date();
+                const publishedContents = data.contents.filter(item => {
+                    return item.publishedAt && new Date(item.publishedAt) <= now;
+                });
+                // ▲▲▲ 修正完了 ▲▲▲
+
                 relatedItemsContainer.innerHTML = '';
-                const relatedArticles = data.contents
+                const relatedArticles = publishedContents // data.contents を publishedContents に変更
                     .filter(item => item.id !== currentArticleId) 
                     .slice(0, 3); 
 
