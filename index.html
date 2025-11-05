@@ -238,9 +238,11 @@
             padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;
         }
         .article-body h1, .article-body h2, .article-body h3, .article-body h4 { margin-top: 1.5em; margin-bottom: 0.8em; font-weight: 700; }
-        .article-body h1 { font-size: 2.25rem; line-height: 2.5rem; } /* 記事タイトルに合わせる (sm:text-4xl相当) */
-　　　　.article-body h2 { font-size: 1.875rem; line-height: 2.25rem; } /* xl相当 */
-　　　　　.article-body h3 { font-size: 1.5rem; line-height: 2rem; } /* lg相当 */
+        /* ▼▼▼ 修正箇所: !important を追加してスタイルを強制適用 ▼▼▼ */
+        .article-body h1 { font-size: 2.25rem!important; line-height: 2.5rem!important; }
+        .article-body h2 { font-size: 1.875rem!important; line-height: 2.25rem!important; }
+        .article-body h3 { font-size: 1.5rem!important; line-height: 2rem!important; }
+        /* ▲▲▲ 修正完了 ▲▲▲ */
         .article-body p { margin-bottom: 1.2em; }
         .article-body a { color: #3182ce; text-decoration: underline; }
         .article-body img { max-width: 100%; height: auto; border-radius: 0.5rem; margin: 1rem 0; }
@@ -1717,9 +1719,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
