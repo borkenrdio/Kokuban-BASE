@@ -237,11 +237,17 @@
             background-color: #fff5f5; color: #c53030; border: 1px solid #fc8181;
             padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;
         }
-        .article-body h1, .article-body h2, .article-body h3, .article-body h4 { margin-top: 1.5em; margin-bottom: 0.8em; font-weight: 700; }
+        /* ▼▼▼ 修正箇所: h5, h6 を追加 ▼▼▼ */
+        .article-body h1, .article-body h2, .article-body h3, .article-body h4, .article-body h5, .article-body h6 { margin-top: 1.5em; margin-bottom: 0.8em; font-weight: 700; }
+        /* ▲▲▲ 修正完了 ▲▲▲ */
         /* ▼▼▼ 修正箇所: !important を追加してスタイルを強制適用 ▼▼▼ */
         .article-body h1 { font-size: 2.25rem!important; line-height: 2.5rem!important; }
         .article-body h2 { font-size: 1.875rem!important; line-height: 2.25rem!important; }
         .article-body h3 { font-size: 1.5rem!important; line-height: 2rem!important; }
+        /* ▼▼▼ 修正箇所: h4, h5, h6 のルールを追加 ▼▼▼ */
+        .article-body h4 { font-size: 1.25rem!important; line-height: 1.75rem!important; }
+        .article-body h5 { font-size: 1.125rem!important; line-height: 1.75rem!important; }
+        .article-body h6 { font-size: 1rem!important; line-height: 1.5rem!important; }
         /* ▲▲▲ 修正完了 ▲▲▲ */
         .article-body p { margin-bottom: 1.2em; }
         .article-body a { color: #3182ce; text-decoration: underline; }
