@@ -455,10 +455,12 @@
             <section id="hero" class="relative flex items-center justify-center min-h-[500px] md:min-h-0 md:h-[calc(100vh-80px)] max-h-[1080px] text-white overflow-hidden">
                 <!-- ▼▼▼ SEO対策: LCP対策のためposter画像をWebPに変更 ▼▼▼ -->
                 <!-- Desktop Video -->
+                <!-- ▼▼▼ 修正: videoのsrcパスを "top-desktop.webm" -> "top.webm", "top-desktop.mp4" -> "top.mp4" に変更 ▼▼▼ -->
                 <video loop muted playsinline autoplay preload="metadata" poster="hero-poster.webp" class="hero-video-background hidden md:block w-full h-full object-cover">
-                    <source src="top-desktop.webm" type="video/webm">
-                    <source src="top-desktop.mp4" type="video/mp4">
+                    <source src="top.webm" type="video/webm">
+                    <source src="top.mp4" type="video/mp4">
                 </video>
+                <!-- ▲▲▲ 修正完了 ▲▲▲ -->
                 <!-- Mobile Video -->
                 <video loop muted playsinline autoplay preload="metadata" poster="hero-poster-mobile.webp" class="hero-video-background md:hidden w-full h-full object-cover">
                     <source src="top-mobile.webm" type="video/webm">
