@@ -1,0 +1,79 @@
+# Kokuban BASE microCMS SSG ビルド＆デプロイ ワークフロー
+name: Build and Deploy Static Columns
+
+on:
+  # 1. microCMSからのWebhook (repository_dispatch)
+  repository_dispatch:
+    types: [microcms-webhook] # microCMS側で設定するイベントタイプ
+
+  # 2. 手動実行 (workflow_dispatch)
+  workflow_dispatch:
+
+  # 3. 特定ファイルのpush時 (mainブランチのみ)
+  push:
+    branches:
+      - main # メインブランチ名に合わせてください
+    paths:
+      - 'scripts/fetch_and_build.mjs'
+      - 'columns/template.html'
+      - 'index.html'
+      - '.github/workflows/build-columns.yml'
+      # package.json や package-lock.json の変更時も実行
+      - 'package.json'
+      - 'package-lock.json'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write # gh-pagesへのコミットに必要
+      
+    steps:
+      # ステップ 1: ソースコードのチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ステップ 2: Node.js のセットアップ (v18推奨)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm' # npmのキャッシュを有効化
+
+      # ステップ 3: 依存パッケージのインストール
+      # (package.json がリポジトリに存在する場合)
+      - name: Install dependencies
+        run: npm ci 
+        # (package.json がない場合は、'npm i microcms-js-sdk' を実行)
+        # run: npm i microcms-js-sdk
+
+      # ステップ 4: SSGビルドスクリプトの実行
+      - name: Run build script
+        run: node scripts/fetch_and_build.mjs
+        env:
+          # GitHub Secrets から APIキーとドメインを環境変数として注入
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+
+      # ステップ 5: GitHub Pages へのデプロイ
+      # (peaceiris/actions-gh-pages を使用した例)
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # デプロイ用のブランチ名 (例: gh-pages)
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages 
+          
+          # デプロイ対象のディレクトリ/ファイル
+          # リポジトリ全体をデプロイし、ビルド生成物（columns, sitemap.xml等）を含める
+          publish_dir: ./ 
+          
+          # ビルド生成物以外の特定のファイルをデプロイから除外
+          exclude_assets: '.github,scripts,node_modules,package.json,package-lock.json,*.mjs,*.yml'
+          
+          # CNAMEファイルがある場合はここに指定
+          # cname: kokuban-base.com
+          
+          # コミットメッセージ
+          commit_message: 'Deploy: Build static columns and sitemap'
