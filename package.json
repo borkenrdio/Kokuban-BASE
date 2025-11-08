@@ -1,0 +1,8 @@
+{
+  "name": "kokuban-base-ssg",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "microcms-js-sdk": "^3.0.0"
+  }
+}
