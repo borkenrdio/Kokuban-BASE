@@ -378,9 +378,7 @@
         }
         
     </style>
-    <!-- ▼▼▼ 削除: config.js はビルドスクリプト側で環境変数として扱うため不要 ▼▼▼ -->
-    <!-- <script src="config.js"></script> -->
-    <!-- ▲▲▲ 削除完了 ▲▲▲ -->
+
 </head>
 <body class="bg-stone-50 overflow-hidden">
     <div id="preloader" class="fixed inset-0 z-50 flex justify-center items-center overflow-hidden bg-[#103f99]">
@@ -497,14 +495,19 @@
                         <div class="bg-white/60 backdrop-blur-sm rounded-lg p-2 sm:p-4">
                             <!-- ▼▼▼ SEO対策: 画像のalt属性とCLS対策のwidth/heightを追加 ▼▼▼ -->
                             <!-- ▼▼▼ 修正: ロゴを6つにし、lgブレークポイントでのgapを調整 (sm:gap-x-8 -> sm:gap-x-8 lg:gap-x-6) ▼▼▼ -->
-                            <div class="flex flex-wrap lg:flex-nowrap justify-center items-center gap-y-4 gap-x-4 sm:gap-x-8 lg:gap-x-6">
+                            <!-- ▼▼▼ 修正: gap-x-6 -> gap-x-4 (lg), brand-3 サイズ変更, brand-6 をミライタッチに変更 ▼▼▼ -->
+                            <div class="flex flex-wrap lg:flex-nowrap justify-center items-center gap-y-4 gap-x-4 sm:gap-x-8 lg:gap-x-4">
                                 <img src="brand-1.png" alt="Prometheanのロゴ" width="160" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                                 <img src="brand-2.png" alt="BenQのロゴ" width="100" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
-                                <img src="brand-3.png" alt="StarBoardのロゴ" width="180" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
+                                <!-- ▼▼▼ 修正: h-6 sm:h-10 -> h-5 sm:h-8 ▼▼▼ -->
+                                <img src="brand-3.png" alt="StarBoardのロゴ" width="180" height="40" class="h-5 sm:h-8 w-auto object-contain transition-transform hover:scale-110">
+                                <!-- ▲▲▲ 修正完了 ▲▲▲ -->
                                 <img src="brand-4.png" alt="MAXHUBのロゴ" width="150" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                                 <img src="brand-5.png" alt="SHARPのロゴ" width="120" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                                 <!-- ▼▼▼ 追加: 6つ目のロゴ (alt, src, width, height は適宜修正してください) ▼▼▼ -->
-                                <img src="brand-6.png" alt="アイリスオーヤマのロゴ" width="120" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
+                                <!-- ▼▼▼ 修正: ロゴを「ミライタッチ」に変更, src, alt, width を更新 ▼▼▼ -->
+                                <img src="miraitouch-logo.png" alt="ミライタッチのロゴ" width="150" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
+                                <!-- ▲▲▲ 修正完了 ▲▲▲ -->
                                 <!-- ▲▲▲ 追加完了 ▲▲▲ -->
                             </div>
                             <!-- ▲▲▲ 修正完了 ▲▲▲ -->
@@ -1439,25 +1442,6 @@
                 if (container) container.innerHTML = '';
             }
         }
-        
-        // --- 削除: 記事詳細表示関連のロジック (SSG化により不要) ---
-        // const pageContent = ... (削除)
-        // const detailViewContainer = ... (削除)
-        // const detailContentArea = ... (削除)
-        // const backToListBtn = ... (削除)
-        // const relatedItemsContainer = ... (削除)
-        // const relatedTitle = ... (削除)
-        // function setupMetaTags(...) (削除)
-        // function extractTextFromHtml(...) (削除)
-        // function showDetailView() (削除)
-        // function showListView() (削除)
-        // function displayArticleDetail(articleId) (削除)
-        // function displayRelatedArticles(currentArticleId) (削除)
-        // function handleRouting() (削除)
-        // document.body.addEventListener('click', ...) (削除)
-        // window.addEventListener('popstate', handleRouting) (削除)
-
-
         // --- DOMContentLoaded: 実行処理 ---
         document.addEventListener('DOMContentLoaded', () => {
             // ▼▼▼ 削除: デフォルトOGP情報の保存 (不要) ▼▼▼
