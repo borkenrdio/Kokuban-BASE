@@ -498,7 +498,8 @@
                             <!-- ▼▼▼ 修正: gap-x-6 -> gap-x-4 (lg), brand-3 サイズ変更, brand-6 をミライタッチに変更 ▼▼▼ -->
                             <!-- ▼▼▼ 修正: lg:gap-x-4 -> lg:gap-x-3 (はみ出し対策) ▼▼▼ -->
                             <!-- ▼▼▼ 修正: lg:gap-x-3 -> lg:gap-x-2 (ロゴ間の視覚的な間隔調整), sm:gap-x-8 -> sm:gap-x-6 (タブレットでの間隔調整) ▼▼▼ -->
-                            <div class="flex flex-wrap lg:flex-nowrap justify-center items-center gap-y-4 gap-x-4 sm:gap-x-6 lg:gap-x-2">
+                            <!-- ▼▼▼ 修正: lg:gap-x-2 を削除し、lg:justify-evenly を追加して均等配置 ▼▼▼ -->
+                            <div class="flex flex-wrap lg:flex-nowrap justify-center lg:justify-evenly items-center gap-y-4 gap-x-4 sm:gap-x-6">
                                 <img src="brand-1.png" alt="Prometheanのロゴ" width="160" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                                 <img src="brand-2.png" alt="BenQのロゴ" width="100" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                                 <!-- ▼▼▼ 修正: h-6 sm:h-10 -> h-5 sm:h-8 ▼▼▼ -->
@@ -508,7 +509,7 @@
                                 <img src="brand-5.png" alt="SHARPのロゴ" width="120" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                                 <!-- ▼▼▼ 追加: 6つ目のロゴ (alt, src, width, height は適宜修正してください) ▼▼▼ -->
                                 <!-- ▼▼▼ 修正: ロゴを「ミライタッチ」に変更, src, alt, width を更新 ▼▼▼ -->
-                                <img src="brand-6.png" alt="ミライタッチのロゴ" width="150" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
+                                <img src="miraitouch-logo.png" alt="ミライタッチのロゴ" width="150" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                                 <!-- ▲▲▲ 修正完了 ▲▲▲ -->
                                 <!-- ▲▲▲ 追加完了 ▲▲▲ -->
                             </div>
@@ -1520,4 +1521,3 @@
     <!-- ▲▲▲ 変更完了 ▲▲▲ -->
 </body>
 </html>
-
