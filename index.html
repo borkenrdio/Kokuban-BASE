@@ -1316,6 +1316,16 @@
         let client = null;
         let isApiReady = false;
 
+        // ▼▼▼ 修正箇所: トップページ用のOGP情報を保持する変数を追加 ▼▼▼
+        let defaultMeta = {
+            title: '',
+            description: '',
+            image: '',
+            url: '',
+            canonical: ''
+        };
+        // ▲▲▲ 修正完了 ▲▲▲
+
         if (typeof MICROCMS_API_KEY !== 'undefined' && typeof MICROCMS_SERVICE_DOMAIN !== 'undefined') {
             try {
                 client = createClient({
@@ -1515,6 +1525,86 @@
         const relatedItemsContainer = document.getElementById('related-items-container');
         const relatedTitle = document.getElementById('related-title');
 
+        // ▼▼▼ 修正箇所: OGPメタタグやタイトルを更新する関数を追加 ▼▼▼
+        /**
+         * OGPメタタグやタイトルを動的に更新します。
+         * @param {string} title - ページのタイトル
+         * @param {string} description - ページの説明
+         * @param {string} imageUrl - OGP画像のURL
+         * @param {string} url - ページの正規URL
+         * @param {string} [type='website'] - OGPタイプ (website または article)
+         */
+        function setupMetaTags(title, description, imageUrl, url, type = 'website') {
+            try {
+                // 1. タイトル
+                document.title = title;
+                
+                // 2. メタディスクリプション
+                let metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) {
+                    metaDesc.setAttribute('content', description);
+                }
+
+                // 3. og:title
+                let ogTitle = document.querySelector('meta[property="og:title"]');
+                if (ogTitle) {
+                    ogTitle.setAttribute('content', title);
+                }
+
+                // 4. og:description
+                let ogDesc = document.querySelector('meta[property="og:description"]');
+                if (ogDesc) {
+                    ogDesc.setAttribute('content', description);
+                }
+
+                // 5. og:image
+                let ogImage = document.querySelector('meta[property="og:image"]');
+                if (ogImage) {
+                    ogImage.setAttribute('content', imageUrl);
+                }
+
+                // 6. og:url
+                let ogUrl = document.querySelector('meta[property="og:url"]');
+                if (ogUrl) {
+                    ogUrl.setAttribute('content', url);
+                }
+                
+                // 7. Canonical URL
+                let canonicalUrl = document.querySelector('link[rel="canonical"]');
+                if (canonicalUrl) {
+                    canonicalUrl.setAttribute('href', url);
+                }
+
+                // 8. og:type
+                let ogType = document.querySelector('meta[property="og:type"]');
+                if (ogType) {
+                    ogType.setAttribute('content', type);
+                }
+            } catch (e) {
+                console.error("OGPメタタグの設定に失敗しました:", e);
+            }
+        }
+
+        /**
+         * 本文(HTML)からテキストを抽出し、指定文字数で切り詰めます。
+         * @param {string} html - HTML文字列
+         * @param {number} [maxLength=120] - 最大文字数
+         * @returns {string} 抽出・切り詰め後のテキスト
+         */
+        function extractTextFromHtml(html, maxLength = 120) {
+            if (!html) return '';
+            // 1. HTMLタグを除去 (簡易的な方法)
+            let text = html.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
+            // 2. 改行や余分な空白を正規化
+            text = text.replace(/(\r\n|\n|\r|\s\s+)/gm, ' ').trim();
+            // 3. 指定文字数で切り詰める
+            if (text.length > maxLength) {
+                return text.substring(0, maxLength) + '...';
+            }
+            return text;
+        }
+        // ▲▲▲ 修正完了 ▲▲▲
+
         function showDetailView() {
             pageContent.classList.add('hidden');
             detailViewContainer.classList.remove('hidden');
@@ -1526,6 +1616,24 @@
             pageContent.classList.remove('hidden');
             detailContentArea.innerHTML = '<p class="text-gray-500">読み込んでいます...</p>';
             relatedItemsContainer.innerHTML = '';
+            
+            // ▼▼▼ 修正箇所: OGPメタタグをデフォルト（トップページ）に戻す ▼▼▼
+            // (defaultMeta.titleが空（初期化前）の場合は、更新しないようにする)
+            if (defaultMeta.title) {
+                setupMetaTags(
+                    defaultMeta.title,
+                    defaultMeta.description,
+                    defaultMeta.image,
+                    defaultMeta.url, // もしくは defaultMeta.canonical
+                    'website' // type を 'website' に戻す
+                );
+                // Canonical も念のため戻す
+                let canonicalUrl = document.querySelector('link[rel="canonical"]');
+                if (canonicalUrl && defaultMeta.canonical) {
+                    canonicalUrl.setAttribute('href', defaultMeta.canonical);
+                }
+            }
+            // ▲▲▲ 修正完了 ▲▲▲
         }
 
         if (backToListBtn) {
@@ -1618,6 +1726,24 @@
                 }
                 // ▲▲▲ 修正完了 ▲▲▲
 
+                // ▼▼▼ 修正箇所: OGPメタタグを動的に設定 ▼▼▼
+                const articleUrl = window.location.href; // 現在のページのURL
+                const articleTitle = article.title + "｜Kokuban BASE";
+                // 記事本文からHTMLタグを除去し、120文字でディスクリプションを作成
+                const articleDescription = extractTextFromHtml(article.body, 120); 
+                // アイキャッチ画像 (SNSシェア用に 600x400 を指定)
+                const shareImageUrl = article.eyecatch?.url ? `${article.eyecatch.url}?fit=crop&w=600&h=400` : 'https://kokuban-base.com/ogp.jpg'; // デフォルトOGP画像
+                
+                setupMetaTags(
+                    articleTitle,
+                    articleDescription,
+                    shareImageUrl,
+                    articleUrl,
+                    'article' // 記事ページなので type を 'article' に
+                );
+                // ▲▲▲ 修正完了 ▲▲▲
+
+
                 const formattedDate = new Date(article.publishedAt).toLocaleDateString('ja-JP');
                 
                 // ▼▼▼ 修正箇所: article.body の先頭にある画像タグを削除 ▼▼▼
@@ -1630,6 +1756,16 @@
                 }
                 // ▲▲▲ 修正完了 ▲▲▲
                 
+                // ▼▼▼ 修正箇所: SNS共有ボタン用の情報を準備 (OGP設定と変数を合わせる) ▼▼▼
+                // const articleUrl = window.location.href; // (上で定義済)
+                const articleTitleEncoded = encodeURIComponent(articleTitle); // (上で定義した articleTitle を使用)
+                const articleUrlEncoded = encodeURIComponent(articleUrl); // (上で定義済)
+                
+                const twitterShareUrl = `https://twitter.com/intent/tweet?url=${articleUrlEncoded}&text=${articleTitleEncoded}`;
+                const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${articleUrlEncoded}`;
+                const lineShareUrl = `https://social-plugins.line.me/lineit/share?url=${articleUrlEncoded}&text=${articleTitleEncoded}`;
+                // ▲▲▲ 修正完了 ▲▲▲
+
                 detailContentArea.innerHTML = `
                     <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">${article.title}</h1>
                     <p class="text-gray-500 mb-6">${formattedDate}</p>
@@ -1638,6 +1774,29 @@
                     <div class="article-body text-lg leading-relaxed text-gray-800">
                         ${articleBody}
                     </div>
+
+                    <!-- ▼▼▼ 修正箇所: SNS共有ボタンを追加 ▼▼▼ -->
+                    <div class="mt-10 pt-8 border-t border-gray-200">
+                        <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">この記事を共有する</h3>
+                        <div class="flex justify-center items-center gap-4">
+                            <!-- X (Twitter) -->
+                            <a href="${twitterShareUrl}" target="_blank" rel="noopener noreferrer" aria-label="Xで共有する"
+                               class="w-14 h-14 flex items-center justify-center rounded-full bg-gray-900 text-white hover:bg-gray-700 transition-colors duration-300 transform hover:scale-110 shadow-lg">
+                                <i class="fab fa-twitter text-2xl"></i>
+                            </a>
+                            <!-- Facebook -->
+                            <a href="${facebookShareUrl}" target="_blank" rel="noopener noreferrer" aria-label="Facebookで共有する"
+                               class="w-14 h-14 flex items-center justify-center rounded-full bg-blue-800 text-white hover:bg-blue-900 transition-colors duration-300 transform hover:scale-110 shadow-lg">
+                                <i class="fab fa-facebook-f text-2xl"></i>
+                            </a>
+                            <!-- LINE -->
+                            <a href="${lineShareUrl}" target="_blank" rel="noopener noreferrer" aria-label="LINEで共有する"
+                               class="w-14 h-14 flex items-center justify-center rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors duration-300 transform hover:scale-110 shadow-lg">
+                                <i class="fab fa-line text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- ▲▲▲ 修正完了 ▲▲▲ -->
                 `;
                 displayRelatedArticles(articleId);
             } catch (err) {
@@ -1717,6 +1876,18 @@
         window.addEventListener('popstate', handleRouting);
 
         document.addEventListener('DOMContentLoaded', () => {
+            // ▼▼▼ 修正箇所: 初期読み込み時にデフォルトのOGP情報を保存 ▼▼▼
+            try {
+                defaultMeta.title = document.title;
+                defaultMeta.description = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+                defaultMeta.image = document.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
+                defaultMeta.url = document.querySelector('meta[property="og:url"]')?.getAttribute('content') || '';
+                defaultMeta.canonical = document.querySelector('link[rel="canonical"]')?.getAttribute('href') || '';
+            } catch (e) {
+                console.error("デフォルトのメタ情報の保存に失敗しました:", e);
+            }
+            // ▲▲▲ 修正完了 ▲▲▲
+
             const preloader = document.getElementById('preloader');
             if(preloader) {
                 window.addEventListener('load', () => {
