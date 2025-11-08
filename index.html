@@ -412,7 +412,9 @@
                     <source src="top-mobile.mp4" type="video/mp4">
                 </video>
                 <div class="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
-                <div class="relative z-10 text-center text-white p-4 sm:p-8 md:p-12 max-w-5xl w-full pb-28 md:pb-12">
+                <!-- ▼▼▼ 変更: ヒーローセクションの余白を調整 (pb-28 md:pb-12 -> pb-16) ▼▼▼ -->
+                <div class="relative z-10 text-center text-white p-4 sm:p-8 md:p-12 max-w-5xl w-full pb-16">
+                <!-- ▲▲▲ 変更完了 ▲▲▲ -->
                     <h2 class="text-3xl sm:text-4xl md:text-4xl lg:text-6xl font-bold">複数ブランドを<br class="sm:hidden">徹底比較</h2>
                     <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-4 mb-4">
                         <span class="bg-purple-500/80 backdrop-blur-sm text-white text-sm sm:text-base font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-full transition-all duration-300 hover:scale-110 hover:bg-purple-500/100 shadow-lg">#書き心地</span>
@@ -431,11 +433,11 @@
                         </a>
                     </div>
                 </div>
+                <!-- ▼▼▼ 削除: ロゴセクションをここから削除 ▼▼▼ -->
+                <!--
                 <div class="absolute bottom-6 left-0 right-0 z-10 px-4">
                     <div class="container mx-auto max-w-7xl">
-                            <!-- ▼▼▼ 変更: ロゴ背景ボックスの左右パディングを調整 (p-4 -> px-6 py-4) ▼▼▼ -->
                             <div class="flex flex-wrap lg:flex-nowrap justify-center items-center gap-y-4 gap-x-4 sm:gap-x-6 lg:gap-x-8 bg-white/90 backdrop-blur-sm rounded-xl px-6 py-4 shadow-lg">
-                            <!-- ▲▲▲ 変更完了 ▲▲▲ -->
                                 <img src="brand-1.png" alt="Prometheanのロゴ" width="240" height="60" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                                 <img src="brand-2.png" alt="BenQのロゴ" width="200" height="80" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110">
                                 <img src="brand-3.png" alt="StarBoardのロゴ" width="180" height="40" class="h-5 sm:h-8 w-auto object-contain transition-transform hover:scale-110">
@@ -446,6 +448,8 @@
                         </div>
                     </div>
                 </div>
+                -->
+                <!-- ▲▲▲ 削除完了 ▲▲▲ -->
             </section>
             <section id="announcement" class="bg-[#103f99] text-white py-4 shadow-lg">
                 <div class="container mx-auto px-6 text-center">
@@ -455,6 +459,20 @@
                 </div>
             </section>
             <main>
+                <!-- ▼▼▼ 追加: ロゴセクションをここに追加 ▼▼▼ -->
+                <section id="brands" class="bg-white py-8 sm:py-12 shadow-md">
+                    <div class="container mx-auto px-6">
+                        <div class="flex flex-wrap lg:flex-nowrap justify-center items-center gap-y-6 gap-x-6 sm:gap-x-8 lg:gap-x-10">
+                            <img src="brand-1.png" alt="Prometheanのロゴ" width="240" height="60" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
+                            <img src="brand-2.png" alt="BenQのロゴ" width="200" height="80" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
+                            <img src="brand-3.png" alt="StarBoardのロゴ" width="180" height="40" class="h-5 sm:h-8 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
+                            <img src="brand-4.png" alt="MAXHUBのロゴ" width="100" height="30" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
+                            <img src="brand-5.png" alt="SHARPのロゴ" width="90" height="30" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
+                            <img src="brand-6.png" alt="ミライタッチのロゴ" width="150" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
+                        </div>
+                    </div>
+                </section>
+                <!-- ▲▲▲ 追加完了 ▲▲▲ -->
                  <section id="problem" class="py-16 sm:py-24 bg-gray-50">
                     <div class="container mx-auto px-4 pb-8 sm:pb-12 overflow-hidden">
                         <header class="text-center my-8">
