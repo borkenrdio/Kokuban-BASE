@@ -1060,7 +1060,7 @@
                                 <h2 class="text-2xl sm:text-3xl font-bold text-[#103f99] mb-6">アクセス</h2>
                                 <div class="space-y-4 text-gray-700">
                                     <div>
-                                        <h3 class="font-semibold text-lg">株式会社idea spot</h3>
+                                        <h3 class="font-semibold text-lg">Kokuban BASE</h3>
                                         <p>〒602-0822<br>京都市上京区河原町通今出川上る青龍町252</p>
                                     </div>
                                     <div>
@@ -1179,18 +1179,40 @@
 
             const isDesktop = window.matchMedia('(min-width: 768px)').matches;
             const activeVideo = isDesktop ? desktopVideo : mobileVideo;
+            const inactiveVideo = isDesktop ? mobileVideo : desktopVideo; // 非アクティブな方も取得
 
-            const startPlayback = () => {
-                activeVideo.play().catch(error => {
-                    console.error("Video playback failed, possibly due to browser policy:", error);
-                });
-                activeVideo.classList.add('is-playing');
+            const startPlayback = (videoElement) => {
+                if (!videoElement) return;
+
+                // 'playing' イベントは、再生が実際に開始されたときに発火します
+                videoElement.addEventListener('playing', () => {
+                    videoElement.classList.add('is-playing');
+                }, { once: true });
+                
+                // play() メソッドは Promise を返します
+                const playPromise = videoElement.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        // 自動再生がブラウザのポリシーでブロックされた場合の処理
+                        console.error("Video playback failed, possibly due to browser policy:", error);
+                        // ここで「クリックして再生」ボタンを表示するなどのフォールバックも可能です
+                    });
+                }
             };
 
-            if (activeVideo.readyState >= 3) { // HAVE_FUTURE_DATA
-                startPlayback();
+            // 非アクティブな動画の再生を停止し、クラスを削除
+            if (inactiveVideo) {
+                inactiveVideo.pause();
+                inactiveVideo.classList.remove('is-playing');
+            }
+
+            // アクティブな動画の再生を試みる
+            if (activeVideo.readyState >= 3) { // HAVE_FUTURE_DATA (再生に十分なデータがある)
+                startPlayback(activeVideo);
             } else {
-                activeVideo.addEventListener('canplay', startPlayback, { once: true });
+                // 'canplay' イベントを待ってから再生を試みる
+                activeVideo.addEventListener('canplay', () => startPlayback(activeVideo), { once: true });
             }
         }
 
