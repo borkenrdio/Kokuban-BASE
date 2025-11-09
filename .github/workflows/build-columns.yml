@@ -25,7 +25,6 @@ on:
   workflow_dispatch:
 
 # --- 並列実行の防止 ---
-# 実行中のワークフローをキャンセルし、最新のコミットのみ実行する
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -35,11 +34,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
-    # 実行権限の設定 (Pagesへのデプロイに必要)
+    # 実行権限の設定
     permissions:
-      contents: write # リポジトリへの書き込み (gh-pagesブランチへのコミット)
-      pages: write    # Pagesへのデプロイ
-      id-token: write # OIDC
+      contents: write
+      pages: write
+      id-token: write
       
     steps:
       # ステップ 1: リポジトリのコードをチェックアウト
@@ -50,17 +49,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Node.js 20.x を使用
-          cache: 'npm' # npmのキャッシュを有効化
+          node-version: '20'
+          # ★★★ 修正点 ★★★
+          # package-lock.json が存在しないため、キャッシュ機能を無効化
+          # cache: 'npm' # <- この行を削除
 
       # ステップ 3: 依存関係をインストール
-      # ★★★ 修正点 ★★★
-      # package-lock.json がなくても動作する 'npm install' を使用
       - name: Install dependencies
         run: npm install
 
       # ステップ 4: ビルドスクリプトを実行 (SSG)
-      # 環境変数 (GitHub Secrets) を使ってAPIキーをスクリプトに渡す
       - name: Run build script
         run: node scripts/fetch_and_build.mjs
         env:
@@ -68,41 +66,14 @@ jobs:
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
       # ステップ 5: GitHub Pages へデプロイ
-      # peaceiris/actions-gh-pages アクションを使用して、
-      # 'columns', 'sitemap.xml', 'robots.txt' などの生成物を
-      # 'gh-pages' ブランチにプッシュする
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: . # ルートディレクトリを公開対象とする
-          # 公開ブランチ (GitHub Pagesの設定に合わせる)
+          publish_dir: .
           publish_branch: gh-pages
-          # デプロイ対象に含めるファイル/ディレクトリ
-          # .gitignore されていても強制的に追加する
-          force_orphan: true # 毎回クリーンなブランチを作成
-          # commit メッセージ
+          force_orphan: true
           commit_message: "Deploy: Build static pages (auto-generated)"
-          # CNAMEファイルが存在する場合は自動で含める
-          # cname: kokuban-base.com
-          
-          # ★★★ 重要 ★★★
-          # ビルド成果物のみを 'gh-pages' ブランチにデプロイするため、
-          # ソースコード（.github, scripts, package.json等）を除外する設定
-          #
-          # publish_dir を 'gh-pages-artifact' のような別ディレクトリに出力し、
-          # そこだけをデプロイする方がクリーンですが、
-          # 現在のスクリプトはルートに sitemap.xml を生成するため、
-          # 一旦 'publish_dir: .' のまま、
-          # 必要なファイルのみを 'keep_files' または 'exclude_assets' で制御します。
-          
-          # ここでは 'gh-pages' ブランチに含めたい主要なファイル/ディレクトリを指定
-          # これ以外は 'gh-pages' ブランチから削除される
-          # 実際には peaceiris/actions-gh-pages は publish_dir 全体を
-          # ブランチのルートにするため、この設定は不要なことが多い
-          
-          # 'gh-pages' ブランチに含めたくないものを除外する
-          # (このアクションはデフォルトで .gitignore を参照しないため)
           exclude_assets: |
             .github/
             scripts/
