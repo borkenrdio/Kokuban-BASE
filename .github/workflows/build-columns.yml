@@ -1,79 +1,112 @@
-# Kokuban BASE microCMS SSG ビルド＆デプロイ ワークフロー
-name: Build and Deploy Static Columns
+# .github/workflows/build-columns.yml
+# microCMSのWebhookやPushをトリガーに、SSG（静的サイト生成）を実行し、
+# GitHub Pages (gh-pagesブランチ) にデプロイするワークフロー
 
+name: Build and Deploy SSG Columns
+
+# --- トリガーの設定 ---
 on:
   # 1. microCMSからのWebhook (repository_dispatch)
   repository_dispatch:
     types: [microcms-webhook] # microCMS側で設定するイベントタイプ
 
-  # 2. 手動実行 (workflow_dispatch)
-  workflow_dispatch:
-
-  # 3. 特定ファイルのpush時 (mainブランチのみ)
+  # 2. mainブランチへのPush時 (ビルドスクリプトや雛形が変更された場合)
   push:
     branches:
-      - main # メインブランチ名に合わせてください
+      - main
     paths:
       - 'scripts/fetch_and_build.mjs'
       - 'columns/template.html'
       - 'index.html'
-      - '.github/workflows/build-columns.yml'
-      # package.json や package-lock.json の変更時も実行
       - 'package.json'
-      - 'package-lock.json'
+      - '.github/workflows/build-columns.yml'
+  
+  # 3. 手動実行 (Workflow dispatch)
+  workflow_dispatch:
 
+# --- 並列実行の防止 ---
+# 実行中のワークフローをキャンセルし、最新のコミットのみ実行する
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# --- ジョブの定義 ---
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
+    # 実行権限の設定 (Pagesへのデプロイに必要)
     permissions:
-      contents: write # gh-pagesへのコミットに必要
+      contents: write # リポジトリへの書き込み (gh-pagesブランチへのコミット)
+      pages: write    # Pagesへのデプロイ
+      id-token: write # OIDC
       
     steps:
-      # ステップ 1: ソースコードのチェックアウト
+      # ステップ 1: リポジトリのコードをチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ステップ 2: Node.js のセットアップ (v18推奨)
-      - name: Setup Node.js
+      # ステップ 2: Node.js の環境をセットアップ
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20' # Node.js 20.x を使用
           cache: 'npm' # npmのキャッシュを有効化
 
-      # ステップ 3: 依存パッケージのインストール
-      # (package.json がリポジトリに存在する場合)
+      # ステップ 3: 依存関係をインストール
+      # ★★★ 修正点 ★★★
+      # package-lock.json がなくても動作する 'npm install' を使用
       - name: Install dependencies
-        run: npm ci 
-        # (package.json がない場合は、'npm i microcms-js-sdk' を実行)
-        # run: npm i microcms-js-sdk
+        run: npm install
 
-      # ステップ 4: SSGビルドスクリプトの実行
+      # ステップ 4: ビルドスクリプトを実行 (SSG)
+      # 環境変数 (GitHub Secrets) を使ってAPIキーをスクリプトに渡す
       - name: Run build script
         run: node scripts/fetch_and_build.mjs
         env:
-          # GitHub Secrets から APIキーとドメインを環境変数として注入
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
-      # ステップ 5: GitHub Pages へのデプロイ
-      # (peaceiris/actions-gh-pages を使用した例)
+      # ステップ 5: GitHub Pages へデプロイ
+      # peaceiris/actions-gh-pages アクションを使用して、
+      # 'columns', 'sitemap.xml', 'robots.txt' などの生成物を
+      # 'gh-pages' ブランチにプッシュする
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          # デプロイ用のブランチ名 (例: gh-pages)
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages 
-          
-          # デプロイ対象のディレクトリ/ファイル
-          # リポジトリ全体をデプロイし、ビルド生成物（columns, sitemap.xml等）を含める
-          publish_dir: ./ 
-          
-          # ビルド生成物以外の特定のファイルをデプロイから除外
-          exclude_assets: '.github,scripts,node_modules,package.json,package-lock.json,*.mjs,*.yml'
-          
-          # CNAMEファイルがある場合はここに指定
+          publish_dir: . # ルートディレクトリを公開対象とする
+          # 公開ブランチ (GitHub Pagesの設定に合わせる)
+          publish_branch: gh-pages
+          # デプロイ対象に含めるファイル/ディレクトリ
+          # .gitignore されていても強制的に追加する
+          force_orphan: true # 毎回クリーンなブランチを作成
+          # commit メッセージ
+          commit_message: "Deploy: Build static pages (auto-generated)"
+          # CNAMEファイルが存在する場合は自動で含める
           # cname: kokuban-base.com
           
-          # コミットメッセージ
-          commit_message: 'Deploy: Build static columns and sitemap'
+          # ★★★ 重要 ★★★
+          # ビルド成果物のみを 'gh-pages' ブランチにデプロイするため、
+          # ソースコード（.github, scripts, package.json等）を除外する設定
+          #
+          # publish_dir を 'gh-pages-artifact' のような別ディレクトリに出力し、
+          # そこだけをデプロイする方がクリーンですが、
+          # 現在のスクリプトはルートに sitemap.xml を生成するため、
+          # 一旦 'publish_dir: .' のまま、
+          # 必要なファイルのみを 'keep_files' または 'exclude_assets' で制御します。
+          
+          # ここでは 'gh-pages' ブランチに含めたい主要なファイル/ディレクトリを指定
+          # これ以外は 'gh-pages' ブランチから削除される
+          # 実際には peaceiris/actions-gh-pages は publish_dir 全体を
+          # ブランチのルートにするため、この設定は不要なことが多い
+          
+          # 'gh-pages' ブランチに含めたくないものを除外する
+          # (このアクションはデフォルトで .gitignore を参照しないため)
+          exclude_assets: |
+            .github/
+            scripts/
+            node_modules/
+            package.json
+            package-lock.json
+            .gitignore
