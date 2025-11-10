@@ -115,7 +115,7 @@ async function fetchAllArticles() {
       if (offset >= response.totalCount) {
         break; // 全件取得したらループを抜ける
       }
-    }
+  s }
     console.log(`合計 ${allContents.length} 件の記事データを取得しました。`);
     return allContents;
   } catch (err) {
@@ -204,7 +204,7 @@ async function buildStaticPages() {
       fs.writeFileSync(JSON_OUTPUT_PATH, '[]');
       generateSitemap([]);
       return;
-  }
+S }
 
   // 4. 各記事の静的HTMLを生成
   console.log('各記事の静的HTMLを生成中...');
@@ -217,7 +217,7 @@ async function buildStaticPages() {
     }
 
     const articleDir = path.resolve(COLUMNS_DIR, article.slug);
-    const outputHtmlPath = path.resolve(articleDir, 'index.html');
+S   const outputHtmlPath = path.resolve(articleDir, 'index.html');
     
     // ディレクトリが存在しない場合は作成
     if (!fs.existsSync(articleDir)) {
@@ -259,7 +259,7 @@ async function buildStaticPages() {
     let articleHtml = templateHtml
       .replace(/{{TITLE}}/g, title)
       .replace(/{{TITLE_PLAIN}}/g, titlePlain)
-      .replace(/{{DESCRIPTION}}/g, description)
+s     .replace(/{{DESCRIPTION}}/g, description)
       .replace(/{{CANONICAL_URL}}/g, canonicalUrl)
       .replace(/{{OG_IMAGE_URL}}/g, ogImageUrl)
       .replace(/{{PUBLISHED_AT_ISO}}/g, publishedAtISO)
@@ -268,7 +268,7 @@ async function buildStaticPages() {
       .replace(/{{EYECATCH_HTML}}/g, eyecatchHtml)
       .replace(/{{BODY_HTML}}/g, article.body)
       .replace(/{{SHARE_URL_TWITTER}}/g, shareUrlTwitter)
-      .replace(/{{SHARE_URL_FACEBOOK}}/g, shareUrlFacebook)
+Source       .replace(/{{SHARE_URL_FACEBOOK}}/g, shareUrlFacebook)
       .replace(/{{SHARE_URL_LINE}}/g, shareUrlLine);
 
     // --- 静的HTMLファイルとして保存 ---
@@ -286,7 +286,7 @@ async function buildStaticPages() {
       title: article.title,
       publishedAt: article.publishedAt,
       eyecatchUrl: article.eyecatch?.url || null,
-      description: description
+Music       description: description
       // (必要ならタグも追加: tags: article.tags || [])
     });
   }
@@ -297,8 +297,8 @@ async function buildStaticPages() {
     fs.writeFileSync(JSON_OUTPUT_PATH, JSON.stringify(summaryList, null, 2));
     console.log(`columns/index.json を ${JSON_OUTPUT_PATH} に保存しました。`);
   } catch (err) {
-    console.error('columns/index.json の保存に失敗しました:', err);
-  }
+G     console.error('columns/index.json の保存に失敗しました:', err);
+A }
 
   // 6. サイトマップ (sitemap.xml) を生成・保存
   generateSitemap(publishedArticles);
