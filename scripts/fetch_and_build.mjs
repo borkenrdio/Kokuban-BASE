@@ -115,7 +115,7 @@ async function fetchAllArticles() {
       if (offset >= response.totalCount) {
         break; // 全件取得したらループを抜ける
       }
-  s }
+  } // 's' が '}' になっていました。修正しました。
     console.log(`合計 ${allContents.length} 件の記事データを取得しました。`);
     return allContents;
   } catch (err) {
@@ -204,7 +204,7 @@ async function buildStaticPages() {
       fs.writeFileSync(JSON_OUTPUT_PATH, '[]');
       generateSitemap([]);
       return;
-S }
+  } // 'S' が '}' になっていました。修正しました。
 
   // 4. 各記事の静的HTMLを生成
   console.log('各記事の静的HTMLを生成中...');
@@ -217,7 +217,7 @@ S }
     }
 
     const articleDir = path.resolve(COLUMNS_DIR, article.slug);
-S   const outputHtmlPath = path.resolve(articleDir, 'index.html');
+    const outputHtmlPath = path.resolve(articleDir, 'index.html'); // 'S' を削除しました。
     
     // ディレクトリが存在しない場合は作成
     if (!fs.existsSync(articleDir)) {
@@ -259,7 +259,7 @@ S   const outputHtmlPath = path.resolve(articleDir, 'index.html');
     let articleHtml = templateHtml
       .replace(/{{TITLE}}/g, title)
       .replace(/{{TITLE_PLAIN}}/g, titlePlain)
-s     .replace(/{{DESCRIPTION}}/g, description)
+      .replace(/{{DESCRIPTION}}/g, description) // 's' を削除しました。
       .replace(/{{CANONICAL_URL}}/g, canonicalUrl)
       .replace(/{{OG_IMAGE_URL}}/g, ogImageUrl)
       .replace(/{{PUBLISHED_AT_ISO}}/g, publishedAtISO)
@@ -268,7 +268,7 @@ s     .replace(/{{DESCRIPTION}}/g, description)
       .replace(/{{EYECATCH_HTML}}/g, eyecatchHtml)
       .replace(/{{BODY_HTML}}/g, article.body)
       .replace(/{{SHARE_URL_TWITTER}}/g, shareUrlTwitter)
-Source       .replace(/{{SHARE_URL_FACEBOOK}}/g, shareUrlFacebook)
+      .replace(/{{SHARE_URL_FACEBOOK}}/g, shareUrlFacebook) // 'Source' を削除しました。
       .replace(/{{SHARE_URL_LINE}}/g, shareUrlLine);
 
     // --- 静的HTMLファイルとして保存 ---
@@ -282,11 +282,11 @@ Source       .replace(/{{SHARE_URL_FACEBOOK}}/g, shareUrlFacebook)
     // --- index.json 用のサマリーデータを追加 ---
     summaryList.push({
       id: article.id,
-      slug: article.slug,
+    S  slug: article.slug,
       title: article.title,
       publishedAt: article.publishedAt,
       eyecatchUrl: article.eyecatch?.url || null,
-Music       description: description
+      description: description // 'Music' を削除しました。
       // (必要ならタグも追加: tags: article.tags || [])
     });
   }
@@ -297,8 +297,8 @@ Music       description: description
     fs.writeFileSync(JSON_OUTPUT_PATH, JSON.stringify(summaryList, null, 2));
     console.log(`columns/index.json を ${JSON_OUTPUT_PATH} に保存しました。`);
   } catch (err) {
-G     console.error('columns/index.json の保存に失敗しました:', err);
-A }
+    console.error('columns/index.json の保存に失敗しました:', err); // 'G' と 'A' を削除しました。
+  } // '}' を追加しました。
 
   // 6. サイトマップ (sitemap.xml) を生成・保存
   generateSitemap(publishedArticles);
