@@ -99,8 +99,8 @@ async function fetchAllArticles() {
           offset: offset,
           orders: '-publishedAt', // 公開日が新しい順
           // ★★★ 修正点 ★★★
-          // 1. status=published (公開済み) のみを取得
-          // 2. publishedAt が (現在時刻) 以前のもののみを取得 (予約投稿を除外)
+          // 1. microCMS側でステータスが 'published' のもののみを取得
+          // 2. 'publishedAt' が (現在時刻) 以前のもののみを取得 (予約投稿を除外)
           filters: `publishedAt[less_than]${now}`
         }
       });
@@ -127,7 +127,7 @@ async function fetchAllArticles() {
 /**
  * サイトマップ (sitemap.xml) を生成
  * @param {Array<object>} articles - 記事データの配列
-*/
+ */
 function generateSitemap(articles) {
   console.log('sitemap.xml を生成中...');
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
