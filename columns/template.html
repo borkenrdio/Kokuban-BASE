@@ -128,30 +128,103 @@
             padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;
         }
         
-        /* 記事本文用スタイル */
-        .article-body h1, .article-body h2, .article-body h3, .article-body h4, .article-body h5, .article-body h6 { margin-top: 1.5em; margin-bottom: 0.8em; font-weight: 700; }
-        .article-body h1 { font-size: 2.25rem!important; line-height: 2.5rem!important; }
-        .article-body h2 { font-size: 1.875rem!important; line-height: 2.25rem!important; }
-        .article-body h3 { font-size: 1.5rem!important; line-height: 2rem!important; }
-        .article-body h4 { font-size: 1.25rem!important; line-height: 1.75rem!important; }
-        .article-body h5 { font-size: 1.125rem!important; line-height: 1.75rem!important; }
-        .article-body h6 { font-size: 1rem!important; line-height: 1.5rem!important; }
+        /* ▼▼▼ 【UX改善】記事本文スタイル（ここから） ▼▼▼ */
+
+        /* 1. 本文の最大幅を制限し、中央揃えに (読みやすさ向上) */
+        .article-body {
+            max-width: 800px; /* 1行の長さを最適化 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .article-body h1, .article-body h2, .article-body h3, .article-body h4, .article-body h5, .article-body h6 { 
+            margin-bottom: 0.8em; 
+            font-weight: 700; 
+        }
+        
+        /* 2. 見出しの余白と装飾を調整 (メリハリ強化) */
+        .article-body h1 { font-size: 2.25rem!important; line-height: 2.5rem!important; margin-top: 1.5em; }
+        .article-body h2 { 
+            font-size: 1.875rem!important; 
+            line-height: 2.25rem!important; 
+            margin-top: 3em; /* トピックの区切りを明確に */
+            padding-bottom: 0.25em;
+            border-bottom: 2px solid #e5e7eb; /* 軽い下線 */
+        }
+        .article-body h3 { 
+            font-size: 1.5rem!important; 
+            line-height: 2rem!important; 
+            margin-top: 2.5em;
+        }
+        .article-body h4 { font-size: 1.25rem!important; line-height: 1.75rem!important; margin-top: 2em;}
+        .article-body h5 { font-size: 1.125rem!important; line-height: 1.75rem!important; margin-top: 2em;}
+        .article-body h6 { font-size: 1rem!important; line-height: 1.5rem!important; margin-top: 2em;}
+        
         .article-body p { margin-bottom: 1.2em; }
         .article-body a { color: #3182ce; text-decoration: underline; }
-        .article-body img { max-width: 100%; height: auto; border-radius: 0.5rem; margin: 1rem 0; }
+
+        /* 3. 記事中の画像とキャプションを中央揃え */
+        .article-body img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 0.5rem; 
+            margin: 1.5rem auto; /* 上下の余白を確保し、左右中央揃え */
+            display: block;
+        }
+        .article-body figure {
+            margin: 1.5rem auto;
+            display: table; /* 中央揃えのため */
+            max-width: 100%;
+        }
+        .article-body figure img {
+            margin: 0 auto; /* figure内の画像は余白リセット */
+        }
+        .article-body figure figcaption {
+            font-size: 0.875rem; /* 14px */
+            color: #6b7280; /* text-gray-500 */
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
         .article-body ul, .article-body ol { margin-left: 1.5em; margin-bottom: 1em; }
         .article-body li { margin-bottom: 0.5em; }
 
-        /* ★★★ 【修正点】アイキャッチ画像のサイズを調整 (さらに小さく) ★★★ */
-        #detail-content-area > img:first-child {
-            width: 60%; /* ご要望に基づきサイズを小さく (80% -> 60%) */
-            max-width: 680px; /* PCでの最大幅を指定 (800px -> 680px) */
-            margin-left: auto; /* 左右中央揃え */
-            margin-right: auto;
-            object-fit: contain; /* アスペクト比を維持 */
-            height: auto; /* 高さは自動 */
+        /* 4. 対談の話し手スタイル */
+        .article-body p > strong:first-child {
+            color: rgb(16, 63, 153); /* ブランドカラー */
+            margin-right: 0.25em;
+            display: inline-block; /* 余白を有効にする */
         }
-        /* ★★★ 修正完了 ★★★ */
+        /* CMS側で <h5><strong>...</strong></h5> になっているキャプションの話し手色をリセット */
+        .article-body h5 > strong {
+            color: inherit;
+        }
+
+
+        /* 5. 引用（blockquote）のスタイル */
+        .article-body blockquote {
+            margin: 1.5em 0;
+            padding: 1em 1.5em;
+            background-color: #f9fafb; /* bg-gray-50 */
+            border-left: 4px solid #d1d5db; /* border-gray-300 */
+            color: #4b5563; /* text-gray-600 */
+        }
+        .article-body blockquote p {
+            margin-bottom: 0.5em;
+        }
+
+        /* ▲▲▲ 【UX改善】記事本文スタイル（ここまで） ▲▲▲ */
+
+
+        /* アイキャッチ画像のサイズ調整 */
+        #detail-content-area > img:first-child {
+            width: 60%; 
+            max-width: 680px; 
+            margin-left: auto; 
+            margin-right: auto;
+            object-fit: contain; 
+            height: auto; 
+        }
 
         .bg-custom-blue { background-color: rgb(16, 63, 153); }
         .footer-link { color: #e5e7eb; transition: color 0.2s ease-in-out; }
@@ -215,11 +288,10 @@
             .product-next:after, .product-prev:after {
                 font-size: 18px;
             }
-            /* ★★★ スマホ表示では画像幅を90%にする ★★★ */
+            /* スマホ表示ではアイキャッチ画像幅を90%にする */
             #detail-content-area > img:first-child {
-                width: 90%; /* (95% -> 90%) */
+                width: 90%; 
             }
-            /* ★★★ 修正完了 ★★★ */
         }
         .swiper-button-disabled {
             opacity: 0.35;
