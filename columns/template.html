@@ -245,11 +245,12 @@
         /* ★★★ 【UX改善】タイトルと公開日も本文と揃える ★★★ */
         #detail-content-area > h1,
         #detail-content-area > p:first-of-type { /* 公開日のpタグを選択 */
-            max-width: 800px; /* 本文(.article-body)と同じ幅 */
+            max-width: 680px; /* ★★★ 800px から 680px (画像と同じ幅) に変更 ★★★ */
             margin-left: auto; /* 中央揃え */
             margin-right: auto;
             padding-left: 1rem; /* スマホ表示用の左右余白 */
             padding-right: 1rem;
+            text-align: center; /* ★★★ タイトルと公開日を中央揃えに変更 ★★★ */
         }
 
         /* 記事コンテナ自体の余白と競合しないよう調整 */
@@ -266,6 +267,9 @@
         }
         #detail-content-area > p:first-of-type {
              margin-bottom: 2.5rem; /* 24px -> 40px */
+             /* ★★★ 公開日を小さく、色を薄くする ★★★ */
+             font-size: 0.875rem; /* text-sm */
+             color: #6b7280; /* text-gray-500 */
         }
         /* ★★★ 修正完了 ★★★ */
 
