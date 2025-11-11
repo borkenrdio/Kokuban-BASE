@@ -339,7 +339,7 @@
             border-width: 0;
         }
 
-        /* ▼▼▼ アクセスセクションのレイアウトを強制修正 ▼▼▼ */
+        /* ▼▼▼ 追加: アクセスセクションのレイアウトを強制修正 ▼▼▼ */
         
         /* Tailwindの sm:flex-row などが
            正しく適用されない問題への対策
@@ -853,15 +853,50 @@
                                     <a href="https://idea-spot.net/" target="_blank" rel="noopener noreferrer" class="inline-block bg-pink-500 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
                                         教室HPはこちら！ <i class="fas fa-arrow-right ml-2"></i>
                                     </a>
-                                </div>
-                            </div>
-                            <div class="rounded-lg overflow-hidden shadow-lg">
-                                <img src="ideaspot-classroom.jpg" alt="イデアスポット京都校の教室風景" width="600" height="400" class="w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/103f99/FFFFFF?text=Classroom';">
                             </div>
                         </div>
                     </div>
                 </section>
-        
+
+                <!-- ▼▼▼ 復元: お役立ちコラム セクション (JSON読み込みスライダー) ▼▼▼ -->
+                <!-- (ナビゲーションの "コラム" (href="#news") に対応) -->
+                <section id="news" class="py-16 sm:py-24 bg-white overflow-hidden">
+                    <div class="container mx-auto px-6 lg:px-8">
+                        <div class="text-center animate-on-scroll">
+                            <h2 class="text-2xl sm:text-4xl font-black text-[#103f99]">お役立ちコラム</h2>
+                            <p class="mt-4 text-sm sm:text-base text-gray-600">電子黒板の選び方や活用術をご紹介します。</p>
+                        </div>
+                        
+                        <div class="mt-16 relative">
+                            <!-- エラー表示用コンテナ -->
+                            <div id="error-container-news" class="mb-4"></div>
+                            
+                            <!-- Swiperコンテナ (JS: initNewsSwiper が参照) -->
+                            <div class="swiper-container news-swiper">
+                                <!-- 描画ターゲット (JS: fetchAndDisplayNews が参照) -->
+                                <div id="articles-container" class="swiper-wrapper pb-12" data-content-type="news">
+                                    <!-- ローディング表示 (JS側で削除される想定) -->
+                                    <p id="loading-list-news" class="text-gray-500 swiper-slide">記事を読み込んでいます...</p>
+                                    <noscript>
+                                        <p class="text-gray-600">
+                                            コラムの一覧をご覧いただくには、JavaScriptを有効にしていただくか、
+                                            <a href="/columns/" class="text-pink-500 underline">コラム一覧ページ</a>
+                                            をご覧ください。（この機能はビルド設定後に有効になります）
+                                        </p>
+                                    </noscript>
+                                </div>
+                                <!-- ページネーション -->
+                                <div class="swiper-pagination news-pagination"></div>
+                            </div>
+                            <!-- ナビゲーションボタン -->
+                            <div class="swiper-button-prev news-prev" aria-label="前の記事へ"></div>
+                            <div class="swiper-button-next news-next" aria-label="次の記事へ"></div>
+                        </div>
+                    </div>
+                </section>
+                <!-- ▲▲▲ 復元完了 ▲▲▲ -->
+
+                <!-- ▼▼▼ 修正: 壊れた section id="about-us" を 正しい id="staff-introduction" に置き換え ▼▼▼ -->
                 <section id="staff-introduction" class="py-16 sm:py-24 bg-white overflow-hidden">
                     <div class="container mx-auto px-6 lg:px-8 max-w-7xl">
                         <div class="text-center mb-12 animate-on-scroll">
@@ -870,6 +905,7 @@
                         </div>
                         <div class="swiper-container staff-swiper">
                             <div class="swiper-wrapper pb-12">
+                                <!-- スタッフA -->
                                 <div class="swiper-slide h-auto">
                                     <div class="animate-on-scroll bg-white p-8 rounded-lg shadow-lg flex flex-col items-center text-center h-full transition-shadow duration-300 hover:shadow-xl">
                                         <img src="staff-a.jpg" alt="スタッフ 竹山 隼矢のプロフィール写真" width="128" height="128" class="w-32 h-32 rounded-full object-cover mb-4 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/128x128/ec4899/FFFFFF?text=Staff+A';">
@@ -882,6 +918,7 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <!-- スタッフB -->
                                 <div class="swiper-slide h-auto">
                                     <div class="animate-on-scroll bg-white p-8 rounded-lg shadow-lg flex flex-col items-center text-center h-full transition-shadow duration-300 hover:shadow-xl" style="transition-delay: 0.1s;">
                                         <img src="staff-b.jpg" alt="スタッフ 遠藤 幸治のプロフィール写真" width="128" height="128" class="w-32 h-32 rounded-full object-cover mb-4 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/128x128/103f99/FFFFFF?text=Staff+B';">
@@ -894,10 +931,11 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <!-- スタッフC -->
                                 <div class="swiper-slide h-auto">
                                     <div class="animate-on-scroll bg-white p-8 rounded-lg shadow-lg flex flex-col items-center text-center h-full transition-shadow duration-300 hover:shadow-xl" style="transition-delay: 0.2s;">
                                         <img src="staff-c.jpg" alt="スタッフ 山田 将生のプロフィール写真" width="128" height="128" class="w-32 h-32 rounded-full object-cover mb-4 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/128x128/103f99/FFFFFF?text=Staff+C';">
-                                <h3 class="text-xl font-bold text-gray-900">山田 将生</h3>
+                                        <h3 class="text-xl font-bold text-gray-900">山田 将生</h3>
                                         <p class="text-pink-500 font-semibold mt-1">Kokuban BASE運営担当</p>
                                         <ul class="mt-4 space-y-2 text-gray-600 list-disc list-inside text-left flex-grow text-sm md:text-base">
                                             <li>現役で社会科のトップ講師として活躍する一方、情報システムの専門家でもある。</li>
@@ -911,60 +949,12 @@
                         </div>
                     </div>
                 </section>
+                <!-- ▲▲▲ 修正完了 ▲▲▲ -->
                 
-                <!-- ▼▼▼ 順序変更: ここから #access セクションを先に移動 ▼▼▼ -->
-                <section id="access" class="py-16 sm:py-24 bg-white">
-                    <div class="container mx-auto px-6 lg:px-8">
-                        
-                        <!-- ▼▼▼ 変更: TailwindクラスをカスタムCSSクラスに変更 ▼▼▼ -->
-                        <!-- 変更前: <div class="flex flex-col md:flex-row gap-8 items-start"> -->
-                        <div class="access-container">
-
-                            <!-- ▼▼▼ 変更: TailwindクラスをカスタムCSSクラスに変更 ▼▼▼ -->
-                            <!-- 変更前: <div class="w-full md:w-2/5"> -->
-                            <div class="access-text">
-                                <h2 class="text-2xl sm:text-3xl font-bold text-[#103f99] mb-6">アクセス</h2>
-                                <div class="space-y-4 text-gray-700">
-                                    <div>
-                                        <h3 class="font-semibold text-lg">Kokuban BASE</h3>
-                                        <p>〒602-0822<br>京都市上京区河原町通今出川上る青龍町252</p>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold text-lg">最寄り駅</h3>
-                                        <p>京阪・叡電「出町柳」駅 3番出口 徒歩1分</p>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-semibold text-lg">開館時間</h3>
-                                        <p>10:00 - 18:00 (平日)<br>※ご予約制</p>
-                                    </div>
-                                    <a href="reservation.html" class="mt-8 inline-block bg-pink-500 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
-                                    来場予約はこちら <i class="fas fa-arrow-right ml-2"></i>
-                                </a>
-                                </div>
-                            </div> <!-- ▲ access-text 終了 -->
-
-                            <!-- ▼▼▼ 変更: TailwindクラスをカスタムCSSクラスに変更 ▼▼▼ -->
-                            <!-- 変更前: <div class="w-full md:w-3/5"> -->
-                            <div class="access-map">
-                                <div class="aspect-video rounded-lg overflow-hidden shadow-xl border-4 border-white">
-                                    <a href="https://www.google.com/maps/search/?api=1&query=Kokuban+BASE%2C%E3%80%92602-0822+%E4%BA%AC%E9%83%BD%E5%BA%9C%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8A%E4%BA%AC%E5%C%BA%E9%9D%92%E9%BE%8D%E7%94%BA252" target="_blank" rel="noopener noreferrer" class="block w-full h-full group" title="Googleマップで「Kokuban BASE」の場所を開く（新しいタブ）">
-                                        <img src="kokubanbase-map.png" 
-                                             alt="Kokuban BASEの地図（京阪・叡電「出町柳」駅 3番出口 徒歩1分）" 
-                                             width="960" 
-                                             height="540" 
-                                             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
-                                             loading="lazy" 
-                                             onerror="this.onerror=null;this.src='https://placehold.co/960x540/e0e7ff/1e3a8a?text=Kokuban+BASE+Map%0A(Click+to+Open)';this.alt='Kokuban BASEの地図（クリックでGoogleマップを開く）';">
-                                    </a>
-                                </div>
-                            </div> <!-- ▲ access-map 終了 -->
-
-                        </div> <!-- ▲ access-container 終了 -->
-                    </div>
-                </section>
-                <!-- ▲▲▲ 順序変更: #access セクションここまで ▲▲▲ -->
-
-                <!-- ▼▼▼ 順序変更: ここから #faq セクション ▼▼▼ -->
+                <!-- ▼▼▼ 削除: アクセスセクションをここから削除し、FAQの後に移動 ▼▼▼ -->
+                <!-- <section id="access" ... </section> -->
+                <!-- ▲▲▲ 削除完了 ▲▲▲ -->
+                
                 <section id="faq" class="py-16 sm:py-24 bg-gray-50">
                     <div class="container mx-auto px-6 lg:px-8 max-w-4xl">
                         <div class="text-center mb-12 animate-on-scroll">
@@ -1051,13 +1041,56 @@
                         </div>
                     </div>
                 </section>
-                <!-- ▲▲▲ 順序変更: #faq セクションここまで ▲▲▲ -->
 
-                <!-- ▼▼▼ 削除: 1018行目の不要な </main> タグを削除 ▼▼▼ -->
-                <!-- ▼▼▼ 削除: 1019行目からの重複した #access セクションを削除 ▼▼▼ -->
-                <!-- ▼▼▼ 削除: 1063行目からの重複した #faq セクションを削除 ▼▼▼ -->
-                <!-- ▼▼▼ 削除: 1142-1143行目の不要なコメントを削除 ▼▼▼ -->
-                
+                <!-- ▼▼▼ 移動: アクセスセクションをFAQの後（ナビ順通り）に配置 ▼▼▼ -->
+                <section id="access" class="py-16 sm:py-24 bg-white">
+                    <div class="container mx-auto px-6 lg:px-8">
+                        
+                        <div class="access-container">
+
+                            <div class="access-text">
+                                <h2 class="text-2xl sm:text-3xl font-bold text-[#103f99] mb-6">アクセス</h2>
+                                <div class="space-y-4 text-gray-700">
+                                    <div>
+                                        <h3 class="font-semibold text-lg">Kokuban BASE</h3>
+                                        <p>〒602-0822<br>京都市上京区河原町通今出川上る青龍町252</p>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-lg">最寄り駅</h3>
+                                        <p>京阪・叡電「出町柳」駅 3番出口 徒歩1分</p>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-lg">開館時間</h3>
+                                        <p>10:00 - 18:00 (平日)<br>※ご予約制</p>
+                                    </div>
+                                    <a href="reservation.html" class="mt-8 inline-block bg-pink-500 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
+                                    来場予約はこちら <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                                </div>
+                            </div> 
+
+                            <div class="access-map">
+                                <div class="aspect-video rounded-lg overflow-hidden shadow-xl border-4 border-white">
+                                    <a href="https://www.google.com/maps/search/?api=1&query=Kokuban+BASE%2C%E3%80%92602-0822+%E4%BA%AC%E9%83%BD%E5%BA%9C%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8A%E4%BA%AC%E5%C%BA%E9%9D%92%E9%BE%8D%E7%94%BA252" target="_blank" rel="noopener noreferrer" class="block w-full h-full group" title="Googleマップで「Kokuban BASE」の場所を開く（新しいタブ）">
+                                        <img src="kokubanbase-map.png" 
+                                             alt="Kokuban BASEの地図（京阪・叡電「出町柳」駅 3番出口 徒歩1分）" 
+                                             width="960" 
+                                             height="540" 
+                                             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                                             loading="lazy" 
+                                             onerror="this.onerror=null;this.src='https://placehold.co/960x540/e0e7ff/1e3a8a?text=Kokuban+BASE+Map%0A(Click+to+Open)';this.alt='Kokuban BASEの地図（クリックでGoogleマップを開く）';">
+                                    </a>
+                                </div>
+                            </div> 
+
+                        </div> 
+                    </div>
+                </section>
+                <!-- ▲▲▲ 移動完了 ▲▲▲ -->
+
+                <!-- ▼▼▼ 削除: 元の位置にあったアクセスセクションを削除 ▼▼▼ -->
+                <!-- <section id="access" ... </section> -->
+                <!-- ▲▲▲ 削除完了 ▲M ▼▼ -->
             </main>
             <section id="contact-cta" class="bg-gray-50 py-16 sm:py-24">
                 <div class="container mx-auto px-6 text-center">
