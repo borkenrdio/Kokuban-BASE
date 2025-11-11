@@ -190,11 +190,27 @@
         .article-body li { margin-bottom: 0.5em; }
 
         /* 4. 対談の話し手スタイル */
-        .article-body p > strong:first-child {
-            color: rgb(16, 63, 153); /* ブランドカラー */
+        /* ★★★ 修正: 汎用的なルールを削除し、クラスベースのルールに変更 ★★★ */
+        .speaker-a > strong:first-child,
+        .speaker-a > br:first-child + strong {
+            color: rgb(16, 63, 153); /* ブランドカラー (例: 竹山) */
             margin-right: 0.25em;
-            display: inline-block; /* 余白を有効にする */
+            display: inline-block;
         }
+        .speaker-b > strong:first-child,
+        .speaker-b > br:first-child + strong {
+            color: #c026d3; /* Fuchsia 600 (例: 近藤) */
+            margin-right: 0.25em;
+            display: inline-block;
+        }
+        .speaker-c > strong:first-child,
+        .speaker-c > br:first-child + strong {
+            color: #059669; /* Emerald 600 (例: 高見) */
+            margin-right: 0.25em;
+            display: inline-block;
+        }
+        /* ★★★ 修正完了 ★★★ */
+        
         /* CMS側で <h5><strong>...</strong></h5> になっているキャプションの話し手色をリセット */
         .article-body h5 > strong {
             color: inherit;
@@ -225,6 +241,34 @@
             object-fit: contain; 
             height: auto; 
         }
+
+        /* ★★★ 【UX改善】タイトルと公開日も本文と揃える ★★★ */
+        #detail-content-area > h1,
+        #detail-content-area > p:first-of-type { /* 公開日のpタグを選択 */
+            max-width: 800px; /* 本文(.article-body)と同じ幅 */
+            margin-left: auto; /* 中央揃え */
+            margin-right: auto;
+            padding-left: 1rem; /* スマホ表示用の左右余白 */
+            padding-right: 1rem;
+        }
+
+        /* 記事コンテナ自体の余白と競合しないよう調整 */
+        @media (min-width: 640px) {
+            #detail-content-area > h1,
+            #detail-content-area > p:first-of-type {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        #detail-content-area > h1 {
+            margin-bottom: 0.5rem; /* 16px -> 8px */
+        }
+        #detail-content-area > p:first-of-type {
+             margin-bottom: 2.5rem; /* 24px -> 40px */
+        }
+        /* ★★★ 修正完了 ★★★ */
+
 
         .bg-custom-blue { background-color: rgb(16, 63, 153); }
         .footer-link { color: #e5e7eb; transition: color 0.2s ease-in-out; }
@@ -570,6 +614,48 @@
                     // e.preventDefault() はここでは不要
                 });
             });
+
+            // ★★★ 【UX改善】対談の話し手を色分けするスクリプト ★★★
+            function colorCodeSpeakers() {
+                // 話し手の名前（検索用）と、対応するCSSクラス
+                const speakers = [
+                    { name: '竹山', class: 'speaker-a' }, // ブランドカラー (青)
+                    { name: '近藤', class: 'speaker-b' }, // Fuchsia 600 (紫)
+                    { name: '高見', class: 'speaker-c' }  // Emerald 600 (緑)
+                    // ... ここに他の対談者を追加できます ...
+                ];
+
+                const paragraphs = document.querySelectorAll('.article-body p');
+
+                paragraphs.forEach(p => {
+                    // pタグの最初の子要素がstrong、またはbr+strongかを確認
+                    let strongEl = null;
+                    if (p.children.length > 0) {
+                        if (p.children[0].tagName === 'STRONG') {
+                            strongEl = p.children[0];
+                        } else if (p.children.length > 1 && 
+                                   p.children[0].tagName === 'BR' && 
+                                   p.children[1].tagName === 'STRONG') {
+                            strongEl = p.children[1];
+                        }
+                    }
+
+                    if (strongEl) {
+                        const speakerText = strongEl.textContent || strongEl.innerText;
+                        
+                        // speakersリストを走査して一致する名前を探す
+                        for (const speaker of speakers) {
+                            if (speakerText.includes(speaker.name)) {
+                                p.classList.add(speaker.class);
+                                break; // 一致したらループを抜ける
+                            }
+                        }
+                    }
+                });
+            }
+            
+            colorCodeSpeakers(); // スクリプトを実行
+            // ★★★ スクリプト追加完了 ★★★
         });
     </script>
 </body>
