@@ -174,6 +174,24 @@
             margin-bottom: 0.5rem; /* 16px -> 8px */
             line-height: 1.4; /* 行間を少し詰める */
         }
+
+        /* ★★★ 【新規】サブタイトル用のスタイル ★★★ */
+        #detail-content-area > h1 .subtitle {
+            font-size: 1.5rem; /* メイン(2.25rem)より小さく */
+            font-weight: 600; /* font-semibold (太字より少し細く) */
+            color: #374151; /* text-gray-700 (メインより少し薄く) */
+            line-height: 1.5;
+            display: inline-block; /* 改行後のマージン調整のため */
+            margin-top: 0.5rem;
+        }
+        /* スマホ用サブタイトル */
+        @media (max-width: 640px) {
+            #detail-content-area > h1 .subtitle {
+                font-size: 1.25rem; /* text-xl */
+            }
+        }
+        /* ★★★ ここまで ★★★ */
+        
         #detail-content-area > p:first-of-type {
              margin-bottom: 2.5rem; /* 24px -> 40px */
              /* 公開日を小さく、色を薄くする */
