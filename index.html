@@ -338,6 +338,43 @@
             white-space: nowrap;
             border-width: 0;
         }
+
+        /* ▼▼▼ アクセスセクションのレイアウトを強制修正 ▼▼▼ */
+        
+        /* Tailwindの sm:flex-row などが
+           正しく適用されない問題への対策
+        */
+        .access-container {
+            /* モバイル (デフォルト): 縦並び */
+            display: flex;
+            flex-direction: column;
+            gap: 2rem; /* Tailwind "gap-8" 相当 */
+            align-items: flex-start; /* Tailwind "items-start" 相当 */
+        }
+        .access-text,
+        .access-map {
+            /* モバイル (デフォルト): 100%幅 */
+            width: 100%; /* Tailwind "w-full" 相当 */
+        }
+
+        /* PC/タブレット (640px以上) 
+           Tailwind "sm:" ブレークポイント相当
+        */
+        @media (min-width: 640px) {
+            .access-container {
+                /* 横並びに切り替え */
+                flex-direction: row; /* Tailwind "sm:flex-row" 相当 */
+            }
+            .access-text {
+                /* テキストを左側 40% 幅に */
+                width: 40%; /* Tailwind "sm:w-2/5" 相当 */
+            }
+            .access-map {
+                /* 地図を右側 60% 幅に */
+                width: 60%; /* Tailwind "sm:w-3/5" 相当 */
+            }
+        }
+        /* ▲▲▲ 修正完了 ▲▲▲ */
     </style>
 </head>
 <body class="bg-stone-50 overflow-hidden">
@@ -878,12 +915,14 @@
                 <!-- ▼▼▼ 順序変更: ここから #access セクションを先に移動 ▼▼▼ -->
                 <section id="access" class="py-16 sm:py-24 bg-white">
                     <div class="container mx-auto px-6 lg:px-8">
-                        <!-- ▼▼▼ 変更: (方法②採用) スマホ:縦 (flex-col) / md以上:横 (md:flex-row) ▼▼▼ -->
-                        <!-- ▼▼▼ 変更: md:(768px) から sm:(640px) で横並びになるよう変更 ▼▼▼ -->
-                        <div class="flex flex-col sm:flex-row gap-8 items-start">
-                            <!-- ▼▼▼ 変更: (方法②採用) スマホ:100% (w-full) / md以上:40% (md:w-2/5) ▼▼▼ -->
-                            <!-- ▼▼▼ 変更: md:w-2/5 から sm:w-2/5 に変更 ▼▼▼ -->
-                            <div class="w-full sm:w-2/5">
+                        
+                        <!-- ▼▼▼ 変更: TailwindクラスをカスタムCSSクラスに変更 ▼▼▼ -->
+                        <!-- 変更前: <div class="flex flex-col md:flex-row gap-8 items-start"> -->
+                        <div class="access-container">
+
+                            <!-- ▼▼▼ 変更: TailwindクラスをカスタムCSSクラスに変更 ▼▼▼ -->
+                            <!-- 変更前: <div class="w-full md:w-2/5"> -->
+                            <div class="access-text">
                                 <h2 class="text-2xl sm:text-3xl font-bold text-[#103f99] mb-6">アクセス</h2>
                                 <div class="space-y-4 text-gray-700">
                                     <div>
@@ -901,14 +940,14 @@
                                     <a href="reservation.html" class="mt-8 inline-block bg-pink-500 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
                                     来場予約はこちら <i class="fas fa-arrow-right ml-2"></i>
                                 </a>
-                            </div>
-                            <!-- ▼▼▼ 変更: (方法②採用) スマホ:100% (w-full) / md以上:60% (md:w-3/5) ▼▼▼ -->
-                            <!-- ▼▼▼ 変更: md:w-3/5 から sm:w-3/5 に変更 ▼▼▼ -->
-                            <div class="w-full sm:w-3/5">
-                                <!-- ▼▼▼ 変更: 画像のファイル名をスペースのないものに変更 ▼▼▼ -->
+                                </div>
+                            </div> <!-- ▲ access-text 終了 -->
+
+                            <!-- ▼▼▼ 変更: TailwindクラスをカスタムCSSクラスに変更 ▼▼▼ -->
+                            <!-- 変更前: <div class="w-full md:w-3/5"> -->
+                            <div class="access-map">
                                 <div class="aspect-video rounded-lg overflow-hidden shadow-xl border-4 border-white">
                                     <a href="https://www.google.com/maps/search/?api=1&query=Kokuban+BASE%2C%E3%80%92602-0822+%E4%BA%AC%E9%83%BD%E5%BA%9C%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8A%E4%BA%AC%E5%C%BA%E9%9D%92%E9%BE%8D%E7%94%BA252" target="_blank" rel="noopener noreferrer" class="block w-full h-full group" title="Googleマップで「Kokuban BASE」の場所を開く（新しいタブ）">
-                                        <!-- img src を 'kokuban-base-map.png' から 'kokubanbase-map.png' に変更 -->
                                         <img src="kokubanbase-map.png" 
                                              alt="Kokuban BASEの地図（京阪・叡電「出町柳」駅 3番出口 徒歩1分）" 
                                              width="960" 
@@ -918,9 +957,9 @@
                                              onerror="this.onerror=null;this.src='https://placehold.co/960x540/e0e7ff/1e3a8a?text=Kokuban+BASE+Map%0A(Click+to+Open)';this.alt='Kokuban BASEの地図（クリックでGoogleマップを開く）';">
                                     </a>
                                 </div>
-                                <!-- ▲▲▲ 変更完了 ▲▲▲ -->
-                            </div>
-                        </div>
+                            </div> <!-- ▲ access-map 終了 -->
+
+                        </div> <!-- ▲ access-container 終了 -->
                     </div>
                 </section>
                 <!-- ▲▲▲ 順序変更: #access セクションここまで ▲▲▲ -->
