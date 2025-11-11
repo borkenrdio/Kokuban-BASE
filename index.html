@@ -854,8 +854,16 @@
                                         教室HPはこちら！ <i class="fas fa-arrow-right ml-2"></i>
                                     </a>
                             </div>
+                            <!-- ▲▲▲ 変更: ここにあった </div> を削除 (正しくは下記のグリッドコンテナの終了タグ) -->
+                        </div> <!-- ここがテキスト側の終了 -->
+
+                        <!-- ▼▼▼ 復元: 教室画像のブロックを復元 ▼▼▼ -->
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="ideaspot-classroom.jpg" alt="イデアスポット京都校の教室風景" width="600" height="400" class="w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/103f99/FFFFFF?text=Classroom';">
                         </div>
-                    </div>
+                        <!-- ▲▲▲ 復元完了 ▲▲▲ -->
+
+                    </div> <!-- ここがグリッドコンテナ (md:grid-cols-2) の終了 -->
                 </section>
 
                 <!-- ▼▼▼ 復元: お役立ちコラム セクション (JSON読み込みスライダー) ▼▼▼ -->
