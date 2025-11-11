@@ -32,6 +32,7 @@ const client = createClient({
  */
 function extractDescription(html, maxLength = 120) {
   if (!html) return '';
+  // すべてのタグを除去
   let text = html.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
   text = text.replace(/(\r\n|\n|\r|\s\s+)/gm, ' ').trim();
   if (text.length > maxLength) {
@@ -41,13 +42,15 @@ function extractDescription(html, maxLength = 120) {
 }
 
 /**
- * 特殊文字をHTMLエンティティに変換 (JSON-LD用)
+ * 特殊文字をHTMLエンティティに変換 (JSON-LDやmeta description用)
  * @param {string} str - 変換する文字列
  * @returns {string} 変換後の文字列
  */
 function escapeHtml(str) {
     if (!str) return '';
-    return str.replace(/[&<>"']/g, function(match) {
+    // <br>も含め、すべてのHTMLタグを除去する（プレーンテキスト化）
+    let text = str.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
+    return text.replace(/[&<>"']/g, function(match) {
         return {
             '&': '&amp;',
             '<': '&lt;',
@@ -57,6 +60,36 @@ function escapeHtml(str) {
         }[match];
     });
 }
+
+/**
+ * ★★★【新規】★★★
+ * タイトル用のHTMLエスケープ。<br>タグのみを許可する
+ * @param {string} str - 変換する文字列
+ * @returns {string} <br>が有効なHTML文字列
+ */
+function allowBrTags(str) {
+    if (!str) return '';
+    // 1. まず<br>タグを一時的なプレースホルダーに置き換える
+    let tempStr = str.replace(/<br\s*\/?>/gi, '___BR___');
+    
+    // 2. 残りのHTMLタグをすべて除去
+    tempStr = tempStr.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
+
+    // 3. HTMLエンティティのエスケープ（<, >, & など）
+    tempStr = tempStr.replace(/[&<>"']/g, function(match) {
+      return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+      }[match];
+    });
+
+    // 4. プレースホルダーを<br>タグに戻す
+    return tempStr.replace(/___BR___/g, '<br>');
+}
+
 
 /**
  * アイキャッチ画像のHTMLを生成
@@ -72,7 +105,7 @@ function createEyecatchHtml(eyecatch, alt) {
     // 16:9 (例: 1200x675) を想定
     const width = eyecatch.width || 1200;
     const height = eyecatch.height || 675;
-    const altText = escapeHtml(alt);
+    const altText = escapeHtml(alt); // alt属性はプレーンテキスト
     const optimizedUrl = `${eyecatch.url}?fit=crop&w=1200&h=675&q=80`; // 16:9でクロップ
 
     return `<img src="${optimizedUrl}" alt="${altText}" width="${width}" height="${height}" class="w-full h-auto object-cover rounded-lg mb-8 shadow-md" loading="eager" fetchpriority="high">`;
@@ -87,7 +120,7 @@ async function fetchAllArticles() {
   const allContents = [];
   let offset = 0;
   const limit = 50; // 1回あたりの取得件数
-  const now = new Date().toISOString(); // ★★★ 修正点 ★★★ (現在時刻をISO形式で取得)
+  const now = new Date().toISOString(); 
 
   try {
     while (true) {
@@ -98,10 +131,9 @@ async function fetchAllArticles() {
           limit: limit,
           offset: offset,
           orders: '-publishedAt', // 公開日が新しい順
-          // ★★★ 修正点 ★★★
-          // 1. microCMS側でステータスが 'published' のもののみを取得
-          // 2. 'publishedAt' が (現在時刻) 以前のもののみを取得 (予約投稿を除外)
-          filters: `publishedAt[less_than]${now}`
+          // microCMS側でステータスが 'published' のもの
+          // 'publishedAt' が (現在時刻) 以前のもの (予約投稿を除外)
+          filters: `publishedAt[less_than]${now}`
         }
       });
 
@@ -188,15 +220,8 @@ async function buildStaticPages() {
   // 2. 全記事データをmicroCMSから取得
   const allArticles = await fetchAllArticles(); // この時点で公開済みの記事のみ取得される
 
-  // 3. 公開中（publishedAtが設定されている）の記事のみフィルタリング
-  // const now = new Date(); // ★★★ 修正点 (削除) ★★★
-  // const publishedArticles = allArticles.filter( // ★★★ 修正点 (削除) ★★★
-  //   article => article.publishedAt && new Date(article.publishedAt) <= now
-  // );
-  // ★★★ 修正点 ★★★ 
-  // fetchAllArticles で既にフィルタリング済みのため、ここでは
-  // 念のため publishedAt が null でないことだけを確認する (API側でフィルタしていれば不要だが安全のため)
-  const publishedArticles = allArticles.filter(article => article.publishedAt);
+  // 3. publishedAt が null でないことだけを確認 (API側でフィルタしていれば不要だが安全のため)
+  const publishedArticles = allArticles.filter(article => article.publishedAt);
   
   if (publishedArticles.length === 0) {
       console.warn('警告: 公開中の記事が見つかりませんでした。');
@@ -204,7 +229,7 @@ async function buildStaticPages() {
       fs.writeFileSync(JSON_OUTPUT_PATH, '[]');
       generateSitemap([]);
       return;
-  }
+  }
 
   // 4. 各記事の静的HTMLを生成
   console.log('各記事の静的HTMLを生成中...');
@@ -217,7 +242,7 @@ async function buildStaticPages() {
     }
 
     const articleDir = path.resolve(COLUMNS_DIR, article.slug);
-    const outputHtmlPath = path.resolve(articleDir, 'index.html');
+    const outputHtmlPath = path.resolve(articleDir, 'index.html');
     
     // ディレクトリが存在しない場合は作成
     if (!fs.existsSync(articleDir)) {
@@ -225,8 +250,12 @@ async function buildStaticPages() {
     }
 
     // --- プレースホルダー用のデータを準備 ---
-    const title = `${article.title}｜Kokuban BASE`;
-    const titlePlain = escapeHtml(article.title);
+    // CMSから取得した生のタイトル（<br>タグを含む可能性がある）
+    const rawTitle = article.title; 
+
+    const title = `${rawTitle.replace(/<br\s*\/?>/gi, ' ')}｜Kokuban BASE`; // <title>タグ用（<br>をスペースに）
+    const titlePlain = escapeHtml(rawTitle); // JSON-LD, OGP用 (全タグ除去)
+    const titleHtml = allowBrTags(rawTitle); // ★★★ h1タグ用 (<br>のみ許可) ★★★
     
     // description: 記事のdescriptionフィールド、なければ本文から抽出
     const description = escapeHtml(
@@ -246,20 +275,21 @@ async function buildStaticPages() {
         year: 'numeric', month: 'long', day: 'numeric'
     });
 
-    const eyecatchHtml = createEyecatchHtml(article.eyecatch, article.title);
+    const eyecatchHtml = createEyecatchHtml(article.eyecatch, titlePlain); // altはプレーンテキスト
 
     // SNSシェアURL
     const encodedUrl = encodeURIComponent(canonicalUrl);
-    const encodedTitle = encodeURIComponent(title);
+    const encodedTitle = encodeURIComponent(title); // <title>タグ用のテキストをエンコード
     const shareUrlTwitter = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
     const shareUrlFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
     const shareUrlLine = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedTitle}`;
 
     // --- 雛形HTMLのプレースホルダーを置換 ---
     let articleHtml = templateHtml
-      .replace(/{{TITLE}}/g, title)
-      .replace(/{{TITLE_PLAIN}}/g, titlePlain)
-      .replace(/{{DESCRIPTION}}/g, description)
+      .replace(/{{TITLE}}/g, title) // <title>タグ用
+      .replace(/{{TITLE_PLAIN}}/g, titlePlain) // OGP, JSON-LD, パンくず用
+      .replace(/{{TITLE_HTML}}/g, titleHtml) // ★★★ <h1>タグ用 ★★★
+      .replace(/{{DESCRIPTION}}/g, description)
       .replace(/{{CANONICAL_URL}}/g, canonicalUrl)
       .replace(/{{OG_IMAGE_URL}}/g, ogImageUrl)
       .replace(/{{PUBLISHED_AT_ISO}}/g, publishedAtISO)
@@ -268,7 +298,7 @@ async function buildStaticPages() {
       .replace(/{{EYECATCH_HTML}}/g, eyecatchHtml)
       .replace(/{{BODY_HTML}}/g, article.body)
       .replace(/{{SHARE_URL_TWITTER}}/g, shareUrlTwitter)
-      .replace(/{{SHARE_URL_FACEBOOK}}/g, shareUrlFacebook)
+      .replace(/{{SHARE_URL_FACEBOOK}}/g, shareUrlFacebook)
       .replace(/{{SHARE_URL_LINE}}/g, shareUrlLine);
 
     // --- 静的HTMLファイルとして保存 ---
@@ -283,10 +313,10 @@ async function buildStaticPages() {
     summaryList.push({
       id: article.id,
       slug: article.slug,
-      title: article.title,
+      title: titlePlain, // ★★★ index.json にはプレーンテキストを保存 ★★★
       publishedAt: article.publishedAt,
       eyecatchUrl: article.eyecatch?.url || null,
-      description: description
+      description: description
       // (必要ならタグも追加: tags: article.tags || [])
     });
   }
@@ -297,8 +327,8 @@ async function buildStaticPages() {
     fs.writeFileSync(JSON_OUTPUT_PATH, JSON.stringify(summaryList, null, 2));
     console.log(`columns/index.json を ${JSON_OUTPUT_PATH} に保存しました。`);
   } catch (err) {
-    console.error('columns/index.json の保存に失敗しました:', err);
-  }
+    console.error('columns/index.json の保存に失敗しました:', err);
+  }
 
   // 6. サイトマップ (sitemap.xml) を生成・保存
   generateSitemap(publishedArticles);
