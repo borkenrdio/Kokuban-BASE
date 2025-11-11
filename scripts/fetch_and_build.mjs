@@ -42,6 +42,27 @@ function extractDescription(html, maxLength = 120) {
 }
 
 /**
+ * ★★★【修正】★★★
+ * プレーンテキスト化（タグ除去＆エンティティ変換）のためのヘルパー関数
+ */
+function escapeHtmlSimple(str) {
+    if (!str) return '';
+    // すべてのHTMLタグを除去
+    let text = str.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
+    // HTMLエンティティのエスケープ
+    return text.replace(/[&<>"']/g, function(match) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[match];
+    });
+}
+
+
+/**
  * 特殊文字をHTMLエンティティに変換 (JSON-LDやmeta description用)
  * @param {string} str - 変換する文字列
  * @returns {string} 変換後の文字列
@@ -49,45 +70,37 @@ function extractDescription(html, maxLength = 120) {
 function escapeHtml(str) {
     if (!str) return '';
     // <br>も含め、すべてのHTMLタグを除去する（プレーンテキスト化）
-    let text = str.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
-    return text.replace(/[&<>"']/g, function(match) {
-        return {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;'
-        }[match];
-    });
+    // ★★★ 修正 (新しいヘルパー関数を使う) ★★★
+    return escapeHtmlSimple(str);
 }
 
 /**
- * ★★★【新規】★★★
- * タイトル用のHTMLエスケープ。<br>タグのみを許可する
+ * ★★★【修正】★★★
+ * タイトル用のHTMLエスケープ。
+ * <br>タグを見つけ、それ以降を <span class="subtitle"> で囲む
  * @param {string} str - 変換する文字列
- * @returns {string} <br>が有効なHTML文字列
+ * @returns {string} <br>と<span>が有効なHTML文字列
  */
 function allowBrTags(str) {
     if (!str) return '';
-    // 1. まず<br>タグを一時的なプレースホルダーに置き換える
-    let tempStr = str.replace(/<br\s*\/?>/gi, '___BR___');
     
-    // 2. 残りのHTMLタグをすべて除去
-    tempStr = tempStr.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
+    // <br>タグで分割 (複数対応)
+    const parts = str.split(/<br\s*\/?>/gi);
+    
+    // メインタイトルをエスケープ
+    const mainTitle = escapeHtmlSimple(parts[0]);
 
-    // 3. HTMLエンティティのエスケープ（<, >, & など）
-    tempStr = tempStr.replace(/[&<>"']/g, function(match) {
-      return {
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;'
-      }[match];
-    });
-
-    // 4. プレースホルダーを<br>タグに戻す
-    return tempStr.replace(/___BR___/g, '<br>');
+    if (parts.length > 1) {
+        // サブタイトル（2番目以降のパーツ）をエスケープして結合
+        // <br>が複数あっても、サブタイトルとして1つのspanにまとめる
+        const subtitle = parts.slice(1).map(s => escapeHtmlSimple(s)).join('<br>'); // サブタイトル内の改行も<br>として保持
+        
+        // メインとサブタイトルを<br>と<span>で再結合
+        return `${mainTitle}<br><span class="subtitle">${subtitle}</span>`;
+    } else {
+        // <br>がなければメインタイトルのみ
+        return mainTitle;
+    }
 }
 
 
@@ -255,7 +268,7 @@ async function buildStaticPages() {
 
     const title = `${rawTitle.replace(/<br\s*\/?>/gi, ' ')}｜Kokuban BASE`; // <title>タグ用（<br>をスペースに）
     const titlePlain = escapeHtml(rawTitle); // JSON-LD, OGP用 (全タグ除去)
-    const titleHtml = allowBrTags(rawTitle); // ★★★ h1タグ用 (<br>のみ許可) ★★★
+    const titleHtml = allowBrTags(rawTitle); // ★★★ h1タグ用 (<br>と<span>を許可) ★★★
     
     // description: 記事のdescriptionフィールド、なければ本文から抽出
     const description = escapeHtml(
