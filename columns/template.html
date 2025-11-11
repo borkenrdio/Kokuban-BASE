@@ -1,666 +1,346 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GSSKLZ6EDH');
-    </script>
+import { createClient } from 'microcms-js-sdk';
+import fs from 'fs';
+import path from 'path';
+
+// --- 設定値 ---
+const BASE_URL = 'https://kokuban-base.com'; // サイトのドメイン (末尾スラッシュなし)
+const COLUMNS_DIR = path.resolve(process.cwd(), 'columns');
+const TEMPLATE_PATH = path.resolve(COLUMNS_DIR, 'template.html');
+const JSON_OUTPUT_PATH = path.resolve(COLUMNS_DIR, 'index.json');
+const SITEMAP_OUTPUT_PATH = path.resolve(process.cwd(), 'sitemap.xml');
+// const RSS_OUTPUT_PATH = path.resolve(process.cwd(), 'rss.xml'); // (任意)
+
+// --- 環境変数からAPIキーを取得 ---
+const { MICROCMS_SERVICE_DOMAIN, MICROCMS_API_KEY } = process.env;
+
+if (!MICROCMS_SERVICE_DOMAIN || !MICROCMS_API_KEY) {
+  console.error('エラー: 環境変数 MICROCMS_SERVICE_DOMAIN と MICROCMS_API_KEY が設定されていません。');
+  process.exit(1);
+}
+
+// --- microCMS クライアント初期化 ---
+const client = createClient({
+  serviceDomain: MICROCMS_SERVICE_DOMAIN,
+  apiKey: MICROCMS_API_KEY,
+});
+
+/**
+ * HTML文字列からプレーンテキストを抽出し、指定文字数で丸める
+ * @param {string} html - HTML文字列
+ * @param {number} [maxLength=120] - 最大文字数
+ * @returns {string} プレーンテキスト
+ */
+function extractDescription(html, maxLength = 120) {
+  if (!html) return '';
+  // すべてのタグを除去
+  let text = html.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
+  text = text.replace(/(\r\n|\n|\r|\s\s+)/gm, ' ').trim();
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + '...';
+  }
+  return text;
+}
+
+/**
+ * 特殊文字をHTMLエンティティに変換 (JSON-LDやmeta description用)
+ * @param {string} str - 変換する文字列
+ * @returns {string} 変換後の文字列
+ */
+function escapeHtml(str) {
+    if (!str) return '';
+    // <br>も含め、すべてのHTMLタグを除去する（プレーンテキスト化）
+    let text = str.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
+    return text.replace(/[&<>"']/g, function(match) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[match];
+    });
+}
+
+/**
+ * ★★★【新規】★★★
+ * タイトル用のHTMLエスケープ。<br>タグのみを許可する
+ * @param {string} str - 変換する文字列
+ * @returns {string} <br>が有効なHTML文字列
+ */
+function allowBrTags(str) {
+    if (!str) return '';
+    // 1. まず<br>タグを一時的なプレースホルダーに置き換える
+    let tempStr = str.replace(/<br\s*\/?>/gi, '___BR___');
     
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- ▼▼▼ SEO/OGP Meta Tags (ビルド時に置換) ▼▼▼ -->
-    <title>{{TITLE}}</title>
-    <meta name="description" content="{{DESCRIPTION}}">
-    <link rel="canonical" href="{{CANONICAL_URL}}">
-    
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="{{TITLE}}">
-    <meta property="og:description" content="{{DESCRIPTION}}">
-    <meta property="og:url" content="{{CANONICAL_URL}}">
-    <meta property="og:image" content="{{OG_IMAGE_URL}}">
-    <meta property="og:site_name" content="Kokuban BASE（コクバンベース）">
-    <meta property="og:locale" content="ja_JP">
-    <meta property="article:published_time" content="{{PUBLISHED_AT_ISO}}">
-    <meta property="article:modified_time" content="{{UPDATED_AT_ISO}}">
-    <!-- (タグは必要に応じて <meta property="article:tag" content="..."> を追加) -->
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{TITLE}}">
-    <meta name="twitter:description" content="{{DESCRIPTION}}">
-    <meta name="twitter:image" content="{{OG_IMAGE_URL}}">
-    <!-- ▲▲▲ SEO/OGP Meta Tags ▲▲▲ -->
-    
-    <!-- ▼▼▼ 構造化データ (JSON-LD) (ビルド時に置換) ▼▼▼ -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "{{CANONICAL_URL}}"
-      },
-      "headline": "{{TITLE_PLAIN}}",
-      "description": "{{DESCRIPTION}}",
-      "image": [
-        "{{OG_IMAGE_URL}}"
-       ],
-      "datePublished": "{{PUBLISHED_AT_ISO}}",
-      "dateModified": "{{UPDATED_AT_ISO}}",
-      "author": {
-        "@type": "Organization",
-        "name": "Kokuban BASE（コクバンベース）",
-        "url": "https://kokuban-base.com/"
-      },
-       "publisher": {
-        "@type": "Organization",
-        "name": "Kokuban BASE（コクバンベース）",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://kokuban-base.com/ogp.jpg"
-        }
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "name": "ホーム",
-        "item": "https://kokuban-base.com/"
-      },{
-        "@type": "ListItem",
-        "position": 2,
-        "name": "コラム",
-        "item": "https://kokuban-base.com/#news" /* ★★★ /columns/ から /#news に修正済み ★★★ */
-      },{
-        "@type": "ListItem",
-        "position": 3,
-        "name": "{{TITLE_PLAIN}}",
-        "item": "{{CANONICAL_URL}}"
-      }]
-    }
-    </script>
-    <!-- ▲▲▲ 構造化データ (JSON-LD) ▲▲▲ -->
+    // 2. 残りのHTMLタグをすべて除去
+    tempStr = tempStr.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
 
-    <!-- ファビコン (index.htmlからコピー) -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    // 3. HTMLエンティティのエスケープ（<, >, & など）
+    tempStr = tempStr.replace(/[&<>"']/g, function(match) {
+      return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+      }[match];
+    });
 
-    <!-- CSS (index.htmlからコピー) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
-
-    <!-- ▼▼▼ スタイル (index.htmlから全スタイルをコピー) ▼▼▼ -->
-    <style>
-        html, body { margin: 0; padding: 0; }
-        html { 
-            scroll-behavior: smooth; 
-        }
-        body {
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            background-color: #ffffff;
-            color: #333;
-        }
-        body.overflow-hidden { overflow: hidden; }
-        
-        main p, main li, .testimonial-body p, .answer p {
-            line-height: 1.8; 
-            letter-spacing: 0.05em; 
-        }
-        h1, h2, h3, h4, h5, h6, .font-bold, .font-black, button, a, .tab-button {
-            letter-spacing: normal;
-        }
-        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
-        .error-message {
-            background-color: #fff5f5; color: #c53030; border: 1px solid #fc8181;
-            padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;
-        }
-        
-        /* ▼▼▼ 【UX改善】記事本文スタイル（ここから） ▼▼▼ */
-
-        /* 1. 本文の最大幅を制限し、中央揃えに (読みやすさ向上) */
-        .article-body {
-            max-width: 800px; /* 1行の長さを最適化 */
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .article-body h1, .article-body h2, .article-body h3, .article-body h4, .article-body h5, .article-body h6 { 
-            margin-bottom: 0.8em; 
-            font-weight: 700; 
-        }
-        
-        /* 2. 見出しの余白と装飾を調整 (メリハリ強化) */
-        .article-body h1 { font-size: 2.25rem!important; line-height: 2.5rem!important; margin-top: 1.5em; }
-        .article-body h2 { 
-            font-size: 1.875rem!important; 
-            line-height: 2.25rem!important; 
-            margin-top: 3em; /* トピックの区切りを明確に */
-            padding-bottom: 0.25em;
-            border-bottom: 2px solid #e5e7eb; /* 軽い下線 */
-        }
-        .article-body h3 { 
-            font-size: 1.5rem!important; 
-            line-height: 2rem!important; 
-            margin-top: 2.5em;
-        }
-        .article-body h4 { font-size: 1.25rem!important; line-height: 1.75rem!important; margin-top: 2em;}
-        .article-body h5 { font-size: 1.125rem!important; line-height: 1.75rem!important; margin-top: 2em;}
-        .article-body h6 { font-size: 1rem!important; line-height: 1.5rem!important; margin-top: 2em;}
-        
-        .article-body p { margin-bottom: 1.2em; }
-        .article-body a { color: #3182ce; text-decoration: underline; }
-
-        /* 3. 記事中の画像とキャプションを中央揃え */
-        .article-body img { 
-            max-width: 100%; 
-            height: auto; 
-            border-radius: 0.5rem; 
-            margin: 1.5rem auto; /* 上下の余白を確保し、左右中央揃え */
-            display: block;
-        }
-        .article-body figure {
-            margin: 1.5rem auto;
-            display: table; /* 中央揃えのため */
-            max-width: 100%;
-        }
-        .article-body figure img {
-            margin: 0 auto; /* figure内の画像は余白リセット */
-        }
-        .article-body figure figcaption {
-            font-size: 0.875rem; /* 14px */
-            color: #6b7280; /* text-gray-500 */
-            text-align: center;
-            margin-top: 0.5rem;
-        }
-
-        .article-body ul, .article-body ol { margin-left: 1.5em; margin-bottom: 1em; }
-        .article-body li { margin-bottom: 0.5em; }
-
-        /* 4. 対談の話し手スタイル */
-        /* ★★★ 修正: 汎用的なルールを削除し、クラスベースのルールに変更 ★★★ */
-        .speaker-a > strong:first-child,
-        .speaker-a > br:first-child + strong {
-            color: rgb(16, 63, 153); /* ブランドカラー (例: 竹山) */
-            margin-right: 0.25em;
-            display: inline-block;
-        }
-        .speaker-b > strong:first-child,
-        .speaker-b > br:first-child + strong {
-            color: #c026d3; /* Fuchsia 600 (例: 近藤) */
-            margin-right: 0.25em;
-            display: inline-block;
-        }
-        .speaker-c > strong:first-child,
-        .speaker-c > br:first-child + strong {
-            color: #059669; /* Emerald 600 (例: 高見) */
-            margin-right: 0.25em;
-            display: inline-block;
-        }
-        /* ★★★ 修正完了 ★★★ */
-        
-        /* CMS側で <h5><strong>...</strong></h5> になっているキャプションの話し手色をリセット */
-        .article-body h5 > strong {
-            color: inherit;
-        }
+    // 4. プレースホルダーを<br>タグに戻す
+    return tempStr.replace(/___BR___/g, '<br>');
+}
 
 
-        /* 5. 引用（blockquote）のスタイル */
-        .article-body blockquote {
-            margin: 1.5em 0;
-            padding: 1em 1.5em;
-            background-color: #f9fafb; /* bg-gray-50 */
-            border-left: 4px solid #d1d5db; /* border-gray-300 */
-            color: #4b5563; /* text-gray-600 */
-        }
-        .article-body blockquote p {
-            margin-bottom: 0.5em;
-        }
+/**
+ * アイキャッチ画像のHTMLを生成
+ * @param {object} eyecatch - microCMSの画像オブジェクト
+ * @param {string} alt - altテキスト
+ * @returns {string} HTML文字列
+ */
+function createEyecatchHtml(eyecatch, alt) {
+    if (!eyecatch || !eyecatch.url) {
+        return ''; // アイキャッチがない場合は何も出力しない
+    }
+    // LCP対策とCLS防止のため、width/heightを明記
+    // 16:9 (例: 1200x675) を想定
+    const width = eyecatch.width || 1200;
+    const height = eyecatch.height || 675;
+    const altText = escapeHtml(alt); // alt属性はプレーンテキスト
+    const optimizedUrl = `${eyecatch.url}?fit=crop&w=1200&h=675&q=80`; // 16:9でクロップ
 
-        /* ▲▲▲ 【UX改善】記事本文スタイル（ここまで） ▲▲▲ */
+    return `<img src="${optimizedUrl}" alt="${altText}" width="${width}" height="${height}" class="w-full h-auto object-cover rounded-lg mb-8 shadow-md" loading="eager" fetchpriority="high">`;
+}
 
+/**
+ * 全記事を取得 (ページング対応)
+ * @returns {Promise<Array<object>>} 記事データの配列
+ */
+async function fetchAllArticles() {
+  console.log('microCMSから記事データを取得開始...');
+  const allContents = [];
+  let offset = 0;
+  const limit = 50; // 1回あたりの取得件数
+  const now = new Date().toISOString(); 
 
-        /* アイキャッチ画像のサイズ調整 */
-        #detail-content-area > img:first-child {
-            width: 60%; 
-            max-width: 680px; 
-            margin-left: auto; 
-            margin-right: auto;
-            object-fit: contain; 
-            height: auto; 
-        }
+  try {
+    while (true) {
+      const response = await client.get({
+        endpoint: 'news', // 'news' エンドポイントを使用
+        queries: {
+          fields: 'id,slug,title,body,eyecatch,publishedAt,updatedAt,description', // 必要なフィールドのみ取得
+          limit: limit,
+          offset: offset,
+          orders: '-publishedAt', // 公開日が新しい順
+          // microCMS側でステータスが 'published' のもの
+          // 'publishedAt' が (現在時刻) 以前のもの (予約投稿を除外)
+          filters: `publishedAt[less_than]${now}`
+        }
+      });
 
-        /* ★★★ 【UX改善】タイトルと公開日も本文と揃える ★★★ */
-        #detail-content-area > h1,
-        #detail-content-area > p:first-of-type { /* 公開日のpタグを選択 */
-            max-width: 680px; /* ★★★ 800px から 680px (画像と同じ幅) に変更 ★★★ */
-            margin-left: auto; /* 中央揃え */
-            margin-right: auto;
-            padding-left: 1rem; /* スマホ表示用の左右余白 */
-            padding-right: 1rem;
-            text-align: center; /* ★★★ タイトルと公開日を中央揃えに変更 ★★★ */
-        }
+      if (response.contents.length === 0) {
+        break; // 記事がもうない場合はループを抜ける
+      }
+      
+      allContents.push(...response.contents);
+      offset += response.contents.length;
+      
+      if (offset >= response.totalCount) {
+        break; // 全件取得したらループを抜ける
+      }
+  }
+    console.log(`合計 ${allContents.length} 件の記事データを取得しました。`);
+    return allContents;
+  } catch (err) {
+    console.error('記事データの取得に失敗しました:', err);
+    throw err;
+  }
+}
 
-        /* 記事コンテナ自体の余白と競合しないよう調整 */
-        @media (min-width: 640px) {
-            #detail-content-area > h1,
-            #detail-content-area > p:first-of-type {
-                padding-left: 0;
-                padding-right: 0;
-            }
-        }
+/**
+ * サイトマップ (sitemap.xml) を生成
+ * @param {Array<object>} articles - 記事データの配列
+ */
+function generateSitemap(articles) {
+  console.log('sitemap.xml を生成中...');
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
-        #detail-content-area > h1 {
-            margin-bottom: 0.5rem; /* 16px -> 8px */
-        }
-        #detail-content-area > p:first-of-type {
-             margin-bottom: 2.5rem; /* 24px -> 40px */
-             /* ★★★ 公開日を小さく、色を薄くする ★★★ */
-             font-size: 0.875rem; /* text-sm */
-             color: #6b7280; /* text-gray-500 */
-        }
-        /* ★★★ 修正完了 ★★★ */
+  // 1. トップページ
+  xml += `  <url>\n`;
+  xml += `    <loc>${BASE_URL}/</loc>\n`;
+  xml += `    <priority>1.0</priority>\n`;
+  xml += `    <changefreq>daily</changefreq>\n`;
+  xml += `  </url>\n`;
 
+  // 2. 静的ページ (手動追加)
+  const staticPages = ['contact.html', 'reservation.html', 'privacy.html'];
+  staticPages.forEach(page => {
+    xml += `  <url>\n`;
+    xml += `    <loc>${BASE_URL}/${page}</loc>\n`;
+    xml += `    <priority>0.8</priority>\n`;
+    xml += `    <changefreq>monthly</changefreq>\n`;
+    xml += `  </url>\n`;
+  });
 
-        .bg-custom-blue { background-color: rgb(16, 63, 153); }
-        .footer-link { color: #e5e7eb; transition: color 0.2s ease-in-out; }
-        .footer-link:hover { color: #ffffff; text-decoration: underline; }
+  // 3. 記事ページ
+  articles.forEach(article => {
+    const url = `${BASE_URL}/columns/${article.slug}/`;
+    const lastMod = new Date(article.updatedAt).toISOString().split('T')[0]; // YYYY-MM-DD
+    xml += `  <url>\n`;
+    xml += `    <loc>${url}</loc>\n`;
+    xml += `    <lastmod>${lastMod}</lastmod>\n`;
+    xml += `    <priority>0.6</priority>\n`;
+    xml += `    <changefreq>weekly</changefreq>\n`;
+    xml += `  </url>\n`;
+  });
 
-        /* index.htmlから持ってきた共通スタイル */
-        .accordion-content-wrapper, .answer-content-wrapper { overflow: hidden; }
-        .accordion-content, .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease-in-out; }
-        .accordion-item.open .accordion-content, .faq-item.open .answer { grid-template-rows: 1fr; }
-        .testimonial-card { display: flex; flex-direction: column; height: 100%; }
-        .testimonial-body { flex-grow: 1; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .tab-button.active { background-color: #103f99; color: #ffffff; }
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .animate-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .swiper-pagination-bullet-active {
-            background-color: #ec4899; 
-        }
-        .swiper-button-next, .swiper-button-prev {
-            color: #103f99; 
-            background-color: rgba(255, 255, 255, 0.9); 
-            border-radius: 9999px; 
-            width: 48px;  
-            height: 48px; 
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
-            transition: all 0.2s ease-in-out; 
-            border: 1px solid rgba(0, 0, 0, 0.05); 
-            opacity: 0.7; 
-        }
-        .swiper-button-next:hover, .swiper-button-prev:hover {
-            background-color: white; 
-            transform: scale(1.1); 
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); 
-            opacity: 1; 
-        }
-        .swiper-button-next:after, .swiper-button-prev:after {
-            font-size: 22px; 
-            font-weight: bold;
-        }
-        @media (max-width: 640px) {
-            .product-next {
-                right: -10px;
-            }
-            .product-prev {
-                left: -10px;
-            }
-            .product-next, .product-prev {
-                width: 40px;
-                height: 40px;
-                top: 280px; 
-                transform: translateY(-50%); 
-            }
-            .product-next:after, .product-prev:after {
-                font-size: 18px;
-            }
-            /* スマホ表示ではアイキャッチ画像幅を90%にする */
-            #detail-content-area > img:first-child {
-                width: 90%; 
-            }
-        }
-        .swiper-button-disabled {
-            opacity: 0.35;
-            pointer-events: none;
-        }
-        .staff-pagination {
-            position: static;
-            margin-top: 2rem;
-        }
-        .headline-block {
-            display: inline-block;
-            background-color: white;
-            color: #1E3A8A; 
-            padding: 0.3em 0.6em;
-            margin-bottom: 0.8em;
-            line-height: 1.3;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .hero-video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .hero-video-background.is-playing {
-            opacity: 1;
-        }
-        .highlight-underline {
-            background: linear-gradient(transparent 70%, #fef3c7 70%);
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            padding: 0 0.2em;
-        }
-        select {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
+  xml += `</urlset>\n`;
 
-        /* SNSシェアボタン用スタイル */
-        .share-button {
-            display: inline-flex;
-            width: 3.5rem; /* 56px */
-            height: 3.5rem; /* 56px */
-            align-items: center;
-            justify-content: center;
-            border-radius: 9999px; /* full */
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .share-button:hover {
-            transform: scale(1.1);
-        }
-        .share-twitter { background-color: #1DA1F2; } /* Twitter Blue */
-        .share-facebook { background-color: #1877F2; } /* Facebook Blue */
-        .share-line { background-color: #00B900; } /* LINE Green */
-    </style>
-    <!-- ▲▲▲ スタイル修正完了 ▲▲▲ -->
-</head>
-<body class="bg-stone-50"> <!-- preloader用の overflow-hidden を削除 -->
+  try {
+    fs.writeFileSync(SITEMAP_OUTPUT_PATH, xml);
+    console.log(`sitemap.xml を ${SITEMAP_OUTPUT_PATH} に保存しました。`);
+  } catch (err) {
+    console.error('sitemap.xml の保存に失敗しました:', err);
+  }
+}
 
-    <!-- ▼▼▼ ヘッダー (index.htmlからコピー & リンク修正) ▼▼▼ -->
-    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
-        <div class="px-6 lg:px-8">
-            <div class="flex items-stretch h-[50px] sm:h-20">
-                <div class="flex-1 flex items-center space-x-8">
-                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
-                        <!-- リンクをルートパス「/」に変更 -->
-                        <a href="/" class="nav-link hover:opacity-80 transition-opacity">Kokuban BASE</a>
-                    </div>
-                    <!-- ナビゲーションをルート相対パスに変更 -->
-                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                        <a href="/#products" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">ラインナップ</a>
-                        <a href="/#news" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
-                        <a href="/#faq" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
-                        <a href="/#access" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
-                    </nav>
-                </div>
-                <div class="flex-shrink-0 flex justify-end">
-                    <div class="hidden sm:flex">
-                        <!-- リンクをルート相対パス「/contact.html」に変更 -->
-                        <a href="/contact.html" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
-                            <span>お問い合わせ</span>
-                            <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                        <!-- リンクをルート相対パス「/reservation.html」に変更 -->
-                        <a href="/reservation.html" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
-                            <span>来場予約</span>
-                            <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                    <div class="lg:hidden flex items-center">
-                        <button id="mobile-menu-button" aria-label="メニューを開く" class="text-white hover:opacity-80 focus:outline-none p-2 text-shadow">
-                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
-                <div class="px-2 pt-2 pb-3 space-y-1">
-                    <a href="/#products" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">ラインナップ</a>
-                    <a href="/#news" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
-                    <a href="/#faq" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
-                    <a href="/#access" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
-                </div>
-                <div class="p-4 space-y-3">
-                    <a href="/contact.html" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
-                    <a href="/reservation.html" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- ▲▲▲ ヘッダー修正完了 ▲▲▲ -->
+// --- メインのビルド処理 ---
+async function buildStaticPages() {
+  console.log('静的ページ生成プロセスを開始します。');
+  
+  // 1. 雛形HTMLを読み込む
+  let templateHtml;
+  try {
+    templateHtml = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
+  } catch (err) {
+    console.error(`エラー: 雛形ファイル ${TEMPLATE_PATH} が読み込めません。`);
+    return;
+  }
 
-    <!-- パンくずリスト (構造化データと連動) -->
-    <nav aria-label="breadcrumb" class="bg-gray-100 py-3">
-        <div class="container mx-auto px-6 lg:px-8 max-w-6xl 2xl:max-w-[1500px] text-sm text-gray-600">
-            <ol class="flex items-center space-x-2">
-                <li><a href="/" class="hover:underline">ホーム</a></li>
-                <li><span class="mx-2">&rsaquo;</span></li>
-                <!-- ★★★ リンク先を /#news に修正済み ★★★ -->
-                <li><a href="/#news" class="hover:underline">コラム</a></li> 
-                <!-- ▲▲▲ 修正完了 ▲▲▲ -->
-                <li><span class="mx-2">&rsaquo;</span></li>
-                <li class="font-semibold text-gray-800" aria-current="page">{{TITLE_PLAIN}}</li>
-            </ol>
-        </div>
-    </nav>
+  // 2. 全記事データをmicroCMSから取得
+  const allArticles = await fetchAllArticles(); // この時点で公開済みの記事のみ取得される
 
-    <!-- 記事本体 -->
-    <main class="bg-white py-12 sm:py-16">
-        <div class="container mx-auto p-6 sm:p-8 max-w-6xl 2xl:max-w-[1500px] bg-white rounded-lg">
-            <article id="detail-content-area">
-                <!-- アイキャッチ画像 (ビルド時に置換) -->
-                {{EYECATCH_HTML}}
+  // 3. publishedAt が null でないことだけを確認 (API側でフィルタしていれば不要だが安全のため)
+  const publishedArticles = allArticles.filter(article => article.publishedAt);
+  
+  if (publishedArticles.length === 0) {
+      console.warn('警告: 公開中の記事が見つかりませんでした。');
+      // 空のJSONとサイトマップ（トップのみ）を生成
+      fs.writeFileSync(JSON_OUTPUT_PATH, '[]');
+      generateSitemap([]);
+      return;
+  }
 
-                <!-- タイトル (ビルド時に置換) -->
-                <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">{{TITLE_PLAIN}}</h1>
-                
-                <!-- 公開日 (ビルド時に置換) -->
-                <p class="text-gray-500 mb-6">公開日: {{PUBLISHED_AT_FORMATTED}}</p>
-                
-                <!-- 本文 (ビルド時に置換) -->
-                <div class="article-body text-lg leading-relaxed text-gray-800">
-                    {{BODY_HTML}}
-                </div>
+  // 4. 各記事の静的HTMLを生成
+  console.log('各記事の静的HTMLを生成中...');
+  const summaryList = []; // index.json 用のサマリー配列
 
-                <!-- SNS共有ボタン (ビルド時に置換) -->
-                <div class="mt-10 pt-8 border-t border-gray-200">
-                    <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">この記事を共有する</h3>
-                    <div class="flex justify-center items-center gap-4">
-                        <a href="{{SHARE_URL_TWITTER}}" target="_blank" rel="noopener noreferrer" aria-label="Xで共有する"
-                            class="share-button share-twitter">
-                            <i class="fab fa-twitter text-2xl"></i>
-                        </a>
-                        <a href="{{SHARE_URL_FACEBOOK}}" target="_blank" rel="noopener noreferrer" aria-label="Facebookで共有する"
-                            class="share-button share-facebook">
-                            <i class="fab fa-facebook-f text-2xl"></i>
-                        </a>
-                        <a href="{{SHARE_URL_LINE}}" target="_blank" rel="noopener noreferrer" aria-label="LINEで共有する"
-                            class="share-button share-line">
-                            <i class="fab fa-line text-2xl"></i>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            
-            <!-- 関連記事セクション (ビルド時に挿入、またはJSで /columns/index.json から生成) -->
-            <!-- ここでは簡略化のため、ビルドスクリプト側での生成を推奨 -->
-            
-            <!-- CTA (index.htmlからコピー) -->
-            <div class="mt-12 pt-8 border-t space-y-8">
-                <div class="bg-pink-50 border-l-4 border-pink-500 p-6 rounded-r-lg">
-                    <h3 class="text-xl font-bold text-pink-800">電子黒板を実際に体験しませんか？</h3>
-                    <p class="mt-2 text-pink-700">Kokuban BASEでは、本記事で紹介した機能のほか、様々なモデルを直接触って比較できます。導入に関するご相談も承っておりますので、お気軽にご予約ください。</p>
-                    <a href="/reservation.html" class="mt-4 inline-block bg-pink-500 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
-                        無料体験を予約する <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
+  for (const article of publishedArticles) {
+    if (!article.slug) {
+        console.warn(`警告: 記事ID ${article.id} にslugがありません。スキップします。`);
+        continue;
+    }
 
-            <!-- 一覧へ戻るボタン -->
-            <div class="mt-12 text-center">
-                <!-- index.html#news セクションへ戻る -->
-                <a href="/#news" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition-colors duration-300">
-                    コラム一覧へ戻る
-                </a>
-            </div>
-        </div>
-    </main>
-    
-    <!-- ▼▼▼ フッター (index.htmlからコピー & リンク修正) ▼▼▼ -->
-    <footer class="bg-custom-blue text-gray-200">
-        <div class="container mx-auto px-6 py-12">
-            <div class="flex flex-wrap justify-between">
-                <div class="w-full md:w-1/4 mb-8 md:mb-0">
-                    <h2 class="text-2xl font-bold text-white">Kokuban BASE</h2>
-                    <p class="text-blue-200 mt-2">株式会社idea spot</p>
-                </div>
-                <div class="w-full md:w-3/4">
-                    <div class="flex flex-wrap justify-between">
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
-                            <ul>
-                                <li class="mb-2"><a href="/#products" class="nav-link footer-link">ラインナップ</a></li>
-                                <li class="mb-2"><a href="/#news" class="nav-link footer-link">コラム</a></li>
-                                <li class="mb-2"><a href="/#faq" class="nav-link footer-link">よくある質問</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">サポート</h3>
-                            <ul>
-                                <li class="mb-2"><a href="/reservation.html" class="footer-link">来場予約</a></li>
-                                <li class="mb-2"><a href="/contact.html" class="footer-link">お問い合わせ</a></li>
-                                <li class="mb-2"><a href="/#access" class="nav-link footer-link">アクセス</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">会社情報</h3>
-                            <ul>
-                                <li class="mb-2"><a href="https://www.idea-spot.co.jp/" target="_blank" rel="noopener noreferrer" class="footer-link">企業概要</a></li>
-                                <li class="mb-2"><a href="/privacy.html" class="footer-link">プライバシーポリシー</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-12 pt-8 border-t border-white/20 text-center text-blue-200">
-                <p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-    <!-- ▲▲▲ フッター修正完了 ▲▲▲ -->
+    const articleDir = path.resolve(COLUMNS_DIR, article.slug);
+    const outputHtmlPath = path.resolve(articleDir, 'index.html');
+    
+    // ディレクトリが存在しない場合は作成
+    if (!fs.existsSync(articleDir)) {
+      fs.mkdirSync(articleDir, { recursive: true });
+    }
 
-    <!-- モバイルメニュー用スクリプト -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                    mobileMenu.classList.toggle('hidden');
-                    // 記事ページでは body の overflow は制御しない
-                    // (index.htmlと異なり、プリローダーがないため)
-                    // ※もしメニュー展開時に背景スクロールを止めたい場合は、以下の行のコメントを解除
-                    // document.body.classList.toggle('overflow-hidden', !isExpanded);
-                });
-            }
+    // --- プレースホルダー用のデータを準備 ---
+    // CMSから取得した生のタイトル（<br>タグを含む可能性がある）
+    const rawTitle = article.title; 
 
-            // アンカーリンク（#）で別ページ（index.html）に飛ぶ場合の処理
-            document.querySelectorAll('a.nav-link[href^="/#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    // 通常のナビゲーション（別ページへの遷移）を実行させる
-                    // e.preventDefault() はここでは不要
-                });
-            });
+    const title = `${rawTitle.replace(/<br\s*\/?>/gi, ' ')}｜Kokuban BASE`; // <title>タグ用（<br>をスペースに）
+    const titlePlain = escapeHtml(rawTitle); // JSON-LD, OGP用 (全タグ除去)
+    const titleHtml = allowBrTags(rawTitle); // ★★★ h1タグ用 (<br>のみ許可) ★★★
+    
+    // description: 記事のdescriptionフィールド、なければ本文から抽出
+    const description = escapeHtml(
+      article.description || extractDescription(article.body, 120)
+    );
+    
+    const canonicalUrl = `${BASE_URL}/columns/${article.slug}/`;
+    
+    // OGP画像: アイキャッチ、なければデフォルトOGP画像
+    const ogImageUrl = article.eyecatch?.url 
+      ? `${article.eyecatch.url}?fit=crop&w=1200&h=630` // 1.91:1
+      : `${BASE_URL}/ogp.jpg`;
+      
+    const publishedAtISO = new Date(article.publishedAt).toISOString();
+    const updatedAtISO = new Date(article.updatedAt).toISOString();
+    const publishedAtFormatted = new Date(article.publishedAt).toLocaleDateString('ja-JP', {
+        year: 'numeric', month: 'long', day: 'numeric'
+    });
 
-            // ★★★ 【UX改善】対談の話し手を色分けするスクリプト ★★★
-            function colorCodeSpeakers() {
-                // 話し手の名前（検索用）と、対応するCSSクラス
-                const speakers = [
-                    { name: '竹山', class: 'speaker-a' }, // ブランドカラー (青)
-                    { name: '近藤', class: 'speaker-b' }, // Fuchsia 600 (紫)
-                    { name: '高見', class: 'speaker-c' }  // Emerald 600 (緑)
-                    // ... ここに他の対談者を追加できます ...
-                ];
+    const eyecatchHtml = createEyecatchHtml(article.eyecatch, titlePlain); // altはプレーンテキスト
 
-                const paragraphs = document.querySelectorAll('.article-body p');
+    // SNSシェアURL
+    const encodedUrl = encodeURIComponent(canonicalUrl);
+    const encodedTitle = encodeURIComponent(title); // <title>タグ用のテキストをエンコード
+    const shareUrlTwitter = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
+    const shareUrlFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+    const shareUrlLine = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedTitle}`;
 
-                paragraphs.forEach(p => {
-                    // pタグの最初の子要素がstrong、またはbr+strongかを確認
-                    let strongEl = null;
-                    if (p.children.length > 0) {
-                        if (p.children[0].tagName === 'STRONG') {
-                            strongEl = p.children[0];
-                        } else if (p.children.length > 1 && 
-                                   p.children[0].tagName === 'BR' && 
-                                   p.children[1].tagName === 'STRONG') {
-                            strongEl = p.children[1];
-                        }
-                    }
+    // --- 雛形HTMLのプレースホルダーを置換 ---
+    let articleHtml = templateHtml
+      .replace(/{{TITLE}}/g, title) // <title>タグ用
+      .replace(/{{TITLE_PLAIN}}/g, titlePlain) // OGP, JSON-LD, パンくず用
+      .replace(/{{TITLE_HTML}}/g, titleHtml) // ★★★ <h1>タグ用 ★★★
+      .replace(/{{DESCRIPTION}}/g, description)
+      .replace(/{{CANONICAL_URL}}/g, canonicalUrl)
+      .replace(/{{OG_IMAGE_URL}}/g, ogImageUrl)
+      .replace(/{{PUBLISHED_AT_ISO}}/g, publishedAtISO)
+      .replace(/{{UPDATED_AT_ISO}}/g, updatedAtISO)
+      .replace(/{{PUBLISHED_AT_FORMATTED}}/g, publishedAtFormatted)
+      .replace(/{{EYECATCH_HTML}}/g, eyecatchHtml)
+      .replace(/{{BODY_HTML}}/g, article.body)
+      .replace(/{{SHARE_URL_TWITTER}}/g, shareUrlTwitter)
+      .replace(/{{SHARE_URL_FACEBOOK}}/g, shareUrlFacebook)
+      .replace(/{{SHARE_URL_LINE}}/g, shareUrlLine);
 
-                    if (strongEl) {
-                        const speakerText = strongEl.textContent || strongEl.innerText;
-                        
-                        // speakersリストを走査して一致する名前を探す
-                        for (const speaker of speakers) {
-                            if (speakerText.includes(speaker.name)) {
-                                p.classList.add(speaker.class);
-                                break; // 一致したらループを抜ける
-                            }
-                        }
-                    }
-                });
-            }
-            
-            colorCodeSpeakers(); // スクリプトを実行
-            // ★★★ スクリプト追加完了 ★★★
-        });
-    </script>
-</body>
-</html>
+    // --- 静的HTMLファイルとして保存 ---
+    try {
+      fs.writeFileSync(outputHtmlPath, articleHtml);
+      // console.log(`  - ${outputHtmlPath} を生成しました。`);
+    } catch (err) {
+      console.error(`${outputHtmlPath} の保存に失敗しました:`, err);
+    }
+    
+    // --- index.json 用のサマリーデータを追加 ---
+    summaryList.push({
+      id: article.id,
+      slug: article.slug,
+      title: titlePlain, // ★★★ index.json にはプレーンテキストを保存 ★★★
+      publishedAt: article.publishedAt,
+      eyecatchUrl: article.eyecatch?.url || null,
+      description: description
+      // (必要ならタグも追加: tags: article.tags || [])
+    });
+  }
+  console.log(`合計 ${summaryList.length} 件の静的HTMLページを生成しました。`);
+
+  // 5. 一覧用JSON (index.json) を保存
+  try {
+    fs.writeFileSync(JSON_OUTPUT_PATH, JSON.stringify(summaryList, null, 2));
+    console.log(`columns/index.json を ${JSON_OUTPUT_PATH} に保存しました。`);
+  } catch (err) {
+    console.error('columns/index.json の保存に失敗しました:', err);
+  }
+
+  // 6. サイトマップ (sitemap.xml) を生成・保存
+  generateSitemap(publishedArticles);
+
+  // 7. (任意) RSSフィードを生成・保存
+  // generateRss(publishedArticles);
+  
+  console.log('静的ページ生成プロセスが完了しました。');
+}
+
+// --- スクリプト実行 ---
+buildStaticPages().catch(err => {
+    console.error('ビルドプロセス全体でエラーが発生しました:', err);
+    process.exit(1);
+});
