@@ -989,11 +989,11 @@
                 </section>
                 <section id="access" class="py-16 sm:py-24 bg-white">
                     <div class="container mx-auto px-6 lg:px-8">
-                        <!-- ▼▼▼ 変更: グリッドを 1:1 (grid-cols-2) から 2:3 (grid-cols-5) に変更 ▼▼▼ -->
-                        <!-- ▼▼▼ 変更: gap-12 から gap-8 に変更し、距離を近づける ▼▼▼ -->
-                        <div class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-8 items-center">
-                            <!-- ▼▼▼ 変更: md:col-span-2 を追加 (テキスト側を40%に) ▼▼▼ -->
-                            <div class="animate-on-scroll md:col-span-2">
+                        <!-- ▼▼▼ 変更: グリッドのブレークポイントを md: (768px) から sm: (640px) に変更 ▼▼▼ -->
+                        <!-- 変更: grid-cols-1 md:grid-cols-5 -> grid-cols-1 sm:grid-cols-5 -->
+                        <div class="grid grid-cols-1 sm:grid-cols-5 gap-8 md:gap-8 items-center">
+                            <!-- 変更: md:col-span-2 -> sm:col-span-2 -->
+                            <div class="animate-on-scroll sm:col-span-2">
                                 <h2 class="text-2xl sm:text-3xl font-bold text-[#103f99] mb-6">アクセス</h2>
                                 <div class="space-y-4 text-gray-700">
                                     <div>
@@ -1012,8 +1012,8 @@
                                     来場予約はこちら <i class="fas fa-arrow-right ml-2"></i>
                                 </a>
                             </div>
-                            <!-- ▼▼▼ 変更: md:col-span-3 を追加 (地図側を60%に) ▼▼▼ -->
-                            <div class="animate-on-scroll md:col-span-3" style="transition-delay: 0.1s;">
+                            <!-- 変更: md:col-span-3 -> sm:col-span-3 -->
+                            <div class="animate-on-scroll sm:col-span-3" style="transition-delay: 0.1s;">
                                 <!-- ▼▼▼ 変更: 画像のファイル名をスペースのないものに変更 ▼▼▼ -->
                                 <div class="aspect-video rounded-lg overflow-hidden shadow-xl border-4 border-white">
                                     <a href="https://www.google.com/maps/search/?api=1&query=Kokuban+BASE%2C%E3%80%92602-0822+%E4%BA%AC%E9%83%BD%E5%BA%9C%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8A%E4%BA%AC%E5%C%BA%E9%9D%92%E9%BE%8D%E7%94%BA252" target="_blank" rel="noopener noreferrer" class="block w-full h-full group" title="Googleマップで「Kokuban BASE」の場所を開く（新しいタブ）">
