@@ -1259,16 +1259,20 @@
         }
         function createNewsCard(article) {
             const formattedDate = new Date(article.publishedAt).toLocaleDateString('ja-JP');
-            const imageUrl = article.eyecatchUrl ? `${article.eyecatchUrl}?fit=crop&w=600&h=400` : 'https://placehold.co/600x400/e0e7ff/1e3a8a?text=News';
+            // ▼▼▼ 変更: サムネイル画像を 16:9 に変更 (w=640&h=360) ▼▼▼
+            const imageUrl = article.eyecatchUrl ? `${article.eyecatchUrl}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
+            // ▲▲▲ 変更完了 ▲▲▲
             const articleUrl = `columns/${article.slug}/`; 
             return `
                 <div class="swiper-slide h-auto">
                     <!-- ▼▼▼ 変更: リンク先を静的パスに変更 (data-id属性は不要) ▼▼▼ -->
                     <a href="${articleUrl}" class="block bg-white rounded-lg shadow-md overflow-hidden h-full group">
                         <!-- ▲▲▲ 変更完了 ▲▲▲ -->
-                        <div class="overflow-hidden aspect-[3/2]">
-                            <img src="${imageUrl}" alt="${article.title}" width="600" height="400" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy">
+                        <!-- ▼▼▼ 変更: aspect-video (16:9) に変更 ▼▼▼ -->
+                        <div class="overflow-hidden aspect-video">
+                            <img src="${imageUrl}" alt="${article.title}" width="640" height="360" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy">
                         </div>
+                        <!-- ▲▲▲ 変更完了 ▲▲▲ -->
                         <div class="p-4 sm:p-5">
                             <p class="text-sm text-gray-500 mb-2">${formattedDate}</p>
                             <h3 class="font-bold text-base sm:text-lg text-gray-800 group-hover:text-pink-500 transition-colors">${article.title}</h3>
