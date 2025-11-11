@@ -19,7 +19,7 @@
     <link rel="canonical" href="{{CANONICAL_URL}}">
     
     <meta property="og:type" content="article">
-    <meta property="og:title" content="{{TITLE_PLAIN}}"> <!-- OGPタイトルはプレーンテキスト -->
+    <meta property="og:title" content="{{TITLE}}">
     <meta property="og:description" content="{{DESCRIPTION}}">
     <meta property="og:url" content="{{CANONICAL_URL}}">
     <meta property="og:image" content="{{OG_IMAGE_URL}}">
@@ -30,7 +30,7 @@
     <!-- (タグは必要に応じて <meta property="article:tag" content="..."> を追加) -->
     
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{TITLE_PLAIN}}"> <!-- Twitterタイトルはプレーンテキスト -->
+    <meta name="twitter:title" content="{{TITLE}}">
     <meta name="twitter:description" content="{{DESCRIPTION}}">
     <meta name="twitter:image" content="{{OG_IMAGE_URL}}">
     <!-- ▲▲▲ SEO/OGP Meta Tags ▲▲▲ -->
@@ -44,7 +44,7 @@
         "@type": "WebPage",
         "@id": "{{CANONICAL_URL}}"
       },
-      "headline": "{{TITLE_PLAIN}}", <!-- headlineはプレーンテキスト -->
+      "headline": "{{TITLE_PLAIN}}",
       "description": "{{DESCRIPTION}}",
       "image": [
         "{{OG_IMAGE_URL}}"
@@ -79,11 +79,11 @@
         "@type": "ListItem",
         "position": 2,
         "name": "コラム",
-        "item": "https://kokuban-base.com/#news" /* ★★★ 修正 (トップページのセクションへ) ★★★ */
+        "item": "https://kokuban-base.com/#news"
       },{
         "@type": "ListItem",
         "position": 3,
-        "name": "{{TITLE_PLAIN}}", <!-- パンくずもプレーンテキスト -->
+        "name": "{{TITLE_PLAIN}}",
         "item": "{{CANONICAL_URL}}"
       }]
     }
@@ -102,7 +102,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
 
-    <!-- ▼▼▼ スタイル (index.htmlから全スタイルをコピー + 記事ページ用UX改善CSS) ▼▼▼ -->
+    <!-- ▼▼▼ スタイル (index.htmlから全スタイルをコピー & UX改善CSS) ▼▼▼ -->
     <style>
         html, body { margin: 0; padding: 0; }
         html { 
@@ -115,6 +115,134 @@
         }
         body.overflow-hidden { overflow: hidden; }
         
+        /* * -------------------------------------------
+         * 記事本文のUX/UI改善 (2025-11-11 追加)
+         * -------------------------------------------
+        */
+
+        /* 1. 記事コンテナ（タイトル・本文）の読みやすさ改善 */
+        #detail-content-area {
+            /* PC閲覧時の行長（1行の文字数）を最適化するため、最大幅を設けて中央揃えにする */
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 2. アイキャッチ画像のスタイル調整 */
+        .eyecatch-image {
+            /* note.com を参考に、本文より少し狭い幅に設定 */
+            max-width: 680px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 3. タイトルブロックのスタイル調整 */
+        .title-block {
+            /* アイキャッチ画像と同じ幅に設定し、中央揃えにする */
+            max-width: 680px; 
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center; /* タイトルと公開日を中央揃え */
+        }
+        .title-block h1 {
+            /* サブタイトル（<br>以降）のスタイル */
+            line-height: 1.5; /* 行間を少し広げる */
+        }
+        .title-block h1 .subtitle {
+            font-size: 0.7em; /* 親（h1）の70%のサイズ */
+            font-weight: 500; /* 少し細く */
+            color: #4b5563; /* 少し薄い色に */
+        }
+        .title-block .publish-date {
+            /* 公開日を目立ちすぎないように調整 */
+            font-size: 0.875rem; /* 14px */
+            color: #6b7280; /* やや薄い色に */
+        }
+
+
+        /* 4. 記事本文（.article-body）のスタイル調整 */
+        .article-body {
+            text-lg leading-relaxed text-gray-800;
+        }
+        
+        /* 見出し (h2) のスタイル */
+        .article-body h2 {
+            font-size: 1.875rem!important; /* 30px */
+            line-height: 2.25rem!important;
+            font-weight: 900; /* 黒字 */
+            margin-top: 3.5em; /* トピック間の余白を大きく */
+            margin-bottom: 1.2em;
+            padding-bottom: 0.4em;
+            border-bottom: 2px solid #f3f4f6; /* 薄い下線 */
+        }
+
+        /* その他の見出し */
+        .article-body h3 { font-size: 1.5rem!important; line-height: 2rem!important; }
+        .article-body h4 { font-size: 1.25rem!important; line-height: 1.75rem!important; }
+        .article-body h5 { font-size: 1.125rem!important; line-height: 1.75rem!important; }
+        .article-body h6 { font-size: 1rem!important; line-height: 1.5rem!important; }
+
+        /* 対談の話し手スタイル */
+        .article-body p strong:first-child,
+        .article-body p br:first-child + strong {
+            /* (竹山：, 近藤：, 高見： など) */
+            display: inline-block;
+            font-weight: 700;
+            margin-right: 0.25em;
+            /* speaker-a, b, c クラスがJSによって自動で付与される */
+        }
+        
+        /* JSで割り当てる色 */
+        .speaker-a { color: rgb(16, 63, 153); } /* ブランドカラー */
+        .speaker-b { color: #8b5cf6; } /* 紫 */
+        .speaker-c { color: #16a34a; } /* 緑 */
+        .speaker-default { color: #374151; } /* デフォルト（グレー） */
+
+
+        /* 本文中の画像・図 */
+        .article-body img {
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 0.5rem; 
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+            margin-left: auto; /* 中央揃え */
+            margin-right: auto; /* 中央揃え */
+        }
+        .article-body figure {
+             margin: 1.5rem 0;
+        }
+        .article-body figure img {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        .article-body figcaption {
+            /* キャプションのスタイル */
+            font-size: 0.875rem; /* 14px */
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* 引用 (blockquote) のスタイル */
+        .article-body blockquote {
+            margin: 1.5em 0;
+            padding: 1em 1.5em;
+            background-color: #f9fafb; /* bg-gray-50 */
+            border-left: 4px solid #103f99; /* ブランドカラーのボーダー */
+            border-radius: 0.25rem;
+        }
+        .article-body blockquote p {
+            margin-bottom: 0.5em; /* 引用内の段落マージンを調整 */
+            line-height: 1.7;
+        }
+        .article-body blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* * -------------------------------------------
+         * 既存の共通スタイル (index.htmlからコピー)
+         * -------------------------------------------
+        */
         main p, main li, .testimonial-body p, .answer p {
             line-height: 1.8; 
             letter-spacing: 0.05em; 
@@ -128,142 +256,8 @@
             padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;
         }
         
-        /* --- 
-        記事ページ（コラム）UX改善用CSS 
-        ---
-        */
-
-        /* ★★★ 【UX改善】記事本文の読みやすさ（行長）を最適化 ★★★ */
-        .article-body {
-            max-width: 800px; /* PCでの1行の長さを制限 */
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* ★★★ 【UX改善】アイキャッチ画像のサイズとアライメント ★★★ */
-        #detail-content-area > img:first-of-type {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 680px;  /* note風のサイズ感 */
-            width: 90%;       /* スマホでは横幅90% */
-            margin-bottom: 2rem;
-        }
-
-        /* ★★★ 【UX改善】タイトルと公開日をアイキャッチ画像と揃える ★★★ */
-        #detail-content-area > h1,
-        #detail-content-area > p:first-of-type { /* 公開日のpタグを選択 */
-            max-width: 680px; /* アイキャッチ画像と同じ幅 */
-            margin-left: auto; /* 中央揃え */
-            margin-right: auto;
-            padding-left: 1rem; /* スマホ表示用の左右余白 */
-            padding-right: 1rem;
-            text-align: center; /* タイトルと公開日を中央揃え */
-        }
-
-        /* 記事コンテナ自体の余白と競合しないよう調整 */
-        @media (min-width: 640px) {
-            #detail-content-area > h1,
-            #detail-content-area > p:first-of-type {
-                padding-left: 0;
-                padding-right: 0;
-            }
-        }
-        
-        #detail-content-area > h1 {
-            margin-bottom: 0.5rem; /* 16px -> 8px */
-            line-height: 1.4; /* 行間を少し詰める */
-        }
-
-        /* ★★★ 【新規】サブタイトル用のスタイル ★★★ */
-        #detail-content-area > h1 .subtitle {
-            font-size: 1.5rem; /* メイン(2.25rem)より小さく */
-            font-weight: 600; /* font-semibold (太字より少し細く) */
-            color: #374151; /* text-gray-700 (メインより少し薄く) */
-            line-height: 1.5;
-            display: inline-block; /* 改行後のマージン調整のため */
-            margin-top: 0.5rem;
-        }
-        /* スマホ用サブタイトル */
-        @media (max-width: 640px) {
-            #detail-content-area > h1 .subtitle {
-                font-size: 1.25rem; /* text-xl */
-            }
-        }
-        /* ★★★ ここまで ★★★ */
-        
-        #detail-content-area > p:first-of-type {
-             margin-bottom: 2.5rem; /* 24px -> 40px */
-             /* 公開日を小さく、色を薄くする */
-             font-size: 0.875rem; /* text-sm */
-             color: #6b7280; /* text-gray-500 */
-        }
-        /* ★★★ UX改善CSS ここまで ★★★ */
-
-
-        /* 記事本文用スタイル */
-        .article-body h1, .article-body h2, .article-body h3, .article-body h4, .article-body h5, .article-body h6 { margin-top: 1.5em; margin-bottom: 0.8em; font-weight: 700; }
-        .article-body h1 { font-size: 2.25rem!important; line-height: 2.5rem!important; }
-        
-        /* ★★★ 【UX改善】h2（章見出し）のスタイル ★★★ */
-        .article-body h2 { 
-            font-size: 1.875rem!important; 
-            line-height: 2.25rem!important; 
-            border-bottom: 2px solid #e5e7eb; /* 罫線を追加 */
-            padding-bottom: 0.3em;
-            margin-top: 3em; /* 上の余白を大きく空ける */
-            margin-bottom: 1.5em;
-        }
-        
-        .article-body h3 { font-size: 1.5rem!important; line-height: 2rem!important; margin-top: 2.5em; }
-        .article-body h4 { font-size: 1.25rem!important; line-height: 1.75rem!important; }
-        .article-body h5 { font-size: 1.125rem!important; line-height: 1.75rem!important; }
-        .article-body h6 { font-size: 1rem!important; line-height: 1.5rem!important; }
-        .article-body p { margin-bottom: 1.2em; }
-        .article-body a { color: #3182ce; text-decoration: underline; }
-        
-        /* ★★★ 【UX改善】記事中画像の中央揃え ★★★ */
-        .article-body img,
-        .article-body figure { 
-            max-width: 100%; 
-            height: auto; 
-            border-radius: 0.5rem; 
-            margin: 2rem auto; /* 上下の余白を増やし、左右中央揃え */
-            display: block;
-        }
-        .article-body figure {
-            text-align: center; /* キャプションも中央揃え */
-        }
-        .article-body figcaption,
-        .article-body h5 { /* microCMSのキャプションがh5で入る場合も考慮 */
-            font-size: 0.875rem !important; /* text-sm */
-            color: #6b7280; /* text-gray-500 */
-            margin-top: -1rem; /* 画像との隙間を詰める */
-            margin-bottom: 2rem;
-            line-height: 1.6 !important;
-        }
-
         .article-body ul, .article-body ol { margin-left: 1.5em; margin-bottom: 1em; }
         .article-body li { margin-bottom: 0.5em; }
-
-        /* ★★★ 【UX改善】引用（blockquote）のスタイル ★★★ */
-        .article-body blockquote {
-            margin: 1.5em 0;
-            padding: 1em 1.5em;
-            background-color: #f9fafb; /* bg-gray-50 */
-            border-left: 4px solid #103f99; /* ブランドカラーのボーダー */
-            border-radius: 0.25rem;
-        }
-        .article-body blockquote p {
-            margin-bottom: 0;
-            color: #374151; /* text-gray-700 */
-        }
-
-        /* ★★★ 【UX改善】対談の話し手の色分け用クラス ★★★ */
-        .speaker-a { color: rgb(16, 63, 153); margin-right: 0.25em; } /* ブランド青 */
-        .speaker-b { color: #7e22ce; margin-right: 0.25em; } /* 紫 */
-        .speaker-c { color: #166534; margin-right: 0.25em; } /* 緑 */
-        /* その他の話し手はデフォルト（太字） */
 
         .bg-custom-blue { background-color: rgb(16, 63, 153); }
         .footer-link { color: #e5e7eb; transition: color 0.2s ease-in-out; }
@@ -462,12 +456,13 @@
     <!-- ▲▲▲ ヘッダー修正完了 ▲▲▲ -->
 
     <!-- パンくずリスト (構造化データと連動) -->
-    <nav aria-label="breadcrumb" class="bg-gray-100 py-3">
+    <!-- ★★★ 修正 (スマホ版のださいグレー背景 'bg-gray-100' を削除) ★★★ -->
+    <nav aria-label="breadcrumb" class="py-3">
         <div class="container mx-auto px-6 lg:px-8 max-w-6xl 2xl:max-w-[1500px] text-sm text-gray-600">
             <ol class="flex items-center space-x-2">
                 <li><a href="/" class="hover:underline">ホーム</a></li>
                 <li><span class="mx-2">&rsaquo;</span></li>
-                <!-- ★★★ 修正 (トップページのセクションへ) ★★★ -->
+                <!-- ★★★ 修正 (黒いJSON画面対策: リンク先を /#news に変更) ★★★ -->
                 <li><a href="/#news" class="hover:underline">コラム</a></li> 
                 <li><span class="mx-2">&rsaquo;</span></li>
                 <li class="font-semibold text-gray-800" aria-current="page">{{TITLE_PLAIN}}</li>
@@ -477,16 +472,29 @@
 
     <!-- 記事本体 -->
     <main class="bg-white py-12 sm:py-16">
-        <div class="container mx-auto p-6 sm:p-8 max-w-6xl 2xl:max-w-[1500px] bg-white rounded-lg">
-            <article id="detail-content-area">
-                <!-- アイキャッチ画像 (ビルド時に置換) -->
-                {{EYECATCH_HTML}}
-
-                <!-- ★★★ 修正 (h1に<br>を許可する {{TITLE_HTML}} を使用) ★★★ -->
-                <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">{{TITLE_HTML}}</h1>
+        <!-- 
+         ★★★ 修正 ★★★
+        「container」コンテナから「#detail-content-area」コンテナ（max-width: 800px）に変更 
+        -->
+        <div id="detail-content-area" class="container mx-auto p-6 sm:p-8 bg-white rounded-lg">
+            <article>
+                <!-- 
+                 ★★★ 修正 ★★★
+                アイキャッチとタイトルを中央揃えのブロックで囲む
+                -->
+                <div class="eyecatch-image">
+                    <!-- アイキャッチ画像 (ビルド時に置換) -->
+                    {{EYECATCH_HTML}}
+                </div>
                 
-                <!-- 公開日 (ビルド時に置換) -->
-                <p class="text-gray-500 mb-6">公開日: {{PUBLISHED_AT_FORMATTED}}</p>
+                <div class="title-block">
+                    <!-- タイトル (ビルド時に置換) -->
+                    <!-- ★★★ 修正 (CMSの<br>を反映する {{TITLE_HTML}} に変更) ★★★ -->
+                    <h1 class="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">{{TITLE_HTML}}</h1>
+                    
+                    <!-- 公開日 (ビルド時に置換) -->
+                    <p class="publish-date mb-10">公開日: {{PUBLISHED_AT_FORMATTED}}</p>
+                </div>
                 
                 <!-- 本文 (ビルド時に置換) -->
                 <div class="article-body text-lg leading-relaxed text-gray-800">
@@ -605,43 +613,54 @@
                 });
             });
 
-            // ★★★ 【新規】対談の話し手 色分けスクリプト ★★★
+            /**
+             * ★★★ 追加 (2025-11-11) ★★★
+             * 対談の話し手に自動で色を割り当てるスクリプト
+             */
             function colorCodeSpeakers() {
-                // 話し手と色のマッピング
+                // 話し手と色のマッピング (名前はCMSの入力と一致させる)
                 const speakers = {
-                    '竹山：': 'speaker-a', // ブランド青
-                    '近藤様：': 'speaker-b', // 紫
+                    '竹山：': 'speaker-a', // ブランドカラー
                     '近藤：': 'speaker-b', // 紫
-                    '高見様：': 'speaker-c', // 緑
                     '高見：': 'speaker-c', // 緑
                     // 今後、話し手が増えたらここに追加
-                    // '山田様：': 'speaker-a',
-                    // '田中：': 'speaker-b',
+                    // '山田：': 'speaker-a',
+                    // '鈴木：': 'speaker-b',
                 };
-                
-                const speakerKeys = Object.keys(speakers);
 
-                // .article-body 内のすべての <p> タグを検索
-                const paragraphs = document.querySelectorAll('.article-body p');
+                const articleBody = document.querySelector('.article-body');
+                if (!articleBody) return;
+
+                // <p><strong>話し手：</strong>...</p> のパターンを探す
+                const paragraphs = articleBody.querySelectorAll('p');
                 
                 paragraphs.forEach(p => {
-                    // pタグ直下にある最初の<strong>タグ、または<br>の直後にある<strong>タグを探す
-                    const strongTag = p.querySelector('strong:first-child, br + strong');
+                    let speakerElement = p.querySelector('strong:first-child');
                     
-                    if (strongTag) {
-                        const speakerName = strongTag.textContent.trim(); // 例: "竹山："
-                        
-                        if (speakerKeys.includes(speakerName)) {
-                            // マッピングに名前があれば、対応するクラスを<strong>タグに追加
-                            strongTag.classList.add(speakers[speakerName]);
+                    // <p><br><strong>...</strong></p> のパターンにも対応
+                    if (!speakerElement && p.firstElementChild && p.firstElementChild.tagName === 'BR') {
+                         const potentialSpeaker = p.firstElementChild.nextElementSibling;
+                         if (potentialSpeaker && potentialSpeaker.tagName === 'STRONG') {
+                            speakerElement = potentialSpeaker;
+                         }
+                    }
+
+                    if (speakerElement) {
+                        const speakerName = speakerElement.textContent.trim();
+                        // マッピングに名前が存在するか確認
+                        if (speakers[speakerName]) {
+                            speakerElement.classList.add(speakers[speakerName]);
+                        } else if (speakerName.endsWith('：')) {
+                            // マッピングにないが「：」で終わる場合はデフォルト色
+                            speakerElement.classList.add('speaker-default');
                         }
                     }
                 });
             }
 
-            // ページ読み込み完了時に色分けを実行
+            // ページ読み込み完了時に実行
             colorCodeSpeakers();
-            // ★★★ スクリプト追加完了 ★★★
+
         });
     </script>
 </body>
