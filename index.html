@@ -339,7 +339,7 @@
             border-width: 0;
         }
 
-        /* ▼▼▼ 追加: アクセスセクションのレイアウトを強制修正 ▼▼▼ */
+        /* ▼▼▼ アクセスセクションのレイアウトを強制修正 ▼▼▼ */
         
         /* Tailwindの sm:flex-row などが
            正しく適用されない問題への対策
@@ -393,7 +393,9 @@
                     </div>
                     <nav class="hidden lg:flex items-center space-x-1 text-sm">
                         <a href="#products" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">ラインナップ</a>
-                        <a href="#news" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <!-- ▼▼▼ 変更: コラムセクションのIDに合わせてリンク先を #columns に変更 ▼▼▼ -->
+                        <a href="#columns" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <!-- ▲▲▲ 変更完了 ▲▲▲ -->
                         <a href="#faq" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
                         <a href="#access" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
                     </nav>
@@ -421,7 +423,9 @@
             <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
                 <div class="px-2 pt-2 pb-3 space-y-1">
                     <a href="#products" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">ラインナップ</a>
-                    <a href="#news" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
+                    <!-- ▼▼▼ 変更: コラムセクションのIDに合わせてリンク先を #columns に変更 ▼▼▼ -->
+                    <a href="#columns" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
+                    <!-- ▲▲▲ 変更完了 ▲▲▲ -->
                     <a href="#faq" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
                     <a href="#access" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
                 </div>
@@ -459,7 +463,7 @@
                         <span class="bg-green-500/80 backdrop-blur-sm text-white text-sm sm:text-base font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-full transition-all duration-300 hover:scale-110 hover:bg-green-500/100 shadow-lg">#サイズ</span>
                         <span class="bg-yellow-500/80 backdrop-blur-sm text-white text-sm sm:text-base font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-full transition-all duration-300 hover:scale-110 hover:bg-yellow-500/100 shadow-lg">#コスパ</span>
                     </div>
-                    <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-4">電子黒板の比較体験倉庫<br>Kokuban BASE</h1>             
+                    <h1 class="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight mb-4">電子黒板の比較体験倉庫<br>Kokuban BASE</h1>                 
                     <div class="flex flex-row gap-2 sm:gap-4 justify-center mt-5">
                         <a href="contact.html" class="bg-white text-gray-800 font-bold py-3 px-4 sm:py-4 sm:px-10 rounded-full text-sm sm:text-xl shadow-lg hover:bg-gray-200 transition-colors duration-300 transform hover:scale-105 whitespace-nowrap">
                             お問い合わせ
@@ -500,16 +504,61 @@
                 <section id="brands" class="bg-white py-8 sm:py-12 shadow-md">
                     <div class="container mx-auto px-6">
                         <div class="flex flex-wrap lg:flex-nowrap justify-center items-center gap-y-6 gap-x-6 sm:gap-x-8 lg:gap-x-10">
-                            <img src="brand-1.png" alt="Prometheanのロゴ" width="240" height="60" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
-                            <img src="brand-2.png" alt="BenQのロゴ" width="200" height="80" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
-                            <img src="brand-3.png" alt="StarBoardのロゴ" width="180" height="40" class="h-5 sm:h-8 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
-                            <img src="brand-4.png" alt="MAXHUBのロゴ" width="100" height="30" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
-                            <img src="brand-5.png" alt="SHARPのロゴ" width="90" height="30" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
-                            <img src="brand-6.png" alt="ミライタッチのロゴ" width="150" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100">
+                            <img src="brand-1.png" alt="Prometheanのロゴ" width="240" height="60" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100" onerror="this.onerror=null;this.src='https://placehold.co/240x60/f3f4f6/6b7280?text=Promethean';">
+                            <img src="brand-2.png" alt="BenQのロゴ" width="200" height="80" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100" onerror="this.onerror=null;this.src='https://placehold.co/200x80/f3f4f6/6b7280?text=BenQ';">
+                            <img src="brand-3.png" alt="StarBoardのロゴ" width="180" height="40" class="h-5 sm:h-8 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100" onerror="this.onerror=null;this.src='https://placehold.co/180x40/f3f4f6/6b7280?text=StarBoard';">
+                            <img src="brand-4.png" alt="MAXHUBのロゴ" width="100" height="30" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100" onerror="this.onerror=null;this.src='https://placehold.co/100x30/f3f4f6/6b7280?text=MAXHUB';">
+                            <img src="brand-5.png" alt="SHARPのロゴ" width="90" height="30" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100" onerror="this.onerror=null;this.src='https://placehold.co/90x30/f3f4f6/6b7280?text=SHARP';">
+                            <img src="brand-6.png" alt="ミライタッチのロゴ" width="150" height="40" class="h-6 sm:h-10 w-auto object-contain transition-transform hover:scale-110 opacity-90 hover:opacity-100" onerror="this.onerror=null;this.src='https://placehold.co/150x40/f3f4f6/6b7280?text=MiraiTouch';">
                         </div>
                     </div>
                 </section>
                 <!-- ▲▲▲ 追加完了 ▲▲▲ -->
+                
+                <!-- ▼▼▼ 追加: 最新情報セクション (microCMS/JSON読み込み) ▼▼▼ -->
+                <section id="latest-information" class="py-16 sm:py-24 bg-gray-50">
+                    <div class="container mx-auto px-6 lg:px-8 max-w-5xl">
+                        <!-- ニュースセクション全体 -->
+                        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden font-sans">
+                            
+                            <!-- ヘッダー -->
+                            <div class="p-8 sm:p-10">
+                                <h1 class="text-4xl font-bold text-gray-900 tracking-tight">News</h1>
+                                <p class="mt-1 text-lg text-gray-500">お知らせ</p>
+                            </div>
+
+                            <!-- ニュースリストコンテナ -->
+                            <div id="news-list-container" class="px-8 sm:px-10 pb-8">
+                                <!-- ニュースリスト（JSによって中身が生成される） -->
+                                <ul id="latest-news-list" class="space-y-6">
+                                    <!-- JSがここにニュース項目を挿入します -->
+                                    <!-- ローディング表示 -->
+                                    <li id="loading-indicator-latest" class="py-4">
+                                        <p class="text-gray-500">データを読み込んでいます...</p>
+                                    </li>
+                                </ul>
+
+                                <!-- エラー表示用 -->
+                                <div id="error-message-latest" class="hidden mt-6 p-4 bg-red-50 text-red-700 rounded-lg">
+                                    <p>ニュースの読み込みに失敗しました。後ほど再読み込みしてください。</p>
+                                </div>
+
+                                <!-- Read All ボタン -->
+                                <div class="mt-10 flex justify-end">
+                                    <a href="/news-archive/" class="inline-flex items-center gap-3 bg-white text-gray-800 font-bold py-3 px-6 rounded-full shadow-md border border-gray-200 transition-all duration-300 transform hover:shadow-lg hover:-translate-y-0.5">
+                                        <span>Read All</span>
+                                        <!-- 右矢印アイコン -->
+                                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- ▲▲▲ 追加完了 ▲▲▲ -->
+
                  <section id="problem" class="py-16 sm:py-24 bg-gray-50">
                     <div class="container mx-auto px-4 pb-8 sm:pb-12 overflow-hidden">
                         <header class="text-center my-8">
@@ -831,6 +880,8 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- ▼▼▼ 修正: 壊れた section id="about-us" を修正 ▼▼▼ -->
                 <section id="about-us" class="py-16 sm:py-24 bg-gradient-to-br from-pink-50 to-rose-100">
                     <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
                         <div class="bg-white rounded-2xl shadow-2xl p-8 sm:p-12 animate-on-scroll grid md:grid-cols-2 gap-8 items-center">
@@ -853,58 +904,19 @@
                                     <a href="https://idea-spot.net/" target="_blank" rel="noopener noreferrer" class="inline-block bg-pink-500 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-pink-600 transition-all duration-300 shadow-lg transform hover:scale-105">
                                         教室HPはこちら！ <i class="fas fa-arrow-right ml-2"></i>
                                     </a>
-                            </div>
-                            <!-- ▲▲▲ 変更: ここにあった </div> を削除 (正しくは下記のグリッドコンテナの終了タグ) -->
-                        </div> <!-- ここがテキスト側の終了 -->
-
-                        <!-- ▼▼▼ 復元: 教室画像のブロックを復元 ▼▼▼ -->
-                        <div class="rounded-lg overflow-hidden shadow-lg">
-                            <img src="ideaspot-classroom.jpg" alt="イデアスポット京都校の教室風景" width="600" height="400" class="w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/103f99/FFFFFF?text=Classroom';">
-                        </div>
-                        <!-- ▲▲▲ 復元完了 ▲▲▲ -->
-
-                    </div> <!-- ここがグリッドコンテナ (md:grid-cols-2) の終了 -->
-                </section>
-
-                <!-- ▼▼▼ 復元: お役立ちコラム セクション (JSON読み込みスライダー) ▼▼▼ -->
-                <!-- (ナビゲーションの "コラム" (href="#news") に対応) -->
-                <section id="news" class="py-16 sm:py-24 bg-white overflow-hidden">
-                    <div class="container mx-auto px-6 lg:px-8">
-                        <div class="text-center animate-on-scroll">
-                            <h2 class="text-2xl sm:text-4xl font-black text-[#103f99]">お役立ちコラム</h2>
-                            <p class="mt-4 text-sm sm:text-base text-gray-600">電子黒板の選び方や活用術をご紹介します。</p>
-                        </div>
-                        
-                        <div class="mt-16 relative">
-                            <!-- エラー表示用コンテナ -->
-                            <div id="error-container-news" class="mb-4"></div>
-                            
-                            <!-- Swiperコンテナ (JS: initNewsSwiper が参照) -->
-                            <div class="swiper-container news-swiper">
-                                <!-- 描画ターゲット (JS: fetchAndDisplayNews が参照) -->
-                                <div id="articles-container" class="swiper-wrapper pb-12" data-content-type="news">
-                                    <!-- ローディング表示 (JS側で削除される想定) -->
-                                    <p id="loading-list-news" class="text-gray-500 swiper-slide">記事を読み込んでいます...</p>
-                                    <noscript>
-                                        <p class="text-gray-600">
-                                            コラムの一覧をご覧いただくには、JavaScriptを有効にしていただくか、
-                                            <a href="/columns/" class="text-pink-500 underline">コラム一覧ページ</a>
-                                            をご覧ください。（この機能はビルド設定後に有効になります）
-                                        </p>
-                                    </noscript>
                                 </div>
-                                <!-- ページネーション -->
-                                <div class="swiper-pagination news-pagination"></div>
                             </div>
-                            <!-- ナビゲーションボタン -->
-                            <div class="swiper-button-prev news-prev" aria-label="前の記事へ"></div>
-                            <div class="swiper-button-next news-next" aria-label="次の記事へ"></div>
+                            <!-- ▼▼▼ 復元: 教室画像のブロックを復元 ▼▼▼ -->
+                            <div class="rounded-lg overflow-hidden shadow-lg">
+                                <img src="ideaspot-classroom.jpg" alt="イデアスポット京都校の教室風景" width="600" height="400" class="w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/103f99/FFFFFF?text=Classroom';">
+                            </div>
+                            <!-- ▲▲▲ 復元完了 ▲▲▲ -->
                         </div>
                     </div>
                 </section>
-                <!-- ▲▲▲ 復元完了 ▲▲▲ -->
+                <!-- ▲▲▲ 修正完了 ▲▲▲ -->
 
-                <!-- ▼▼▼ 修正: 壊れた section id="about-us" を 正しい id="staff-introduction" に置き換え ▼▼▼ -->
+                <!-- ▼▼▼ 修正: 壊れた section id="staff-introduction" を修正 ▼▼▼ -->
                 <section id="staff-introduction" class="py-16 sm:py-24 bg-white overflow-hidden">
                     <div class="container mx-auto px-6 lg:px-8 max-w-7xl">
                         <div class="text-center mb-12 animate-on-scroll">
@@ -958,10 +970,44 @@
                     </div>
                 </section>
                 <!-- ▲▲▲ 修正完了 ▲▲▲ -->
-                
-                <!-- ▼▼▼ 削除: アクセスセクションをここから削除し、FAQの後に移動 ▼▼▼ -->
-                <!-- <section id="access" ... </section> -->
-                <!-- ▲▲▲ 削除完了 ▲▲▲ -->
+
+                <!-- ▼▼▼ 復元: お役立ちコラム セクション (JSON読み込みスライダー) ▼▼▼ -->
+                <!-- (ナビゲーションの "コラム" (href="#columns") に対応) -->
+                <section id="columns" class="py-16 sm:py-24 bg-gray-50 overflow-hidden">
+                    <div class="container mx-auto px-6 lg:px-8">
+                        <div class="text-center animate-on-scroll">
+                            <h2 class="text-2xl sm:text-4xl font-black text-[#103f99]">お役立ちコラム</h2>
+                            <p class="mt-4 text-sm sm:text-base text-gray-600">電子黒板の選び方や活用術をご紹介します。</p>
+                        </div>
+                        
+                        <div class="mt-16 relative">
+                            <!-- エラー表示用コンテナ -->
+                            <div id="error-container-news" class="mb-4"></div>
+                            
+                            <!-- Swiperコンテナ (JS: initNewsSwiper が参照) -->
+                            <div class="swiper-container news-swiper">
+                                <!-- 描画ターゲット (JS: fetchAndDisplayNews が参照) -->
+                                <div id="articles-container" class="swiper-wrapper pb-12" data-content-type="news">
+                                    <!-- ローディング表示 (JS側で削除される想定) -->
+                                    <p id="loading-list-news" class="text-gray-500 swiper-slide">記事を読み込んでいます...</p>
+                                    <noscript>
+                                        <p class="text-gray-600">
+                                            コラムの一覧をご覧いただくには、JavaScriptを有効にしていただくか、
+                                            <a href="/columns/" class="text-pink-500 underline">コラム一覧ページ</a>
+                                            をご覧ください。（この機能はビルド設定後に有効になります）
+                                        </p>
+                                    </noscript>
+                                </div>
+                                <!-- ページネーション -->
+                                <div class="swiper-pagination news-pagination"></div>
+                            </div>
+                            <!-- ナビゲーションボタン -->
+                            <div class="swiper-button-prev news-prev" aria-label="前の記事へ"></div>
+                            <div class="swiper-button-next news-next" aria-label="次の記事へ"></div>
+                        </div>
+                    </div>
+                </section>
+                <!-- ▲▲▲ 復元完了 ▲▲▲ -->
                 
                 <section id="faq" class="py-16 sm:py-24 bg-gray-50">
                     <div class="container mx-auto px-6 lg:px-8 max-w-4xl">
@@ -1096,9 +1142,6 @@
                 </section>
                 <!-- ▲▲▲ 移動完了 ▲▲▲ -->
 
-                <!-- ▼▼▼ 削除: 元の位置にあったアクセスセクションを削除 ▼▼▼ -->
-                <!-- <section id="access" ... </section> -->
-                <!-- ▲▲▲ 削除完了 ▲M ▼▼ -->
             </main>
             <section id="contact-cta" class="bg-gray-50 py-16 sm:py-24">
                 <div class="container mx-auto px-6 text-center">
@@ -1136,7 +1179,7 @@
                                 <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
                                 <ul>
                                     <li class="mb-2"><a href="#products" class="nav-link footer-link">ラインナップ</a></li>
-                                    <li class="mb-2"><a href="#news" class="nav-link footer-link">コラム</a></li>
+                                    <li class="mb-2"><a href="#columns" class="nav-link footer-link">コラム</a></li>
                                     <li class="mb-2"><a href="#faq" class="nav-link footer-link">よくある質問</a></li>
                                 </ul>
                             </div>
@@ -1210,6 +1253,8 @@
                 document.body.classList.toggle('overflow-hidden', !isExpanded && window.innerWidth < 1024);
             });
         }
+        
+        // ▼▼▼ 復元: ページ機能の関数群 ▼▼▼
         function setupAccordions() {
             const accordionItems = document.querySelectorAll('.accordion-item');
             accordionItems.forEach(item => {
@@ -1338,20 +1383,14 @@
         }
         function createNewsCard(article) {
             const formattedDate = new Date(article.publishedAt).toLocaleDateString('ja-JP');
-            // ▼▼▼ 変更: サムネイル画像を 16:9 に変更 (w=640&h=360) ▼▼▼
             const imageUrl = article.eyecatchUrl ? `${article.eyecatchUrl}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
-            // ▲▲▲ 変更完了 ▲▲▲
             const articleUrl = `columns/${article.slug}/`; 
             return `
                 <div class="swiper-slide h-auto">
-                    <!-- ▼▼▼ 変更: リンク先を静的パスに変更 (data-id属性は不要) ▼▼▼ -->
                     <a href="${articleUrl}" class="block bg-white rounded-lg shadow-md overflow-hidden h-full group">
-                        <!-- ▲▲▲ 変更完了 ▲▲▲ -->
-                        <!-- ▼▼▼ 変更: aspect-video (16:9) に変更 ▼▼▼ -->
                         <div class="overflow-hidden aspect-video">
                             <img src="${imageUrl}" alt="${article.title}" width="640" height="360" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy">
                         </div>
-                        <!-- ▲▲▲ 変更完了 ▲▲▲ -->
                         <div class="p-4 sm:p-5">
                             <p class="text-sm text-gray-500 mb-2">${formattedDate}</p>
                             <h3 class="font-bold text-base sm:text-lg text-gray-800 group-hover:text-pink-500 transition-colors">${article.title}</h3>
@@ -1395,6 +1434,159 @@
                 if (container) container.innerHTML = '';
             }
         }
+        // ▲▲▲ 復元完了 ▲▲▲
+
+
+        // --- ▼▼▼ 追加: 最新情報 (latest-information) 用のスクリプト ▼▼▼ ---
+        
+        /**
+         * 記事の日付が90日以内か判定 (最新情報用)
+         * @param {string} dateString - 記事の日付 (ISO 8601形式)
+         * @returns {boolean} 90日以内ならtrue
+         */
+        function isNew_latest(dateString) {
+            try {
+                const articleDate = new Date(dateString);
+                const now = new Date();
+                const diffTime = Math.abs(now.getTime() - articleDate.getTime());
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays <= 90;
+            } catch (e) {
+                console.error("日付の解析に失敗しました:", e);
+                return false;
+            }
+        }
+
+        /**
+         * 日付を YYYY/MM/DD 形式にフォーマット (最新情報用)
+         * @param {string} dateString - 記事の日付 (ISO 8601形式)
+         * @returns {string} フォーマットされた日付
+         */
+        function formatDate_latest(dateString) {
+            try {
+                const date = new Date(dateString);
+                const y = date.getFullYear();
+                const m = String(date.getMonth() + 1).padStart(2, '0');
+                const d = String(date.getDate()).padStart(2, '0');
+                return `${y}/${m}/${d}`;
+            } catch (e) {
+                return "----/--/--";
+            }
+        }
+
+        /**
+         * ニュース項目 (LI) のHTMLを生成 (最新情報用)
+         * @param {object} item - ニュース記事オブジェクト
+         * @returns {string} ニュース項目のHTML文字列
+         */
+        function createNewsItem_latest(item) {
+            // APIレスポンスから日付を取得 (publishedAt優先、なければcreatedAt)
+            const articleDate = item.publishedAt || item.createdAt;
+            const formattedDate = formatDate_latest(articleDate);
+            const categoryName = item.category?.name || 'その他';
+            const isArticleNew = isNew_latest(articleDate);
+
+            // microCMSのレスポンスに合わせて調整 (例: /news/${item.id})
+            const articleUrl = item.url || `/information/${item.id}`; // id または url フィールドを想定
+
+            return `
+                <li class="news-item border-b border-gray-200 pb-6 cursor-pointer last:border-b-0" onclick="location.href='${articleUrl}'">
+                    <a href="${articleUrl}" class="block group hover:bg-gray-50 -m-3 p-3 rounded-lg transition-colors duration-200">
+                        <!-- モバイルレイアウト (flex-col) -->
+                        <div class="flex flex-col md:flex-row md:items-baseline md:gap-4">
+                            <!-- 日付 -->
+                            <time datetime="${articleDate}" class="text-sm font-medium text-gray-600 md:w-28 flex-shrink-0">
+                                ${formattedDate}
+                            </time>
+                            
+                            <!-- カテゴリ -->
+                            <span class="order-first md:order-none mt-1 md:mt-0 mb-1 md:mb-0">
+                                <span class="inline-block bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full md:w-32 flex-shrink-0 text-center">
+                                    ${categoryName}
+                                </span>
+                            </span>
+                            
+                            <!-- NEWバッジ (90日以内のみ) -->
+                            <span class="md:ml-6 md:w-16 flex-shrink-0">
+                                ${isArticleNew ? `
+                                <span class="inline-block bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                    NEW
+                                </span>
+                                ` : ''}
+                            </span>
+                            
+                            <!-- タイトル -->
+                            <h3 class="text-base font-semibold text-gray-900 mt-2 md:mt-0 md:ml-6 group-hover:text-blue-600 transition-colors duration-200">
+                                ${item.title}
+                            </h3>
+                        </div>
+                    </a>
+                </li>
+            `;
+        }
+
+        /**
+         * ニュースデータを取得して表示 (最新情報用)
+         */
+        async function fetchLatestInformation() {
+            const NEWS_JSON_PATH = 'information/index.json';
+            const MAX_ITEMS = 5; // 表示する最大記事数
+
+            const newsList = document.getElementById('latest-news-list');
+            const loadingIndicator = document.getElementById('loading-indicator-latest');
+            const errorMessage = document.getElementById('error-message-latest');
+
+            if (!newsList || !loadingIndicator || !errorMessage) {
+                console.error("最新情報セクションのDOM要素が見つかりません。");
+                return;
+            }
+
+            // プレビュー環境(blob:)やローカルファイル(file:)の場合、ダミーデータを表示
+            if (window.location.protocol === 'blob:' || window.location.protocol === 'file:') {
+                console.log("プレビューまたはローカルファイルのため、最新情報のダミーデータを表示します。");
+                const dummyData = [
+                    { id: '1', title: 'PKSHA地域金融機関向け... (ダミーデータ)', publishedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), category: { name: 'CORPORATE' } },
+                    { id: '2', title: 'トヨタファイナンスが顧客体験向上... (ダミーデータ)', publishedAt: '2022-08-09T12:00:00.000Z', category: { name: 'SERVICE' } },
+                    { id: '3', title: '京葉銀行がAI対話エンジン... (ダミーデータ)', publishedAt: '2022-08-08T12:00:00.000Z', category: { name: 'SERVICE' } },
+                    { id: '4', title: 'PKSHA、紀陽銀行のパートナー... (ダミーデータ)', publishedAt: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).toISOString(), category: { name: 'CORPORATE' } },
+                    { id: '5', title: 'IT media newsに掲載されました... (ダミーデータ)', publishedAt: '2022-08-03T12:00:00.000Z', category: { name: 'MEDIA' } },
+                ];
+                
+                if (loadingIndicator) loadingIndicator.remove();
+                newsList.innerHTML = dummyData.map(createNewsItem_latest).join('');
+                return;
+            }
+
+            // 本番環境 (http: または https:) の場合
+            try {
+                const response = await fetch(NEWS_JSON_PATH);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // index.json が配列直下であることを想定
+                const allNews = await response.json(); 
+                
+                // 最大件数に制限
+                const news = allNews.slice(0, MAX_ITEMS);
+
+                if (loadingIndicator) loadingIndicator.remove();
+                
+                if (news.length > 0) {
+                    newsList.innerHTML = news.map(createNewsItem_latest).join('');
+                } else {
+                    newsList.innerHTML = '<li><p class="text-gray-500">お知らせはまだありません。</p></li>';
+                }
+
+            } catch (error) {
+                console.error('最新情報の取得に失敗しました:', error);
+                if (loadingIndicator) loadingIndicator.remove();
+                if (errorMessage) errorMessage.classList.remove('hidden');
+            }
+        }
+        // --- ▲▲▲ 追加完了 ▲▲▲ ---
+
+
         // --- DOMContentLoaded: 実行処理 ---
         document.addEventListener('DOMContentLoaded', () => {
             const preloader = document.getElementById('preloader');
@@ -1415,10 +1607,11 @@
             }
             setupHeroVideo();
             setupMobileMenu();
-            setupAccordions();
-            initSwipers();
-            setupScrollAnimations();
-            fetchAndDisplayNews();
+            setupAccordions(); // <-- 復元
+            initSwipers(); // <-- 復元
+            setupScrollAnimations(); // <-- 復元
+            fetchAndDisplayNews(); // <-- 復元 (コラム用)
+            fetchLatestInformation(); // <-- ▼▼▼ 追加: 最新情報の読み込みを実行 ▼▼▼
             document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
