@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>お知らせ・ニュース一覧 | Kokuban BASE</title>
+    <title>お知らせ・ニュース一覧</title>
     <!-- Tailwind CSS CDNを読み込み -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome (アイコン用) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Interフォントを使用 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #f7f7f7;
         }
         /* スピナーアニメーション */
@@ -26,245 +24,251 @@
 </head>
 <body class="min-h-screen">
 
-    <!-- ヘッダー / ナビゲーション (LPとデザインを統一) -->
-    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 shadow-lg">
-        <div class="px-6 lg:px-8">
-            <div class="flex items-stretch h-[50px] sm:h-20">
-                <div class="flex-1 flex items-center space-x-8">
-                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
-                        <a href="index.html" class="nav-link hover:opacity-80 transition-opacity">Kokuban BASE</a>
-                    </div>
-                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                        <a href="index.html#products" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">ラインナップ</a>
-                        <a href="index.html#news" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
-                        <a href="index.html#faq" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
-                        <a href="index.html#access" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
-                    </nav>
+    <!-- ヘッダー / ナビゲーション -->
+    <nav class="bg-white shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+            <div class="flex justify-between items-center h-16">
+                <!-- ロゴ / サイト名 -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold text-gray-900 tracking-tight">
+                        <span class="text-indigo-600">Site</span>Logo
+                    </a>
                 </div>
-                <div class="flex-shrink-0 flex justify-end">
-                    <div class="hidden sm:flex">
-                        <a href="contact.html" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
-                            <span>お問い合わせ</span>
-                            <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                        <a href="reservation.html" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
-                            <span>来場予約</span>
-                            <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
+
+                <!-- デスクトップメニュー -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 px-3 py-2 rounded-lg text-sm font-medium transition duration-150">Home</a>
+                        <a href="#" class="text-white bg-indigo-600 px-3 py-2 rounded-lg text-sm font-medium transition duration-150 shadow-md" aria-current="page">News</a>
+                        <a href="#" class="text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 px-3 py-2 rounded-lg text-sm font-medium transition duration-150">About</a>
+                        <a href="#" class="text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 px-3 py-2 rounded-lg text-sm font-medium transition duration-150">Contact</a>
                     </div>
-                    <div class="lg:hidden flex items-center">
-                        <button id="mobile-menu-button" aria-label="メニューを開く" class="text-white hover:opacity-80 focus:outline-none p-2 text-shadow">
-                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                            </svg>
-                        </button>
-                    </div>
+                </div>
+
+                <!-- モバイルメニューボタン -->
+                <div class="-mr-2 flex md:hidden">
+                    <button id="menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 transition duration-150" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- ハンバーガーアイコン -->
+                        <svg class="block h-6 w-6" id="open-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <!-- クローズアイコン -->
+                        <svg class="hidden h-6 w-6" id="close-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
-    </header>
 
+        <!-- モバイルメニュー (デフォルトは非表示) -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-100">
+                <a href="index.html" class="text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 block px-3 py-2 rounded-lg text-base font-medium transition duration-150">Home</a>
+                <a href="#" class="bg-indigo-600 text-white block px-3 py-2 rounded-lg text-base font-medium shadow-md" aria-current="page">News</a>
+                <a href="#" class="text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 block px-3 py-2 rounded-lg text-base font-medium transition duration-150">About</a>
+                <a href="#" class="text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 block px-3 py-2 rounded-lg text-base font-medium transition duration-150">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
     <div class="container mx-auto px-4 py-12 md:py-20 max-w-4xl">
         <!-- ページタイトルエリア -->
         <header class="mb-10 md:mb-12">
-            <h1 class="text-5xl md:text-6xl font-black text-gray-900 mb-2 tracking-tight">
-                お知らせ / ニュース
+            <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-2">
+                News
             </h1>
             <p class="text-xl text-gray-500">
-                最新情報の一覧です。
+                お知らせ / ニュースアーカイブ
             </p>
-            <div class="h-1 bg-pink-500 w-16 mt-4 rounded-full"></div>
+            <div class="h-1 bg-indigo-600 w-16 mt-4 rounded-full"></div>
         </header>
 
         <!-- ニュースリストのコンテナ -->
-        <main id="news-container">
+        <main id="news-container" class="space-y-6">
             <!-- ローディングメッセージ/エラーメッセージを表示する場所 -->
             <div id="loading-message" class="text-center py-12">
-                <div class="flex items-center justify-center space-x-3 text-[#103f99]">
-                    <svg class="spinner w-6 h-6 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <div class="flex items-center justify-center space-x-3 text-indigo-600">
+                    <svg class="spinner w-5 h-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    <span class="text-lg font-medium">最新情報を取得中...</span>
+                    <span class="text-lg font-medium">ニュースを取得中...</span>
                 </div>
             </div>
             
             <!-- ニュース項目を動的に表示する場所 -->
-            <div id="news-list" class="space-y-4">
+            <div id="news-list" class="space-y-6">
                 <!-- ニュース項目がここに挿入されます -->
             </div>
         </main>
 
         <!-- ページネーション（データ取得成功時のみ表示を想定） -->
         <div id="pagination" class="mt-12 flex justify-center hidden">
-            <!-- ダミーのページネーション -->
             <nav class="flex items-center space-x-2">
                 <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 </a>
-                <a href="#" class="px-4 py-2 rounded-full font-semibold text-white bg-pink-500 hover:bg-pink-600 transition">1</a>
+                <a href="#" class="px-4 py-2 rounded-full font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition">1</a>
                 <a href="#" class="px-4 py-2 rounded-full text-gray-700 hover:bg-gray-200 transition">2</a>
+                <a href="#" class="px-4 py-2 rounded-full text-gray-700 hover:bg-gray-200 transition">3</a>
                 <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </a>
             </nav>
         </div>
     </div>
-    
-    <!-- フッター (index.htmlと同じものを想定) -->
-    <footer class="bg-custom-blue text-gray-200 mt-20">
-        <div class="container mx-auto px-6 py-12">
-            <div class="mt-12 pt-8 border-t border-white/20 text-center text-blue-200">
-                <p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
 
     <script>
-        // MicroCMS設定: ビルド時に microCMSのJSONファイルを読み込むため、APIキーは不要。
-        // パスを直接指定する。
-        const NEWS_JSON_PATH = 'information/index.json';
+        // MicroCMS設定
+        const SERVICE_ID = 'INFORMATION_SERVICE_DOMAIN_PLACEHOLDER'; 
+        const API_KEY = 'MICROCMS_INFORMATION_KEY_PLACEHOLDER'; 
+        const ENDPOINT = 'news'; // MicroCMSのコンテンツエンドポイント名 (index.jsonを読み込むので、実際は不要)
 
         const newsList = document.getElementById('news-list');
         const loadingMessage = document.getElementById('loading-message');
         const pagination = document.getElementById('pagination');
-        const NEWS_PER_PAGE = 10; // 1ページあたりの表示件数
-
-        // --- ユーティリティ関数 ---
-        const formatDate = (dateString) => {
-             try {
-                const dateObj = new Date(dateString);
-                if (isNaN(dateObj)) return '日付不明';
-                const year = dateObj.getFullYear();
-                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-                const day = String(dateObj.getDate()).padStart(2, '0');
-                return `${year}/${month}/${day}`;
-            } catch (e) {
-                return '日付エラー';
-            }
-        };
-
-        const createTagHtml = (item) => {
-            // microCMSのcategoriesフィールド（配列）からタグを抽出することを想定
-            const tags = item.tags && Array.isArray(item.tags) ? item.tags : (item.category ? [item.category] : []);
-            
-            return tags.map(tag => {
-                const tagName = typeof tag === 'object' && tag !== null && tag.name ? tag.name : tag;
-                
-                let colorClass = 'bg-gray-200 text-gray-600'; // デフォルト
-                if (tagName === 'NEW') {
-                    colorClass = 'bg-yellow-500 text-white font-bold';
-                } else if (tagName === 'プレスリリース' || tagName === 'CORPORATE') {
-                    colorClass = 'bg-indigo-100 text-indigo-600';
-                } else if (tagName === 'イベント' || tagName === 'EVENT') {
-                    colorClass = 'bg-green-100 text-green-600';
-                } else if (tagName === 'お知らせ' || tagName === 'NEWS') {
-                    colorClass = 'bg-pink-100 text-pink-600';
-                }
-                
-                return `<span class="px-2 py-0.5 rounded-full text-xs font-medium ${colorClass} transition duration-150 ease-in-out">
-                            ${tagName}
-                        </span>`;
-            }).join('');
-        };
-
-        const createNewsItemHtml = (item) => {
-            const dateSource = item.date || item.publishedAt;
-            const displayDate = formatDate(dateSource);
-            const tagHtml = createTagHtml(item);
-            const articleUrl = item.id ? `/information/${item.id}` : '#'; // 詳細ページへのリンクを想定
-            
-            return `
-                <a href="${articleUrl}" class="block bg-white p-5 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-[1.005] group">
-                    <div class="flex flex-col md:flex-row items-start md:items-center space-y-3 md:space-y-0 md:space-x-6">
-                        <!-- 日付とタグ -->
-                        <div class="flex-shrink-0 w-full md:w-40">
-                            <p class="text-sm font-semibold text-gray-500 mb-1 md:mb-0">
-                                ${displayDate}
-                            </p>
-                            <div class="flex flex-wrap gap-2 mt-2 md:mt-1">
-                                ${tagHtml}
-                            </div>
-                        </div>
-
-                        <!-- タイトルと矢印 -->
-                        <div class="flex-1 min-w-0 flex justify-between items-center w-full">
-                            <h2 class="text-base md:text-lg font-medium text-gray-800 leading-relaxed group-hover:text-pink-600 transition duration-300">
-                                ${item.title || 'タイトルがありません'}
-                            </h2>
-                            <svg class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-pink-500 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-            `;
-        };
-        // --- /ユーティリティ関数 ---
-
 
         /**
-         * ニュースデータを取得して表示する非同期関数
+         * ニュース項目をHTMLにレンダリングする関数
+         * @param {Array<Object>} contents - microCMSから取得したニュース記事の配列
          */
-        const fetchNews = async (page = 1) => {
+        const displayNewsItems = (contents) => {
+            newsList.innerHTML = contents.map(item => {
+                // MicroCMSのcategoriesフィールド（配列）からタグを抽出することを想定
+                const tags = item.tags && Array.isArray(item.tags) ? item.tags : (item.category ? [item.category] : []);
+                
+                const tagHtml = tags.map(tag => {
+                    const tagName = typeof tag === 'object' && tag !== null && tag.name ? tag.name : tag;
+
+                    let colorClass = 'bg-gray-200 text-gray-600'; // デフォルト
+                    if (tagName === 'NEW') {
+                        colorClass = 'bg-yellow-500 text-white font-bold';
+                    } else if (tagName === 'プレスリリース') {
+                        colorClass = 'bg-indigo-100 text-indigo-600';
+                    } else if (tagName === 'イベント') {
+                        colorClass = 'bg-green-100 text-green-600';
+                    }
+                    
+                    return `<span class="px-2 py-0.5 rounded-full text-xs font-medium ${colorClass} transition duration-150 ease-in-out">
+                                ${tagName}
+                            </span>`;
+                }).join('');
+
+                const dateSource = item.date || item.publishedAt;
+                let displayDate = '日付不明';
+                if (dateSource) {
+                    try {
+                        const dateObj = new Date(dateSource);
+                        if (!isNaN(dateObj)) {
+                            const year = dateObj.getFullYear();
+                            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                            const day = String(dateObj.getDate()).padStart(2, '0');
+                            displayDate = `${year}/${month}/${day}`;
+                        }
+                    } catch (e) {
+                        displayDate = '日付エラー';
+                    }
+                }
+
+                // ★★★ 修正箇所: リンク先を item.url に変更 ★★★
+                // microCMSで設定された 'url' フィールドを優先して使用。なければ # にフォールバック。
+                const articleLink = item.url && typeof item.url === 'string' ? item.url : '#';
+
+                return `
+                    <a href="${articleLink}" target="_blank" rel="noopener noreferrer" class="block bg-white p-5 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-[1.005] group">
+                        <div class="flex flex-col md:flex-row items-start md:items-center space-y-3 md:space-y-0 md:space-x-6">
+                            <!-- 日付とタグ -->
+                            <div class="flex-shrink-0 w-full md:w-36">
+                                <p class="text-sm font-semibold text-gray-500 mb-1 md:mb-0">
+                                    ${displayDate}
+                                </p>
+                                <div class="flex flex-wrap gap-2 mt-2 md:mt-1">
+                                    ${tagHtml}
+                                </div>
+                            </div>
+
+                            <!-- タイトルと矢印 -->
+                            <div class="flex-1 min-w-0 flex justify-between items-center w-full">
+                                <h2 class="text-base md:text-lg font-medium text-gray-800 leading-relaxed group-hover:text-indigo-600 transition duration-300">
+                                    ${item.title || 'タイトルがありません'}
+                                </h2>
+                                <svg class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-indigo-500 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+            pagination.classList.remove('hidden');
+        };
+
+        /**
+         * microCMSからニュースデータを取得する非同期関数（JSONファイルを読み込み）
+         */
+        const fetchNews = async () => {
             loadingMessage.classList.remove('hidden');
             newsList.innerHTML = '';
             pagination.classList.add('hidden');
 
+            const JSON_PATH = 'information/index.json';
+            
             try {
-                // JSONファイルからデータを取得
-                const response = await fetch(NEWS_JSON_PATH);
-                
+                // 静的に生成されたJSONファイルを読み込む
+                const response = await fetch(JSON_PATH);
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch JSON: HTTP status ${response.status}`);
+                    throw new Error(`Failed to load ${JSON_PATH}: ${response.status}`);
                 }
+                const contents = await response.json();
 
-                const allContents = await response.json();
-                
-                // ページネーションと表示データの計算 (今回はシミュレーションのため、簡単化)
-                const startIndex = (page - 1) * NEWS_PER_PAGE;
-                const endIndex = startIndex + NEWS_PER_PAGE;
-                const contentsToShow = allContents.slice(startIndex, endIndex);
-
-                if (contentsToShow.length === 0) {
-                    newsList.innerHTML = '<p class="text-center text-gray-500 py-8">現在、公開されているお知らせはありません。</p>';
+                if (contents && contents.length > 0) {
+                    displayNewsItems(contents);
                 } else {
-                    newsList.innerHTML = contentsToShow.map(createNewsItemHtml).join('');
-                }
-                
-                // ページネーションの表示を更新 (今回は省略。データ成功時のみ表示)
-                if (allContents.length > NEWS_PER_PAGE) {
-                    pagination.classList.remove('hidden');
+                    newsList.innerHTML = '<p class="text-center text-gray-500 py-12">現在、お知らせはありません。</p>';
                 }
 
             } catch (error) {
                 console.error("Failed to fetch news:", error);
-                newsList.innerHTML = ''; // リストをクリア
+                // エラーメッセージの表示
                 loadingMessage.innerHTML = `
                     <div class="text-center py-12 text-red-600">
-                        <i class="fas fa-exclamation-triangle w-8 h-8 mx-auto mb-2"></i>
-                        <p class="text-lg font-medium">データの取得に失敗しました。</p>
-                        <p class="text-sm text-gray-500 mt-2">（エラー: ${error.message}。ビルド後の JSON ファイルがサーバーに存在するか確認してください。）</p>
+                        <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="text-lg font-medium">ニュースの取得に失敗しました。</p>
+                        <p class="text-sm text-gray-500 mt-2">（エラー: ${error.message}。ファイルが存在しない可能性があります。）</p>
                     </div>
                 `;
             } finally {
                 // ローディングメッセージを非表示にする
                 loadingMessage.classList.add('hidden');
+                // もしエラーでニュースリストが空の場合でも、ローディングを非表示にする
             }
         };
 
 
         // ページロード時の処理
         document.addEventListener('DOMContentLoaded', () => {
-            fetchNews(1); // 1ページ目のニュースデータの取得を開始
+            // ニュースデータの取得を開始
+            fetchNews();
             
-            // モバイルメニューのトグル処理 (LPの機能を移植)
-            const button = document.getElementById('mobile-menu-button');
+            // モバイルメニューのトグル処理 (既存)
+            const button = document.getElementById('menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('open-icon');
+            const closeIcon = document.getElementById('close-icon');
 
             if (button && mobileMenu) {
                 button.addEventListener('click', () => {
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true' || false;
+                    button.setAttribute('aria-expanded', !isExpanded);
                     mobileMenu.classList.toggle('hidden');
+
+                    // ハンバーガーアイコンとクローズアイコンの切り替え
+                    openIcon.classList.toggle('hidden');
+                    closeIcon.classList.toggle('hidden');
                 });
             }
         });
