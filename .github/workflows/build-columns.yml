@@ -1,120 +1,90 @@
-# .github/workflows/build-columns.yml
-# microCMSのWebhookやPushをトリガーに、SSG（静的サイト生成）を実行し、
-# GitHub Pages (gh-pagesブランチ) にデプロイするワークフロー
-
 name: Build and Deploy SSG Contents
 
-# --- トリガーの設定 ---
 on:
-  # 1. microCMSからのWebhook (repository_dispatch)
   repository_dispatch:
-    types: [microcms-webhook] # microCMS側で設定するイベントタイプ
-
-  # 2. mainブランチへのPush時 (ビルドスクリプトや雛形が変更された場合)
+    types: [microcms-webhook]
   push:
     branches:
-      - main # メインブランチ名に合わせてください (例: master)
+      - main
     paths-ignore:
       - 'information/**'
       - 'columns/**'
-  
-  # 3. 手動実行 (Workflow dispatch)
   workflow_dispatch:
 
-# --- 並列実行の防止 ---
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# --- ジョブの定義 ---
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
-    # 実行権限の設定 (GitHub Pagesへのデプロイに必要)
     permissions:
       contents: write
       pages: write
       id-token: write
-      
+
     steps:
-      # ステップ 1: リポジトリのコードをチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ステップ 2: Node.js の環境をセットアップ
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # LTSバージョンを使用
+          node-version: '20'
 
-      # ステップ 3: 依存関係をインストール
       - name: Install dependencies
         run: npm install microcms-js-sdk
 
-      # ステップ 4: information/index.json 生成スクリプトの一時作成と実行
-      # ★★★ 修正: サービスドメインと情報用APIキーを環境変数で渡す ★★★
+      # ===== information サービス（information.microcms.io） =====
       - name: Run information JSON build
         run: |
-          # 1. information用ビルドスクリプトを一時的に作成
           cat > build-information.mjs << 'EOF'
           import { createClient } from 'microcms-js-sdk';
           import fs from 'fs';
           import path from 'path';
 
-          const SERVICE_DOMAIN = process.env.MICROCMS_SERVICE_DOMAIN; 
-          const API_KEY = process.env.MICROCMS_INFORMATION_KEY;
-          const API_ENDPOINT = 'information'; 
+          const SERVICE_DOMAIN = (process.env.MICROCMS_INFO_DOMAIN || '').trim();
+          const API_KEY = (process.env.MICROCMS_INFO_KEY || '').trim();
+          const API_ENDPOINT = 'information';
 
           if (!SERVICE_DOMAIN || !API_KEY) {
-              console.error("Error: MICROCMS_SERVICE_DOMAIN or MICROCMS_INFORMATION_KEY is missing in environment variables.");
-              process.exit(1);
+            console.error('Missing environment variables for information service.');
+            process.exit(1);
           }
+
+          console.log(`info: domain=${SERVICE_DOMAIN}, keyLen=${API_KEY.length}, endpoint=${API_ENDPOINT}`);
 
           const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });
 
-          const fetchData = async () => {
+          const main = async () => {
             try {
-              const data = await client.getList({
-                endpoint: API_ENDPOINT,
-                queries: { limit: 5 }
-              });
-              
+              const data = await client.getList({ endpoint: API_ENDPOINT, queries: { limit: 5 } });
               const outputDir = path.join(process.cwd(), 'information');
               const outputPath = path.join(outputDir, 'index.json');
-              
-              if (!fs.existsSync(outputDir)) {
-                fs.mkdirSync(outputDir, { recursive: true });
-              }
-              
+              if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
               fs.writeFileSync(outputPath, JSON.stringify(data.contents, null, 2));
-              
               console.log(`✅ Success: Generated ${outputPath} with ${data.contents.length} items.`);
-              
             } catch (err) {
-              console.error('❌ Failed to fetch microCMS data (Information API):', err.message);
+              console.error('❌ Failed to fetch from information microCMS:', err.message);
               process.exit(1);
             }
           };
 
-          fetchData();
+          main();
           EOF
-          
-          # 2. スクリプトを実行
+
           node build-information.mjs
         env:
-          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
-          MICROCMS_INFORMATION_KEY: ${{ secrets.MICROCMS_INFORMATION_KEY }}
-          
-      # ステップ 5: コラムのビルドスクリプトを実行 (既存のSSG)
-      - name: Run Columns SSG
-        run: node scripts/fetch_and_build.mjs # 既存のコラムビルドスクリプト
-        env:
-          # ★★★ 修正: コラム用APIキーを渡す ★★★
-          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
-          MICROCMS_API_KEY: ${{ secrets.MICROCMS_COLUMNS_KEY }} # コラム用のキーを渡す
+          MICROCMS_INFO_DOMAIN: ${{ secrets.INFORMATION_SERVICE_DOMAIN }}   # 例: information
+          MICROCMS_INFO_KEY: ${{ secrets.INFORMATION_API_KEY }}             # information サービス側のキー
 
-      # ステップ 6: GitHub Pages へデプロイ
+      # ===== columns/news サービス（kokubanbase.microcms.io） =====
+      - name: Run Columns SSG
+        run: node scripts/fetch_and_build.mjs
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.COLUMNS_SERVICE_DOMAIN }}    # 例: kokubanbase
+          MICROCMS_API_KEY: ${{ secrets.COLUMNS_API_KEY }}                  # kokubanbase サービス側のキー
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -130,4 +100,4 @@ jobs:
             package.json
             package-lock.json
             .gitignore
-            build-information.mjs # 一時ファイルを除外
+            build-information.mjs
