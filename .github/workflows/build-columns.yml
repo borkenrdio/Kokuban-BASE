@@ -4,8 +4,7 @@ on:
   repository_dispatch:
     types: [microcms-webhook]
   push:
-    branches:
-      - main
+    branches: [main]
     paths-ignore:
       - 'information/**'
       - 'columns/**'
@@ -52,38 +51,39 @@ jobs:
             process.exit(1);
           }
 
-          console.log(`info: domain=${SERVICE_DOMAIN}, keyLen=${API_KEY.length}, endpoint=${API_ENDPOINT}`);
+          console.log(`info-env: domain=${SERVICE_DOMAIN}, keyLen=${API_KEY.length}`);
 
           const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });
 
           const main = async () => {
             try {
               const data = await client.getList({ endpoint: API_ENDPOINT, queries: { limit: 5 } });
-              const outputDir = path.join(process.cwd(), 'information');
-              const outputPath = path.join(outputDir, 'index.json');
-              if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
-              fs.writeFileSync(outputPath, JSON.stringify(data.contents, null, 2));
-              console.log(`✅ Success: Generated ${outputPath} with ${data.contents.length} items.`);
+              const outDir = path.join(process.cwd(), 'information');
+              const outPath = path.join(outDir, 'index.json');
+              if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+              fs.writeFileSync(outPath, JSON.stringify(data.contents, null, 2));
+              console.log(`✅ Success: Generated ${outPath} with ${data.contents.length} items.`);
             } catch (err) {
               console.error('❌ Failed to fetch from information microCMS:', err.message);
               process.exit(1);
             }
           };
-
           main();
           EOF
 
           node build-information.mjs
         env:
-          MICROCMS_INFO_DOMAIN: ${{ secrets.INFORMATION_SERVICE_DOMAIN }}   # 例: information
-          MICROCMS_INFO_KEY: ${{ secrets.INFORMATION_API_KEY }}             # information サービス側のキー
+          # ← ドメインは固定値でOK（別サービスなので kokubanbase とは別）
+          MICROCMS_INFO_DOMAIN: information
+          # ← 既存のシークレットをそのまま使う
+          MICROCMS_INFO_KEY: ${{ secrets.MICROCMS_INFORMATION_KEY }}
 
       # ===== columns/news サービス（kokubanbase.microcms.io） =====
       - name: Run Columns SSG
         run: node scripts/fetch_and_build.mjs
         env:
-          MICROCMS_SERVICE_DOMAIN: ${{ secrets.COLUMNS_SERVICE_DOMAIN }}    # 例: kokubanbase
-          MICROCMS_API_KEY: ${{ secrets.COLUMNS_API_KEY }}                  # kokubanbase サービス側のキー
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }} # = kokubanbase
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_COLUMNS_KEY }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
