@@ -1,57 +1,14 @@
 # .github/workflows/build-columns.yml
-# microCMSのWebhookやPushをトリガーに、SSG（静的サイト生成）を実行し、
-# GitHub Pages (gh-pagesブランチ) にデプロイするワークフロー
 
-name: Build and Deploy SSG Contents
+# ... (中略) ...
 
-# --- トリガーの設定 ---
-on:
-  # 1. microCMSからのWebhook (repository_dispatch)
-  repository_dispatch:
-    types: [microcms-webhook] # microCMS側で設定するイベントタイプ
-  # 2. mainブランチへのPush時 (ビルドスクリプトや雛形が変更された場合)
-  push:
-    branches:
-      - main # メインブランチ名に合わせてください (例: master)
-    paths:
-      # 既存のコラム関連ファイル
-      - 'scripts/fetch_and_build.mjs'
-      - 'columns/template.html'
-      # 最新情報関連のファイル
-      - 'index.html'
-      - 'package.json'
-      - '.github/workflows/build-columns.yml'
-      
-  # 3. 手動実行 (Workflow dispatch)
-  workflow_dispatch:
-
-# --- 並列実行の防止 ---
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
-# --- ジョブの定義 ---
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    
-    # 実行権限の設定
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-      
     steps:
       # ステップ 1: リポジトリのコードをチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v4
 
       # ステップ 2: Node.js の環境をセットアップ
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          # cache: 'npm' # package-lock.json がないためキャッシュを無効化
+# ... (中略) ...
 
       # ステップ 3: 依存関係をインストール
       - name: Install dependencies
@@ -61,55 +18,58 @@ jobs:
       # ▼▼▼ 新しい処理: 最新情報 (information/index.json) の生成 ▼▼▼
       # ===============================================
 
-      # ステップ 4: 最新情報生成スクリプトの作成
-      # (ヒアドキュメントをより安全な形式に変更し、特殊文字のエラーを防ぐ)
-      - name: Create information JSON build script
+      # ステップ 4: 最新情報生成スクリプトを安全に書き出し、実行する
+      - name: Create and Run information JSON build
         run: |
-          echo "import { createClient } from 'microcms-js-sdk';" > build-information.js
-          echo "import fs from 'fs';" >> build-information.js
-          echo "import path from 'path';" >> build-information.js
-          echo "" >> build-information.js
-          echo "const SERVICE_DOMAIN = process.env.MICROCMS_SERVICE_DOMAIN;" >> build-information.js
-          echo "const API_KEY = process.env.MICROCMS_API_KEY;" >> build-information.js
-          echo "const API_ENDPOINT = 'information';" >> build-information.js
-          echo "" >> build-information.js
-          echo "const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });" >> build-information.js
-          echo "" >> build-information.js
-          echo "const fetchData = async () => {" >> build-information.js
-          echo "  try {" >> build-information.js
-          echo "    const data = await client.get({ endpoint: API_ENDPOINT, queries: { limit: 5 } });" >> build-information.js
-          echo "    const outputDir = path.join(process.cwd(), API_ENDPOINT);" >> build-information.js
-          echo "    const outputPath = path.join(outputDir, 'index.json');" >> build-information.js
-          echo "    if (!fs.existsSync(outputDir)) { fs.mkdirSync(outputDir, { recursive: true }); }" >> build-information.js
-          echo "    fs.writeFileSync(outputPath, JSON.stringify(data.contents, null, 2));" >> build-information.js
-          echo "    console.log(`✅ Success: Generated ${outputPath} with ${data.contents.length} items.`);" >> build-information.js
-          echo "  } catch (err) {" >> build-information.js
-          echo "    console.error('❌ Failed to fetch information microCMS data:', err);" >> build-information.js
-          echo "  }" >> build-information.js
-          echo "};" >> build-information.js
-          echo "" >> build-information.js
-          echo "fetchData();" >> build-information.js
-        env:
-          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
-          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+          # 1. スクリプトの内容をヒアドキュメントで安全に書き出す
+          #    （実行環境のシェルに依存しない、より安全な方法）
+          cat << 'END_OF_SCRIPT' > build-information.mjs
+          import { createClient } from 'microcms-js-sdk';
+          import fs from 'fs';
+          import path from 'path';
 
-      # ステップ 5: 最新情報生成スクリプトの実行
-      - name: Run information JSON build
-        run: |
-          # package.jsonにtype:moduleが設定されている前提で実行
-          npm pkg set type="module" # 実行前に念のため設定
-          node build-information.js
+          // 環境変数からAPI情報を取得
+          const SERVICE_DOMAIN = process.env.MICROCMS_SERVICE_DOMAIN; 
+          const API_KEY = process.env.MICROCMS_API_KEY; 
+          const API_ENDPOINT = 'information'; 
+
+          const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });
           
+          const fetchData = async () => {
+            try {
+              const data = await client.get({ endpoint: API_ENDPOINT, queries: { limit: 5 } });
+              
+              const outputDir = path.join(process.cwd(), API_ENDPOINT); 
+              const outputPath = path.join(outputDir, 'index.json');
+              
+              if (!fs.existsSync(outputDir)) {
+                fs.mkdirSync(outputDir, { recursive: true });
+              }
+              
+              fs.writeFileSync(outputPath, JSON.stringify(data.contents, null, 2));
+              
+              console.log(`✅ Success: Generated ${outputPath} with ${data.contents.length} items.`);
+              
+            } catch (err) {
+              console.error('❌ Failed to fetch information microCMS data:', err);
+              // ここで exit(1) を呼び出さないことで、コラムのビルド(Step 6)を続行させる
+            }
+          };
+
+          fetchData();
+          END_OF_SCRIPT
+          
+          # 2. スクリプトの実行 (.mjs で ES Module として明示的に実行)
+          #    （npm pkg set type="module" の設定は不要）
+          node build-information.mjs
+
       # ===============================================
-      # ▲▲▲ 新しい処理の追加完了 ▲▲▲
+      # ▲▲▲ 新しい処理の追加完了 (ステップ 4 と 5 を統合) ▲▲▲
       # ===============================================
 
       # ステップ 6: 既存のビルドスクリプトを実行 (SSG - コラム生成)
       - name: Run existing build script (Columns SSG)
-        run: node scripts/fetch_and_build.mjs
-        env:
-          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
-          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+# ... (中略) ...
 
       # ステップ 7: GitHub Pages へデプロイ
       - name: Deploy to GitHub Pages
@@ -127,4 +87,4 @@ jobs:
             package.json
             package-lock.json
             .gitignore
-            build-information.js # 一時ファイルのため除外
+            build-information.mjs # 拡張子を .mjs に変更
