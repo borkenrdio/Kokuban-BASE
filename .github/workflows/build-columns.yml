@@ -2,25 +2,26 @@
 # microCMSのWebhookやPushをトリガーに、SSG（静的サイト生成）を実行し、
 # GitHub Pages (gh-pagesブランチ) にデプロイするワークフロー
 
-name: Build and Deploy SSG Columns
+name: Build and Deploy SSG Contents
 
 # --- トリガーの設定 ---
 on:
   # 1. microCMSからのWebhook (repository_dispatch)
   repository_dispatch:
     types: [microcms-webhook] # microCMS側で設定するイベントタイプ
-
   # 2. mainブランチへのPush時 (ビルドスクリプトや雛形が変更された場合)
   push:
     branches:
-      - main
+      - main # メインブランチ名に合わせてください (例: master)
     paths:
+      # 既存のコラム関連ファイル
       - 'scripts/fetch_and_build.mjs'
       - 'columns/template.html'
+      # 最新情報関連のファイル
       - 'index.html'
       - 'package.json'
       - '.github/workflows/build-columns.yml'
-  
+      
   # 3. 手動実行 (Workflow dispatch)
   workflow_dispatch:
 
@@ -50,22 +51,77 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          # ★★★ 修正点 ★★★
-          # package-lock.json が存在しないため、キャッシュ機能を無効化
-          # cache: 'npm' # <- この行を削除
+          # cache: 'npm' # package-lock.json がないためキャッシュを無効化
 
       # ステップ 3: 依存関係をインストール
       - name: Install dependencies
         run: npm install
+        
+      # ===============================================
+      # ▼▼▼ 新しい処理: 最新情報 (information/index.json) の生成 ▼▼▼
+      # ===============================================
 
-      # ステップ 4: ビルドスクリプトを実行 (SSG)
-      - name: Run build script
+      # ステップ 4: 最新情報生成スクリプトの作成
+      # (GitHub Actions上で実行するため、一時的に build-information.js を作成)
+      - name: Create information JSON build script
+        run: |
+          cat << 'EOF' > build-information.js
+          import { createClient } from 'microcms-js-sdk';
+          import fs from 'fs';
+          import path from 'path';
+
+          const SERVICE_DOMAIN = process.env.MICROCMS_SERVICE_DOMAIN; 
+          const API_KEY = process.env.MICROCMS_API_KEY; 
+          const API_ENDPOINT = 'information'; // 最新情報のAPIエンドポイント
+          
+          const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });
+          
+          const fetchData = async () => {
+            try {
+              const data = await client.get({ endpoint: API_ENDPOINT, queries: { limit: 5 } });
+              
+              const outputDir = path.join(process.cwd(), API_ENDPOINT); // information/ フォルダ
+              const outputPath = path.join(outputDir, 'index.json');
+              
+              if (!fs.existsSync(outputDir)) {
+                fs.mkdirSync(outputDir, { recursive: true });
+              }
+              
+              fs.writeFileSync(outputPath, JSON.stringify(data.contents, null, 2));
+              
+              console.log(\`✅ Success: Generated \${outputPath} with \${data.contents.length} items.\`);
+              
+            } catch (err) {
+              console.error('❌ Failed to fetch information microCMS data:', err);
+              // エラーが発生しても他のジョブは継続させるため、ここでは終了コード 0 を返します
+            }
+          };
+
+          fetchData();
+          EOF
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+
+      # ステップ 5: 最新情報生成スクリプトの実行
+      - name: Run information JSON build
+        run: |
+          # package.jsonにtype:moduleが設定されている前提で実行
+          npm pkg set type="module" # 実行前に念のため設定
+          node build-information.js
+          
+      # ===============================================
+      # ▲▲▲ 新しい処理の追加完了 ▲▲▲
+      # ===============================================
+
+      # ステップ 6: 既存のビルドスクリプトを実行 (SSG - コラム生成)
+      - name: Run existing build script (Columns SSG)
         run: node scripts/fetch_and_build.mjs
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
-      # ステップ 5: GitHub Pages へデプロイ
+      # ステップ 7: GitHub Pages へデプロイ
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -81,3 +137,4 @@ jobs:
             package.json
             package-lock.json
             .gitignore
+            build-information.js # 一時ファイルのため除外
