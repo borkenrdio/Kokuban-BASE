@@ -62,43 +62,33 @@ jobs:
       # ===============================================
 
       # ステップ 4: 最新情報生成スクリプトの作成
-      # (GitHub Actions上で実行するため、一時的に build-information.js を作成)
+      # (ヒアドキュメントをより安全な形式に変更し、特殊文字のエラーを防ぐ)
       - name: Create information JSON build script
         run: |
-          cat << 'EOF' > build-information.js
-          import { createClient } from 'microcms-js-sdk';
-          import fs from 'fs';
-          import path from 'path';
-
-          const SERVICE_DOMAIN = process.env.MICROCMS_SERVICE_DOMAIN; 
-          const API_KEY = process.env.MICROCMS_API_KEY; 
-          const API_ENDPOINT = 'information'; // 最新情報のAPIエンドポイント
-          
-          const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });
-          
-          const fetchData = async () => {
-            try {
-              const data = await client.get({ endpoint: API_ENDPOINT, queries: { limit: 5 } });
-              
-              const outputDir = path.join(process.cwd(), API_ENDPOINT); // information/ フォルダ
-              const outputPath = path.join(outputDir, 'index.json');
-              
-              if (!fs.existsSync(outputDir)) {
-                fs.mkdirSync(outputDir, { recursive: true });
-              }
-              
-              fs.writeFileSync(outputPath, JSON.stringify(data.contents, null, 2));
-              
-              console.log(\`✅ Success: Generated \${outputPath} with \${data.contents.length} items.\`);
-              
-            } catch (err) {
-              console.error('❌ Failed to fetch information microCMS data:', err);
-              // エラーが発生しても他のジョブは継続させるため、ここでは終了コード 0 を返します
-            }
-          };
-
-          fetchData();
-          EOF
+          echo "import { createClient } from 'microcms-js-sdk';" > build-information.js
+          echo "import fs from 'fs';" >> build-information.js
+          echo "import path from 'path';" >> build-information.js
+          echo "" >> build-information.js
+          echo "const SERVICE_DOMAIN = process.env.MICROCMS_SERVICE_DOMAIN;" >> build-information.js
+          echo "const API_KEY = process.env.MICROCMS_API_KEY;" >> build-information.js
+          echo "const API_ENDPOINT = 'information';" >> build-information.js
+          echo "" >> build-information.js
+          echo "const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });" >> build-information.js
+          echo "" >> build-information.js
+          echo "const fetchData = async () => {" >> build-information.js
+          echo "  try {" >> build-information.js
+          echo "    const data = await client.get({ endpoint: API_ENDPOINT, queries: { limit: 5 } });" >> build-information.js
+          echo "    const outputDir = path.join(process.cwd(), API_ENDPOINT);" >> build-information.js
+          echo "    const outputPath = path.join(outputDir, 'index.json');" >> build-information.js
+          echo "    if (!fs.existsSync(outputDir)) { fs.mkdirSync(outputDir, { recursive: true }); }" >> build-information.js
+          echo "    fs.writeFileSync(outputPath, JSON.stringify(data.contents, null, 2));" >> build-information.js
+          echo "    console.log(`✅ Success: Generated ${outputPath} with ${data.contents.length} items.`);" >> build-information.js
+          echo "  } catch (err) {" >> build-information.js
+          echo "    console.error('❌ Failed to fetch information microCMS data:', err);" >> build-information.js
+          echo "  }" >> build-information.js
+          echo "};" >> build-information.js
+          echo "" >> build-information.js
+          echo "fetchData();" >> build-information.js
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
