@@ -1,14 +1,54 @@
 # .github/workflows/build-columns.yml
 
-# ... (中略) ...
+name: Build and Deploy SSG Contents
 
+# --- トリガーの設定 ---
+on:
+  # microCMS Webhookからトリガーされる設定
+  repository_dispatch:
+    types: [microcms-webhook] 
+  # GitHubへのプッシュでも実行される設定（手動デバッグ用）
+  push:
+    branches:
+      - main # メインブランチ名に合わせてください (例: master)
+    paths:
+      # 既存のコラム関連ファイル
+      - 'scripts/fetch_and_build.mjs'
+      - 'columns/template.html'
+      # 最新情報関連のファイル
+      - 'index.html'
+      - 'package.json'
+      - '.github/workflows/build-columns.yml'
+      
+  # 3. 手動実行 (Workflow dispatch)
+  workflow_dispatch:
+
+# --- 並列実行の防止 ---
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# --- ジョブの定義 (★修正点: jobs セクションを追加★) ---
+jobs: # <- ここに 'jobs:' が必要です
+  build-and-deploy: # <- ジョブ名 (jobs の下にインデント)
+    runs-on: ubuntu-latest
+    
+    # 実行権限の設定
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+      
     steps:
       # ステップ 1: リポジトリのコードをチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v4
 
       # ステップ 2: Node.js の環境をセットアップ
-# ... (中略) ...
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       # ステップ 3: 依存関係をインストール
       - name: Install dependencies
@@ -69,7 +109,10 @@
 
       # ステップ 6: 既存のビルドスクリプトを実行 (SSG - コラム生成)
       - name: Run existing build script (Columns SSG)
-# ... (中略) ...
+        run: node scripts/fetch_and_build.mjs
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
       # ステップ 7: GitHub Pages へデプロイ
       - name: Deploy to GitHub Pages
