@@ -1,0 +1,36 @@
+[
+  {
+    "id": "u3qazs3gi",
+    "createdAt": "2025-11-12T07:34:30.466Z",
+    "updatedAt": "2025-11-12T07:37:58.099Z",
+    "publishedAt": "2025-11-11T01:00:00.000Z",
+    "revisedAt": "2025-11-12T07:37:58.099Z",
+    "title": "【 対談記事公開 】　BenQ × idea spot 教育の最前線",
+    "category": {
+      "id": "rb0paiflsl95",
+      "createdAt": "2025-11-12T04:47:13.121Z",
+      "updatedAt": "2025-11-12T04:47:13.121Z",
+      "publishedAt": "2025-11-12T04:47:13.121Z",
+      "revisedAt": "2025-11-12T04:47:13.121Z",
+      "name": "メディア"
+    },
+    "url": "https://kokuban-base.com/columns/benq-ideaspot-education-talk/"
+  },
+  {
+    "id": "77jo1e1lzes",
+    "createdAt": "2025-11-12T04:48:53.209Z",
+    "updatedAt": "2025-11-12T07:37:48.699Z",
+    "publishedAt": "2025-11-01T01:00:00.000Z",
+    "revisedAt": "2025-11-12T07:37:48.699Z",
+    "title": "【 プレスリリース 】　日本初、電子黒板の比較体験倉庫「Kokuban BASE」、11月1日オープン",
+    "category": {
+      "id": "rb0paiflsl95",
+      "createdAt": "2025-11-12T04:47:13.121Z",
+      "updatedAt": "2025-11-12T04:47:13.121Z",
+      "publishedAt": "2025-11-12T04:47:13.121Z",
+      "revisedAt": "2025-11-12T04:47:13.121Z",
+      "name": "メディア"
+    },
+    "url": "https://prtimes.jp/main/html/rd/p/000000001.000170903.html"
+  }
+]
