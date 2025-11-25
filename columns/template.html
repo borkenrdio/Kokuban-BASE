@@ -80,9 +80,14 @@
         /* 記事本文スタイル */
         /* ★★★ 修正: 記事本文の読みやすさ向上（行間と段落余白） ★★★ */
         .article-body p { 
-            line-height: 1.5; /* 行間を広げる (元1.8 -> 2.0) */
-            margin-bottom: 1.8em; /* 段落下の余白を確保 */
+            line-height: 1.5; 
+            margin-bottom: 1.8em; 
             letter-spacing: 0.05em;
+        }
+
+        /* ★★★ 追加: 文中の強制改行(<br>)を無効化して自然な折り返しにする ★★★ */
+        .article-body br {
+            display: none;
         }
         
         .article-body h2 { font-size: 1.875rem!important; line-height: 2.25rem!important; font-weight: 900; margin: 3.5em 0 1.2em; padding-bottom: 0.4em; border-bottom: 2px solid #f3f4f6; }
@@ -92,7 +97,12 @@
         .article-body h6 { font-size: 1rem!important; line-height: 1.5rem!important; }
         
         /* 対談話者スタイル */
-        .article-body p strong:first-child, .article-body p br:first-child + strong { display: inline-block; font-weight: 700; margin-right: 0.25em; }
+        /* ★★★ 修正: 話者名をブロック要素にして、直後で必ず改行させる（brタグ無効化の対策） ★★★ */
+        .article-body p strong:first-child, .article-body p br:first-child + strong { 
+            display: block; /* inline-block から block に変更 */
+            margin-bottom: 0.5em; /* 名前と本文の間に少し隙間を空ける */
+            font-weight: 700; 
+        }
         .speaker-a { color: rgb(16, 63, 153); }
         .speaker-b { color: #8b5cf6; }
         .speaker-c { color: #16a34a; }
