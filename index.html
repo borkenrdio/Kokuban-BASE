@@ -639,18 +639,20 @@
                 if (isLatest) {
                     container.innerHTML = items.map(item => {
                         const date = new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP');
-                        return `<li class="border-b border-gray-200 pb-6 cursor-pointer hover:bg-gray-50 -m-3 p-3 rounded-lg transition" onclick="location.href='${item.url || `/information/${item.id}`}'">
-                            <div class="flex flex-col md:flex-row md:items-baseline md:gap-4">
-                                <time class="text-sm font-medium text-gray-600 md:w-28">${date}</time>
-                                <span class="bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full md:w-32 text-center mb-1 md:mb-0">${item.category?.name || 'その他'}</span>
-                                <h3 class="text-base font-semibold text-gray-900 md:ml-6 group-hover:text-blue-600">${item.title}</h3>
+                        return `<li class="border-b border-gray-200 pb-6 cursor-pointer hover:bg-gray-50 -m-3 p-3 rounded-lg transition group" onclick="location.href='${item.url || `/information/${item.id}`}'">
+                            <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-8">
+                                <time class="text-sm font-medium text-gray-600 md:w-24 flex-shrink-0">${date}</time>
+                                <div class="md:w-32 flex-shrink-0">
+                                    <span class="inline-block bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full w-auto md:w-full text-center">${item.category?.name || 'その他'}</span>
+                                </div>
+                                <h3 class="text-base font-semibold text-gray-900 flex-1 group-hover:text-blue-600 leading-relaxed">${item.title}</h3>
                             </div></li>`;
                     }).join('');
                 } else {
                     container.innerHTML = items.map(item => {
                         const img = item.eyecatchUrl ? `${item.eyecatchUrl}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
                         return `<div class="swiper-slide h-auto"><a href="columns/${item.slug}/" class="block bg-white rounded-lg shadow-md overflow-hidden h-full group">
-                            <div class="overflow-hidden aspect-video"><img src="${img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300"></div>
+                            <div class="overflow-hidden aspect-video"><img src="${img}" class="w-full h-full object-cover"></div>
                             <div class="p-4 sm:p-5"><p class="text-sm text-gray-500 mb-2">${new Date(item.publishedAt).toLocaleDateString('ja-JP')}</p><h3 class="font-bold text-gray-800 group-hover:text-pink-500">${item.title}</h3></div>
                         </a></div>`;
                     }).join('');
