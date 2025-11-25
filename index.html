@@ -639,11 +639,23 @@
                 if (isLatest) {
                     container.innerHTML = items.map(item => {
                         const date = new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP');
+                        const categoryName = item.category?.name || 'その他';
+                        
+                        // カテゴリごとの色定義
+                        const categoryColors = {
+                            'メディア': 'bg-blue-100 text-blue-800',
+                            'プレスリリース': 'bg-purple-100 text-purple-800',
+                            'お知らせ': 'bg-green-100 text-green-800',
+                            'イベント': 'bg-yellow-100 text-yellow-800',
+                            'その他': 'bg-gray-100 text-gray-800'
+                        };
+                        const categoryClass = categoryColors[categoryName] || categoryColors['その他'];
+
                         return `<li class="border-b border-gray-200 pb-6 cursor-pointer hover:bg-gray-50 -m-3 p-3 rounded-lg transition group" onclick="location.href='${item.url || `/information/${item.id}`}'">
                             <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-8">
                                 <time class="text-sm font-medium text-gray-600 md:w-24 flex-shrink-0">${date}</time>
                                 <div class="md:w-32 flex-shrink-0">
-                                    <span class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full w-auto md:w-full text-center">${item.category?.name || 'その他'}</span>
+                                    <span class="inline-block ${categoryClass} text-xs font-bold px-3 py-1 rounded-full w-auto md:w-full text-center">${categoryName}</span>
                                 </div>
                                 <h3 class="text-base font-semibold text-gray-900 flex-1 group-hover:text-blue-600 leading-relaxed">${item.title}</h3>
                             </div></li>`;
