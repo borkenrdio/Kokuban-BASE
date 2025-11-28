@@ -3,214 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>電子黒板 来場予約フォーム</title>
+    <!-- ① URL末尾の.htmlを削除 -->
+    <title>来場予約｜Kokuban BASE</title>
+    <meta name="description" content="電子黒板の比較体験は完全予約制。ご希望日時を選んでお申し込みください。">
+    <link rel="canonical" href="https://kokuban-base.com/reservation">
+    <meta property="og:url" content="https://kokuban-base.com/reservation">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --main-color: #103f99; /* RGB(16, 63, 153) */
-            --main-color-light: #e7f0ff;
-            --step-active-bg: #22d3ee; /* cyan-400 */
-            --step-inactive-bg: #cffafe; /* cyan-100 */
-            --step-inactive-text: #0e7490; /* cyan-700 */
-            --button-pink-bg: #ec4899; /* pink-500 */
+            --main-color: #103f99;
+            --main-light: #e7f0ff;
+            --step-active: #22d3ee;
+            --step-inactive-bg: #cffafe;
+            --step-inactive-text: #0e7490;
+            --btn-pink: #ec4899;
         }
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-        }
+        body { font-family: 'Noto Sans JP', sans-serif; }
         body.overflow-hidden { overflow: hidden; }
-        .bg-custom-blue { background-color: rgb(16, 63, 153); }
-        .footer-link { color: #e5e7eb; transition: color 0.2s ease-in-out; }
-        .footer-link:hover { color: #ffffff; text-decoration: underline; }
-
-        .main-bg-color { background-color: var(--main-color); }
+        .bg-custom-blue { background-color: var(--main-color); }
+        .footer-link { color: #e5e7eb; transition: color 0.2s; }
+        .footer-link:hover { color: #fff; text-decoration: underline; }
         .main-text-color { color: var(--main-color); }
-        .main-border-color { border-color: var(--main-color); }
-
-        .form-label {
-            font-weight: 700; /* Bold weight for labels */
-            color: #374151;
-        }
+        
+        /* Form & Calendar Styles */
+        .form-label { font-weight: 700; color: #374151; }
         .required-mark::after {
-            content: '必須';
-            color: #ffffff;
-            background-color: #ef4444; /* red-500 */
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-left: 8px;
-            font-weight: 500;
-            vertical-align: middle;
+            content: '必須'; color: #fff; background-color: #ef4444;
+            padding: 2px 6px; border-radius: 4px; font-size: 12px;
+            margin-left: 8px; font-weight: 500; vertical-align: middle;
         }
-        .calendar-day.selected {
-            background-color: var(--main-color);
-            color: white;
-            border-radius: 50%;
-        }
-        .calendar-day:not(.disabled):not(.full):hover {
-            background-color: var(--main-color-light);
-            border-radius: 50%;
-        }
+        .calendar-day { transition: all 0.2s; }
+        .calendar-day.selected { background-color: var(--main-color); color: #fff; border-radius: 50%; }
+        .calendar-day:not(.disabled):not(.full):hover { background-color: var(--main-light); border-radius: 50%; }
         .calendar-day.full {
-            background-color: #f3f4f6; /* gray-200 */
-            color: #9ca3af; /* gray-400 */
-            text-decoration: line-through;
-            pointer-events: none;
-            position: relative;
+            background-color: #f3f4f6; color: #9ca3af; text-decoration: line-through;
+            pointer-events: none; position: relative;
         }
         .calendar-day.full::after {
-            content: '満席';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 8px;
-            line-height: 1;
-            color: #ef4444; /* red-500 */
-            font-weight: bold;
-            text-decoration: none;
+            content: '満席'; position: absolute; bottom: 2px; left: 50%;
+            transform: translateX(-50%); font-size: 8px; color: #ef4444;
+            text-decoration: none; font-weight: bold; line-height: 1;
         }
-        .time-slot.selected {
-            background-color: var(--main-color);
-            color: white;
-            border-color: var(--main-color);
-        }
-        .time-slot.disabled {
-            background-color: #f3f4f6;
-            color: #9ca3af;
-            cursor: not-allowed;
-        }
+        .time-slot.selected { background-color: var(--main-color); color: #fff; border-color: var(--main-color); }
+        .time-slot.disabled { background-color: #f3f4f6; color: #9ca3af; cursor: not-allowed; }
 
-
-        /* New Step Indicator Styles */
+        /* Step Indicator */
         .step-indicator {
-            position: relative;
-            padding: 0.75rem;
-            font-weight: 700;
-            text-align: center;
-            transition: all 0.3s ease;
-            height: 46px; /* Explicit height for arrow calculation */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 0.75rem; font-weight: 700; text-align: center;
+            height: 46px; display: flex; align-items: center; justify-content: center;
+            position: relative; transition: all 0.3s;
         }
-        .step-indicator.active {
-            background-color: var(--step-active-bg);
-            color: white;
-            z-index: 10;
-        }
-        .step-indicator.inactive {
-            background-color: var(--step-inactive-bg);
-            color: var(--step-inactive-text);
-            z-index: 5;
-        }
+        .step-indicator.active { background-color: var(--step-active); color: #fff; z-index: 10; }
+        .step-indicator.inactive { background-color: var(--step-inactive-bg); color: var(--step-inactive-text); z-index: 5; }
         .step-indicator.active::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 100%;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            /* Height is 46px, so half is 23px */
-            border-width: 23px 0 23px 20px;
-            border-color: transparent transparent transparent var(--step-active-bg);
+            content: ''; position: absolute; top: 0; left: 100%;
+            border-style: solid; border-width: 23px 0 23px 20px;
+            border-color: transparent transparent transparent var(--step-active);
         }
 
-        /* Custom Form Styles for Questionnaire */
+        /* Form Options */
         .form-option-label {
-            display: block;
-            padding: 1rem;
-            border: 2px solid #e5e7eb; /* gray-200 */
-            border-radius: 0.5rem; /* rounded-lg */
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            background-color: #f9fafb; /* gray-50 */
-            text-align: center;
+            display: block; padding: 1rem; border: 2px solid #e5e7eb;
+            border-radius: 0.5rem; cursor: pointer; background-color: #f9fafb;
+            text-align: center; transition: all 0.2s;
         }
-
-        .form-option-label:hover {
-            border-color: #9ca3af; /* gray-400 */
-            background-color: #f3f4f6; /* gray-100 */
+        .form-option-label:hover { border-color: #9ca3af; background-color: #f3f4f6; }
+        input:checked + .form-option-label {
+            border-color: var(--step-active); background-color: var(--step-inactive-bg);
+            color: var(--step-inactive-text); font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
-
-        input[type="radio"],
-        input[type="checkbox"] {
-            display: none;
+        input:checked + .form-option-label::before {
+            font-family: 'Font Awesome 6 Free'; font-weight: 900; content: '\f00c'; margin-right: 0.75rem;
         }
-
-        input[type="radio"]:checked + .form-option-label,
-        input[type="checkbox"]:checked + .form-option-label {
-            border-color: var(--step-active-bg); /* cyan-400 */
-            background-color: var(--step-inactive-bg); /* cyan-100 */
-            color: var(--step-inactive-text); /* cyan-700 */
-            font-weight: 600;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-
-        input[type="radio"]:checked + .form-option-label::before,
-        input[type="checkbox"]:checked + .form-option-label::before {
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            content: '\f00c'; /* check icon */
-            margin-right: 0.75rem;
-        }
+        input[type="radio"], input[type="checkbox"] { display: none; }
     </style>
-<title>来場予約｜Kokuban BASE</title>
-<meta name="description" content="電子黒板の比較体験は完全予約制。ご希望日時を選んでお申し込みください。">
-<link rel="canonical" href="https://kokuban-base.com/reservation.html">
-<meta property="og:url" content="https://kokuban-base.com/reservation.html">
 </head>
 <body class="bg-cyan-50">
 
-    <!-- ▼▼▼ ヘッダー ▼▼▼ -->
-    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
         <div class="px-6 lg:px-8">
             <div class="flex items-stretch h-[50px] sm:h-20">
                 <div class="flex-1 flex items-center space-x-8">
                     <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
-                        <a href="index.html" class="nav-link hover:opacity-80 transition-opacity">Kokuban BASE</a>
+                        <a href="https://kokuban-base.com/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
                     </div>
-                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                        <a href="index.html#products" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">ラインナップ</a>
-                        <a href="index.html#news" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
-                        <a href="index.html#faq" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
-                        <a href="index.html#access" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
+                    <nav class="hidden lg:flex items-center space-x-1 text-sm text-white font-semibold">
+                        <a href="https://kokuban-base.com/#products" class="p-2 hover:opacity-80 transition-opacity text-shadow">ラインナップ</a>
+                        <a href="https://kokuban-base.com/#news" class="p-2 hover:opacity-80 transition-opacity text-shadow">コラム</a>
+                        <a href="https://kokuban-base.com/#faq" class="p-2 hover:opacity-80 transition-opacity text-shadow">よくある質問</a>
+                        <a href="https://kokuban-base.com/#access" class="p-2 hover:opacity-80 transition-opacity text-shadow">アクセス</a>
                     </nav>
                 </div>
                 <div class="flex-shrink-0 flex justify-end">
                     <div class="hidden sm:flex">
-                        <a href="contact.html" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
-                            <span>お問い合わせ</span>
-                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        <a href="contact.html" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
+                            <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
                         </a>
-                        <a href="reservation.html" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
-                            <span>来場予約</span>
-                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        <a href="reservation.html" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
+                            <span>来場予約</span><i class="fa-solid fa-arrow-right ml-2"></i>
                         </a>
                     </div>
                     <div class="lg:hidden flex items-center">
-                        <button id="mobile-menu-button" class="text-white hover:opacity-80 focus:outline-none p-2 text-shadow">
-                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                            </svg>
-                        </button>
+                        <button id="mobile-menu-button" class="text-white hover:opacity-80 p-2"><i class="fas fa-bars fa-2x"></i></button>
                     </div>
                 </div>
             </div>
-            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg absolute left-0 right-0 top-full">
                 <div class="px-2 pt-2 pb-3 space-y-1">
-                    <a href="index.html#products" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">ラインナップ</a>
-                    <a href="index.html#news" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
-                    <a href="index.html#faq" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
-                    <a href="index.html#access" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
+                    <a href="https://kokuban-base.com/#products" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded">ラインナップ</a>
+                    <a href="https://kokuban-base.com/#news" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded">コラム</a>
+                    <a href="https://kokuban-base.com/#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded">よくある質問</a>
+                    <a href="https://kokuban-base.com/#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded">アクセス</a>
                 </div>
                 <div class="p-4 space-y-3">
-                    <a href="contact.html" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
-                    <a href="reservation.html" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
+                    <a href="contact.html" class="block text-center bg-white text-[#103f99] font-bold w-full h-[58px] flex items-center justify-center rounded-md shadow-md">お問い合わせ</a>
+                    <a href="reservation.html" class="block text-center bg-pink-500 text-white font-bold w-full h-[58px] flex items-center justify-center rounded-md shadow-md">来場予約</a>
                 </div>
             </div>
         </div>
@@ -223,8 +136,8 @@
                     <h2 class="text-3xl sm:text-4xl font-bold main-text-color mb-2 text-center">来場予約フォーム</h2>
                     <p class="text-lg text-gray-700 text-center">電子黒板を実際に体験してみませんか？</p>
                     <hr class="border-t-2 border-dotted border-cyan-200 my-6">
-                    <div class="bg-cyan-50 p-6 rounded-lg">
-                        <ul class="space-y-3 text-gray-700 font-medium">
+                    <div class="bg-cyan-50 p-6 rounded-lg text-gray-700 font-medium">
+                        <ul class="space-y-3">
                             <li class="flex items-start"><i class="fas fa-check-circle text-cyan-500 mt-1 mr-3"></i><span>来場は無料です。</span></li>
                             <li class="flex items-start"><i class="fas fa-check-circle text-cyan-500 mt-1 mr-3"></i><span>ご予約は翌月まで可能です。</span></li>
                             <li class="flex items-start"><i class="fas fa-exclamation-circle text-cyan-500 mt-1 mr-3"></i><span class="font-bold">ご予約は「予約確定メール」の送付をもって完了となります。</span></li>
@@ -232,188 +145,139 @@
                     </div>
                 </div>
 
-                <!-- ステップ表示 -->
+                <!-- Steps -->
                 <div class="relative flex items-center mb-6">
-                    <div id="step-1-indicator" class="step-indicator active flex-1 rounded-l-lg">1. ご希望日時</div>
-                    <div id="step-2-indicator" class="step-indicator inactive flex-1">2. お客様情報</div>
-                    <div id="step-3-indicator" class="step-indicator inactive flex-1">3. アンケート</div>
-                    <div id="step-4-indicator" class="step-indicator inactive flex-1 rounded-r-lg">4. 確認・送信</div>
+                    <div id="step-indicator-1" class="step-indicator active flex-1 rounded-l-lg">1. ご希望日時</div>
+                    <div id="step-indicator-2" class="step-indicator inactive flex-1">2. お客様情報</div>
+                    <div id="step-indicator-3" class="step-indicator inactive flex-1">3. アンケート</div>
+                    <div id="step-indicator-4" class="step-indicator inactive flex-1 rounded-r-lg">4. 確認・送信</div>
                 </div>
 
                 <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-xl">
                     <form id="reservation-form">
-                        <!-- ステップ1: 日時選択 -->
-                        <div id="form-step-1">
+                        <!-- Step 1 -->
+                        <div id="form-step-1" class="form-step">
                             <div class="space-y-8">
                                 <div>
                                     <label for="number_of_visitors" class="form-label required-mark">ご来場人数</label>
                                     <select id="number_of_visitors" name="number_of_visitors" class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
                                         <option value="" selected disabled>選択してください</option>
-                                        <option value="1">1名</option>
-                                        <option value="2">2名</option>
-                                        <option value="3">3名</option>
-                                        <option value="4">4名</option>
-                                        <option value="5">5名以上</option>
+                                        <option value="1">1名</option><option value="2">2名</option><option value="3">3名</option>
+                                        <option value="4">4名</option><option value="5">5名以上</option>
                                     </select>
                                 </div>
                                 <div id="date-selection-container" class="hidden">
                                     <label class="form-label required-mark">来場希望日 ※第3候補までご選択ください</label>
-                                    
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-                                        <div id="calendar-wrapper">
-                                            <!-- Calendar will be generated here -->
-                                        </div>
+                                        <div id="calendar-wrapper"></div>
                                         <div id="time-slots-container" class="hidden">
                                             <p class="font-semibold mb-2" id="time-slot-title"></p>
                                             <div class="grid grid-cols-2 gap-2">
-                                                <button type="button" data-time="10:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100 transition-colors">10:00</button>
-                                                <button type="button" data-time="11:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100 transition-colors">11:00</button>
-                                                <button type="button" data-time="13:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100 transition-colors">13:00</button>
-                                                <button type="button" data-time="14:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100 transition-colors">14:00</button>
-                                                <button type="button" data-time="15:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100 transition-colors">15:00</button>
+                                                <button type="button" data-time="10:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100">10:00</button>
+                                                <button type="button" data-time="11:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100">11:00</button>
+                                                <button type="button" data-time="13:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100">13:00</button>
+                                                <button type="button" data-time="14:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100">14:00</button>
+                                                <button type="button" data-time="15:00" class="time-slot p-3 border rounded-lg hover:bg-gray-100">15:00</button>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <div id="selected-dates-container" class="mt-6">
+                                    <div class="mt-6">
                                         <h4 class="font-semibold text-gray-700">ご希望日時</h4>
-                                        <div id="selected-dates-display" class="mt-2 space-y-2">
-                                            <p class="text-gray-500">カレンダーから希望日時を3つ選択してください。</p>
-                                        </div>
+                                        <div id="selected-dates-display" class="mt-2 space-y-2"></div>
                                     </div>
-
-                                     <input type="hidden" id="visit_date_1" name="visit_date_1">
-                                     <input type="hidden" id="visit_date_2" name="visit_date_2">
-                                     <input type="hidden" id="visit_date_3" name="visit_date_3">
+                                    <input type="hidden" id="visit_date_1" name="visit_date_1">
+                                    <input type="hidden" id="visit_date_2" name="visit_date_2">
+                                    <input type="hidden" id="visit_date_3" name="visit_date_3">
                                 </div>
                             </div>
                             <div class="text-center mt-10">
-                                <button type="button" id="next-btn-1" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-10 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg inline-flex items-center">
-                                    <span>お客様情報の入力へ</span>
-                                    <i class="fas fa-arrow-right ml-2"></i>
+                                <button type="button" onclick="goToStep(2)" class="bg-[var(--btn-pink)] text-white font-bold py-3 px-10 rounded-full text-lg hover:opacity-90 shadow-lg inline-flex items-center">
+                                    <span>お客様情報の入力へ</span><i class="fas fa-arrow-right ml-2"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- ステップ2: お客様情報 -->
-                        <div id="form-step-2" class="hidden">
+                        <!-- Step 2 -->
+                        <div id="form-step-2" class="form-step hidden">
                             <div class="space-y-6">
                                 <div>
                                     <label for="facility_type" class="form-label required-mark">施設種別</label>
-                                    <select id="facility_type" name="facility_type" class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                    <select id="facility_type" name="facility_type" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required>
                                         <option value="" selected disabled>選択してください</option>
-                                        <option>学習塾</option>
-                                        <option>教育委員会</option>
-                                        <option>私立学校</option>
-                                        <option>公立学校</option>
-                                        <option>幼稚園/保育園</option>
-                                        <option>その他</option>
+                                        <option>学習塾</option><option>教育委員会</option><option>私立学校</option>
+                                        <option>公立学校</option><option>幼稚園/保育園</option><option>その他</option>
                                     </select>
                                 </div>
-                                <div><label for="company_name" class="form-label required-mark">事業者名</label><input type="text" id="company_name" name="company_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
-                                <div><label for="facility_name" class="form-label">施設名 (任意)</label><input type="text" id="facility_name" name="facility_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg"></div>
-                                <div><label for="contact_name" class="form-label required-mark">ご担当者名</label><input type="text" id="contact_name" name="contact_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
-                                <div><label for="phone" class="form-label required-mark">電話番号</label><input type="tel" id="phone" name="phone" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
-                                <div><label for="email" class="form-label required-mark">メールアドレス</label><input type="email" id="email" name="email" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
-                                <div>
-                                    <label for="questions" class="form-label">ご質問・ご要望など (任意)</label>
-                                    <textarea id="questions" name="questions" rows="4" class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="ご自由にご記入ください。"></textarea>
-                                </div>
+                                <div><label class="form-label required-mark">事業者名</label><input type="text" name="company_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
+                                <div><label class="form-label">施設名 (任意)</label><input type="text" name="facility_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg"></div>
+                                <div><label class="form-label required-mark">ご担当者名</label><input type="text" name="contact_name" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
+                                <div><label class="form-label required-mark">電話番号</label><input type="tel" id="phone" name="phone" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
+                                <div><label class="form-label required-mark">メールアドレス</label><input type="email" id="email" name="email" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" required></div>
+                                <div><label class="form-label">ご質問・ご要望など (任意)</label><textarea name="questions" rows="4" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" placeholder="ご自由にご記入ください。"></textarea></div>
                             </div>
-                            <div class="flex items-center justify-center gap-4 mt-10">
-                                <button type="button" id="back-btn-1" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 transition-colors shadow-lg">戻る</button>
-                                <button type="button" id="next-btn-2" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">アンケートへ</button>
+                            <div class="flex justify-center gap-4 mt-10">
+                                <button type="button" onclick="goToStep(1)" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 shadow-lg">戻る</button>
+                                <button type="button" onclick="goToStep(3)" class="bg-[var(--btn-pink)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 shadow-lg">アンケートへ</button>
                             </div>
                         </div>
 
-                        <!-- ステップ3: アンケート -->
-                        <div id="form-step-3" class="hidden">
+                        <!-- Step 3 -->
+                        <div id="form-step-3" class="form-step hidden">
                              <div class="space-y-8">
                                 <div>
                                     <label class="form-label required-mark">Q. 電子黒板の使用歴を教えてください。</label>
                                     <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                        <div>
-                                            <input type="radio" name="experience" value="一度も触ったことない" id="exp-none" required>
-                                            <label for="exp-none" class="form-option-label">一度も触ったことない</label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" name="experience" value="体験をしたことがある" id="exp-trial">
-                                            <label for="exp-trial" class="form-option-label">体験をしたことがある</label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" name="experience" value="日常的に使用している/使用していた" id="exp-daily">
-                                            <label for="exp-daily" class="form-option-label">日常的に使用している/使用していた</label>
-                                        </div>
+                                        <div><input type="radio" name="experience" value="一度も触ったことない" id="exp-none" required><label for="exp-none" class="form-option-label">一度も触ったことない</label></div>
+                                        <div><input type="radio" name="experience" value="体験をしたことがある" id="exp-trial"><label for="exp-trial" class="form-option-label">体験をしたことがある</label></div>
+                                        <div><input type="radio" name="experience" value="日常的に使用している/使用していた" id="exp-daily"><label for="exp-daily" class="form-option-label">日常的に使用している/使用していた</label></div>
                                     </div>
                                 </div>
                                 <div id="experience_product_container" class="hidden">
-                                    <label for="experience_product" class="form-label">Q. 使用、または体験した製品名が分かれば教えてください。（任意）</label>
+                                    <label class="form-label">Q. 使用、または体験した製品名（任意）</label>
                                     <input type="text" id="experience_product" name="experience_product" class="w-full mt-2 p-3 border border-gray-300 rounded-lg" placeholder="製品名をご記入ください">
                                 </div>
                                 <div>
-                                    <label class="form-label required-mark">Q. 現在、電子黒板の導入を検討している教室で使用している黒板は何ですか？（複数回答可）</label>
+                                    <label class="form-label required-mark">Q. 現在の教室環境（複数回答可）</label>
                                     <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                        <div>
-                                            <input type="checkbox" name="classroom_equipment" value="ホワイトボード" id="equip-whiteboard">
-                                            <label for="equip-whiteboard" class="form-option-label">ホワイトボード</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" name="classroom_equipment" value="黒板（チョーク）" id="equip-blackboard">
-                                            <label for="equip-blackboard" class="form-option-label">黒板（チョーク）</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" name="classroom_equipment" value="電子黒板" id="equip-digital">
-                                            <label for="equip-digital" class="form-option-label">電子黒板</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" name="classroom_equipment" value="プロジェクター" id="equip-projector">
-                                            <label for="equip-projector" class="form-option-label">プロジェクター</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" name="classroom_equipment" value="その他" id="equip-other">
-                                            <label for="equip-other" class="form-option-label">その他</label>
-                                        </div>
+                                        <div><input type="checkbox" name="classroom_equipment" value="ホワイトボード" id="eq-wb"><label for="eq-wb" class="form-option-label">ホワイトボード</label></div>
+                                        <div><input type="checkbox" name="classroom_equipment" value="黒板（チョーク）" id="eq-bb"><label for="eq-bb" class="form-option-label">黒板（チョーク）</label></div>
+                                        <div><input type="checkbox" name="classroom_equipment" value="電子黒板" id="eq-db"><label for="eq-db" class="form-option-label">電子黒板</label></div>
+                                        <div><input type="checkbox" name="classroom_equipment" value="プロジェクター" id="eq-pj"><label for="eq-pj" class="form-option-label">プロジェクター</label></div>
+                                        <div><input type="checkbox" name="classroom_equipment" value="その他" id="eq-ot"><label for="eq-ot" class="form-option-label">その他</label></div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="number_of_units" class="form-label">Q. 導入を検討している台数をお聞かせください。（任意）</label>
-                                    <select id="number_of_units" name="number_of_units" class="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <label class="form-label">Q. 導入検討台数（任意）</label>
+                                    <select name="number_of_units" class="w-full mt-2 p-3 border border-gray-300 rounded-lg">
                                         <option value="" selected>選択してください</option>
-                                        <option value="1台">1台</option>
-                                        <option value="2〜5台">2〜5台</option>
-                                        <option value="6〜10台">6〜10台</option>
-                                        <option value="11台以上">11台以上</option>
-                                        <option value="未定">未定</option>
+                                        <option>1台</option><option>2〜5台</option><option>6〜10台</option><option>11台以上</option><option>未定</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="flex items-center justify-center gap-4 mt-10">
-                                <button type="button" id="back-btn-2" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 transition-colors shadow-lg">戻る</button>
-                                <button type="button" id="next-btn-3" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">確認画面へ</button>
+                            <div class="flex justify-center gap-4 mt-10">
+                                <button type="button" onclick="goToStep(2)" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 shadow-lg">戻る</button>
+                                <button type="button" onclick="goToStep(4)" class="bg-[var(--btn-pink)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 shadow-lg">確認画面へ</button>
                             </div>
                         </div>
                         
-                        <!-- ステップ4: 確認画面 -->
-                        <div id="form-step-4" class="hidden">
+                        <!-- Step 4 -->
+                        <div id="form-step-4" class="form-step hidden">
                             <h3 class="text-2xl font-bold main-text-color mb-6 text-center">ご予約内容の確認</h3>
-                            <div class="space-y-4 bg-gray-50 p-6 rounded-lg">
-                                <div id="confirmation-details"></div>
-                            </div>
-                            <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
+                            <div id="confirmation-details" class="space-y-4 bg-gray-50 p-6 rounded-lg"></div>
+                            <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md">
                                 <p class="font-bold">まだ予約は完了していません</p>
-                                <p>内容をご確認の上、送信ボタンを押してください。<br>後日、弊社よりお送りする「予約確定メール」をもって、ご予約が完了となります。<br>万が一送信エラーが生じた場合、お手数ですがinfo@idea-spot.netへご連絡くださいませ。</p>
+                                <p class="text-sm">内容をご確認の上、送信ボタンを押してください。<br>後日、弊社よりお送りする「予約確定メール」をもって、ご予約が完了となります。</p>
                             </div>
-                            <div class="flex items-center justify-center gap-4 mt-10">
-                                <button type="button" id="back-btn-3" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 transition-colors shadow-lg">修正する</button>
-                                <button type="submit" id="submit-btn" class="bg-[var(--button-pink-bg)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 transition-opacity shadow-lg">この内容で送信する</button>
+                            <div class="flex justify-center gap-4 mt-10">
+                                <button type="button" onclick="goToStep(3)" class="bg-gray-200 text-gray-700 font-bold py-3 px-12 rounded-full text-lg hover:bg-gray-300 shadow-lg">修正する</button>
+                                <button type="submit" id="submit-btn" class="bg-[var(--btn-pink)] text-white font-bold py-3 px-12 rounded-full text-lg hover:opacity-90 shadow-lg">この内容で送信する</button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
             
-            <!-- 送信完了メッセージ -->
+            <!-- Success Message -->
             <div id="success-message" class="hidden text-center bg-white p-8 sm:p-12 rounded-2xl shadow-xl">
                  <div class="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-check fa-3x text-green-500"></i>
@@ -421,28 +285,26 @@
                 <h2 class="text-2xl sm:text-3xl font-bold main-text-color mb-4">ご予約いただき、<br>誠にありがとうございます</h2>
                 <p class="text-gray-700 max-w-lg mx-auto leading-relaxed">
                     ご入力いただいたメールアドレス宛に、3営業日以内に担当者よりご連絡いたします。<br>
-                    <strong class="text-red-600">弊社からの「予約確定メール」をもって、ご予約が完了となりますので、今しばらくお待ちください。</strong>
+                    <strong class="text-red-600">弊社からの「予約確定メール」をもって、ご予約が完了となります。</strong>
                 </p>
                 <div class="mt-8">
-                    <a href="index.html" class="inline-block bg-gray-600 text-white font-bold py-3 px-10 rounded-full text-lg hover:bg-gray-700 transition-colors shadow-lg">
-                        トップページへ戻る
-                    </a>
+                    <a href="https://kokuban-base.com/" class="inline-block bg-gray-600 text-white font-bold py-3 px-10 rounded-full text-lg hover:bg-gray-700 shadow-lg">トップページへ戻る</a>
                 </div>
             </div>
         </div>
     </main>
     
     <!-- Error Modal -->
-    <div id="error-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
+    <div id="error-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-lg shadow-xl p-8 max-w-sm w-full text-center">
             <i class="fas fa-exclamation-triangle text-4xl text-yellow-400 mb-4"></i>
             <h3 class="text-xl font-bold text-gray-800 mb-2">エラー</h3>
             <p id="error-message-text" class="text-gray-600 mb-6"></p>
-            <button id="close-modal-btn" class="bg-gray-600 text-white font-bold py-2 px-8 rounded-full hover:bg-gray-700 transition-colors">閉じる</button>
+            <button onclick="document.getElementById('error-modal').classList.add('hidden')" class="bg-gray-600 text-white font-bold py-2 px-8 rounded-full hover:bg-gray-700">閉じる</button>
         </div>
     </div>
 
-    <!-- ▼▼▼ フッター ▼▼▼ -->
+    <!-- Footer -->
     <footer class="bg-custom-blue text-gray-200">
         <div class="container mx-auto px-6 py-12">
             <div class="flex flex-wrap justify-between">
@@ -450,31 +312,29 @@
                     <h2 class="text-2xl font-bold text-white">Kokuban BASE</h2>
                     <p class="text-blue-200 mt-2">株式会社idea spot</p>
                 </div>
-                <div class="w-full md:w-3/4">
-                    <div class="flex flex-wrap justify-between">
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
-                            <ul>
-                                <li class="mb-2"><a href="index.html#products" class="nav-link footer-link">ラインナップ</a></li>
-                                <li class="mb-2"><a href="index.html#news" class="nav-link footer-link">コラム</a></li>
-                                <li class="mb-2"><a href="index.html#faq" class="nav-link footer-link">よくある質問</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">サポート</h3>
-                            <ul>
-                                <li class="mb-2"><a href="reservation.html" class="footer-link">来場予約</a></li>
-                                <li class="mb-2"><a href="contact.html" class="footer-link">お問い合わせ</a></li>
-                                <li class="mb-2"><a href="index.html#access" class="nav-link footer-link">アクセス</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">会社情報</h3>
-                            <ul>
-                                <li class="mb-2"><a href="#" class="footer-link">企業概要</a></li>
-                                <li class="mb-2"><a href="privacy.html" class="footer-link">プライバシーポリシー</a></li>
-                            </ul>
-                        </div>
+                <div class="w-full md:w-3/4 flex flex-wrap justify-between">
+                     <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
+                        <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
+                        <ul class="space-y-2">
+                            <li><a href="https://kokuban-base.com/#products" class="footer-link">ラインナップ</a></li>
+                            <li><a href="https://kokuban-base.com/#news" class="footer-link">コラム</a></li>
+                            <li><a href="https://kokuban-base.com/#faq" class="footer-link">よくある質問</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
+                        <h3 class="text-white font-semibold tracking-wider uppercase mb-4">サポート</h3>
+                         <ul class="space-y-2">
+                            <li><a href="reservation.html" class="footer-link">来場予約</a></li>
+                            <li><a href="contact.html" class="footer-link">お問い合わせ</a></li>
+                            <li><a href="https://kokuban-base.com/#access" class="footer-link">アクセス</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full sm:w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-semibold tracking-wider uppercase mb-4">会社情報</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="footer-link">企業概要</a></li>
+                            <li><a href="privacy.html" class="footer-link">プライバシーポリシー</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -485,577 +345,253 @@
     </footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // ハンバーガーメニューの制御
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            mobileMenu.classList.toggle('hidden');
-            document.body.classList.toggle('overflow-hidden', !isHidden);
-        });
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    // Config
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXV_jVH2JsAIl52CQkmaxCgFodnaC_Vq9AOISoK-9dD6g2QwTWFT7xp-zZMJPqPnki_w/exec";
+    const fullyBookedDates = ["2025-12-23", "2025-12-24", "2025-12-25", "2025-12-26", "2025-12-27", "2025-12-28", "2025-12-29", "2025-12-30", "2025-12-31", "2025-12-19", "2025-11-26"];
 
-    const fullyBookedDates = [
-        "2025-12-23",        
-        "2025-12-24",
-        "2025-12-25",
-        "2025-12-26",
-        "2025-12-27",
-        "2025-12-28",
-        "2025-12-29",
-        "2025-12-30",
-        "2025-12-31",
-        "2025-12-19",
-        "2025-11-26",
-    ];
+    // Menu Toggle
+    document.getElementById('mobile-menu-button')?.addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+        document.body.classList.toggle('overflow-hidden');
+    });
 
-    // --- NEW: 当日と翌日を自動的に満席にする ---
-    const todayForBooking = new Date();
-    const tomorrowForBooking = new Date();
-    tomorrowForBooking.setDate(todayForBooking.getDate() + 1);
-
-    const formatYYYYMMDD = (date) => {
-        const y = date.getFullYear();
-        const m = String(date.getMonth() + 1).padStart(2, '0');
-        const d = String(date.getDate()).padStart(2, '0');
-        return `${y}-${m}-${d}`;
-    };
-
-    const todayStr = formatYYYYMMDD(todayForBooking);
-    const tomorrowStr = formatYYYYMMDD(tomorrowForBooking);
-
-    if (!fullyBookedDates.includes(todayStr)) {
-        fullyBookedDates.push(todayStr);
-    }
-    if (!fullyBookedDates.includes(tomorrowStr)) {
-        fullyBookedDates.push(tomorrowStr);
-    }
-    // --- END NEW ---
-
-    // --- MODIFIED: 予約開始日と期間を設定 ---
-    const hardStartDate = new Date(2025, 9, 1); // 2025年10月1日 (固定の受付開始日)
-    hardStartDate.setHours(0, 0, 0, 0);
-
+    // Date Setup
+    const fmt = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+    [today, tomorrow].forEach(d => { const s = fmt(d); if(!fullyBookedDates.includes(s)) fullyBookedDates.push(s); });
 
-    // 予約可能な最初の日は、本日と固定開始日のうち、遅い方の日付
-    const reservationStartDate = today > hardStartDate ? today : hardStartDate;
+    const hardStart = new Date(2025, 9, 1);
+    const startDate = today > hardStart ? today : hardStart;
+    const startMonth = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+    const endDate = new Date(startMonth.getFullYear(), startMonth.getMonth() + 3, 0); // 3ヶ月分余裕を持つ
+    let currentDisplayDate = new Date(startDate);
 
-    // 予約可能な最初の月を決定
-    const firstDayOfCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    const firstBookableMonthDate = firstDayOfCurrentMonth < hardStartDate ? hardStartDate : firstDayOfCurrentMonth;
-
-    // 予約可能な終了日は、予約可能な最初の月から見て翌月の末日
-    const reservationEndDate = new Date(firstBookableMonthDate.getFullYear(), firstBookableMonthDate.getMonth() + 2, 0);
-    reservationEndDate.setHours(0, 0, 0, 0);
-    // --- END MODIFIED ---
-
-
-    // 予約フォームの制御
-    const formContainer = document.getElementById('form-container');
-    const successMessage = document.getElementById('success-message');
-    const form = document.getElementById('reservation-form');
-    const submitBtn = document.getElementById('submit-btn');
-    
-    const step1 = document.getElementById('form-step-1');
-    const step2 = document.getElementById('form-step-2');
-    const step3 = document.getElementById('form-step-3');
-    const step4 = document.getElementById('form-step-4');
-    
-    const nextBtn1 = document.getElementById('next-btn-1');
-    const nextBtn2 = document.getElementById('next-btn-2');
-    const nextBtn3 = document.getElementById('next-btn-3');
-    const backBtn1 = document.getElementById('back-btn-1');
-    const backBtn2 = document.getElementById('back-btn-2');
-    const backBtn3 = document.getElementById('back-btn-3');
-
-    const step1Indicator = document.getElementById('step-1-indicator');
-    const step2Indicator = document.getElementById('step-2-indicator');
-    const step3Indicator = document.getElementById('step-3-indicator');
-    const step4Indicator = document.getElementById('step-4-indicator');
-
-    const visitorsSelect = document.getElementById('number_of_visitors');
-    const dateSelectionContainer = document.getElementById('date-selection-container');
-    
-    const errorModal = document.getElementById('error-modal');
-    const errorMessageText = document.getElementById('error-message-text');
-    const closeModalBtn = document.getElementById('close-modal-btn');
-
-    // --- NEW: アンケート関連の要素を取得 ---
-    const experienceRadios = document.querySelectorAll('input[name="experience"]');
-    const productContainer = document.getElementById('experience_product_container');
-    const productInput = document.getElementById('experience_product');
-    // --- END NEW ---
-
-    function showErrorModal(message) {
-        errorMessageText.textContent = message;
-        errorModal.classList.remove('hidden');
-    }
-
-    function hideErrorModal() {
-        errorModal.classList.add('hidden');
-    }
-
-    closeModalBtn.addEventListener('click', hideErrorModal);
-    errorModal.addEventListener('click', (e) => {
-        if (e.target === errorModal) {
-            hideErrorModal();
-        }
-    });
-
-    visitorsSelect.addEventListener('change', () => {
-        if (visitorsSelect.value) {
-            dateSelectionContainer.classList.remove('hidden');
-        } else {
-            dateSelectionContainer.classList.add('hidden');
-        }
-    });
-
-    // --- MODIFIED: アンケートの条件分岐を修正 ---
-    experienceRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            if (e.target.value === '体験をしたことがある' || e.target.value === '日常的に使用している/使用していた') {
-                productContainer.classList.remove('hidden');
-            } else {
-                productContainer.classList.add('hidden');
-                productInput.value = ''; // 選択が変わったら入力内容をクリア
-            }
-        });
-    });
-    // --- END MODIFIED ---
-
-
-    const goToStep = (currentStep, nextStep) => {
-        currentStep.classList.add('hidden');
-        nextStep.classList.remove('hidden');
-        updateStepIndicator(nextStep.id);
-        window.scrollTo(0, 0);
-    };
-    
-    const updateStepIndicator = (activeStepId) => {
-        [step1Indicator, step2Indicator, step3Indicator, step4Indicator].forEach(indicator => {
-            indicator.classList.remove('active', 'inactive');
-        });
-
-        if (activeStepId === 'form-step-1') {
-            step1Indicator.classList.add('active');
-            step2Indicator.classList.add('inactive');
-            step3Indicator.classList.add('inactive');
-            step4Indicator.classList.add('inactive');
-        } else if (activeStepId === 'form-step-2') {
-            step1Indicator.classList.add('inactive');
-            step2Indicator.classList.add('active');
-            step3Indicator.classList.add('inactive');
-            step4Indicator.classList.add('inactive');
-        } else if (activeStepId === 'form-step-3') {
-            step1Indicator.classList.add('inactive');
-            step2Indicator.classList.add('inactive');
-            step3Indicator.classList.add('active');
-            step4Indicator.classList.add('inactive');
-        } else if (activeStepId === 'form-step-4') {
-            step1Indicator.classList.add('inactive');
-            step2Indicator.classList.add('inactive');
-            step3Indicator.classList.add('inactive');
-            step4Indicator.classList.add('active');
-        }
-    };
-
-    const validateStep = (stepElement) => {
-        let isValid = true;
-        stepElement.querySelectorAll('[required]').forEach(field => {
-            let fieldValid = true;
-            if (field.type === 'radio' || field.type === 'checkbox') {
-                const group = stepElement.querySelectorAll(`input[name="${field.name}"]`);
-                if (![...group].some(r => r.checked)) {
-                    fieldValid = false;
-                }
-            } else if (field.type === 'email') {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!field.value.trim() || !emailRegex.test(field.value.trim())) {
-                    fieldValid = false;
-                }
-            } else if (field.type === 'tel') {
-                const simplePhoneRegex = /^[0-9-]{10,13}$/;
-                if (!field.value.trim() || !simplePhoneRegex.test(field.value.trim())) {
-                    fieldValid = false;
-                }
-            } else if (!field.value.trim()) {
-                fieldValid = false;
-            }
-            
-            const label = field.closest('div').querySelector('label');
-            if (!fieldValid) {
-                isValid = false;
-                if (label) label.classList.add('text-red-500');
-            } else {
-                if (label) label.classList.remove('text-red-500');
-            }
-        });
-
-        // Custom validation for checkbox group
-        if (stepElement.id === 'form-step-3') {
-            const equipmentCheckboxes = stepElement.querySelectorAll('input[name="classroom_equipment"]');
-            const label = equipmentCheckboxes[0].closest('.grid').previousElementSibling;
-            const isAtLeastOneChecked = [...equipmentCheckboxes].some(cb => cb.checked);
-            
-            if (!isAtLeastOneChecked) {
-                isValid = false;
-                if(label) label.classList.add('text-red-500');
-            } else {
-                 if(label) label.classList.remove('text-red-500');
-            }
-        }
-
-        return isValid;
-    };
-
-    nextBtn1.addEventListener('click', () => {
-        if (!validateStep(step1) || selectedDates.length !== 3) {
-             showErrorModal('必須項目をすべて入力し、来場希望日時を3つ選択してください。');
-             if(selectedDates.length !== 3) {
-                  const dateLabel = document.querySelector('#date-selection-container > label');
-                  if(dateLabel) dateLabel.classList.add('text-red-500');
-             }
-             return;
-        }
-        goToStep(step1, step2);
-    });
-
-    backBtn1.addEventListener('click', () => goToStep(step2, step1));
-
-    nextBtn2.addEventListener('click', () => {
-        if (!validateStep(step2)) {
-            const emailField = document.getElementById('email');
-            const phoneField = document.getElementById('phone');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const simplePhoneRegex = /^[0-9-]{10,13}$/;
-
-            if (emailField.value.trim() && !emailRegex.test(emailField.value.trim())) {
-                showErrorModal('正しい形式のメールアドレスを入力してください。');
-            } else if (phoneField.value.trim() && !simplePhoneRegex.test(phoneField.value.trim())) {
-                showErrorModal('正しい形式の電話番号を入力してください。');
-            } else {
-                showErrorModal('必須項目をすべて入力・選択してください。');
-            }
-            return;
-        }
-        goToStep(step2, step3);
-    });
-
-    backBtn2.addEventListener('click', () => goToStep(step3, step2));
-
-    nextBtn3.addEventListener('click', () => {
-        if (!validateStep(step3)) {
-            showErrorModal('必須項目をすべて入力・選択してください。');
-            return;
-        }
-        populateConfirmation();
-        goToStep(step3, step4);
-    });
-
-    backBtn3.addEventListener('click', () => goToStep(step4, step3));
-
-    // Calendar Logic
-    const calendarWrapper = document.getElementById('calendar-wrapper');
-    const timeSlotsContainer = document.getElementById('time-slots-container');
-    const timeSlotTitle = document.getElementById('time-slot-title');
-    const selectedDatesDisplay = document.getElementById('selected-dates-display');
-    const timeSlots = document.querySelectorAll('.time-slot');
-
+    // State
     let selectedDates = [];
     let currentSelectedDay = null;
+
+    // Elements
+    const els = {
+        visitors: document.getElementById('number_of_visitors'),
+        dateContainer: document.getElementById('date-selection-container'),
+        calendar: document.getElementById('calendar-wrapper'),
+        timeContainer: document.getElementById('time-slots-container'),
+        timeTitle: document.getElementById('time-slot-title'),
+        selectedDisplay: document.getElementById('selected-dates-display'),
+        modal: document.getElementById('error-modal'),
+        errMsg: document.getElementById('error-message-text'),
+        prodContainer: document.getElementById('experience_product_container'),
+        prodInput: document.getElementById('experience_product')
+    };
+
+    // Global Functions (attached to window for HTML onclick)
+    window.goToStep = (step) => {
+        const prevStep = step - 1;
+        // Validation check when moving forward
+        if (step > 1 && !validateStep(prevStep)) return;
+        
+        document.querySelectorAll('.form-step').forEach(el => el.classList.add('hidden'));
+        document.getElementById(`form-step-${step}`).classList.remove('hidden');
+        
+        // Update Indicators
+        for (let i = 1; i <= 4; i++) {
+            const ind = document.getElementById(`step-indicator-${i}`);
+            ind.className = `step-indicator flex-1 ${i === 1 ? 'rounded-l-lg' : ''} ${i === 4 ? 'rounded-r-lg' : ''} ${i === step ? 'active' : 'inactive'}`;
+        }
+        if (step === 4) populateConfirmation();
+        window.scrollTo(0, 0);
+    };
+
+    // Event Listeners
+    els.visitors.addEventListener('change', () => els.dateContainer.classList.toggle('hidden', !els.visitors.value));
     
-    // --- MODIFIED: カレンダーの初期表示月を予約開始月に合わせる ---
-    let initialDisplayDate = new Date(reservationStartDate.getFullYear(), reservationStartDate.getMonth(), 1);
-    let currentDisplayDate = new Date(initialDisplayDate);
-    // --- END MODIFIED ---
-
-    function generateCalendar() {
-        const year = currentDisplayDate.getFullYear();
-        const month = currentDisplayDate.getMonth();
-        
-        const monthNames = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
-        const days = ['日', '月', '火', '水', '木', '金', '土'];
-        
-        const firstDay = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        let calendarHTML = `
-            <div class="flex items-center justify-between mb-2">
-                <button type="button" id="prev-month-btn" class="p-2 rounded-full hover:bg-gray-100"><i class="fas fa-chevron-left"></i></button>
-                <div class="text-center font-bold">${year}年 ${monthNames[month]}</div>
-                <button type="button" id="next-month-btn" class="p-2 rounded-full hover:bg-gray-100"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            <div class="grid grid-cols-7 gap-1 text-center text-sm text-gray-500">
-        `;
-        days.forEach(day => calendarHTML += `<div>${day}</div>`);
-        calendarHTML += '</div><div class="grid grid-cols-7 gap-1 mt-2">';
-        
-        for (let i = 0; i < firstDay; i++) {
-            calendarHTML += '<div></div>';
-        }
-        for (let i = 1; i <= daysInMonth; i++) {
-            const date = new Date(year, month, i);
-            date.setHours(0,0,0,0);
-            const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-            
-            // --- MODIFIED: 予約期間外の日付を無効化 ---
-            const isOutsideRange = date < reservationStartDate || date > reservationEndDate;
-            const isFull = fullyBookedDates.includes(dateString) && !isOutsideRange;
-            // --- END MODIFIED ---
-            
-            let dayClasses = 'calendar-day text-center p-2 cursor-pointer';
-            if (isOutsideRange) dayClasses += ' text-gray-300 pointer-events-none';
-            if (isFull) dayClasses += ' full';
-            if (dateString === currentSelectedDay) dayClasses += ' selected';
-
-            calendarHTML += `<div class="${dayClasses}" data-date="${dateString}">${i}</div>`;
-        }
-        calendarHTML += '</div>';
-        calendarWrapper.innerHTML = calendarHTML;
-
-        calendarWrapper.querySelectorAll('.calendar-day').forEach(day => day.addEventListener('click', handleDayClick));
-        
-        const prevMonthBtn = document.getElementById('prev-month-btn');
-        const nextMonthBtn = document.getElementById('next-month-btn');
-
-        // --- MODIFIED: Prev/Next month button enable/disable logic ---
-        const currentCalendarMonth = new Date(year, month, 1);
-        const reservationStartMonth = new Date(reservationStartDate.getFullYear(), reservationStartDate.getMonth(), 1);
-        const reservationEndMonth = new Date(reservationEndDate.getFullYear(), reservationEndDate.getMonth(), 1);
-        
-        prevMonthBtn.addEventListener('click', () => {
-            if(prevMonthBtn.disabled) return;
-            currentDisplayDate.setMonth(currentDisplayDate.getMonth() - 1);
-            generateCalendar();
-        });
-        
-        nextMonthBtn.addEventListener('click', () => {
-            if(nextMonthBtn.disabled) return;
-            currentDisplayDate.setMonth(currentDisplayDate.getMonth() + 1);
-            generateCalendar();
-        });
-
-        if (currentCalendarMonth <= reservationStartMonth) {
-            prevMonthBtn.disabled = true;
-            prevMonthBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        }
-
-        if (currentCalendarMonth >= reservationEndMonth) {
-            nextMonthBtn.disabled = true;
-            nextMonthBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        }
-        // --- END MODIFIED ---
-    }
-
-    function updateTomeSlotsState() {
-        if (!currentSelectedDay) return;
-
-        const timeSlotsArray = Array.from(timeSlots);
-        const reservedTimes = selectedDates
-            .filter(d => d.date.startsWith(currentSelectedDay))
-            .map(d => d.date.split(' ')[1]);
-        
-        const getPrevTime = (time) => {
-            switch(time) {
-                case "11:00": return "10:00";
-                case "14:00": return "13:00";
-                case "15:00": return "14:00";
-                default: return null;
-            }
-        };
-
-        timeSlotsArray.forEach(slot => {
-            const currentTime = slot.dataset.time;
-            let isDisabled = reservedTimes.includes(currentTime);
-
-            const prevTime = getPrevTime(currentTime);
-            if (prevTime && reservedTimes.includes(prevTime)) {
-                isDisabled = true;
-            }
-            slot.classList.toggle('disabled', isDisabled);
-        });
-    }
-
-    function handleDayClick(e) {
-        currentSelectedDay = e.target.dataset.date;
-        generateCalendar();
-        
-        timeSlotTitle.textContent = `${currentSelectedDay} のご希望の時間を選択`;
-        timeSlotsContainer.classList.remove('hidden');
-        
-        updateTomeSlotsState();
-    }
-
-    timeSlots.forEach(slot => {
-        slot.addEventListener('click', (e) => {
-            if (!currentSelectedDay || e.target.classList.contains('disabled')) return;
-            if (selectedDates.length >= 3) {
-                showErrorModal('第3候補まで選択済みです。');
-                return;
-            }
-            
-            const selectedTime = e.target.dataset.time;
-            const fullDateTime = `${currentSelectedDay} ${selectedTime}`;
-
-            selectedDates.push({ id: Date.now(), date: fullDateTime });
-            updateSelectedDatesDisplay();
-            updateTomeSlotsState();
+    document.querySelectorAll('input[name="experience"]').forEach(r => {
+        r.addEventListener('change', e => {
+            const show = ['体験をしたことがある', '日常的に使用している/使用していた'].includes(e.target.value);
+            els.prodContainer.classList.toggle('hidden', !show);
+            if (!show) els.prodInput.value = '';
         });
     });
 
-    function updateSelectedDatesDisplay() {
-        if (selectedDates.length === 0) {
-            selectedDatesDisplay.innerHTML = '<p class="text-gray-500">カレンダーから希望日時を3つ選択してください。</p>';
-        } else {
-            selectedDatesDisplay.innerHTML = '';
-        }
+    document.querySelectorAll('.time-slot').forEach(btn => {
+        btn.addEventListener('click', e => {
+            if (!currentSelectedDay || e.target.classList.contains('disabled')) return;
+            if (selectedDates.length >= 3) return showError('第3候補まで選択済みです。');
+            
+            selectedDates.push({ id: Date.now(), date: `${currentSelectedDay} ${e.target.dataset.time}` });
+            updateDatesUI();
+        });
+    });
 
-        selectedDates.sort((a, b) => new Date(a.date.replace(/-/g, '/')) - new Date(b.date.replace(/-/g, '/')));
-        
-        selectedDates.forEach((d, index) => {
-            const el = document.createElement('div');
-            el.className = 'flex justify-between items-center p-2 bg-gray-100 rounded-lg';
-            el.innerHTML = `<span><strong>第${index + 1}希望:</strong> ${d.date}</span><button type="button" class="text-red-500 hover:text-red-700 font-bold text-xl" data-id="${d.id}">&times;</button>`;
-            selectedDatesDisplay.appendChild(el);
-            document.getElementById(`visit_date_${index + 1}`).value = d.date;
+    // Validation
+    function validateStep(step) {
+        const stepEl = document.getElementById(`form-step-${step}`);
+        let valid = true;
+        let msg = '';
+
+        // Standard required checks
+        stepEl.querySelectorAll('[required]').forEach(el => {
+            let elValid = true;
+            if (el.type === 'radio' || el.type === 'checkbox') {
+                if (!stepEl.querySelector(`input[name="${el.name}"]:checked`)) elValid = false;
+            } else if (!el.value.trim()) elValid = false;
+            
+            // Regex checks
+            if (el.type === 'email' && el.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)) { elValid = false; msg = 'メールアドレスの形式が不正です'; }
+            if (el.type === 'tel' && el.value && !/^[0-9-]{10,13}$/.test(el.value)) { elValid = false; msg = '電話番号の形式が不正です'; }
+
+            el.closest('div').querySelector('label')?.classList.toggle('text-red-500', !elValid);
+            if (!elValid) valid = false;
         });
 
-        for (let i = selectedDates.length + 1; i <= 3; i++) {
-            document.getElementById(`visit_date_${i}`).value = '';
+        // Step 1 specific: 3 dates required
+        if (step === 1 && selectedDates.length !== 3) {
+            valid = false;
+            els.dateContainer.querySelector('label').classList.add('text-red-500');
+            msg = msg || '来場希望日時を3つ選択してください。';
         }
 
-        selectedDatesDisplay.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const idToRemove = parseInt(e.target.dataset.id);
-                selectedDates = selectedDates.filter(d => d.id !== idToRemove);
-                updateSelectedDatesDisplay();
-                updateTomeSlotsState();
-            });
-        });
+        // Step 3 specific: checkboxes
+        if (step === 3) {
+            const checked = stepEl.querySelectorAll('input[name="classroom_equipment"]:checked').length > 0;
+            const label = stepEl.querySelector('input[name="classroom_equipment"]').closest('.mt-4').previousElementSibling;
+            if(label) label.classList.toggle('text-red-500', !checked);
+            if (!checked) valid = false;
+        }
+
+        if (!valid) showError(msg || '必須項目を入力・選択してください。');
+        return valid;
     }
+
+    function showError(msg) {
+        els.errMsg.textContent = msg;
+        els.modal.classList.remove('hidden');
+    }
+
+    // Calendar
+    window.renderCal = (offset = 0) => {
+        currentDisplayDate.setMonth(currentDisplayDate.getMonth() + offset);
+        const y = currentDisplayDate.getFullYear(), m = currentDisplayDate.getMonth();
+        const first = new Date(y, m, 1).getDay(), last = new Date(y, m + 1, 0).getDate();
+        
+        let html = `
+            <div class="flex justify-between mb-2">
+                <button type="button" onclick="renderCal(-1)" class="p-2 hover:bg-gray-100 rounded-full" ${currentDisplayDate <= startMonth ? 'disabled style="opacity:0.3"' : ''}><i class="fas fa-chevron-left"></i></button>
+                <div class="font-bold">${y}年 ${m+1}月</div>
+                <button type="button" onclick="renderCal(1)" class="p-2 hover:bg-gray-100 rounded-full" ${currentDisplayDate >= endDate ? 'disabled style="opacity:0.3"' : ''}><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="grid grid-cols-7 gap-1 text-center text-sm text-gray-500">${['日','月','火','水','木','金','土'].map(d=>`<div>${d}</div>`).join('')}</div>
+            <div class="grid grid-cols-7 gap-1 mt-2">
+        `;
+        
+        for(let i=0; i<first; i++) html += '<div></div>';
+        for(let i=1; i<=last; i++) {
+            const dStr = `${y}-${String(m+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
+            const dObj = new Date(y, m, i);
+            const isOut = dObj < startDate || dObj > endDate;
+            const isFull = fullyBookedDates.includes(dStr) && !isOut;
+            const isSel = dStr === currentSelectedDay;
+            
+            let cls = 'calendar-day text-center p-2 cursor-pointer';
+            if(isOut) cls += ' text-gray-300 pointer-events-none';
+            else if(isFull) cls += ' full';
+            else if(isSel) cls += ' selected';
+            
+            html += `<div class="${cls}" onclick="selectDay('${dStr}')">${i}</div>`;
+        }
+        els.calendar.innerHTML = html + '</div>';
+    };
+
+    window.selectDay = (dateStr) => {
+        currentSelectedDay = dateStr;
+        renderCal();
+        els.timeTitle.textContent = `${dateStr} の希望時間`;
+        els.timeContainer.classList.remove('hidden');
+        
+        // Time slot logic
+        const reserved = selectedDates.filter(d => d.date.startsWith(dateStr)).map(d => d.date.split(' ')[1]);
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            const t = slot.dataset.time;
+            const prev = t === "11:00" ? "10:00" : t === "14:00" ? "13:00" : t === "15:00" ? "14:00" : null;
+            slot.classList.toggle('disabled', reserved.includes(t) || (prev && reserved.includes(prev)));
+        });
+    };
+
+    function updateDatesUI() {
+        els.selectedDisplay.innerHTML = selectedDates.length ? '' : '<p class="text-gray-500">希望日時を3つ選択してください。</p>';
+        selectedDates.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach((d, i) => {
+            els.selectedDisplay.innerHTML += `
+                <div class="flex justify-between items-center p-2 bg-gray-100 rounded-lg">
+                    <span><strong>第${i+1}希望:</strong> ${d.date}</span>
+                    <button type="button" class="text-red-500 text-xl font-bold" onclick="removeDate(${d.id})">&times;</button>
+                </div>`;
+            document.getElementById(`visit_date_${i+1}`).value = d.date;
+        });
+        if(currentSelectedDay) selectDay(currentSelectedDay); // Refresh slots
+    }
+
+    window.removeDate = (id) => {
+        selectedDates = selectedDates.filter(d => d.id !== id);
+        updateDatesUI();
+    };
 
     function populateConfirmation() {
-        const formData = new FormData(document.getElementById('reservation-form'));
-        const data = Object.fromEntries(formData.entries());
-        const confirmationDetails = document.getElementById('confirmation-details');
-        const visitorsText = visitorsSelect.options[visitorsSelect.selectedIndex].text;
+        const d = Object.fromEntries(new FormData(document.getElementById('reservation-form')));
+        const eqs = Array.from(document.querySelectorAll('input[name="classroom_equipment"]:checked')).map(c=>c.value).join(', ') || '未回答';
+        const vis = els.visitors.options[els.visitors.selectedIndex].text;
         
-        // Handle checkbox data
-        const equipment = formData.getAll('classroom_equipment').join(', ') || '未回答';
-
-        let detailsHTML = `
+        const row = (label, val) => `<p class="font-semibold text-gray-500">${label}</p><p class="sm:col-span-2 whitespace-pre-wrap">${val || '未入力'}</p>`;
+        
+        document.getElementById('confirmation-details').innerHTML = `
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-2">
-                <p class="font-semibold text-gray-500">ご来場人数</p><p class="sm:col-span-2">${visitorsText}</p>
-                <p class="font-semibold text-gray-500">第1希望日時</p><p class="sm:col-span-2">${data.visit_date_1 || '未選択'}</p>
-                <p class="font-semibold text-gray-500">第2希望日時</p><p class="sm:col-span-2">${data.visit_date_2 || '未選択'}</p>
-                <p class="font-semibold text-gray-500">第3希望日時</p><p class="sm:col-span-2">${data.visit_date_3 || '未選択'}</p>
+                ${row('ご来場人数', vis)}
+                ${row('第1希望', d.visit_date_1)} ${row('第2希望', d.visit_date_2)} ${row('第3希望', d.visit_date_3)}
                 <hr class="sm:col-span-3 my-2">
-                <p class="font-semibold text-gray-500">施設種別</p><p class="sm:col-span-2">${data.facility_type}</p>
-                <p class="font-semibold text-gray-500">事業者名</p><p class="sm:col-span-2">${data.company_name}</p>
-                <p class="font-semibold text-gray-500">施設名</p><p class="sm:col-span-2">${data.facility_name || '未入力'}</p>
-                <p class="font-semibold text-gray-500">ご担当者名</p><p class="sm:col-span-2">${data.contact_name}</p>
-                <p class="font-semibold text-gray-500">電話番号</p><p class="sm:col-span-2">${data.phone}</p>
-                <p class="font-semibold text-gray-500">メールアドレス</p><p class="sm:col-span-2">${data.email}</p>
-                <p class="font-semibold text-gray-500">ご質問・ご要望</p><p class="sm:col-span-2 whitespace-pre-wrap">${data.questions || '未入力'}</p>
+                ${row('施設種別', d.facility_type)} ${row('事業者名', d.company_name)} ${row('施設名', d.facility_name)}
+                ${row('担当者名', d.contact_name)} ${row('電話番号', d.phone)} ${row('Email', d.email)}
+                ${row('質問・要望', d.questions)}
                 <hr class="sm:col-span-3 my-2">
-                <p class="font-semibold text-gray-500 sm:col-span-3 text-lg">--- アンケート ---</p>
-                <p class="font-semibold text-gray-500">電子黒板の使用歴</p><p class="sm:col-span-2">${data.experience || '未回答'}</p>
-                ${(data.experience === '体験をしたことがある' || data.experience === '日常的に使用している/使用していた') ? `<p class="font-semibold text-gray-500">使用・体験した製品名</p><p class="sm:col-span-2">${data.experience_product || '未入力'}</p>` : ''}
-                <p class="font-semibold text-gray-500">現在使用中のもの</p><p class="sm:col-span-2">${equipment}</p>
-                <p class="font-semibold text-gray-500">導入検討台数</p><p class="sm:col-span-2">${data.number_of_units || '未選択'}</p>
-            </div>
-        `;
-        confirmationDetails.innerHTML = detailsHTML;
+                ${row('電子黒板使用歴', d.experience)}
+                ${['体験をしたことがある','日常的に使用している/使用していた'].includes(d.experience) ? row('製品名', d.experience_product) : ''}
+                ${row('現在の環境', eqs)} ${row('検討台数', d.number_of_units)}
+            </div>`;
     }
 
-    form.addEventListener('submit', function(e) {
+    // Submit
+    document.getElementById('reservation-form').addEventListener('submit', function(e) {
         e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        const origText = btn.innerHTML;
         
-        if (!validateStep(step1) || selectedDates.length !== 3) {
-            showErrorModal('ご希望日時に未入力または不備があります。入力内容をご確認ください。');
-            goToStep(step4, step1);
-            return;
-        }
+        if(!/^https:\/\/script\.google\.com/.test(SCRIPT_URL)) return showError("システムエラー: 送信先URLが無効です。");
 
-        if (!validateStep(step2)) {
-            const emailField = document.getElementById('email');
-            const phoneField = document.getElementById('phone');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const simplePhoneRegex = /^[0-9-]{10,13}$/;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...';
 
-            if (emailField.value.trim() && !emailRegex.test(emailField.value.trim())) {
-                showErrorModal('正しい形式のメールアドレスを入力してください。');
-            } else if (phoneField.value.trim() && !simplePhoneRegex.test(phoneField.value.trim())) {
-                showErrorModal('正しい形式の電話番号を入力してください。');
-            } else {
-                showErrorModal('お客様情報に未入力または誤った形式の項目があります。');
-            }
-            goToStep(step4, step2);
-            return;
-        }
-
-        if (!validateStep(step3)) {
-            showErrorModal('アンケートに未入力の項目があります。入力内容をご確認ください。');
-            goToStep(step4, step3);
-            return;
-        }
-        
-        const originalButtonHTML = submitBtn.innerHTML;
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `
-            <svg class="animate-spin h-5 w-5 mx-auto text-white" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-        `;
-
-        const formData = new FormData(this);
-        // ▼▼▼ ここにデプロイしたウェブアプリのURLを貼り付け ▼▼▼
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXV_jVH2JsAIl52CQkmaxCgFodnaC_Vq9AOISoK-9dD6g2QwTWFT7xp-zZMJPqPnki_w/exec";
-        // ▲▲▲ ここにデプロイしたウェブアプリのURLを貼り付け ▲▲▲
-        
-        const isValidScriptUrl = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(SCRIPT_URL);
-        if (!isValidScriptUrl) {
-          showErrorModal("ウェブアプリのURLが設定されていないか、形式が正しくありません。GASで発行したURL（.../execで終わるもの）を設定してください。");
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalButtonHTML;
-          return;
-        }
-
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: formData,
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.result === 'success') {
-                formContainer.classList.add('hidden');
-                successMessage.classList.remove('hidden');
-                window.scrollTo(0, 0);
-            } else {
-                throw new Error(data.message || '送信に失敗しました。');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showErrorModal('送信中にエラーが発生しました。時間をおいて再度お試しください。');
-        })
-        .finally(() => {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalButtonHTML;
-        });
+        fetch(SCRIPT_URL, { method: 'POST', body: new FormData(this) })
+            .then(r => r.json())
+            .then(d => {
+                if(d.result === 'success') {
+                    document.getElementById('form-container').classList.add('hidden');
+                    document.getElementById('success-message').classList.remove('hidden');
+                    window.scrollTo(0,0);
+                } else throw new Error(d.message);
+            })
+            .catch(err => {
+                console.error(err);
+                showError('送信に失敗しました。時間をおいて再度お試しください。');
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerHTML = origText;
+            });
     });
-    
-    generateCalendar();
+
+    // Init
+    renderCal();
 });
 </script>
-
 </body>
 </html>
-
-
-
