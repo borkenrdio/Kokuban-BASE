@@ -181,43 +181,7 @@
 
     <script>
         // MicroCMS設定
-        // 注意: プレビュー環境では外部JSONファイル(information/index.json)をfetchできない場合があるため、
-        // デモ用のモックデータを使用する設定にしています。
-        // 本番環境でJSONファイルを使用する場合は、USE_MOCK_DATA を false にしてください。
-        const USE_MOCK_DATA = true;
         const JSON_PATH = 'information/index.json';
-
-        // デモ用モックデータ（表示確認用）
-        const MOCK_NEWS_DATA = [
-            {
-                "id": "1",
-                "title": "【新製品】教育機関向け電子黒板「Kokuban PRO」の販売を開始しました",
-                "publishedAt": "2025-01-15T10:00:00Z",
-                "tags": [{ "name": "NEW" }, { "name": "プレスリリース" }],
-                "url": "#"
-            },
-            {
-                "id": "2",
-                "title": "教育ITソリューションEXPOへの出展決定！最新モデルを体験いただけます",
-                "publishedAt": "2024-12-20T10:00:00Z",
-                "tags": [{ "name": "イベント" }],
-                "url": "#"
-            },
-            {
-                "id": "3",
-                "title": "著名教育評論家との特別対談：これからのICT教育について",
-                "publishedAt": "2024-11-10T10:00:00Z",
-                "tags": [{ "name": "対談記事" }],
-                "url": "#"
-            },
-            {
-                "id": "4",
-                "title": "冬季休業のお知らせ",
-                "publishedAt": "2024-12-01T09:00:00Z",
-                "tags": [{ "name": "お知らせ" }],
-                "url": "#"
-            }
-        ];
 
         const newsList = document.getElementById('news-list');
         const loadingMessage = document.getElementById('loading-message');
@@ -297,20 +261,12 @@
             pagination.classList.add('hidden');
             
             try {
-                let contents;
-
-                if (USE_MOCK_DATA) {
-                    // モックデータを使用する場合（プレビュー用）
-                    await new Promise(resolve => setTimeout(resolve, 500)); // 少しだけ待つ
-                    contents = MOCK_NEWS_DATA;
-                } else {
-                    // 実際のJSONファイルをフェッチする場合
-                    const response = await fetch(JSON_PATH);
-                    if (!response.ok) {
-                        throw new Error(`Failed to load ${JSON_PATH}: ${response.status}`);
-                    }
-                    contents = await response.json();
+                // 実際のJSONファイルをフェッチする
+                const response = await fetch(JSON_PATH);
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${JSON_PATH}: ${response.status}`);
                 }
+                const contents = await response.json();
 
                 if (contents && contents.length > 0) {
                     displayNewsItems(contents);
@@ -323,7 +279,7 @@
                 loadingMessage.innerHTML = `<div class="text-center py-12 text-red-600">
                     <p class="text-lg font-medium">ニュースの取得に失敗しました。</p>
                     <p class="text-sm text-gray-500 mt-2">（エラー: ${error.message}）</p>
-                    <p class="text-xs text-gray-400 mt-4">※プレビュー環境ではJSONファイルを読み込めない場合があります。</p>
+                    <p class="text-xs text-gray-400 mt-4">※JSONファイルのパスや通信環境をご確認ください。</p>
                 </div>`;
             } finally {
                 loadingMessage.classList.add('hidden');
