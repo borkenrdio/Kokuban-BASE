@@ -21,7 +21,7 @@
     <meta property="og:locale" content="ja_JP">
     <meta property="og:site_name" content="Kokuban BASE（コクバンベース）">
     <meta property="og:type" content="website">
-    <!-- JSON-LD (構造化データ) は変更なし -->
+    <!-- JSON-LD (構造化データ) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -196,15 +196,16 @@
                 <section id="latest-information" class="py-16 sm:py-24 bg-gray-50">
                     <div class="container mx-auto px-6 lg:px-8 max-w-5xl">
                         <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden font-sans">
-                            <div class="p-8 sm:p-10">
+                            <div class="p-8 sm:p-10 border-b border-gray-100">
                                 <h1 class="text-4xl font-bold text-gray-900 tracking-tight">News</h1>
                                 <p class="mt-1 text-lg text-gray-500">お知らせ</p>
                             </div>
-                            <div class="px-8 sm:px-10 pb-8">
-                                <ul id="latest-news-list" class="space-y-6">
-                                    <li id="loading-indicator-latest" class="py-4 text-gray-500">データを読み込んでいます...</li>
+                            <div class="p-4 sm:p-10 pb-8 bg-[#f8f9fa]">
+                                <!-- 余白をspace-y-6からspace-y-4に縮小してスタイリッシュに -->
+                                <ul id="latest-news-list" class="space-y-4">
+                                    <li id="loading-indicator-latest" class="py-4 text-gray-500 text-center">データを読み込んでいます...</li>
                                 </ul>
-                                <div id="error-message-latest" class="hidden mt-6 p-4 bg-red-50 text-red-700 rounded-lg">読み込み失敗</div>
+                                <div id="error-message-latest" class="hidden mt-6 p-4 bg-red-50 text-red-700 rounded-lg text-center">読み込み失敗</div>
                                 <div class="mt-10 flex justify-end">
                                     <a href="/information" class="inline-flex items-center gap-3 bg-white text-gray-800 font-bold py-3 px-6 rounded-full shadow-md border border-gray-200 transition-all hover:shadow-lg hover:-translate-y-0.5">
                                         <span>Read All</span>
@@ -624,12 +625,27 @@
         async function fetchNews(url, containerId, loadingId, errorId, isLatest = false) {
             const container = document.getElementById(containerId);
             const loader = document.getElementById(loadingId);
+            
+            // ローカル環境等のプレビュー用ダミーデータ
             if(window.location.protocol === 'blob:' || window.location.protocol === 'file:') {
                 if(loader) loader.remove();
-                if(container) container.innerHTML = isLatest ? [1,2,3].map(i => `<li class="border-b pb-6"><div class="text-sm">2025/01/0${i}</div><div>テスト記事${i}</div></li>`).join('') : '<div class="swiper-slide">プレビュー環境</div>';
-                if(!isLatest) initSwiperCommon('.news-swiper', '.news-pagination', '.news-next', '.news-prev', { 640: {slidesPerView: 2, spaceBetween: 20}, 1024: {slidesPerView: 3, spaceBetween: 30} });
-                return;
+                if(container && isLatest) {
+                     // ダミーデータ生成（画像のデザイン確認用）
+                     const dummyData = [
+                        { category: { name: 'プレスリリース' }, date: '2025/01/15', title: '【新製品】教育機関向け電子黒板「Kokuban PRO」の販売を開始しました', isNew: true },
+                        { category: { name: 'イベント' }, date: '2024/12/20', title: '教育ITソリューションEXPOへの出展決定！最新モデルを体験いただけます', isNew: false },
+                        { category: { name: '対談記事' }, date: '2024/11/10', title: '著名教育評論家との特別対談：これからのICT教育について', isNew: false },
+                        { category: { name: 'お知らせ' }, date: '2024/12/01', title: '冬季休業のお知らせ', isNew: false }
+                     ];
+                     container.innerHTML = generateLatestListHTML(dummyData);
+                     return;
+                } else if(container) {
+                    container.innerHTML = '<div class="swiper-slide">プレビュー環境</div>';
+                    initSwiperCommon('.news-swiper', '.news-pagination', '.news-next', '.news-prev', { 640: {slidesPerView: 2, spaceBetween: 20}, 1024: {slidesPerView: 3, spaceBetween: 30} });
+                    return;
+                }
             }
+
             try {
                 const res = await fetch(url);
                 const data = await res.json();
@@ -637,43 +653,79 @@
                 const items = isLatest ? data.slice(0, 5) : data;
                 
                 if (isLatest) {
-                    container.innerHTML = items.map(item => {
-                        const date = new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP');
-                        const categoryName = item.category?.name || 'その他';
-                        
-                        // カテゴリごとの色定義
-                        const categoryColors = {
-                            'メディア': 'bg-blue-100 text-blue-800',
-                            'プレスリリース': 'bg-purple-100 text-purple-800',
-                            'お知らせ': 'bg-green-100 text-green-800',
-                            'イベント': 'bg-yellow-100 text-yellow-800',
-                            'その他': 'bg-gray-100 text-gray-800'
-                        };
-                        const categoryClass = categoryColors[categoryName] || categoryColors['その他'];
-
-                        return `<li class="border-b border-gray-200 pb-6 cursor-pointer hover:bg-gray-50 -m-3 p-3 rounded-lg transition group" onclick="location.href='${item.url || `/information/${item.id}`}'">
-                            <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-8">
-                                <time class="text-sm font-medium text-gray-600 md:w-24 flex-shrink-0">${date}</time>
-                                <div class="md:w-32 flex-shrink-0">
-                                    <span class="inline-block ${categoryClass} text-xs font-bold px-3 py-1 rounded-full w-auto md:w-full text-center">${categoryName}</span>
-                                </div>
-                                <h3 class="text-base font-semibold text-gray-900 flex-1 group-hover:text-blue-600 leading-relaxed">${item.title}</h3>
-                            </div></li>`;
-                    }).join('');
+                    // APIから取得したデータを整形してHTML生成関数へ渡す
+                    const formattedItems = items.map(item => ({
+                        id: item.id,
+                        url: item.url,
+                        date: new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+                        category: { name: item.category?.name || 'その他' },
+                        title: item.title,
+                        isNew: (new Date() - new Date(item.publishedAt || item.createdAt)) / (1000 * 3600 * 24) < 14 // 2週間以内をNEWとする判定例
+                    }));
+                    container.innerHTML = generateLatestListHTML(formattedItems);
                 } else {
+                    // コラム（カード型）の処理はそのまま
                     container.innerHTML = items.map(item => {
                         const img = item.eyecatchUrl ? `${item.eyecatchUrl}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
                         return `<div class="swiper-slide h-auto"><a href="columns/${item.slug}/" class="block bg-white rounded-lg shadow-md overflow-hidden h-full group">
-                            <div class="overflow-hidden aspect-video"><img src="${img}" class="w-full h-full object-cover"></div>
-                            <div class="p-4 sm:p-5"><p class="text-sm text-gray-500 mb-2">${new Date(item.publishedAt).toLocaleDateString('ja-JP')}</p><h3 class="font-bold text-gray-800 group-hover:text-pink-500">${item.title}</h3></div>
+                            <div class="overflow-hidden aspect-video"><img src="${img}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
+                            <div class="p-4 sm:p-5"><p class="text-sm text-gray-500 mb-2">${new Date(item.publishedAt).toLocaleDateString('ja-JP')}</p><h3 class="font-bold text-gray-800 group-hover:text-pink-500 transition-colors">${item.title}</h3></div>
                         </a></div>`;
                     }).join('');
                     initSwiperCommon('.news-swiper', '.news-pagination', '.news-next', '.news-prev', { 640: {slidesPerView: 2, spaceBetween: 20}, 1024: {slidesPerView: 3, spaceBetween: 30} });
                 }
             } catch(e) {
+                console.error(e);
                 if(loader) loader.remove();
                 if(document.getElementById(errorId)) document.getElementById(errorId).classList.remove('hidden');
             }
+        }
+
+        // ▼ 最新情報リストのデザイン生成関数
+        function generateLatestListHTML(items) {
+            return items.map(item => {
+                const categoryName = item.category.name;
+                
+                // カテゴリごとの色定義 (画像の色味に合わせる)
+                let tagClass = 'bg-gray-500 text-white';
+                if (categoryName.includes('プレスリリース')) tagClass = 'bg-[#6366f1] text-white'; // Indigo/Purple
+                else if (categoryName.includes('イベント')) tagClass = 'bg-[#22c55e] text-white'; // Green
+                else if (categoryName.includes('対談') || categoryName.includes('インタビュー')) tagClass = 'bg-[#ec4899] text-white'; // Pink
+                else if (categoryName.includes('お知らせ')) tagClass = 'bg-[#1e40af] text-white'; // Blue/Navy
+                
+                // NEWバッジの表示
+                const newBadge = item.isNew ? `<span class="inline-block bg-yellow-400 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-1">NEW</span>` : '';
+
+                return `
+                <li class="group">
+                    <a href="${item.url || `/information/${item.id}`}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-5 sm:p-6 border border-gray-100">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                            <!-- 左側：タグと日付 -->
+                            <div class="flex flex-row sm:flex-col items-center sm:items-start justify-between sm:justify-center min-w-[120px] flex-shrink-0 gap-3 sm:gap-1">
+                                <div class="flex flex-col items-start">
+                                    ${newBadge}
+                                    <span class="${tagClass} text-xs font-bold px-3 py-1 rounded-md shadow-sm min-w-[80px] text-center">${categoryName}</span>
+                                </div>
+                                <time class="text-sm font-medium text-gray-500 tracking-wider font-sans">${item.date}</time>
+                            </div>
+                            
+                            <!-- 中央：タイトル -->
+                            <div class="flex-grow border-l-0 sm:border-l-2 border-gray-100 sm:pl-6 py-1">
+                                <h3 class="text-base sm:text-lg font-bold text-gray-800 group-hover:text-[#103f99] transition-colors leading-relaxed">
+                                    ${item.title}
+                                </h3>
+                            </div>
+
+                            <!-- 右側：矢印アイコン -->
+                            <div class="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-gray-400 group-hover:bg-[#103f99] group-hover:text-white transition-all flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                </li>`;
+            }).join('');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
