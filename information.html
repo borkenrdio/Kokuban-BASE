@@ -180,8 +180,45 @@
 
 
     <script>
-        // MicroCMS設定 - 静的JSONを読み込むため、APIキーは不要
+        // MicroCMS設定
+        // 注意: プレビュー環境では外部JSONファイル(information/index.json)をfetchできない場合があるため、
+        // デモ用のモックデータを使用する設定にしています。
+        // 本番環境でJSONファイルを使用する場合は、USE_MOCK_DATA を false にしてください。
+        const USE_MOCK_DATA = true;
         const JSON_PATH = 'information/index.json';
+
+        // デモ用モックデータ（表示確認用）
+        const MOCK_NEWS_DATA = [
+            {
+                "id": "1",
+                "title": "【新製品】教育機関向け電子黒板「Kokuban PRO」の販売を開始しました",
+                "publishedAt": "2025-01-15T10:00:00Z",
+                "tags": [{ "name": "NEW" }, { "name": "プレスリリース" }],
+                "url": "#"
+            },
+            {
+                "id": "2",
+                "title": "教育ITソリューションEXPOへの出展決定！最新モデルを体験いただけます",
+                "publishedAt": "2024-12-20T10:00:00Z",
+                "tags": [{ "name": "イベント" }],
+                "url": "#"
+            },
+            {
+                "id": "3",
+                "title": "著名教育評論家との特別対談：これからのICT教育について",
+                "publishedAt": "2024-11-10T10:00:00Z",
+                "tags": [{ "name": "対談記事" }],
+                "url": "#"
+            },
+            {
+                "id": "4",
+                "title": "冬季休業のお知らせ",
+                "publishedAt": "2024-12-01T09:00:00Z",
+                "tags": [{ "name": "お知らせ" }],
+                "url": "#"
+            }
+        ];
+
         const newsList = document.getElementById('news-list');
         const loadingMessage = document.getElementById('loading-message');
         const pagination = document.getElementById('pagination');
@@ -192,15 +229,25 @@
                 
                 const tagHtml = tags.map(tag => {
                     const tagName = typeof tag === 'object' && tag !== null && tag.name ? tag.name : tag;
-                    let colorClass = 'bg-gray-200 text-gray-600';
                     
-                    // カテゴリごとの色分け設定
-                    if (tagName === 'NEW') { colorClass = 'bg-yellow-500 text-white font-bold'; } 
-                    else if (tagName === 'プレスリリース') { colorClass = 'bg-indigo-100 text-indigo-600'; } 
-                    else if (tagName === 'イベント') { colorClass = 'bg-green-100 text-green-600'; }
-                    else if (tagName === '対談記事') { colorClass = 'bg-[#EC4899] text-white'; } // ★追加: 対談記事の色設定
+                    // 初期設定（デフォルト）
+                    let colorClass = 'bg-gray-500 text-white'; 
                     
-                    return `<span class="px-2 py-0.5 rounded-full text-xs font-medium ${colorClass} transition duration-150 ease-in-out">${tagName}</span>`;
+                    // カテゴリごとの色分け設定（全て白文字にして視認性を向上）
+                    if (tagName === 'NEW') { 
+                        colorClass = 'bg-yellow-500 text-white'; 
+                    } else if (tagName === 'プレスリリース') { 
+                        colorClass = 'bg-indigo-600 text-white'; 
+                    } else if (tagName === 'イベント') { 
+                        colorClass = 'bg-green-600 text-white'; 
+                    } else if (tagName === '対談記事') { 
+                        colorClass = 'bg-[#EC4899] text-white'; // ★ピンク指定
+                    } else if (tagName === 'お知らせ') {
+                        colorClass = 'bg-[#103f99] text-white'; // テーマカラー
+                    }
+                    
+                    // デザイン修正: 文字サイズを少し大きく(text-sm)、太字(font-bold)、パディング増量(px-3 py-1)
+                    return `<span class="px-3 py-1 rounded-md text-xs md:text-sm font-bold shadow-sm ${colorClass} transition duration-150 ease-in-out tracking-wide">${tagName}</span>`;
                 }).join('');
 
                 const dateSource = item.date || item.publishedAt;
@@ -220,17 +267,17 @@
                 const articleLink = item.url && typeof item.url === 'string' ? item.url : '#';
 
                 return `
-                    <a href="${articleLink}" target="_blank" rel="noopener noreferrer" class="block bg-white p-5 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-[1.005] group">
+                    <a href="${articleLink}" target="_blank" rel="noopener noreferrer" class="block bg-white p-5 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-[1.005] group border border-gray-100">
                         <div class="flex flex-col md:flex-row items-start md:items-center space-y-3 md:space-y-0 md:space-x-6">
                             <!-- 日付とタグ -->
-                            <div class="flex-shrink-0 w-full md:w-36">
-                                <p class="text-sm font-semibold text-gray-500 mb-1 md:mb-0">${displayDate}</p>
-                                <div class="flex flex-wrap gap-2 mt-2 md:mt-1">${tagHtml}</div>
+                            <div class="flex-shrink-0 w-full md:w-44">
+                                <div class="flex flex-wrap gap-2 mb-2 md:mb-1">${tagHtml}</div>
+                                <p class="text-sm font-semibold text-gray-500">${displayDate}</p>
                             </div>
 
                             <!-- タイトルと矢印 -->
                             <div class="flex-1 min-w-0 flex justify-between items-center w-full">
-                                <h2 class="text-base md:text-lg font-medium text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300">
+                                <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300">
                                     ${item.title || 'タイトルがありません'}
                                 </h2>
                                 <svg class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-pink-500 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -250,11 +297,20 @@
             pagination.classList.add('hidden');
             
             try {
-                const response = await fetch(JSON_PATH);
-                if (!response.ok) {
-                    throw new Error(`Failed to load ${JSON_PATH}: ${response.status}`);
+                let contents;
+
+                if (USE_MOCK_DATA) {
+                    // モックデータを使用する場合（プレビュー用）
+                    await new Promise(resolve => setTimeout(resolve, 500)); // 少しだけ待つ
+                    contents = MOCK_NEWS_DATA;
+                } else {
+                    // 実際のJSONファイルをフェッチする場合
+                    const response = await fetch(JSON_PATH);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${JSON_PATH}: ${response.status}`);
+                    }
+                    contents = await response.json();
                 }
-                const contents = await response.json();
 
                 if (contents && contents.length > 0) {
                     displayNewsItems(contents);
@@ -266,7 +322,8 @@
                 console.error("Failed to fetch news:", error);
                 loadingMessage.innerHTML = `<div class="text-center py-12 text-red-600">
                     <p class="text-lg font-medium">ニュースの取得に失敗しました。</p>
-                    <p class="text-sm text-gray-500 mt-2">（エラー: ${error.message}。JSONファイルを確認してください。）</p>
+                    <p class="text-sm text-gray-500 mt-2">（エラー: ${error.message}）</p>
+                    <p class="text-xs text-gray-400 mt-4">※プレビュー環境ではJSONファイルを読み込めない場合があります。</p>
                 </div>`;
             } finally {
                 loadingMessage.classList.add('hidden');
