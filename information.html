@@ -193,9 +193,12 @@
                 const tagHtml = tags.map(tag => {
                     const tagName = typeof tag === 'object' && tag !== null && tag.name ? tag.name : tag;
                     let colorClass = 'bg-gray-200 text-gray-600';
+                    
+                    // カテゴリごとの色分け設定
                     if (tagName === 'NEW') { colorClass = 'bg-yellow-500 text-white font-bold'; } 
                     else if (tagName === 'プレスリリース') { colorClass = 'bg-indigo-100 text-indigo-600'; } 
                     else if (tagName === 'イベント') { colorClass = 'bg-green-100 text-green-600'; }
+                    else if (tagName === '対談記事') { colorClass = 'bg-[#EC4899] text-white'; } // ★追加: 対談記事の色設定
                     
                     return `<span class="px-2 py-0.5 rounded-full text-xs font-medium ${colorClass} transition duration-150 ease-in-out">${tagName}</span>`;
                 }).join('');
@@ -214,7 +217,6 @@
                     } catch (e) { displayDate = '日付エラー'; }
                 }
 
-                // ★★★ 修正箇所: リンク先を item.url に変更し、外部リンクとして開く ★★★
                 const articleLink = item.url && typeof item.url === 'string' ? item.url : '#';
 
                 return `
