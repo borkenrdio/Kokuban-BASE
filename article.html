@@ -255,22 +255,54 @@
             }
         }
 
+        // --- メイン処理の変更 ---
+        // フィルタリングをクライアントサイドで行うように変更しました。
+        // これにより、microCMS側でカテゴリIDが 'interview' 以外（例: option_1 など）になっていても
+        // コンソールログで確認しやすくなり、またデータが表示されない問題を回避しやすくなります。
+        
         document.addEventListener('DOMContentLoaded', async () => {
-            // 1. New Arrivals
-            const newArrivalsData = await fetchArticles({ limit: 3 });
-            renderArticles(newArrivalsData.contents, 'new-arrivals-list', 'standard');
+            // 全記事を一度に取得（最新50件まで）
+            const allData = await fetchArticles({ limit: 50 });
+            const allArticles = allData.contents || [];
 
-            // 2. Interview
-            // categoryが 'interview' の記事を取得
-            let interviewParams = { limit: 4, filters: 'category[equals]interview' }; 
-            const interviewsData = await fetchArticles(interviewParams);
-            renderArticles(interviewsData.contents, 'interview-list', 'interview');
+            console.log('取得した全記事:', allArticles);
+            
+            // 記事内のカテゴリIDをリストアップしてコンソールに表示（デバッグ用）
+            const categoryIdsFound = [...new Set(allArticles.map(a => {
+                if(typeof a.category === 'string') return a.category;
+                if(typeof a.category === 'object' && a.category) return a.category.id;
+                return 'undefined';
+            }))];
+            console.log('記事に含まれるカテゴリID一覧:', categoryIdsFound);
 
-            // 3. Columns
-            // categoryが 'column' の記事を取得（必要に応じてIDを変更してください）
-            let columnParams = { limit: 8, filters: 'category[equals]column' };
-            const columnsData = await fetchArticles(columnParams);
-            renderArticles(columnsData.contents, 'column-list', 'standard');
+
+            // 1. New Arrivals (最新3件)
+            renderArticles(allArticles.slice(0, 3), 'new-arrivals-list', 'standard');
+
+            // 2. Interview (対談記事)
+            // カテゴリIDが 'interview' または 'taidan' または '対談記事' のものを抽出
+            const interviewArticles = allArticles.filter(article => {
+                let catId = '';
+                if (typeof article.category === 'string') catId = article.category;
+                else if (typeof article.category === 'object' && article.category) catId = article.category.id;
+                
+                // ここでID判定（microCMSのセレクトフィールドIDが interview であると想定）
+                // もし表示されない場合は、microCMSの管理画面でIDを確認してここに追加してください
+                return catId === 'interview' || catId === 'taidan' || catId === '対談記事';
+            });
+            renderArticles(interviewArticles.slice(0, 4), 'interview-list', 'interview');
+
+            // 3. Columns (コラム)
+            // カテゴリIDが 'column' のもの、または 'interview' 以外のものをコラムとして扱う（簡易ロジック）
+            const columnArticles = allArticles.filter(article => {
+                let catId = '';
+                if (typeof article.category === 'string') catId = article.category;
+                else if (typeof article.category === 'object' && article.category) catId = article.category.id;
+
+                // 明示的に column か、あるいは interview 以外をすべてコラムとして表示
+                return catId === 'column' || catId === 'コラム' || (catId !== 'interview' && catId !== 'taidan' && catId !== 'news');
+            });
+            renderArticles(columnArticles.slice(0, 8), 'column-list', 'standard');
         });
 
         function renderArticles(articles, containerId, type) {
@@ -279,7 +311,7 @@
 
             if (!articles || articles.length === 0) {
                 let msg = '記事が見つかりませんでした。';
-                if(!USE_MOCK_DATA) msg += '<br><span class="text-xs text-gray-400">(設定を確認してください: Consoleログ参照)</span>';
+                if(!USE_MOCK_DATA) msg += '<br><span class="text-xs text-gray-400">管理画面のカテゴリIDが <b>interview</b> になっているか確認してください</span>';
                 container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-8">${msg}</div>`;
                 return;
             }
@@ -289,40 +321,33 @@
             articles.forEach(article => {
                 const date = new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
                 
-                // --- カテゴリ情報の取得ロジック（修正） ---
+                // --- カテゴリ情報の取得ロジック ---
                 let categoryId = 'news';
                 let categoryName = 'お知らせ';
 
                 if (article.category) {
-                    // セレクトフィールド（文字列）の場合
                     if (typeof article.category === 'string') {
                         categoryId = article.category;
                     } 
-                    // コンテンツ参照（オブジェクト）の場合
                     else if (typeof article.category === 'object' && article.category.id) {
                         categoryId = article.category.id;
                         categoryName = article.category.name || categoryId;
                     } 
-                    // 複数選択（配列）の場合
                     else if (Array.isArray(article.category) && article.category.length > 0) {
                         categoryId = article.category[0]; 
                     }
                 }
 
-                // IDから表示名へのマッピング（microCMSのセレクトフィールドIDに合わせて調整してください）
-                if (categoryId === 'interview' || categoryId === '対談記事') {
+                // 表示名のマッピング
+                if (categoryId === 'interview' || categoryId === '対談記事' || categoryId === 'taidan') {
                     categoryName = '対談記事';
-                    categoryId = 'interview'; // デザイン用クラスのためにIDを統一
+                    categoryId = 'interview'; 
                 } else if (categoryId === 'column' || categoryId === 'コラム') {
                     categoryName = 'コラム';
-                    categoryId = 'column'; // デザイン用クラスのためにIDを統一
+                    categoryId = 'column'; 
                 } else if (categoryId === 'news') {
                     categoryName = 'お知らせ';
-                } else {
-                    // マッピングにない場合はIDをそのまま表示名にするか、デフォルトを設定
-                    categoryName = categoryName !== 'お知らせ' ? categoryName : categoryId;
                 }
-                // ------------------------------------------
 
                 let categoryClass = 'bg-gray-500';
                 if (categoryId === 'interview') categoryClass = 'bg-pink-500';
@@ -332,10 +357,6 @@
                 const imgField = article.eyecatch || article.thumbnail || article.main_image || article.image;
                 const thumbnail = imgField ? imgField.url : 'https://placehold.co/600x400?text=No+Image';
                 
-                if (!imgField) {
-                    console.warn(`Image missing for article: ${article.title} (ID: ${article.id}). Checked fields: eyecatch, thumbnail, main_image, image.`);
-                }
-
                 // リンク先URLの生成ロジック
                 let linkUrl = article.url; 
                 if (!linkUrl) {
