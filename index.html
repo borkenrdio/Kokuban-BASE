@@ -376,16 +376,17 @@
                             <h2 class="text-2xl sm:text-4xl font-black text-[#103f99]">お役立ちコラム</h2>
                             <p class="mt-4 text-sm sm:text-base text-gray-600">電子黒板の選び方や活用術をご紹介します。</p>
                         </div>
-                        <div class="mt-16 relative">
+                        <div class="mt-16">
                             <div id="error-container-news" class="mb-4"></div>
-                            <div class="swiper-container news-swiper">
-                                <div id="articles-container" class="swiper-wrapper pb-12">
-                                    <p id="loading-list-news" class="text-gray-500 swiper-slide">記事を読み込んでいます...</p>
-                                </div>
-                                <div class="swiper-pagination news-pagination"></div>
+                            <!-- SwiperからGridレイアウトに変更 -->
+                            <div id="articles-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                                <p id="loading-list-news" class="text-gray-500 col-span-full text-center">記事を読み込んでいます...</p>
                             </div>
-                            <div class="swiper-button-prev news-prev"></div>
-                            <div class="swiper-button-next news-next"></div>
+                        </div>
+                        <div class="mt-12 text-center animate-on-scroll">
+                            <a href="article.html" class="inline-block bg-white text-[#103f99] font-bold text-lg px-12 py-3 rounded-full border-2 border-[#103f99] hover:bg-[#103f99] hover:text-white transition-all shadow-lg transform hover:scale-105">
+                                記事一覧を見る <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -630,18 +631,32 @@
             if(window.location.protocol === 'blob:' || window.location.protocol === 'file:') {
                 if(loader) loader.remove();
                 if(container && isLatest) {
-                     // ダミーデータ生成（画像のデザイン確認用）
-                     const dummyData = [
+                      // ダミーデータ生成（画像のデザイン確認用）
+                      const dummyData = [
                         { category: { name: 'プレスリリース' }, date: '2025/01/15', title: '【新製品】教育機関向け電子黒板「Kokuban PRO」の販売を開始しました', isNew: true },
                         { category: { name: 'イベント' }, date: '2024/12/20', title: '教育ITソリューションEXPOへの出展決定！最新モデルを体験いただけます', isNew: false },
                         { category: { name: '対談記事' }, date: '2024/11/10', title: '著名教育評論家との特別対談：これからのICT教育について', isNew: false },
                         { category: { name: 'お知らせ' }, date: '2024/12/01', title: '冬季休業のお知らせ', isNew: false }
-                     ];
-                     container.innerHTML = generateLatestListHTML(dummyData);
-                     return;
+                      ];
+                      container.innerHTML = generateLatestListHTML(dummyData);
+                      return;
                 } else if(container) {
-                    container.innerHTML = '<div class="swiper-slide">プレビュー環境</div>';
-                    initSwiperCommon('.news-swiper', '.news-pagination', '.news-next', '.news-prev', { 640: {slidesPerView: 2, spaceBetween: 20}, 1024: {slidesPerView: 3, spaceBetween: 30} });
+                    // コラムのプレビュー用データ（3件）
+                    const dummyColumns = [
+                        { slug: '#', title: '【超最新】電子黒板を使った、オンライン授業', publishedAt: '2025-12-05', eyecatchUrl: 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=Column1' },
+                        { slug: '#', title: 'StarBoard×idea spot 対談記事 なぜStarBoardは、機能満載なのに「授業がラク」になるのか？', publishedAt: '2025-12-02', eyecatchUrl: 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=Column2' },
+                        { slug: '#', title: 'SHARP × idea spot 対談記事 誰でも翌日から使える電子黒板へ。BIG PADが“盛らない設計”にたどり着くまで', publishedAt: '2025-11-25', eyecatchUrl: 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=Column3' }
+                    ];
+                    // グリッド表示用のHTML生成
+                    container.innerHTML = dummyColumns.map(item => {
+                        return `<a href="columns/${item.slug}/" class="block bg-white rounded-lg shadow-md overflow-hidden h-full group hover:-translate-y-1 transition-transform duration-300">
+                            <div class="overflow-hidden aspect-video"><img src="${item.eyecatchUrl}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
+                            <div class="p-4 sm:p-5 flex flex-col h-full">
+                                <p class="text-sm text-gray-500 mb-2">${new Date(item.publishedAt).toLocaleDateString('ja-JP')}</p>
+                                <h3 class="font-bold text-gray-800 group-hover:text-pink-500 transition-colors line-clamp-2">${item.title}</h3>
+                            </div>
+                        </a>`;
+                    }).join('');
                     return;
                 }
             }
@@ -650,7 +665,8 @@
                 const res = await fetch(url);
                 const data = await res.json();
                 if(loader) loader.remove();
-                const items = isLatest ? data.slice(0, 5) : data;
+                // 3件に制限 (isLatestがfalseの場合はコラムなので3件、trueは最新情報なので5件のまま)
+                const items = isLatest ? data.slice(0, 5) : data.slice(0, 3);
                 
                 if (isLatest) {
                     // APIから取得したデータを整形してHTML生成関数へ渡す
@@ -664,15 +680,18 @@
                     }));
                     container.innerHTML = generateLatestListHTML(formattedItems);
                 } else {
-                    // コラム（カード型）の処理はそのまま
+                    // コラム（カード型）の処理：Swiper用クラスを削除し、Grid用クラスを適用
                     container.innerHTML = items.map(item => {
                         const img = item.eyecatchUrl ? `${item.eyecatchUrl}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
-                        return `<div class="swiper-slide h-auto"><a href="columns/${item.slug}/" class="block bg-white rounded-lg shadow-md overflow-hidden h-full group">
+                        return `<a href="columns/${item.slug}/" class="block bg-white rounded-lg shadow-md overflow-hidden h-full group hover:-translate-y-1 transition-transform duration-300">
                             <div class="overflow-hidden aspect-video"><img src="${img}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
-                            <div class="p-4 sm:p-5"><p class="text-sm text-gray-500 mb-2">${new Date(item.publishedAt).toLocaleDateString('ja-JP')}</p><h3 class="font-bold text-gray-800 group-hover:text-pink-500 transition-colors">${item.title}</h3></div>
-                        </a></div>`;
+                            <div class="p-4 sm:p-5 flex flex-col h-full">
+                                <p class="text-sm text-gray-500 mb-2">${new Date(item.publishedAt).toLocaleDateString('ja-JP')}</p>
+                                <h3 class="font-bold text-gray-800 group-hover:text-pink-500 transition-colors line-clamp-2">${item.title}</h3>
+                            </div>
+                        </a>`;
                     }).join('');
-                    initSwiperCommon('.news-swiper', '.news-pagination', '.news-next', '.news-prev', { 640: {slidesPerView: 2, spaceBetween: 20}, 1024: {slidesPerView: 3, spaceBetween: 30} });
+                    // Swiper初期化は削除
                 }
             } catch(e) {
                 console.error(e);
