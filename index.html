@@ -49,7 +49,8 @@
     <link rel="preload" as="image" href="hero-poster-mobile.webp" media="(max-width: 767px)">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- Swiper CSS (Version Fixed) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
@@ -377,7 +378,7 @@
                             <p class="mt-4 text-sm sm:text-base text-gray-600">電子黒板の選び方や活用術をご紹介します。</p>
                         </div>
                         <div class="mt-16">
-                            <div id="error-container-news" class="mb-4"></div>
+                            <div id="error-container-news" class="mb-4 hidden text-center font-bold"></div>
                             <!-- SwiperからGridレイアウトに変更 -->
                             <div id="articles-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                                 <p id="loading-list-news" class="text-gray-500 col-span-full text-center">記事を読み込んでいます...</p>
@@ -476,8 +477,9 @@
             </div>
         </footer>
     </div>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script type="module">
+    <!-- Swiper JS (Version Fixed) -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
         // Data Definitions
         const brands = [
             { name: 'Promethean', w: 240, h: 60 }, { name: 'BenQ', w: 200, h: 80 }, { name: 'StarBoard', w: 180, h: 40 },
@@ -605,6 +607,11 @@
 
         // Utility Functions
         const initSwiperCommon = (selector, paginationEl, nextEl, prevEl, breakpoints) => {
+            // Guard clause to prevent errors if Swiper is not loaded
+            if (typeof Swiper === 'undefined') {
+                console.error('Swiper library is not loaded. Slider initialization failed.');
+                return;
+            }
             return new Swiper(selector, {
                 loop: selector === '.product-swiper', // loop only for products
                 slidesPerView: 1, spaceBetween: 20,
@@ -626,6 +633,7 @@
         async function fetchNews(url, containerId, loadingId, errorId, isLatest = false) {
             const container = document.getElementById(containerId);
             const loader = document.getElementById(loadingId);
+            const errDiv = document.getElementById(errorId);
             
             // ローカル環境等のプレビュー用ダミーデータ
             if(window.location.protocol === 'blob:' || window.location.protocol === 'file:') {
@@ -662,41 +670,54 @@
             }
 
             try {
-                const res = await fetch(url);
+                // キャッシュ回避用のパラメータ(?t=...)を付与して、常に最新のJSONを取得する
+                const cacheBuster = url.indexOf('?') >= 0 ? '&' : '?';
+                const res = await fetch(url + cacheBuster + 't=' + new Date().getTime());
+
+                if (!res.ok) throw new Error('Network response was not ok');
+
                 const data = await res.json();
                 if(loader) loader.remove();
+                
                 // 3件に制限 (isLatestがfalseの場合はコラムなので3件、trueは最新情報なので5件のまま)
                 const items = isLatest ? data.slice(0, 5) : data.slice(0, 3);
                 
                 if (isLatest) {
-                    // APIから取得したデータを整形してHTML生成関数へ渡す
+                    // 最新情報（News）の処理
                     const formattedItems = items.map(item => ({
                         id: item.id,
                         url: item.url,
                         date: new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }),
                         category: { name: item.category?.name || 'その他' },
                         title: item.title,
-                        isNew: (new Date() - new Date(item.publishedAt || item.createdAt)) / (1000 * 3600 * 24) < 14 // 2週間以内をNEWとする判定例
+                        isNew: (new Date() - new Date(item.publishedAt || item.createdAt)) / (1000 * 3600 * 24) < 14
                     }));
                     container.innerHTML = generateLatestListHTML(formattedItems);
                 } else {
-                    // コラム（カード型）の処理：Swiper用クラスを削除し、Grid用クラスを適用
+                    // コラム（Gridレイアウト）の処理
                     container.innerHTML = items.map(item => {
-                        const img = item.eyecatchUrl ? `${item.eyecatchUrl}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
+                        // 画像URLの取得をより堅牢に（eyecatchUrlまたはeyecatch.urlに対応）
+                        const rawImg = item.eyecatchUrl || (item.eyecatch && item.eyecatch.url);
+                        const img = rawImg ? `${rawImg}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
+                        
                         return `<a href="columns/${item.slug}/" class="block bg-white rounded-lg shadow-md overflow-hidden h-full group hover:-translate-y-1 transition-transform duration-300">
                             <div class="overflow-hidden aspect-video"><img src="${img}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
                             <div class="p-4 sm:p-5 flex flex-col h-full">
-                                <p class="text-sm text-gray-500 mb-2">${new Date(item.publishedAt).toLocaleDateString('ja-JP')}</p>
+                                <p class="text-sm text-gray-500 mb-2">${new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP')}</p>
                                 <h3 class="font-bold text-gray-800 group-hover:text-pink-500 transition-colors line-clamp-2">${item.title}</h3>
                             </div>
                         </a>`;
                     }).join('');
-                    // Swiper初期化は削除
                 }
             } catch(e) {
                 console.error(e);
-                if(loader) loader.remove();
-                if(document.getElementById(errorId)) document.getElementById(errorId).classList.remove('hidden');
+                // エラー時の処理: 読み込み中テキストを非表示にし、エラーメッセージを表示
+                if(loader) loader.style.display = 'none';
+                if(errDiv) {
+                    errDiv.textContent = 'データの読み込みに失敗しました: ' + e.message;
+                    errDiv.classList.remove('hidden');
+                    errDiv.classList.add('text-red-600', 'bg-red-50', 'p-4', 'rounded-lg');
+                }
             }
         }
 
