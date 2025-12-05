@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <!-- Google Tag Manager (from main site) -->
+    <!-- Google Tag Manager -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -14,7 +14,7 @@
     <title>コラム一覧 | Kokuban BASE（コクバンベース）</title>
     <meta name="description" content="Kokuban BASEの最新コラム、対談記事、教育現場のICT活用事例をお届けします。">
     
-    <!-- Fonts & Styles (from main site) -->
+    <!-- Fonts & Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -214,31 +214,49 @@
         }
 
         // ---------------------------------------------------------
-        // CMS Settings (Secrets Integration)
+        // CMS Settings
         // ---------------------------------------------------------
         
-        // GitHub Actionsのワークフローで指定された置換文字列に合わせています
-        const SERVICE_DOMAIN = '{{MICROCMS_SERVICE_DOMAIN}}'; 
-        const API_KEY = '{{MICROCMS_API_KEY}}';       
+        // ▼ 修正: 万が一設定値に .microcms.io が含まれていても削除して正規化する処理を追加
+        let rawDomain = '{{MICROCMS_SERVICE_DOMAIN}}';
+        // GitHub Actionsの置換漏れ対策：まだプレースホルダーなら空文字にする
+        if(rawDomain.indexOf('{{') !== -1) rawDomain = '';
+        
+        // .microcms.io を除去してサービスIDだけにする（例: kokubanbase.microcms.io -> kokubanbase）
+        const SERVICE_DOMAIN = rawDomain.replace('.microcms.io', '').replace('https://', '').replace('/', '').trim();
+
+        const API_KEY = '{{MICROCMS_API_KEY}}';        
+        
+        // 注意: microCMSのエンドポイント名が 'blogs' で間違いないか確認してください（他には 'news', 'columns' などがあります）
         const ENDPOINT = 'blogs'; 
         
-        // ローカル開発用設定: 
-        // プレースホルダー（{{...}}）が残っている場合は、APIキーが置換されていないため
-        // モックデータを使用するように判定します。
-        const USE_MOCK_DATA = SERVICE_DOMAIN.indexOf('{{') !== -1; 
+        // ローカル開発またはキー未設定時はモックデータを使用
+        const USE_MOCK_DATA = !SERVICE_DOMAIN || !API_KEY || API_KEY.indexOf('{{') !== -1;
 
         async function fetchArticles(params = {}) {
             if (USE_MOCK_DATA) {
-                console.log('Using Mock Data (API Key placeholder detected)');
+                console.log('Using Mock Data (Keys not set or placeholders detected)');
                 return getMockData(params);
             }
+            
+            // URL構築
             const url = new URL(`https://${SERVICE_DOMAIN}.microcms.io/api/v1/${ENDPOINT}`);
             Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+            
+            console.log('Fetching from:', url.toString()); // デバッグ用ログ
+
             try {
                 const response = await fetch(url, {
                     headers: { 'X-MICROCMS-API-KEY': API_KEY }
                 });
-                if (!response.ok) throw new Error('API Error: ' + response.statusText);
+                
+                if (!response.ok) {
+                    // エラー内容を詳細にログ出力
+                    console.error('API Error Status:', response.status);
+                    if(response.status === 404) console.error('404 Not Found: ドメインIDかエンドポイント名(blogs)が間違っています。');
+                    if(response.status === 401) console.error('401 Unauthorized: APIキーが間違っています。');
+                    throw new Error('API Error: ' + response.statusText);
+                }
                 return await response.json();
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -267,26 +285,34 @@
             container.innerHTML = '';
 
             if (!articles || articles.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center text-gray-500">記事が見つかりませんでした。</div>';
+                // エラー時の表示
+                let msg = '記事が見つかりませんでした。';
+                if(!USE_MOCK_DATA) msg += '<br><span class="text-xs text-gray-400">(設定を確認してください: Consoleログ参照)</span>';
+                
+                container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-8">${msg}</div>`;
                 return;
             }
 
             articles.forEach(article => {
                 const date = new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
                 
+                let categoryName = article.category ? article.category.name : 'お知らせ';
+                let categoryId = article.category ? article.category.id : 'news';
+
                 let categoryClass = 'bg-gray-500';
-                if (article.category.id === 'interview') categoryClass = 'bg-pink-500';
-                if (article.category.id === 'column') categoryClass = 'bg-[#103f99]';
+                if (categoryId === 'interview') categoryClass = 'bg-pink-500';
+                if (categoryId === 'column') categoryClass = 'bg-[#103f99]';
 
                 let cardHtml = '';
+                const thumbnail = article.thumbnail ? article.thumbnail.url : 'https://placehold.co/600x400?text=No+Image';
 
                 if (type === 'interview') {
                     cardHtml = `
                         <article class="article-card bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full border border-gray-100 group">
                             <a href="${article.url || '#'}" class="block img-container relative">
-                                <img src="${article.thumbnail}" alt="${article.title}" class="w-full h-full object-cover">
+                                <img src="${thumbnail}" alt="${article.title}" class="w-full h-full object-cover">
                                 <span class="absolute top-4 left-4 ${categoryClass} text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                                    ${article.category.name}
+                                    ${categoryName}
                                 </span>
                             </a>
                             <div class="p-6 flex flex-col flex-grow">
@@ -297,7 +323,7 @@
                                     <a href="${article.url || '#'}">${article.title}</a>
                                 </h3>
                                 <p class="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow leading-relaxed">
-                                    ${article.summary || '記事の概要がここに入ります...'}
+                                    ${article.summary || ''}
                                 </p>
                                 <div class="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100">
                                      <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
@@ -312,9 +338,9 @@
                     cardHtml = `
                         <article class="article-card bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full group">
                             <a href="${article.url || '#'}" class="block img-container relative">
-                                <img src="${article.thumbnail}" alt="${article.title}" class="w-full h-full object-cover">
+                                <img src="${thumbnail}" alt="${article.title}" class="w-full h-full object-cover">
                                 <span class="absolute top-2 left-2 ${categoryClass} text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
-                                    ${article.category.name}
+                                    ${categoryName}
                                 </span>
                             </a>
                             <div class="p-5 flex flex-col flex-grow">
@@ -334,14 +360,11 @@
             return new Promise((resolve) => {
                 setTimeout(() => {
                     const allArticles = [
-                        { id: '1', title: 'ICT教育の未来：タブレット導入で変わる教室の風景', publishedAt: '2024-10-20', category: { id: 'column', name: '教育コラム' }, thumbnail: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80' },
-                        { id: '2', title: '【対談】現役教師が語る、黒板とデジタルのハイブリッド授業術', publishedAt: '2024-10-18', category: { id: 'interview', name: '対談記事' }, thumbnail: 'https://images.unsplash.com/photo-1544531320-94a523829032?w=800&q=80', summary: 'デジタル化が進む中でも、手書きの良さは失われない。現場の先生が実践するハイブリッドな授業スタイルについて熱く語っていただきました。' },
-                        { id: '3', title: 'プログラミング教育必修化から3年、現場の課題と成果', publishedAt: '2024-10-15', category: { id: 'column', name: '技術コラム' }, thumbnail: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80' },
-                        { id: '4', title: '校務支援システムの選び方：効率化の鍵はどこにある？', publishedAt: '2024-10-10', category: { id: 'column', name: '技術コラム' }, thumbnail: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80' },
-                        { id: '5', title: '【対談】EdTech企業CEOに聞く、日本の教育DXの現在地', publishedAt: '2024-10-05', category: { id: 'interview', name: '対談記事' }, thumbnail: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80', summary: '教育DXは単なるツールの導入ではない。組織文化の変革を含めた包括的なアプローチについて、業界のトップランナーにお話を伺いました。' },
-                        { id: '6', title: '子供の探究心を育てる、最新の理科教材トレンド', publishedAt: '2024-10-01', category: { id: 'column', name: '教育コラム' }, thumbnail: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80' },
-                        { id: '7', title: '学校ホームページ運用のコツ：保護者に届く情報発信とは', publishedAt: '2024-09-28', category: { id: 'column', name: '運営ノウハウ' }, thumbnail: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80' },
-                        { id: '8', title: 'GIGAスクール構想のネクストステージ', publishedAt: '2024-09-25', category: { id: 'column', name: '技術コラム' }, thumbnail: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80' },
+                        { id: '1', title: 'ICT教育の未来：タブレット導入で変わる教室の風景', publishedAt: '2024-10-20', category: { id: 'column', name: '教育コラム' }, thumbnail: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80' } },
+                        { id: '2', title: '【対談】現役教師が語る、黒板とデジタルのハイブリッド授業術', publishedAt: '2024-10-18', category: { id: 'interview', name: '対談記事' }, thumbnail: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032?w=800&q=80' }, summary: 'デジタル化が進む中でも、手書きの良さは失われない。現場の先生が実践するハイブリッドな授業スタイルについて熱く語っていただきました。' },
+                        { id: '3', title: 'プログラミング教育必修化から3年、現場の課題と成果', publishedAt: '2024-10-15', category: { id: 'column', name: '技術コラム' }, thumbnail: { url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80' } },
+                        { id: '4', title: '校務支援システムの選び方：効率化の鍵はどこにある？', publishedAt: '2024-10-10', category: { id: 'column', name: '技術コラム' }, thumbnail: { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80' } },
+                        { id: '5', title: '【対談】EdTech企業CEOに聞く、日本の教育DXの現在地', publishedAt: '2024-10-05', category: { id: 'interview', name: '対談記事' }, thumbnail: { url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80' }, summary: '教育DXは単なるツールの導入ではない。組織文化の変革を含めた包括的なアプローチについて、業界のトップランナーにお話を伺いました。' },
                     ];
                     let results = [...allArticles];
                     if (params.filters && params.filters.includes('interview')) {
