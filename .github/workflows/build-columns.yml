@@ -85,6 +85,15 @@ jobs:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }} # = kokubanbase
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_COLUMNS_KEY }}
 
+      # ▼▼▼ 【追加】HTML内のプレースホルダーを実際のSecretsに置換 ▼▼▼
+      - name: Replace placeholders in generated HTML
+        run: |
+          # findコマンドでサブディレクトリを含むすべての.htmlファイルを検索して置換
+          find . -name "*.html" -type f -exec sed -i 's|{{MICROCMS_SERVICE_DOMAIN}}|${{ secrets.MICROCMS_SERVICE_DOMAIN }}|g' {} +
+          find . -name "*.html" -type f -exec sed -i 's|{{MICROCMS_API_KEY}}|${{ secrets.MICROCMS_COLUMNS_KEY }}|g' {} +
+          
+          echo "Replacement complete."
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
