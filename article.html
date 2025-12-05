@@ -217,21 +217,13 @@
         // CMS Settings
         // ---------------------------------------------------------
         
-        // ▼ 修正: 万が一設定値に .microcms.io が含まれていても削除して正規化する処理を追加
         let rawDomain = '{{MICROCMS_SERVICE_DOMAIN}}';
-        // GitHub Actionsの置換漏れ対策：まだプレースホルダーなら空文字にする
         if(rawDomain.indexOf('{{') !== -1) rawDomain = '';
-        
-        // .microcms.io を除去してサービスIDだけにする（例: kokubanbase.microcms.io -> kokubanbase）
         const SERVICE_DOMAIN = rawDomain.replace('.microcms.io', '').replace('https://', '').replace('/', '').trim();
 
         const API_KEY = '{{MICROCMS_API_KEY}}';        
-        
-        // 注意: microCMSのエンドポイント名が 'blogs' で間違いないか確認してください（他には 'news', 'columns' などがあります）
-        // 修正: エンドポイントを 'news' に変更
         const ENDPOINT = 'news'; 
         
-        // ローカル開発またはキー未設定時はモックデータを使用
         const USE_MOCK_DATA = !SERVICE_DOMAIN || !API_KEY || API_KEY.indexOf('{{') !== -1;
 
         async function fetchArticles(params = {}) {
@@ -240,11 +232,10 @@
                 return getMockData(params);
             }
             
-            // URL構築
             const url = new URL(`https://${SERVICE_DOMAIN}.microcms.io/api/v1/${ENDPOINT}`);
             Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
             
-            console.log('Fetching from:', url.toString()); // デバッグ用ログ
+            console.log('Fetching from:', url.toString());
 
             try {
                 const response = await fetch(url, {
@@ -252,9 +243,8 @@
                 });
                 
                 if (!response.ok) {
-                    // エラー内容を詳細にログ出力
                     console.error('API Error Status:', response.status);
-                    if(response.status === 404) console.error('404 Not Found: ドメインIDかエンドポイント名(blogs)が間違っています。');
+                    if(response.status === 404) console.error('404 Not Found: ドメインIDかエンドポイント名(news)が間違っています。');
                     if(response.status === 401) console.error('401 Unauthorized: APIキーが間違っています。');
                     throw new Error('API Error: ' + response.statusText);
                 }
@@ -286,13 +276,13 @@
             container.innerHTML = '';
 
             if (!articles || articles.length === 0) {
-                // エラー時の表示
                 let msg = '記事が見つかりませんでした。';
                 if(!USE_MOCK_DATA) msg += '<br><span class="text-xs text-gray-400">(設定を確認してください: Consoleログ参照)</span>';
-                
                 container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-8">${msg}</div>`;
                 return;
             }
+
+            console.log(`Rendering ${containerId}:`, articles);
 
             articles.forEach(article => {
                 const date = new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
@@ -304,8 +294,16 @@
                 if (categoryId === 'interview') categoryClass = 'bg-pink-500';
                 if (categoryId === 'column') categoryClass = 'bg-[#103f99]';
 
+                // 画像フィールドの取得：eyecatchを優先的に探す
+                const imgField = article.eyecatch || article.thumbnail || article.main_image || article.image;
+                const thumbnail = imgField ? imgField.url : 'https://placehold.co/600x400?text=No+Image';
+                
+                // デバッグ用: 画像がない場合にログを出す
+                if (!imgField) {
+                    console.warn(`Image missing for article: ${article.title} (ID: ${article.id}). Checked fields: eyecatch, thumbnail, main_image, image.`);
+                }
+
                 let cardHtml = '';
-                const thumbnail = article.thumbnail ? article.thumbnail.url : 'https://placehold.co/600x400?text=No+Image';
 
                 if (type === 'interview') {
                     cardHtml = `
@@ -361,11 +359,12 @@
             return new Promise((resolve) => {
                 setTimeout(() => {
                     const allArticles = [
-                        { id: '1', title: 'ICT教育の未来：タブレット導入で変わる教室の風景', publishedAt: '2024-10-20', category: { id: 'column', name: '教育コラム' }, thumbnail: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80' } },
-                        { id: '2', title: '【対談】現役教師が語る、黒板とデジタルのハイブリッド授業術', publishedAt: '2024-10-18', category: { id: 'interview', name: '対談記事' }, thumbnail: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032?w=800&q=80' }, summary: 'デジタル化が進む中でも、手書きの良さは失われない。現場の先生が実践するハイブリッドな授業スタイルについて熱く語っていただきました。' },
-                        { id: '3', title: 'プログラミング教育必修化から3年、現場の課題と成果', publishedAt: '2024-10-15', category: { id: 'column', name: '技術コラム' }, thumbnail: { url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80' } },
-                        { id: '4', title: '校務支援システムの選び方：効率化の鍵はどこにある？', publishedAt: '2024-10-10', category: { id: 'column', name: '技術コラム' }, thumbnail: { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80' } },
-                        { id: '5', title: '【対談】EdTech企業CEOに聞く、日本の教育DXの現在地', publishedAt: '2024-10-05', category: { id: 'interview', name: '対談記事' }, thumbnail: { url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80' }, summary: '教育DXは単なるツールの導入ではない。組織文化の変革を含めた包括的なアプローチについて、業界のトップランナーにお話を伺いました。' },
+                        // 修正: thumbnail ではなく eyecatch を使用するように変更（本番スキーマに合わせる）
+                        { id: '1', title: 'ICT教育の未来：タブレット導入で変わる教室の風景', publishedAt: '2024-10-20', category: { id: 'column', name: '教育コラム' }, eyecatch: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80' } },
+                        { id: '2', title: '【対談】現役教師が語る、黒板とデジタルのハイブリッド授業術', publishedAt: '2024-10-18', category: { id: 'interview', name: '対談記事' }, eyecatch: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032?w=800&q=80' }, summary: 'デジタル化が進む中でも、手書きの良さは失われない。現場の先生が実践するハイブリッドな授業スタイルについて熱く語っていただきました。' },
+                        { id: '3', title: 'プログラミング教育必修化から3年、現場の課題と成果', publishedAt: '2024-10-15', category: { id: 'column', name: '技術コラム' }, eyecatch: { url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80' } },
+                        { id: '4', title: '校務支援システムの選び方：効率化の鍵はどこにある？', publishedAt: '2024-10-10', category: { id: 'column', name: '技術コラム' }, eyecatch: { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80' } },
+                        { id: '5', title: '【対談】EdTech企業CEOに聞く、日本の教育DXの現在地', publishedAt: '2024-10-05', category: { id: 'interview', name: '対談記事' }, eyecatch: { url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80' }, summary: '教育DXは単なるツールの導入ではない。組織文化の変革を含めた包括的なアプローチについて、業界のトップランナーにお話を伺いました。' },
                     ];
                     let results = [...allArticles];
                     if (params.filters && params.filters.includes('interview')) {
