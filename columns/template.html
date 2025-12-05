@@ -62,6 +62,17 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        customBlue: '#103f99',
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
@@ -78,14 +89,12 @@
         .title-block .publish-date { font-size: 0.875rem; color: #6b7280; }
 
         /* 記事本文スタイル */
-        /* ★★★ 修正: 記事本文の読みやすさ向上（行間と段落余白） ★★★ */
         .article-body p { 
             line-height: 1.5; 
             margin-bottom: 1.8em; 
             letter-spacing: 0.05em;
         }
 
-        /* ★★★ 追加: 文中の強制改行(<br>)を無効化して自然な折り返しにする ★★★ */
         .article-body br {
             display: none;
         }
@@ -97,17 +106,15 @@
         .article-body h6 { font-size: 1rem!important; line-height: 1.5rem!important; }
         
         /* 対談話者スタイル */
-        /* ★★★ 修正: 話者名をブロック要素にして、直後で必ず改行させる（brタグ無効化の対策） ★★★ */
         .article-body p strong:first-child, .article-body p br:first-child + strong { 
-            display: block; /* inline-block から block に変更 */
-            margin-bottom: 0.5em; /* 名前と本文の間に少し隙間を空ける */
+            display: block; 
+            margin-bottom: 0.5em; 
             font-weight: 700; 
         }
 
-        /* ★★★ 色設定の変更箇所 ★★★ */
-        .speaker-a { color: #103F99; } /* 指定色1：濃い青 */
-        .speaker-b { color: #EC4899; } /* 指定色2：ピンク */
-        .speaker-c { color: #103F99; } /* 指定色外のためAと同じ青に統一 */
+        .speaker-a { color: #103F99; }
+        .speaker-b { color: #EC4899; }
+        .speaker-c { color: #103F99; }
         .speaker-default { color: #374151; }
 
         /* 画像・図・引用 */
@@ -122,13 +129,20 @@
         .article-body li { margin-bottom: 0.5em; }
 
         /* 共通ユーティリティ */
-        /* main p は article-body p 以外のpタグ用として残す */
         main p, main li { line-height: 1.8; letter-spacing: 0.05em; }
         h1, h2, h3, h4, h5, h6, .font-bold, .font-black, button, a { letter-spacing: normal; }
         .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
         .bg-custom-blue { background-color: rgb(16, 63, 153); }
         .footer-link { color: #e5e7eb; transition: color 0.2s ease-in-out; }
         .footer-link:hover { color: #ffffff; text-decoration: underline; }
+        
+        /* ユーティリティ: 行数制限 (Line Clamp) の互換用 */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
         /* SNSシェア */
         .share-button { display: inline-flex; width: 3.5rem; height: 3.5rem; align-items: center; justify-content: center; border-radius: 9999px; color: white; transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
@@ -212,6 +226,18 @@
                     </div>
                 </div>
             </article>
+
+            <!-- ▼▼▼ 関連記事セクション（JavaScriptで描画） ▼▼▼ -->
+            <div class="mt-16">
+                <div class="flex items-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-900">あわせて読みたい</h3>
+                    <div class="flex-1 h-px bg-gray-200 ml-4"></div>
+                </div>
+                
+                <!-- JSでここに記事カードを挿入 -->
+                <div id="related-posts-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+            </div>
+            <!-- ▲▲▲ 関連記事セクション終了 ▲▲▲ -->
             
             <div class="mt-12 pt-8 border-t space-y-8">
                 <div class="bg-pink-50 border-l-4 border-pink-500 p-6 rounded-r-lg">
@@ -296,6 +322,68 @@
                     if (cls) el.classList.add(cls);
                 }
             });
+
+            // ----------------------------------------------------
+            // 関連記事 (あわせて読みたい) の自動表示スクリプト
+            // ----------------------------------------------------
+            
+            // 記事データリスト (本来は外部JSONやAPIから取得することを推奨します)
+            // ※運用時はここに新しい記事を追加していくだけで、全ページに反映されます
+            const allArticles = [
+                {
+                    title: "【徹底解説】電子黒板の導入で授業はどう変わる？現場の声を紹介",
+                    date: "2024.12.01",
+                    image: "https://placehold.jp/30/cccccc/ffffff/600x337.png?text=Article+1",
+                    url: "#" // 実際の記事URL
+                },
+                {
+                    title: "従来の黒板と何が違う？Kokuban BASEの基本機能を3分で理解する",
+                    date: "2024.11.20",
+                    image: "https://placehold.jp/30/cccccc/ffffff/600x337.png?text=Article+2",
+                    url: "#"
+                },
+                {
+                    title: "導入コストはどれくらい？補助金活用のポイントまとめ",
+                    date: "2024.11.15",
+                    image: "https://placehold.jp/30/cccccc/ffffff/600x337.png?text=Article+3",
+                    url: "#"
+                },
+                {
+                    title: "ICT教育の未来予想図 - 2025年以降の教室環境",
+                    date: "2024.11.10",
+                    image: "https://placehold.jp/30/cccccc/ffffff/600x337.png?text=Article+4",
+                    url: "#"
+                }
+            ];
+
+            const container = document.getElementById('related-posts-container');
+            const currentUrl = window.location.href; // 現在のURLを取得 (本番環境での除外判定用)
+
+            if (container && allArticles.length > 0) {
+                // 自分自身の記事を除外する場合のロジック (URLが一致するものをフィルタリング)
+                // 今回はデモURLのため、簡易的に先頭3件を表示します
+                
+                const displayCount = 3;
+                const articlesToShow = allArticles.slice(0, displayCount);
+
+                const html = articlesToShow.map(article => `
+                    <a href="${article.url}" class="group block h-full flex flex-col">
+                        <div class="aspect-w-16 aspect-h-9 w-full overflow-hidden rounded-lg bg-gray-100 mb-3 relative pb-[56.25%]">
+                            <img src="${article.image}" alt="${article.title}" class="absolute inset-0 w-full h-full object-cover group-hover:opacity-75 transition-opacity duration-300">
+                        </div>
+                        <div class="flex flex-col flex-grow">
+                            <h4 class="text-base font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-relaxed mb-2">
+                                ${article.title}
+                            </h4>
+                            <div class="mt-auto text-xs text-gray-500 font-medium">
+                                ${article.date}
+                            </div>
+                        </div>
+                    </a>
+                `).join('');
+
+                container.innerHTML = html;
+            }
         });
     </script>
 </body>
