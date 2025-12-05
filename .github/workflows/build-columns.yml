@@ -5,10 +5,8 @@ on:
     types: [microcms-webhook]
   push:
     branches: [main]
-    # columnsフォルダにソースコード(htmlなど)を置く場合は、ここから 'columns/**' を削除してください
     paths-ignore:
       - 'information/**'
-      # - 'columns/**'  <-- もしcolumnsフォルダ内にHTMLを置くなら、この行は削除する
   workflow_dispatch:
 
 concurrency:
@@ -35,8 +33,12 @@ jobs:
       - name: Install dependencies
         run: npm install microcms-js-sdk
 
-      # ===== information サービス（information.microcms.io） =====
+      # information サービスのビルド
       - name: Run information JSON build
+        env:
+          # INFORMATION_SERVICE_DOMAIN を使用
+          MICROCMS_INFO_DOMAIN: ${{ secrets.INFORMATION_SERVICE_DOMAIN }}
+          MICROCMS_INFO_KEY: ${{ secrets.MICROCMS_INFORMATION_KEY }}
         run: |
           cat > build-information.mjs << 'EOF'
           import { createClient } from 'microcms-js-sdk';
@@ -52,8 +54,6 @@ jobs:
             process.exit(1);
           }
 
-          console.log(`info-env: domain=${SERVICE_DOMAIN}, keyLen=${API_KEY.length}`);
-
           const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });
 
           const main = async () => {
@@ -63,36 +63,34 @@ jobs:
               const outPath = path.join(outDir, 'index.json');
               if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
               fs.writeFileSync(outPath, JSON.stringify(data.contents, null, 2));
-              console.log(`✅ Success: Generated ${outPath} with ${data.contents.length} items.`);
+              console.log(`Success: Generated ${outPath}`);
             } catch (err) {
-              console.error('❌ Failed to fetch from information microCMS:', err.message);
+              console.error('Failed to fetch from information microCMS:', err.message);
               process.exit(1);
             }
           };
           main();
           EOF
-
           node build-information.mjs
-        env:
-          MICROCMS_INFO_DOMAIN: information
-          MICROCMS_INFO_KEY: ${{ secrets.MICROCMS_INFORMATION_KEY }}
 
-      # ===== columns/news サービス（kokubanbase.microcms.io） =====
-      # 注意: このスクリプトが columns/index.json を生成していないと、トップページの新着表示がエラーになります
+      # columns/news サービスのSSG
       - name: Run Columns SSG
-        run: node scripts/fetch_and_build.mjs
         env:
-          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          # 修正: ここを COLUMNS_SERVICE_DOMAIN に変更
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.COLUMNS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_COLUMNS_KEY }}
+        run: node scripts/fetch_and_build.mjs
 
-      # ▼▼▼ 【修正】HTML内のプレースホルダーを実際のSecretsに置換（node_modulesを除外） ▼▼▼
+      # HTML内のプレースホルダーを実際のSecretsに置換
       - name: Replace placeholders in generated HTML
+        env:
+          # 修正: HTML置換用も COLUMNS_SERVICE_DOMAIN に変更
+          CMS_DOMAIN: ${{ secrets.COLUMNS_SERVICE_DOMAIN }}
+          CMS_KEY: ${{ secrets.MICROCMS_COLUMNS_KEY }}
         run: |
           echo "Replacing API Keys in HTML files..."
-          # node_modules 以外にある .html ファイルを探して置換を実行
-          find . -name "*.html" -type f -not -path '*/node_modules/*' -exec sed -i 's|{{MICROCMS_SERVICE_DOMAIN}}|${{ secrets.MICROCMS_SERVICE_DOMAIN }}|g' {} +
-          find . -name "*.html" -type f -not -path '*/node_modules/*' -exec sed -i 's|{{MICROCMS_API_KEY}}|${{ secrets.MICROCMS_COLUMNS_KEY }}|g' {} +
-          
+          find . -name "*.html" -type f -not -path '*/node_modules/*' -exec sed -i "s|{{MICROCMS_SERVICE_DOMAIN}}|$CMS_DOMAIN|g" {} +
+          find . -name "*.html" -type f -not -path '*/node_modules/*' -exec sed -i "s|{{MICROCMS_API_KEY}}|$CMS_KEY|g" {} +
           echo "Replacement complete."
 
       - name: Deploy to GitHub Pages
