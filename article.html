@@ -255,11 +255,7 @@
             }
         }
 
-        // --- メイン処理の変更 ---
-        // フィルタリングをクライアントサイドで行うように変更しました。
-        // これにより、microCMS側でカテゴリIDが 'interview' 以外（例: option_1 など）になっていても
-        // コンソールログで確認しやすくなり、またデータが表示されない問題を回避しやすくなります。
-        
+        // --- メイン処理 ---
         document.addEventListener('DOMContentLoaded', async () => {
             // 全記事を一度に取得（最新50件まで）
             const allData = await fetchArticles({ limit: 50 });
@@ -267,11 +263,13 @@
 
             console.log('取得した全記事:', allArticles);
             
-            // 記事内のカテゴリIDをリストアップしてコンソールに表示（デバッグ用）
+            // 記事内のカテゴリIDをリストアップ（デバッグ表示用）
             const categoryIdsFound = [...new Set(allArticles.map(a => {
-                if(typeof a.category === 'string') return a.category;
-                if(typeof a.category === 'object' && a.category) return a.category.id;
-                return 'undefined';
+                let id = '未設定';
+                if(typeof a.category === 'string') id = a.category;
+                else if(typeof a.category === 'object' && a.category) id = a.category.id || 'obj_no_id';
+                else if(Array.isArray(a.category) && a.category.length > 0) id = a.category[0];
+                return id;
             }))];
             console.log('記事に含まれるカテゴリID一覧:', categoryIdsFound);
 
@@ -280,38 +278,49 @@
             renderArticles(allArticles.slice(0, 3), 'new-arrivals-list', 'standard');
 
             // 2. Interview (対談記事)
-            // カテゴリIDが 'interview' または 'taidan' または '対談記事' のものを抽出
+            // カテゴリIDが 'interview', 'taidan' 等のものを抽出
             const interviewArticles = allArticles.filter(article => {
                 let catId = '';
                 if (typeof article.category === 'string') catId = article.category;
                 else if (typeof article.category === 'object' && article.category) catId = article.category.id;
+                else if (Array.isArray(article.category) && article.category.length > 0) catId = article.category[0];
                 
-                // ここでID判定（microCMSのセレクトフィールドIDが interview であると想定）
-                // もし表示されない場合は、microCMSの管理画面でIDを確認してここに追加してください
+                // ★ここでID判定しています★
                 return catId === 'interview' || catId === 'taidan' || catId === '対談記事';
             });
-            renderArticles(interviewArticles.slice(0, 4), 'interview-list', 'interview');
+            // デバッグ情報を渡すために第4引数を追加
+            renderArticles(interviewArticles.slice(0, 4), 'interview-list', 'interview', categoryIdsFound);
 
             // 3. Columns (コラム)
-            // カテゴリIDが 'column' のもの、または 'interview' 以外のものをコラムとして扱う（簡易ロジック）
             const columnArticles = allArticles.filter(article => {
                 let catId = '';
                 if (typeof article.category === 'string') catId = article.category;
                 else if (typeof article.category === 'object' && article.category) catId = article.category.id;
+                else if (Array.isArray(article.category) && article.category.length > 0) catId = article.category[0];
 
-                // 明示的に column か、あるいは interview 以外をすべてコラムとして表示
+                // interview 以外をコラムとして扱う
                 return catId === 'column' || catId === 'コラム' || (catId !== 'interview' && catId !== 'taidan' && catId !== 'news');
             });
-            renderArticles(columnArticles.slice(0, 8), 'column-list', 'standard');
+            renderArticles(columnArticles.slice(0, 8), 'column-list', 'standard', categoryIdsFound);
         });
 
-        function renderArticles(articles, containerId, type) {
+        function renderArticles(articles, containerId, type, debugIds = []) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
 
             if (!articles || articles.length === 0) {
                 let msg = '記事が見つかりませんでした。';
-                if(!USE_MOCK_DATA) msg += '<br><span class="text-xs text-gray-400">管理画面のカテゴリIDが <b>interview</b> になっているか確認してください</span>';
+                // 画面上に実際に取得できたIDを表示するデバッグ機能を追加
+                if(!USE_MOCK_DATA) {
+                     msg += '<br><br><div class="bg-gray-100 p-4 rounded text-left inline-block max-w-lg">';
+                     msg += '<span class="text-sm font-bold text-red-600 block mb-2">【原因調査用データ】</span>';
+                     msg += '<span class="text-xs text-gray-600">microCMSから届いた記事の「カテゴリID」は以下の通りです。<br>この中のどれかが対談記事のIDです。</span>';
+                     msg += `<div class="mt-2 text-sm font-mono bg-white border border-gray-300 p-2 rounded">${debugIds.join(', ') || 'カテゴリIDが見つかりませんでした'}</div>`;
+                     if (type === 'interview') {
+                         msg += '<span class="text-xs text-blue-600 mt-2 block font-bold">↑このIDを教えていただければ修正できます！</span>';
+                     }
+                     msg += '</div>';
+                }
                 container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-8">${msg}</div>`;
                 return;
             }
