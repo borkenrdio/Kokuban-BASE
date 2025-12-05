@@ -331,7 +331,8 @@
             // ▼▼▼ GitHub Secrets等の環境変数からビルド時に置換される想定の記述 ▼▼▼
             const SERVICE_DOMAIN = "{{MICROCMS_SERVICE_DOMAIN}}"; 
             const API_KEY = "{{MICROCMS_API_KEY}}";
-            const API_ENDPOINT = "news"; 
+            const API_ENDPOINT = "news"; // microCMSのエンドポイント名（データ取得用）
+            const PAGE_DIR = "columns";  // ★修正: 実際の記事ページがあるディレクトリ名（リンク生成用）
             // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
             const container = document.getElementById('related-posts-container');
@@ -378,7 +379,8 @@
                     const title = article.title || 'No Title';
                     const date = formatDate(article.publishedAt || article.createdAt);
                     const imageUrl = article.eyecatch?.url || 'https://placehold.jp/30/cccccc/ffffff/600x337.png?text=No+Image';
-                    const linkUrl = `/${API_ENDPOINT}/${article.id}`; 
+                    // ★修正: PAGE_DIR変数を使って正しいリンク先を生成
+                    const linkUrl = `/${PAGE_DIR}/${article.id}`; 
 
                     return `
                         <a href="${linkUrl}" class="group block h-full flex flex-col">
@@ -406,16 +408,11 @@
                     console.error("現在のAPIキー値: " + API_KEY);
                     renderArticles(fallbackArticles);
                 } else {
-                    // ▼▼▼ 修正: 現在の記事IDを取得して除外フィルタを適用 ▼▼▼
+                    // ▼▼▼ 現在の記事IDを取得して除外フィルタを適用 ▼▼▼
                     
-                    // 現在のURLからIDを取得 (例: /columns/xxx/ -> xxx)
-                    // 末尾のスラッシュを除去して分割し、最後の要素を取得
                     const pathSegments = location.pathname.replace(/\/$/, '').split('/');
                     const currentId = pathSegments.pop();
 
-                    // APIリクエストURLの構築
-                    // filters=id[not_equals]CURRENT_ID を追加して、現在の記事を除外
-                    // limit=3 で最新3件を取得 (デフォルトで新しい順)
                     let apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`;
                     
                     if (currentId) {
