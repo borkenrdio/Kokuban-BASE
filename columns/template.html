@@ -324,65 +324,109 @@
             });
 
             // ----------------------------------------------------
-            // 関連記事 (あわせて読みたい) の自動表示スクリプト
+            // 関連記事 (あわせて読みたい) の自動表示スクリプト (microCMS対応版)
             // ----------------------------------------------------
+
+            // ▼▼▼ GitHub Secrets等の環境変数からビルド時に置換される想定の記述に変更しました ▼▼▼
+            // 画像内のキー名に合わせていますが、必要に応じて MICROCMS_COLUMNS_KEY 等に変更してください
+            const SERVICE_DOMAIN = "{{MICROCMS_SERVICE_DOMAIN}}"; 
+            const API_KEY = "{{MICROCMS_API_KEY}}";
             
-            // 記事データリスト (本来は外部JSONやAPIから取得することを推奨します)
-            // ※運用時はここに新しい記事を追加していくだけで、全ページに反映されます
-            const allArticles = [
+            // 記事の種類に応じて変更してください（例: news, blog, column など）
+            const API_ENDPOINT = "news"; 
+            // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+            const container = document.getElementById('related-posts-container');
+            
+            // 日付フォーマット関数 (yyyy.MM.dd)
+            const formatDate = (dateString) => {
+                if (!dateString) return '';
+                const date = new Date(dateString);
+                const y = date.getFullYear();
+                const m = ('0' + (date.getMonth() + 1)).slice(-2);
+                const d = ('0' + date.getDate()).slice(-2);
+                return `${y}.${m}.${d}`;
+            };
+
+            // APIキーが未設定、またはエラー時のフォールバック用ダミーデータ
+            const fallbackArticles = [
                 {
-                    title: "【徹底解説】電子黒板の導入で授業はどう変わる？現場の声を紹介",
-                    date: "2024.12.01",
-                    image: "https://placehold.jp/30/cccccc/ffffff/600x337.png?text=Article+1",
-                    url: "#" // 実際の記事URL
+                    title: "【サンプル】電子黒板の導入で授業はどう変わる？現場の声を紹介",
+                    publishedAt: "2024-12-01T00:00:00Z",
+                    eyecatch: { url: "https://images.unsplash.com/photo-1577896334502-288415a4d1a1?q=80&w=600&auto=format&fit=crop" },
+                    id: "sample-1" 
                 },
                 {
-                    title: "従来の黒板と何が違う？Kokuban BASEの基本機能を3分で理解する",
-                    date: "2024.11.20",
-                    image: "https://placehold.jp/30/cccccc/ffffff/600x337.png?text=Article+2",
-                    url: "#"
+                    title: "【サンプル】従来の黒板と何が違う？Kokuban BASEの基本機能",
+                    publishedAt: "2024-11-20T00:00:00Z",
+                    eyecatch: { url: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop" },
+                    id: "sample-2"
                 },
                 {
-                    title: "導入コストはどれくらい？補助金活用のポイントまとめ",
-                    date: "2024.11.15",
-                    image: "https://placehold.jp/30/cccccc/ffffff/600x337.png?text=Article+3",
-                    url: "#"
-                },
-                {
-                    title: "ICT教育の未来予想図 - 2025年以降の教室環境",
-                    date: "2024.11.10",
-                    image: "https://placehold.jp/30/cccccc/ffffff/600x337.png?text=Article+4",
-                    url: "#"
+                    title: "【サンプル】導入コストはどれくらい？補助金活用のポイント",
+                    publishedAt: "2024-11-15T00:00:00Z",
+                    eyecatch: { url: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600&auto=format&fit=crop" },
+                    id: "sample-3"
                 }
             ];
 
-            const container = document.getElementById('related-posts-container');
-            const currentUrl = window.location.href; // 現在のURLを取得 (本番環境での除外判定用)
+            const renderArticles = (articles) => {
+                if (articles.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500 col-span-3 text-center">関連記事はありません。</p>';
+                    return;
+                }
 
-            if (container && allArticles.length > 0) {
-                // 自分自身の記事を除外する場合のロジック (URLが一致するものをフィルタリング)
-                // 今回はデモURLのため、簡易的に先頭3件を表示します
-                
-                const displayCount = 3;
-                const articlesToShow = allArticles.slice(0, displayCount);
+                const html = articles.map(article => {
+                    const title = article.title || 'No Title';
+                    const date = formatDate(article.publishedAt || article.createdAt);
+                    const imageUrl = article.eyecatch?.url || 'https://placehold.jp/30/cccccc/ffffff/600x337.png?text=No+Image';
+                    const linkUrl = `/${API_ENDPOINT}/${article.id}`; 
 
-                const html = articlesToShow.map(article => `
-                    <a href="${article.url}" class="group block h-full flex flex-col">
-                        <div class="aspect-w-16 aspect-h-9 w-full overflow-hidden rounded-lg bg-gray-100 mb-3 relative pb-[56.25%]">
-                            <img src="${article.image}" alt="${article.title}" class="absolute inset-0 w-full h-full object-cover group-hover:opacity-75 transition-opacity duration-300">
-                        </div>
-                        <div class="flex flex-col flex-grow">
-                            <h4 class="text-base font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-relaxed mb-2">
-                                ${article.title}
-                            </h4>
-                            <div class="mt-auto text-xs text-gray-500 font-medium">
-                                ${article.date}
+                    return `
+                        <a href="${linkUrl}" class="group block h-full flex flex-col">
+                            <div class="aspect-w-16 aspect-h-9 w-full overflow-hidden rounded-lg bg-gray-100 mb-3 relative pb-[56.25%]">
+                                <img src="${imageUrl}" alt="${title}" class="absolute inset-0 w-full h-full object-cover group-hover:opacity-75 transition-opacity duration-300">
                             </div>
-                        </div>
-                    </a>
-                `).join('');
-
+                            <div class="flex flex-col flex-grow">
+                                <h4 class="text-base font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-relaxed mb-2">
+                                    ${title}
+                                </h4>
+                                <div class="mt-auto text-xs text-gray-500 font-medium">
+                                    ${date}
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                }).join('');
                 container.innerHTML = html;
+            };
+
+            if (container) {
+                // ビルド前（プレースホルダーのまま）やキー未設定時はダミーデータを表示
+                if (API_KEY.includes("{{") || !API_KEY) {
+                    console.log("Showing fallback data (Preview Mode).");
+                    renderArticles(fallbackArticles);
+                } else {
+                    // microCMSからデータを取得
+                    fetch(`https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`, {
+                        headers: {
+                            "X-MICROCMS-API-KEY": API_KEY
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`API Error: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        renderArticles(data.contents);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data from microCMS:', error);
+                        renderArticles(fallbackArticles);
+                    });
+                }
             }
         });
     </script>
