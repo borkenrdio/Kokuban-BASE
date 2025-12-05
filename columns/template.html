@@ -106,9 +106,10 @@
         .article-body h6 { font-size: 1rem!important; line-height: 1.5rem!important; }
         
         /* 対談話者スタイル */
+        /* ★★★ 修正: 太字をインラインに戻し、強制改行を無効化 ★★★ */
         .article-body p strong:first-child, .article-body p br:first-child + strong { 
-            display: block; 
-            margin-bottom: 0.5em; 
+            display: inline; /* blockからinlineに変更 */
+            margin-bottom: 0; 
             font-weight: 700; 
         }
 
