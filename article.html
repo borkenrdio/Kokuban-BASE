@@ -261,11 +261,13 @@
             renderArticles(newArrivalsData.contents, 'new-arrivals-list', 'standard');
 
             // 2. Interview
+            // categoryが 'interview' の記事を取得
             let interviewParams = { limit: 4, filters: 'category[equals]interview' }; 
             const interviewsData = await fetchArticles(interviewParams);
             renderArticles(interviewsData.contents, 'interview-list', 'interview');
 
             // 3. Columns
+            // categoryが 'column' の記事を取得（必要に応じてIDを変更してください）
             let columnParams = { limit: 8, filters: 'category[equals]column' };
             const columnsData = await fetchArticles(columnParams);
             renderArticles(columnsData.contents, 'column-list', 'standard');
@@ -287,8 +289,40 @@
             articles.forEach(article => {
                 const date = new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
                 
-                let categoryName = article.category ? article.category.name : 'お知らせ';
-                let categoryId = article.category ? article.category.id : 'news';
+                // --- カテゴリ情報の取得ロジック（修正） ---
+                let categoryId = 'news';
+                let categoryName = 'お知らせ';
+
+                if (article.category) {
+                    // セレクトフィールド（文字列）の場合
+                    if (typeof article.category === 'string') {
+                        categoryId = article.category;
+                    } 
+                    // コンテンツ参照（オブジェクト）の場合
+                    else if (typeof article.category === 'object' && article.category.id) {
+                        categoryId = article.category.id;
+                        categoryName = article.category.name || categoryId;
+                    } 
+                    // 複数選択（配列）の場合
+                    else if (Array.isArray(article.category) && article.category.length > 0) {
+                        categoryId = article.category[0]; 
+                    }
+                }
+
+                // IDから表示名へのマッピング（microCMSのセレクトフィールドIDに合わせて調整してください）
+                if (categoryId === 'interview' || categoryId === '対談記事') {
+                    categoryName = '対談記事';
+                    categoryId = 'interview'; // デザイン用クラスのためにIDを統一
+                } else if (categoryId === 'column' || categoryId === 'コラム') {
+                    categoryName = 'コラム';
+                    categoryId = 'column'; // デザイン用クラスのためにIDを統一
+                } else if (categoryId === 'news') {
+                    categoryName = 'お知らせ';
+                } else {
+                    // マッピングにない場合はIDをそのまま表示名にするか、デフォルトを設定
+                    categoryName = categoryName !== 'お知らせ' ? categoryName : categoryId;
+                }
+                // ------------------------------------------
 
                 let categoryClass = 'bg-gray-500';
                 if (categoryId === 'interview') categoryClass = 'bg-pink-500';
@@ -303,9 +337,7 @@
                 }
 
                 // リンク先URLの生成ロジック
-                // 修正: slug（スラッグ）を使って /columns/slug/ というリンクを作る
-                // もしslugがない場合は以前のID形式にフォールバック
-                let linkUrl = article.url; // APIにurlフィールドがある場合
+                let linkUrl = article.url; 
                 if (!linkUrl) {
                     if (article.slug) {
                         linkUrl = `/columns/${article.slug}/`;
@@ -369,20 +401,25 @@
         function getMockData(params) {
             return new Promise((resolve) => {
                 setTimeout(() => {
+                    // モックデータもセレクトフィールドの形式（文字列）に合わせて修正
                     const allArticles = [
-                        // モックデータにも slug を追加
-                        { id: '1', slug: 'ict-future', title: 'ICT教育の未来：タブレット導入で変わる教室の風景', publishedAt: '2024-10-20', category: { id: 'column', name: '教育コラム' }, eyecatch: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80' } },
-                        { id: '2', slug: 'teacher-interview-hybrid', title: '【対談】現役教師が語る、黒板とデジタルのハイブリッド授業術', publishedAt: '2024-10-18', category: { id: 'interview', name: '対談記事' }, eyecatch: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032?w=800&q=80' }, summary: 'デジタル化が進む中でも、手書きの良さは失われない。現場の先生が実践するハイブリッドな授業スタイルについて熱く語っていただきました。' },
-                        { id: '3', slug: 'programming-education-3years', title: 'プログラミング教育必修化から3年、現場の課題と成果', publishedAt: '2024-10-15', category: { id: 'column', name: '技術コラム' }, eyecatch: { url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80' } },
-                        { id: '4', slug: 'school-management-system', title: '校務支援システムの選び方：効率化の鍵はどこにある？', publishedAt: '2024-10-10', category: { id: 'column', name: '技術コラム' }, eyecatch: { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80' } },
-                        { id: '5', slug: 'edtech-ceo-interview', title: '【対談】EdTech企業CEOに聞く、日本の教育DXの現在地', publishedAt: '2024-10-05', category: { id: 'interview', name: '対談記事' }, eyecatch: { url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80' }, summary: '教育DXは単なるツールの導入ではない。組織文化の変革を含めた包括的なアプローチについて、業界のトップランナーにお話を伺いました。' },
+                        { id: '1', slug: 'ict-future', title: 'ICT教育の未来：タブレット導入で変わる教室の風景', publishedAt: '2024-10-20', category: 'column', eyecatch: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80' } },
+                        { id: '2', slug: 'teacher-interview-hybrid', title: '【対談】現役教師が語る、黒板とデジタルのハイブリッド授業術', publishedAt: '2024-10-18', category: 'interview', eyecatch: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032?w=800&q=80' }, summary: 'デジタル化が進む中でも、手書きの良さは失われない。現場の先生が実践するハイブリッドな授業スタイルについて熱く語っていただきました。' },
+                        { id: '3', slug: 'programming-education-3years', title: 'プログラミング教育必修化から3年、現場の課題と成果', publishedAt: '2024-10-15', category: 'column', eyecatch: { url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80' } },
+                        { id: '4', slug: 'school-management-system', title: '校務支援システムの選び方：効率化の鍵はどこにある？', publishedAt: '2024-10-10', category: 'column', eyecatch: { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80' } },
+                        { id: '5', slug: 'edtech-ceo-interview', title: '【対談】EdTech企業CEOに聞く、日本の教育DXの現在地', publishedAt: '2024-10-05', category: 'interview', eyecatch: { url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80' }, summary: '教育DXは単なるツールの導入ではない。組織文化の変革を含めた包括的なアプローチについて、業界のトップランナーにお話を伺いました。' },
                     ];
                     let results = [...allArticles];
-                    if (params.filters && params.filters.includes('interview')) {
-                        results = results.filter(a => a.category.id === 'interview');
-                    } else if (params.filters && params.filters.includes('column')) {
-                        results = results.filter(a => a.category.id !== 'interview');
+                    
+                    // モックでのフィルタリングロジック修正
+                    if (params.filters) {
+                        if (params.filters.includes('interview')) {
+                            results = results.filter(a => a.category === 'interview');
+                        } else if (params.filters.includes('column')) {
+                            results = results.filter(a => a.category !== 'interview');
+                        }
                     }
+                    
                     if (params.limit) {
                         results = results.slice(0, params.limit);
                     }
