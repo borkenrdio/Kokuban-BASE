@@ -228,7 +228,8 @@
         const API_KEY = '{{MICROCMS_API_KEY}}';        
         
         // 注意: microCMSのエンドポイント名が 'blogs' で間違いないか確認してください（他には 'news', 'columns' などがあります）
-        const ENDPOINT = 'blogs'; 
+        // 修正: エンドポイントを 'news' に変更
+        const ENDPOINT = 'news'; 
         
         // ローカル開発またはキー未設定時はモックデータを使用
         const USE_MOCK_DATA = !SERVICE_DOMAIN || !API_KEY || API_KEY.indexOf('{{') !== -1;
