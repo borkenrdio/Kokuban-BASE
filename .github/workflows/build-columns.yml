@@ -5,9 +5,10 @@ on:
     types: [microcms-webhook]
   push:
     branches: [main]
+    # columnsフォルダにソースコード(htmlなど)を置く場合は、ここから 'columns/**' を削除してください
     paths-ignore:
       - 'information/**'
-      - 'columns/**'
+      # - 'columns/**'  <-- もしcolumnsフォルダ内にHTMLを置くなら、この行は削除する
   workflow_dispatch:
 
 concurrency:
@@ -73,24 +74,24 @@ jobs:
 
           node build-information.mjs
         env:
-          # ← ドメインは固定値でOK（別サービスなので kokubanbase とは別）
           MICROCMS_INFO_DOMAIN: information
-          # ← 既存のシークレットをそのまま使う
           MICROCMS_INFO_KEY: ${{ secrets.MICROCMS_INFORMATION_KEY }}
 
       # ===== columns/news サービス（kokubanbase.microcms.io） =====
+      # 注意: このスクリプトが columns/index.json を生成していないと、トップページの新着表示がエラーになります
       - name: Run Columns SSG
         run: node scripts/fetch_and_build.mjs
         env:
-          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }} # = kokubanbase
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_COLUMNS_KEY }}
 
-      # ▼▼▼ 【追加】HTML内のプレースホルダーを実際のSecretsに置換 ▼▼▼
+      # ▼▼▼ 【修正】HTML内のプレースホルダーを実際のSecretsに置換（node_modulesを除外） ▼▼▼
       - name: Replace placeholders in generated HTML
         run: |
-          # findコマンドでサブディレクトリを含むすべての.htmlファイルを検索して置換
-          find . -name "*.html" -type f -exec sed -i 's|{{MICROCMS_SERVICE_DOMAIN}}|${{ secrets.MICROCMS_SERVICE_DOMAIN }}|g' {} +
-          find . -name "*.html" -type f -exec sed -i 's|{{MICROCMS_API_KEY}}|${{ secrets.MICROCMS_COLUMNS_KEY }}|g' {} +
+          echo "Replacing API Keys in HTML files..."
+          # node_modules 以外にある .html ファイルを探して置換を実行
+          find . -name "*.html" -type f -not -path '*/node_modules/*' -exec sed -i 's|{{MICROCMS_SERVICE_DOMAIN}}|${{ secrets.MICROCMS_SERVICE_DOMAIN }}|g' {} +
+          find . -name "*.html" -type f -not -path '*/node_modules/*' -exec sed -i 's|{{MICROCMS_API_KEY}}|${{ secrets.MICROCMS_COLUMNS_KEY }}|g' {} +
           
           echo "Replacement complete."
 
