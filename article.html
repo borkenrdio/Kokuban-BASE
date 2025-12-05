@@ -265,11 +265,13 @@
             
             // 記事内のカテゴリIDをリストアップ（デバッグ表示用）
             const categoryIdsFound = [...new Set(allArticles.map(a => {
-                let id = '未設定';
-                if(typeof a.category === 'string') id = a.category;
-                else if(typeof a.category === 'object' && a.category) id = a.category.id || 'obj_no_id';
-                else if(Array.isArray(a.category) && a.category.length > 0) id = a.category[0];
-                return id;
+                // 修正ポイント: 配列(チェックボックス)の場合の処理を最初に行う
+                if(Array.isArray(a.category) && a.category.length > 0) return a.category[0];
+                
+                if(typeof a.category === 'string') return a.category;
+                if(typeof a.category === 'object' && a.category && a.category.id) return a.category.id;
+                
+                return '未設定';
             }))];
             console.log('記事に含まれるカテゴリID一覧:', categoryIdsFound);
 
@@ -280,26 +282,29 @@
             // 2. Interview (対談記事)
             // カテゴリIDが 'interview', 'taidan' 等のものを抽出
             const interviewArticles = allArticles.filter(article => {
-                let catId = '';
-                if (typeof article.category === 'string') catId = article.category;
-                else if (typeof article.category === 'object' && article.category) catId = article.category.id;
-                else if (Array.isArray(article.category) && article.category.length > 0) catId = article.category[0];
+                // 配列の中身をチェックするように修正
+                const cats = Array.isArray(article.category) ? article.category : [article.category];
                 
-                // ★ここでID判定しています★
-                return catId === 'interview' || catId === 'taidan' || catId === '対談記事';
+                // cats配列の中に、指定のIDが含まれているかチェック
+                // ★もしデバッグ欄に違うIDが出たら、ここに追加してください
+                return cats.some(c => 
+                    c === 'interview' || c === 'taidan' || c === '対談記事' || 
+                    (typeof c === 'object' && c.id === 'interview') // オブジェクトの場合
+                );
             });
             // デバッグ情報を渡すために第4引数を追加
             renderArticles(interviewArticles.slice(0, 4), 'interview-list', 'interview', categoryIdsFound);
 
             // 3. Columns (コラム)
             const columnArticles = allArticles.filter(article => {
-                let catId = '';
-                if (typeof article.category === 'string') catId = article.category;
-                else if (typeof article.category === 'object' && article.category) catId = article.category.id;
-                else if (Array.isArray(article.category) && article.category.length > 0) catId = article.category[0];
-
-                // interview 以外をコラムとして扱う
-                return catId === 'column' || catId === 'コラム' || (catId !== 'interview' && catId !== 'taidan' && catId !== 'news');
+                const cats = Array.isArray(article.category) ? article.category : [article.category];
+                
+                // interviewを含まない記事をコラムとする
+                const isInterview = cats.some(c => 
+                    c === 'interview' || c === 'taidan' || c === '対談記事' ||
+                    (typeof c === 'object' && c.id === 'interview')
+                );
+                return !isInterview;
             });
             renderArticles(columnArticles.slice(0, 8), 'column-list', 'standard', categoryIdsFound);
         });
@@ -317,7 +322,7 @@
                      msg += '<span class="text-xs text-gray-600">microCMSから届いた記事の「カテゴリID」は以下の通りです。<br>この中のどれかが対談記事のIDです。</span>';
                      msg += `<div class="mt-2 text-sm font-mono bg-white border border-gray-300 p-2 rounded">${debugIds.join(', ') || 'カテゴリIDが見つかりませんでした'}</div>`;
                      if (type === 'interview') {
-                         msg += '<span class="text-xs text-blue-600 mt-2 block font-bold">↑このIDを教えていただければ修正できます！</span>';
+                         msg += '<span class="text-xs text-blue-600 mt-2 block font-bold">↑ここに表示された英数字を教えてください！</span>';
                      }
                      msg += '</div>';
                 }
@@ -333,21 +338,26 @@
                 // --- カテゴリ情報の取得ロジック ---
                 let categoryId = 'news';
                 let categoryName = 'お知らせ';
+                
+                // 配列対応
+                let rawCat = article.category;
+                if (Array.isArray(rawCat) && rawCat.length > 0) {
+                    rawCat = rawCat[0]; // 先頭のカテゴリを使用
+                }
 
-                if (article.category) {
-                    if (typeof article.category === 'string') {
-                        categoryId = article.category;
+                if (rawCat) {
+                    if (typeof rawCat === 'string') {
+                        categoryId = rawCat;
+                        categoryName = rawCat; // 一旦IDを入れる
                     } 
-                    else if (typeof article.category === 'object' && article.category.id) {
-                        categoryId = article.category.id;
-                        categoryName = article.category.name || categoryId;
+                    else if (typeof rawCat === 'object' && rawCat.id) {
+                        categoryId = rawCat.id;
+                        categoryName = rawCat.name || categoryId;
                     } 
-                    else if (Array.isArray(article.category) && article.category.length > 0) {
-                        categoryId = article.category[0]; 
-                    }
                 }
 
                 // 表示名のマッピング
+                // ★デバッグでIDが判明したらここに追加してください
                 if (categoryId === 'interview' || categoryId === '対談記事' || categoryId === 'taidan') {
                     categoryName = '対談記事';
                     categoryId = 'interview'; 
@@ -431,28 +441,13 @@
         function getMockData(params) {
             return new Promise((resolve) => {
                 setTimeout(() => {
-                    // モックデータもセレクトフィールドの形式（文字列）に合わせて修正
                     const allArticles = [
-                        { id: '1', slug: 'ict-future', title: 'ICT教育の未来：タブレット導入で変わる教室の風景', publishedAt: '2024-10-20', category: 'column', eyecatch: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80' } },
-                        { id: '2', slug: 'teacher-interview-hybrid', title: '【対談】現役教師が語る、黒板とデジタルのハイブリッド授業術', publishedAt: '2024-10-18', category: 'interview', eyecatch: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032?w=800&q=80' }, summary: 'デジタル化が進む中でも、手書きの良さは失われない。現場の先生が実践するハイブリッドな授業スタイルについて熱く語っていただきました。' },
-                        { id: '3', slug: 'programming-education-3years', title: 'プログラミング教育必修化から3年、現場の課題と成果', publishedAt: '2024-10-15', category: 'column', eyecatch: { url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80' } },
-                        { id: '4', slug: 'school-management-system', title: '校務支援システムの選び方：効率化の鍵はどこにある？', publishedAt: '2024-10-10', category: 'column', eyecatch: { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80' } },
-                        { id: '5', slug: 'edtech-ceo-interview', title: '【対談】EdTech企業CEOに聞く、日本の教育DXの現在地', publishedAt: '2024-10-05', category: 'interview', eyecatch: { url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80' }, summary: '教育DXは単なるツールの導入ではない。組織文化の変革を含めた包括的なアプローチについて、業界のトップランナーにお話を伺いました。' },
+                        // モックデータ: チェックボックス（配列）形式に対応
+                        { id: '1', slug: 'ict-future', title: 'ICT教育の未来', publishedAt: '2024-10-20', category: ['column'], eyecatch: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7' } },
+                        { id: '2', slug: 'teacher-interview', title: '【対談】現役教師が語る', publishedAt: '2024-10-18', category: ['interview'], eyecatch: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032' }, summary: '...' },
+                        { id: '3', slug: 'prog-edu', title: 'プログラミング教育', publishedAt: '2024-10-15', category: ['column'], eyecatch: { url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97' } },
                     ];
                     let results = [...allArticles];
-                    
-                    // モックでのフィルタリングロジック修正
-                    if (params.filters) {
-                        if (params.filters.includes('interview')) {
-                            results = results.filter(a => a.category === 'interview');
-                        } else if (params.filters.includes('column')) {
-                            results = results.filter(a => a.category !== 'interview');
-                        }
-                    }
-                    
-                    if (params.limit) {
-                        results = results.slice(0, params.limit);
-                    }
                     resolve({ contents: results });
                 }, 500);
             });
