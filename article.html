@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Google Tag Manager (from main site) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GSSKLZ6EDH');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コラム一覧 | Kokuban BASE（コクバンベース）</title>
+    <meta name="description" content="Kokuban BASEの最新コラム、対談記事、教育現場のICT活用事例をお届けします。">
+    
+    <!-- Fonts & Styles (from main site) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #fdfdfd; color: #333; }
+        
+        /* 共通カラー定義 */
+        .text-custom-blue { color: #103f99; }
+        .bg-custom-blue { background-color: #103f99; }
+        .border-custom-blue { border-color: #103f99; }
+        
+        .text-custom-pink { color: #ec4899; }
+        .bg-custom-pink { background-color: #ec4899; }
+        .border-custom-pink { border-color: #ec4899; }
+        
+        .footer-link { color: #e5e7eb; transition: color 0.2s; }
+        .footer-link:hover { color: #ffffff; text-decoration: underline; }
+
+        /* カードアニメーション */
+        .article-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .article-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        
+        .img-container { aspect-ratio: 16 / 9; overflow: hidden; }
+        .img-container img { transition: transform 0.5s ease; }
+        .article-card:hover .img-container img { transform: scale(1.05); }
+
+        /* テキストシャドウ */
+        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+    </style>
+</head>
+<body class="bg-stone-50 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300 shadow-md">
+        <div class="px-6 lg:px-8">
+            <div class="flex items-stretch h-[50px] sm:h-20">
+                <div class="flex-1 flex items-center space-x-8">
+                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
+                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
+                    </div>
+                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                        <a href="/#products" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">ラインナップ</a>
+                        <a href="/#columns" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <a href="/#faq" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
+                        <a href="/#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
+                    </nav>
+                </div>
+                <div class="flex-shrink-0 flex justify-end">
+                    <div class="hidden sm:flex">
+                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
+                            <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
+                            <span>来場予約</span><i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:hidden flex items-center">
+                        <button id="mobile-menu-button" aria-label="メニューを開く" class="text-white hover:opacity-80 focus:outline-none p-2 text-shadow">
+                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="/#products" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">ラインナップ</a>
+                    <a href="/#columns" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
+                    <a href="/#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
+                    <a href="/#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
+                </div>
+                <div class="p-4 space-y-3">
+                    <a href="/contact" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
+                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Page Title -->
+        <section class="bg-gray-100 py-12 border-b border-gray-200">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-4xl font-black text-custom-blue mb-4 tracking-tight">Column & Interview</h1>
+                <p class="text-gray-600 font-medium">Kokuban BASEからの発信。教育、技術、そして対話。</p>
+            </div>
+        </section>
+
+        <!-- 1. New Arrivals -->
+        <section id="new-arrivals" class="py-16 container mx-auto px-6 lg:px-8">
+            <div class="flex items-center mb-10 gap-3 border-b border-gray-200 pb-4">
+                <div class="w-1.5 h-8 bg-custom-blue"></div>
+                <h2 class="text-2xl md:text-3xl font-bold text-custom-blue">新着記事</h2>
+                <span class="text-sm text-gray-500 mt-1 ml-2 font-bold tracking-wide">New Arrivals</span>
+            </div>
+            
+            <div id="new-arrivals-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="col-span-1 md:col-span-3 text-center py-10 text-gray-400">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Loading...
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Interview -->
+        <section id="interviews" class="py-16 bg-slate-100 border-y border-gray-200">
+            <div class="container mx-auto px-6 lg:px-8">
+                <div class="flex items-center mb-10 gap-3 border-b border-gray-300 pb-4">
+                    <div class="w-1.5 h-8 bg-pink-500"></div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-custom-blue">対談記事</h2>
+                    <span class="text-sm text-gray-500 mt-1 ml-2 font-bold tracking-wide">Special Interview</span>
+                </div>
+
+                <div id="interview-list" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="col-span-1 md:col-span-2 text-center py-10 text-gray-400">
+                        <i class="fas fa-spinner fa-spin mr-2"></i>Loading...
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <a href="#" class="inline-block px-8 py-3 bg-pink-500 text-white font-bold rounded-full hover:bg-pink-600 transition shadow-md hover:scale-105 transform">
+                        対談記事をもっと見る <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Regular Columns -->
+        <section id="columns" class="py-16 container mx-auto px-6 lg:px-8">
+            <div class="flex items-center mb-10 gap-3 border-b border-gray-200 pb-4">
+                <div class="w-1.5 h-8 bg-custom-blue"></div>
+                <h2 class="text-2xl md:text-3xl font-bold text-custom-blue">コラム</h2>
+                <span class="text-sm text-gray-500 mt-1 ml-2 font-bold tracking-wide">Regular Columns</span>
+            </div>
+
+            <div id="column-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <div class="col-span-full text-center py-10 text-gray-400">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>Loading...
+                 </div>
+            </div>
+             <div class="mt-12 text-center">
+                <button class="bg-white text-custom-blue border-2 border-custom-blue px-8 py-3 rounded-full hover:bg-gray-50 transition shadow-md font-bold hover:scale-105 transform">
+                    もっと読み込む <i class="fas fa-plus ml-2"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-custom-blue text-gray-200">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h2 class="text-2xl font-bold text-white">Kokuban BASE</h2>
+                    <p class="text-blue-200 mt-2">株式会社idea spot</p>
+                </div>
+                <div class="w-full md:w-3/4 flex flex-wrap justify-between">
+                    <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
+                        <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
+                        <ul>
+                            <li class="mb-2"><a href="/#products" class="nav-link footer-link">ラインナップ</a></li>
+                            <li class="mb-2"><a href="/#columns" class="nav-link footer-link">コラム</a></li>
+                            <li class="mb-2"><a href="/#faq" class="nav-link footer-link">よくある質問</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
+                        <h3 class="text-white font-semibold tracking-wider uppercase mb-4">サポート</h3>
+                        <ul>
+                            <li class="mb-2"><a href="/reservation" class="footer-link">来場予約</a></li>
+                            <li class="mb-2"><a href="/contact" class="footer-link">お問い合わせ</a></li>
+                            <li class="mb-2"><a href="/#access" class="nav-link footer-link">アクセス</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full sm:w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-semibold tracking-wider uppercase mb-4">会社情報</h3>
+                        <ul>
+                            <li class="mb-2"><a href="https://www.idea-spot.co.jp/" target="_blank" class="footer-link">企業概要</a></li>
+                            <li class="mb-2"><a href="/privacy" class="footer-link">プライバシーポリシー</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-white/20 text-center text-blue-200"><p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p></div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Header / Mobile Menu
+        const mmBtn = document.getElementById('mobile-menu-button');
+        const mm = document.getElementById('mobile-menu');
+        if(mmBtn && mm) {
+            mmBtn.addEventListener('click', () => { 
+                mm.classList.toggle('hidden'); 
+                document.body.classList.toggle('overflow-hidden', !mm.classList.contains('hidden')); 
+            });
+        }
+
+        // ---------------------------------------------------------
+        // CMS Settings (Secrets Integration)
+        // ---------------------------------------------------------
+        
+        // GitHub Actionsのワークフローで指定された置換文字列に合わせています
+        const SERVICE_DOMAIN = '{{MICROCMS_SERVICE_DOMAIN}}'; 
+        const API_KEY = '{{MICROCMS_API_KEY}}';       
+        const ENDPOINT = 'blogs'; 
+        
+        // ローカル開発用設定: 
+        // プレースホルダー（{{...}}）が残っている場合は、APIキーが置換されていないため
+        // モックデータを使用するように判定します。
+        const USE_MOCK_DATA = SERVICE_DOMAIN.indexOf('{{') !== -1; 
+
+        async function fetchArticles(params = {}) {
+            if (USE_MOCK_DATA) {
+                console.log('Using Mock Data (API Key placeholder detected)');
+                return getMockData(params);
+            }
+            const url = new URL(`https://${SERVICE_DOMAIN}.microcms.io/api/v1/${ENDPOINT}`);
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+            try {
+                const response = await fetch(url, {
+                    headers: { 'X-MICROCMS-API-KEY': API_KEY }
+                });
+                if (!response.ok) throw new Error('API Error: ' + response.statusText);
+                return await response.json();
+            } catch (error) {
+                console.error('Fetch error:', error);
+                return { contents: [] }; 
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. New Arrivals
+            const newArrivalsData = await fetchArticles({ limit: 3 });
+            renderArticles(newArrivalsData.contents, 'new-arrivals-list', 'standard');
+
+            // 2. Interview
+            let interviewParams = { limit: 4, filters: 'category[equals]interview' }; 
+            const interviewsData = await fetchArticles(interviewParams);
+            renderArticles(interviewsData.contents, 'interview-list', 'interview');
+
+            // 3. Columns
+            let columnParams = { limit: 8, filters: 'category[equals]column' };
+            const columnsData = await fetchArticles(columnParams);
+            renderArticles(columnsData.contents, 'column-list', 'standard');
+        });
+
+        function renderArticles(articles, containerId, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            if (!articles || articles.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center text-gray-500">記事が見つかりませんでした。</div>';
+                return;
+            }
+
+            articles.forEach(article => {
+                const date = new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
+                
+                let categoryClass = 'bg-gray-500';
+                if (article.category.id === 'interview') categoryClass = 'bg-pink-500';
+                if (article.category.id === 'column') categoryClass = 'bg-[#103f99]';
+
+                let cardHtml = '';
+
+                if (type === 'interview') {
+                    cardHtml = `
+                        <article class="article-card bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full border border-gray-100 group">
+                            <a href="${article.url || '#'}" class="block img-container relative">
+                                <img src="${article.thumbnail}" alt="${article.title}" class="w-full h-full object-cover">
+                                <span class="absolute top-4 left-4 ${categoryClass} text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                                    ${article.category.name}
+                                </span>
+                            </a>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="text-sm text-gray-400 mb-2 flex items-center gap-2 font-bold">
+                                    <i class="far fa-calendar-alt"></i> ${date}
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 text-gray-800 line-clamp-2 group-hover:text-[#103f99] transition-colors">
+                                    <a href="${article.url || '#'}">${article.title}</a>
+                                </h3>
+                                <p class="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow leading-relaxed">
+                                    ${article.summary || '記事の概要がここに入ります...'}
+                                </p>
+                                <div class="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100">
+                                     <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${article.id}" alt="Author" />
+                                     </div>
+                                     <span class="text-xs font-bold text-gray-500">Kokuban 編集部</span>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                } else {
+                    cardHtml = `
+                        <article class="article-card bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full group">
+                            <a href="${article.url || '#'}" class="block img-container relative">
+                                <img src="${article.thumbnail}" alt="${article.title}" class="w-full h-full object-cover">
+                                <span class="absolute top-2 left-2 ${categoryClass} text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                                    ${article.category.name}
+                                </span>
+                            </a>
+                            <div class="p-5 flex flex-col flex-grow">
+                                <div class="text-xs text-gray-400 mb-2 font-bold">${date}</div>
+                                <h3 class="font-bold text-gray-800 mb-2 line-clamp-2 text-sm md:text-base group-hover:text-[#103f99] transition-colors">
+                                    <a href="${article.url || '#'}">${article.title}</a>
+                                </h3>
+                            </div>
+                        </article>
+                    `;
+                }
+                container.insertAdjacentHTML('beforeend', cardHtml);
+            });
+        }
+
+        function getMockData(params) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const allArticles = [
+                        { id: '1', title: 'ICT教育の未来：タブレット導入で変わる教室の風景', publishedAt: '2024-10-20', category: { id: 'column', name: '教育コラム' }, thumbnail: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80' },
+                        { id: '2', title: '【対談】現役教師が語る、黒板とデジタルのハイブリッド授業術', publishedAt: '2024-10-18', category: { id: 'interview', name: '対談記事' }, thumbnail: 'https://images.unsplash.com/photo-1544531320-94a523829032?w=800&q=80', summary: 'デジタル化が進む中でも、手書きの良さは失われない。現場の先生が実践するハイブリッドな授業スタイルについて熱く語っていただきました。' },
+                        { id: '3', title: 'プログラミング教育必修化から3年、現場の課題と成果', publishedAt: '2024-10-15', category: { id: 'column', name: '技術コラム' }, thumbnail: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80' },
+                        { id: '4', title: '校務支援システムの選び方：効率化の鍵はどこにある？', publishedAt: '2024-10-10', category: { id: 'column', name: '技術コラム' }, thumbnail: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80' },
+                        { id: '5', title: '【対談】EdTech企業CEOに聞く、日本の教育DXの現在地', publishedAt: '2024-10-05', category: { id: 'interview', name: '対談記事' }, thumbnail: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80', summary: '教育DXは単なるツールの導入ではない。組織文化の変革を含めた包括的なアプローチについて、業界のトップランナーにお話を伺いました。' },
+                        { id: '6', title: '子供の探究心を育てる、最新の理科教材トレンド', publishedAt: '2024-10-01', category: { id: 'column', name: '教育コラム' }, thumbnail: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80' },
+                        { id: '7', title: '学校ホームページ運用のコツ：保護者に届く情報発信とは', publishedAt: '2024-09-28', category: { id: 'column', name: '運営ノウハウ' }, thumbnail: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=800&q=80' },
+                        { id: '8', title: 'GIGAスクール構想のネクストステージ', publishedAt: '2024-09-25', category: { id: 'column', name: '技術コラム' }, thumbnail: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80' },
+                    ];
+                    let results = [...allArticles];
+                    if (params.filters && params.filters.includes('interview')) {
+                        results = results.filter(a => a.category.id === 'interview');
+                    } else if (params.filters && params.filters.includes('column')) {
+                        results = results.filter(a => a.category.id !== 'interview');
+                    }
+                    if (params.limit) {
+                        results = results.slice(0, params.limit);
+                    }
+                    resolve({ contents: results });
+                }, 500);
+            });
+        }
+    </script>
+</body>
+</html>
