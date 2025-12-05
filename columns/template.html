@@ -327,12 +327,9 @@
             // 関連記事 (あわせて読みたい) の自動表示スクリプト (microCMS対応版)
             // ----------------------------------------------------
 
-            // ▼▼▼ GitHub Secrets等の環境変数からビルド時に置換される想定の記述に変更しました ▼▼▼
-            // 画像内のキー名に合わせていますが、必要に応じて MICROCMS_COLUMNS_KEY 等に変更してください
+            // ▼▼▼ GitHub Secrets等の環境変数からビルド時に置換される想定の記述 ▼▼▼
             const SERVICE_DOMAIN = "{{MICROCMS_SERVICE_DOMAIN}}"; 
             const API_KEY = "{{MICROCMS_API_KEY}}";
-            
-            // 記事の種類に応じて変更してください（例: news, blog, column など）
             const API_ENDPOINT = "news"; 
             // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
@@ -404,11 +401,28 @@
             if (container) {
                 // ビルド前（プレースホルダーのまま）やキー未設定時はダミーデータを表示
                 if (API_KEY.includes("{{") || !API_KEY) {
-                    console.log("Showing fallback data (Preview Mode).");
+                    console.error("【設定エラー】APIキーが置換されていません。GitHub Actions等で置換処理を行ってください。");
+                    console.error("現在のAPIキー値: " + API_KEY);
                     renderArticles(fallbackArticles);
                 } else {
+                    // ▼▼▼ 修正: 現在の記事IDを取得して除外フィルタを適用 ▼▼▼
+                    
+                    // 現在のURLからIDを取得 (例: /columns/xxx/ -> xxx)
+                    // 末尾のスラッシュを除去して分割し、最後の要素を取得
+                    const pathSegments = location.pathname.replace(/\/$/, '').split('/');
+                    const currentId = pathSegments.pop();
+
+                    // APIリクエストURLの構築
+                    // filters=id[not_equals]CURRENT_ID を追加して、現在の記事を除外
+                    // limit=3 で最新3件を取得 (デフォルトで新しい順)
+                    let apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`;
+                    
+                    if (currentId) {
+                        apiUrl += `&filters=id[not_equals]${currentId}`;
+                    }
+
                     // microCMSからデータを取得
-                    fetch(`https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`, {
+                    fetch(apiUrl, {
                         headers: {
                             "X-MICROCMS-API-KEY": API_KEY
                         }
