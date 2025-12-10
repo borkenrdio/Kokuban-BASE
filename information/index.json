@@ -1,0 +1,70 @@
+[
+  {
+    "id": "ya2y0hqnu140",
+    "createdAt": "2025-12-02T04:04:06.933Z",
+    "updatedAt": "2025-12-03T02:09:09.960Z",
+    "publishedAt": "2025-12-02T03:00:00.000Z",
+    "revisedAt": "2025-12-03T02:09:09.960Z",
+    "title": "ホワイトボードアプリ上ですべてを完結！電子黒板の営業歴２０年超のStarboard担当者に迫る",
+    "category": {
+      "id": "xxydv9qzz",
+      "createdAt": "2025-12-02T04:19:32.017Z",
+      "updatedAt": "2025-12-02T04:19:32.017Z",
+      "publishedAt": "2025-12-02T04:19:32.017Z",
+      "revisedAt": "2025-12-02T04:19:32.017Z",
+      "name": "対談記事"
+    },
+    "url": "https://kokuban-base.com/columns/starboard-ideaspot-education-talk/"
+  },
+  {
+    "id": "8o827stz9y",
+    "createdAt": "2025-11-25T12:22:00.317Z",
+    "updatedAt": "2025-12-03T02:07:59.332Z",
+    "publishedAt": "2025-11-25T13:00:00.000Z",
+    "revisedAt": "2025-12-03T02:07:59.332Z",
+    "title": "SHARPはなぜ機能を減らしたのか。８０歳のベテラン教授でも、明日から使える即戦力。",
+    "category": {
+      "id": "xxydv9qzz",
+      "createdAt": "2025-12-02T04:19:32.017Z",
+      "updatedAt": "2025-12-02T04:19:32.017Z",
+      "publishedAt": "2025-12-02T04:19:32.017Z",
+      "revisedAt": "2025-12-02T04:19:32.017Z",
+      "name": "対談記事"
+    },
+    "url": "https://kokuban-base.com/columns/sharp-ideaspot-education-talk/"
+  },
+  {
+    "id": "u3qazs3gi",
+    "createdAt": "2025-11-12T07:34:30.466Z",
+    "updatedAt": "2025-12-03T01:54:54.631Z",
+    "publishedAt": "2025-11-11T01:00:00.000Z",
+    "revisedAt": "2025-12-03T01:54:54.631Z",
+    "title": "BenQ来場！ホームボタン長押しひとつでGeminiを起動できる、AI最先端の電子黒板",
+    "category": {
+      "id": "xxydv9qzz",
+      "createdAt": "2025-12-02T04:19:32.017Z",
+      "updatedAt": "2025-12-02T04:19:32.017Z",
+      "publishedAt": "2025-12-02T04:19:32.017Z",
+      "revisedAt": "2025-12-02T04:19:32.017Z",
+      "name": "対談記事"
+    },
+    "url": "https://kokuban-base.com/columns/benq-ideaspot-education-talk/"
+  },
+  {
+    "id": "77jo1e1lzes",
+    "createdAt": "2025-11-12T04:48:53.209Z",
+    "updatedAt": "2025-11-25T12:25:33.217Z",
+    "publishedAt": "2025-11-01T01:00:00.000Z",
+    "revisedAt": "2025-11-25T12:25:33.217Z",
+    "title": "日本初、電子黒板の比較体験倉庫「Kokuban BASE」、11月1日オープン",
+    "category": {
+      "id": "kaca9-eu5",
+      "createdAt": "2025-11-25T12:19:24.704Z",
+      "updatedAt": "2025-11-25T12:19:24.704Z",
+      "publishedAt": "2025-11-25T12:19:24.704Z",
+      "revisedAt": "2025-11-25T12:19:24.704Z",
+      "name": "プレリリース"
+    },
+    "url": "https://prtimes.jp/main/html/rd/p/000000001.000170903.html"
+  }
+]
