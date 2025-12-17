@@ -261,7 +261,7 @@
             </div>
 
             <div class="mt-12 text-center">
-                <!-- 【修正箇所 1/2】: コラム一覧へのリンクを記事の親ディレクトリ（/columns/）に変更 -->
+                <!-- クリーンURL形式に合わせて、コラム一覧へのリンクを/columns/に設定 -->
                 <a href="/columns/" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition-colors duration-300">コラム一覧へ戻る</a>
             </div>
         </div>
@@ -390,7 +390,7 @@
                     const title = article.title || 'No Title';
                     const date = formatDate(article.publishedAt || article.createdAt);
                     const imageUrl = article.eyecatch?.url || 'https://placehold.jp/30/cccccc/ffffff/600x337.png?text=No+Image';
-                    // 【修正箇所 2/2】: 関連記事のリンクをクリーンURL形式に変更 (末尾に / を追加)
+                    // クリーンURL形式に修正
                     const linkUrl = `/${PAGE_DIR}/${article.id}/`; 
 
                     return `
@@ -422,9 +422,9 @@
                     // ▼▼▼ 現在の記事IDを取得して除外フィルタを適用 ▼▼▼
                     
                     const pathSegments = location.pathname.replace(/\/$/, '').split('/');
-                    // パスセグメントの最後の要素を取得 (これがIDとなる)
+                    // パスセグメントの最後の要素を取得 (スラッグ/IDとなる)
                     let currentId = pathSegments.pop();
-                    // IDの末尾に .html が付いている可能性があるため削除 (前回の修正で対応済み)
+                    // IDの末尾に .html が付いている可能性があるため削除 (クリーンURL形式を優先)
                     if (currentId.endsWith('.html')) {
                         currentId = currentId.substring(0, currentId.length - 5);
                     }
