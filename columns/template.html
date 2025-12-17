@@ -339,10 +339,10 @@
             // ----------------------------------------------------
 
             // ▼▼▼ GitHub Secrets等の環境変数からビルド時に置換される想定の記述 ▼▼▼
-            const SERVICE_DOMAIN = "{{MICROCMS_SERVICE_DOMAIN}}"; 
+            const SERVICE_DOMAIN = "{{MICROCMS_SERVICE_DOMAIN}}"; 
             const API_KEY = "{{MICROCMS_API_KEY}}";
             const API_ENDPOINT = "news"; // microCMSのエンドポイント名（データ取得用）
-            const PAGE_DIR = "columns";  // ★修正: 実際の記事ページがあるディレクトリ名（リンク生成用）
+            const PAGE_DIR = "columns";  // 実際の記事ページがあるディレクトリ名（リンク生成用）
             // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
             const container = document.getElementById('related-posts-container');
@@ -363,7 +363,7 @@
                     title: "【サンプル】電子黒板の導入で授業はどう変わる？現場の声を紹介",
                     publishedAt: "2024-12-01T00:00:00Z",
                     eyecatch: { url: "https://images.unsplash.com/photo-1577896334502-288415a4d1a1?q=80&w=600&auto=format&fit=crop" },
-                    id: "sample-1" 
+                    id: "sample-1" 
                 },
                 {
                     title: "【サンプル】従来の黒板と何が違う？Kokuban BASEの基本機能",
@@ -389,8 +389,8 @@
                     const title = article.title || 'No Title';
                     const date = formatDate(article.publishedAt || article.createdAt);
                     const imageUrl = article.eyecatch?.url || 'https://placehold.jp/30/cccccc/ffffff/600x337.png?text=No+Image';
-                    // ★修正: PAGE_DIR変数を使って正しいリンク先を生成
-                    const linkUrl = `/${PAGE_DIR}/${article.id}`; 
+                    // 【修正箇所】: 記事IDに .html 拡張子を追加して、正しいファイルパスを生成
+                    const linkUrl = `/${PAGE_DIR}/${article.id}.html`; 
 
                     return `
                         <a href="${linkUrl}" class="group block h-full flex flex-col">
@@ -421,7 +421,11 @@
                     // ▼▼▼ 現在の記事IDを取得して除外フィルタを適用 ▼▼▼
                     
                     const pathSegments = location.pathname.replace(/\/$/, '').split('/');
-                    const currentId = pathSegments.pop();
+                    // パスセグメントの最後の要素から .html を削除してIDを取得
+                    let currentId = pathSegments.pop();
+                    if (currentId.endsWith('.html')) {
+                        currentId = currentId.substring(0, currentId.length - 5);
+                    }
 
                     let apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`;
                     
