@@ -261,8 +261,8 @@
             </div>
 
             <div class="mt-12 text-center">
-                <!-- クリーンURL形式に合わせて、コラム一覧へのリンクを/columns/に設定 -->
-                <a href="/columns/" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition-colors duration-300">コラム一覧へ戻る</a>
+                <!-- 【修正箇所】: コラム一覧へのリンクを絶対URL https://kokuban-base.com/article.html に変更 -->
+                <a href="https://kokuban-base.com/article.html" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition-colors duration-300">コラム一覧へ戻る</a>
             </div>
         </div>
     </main>
@@ -390,7 +390,7 @@
                     const title = article.title || 'No Title';
                     const date = formatDate(article.publishedAt || article.createdAt);
                     const imageUrl = article.eyecatch?.url || 'https://placehold.jp/30/cccccc/ffffff/600x337.png?text=No+Image';
-                    // クリーンURL形式に修正
+                    // 関連記事のリンクはクリーンURL形式を維持: /columns/スラッグ/
                     const linkUrl = `/${PAGE_DIR}/${article.id}/`; 
 
                     return `
@@ -419,7 +419,7 @@
                     console.error("現在のAPIキー値: " + API_KEY);
                     renderArticles(fallbackArticles);
                 } else {
-                    // ▼▼▼ 現在の記事IDを取得して除外フィルタを適用 ▼▼▼
+                    // ▼▼▼ 現在の記事ID（スラッグ）を取得して除外フィルタを適用 ▼▼▼
                     
                     const pathSegments = location.pathname.replace(/\/$/, '').split('/');
                     // パスセグメントの最後の要素を取得 (スラッグ/IDとなる)
