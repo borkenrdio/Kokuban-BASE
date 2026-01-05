@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>お知らせ・ニュース一覧 | Kokuban BASE</title>
-    <!-- index.htmlの全CSSスタイルを読み込み -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
     <style>
-        /* index.htmlのカスタムCSSスタイルを全てコピー */
         html, body { margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
@@ -23,23 +21,33 @@
         .footer-link:hover { color: #ffffff; text-decoration: underline; }
         .spinner { animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        /* index.htmlにはないが、ページネーションで使うスタイル */
         .pagination-active { background-color: #103f99; color: white; }
+
+        /* モーダル用スタイル */
+        #image-modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #image-modal.hidden {
+            display: none;
+            opacity: 0;
+        }
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
     </style>
 </head>
 <body class="bg-stone-50 min-h-screen">
 
-    <!-- ▼▼▼ index.htmlからコピー: ヘッダー全体 ▼▼▼ -->
+    <!-- ヘッダー -->
     <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
         <div class="px-6 lg:px-8">
             <div class="flex items-stretch h-[50px] sm:h-20">
                 <div class="flex-1 flex items-center space-x-8">
                     <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
-                        <!-- リンク先をLPのトップに変更 -->
                         <a href="index.html" class="nav-link hover:opacity-80 transition-opacity">Kokuban BASE</a>
                     </div>
                     <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                        <!-- アクティブクラスをNewsに設定 -->
                         <a href="index.html#products" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">ラインナップ</a>
                         <a href="information.html" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2 font-extrabold border-b-2 border-white">最新情報</a>
                         <a href="index.html#columns" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
@@ -59,7 +67,6 @@
                         </a>
                     </div>
                     <div class="lg:hidden flex items-center">
-                        <!-- モバイルメニューボタンの動作はJavaScriptで実装 -->
                         <button id="mobile-menu-button" aria-label="メニューを開く" class="text-white hover:opacity-80 focus:outline-none p-2 text-shadow">
                             <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -69,7 +76,6 @@
                 </div>
             </div>
         </div>
-        <!-- モバイルメニュー -->
         <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="index.html#products" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">ラインナップ</a>
@@ -84,24 +90,15 @@
             </div>
         </div>
     </header>
-    <!-- ▲▲▲ index.htmlからコピー: ヘッダー全体 ▲▲▲ -->
-
 
     <div class="container mx-auto px-4 py-12 md:py-20 max-w-4xl">
-        <!-- ページタイトルエリア -->
         <header class="mb-10 md:mb-12">
-            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-2">
-                最新情報
-            </h1>
-            <p class="text-xl text-gray-600">
-                お知らせ / ニュースアーカイブ
-            </p>
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-2">最新情報</h1>
+            <p class="text-xl text-gray-600">お知らせ / ニュースアーカイブ</p>
             <div class="h-1 bg-[#103f99] w-16 mt-4 rounded-full"></div>
         </header>
 
-        <!-- ニュースリストのコンテナ -->
         <main id="news-container" class="space-y-8">
-            <!-- ローディングメッセージ/エラーメッセージを表示する場所 -->
             <div id="loading-message" class="text-center py-12">
                 <div class="flex items-center justify-center space-x-3 text-indigo-600">
                     <svg class="spinner w-6 h-6 text-[#103f99]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -112,30 +109,30 @@
                 </div>
             </div>
             
-            <!-- ニュース項目を動的に表示する場所 -->
             <div id="news-list" class="space-y-4">
-                <!-- ニュース項目がここに挿入されます -->
+                <!-- ニュース項目がここに動的に挿入されます -->
             </div>
         </main>
 
-        <!-- ページネーション（ダミー） -->
         <div id="pagination" class="mt-12 flex justify-center hidden">
             <nav class="flex items-center space-x-2">
-                <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
+                <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition"><i class="fas fa-arrow-left"></i></a>
                 <a href="#" class="px-4 py-2 rounded-full font-semibold text-white bg-pink-500 hover:bg-pink-600 transition">1</a>
                 <a href="#" class="px-4 py-2 rounded-full text-gray-700 hover:bg-gray-200 transition">2</a>
                 <a href="#" class="px-4 py-2 rounded-full text-gray-700 hover:bg-gray-200 transition">3</a>
-                <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition">
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+                <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition"><i class="fas fa-arrow-right"></i></a>
             </nav>
         </div>
     </div>
 
+    <!-- 画像表示用モーダル -->
+    <div id="image-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 hidden" onclick="closeModal()">
+        <button class="absolute top-6 right-6 text-white text-3xl hover:text-gray-300 focus:outline-none" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <img id="modal-image" src="" alt="拡大画像" class="modal-content object-contain shadow-2xl">
+    </div>
 
-    <!-- ▼▼▼ index.htmlからコピー: フッター全体 ▼▼▼ -->
     <footer class="bg-custom-blue text-gray-200">
         <div class="container mx-auto px-6 py-12">
             <div class="flex flex-wrap justify-between">
@@ -176,16 +173,29 @@
             </div>
         </div>
     </footer>
-    <!-- ▲▲▲ index.htmlからコピー: フッター全体 ▲▲▲ -->
-
 
     <script>
-        // MicroCMS設定
         const JSON_PATH = 'information/index.json';
-
         const newsList = document.getElementById('news-list');
         const loadingMessage = document.getElementById('loading-message');
         const pagination = document.getElementById('pagination');
+        const imageModal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+
+        // モーダルを開く関数
+        function openModal(imageUrl, event) {
+            if (event) event.stopPropagation(); // 親要素のaタグのクリックイベントを防止
+            modalImage.src = imageUrl;
+            imageModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // 背景スクロール禁止
+        }
+
+        // モーダルを閉じる関数
+        function closeModal() {
+            imageModal.classList.add('hidden');
+            document.body.style.overflow = ''; // 背景スクロール再開
+            setTimeout(() => { modalImage.src = ''; }, 300);
+        }
 
         const displayNewsItems = (contents) => {
             newsList.innerHTML = contents.map(item => {
@@ -193,63 +203,58 @@
                 
                 const tagHtml = tags.map(tag => {
                     const tagName = typeof tag === 'object' && tag !== null && tag.name ? tag.name : tag;
-                    
-                    // 初期設定（デフォルト）
                     let colorClass = 'bg-gray-500 text-white'; 
-                    
-                    // カテゴリごとの色分け設定（全て白文字にして視認性を向上）
-                    if (tagName === 'NEW') { 
-                        colorClass = 'bg-yellow-500 text-white'; 
-                    } else if (tagName === 'プレスリリース') { 
-                        colorClass = 'bg-indigo-600 text-white'; 
-                    } else if (tagName === 'イベント') { 
-                        colorClass = 'bg-green-600 text-white'; 
-                    } else if (tagName === '対談記事') { 
-                        colorClass = 'bg-[#EC4899] text-white'; // ★ピンク指定
-                    } else if (tagName === 'お知らせ') {
-                        colorClass = 'bg-[#103f99] text-white'; // テーマカラー
-                    }
-                    
-                    // デザイン修正: 文字サイズを少し大きく(text-sm)、太字(font-bold)、パディング増量(px-3 py-1)
-                    return `<span class="px-3 py-1 rounded-md text-xs md:text-sm font-bold shadow-sm ${colorClass} transition duration-150 ease-in-out tracking-wide">${tagName}</span>`;
+                    if (tagName === 'NEW') { colorClass = 'bg-yellow-500 text-white'; }
+                    else if (tagName === 'プレスリリース') { colorClass = 'bg-indigo-600 text-white'; }
+                    else if (tagName === 'イベント') { colorClass = 'bg-green-600 text-white'; }
+                    else if (tagName === '対談記事') { colorClass = 'bg-[#EC4899] text-white'; }
+                    else if (tagName === 'お知らせ') { colorClass = 'bg-[#103f99] text-white'; }
+                    return `<span class="px-3 py-1 rounded-md text-xs md:text-sm font-bold shadow-sm ${colorClass} tracking-wide">${tagName}</span>`;
                 }).join('');
 
                 const dateSource = item.date || item.publishedAt;
                 let displayDate = '日付不明';
                 if (dateSource) {
-                    try {
-                        const dateObj = new Date(dateSource);
-                        if (!isNaN(dateObj)) {
-                            const year = dateObj.getFullYear();
-                            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-                            const day = String(dateObj.getDate()).padStart(2, '0');
-                            displayDate = `${year}/${month}/${day}`;
-                        }
-                    } catch (e) { displayDate = '日付エラー'; }
+                    const dateObj = new Date(dateSource);
+                    if (!isNaN(dateObj)) {
+                        displayDate = `${dateObj.getFullYear()}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${String(dateObj.getDate()).padStart(2, '0')}`;
+                    }
                 }
 
-                const articleLink = item.url && typeof item.url === 'string' ? item.url : '#';
+                const articleLink = item.url || '#';
+                // 画像データのパスを取得（imageプロパティを想定）
+                const thumbnailSrc = item.image || item.thumbnail || 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
 
                 return `
-                    <a href="${articleLink}" target="_blank" rel="noopener noreferrer" class="block bg-white p-5 md:p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-[1.005] group border border-gray-100">
-                        <div class="flex flex-col md:flex-row items-start md:items-center space-y-3 md:space-y-0 md:space-x-6">
-                            <!-- 日付とタグ -->
-                            <div class="flex-shrink-0 w-full md:w-44">
-                                <div class="flex flex-wrap gap-2 mb-2 md:mb-1">${tagHtml}</div>
-                                <p class="text-sm font-semibold text-gray-500">${displayDate}</p>
+                    <div class="relative bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out border border-gray-100 overflow-hidden group">
+                        <div class="flex flex-col md:flex-row items-stretch">
+                            <!-- 画像エリア（クリックで拡大表示） -->
+                            <div class="md:w-48 lg:w-56 flex-shrink-0 relative overflow-hidden bg-gray-200 cursor-zoom-in" onclick="openModal('${thumbnailSrc}', event)">
+                                <img src="${thumbnailSrc}" alt="${item.title}" class="w-full h-48 md:h-full object-cover transition duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <i class="fas fa-search-plus text-white text-2xl"></i>
+                                </div>
                             </div>
 
-                            <!-- タイトルと矢印 -->
-                            <div class="flex-1 min-w-0 flex justify-between items-center w-full">
-                                <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300">
-                                    ${item.title || 'タイトルがありません'}
-                                </h2>
-                                <svg class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-pink-500 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </div>
+                            <!-- 内容エリア -->
+                            <a href="${articleLink}" target="_blank" rel="noopener noreferrer" class="flex-1 p-5 md:p-6 flex flex-col justify-center">
+                                <div class="flex flex-col space-y-3">
+                                    <div class="flex flex-wrap items-center gap-3">
+                                        <div class="flex flex-wrap gap-2">${tagHtml}</div>
+                                        <p class="text-sm font-semibold text-gray-500">${displayDate}</p>
+                                    </div>
+                                    <div class="flex justify-between items-start">
+                                        <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300">
+                                            ${item.title || 'タイトルがありません'}
+                                        </h2>
+                                        <svg class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-pink-500 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    </div>
                 `;
             }).join('');
             pagination.classList.remove('hidden');
@@ -261,11 +266,8 @@
             pagination.classList.add('hidden');
             
             try {
-                // 実際のJSONファイルをフェッチする
                 const response = await fetch(JSON_PATH);
-                if (!response.ok) {
-                    throw new Error(`Failed to load ${JSON_PATH}: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`Failed to load ${JSON_PATH}`);
                 const contents = await response.json();
 
                 if (contents && contents.length > 0) {
@@ -273,20 +275,17 @@
                 } else {
                     newsList.innerHTML = '<p class="text-center text-gray-500 py-12">現在、お知らせはありません。</p>';
                 }
-
             } catch (error) {
                 console.error("Failed to fetch news:", error);
                 loadingMessage.innerHTML = `<div class="text-center py-12 text-red-600">
                     <p class="text-lg font-medium">ニュースの取得に失敗しました。</p>
                     <p class="text-sm text-gray-500 mt-2">（エラー: ${error.message}）</p>
-                    <p class="text-xs text-gray-400 mt-4">※JSONファイルのパスや通信環境をご確認ください。</p>
                 </div>`;
             } finally {
                 loadingMessage.classList.add('hidden');
             }
         };
 
-        // モバイルメニューのトグル処理
         function setupMobileMenu() {
             const button = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -300,8 +299,13 @@
         }
         
         document.addEventListener('DOMContentLoaded', () => {
-            setupMobileMenu(); // モバイルメニュー初期化
-            fetchNews(); // ニュースデータの取得を開始
+            setupMobileMenu();
+            fetchNews();
+        });
+
+        // ESCキーでモーダルを閉じる
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
         });
     </script>
 </body>
