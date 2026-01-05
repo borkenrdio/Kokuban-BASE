@@ -184,16 +184,19 @@
 
         // モーダルを開く関数
         function openModal(imageUrl, event) {
-            if (event) event.stopPropagation(); // 親要素のaタグのクリックイベントを防止
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
             modalImage.src = imageUrl;
             imageModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // 背景スクロール禁止
+            document.body.style.overflow = 'hidden';
         }
 
         // モーダルを閉じる関数
         function closeModal() {
             imageModal.classList.add('hidden');
-            document.body.style.overflow = ''; // 背景スクロール再開
+            document.body.style.overflow = '';
             setTimeout(() => { modalImage.src = ''; }, 300);
         }
 
@@ -221,15 +224,20 @@
                     }
                 }
 
-                const articleLink = item.url || '#';
-                // 画像データのパスを取得（imageプロパティを想定）
+                // 画像パスの設定
                 const thumbnailSrc = item.image || item.thumbnail || 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
+                
+                // リンクが有効（#以外、かつ空でない）か判定
+                const hasValidLink = item.url && item.url !== '#' && item.url !== '';
+                const articleLink = hasValidLink ? item.url : '#';
 
                 return `
-                    <div class="relative bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out border border-gray-100 overflow-hidden group">
+                    <div class="relative bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out border border-gray-100 overflow-hidden group cursor-pointer"
+                         onclick="${!hasValidLink ? `openModal('${thumbnailSrc}', event)` : ''}">
                         <div class="flex flex-col md:flex-row items-stretch">
                             <!-- 画像エリア（クリックで拡大表示） -->
-                            <div class="md:w-48 lg:w-56 flex-shrink-0 relative overflow-hidden bg-gray-200 cursor-zoom-in" onclick="openModal('${thumbnailSrc}', event)">
+                            <div class="md:w-48 lg:w-56 flex-shrink-0 relative overflow-hidden bg-gray-200 cursor-zoom-in" 
+                                 onclick="openModal('${thumbnailSrc}', event)">
                                 <img src="${thumbnailSrc}" alt="${item.title}" class="w-full h-48 md:h-full object-cover transition duration-500 group-hover:scale-110">
                                 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                     <i class="fas fa-search-plus text-white text-2xl"></i>
@@ -237,22 +245,31 @@
                             </div>
 
                             <!-- 内容エリア -->
-                            <a href="${articleLink}" target="_blank" rel="noopener noreferrer" class="flex-1 p-5 md:p-6 flex flex-col justify-center">
+                            <div class="flex-1 p-5 md:p-6 flex flex-col justify-center">
                                 <div class="flex flex-col space-y-3">
                                     <div class="flex flex-wrap items-center gap-3">
                                         <div class="flex flex-wrap gap-2">${tagHtml}</div>
                                         <p class="text-sm font-semibold text-gray-500">${displayDate}</p>
                                     </div>
                                     <div class="flex justify-between items-start">
-                                        <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300">
-                                            ${item.title || 'タイトルがありません'}
-                                        </h2>
-                                        <svg class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-pink-500 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
+                                        ${hasValidLink ? 
+                                            `<a href="${articleLink}" target="_blank" rel="noopener noreferrer" class="block flex-1">
+                                                <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed hover:text-pink-500 transition duration-300">
+                                                    ${item.title || 'タイトルがありません'}
+                                                </h2>
+                                            </a>` : 
+                                            `<h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300 flex-1" onclick="openModal('${thumbnailSrc}', event)">
+                                                ${item.title || 'タイトルがありません'}
+                                            </h2>`
+                                        }
+                                        <div class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-pink-500 transition duration-300">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -303,7 +320,6 @@
             fetchNews();
         });
 
-        // ESCキーでモーダルを閉じる
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
         });
