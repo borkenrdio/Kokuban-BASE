@@ -108,7 +108,7 @@
             </div>
             
             <div id="news-list" class="space-y-4">
-                <!-- ニュース項目がここに挿入されます -->
+                // ニュース項目がここに挿入されます
             </div>
         </main>
 
@@ -184,6 +184,7 @@
                 event.preventDefault();
                 event.stopPropagation();
             }
+            if (!imageUrl || imageUrl.includes('placehold.jp')) return;
             modalImage.src = imageUrl;
             imageModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
@@ -197,9 +198,14 @@
 
         const displayNewsItems = (contents) => {
             newsList.innerHTML = contents.map(item => {
-                const tags = item.tags && Array.isArray(item.tags) ? item.tags : (item.category ? [item.category] : []);
+                let categories = [];
+                if (item.category) {
+                    categories = Array.isArray(item.category) ? item.category : [item.category];
+                } else if (item.tags) {
+                    categories = Array.isArray(item.tags) ? item.tags : [item.tags];
+                }
                 
-                const tagHtml = tags.map(tag => {
+                const tagHtml = categories.map(tag => {
                     const tagName = typeof tag === 'object' && tag !== null && tag.name ? tag.name : tag;
                     let colorClass = 'bg-gray-500 text-white'; 
                     if (tagName === 'NEW') { colorClass = 'bg-yellow-500 text-white'; }
@@ -219,7 +225,15 @@
                     }
                 }
 
-                const thumbnailSrc = (item.image && item.image.url) || item.image || (item.thumbnail && item.thumbnail.url) || item.thumbnail || 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
+                // 画像URL取得のロジック（microCMSのオブジェクト形式に完全対応）
+                let thumbnailSrc = 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
+                if (item.image && typeof item.image === 'object' && item.image.url) {
+                    thumbnailSrc = item.image.url;
+                } else if (item.thumbnail && typeof item.thumbnail === 'object' && item.thumbnail.url) {
+                    thumbnailSrc = item.thumbnail.url;
+                } else if (typeof item.image === 'string' && item.image.startsWith('http')) {
+                    thumbnailSrc = item.image;
+                }
                 
                 const hasValidLink = item.url && item.url !== '#' && item.url !== '';
                 const articleLink = hasValidLink ? item.url : '#';
@@ -230,7 +244,7 @@
                         <div class="flex flex-col md:flex-row items-stretch">
                             <div class="md:w-48 lg:w-56 flex-shrink-0 relative overflow-hidden bg-gray-200 cursor-zoom-in" 
                                  onclick="openModal('${thumbnailSrc}', event)">
-                                <img src="${thumbnailSrc}" alt="${item.title}" class="w-full h-48 md:h-full object-cover transition duration-500 group-hover:scale-110">
+                                <img src="${thumbnailSrc}" alt="${item.title}" class="w-full h-48 md:h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://placehold.jp/24/cccccc/ffffff/400x300.png?text=Image%20Error'">
                                 <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                     <i class="fas fa-search-plus text-white text-2xl"></i>
                                 </div>
@@ -278,10 +292,13 @@
             try {
                 const response = await fetch(JSON_PATH);
                 if (!response.ok) throw new Error(`Failed to load ${JSON_PATH}`);
-                const contents = await response.json();
+                const data = await response.json();
 
-                if (contents && contents.length > 0) {
-                    displayNewsItems(contents);
+                // microCMSの生データ形式（data.contents）と配列形式（data）の両方に対応
+                const items = data.contents ? data.contents : (Array.isArray(data) ? data : []);
+
+                if (items.length > 0) {
+                    displayNewsItems(items);
                 } else {
                     newsList.innerHTML = '<p class="text-center text-gray-500 py-12">現在、お知らせはありません。</p>';
                 }
