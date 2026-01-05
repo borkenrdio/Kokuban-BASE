@@ -23,7 +23,6 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .pagination-active { background-color: #103f99; color: white; }
 
-        /* モーダル用スタイル */
         #image-modal {
             transition: opacity 0.3s ease-in-out;
         }
@@ -39,7 +38,6 @@
 </head>
 <body class="bg-stone-50 min-h-screen">
 
-    <!-- ヘッダー -->
     <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
         <div class="px-6 lg:px-8">
             <div class="flex items-stretch h-[50px] sm:h-20">
@@ -110,7 +108,7 @@
             </div>
             
             <div id="news-list" class="space-y-4">
-                <!-- ニュース項目がここに動的に挿入されます -->
+                <!-- ニュース項目がここに挿入されます -->
             </div>
         </main>
 
@@ -125,7 +123,6 @@
         </div>
     </div>
 
-    <!-- 画像表示用モーダル -->
     <div id="image-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 hidden" onclick="closeModal()">
         <button class="absolute top-6 right-6 text-white text-3xl hover:text-gray-300 focus:outline-none" onclick="closeModal()">
             <i class="fas fa-times"></i>
@@ -182,7 +179,6 @@
         const imageModal = document.getElementById('image-modal');
         const modalImage = document.getElementById('modal-image');
 
-        // モーダルを開く関数
         function openModal(imageUrl, event) {
             if (event) {
                 event.preventDefault();
@@ -193,7 +189,6 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // モーダルを閉じる関数
         function closeModal() {
             imageModal.classList.add('hidden');
             document.body.style.overflow = '';
@@ -224,10 +219,8 @@
                     }
                 }
 
-                // 画像パスの設定
-                const thumbnailSrc = item.image || item.thumbnail || 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
+                const thumbnailSrc = (item.image && item.image.url) || item.image || (item.thumbnail && item.thumbnail.url) || item.thumbnail || 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
                 
-                // リンクが有効（#以外、かつ空でない）か判定
                 const hasValidLink = item.url && item.url !== '#' && item.url !== '';
                 const articleLink = hasValidLink ? item.url : '#';
 
@@ -235,7 +228,6 @@
                     <div class="relative bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out border border-gray-100 overflow-hidden group cursor-pointer"
                          onclick="${!hasValidLink ? `openModal('${thumbnailSrc}', event)` : ''}">
                         <div class="flex flex-col md:flex-row items-stretch">
-                            <!-- 画像エリア（クリックで拡大表示） -->
                             <div class="md:w-48 lg:w-56 flex-shrink-0 relative overflow-hidden bg-gray-200 cursor-zoom-in" 
                                  onclick="openModal('${thumbnailSrc}', event)">
                                 <img src="${thumbnailSrc}" alt="${item.title}" class="w-full h-48 md:h-full object-cover transition duration-500 group-hover:scale-110">
@@ -244,7 +236,6 @@
                                 </div>
                             </div>
 
-                            <!-- 内容エリア -->
                             <div class="flex-1 p-5 md:p-6 flex flex-col justify-center">
                                 <div class="flex flex-col space-y-3">
                                     <div class="flex flex-wrap items-center gap-3">
@@ -258,9 +249,11 @@
                                                     ${item.title || 'タイトルがありません'}
                                                 </h2>
                                             </a>` : 
-                                            `<h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300 flex-1" onclick="openModal('${thumbnailSrc}', event)">
-                                                ${item.title || 'タイトルがありません'}
-                                            </h2>`
+                                            `<div class="flex-1" onclick="openModal('${thumbnailSrc}', event)">
+                                                <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300">
+                                                    ${item.title || 'タイトルがありません'}
+                                                </h2>
+                                            </div>`
                                         }
                                         <div class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-pink-500 transition duration-300">
                                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
