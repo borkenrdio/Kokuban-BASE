@@ -45,6 +45,9 @@
 
         /* テキストシャドウ */
         .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+
+        /* 非表示制御 */
+        .hidden-item { display: none; }
     </style>
 </head>
 <body class="bg-stone-50 flex flex-col min-h-screen">
@@ -134,10 +137,10 @@
                     </div>
                 </div>
                 
-                <div class="mt-12 text-center">
-                    <a href="#" class="inline-block px-8 py-3 bg-pink-500 text-white font-bold rounded-full hover:bg-pink-600 transition shadow-md hover:scale-105 transform">
-                        対談記事をもっと見る <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                <div class="mt-12 text-center" id="interview-more-container">
+                    <button id="btn-load-more-interviews" class="inline-block px-8 py-3 bg-pink-500 text-white font-bold rounded-full hover:bg-pink-600 transition shadow-md hover:scale-105 transform cursor-pointer">
+                        対談記事をもっと見る <i class="fas fa-arrow-down ml-2"></i>
+                    </button>
                 </div>
             </div>
         </section>
@@ -155,8 +158,8 @@
                     <i class="fas fa-spinner fa-spin mr-2"></i>Loading...
                  </div>
             </div>
-             <div class="mt-12 text-center">
-                <button class="bg-white text-custom-blue border-2 border-custom-blue px-8 py-3 rounded-full hover:bg-gray-50 transition shadow-md font-bold hover:scale-105 transform">
+             <div class="mt-12 text-center" id="column-more-container">
+                <button id="btn-load-more-columns" class="bg-white text-custom-blue border-2 border-custom-blue px-8 py-3 rounded-full hover:bg-gray-50 transition shadow-md font-bold hover:scale-105 transform cursor-pointer">
                     もっと読み込む <i class="fas fa-plus ml-2"></i>
                 </button>
             </div>
@@ -216,7 +219,6 @@
         // ---------------------------------------------------------
         // CMS Settings
         // ---------------------------------------------------------
-        
         let rawDomain = '{{MICROCMS_SERVICE_DOMAIN}}';
         if(rawDomain.indexOf('{{') !== -1) rawDomain = '';
         const SERVICE_DOMAIN = rawDomain.replace('.microcms.io', '').replace('https://', '').replace('/', '').trim();
@@ -226,28 +228,27 @@
         
         const USE_MOCK_DATA = !SERVICE_DOMAIN || !API_KEY || API_KEY.indexOf('{{') !== -1;
 
+        // 状態管理
+        let allArticles = [];
+        let interviewArticles = [];
+        let columnArticles = [];
+        let interviewLimit = 4;
+        let columnLimit = 8;
+
         async function fetchArticles(params = {}) {
             if (USE_MOCK_DATA) {
-                console.log('Using Mock Data (Keys not set or placeholders detected)');
+                console.log('Using Mock Data');
                 return getMockData(params);
             }
             
             const url = new URL(`https://${SERVICE_DOMAIN}.microcms.io/api/v1/${ENDPOINT}`);
             Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
             
-            console.log('Fetching from:', url.toString());
-
             try {
                 const response = await fetch(url, {
                     headers: { 'X-MICROCMS-API-KEY': API_KEY }
                 });
-                
-                if (!response.ok) {
-                    console.error('API Error Status:', response.status);
-                    if(response.status === 404) console.error('404 Not Found: ドメインIDかエンドポイント名(news)が間違っています。');
-                    if(response.status === 401) console.error('401 Unauthorized: APIキーが間違っています。');
-                    throw new Error('API Error: ' + response.statusText);
-                }
+                if (!response.ok) throw new Error('API Error');
                 return await response.json();
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -257,137 +258,122 @@
 
         // --- メイン処理 ---
         document.addEventListener('DOMContentLoaded', async () => {
-            // 全記事を一度に取得（最新50件まで）
-            const allData = await fetchArticles({ limit: 50 });
-            const allArticles = allData.contents || [];
+            const data = await fetchArticles({ limit: 100 });
+            allArticles = data.contents || [];
 
-            console.log('取得した全記事:', allArticles);
-            
-            // 記事内のカテゴリIDをリストアップ（デバッグ表示用）
-            const categoryIdsFound = [...new Set(allArticles.map(a => {
-                // 修正ポイント: 配列(チェックボックス)の場合の処理を最初に行う
-                if(Array.isArray(a.category) && a.category.length > 0) return a.category[0];
-                
-                if(typeof a.category === 'string') return a.category;
-                if(typeof a.category === 'object' && a.category && a.category.id) return a.category.id;
-                
-                return '未設定';
-            }))];
-            console.log('記事に含まれるカテゴリID一覧:', categoryIdsFound);
-
-
-            // 1. New Arrivals (最新3件)
-            renderArticles(allArticles.slice(0, 3), 'new-arrivals-list', 'standard');
-
-            // 2. Interview (対談記事)
-            // カテゴリIDが 'interview', 'taidan' 等のものを抽出
-            const interviewArticles = allArticles.filter(article => {
-                // 配列の中身をチェックするように修正
+            // カテゴリ分け
+            interviewArticles = allArticles.filter(article => {
                 const cats = Array.isArray(article.category) ? article.category : [article.category];
-                
-                // cats配列の中に、指定のIDが含まれているかチェック
-                // ★もしデバッグ欄に違うIDが出たら、ここに追加してください
                 return cats.some(c => 
-                    c === 'interview' || c === 'taidan' || c === '対談記事' || 
-                    (typeof c === 'object' && c.id === 'interview') // オブジェクトの場合
+                    c === 'interview' || c === 'taidan' || c === '対談記事' ||
+                    (typeof c === 'object' && c.id === 'interview')
                 );
             });
-            // デバッグ情報を渡すために第4引数を追加
-            renderArticles(interviewArticles.slice(0, 4), 'interview-list', 'interview', categoryIdsFound);
 
-            // 3. Columns (コラム)
-            const columnArticles = allArticles.filter(article => {
+            columnArticles = allArticles.filter(article => {
                 const cats = Array.isArray(article.category) ? article.category : [article.category];
-                
-                // interviewを含まない記事をコラムとする
                 const isInterview = cats.some(c => 
                     c === 'interview' || c === 'taidan' || c === '対談記事' ||
                     (typeof c === 'object' && c.id === 'interview')
                 );
                 return !isInterview;
             });
-            renderArticles(columnArticles.slice(0, 8), 'column-list', 'standard', categoryIdsFound);
+
+            // 初期レンダリング
+            renderAll();
+
+            // イベントリスナー設定
+            document.getElementById('btn-load-more-interviews').addEventListener('click', () => {
+                interviewLimit += 4;
+                renderInterviews();
+            });
+
+            document.getElementById('btn-load-more-columns').addEventListener('click', () => {
+                columnLimit += 8;
+                renderColumns();
+            });
         });
 
-        function renderArticles(articles, containerId, type, debugIds = []) {
+        function renderAll() {
+            // 新着 (全カテゴリから最新3件)
+            renderArticles(allArticles.slice(0, 3), 'new-arrivals-list', 'standard');
+            renderInterviews();
+            renderColumns();
+        }
+
+        function renderInterviews() {
+            const visibleInterviews = interviewArticles.slice(0, interviewLimit);
+            renderArticles(visibleInterviews, 'interview-list', 'interview');
+            
+            // ボタンの表示制御
+            const btnContainer = document.getElementById('interview-more-container');
+            if (interviewArticles.length <= interviewLimit) {
+                btnContainer.classList.add('hidden');
+            } else {
+                btnContainer.classList.remove('hidden');
+            }
+        }
+
+        function renderColumns() {
+            const visibleColumns = columnArticles.slice(0, columnLimit);
+            renderArticles(visibleColumns, 'column-list', 'standard');
+            
+            // ボタンの表示制御
+            const btnContainer = document.getElementById('column-more-container');
+            if (columnArticles.length <= columnLimit) {
+                btnContainer.classList.add('hidden');
+            } else {
+                btnContainer.classList.remove('hidden');
+            }
+        }
+
+        function renderArticles(articles, containerId, type) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
 
             if (!articles || articles.length === 0) {
-                let msg = '記事が見つかりませんでした。';
-                // 画面上に実際に取得できたIDを表示するデバッグ機能を追加
-                if(!USE_MOCK_DATA) {
-                     msg += '<br><br><div class="bg-gray-100 p-4 rounded text-left inline-block max-w-lg">';
-                     msg += '<span class="text-sm font-bold text-red-600 block mb-2">【原因調査用データ】</span>';
-                     msg += '<span class="text-xs text-gray-600">microCMSから届いた記事の「カテゴリID」は以下の通りです。<br>この中のどれかが対談記事のIDです。</span>';
-                     msg += `<div class="mt-2 text-sm font-mono bg-white border border-gray-300 p-2 rounded">${debugIds.join(', ') || 'カテゴリIDが見つかりませんでした'}</div>`;
-                     if (type === 'interview') {
-                         msg += '<span class="text-xs text-blue-600 mt-2 block font-bold">↑ここに表示された英数字を教えてください！</span>';
-                     }
-                     msg += '</div>';
-                }
-                container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-8">${msg}</div>`;
+                container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-8">記事が見つかりませんでした。</div>`;
                 return;
             }
 
-            console.log(`Rendering ${containerId}:`, articles);
-
             articles.forEach(article => {
                 const date = new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
-                
-                // --- カテゴリ情報の取得ロジック ---
                 let categoryId = 'news';
                 let categoryName = 'お知らせ';
-                
-                // 配列対応
                 let rawCat = article.category;
-                if (Array.isArray(rawCat) && rawCat.length > 0) {
-                    rawCat = rawCat[0]; // 先頭のカテゴリを使用
-                }
+                if (Array.isArray(rawCat) && rawCat.length > 0) rawCat = rawCat[0];
 
                 if (rawCat) {
                     if (typeof rawCat === 'string') {
                         categoryId = rawCat;
-                        categoryName = rawCat; // 一旦IDを入れる
-                    } 
-                    else if (typeof rawCat === 'object' && rawCat.id) {
+                        categoryName = rawCat;
+                    } else if (typeof rawCat === 'object' && rawCat.id) {
                         categoryId = rawCat.id;
                         categoryName = rawCat.name || categoryId;
                     } 
                 }
 
-                // 表示名のマッピング
-                // ★デバッグでIDが判明したらここに追加してください
                 if (categoryId === 'interview' || categoryId === '対談記事' || categoryId === 'taidan') {
                     categoryName = '対談記事';
                     categoryId = 'interview'; 
                 } else if (categoryId === 'column' || categoryId === 'コラム') {
                     categoryName = 'コラム';
                     categoryId = 'column'; 
-                } else if (categoryId === 'news') {
-                    categoryName = 'お知らせ';
                 }
 
                 let categoryClass = 'bg-gray-500';
                 if (categoryId === 'interview') categoryClass = 'bg-pink-500';
                 if (categoryId === 'column') categoryClass = 'bg-[#103f99]';
 
-                // 画像フィールドの取得
                 const imgField = article.eyecatch || article.thumbnail || article.main_image || article.image;
                 const thumbnail = imgField ? imgField.url : 'https://placehold.co/600x400?text=No+Image';
                 
-                // リンク先URLの生成ロジック
                 let linkUrl = article.url; 
                 if (!linkUrl) {
-                    if (article.slug) {
-                        linkUrl = `/columns/${article.slug}/`;
-                    } else {
-                        linkUrl = `article.html?id=${article.id}`;
-                    }
+                    linkUrl = article.slug ? `/columns/${article.slug}/` : `article.html?id=${article.id}`;
                 }
 
                 let cardHtml = '';
-
                 if (type === 'interview') {
                     cardHtml = `
                         <article class="article-card bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full border border-gray-100 group">
@@ -441,15 +427,26 @@
         function getMockData(params) {
             return new Promise((resolve) => {
                 setTimeout(() => {
-                    const allArticles = [
-                        // モックデータ: チェックボックス（配列）形式に対応
-                        { id: '1', slug: 'ict-future', title: 'ICT教育の未来', publishedAt: '2024-10-20', category: ['column'], eyecatch: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7' } },
-                        { id: '2', slug: 'teacher-interview', title: '【対談】現役教師が語る', publishedAt: '2024-10-18', category: ['interview'], eyecatch: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032' }, summary: '...' },
-                        { id: '3', slug: 'prog-edu', title: 'プログラミング教育', publishedAt: '2024-10-15', category: ['column'], eyecatch: { url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97' } },
-                    ];
-                    let results = [...allArticles];
-                    resolve({ contents: results });
-                }, 500);
+                    const mock = [];
+                    // 対談を10件作成
+                    for(let i=1; i<=10; i++){
+                        mock.push({ 
+                            id: 'i'+i, slug: 'interview-'+i, title: '対談記事テスト '+i, 
+                            publishedAt: '2024-10-'+(20-i), category: ['interview'], 
+                            eyecatch: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032' },
+                            summary: 'これは対談記事のテストデータです。'
+                        });
+                    }
+                    // コラムを20件作成
+                    for(let i=1; i<=20; i++){
+                        mock.push({ 
+                            id: 'c'+i, slug: 'column-'+i, title: 'コラムテスト '+i, 
+                            publishedAt: '2024-09-'+(20-i), category: ['column'], 
+                            eyecatch: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7' }
+                        });
+                    }
+                    resolve({ contents: mock });
+                }, 300);
             });
         }
     </script>
