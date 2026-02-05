@@ -131,8 +131,8 @@
                     <span class="text-sm text-gray-500 mt-1 ml-2 font-bold tracking-wide">Special Interview</span>
                 </div>
 
-                <div id="interview-list" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="col-span-1 md:col-span-2 text-center py-10 text-gray-400">
+                <div id="interview-list" class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="col-span-full text-center py-10 text-gray-400">
                         <i class="fas fa-spinner fa-spin mr-2"></i>Loading...
                     </div>
                 </div>
@@ -232,7 +232,7 @@
         let allArticles = [];
         let interviewArticles = [];
         let columnArticles = [];
-        let interviewLimit = 4;
+        let interviewLimit = 8; // 初期表示を8枚に変更
         let columnLimit = 8;
 
         async function fetchArticles(params = {}) {
@@ -379,25 +379,22 @@
                         <article class="article-card bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full border border-gray-100 group">
                             <a href="${linkUrl}" class="block img-container relative">
                                 <img src="${thumbnail}" alt="${article.title}" class="w-full h-full object-cover">
-                                <span class="absolute top-4 left-4 ${categoryClass} text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                                <span class="absolute top-3 left-3 ${categoryClass} text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md">
                                     ${categoryName}
                                 </span>
                             </a>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <div class="text-sm text-gray-400 mb-2 flex items-center gap-2 font-bold">
+                            <div class="p-4 flex flex-col flex-grow">
+                                <div class="text-[10px] text-gray-400 mb-1 flex items-center gap-1 font-bold">
                                     <i class="far fa-calendar-alt"></i> ${date}
                                 </div>
-                                <h3 class="text-xl font-bold mb-3 text-gray-800 line-clamp-2 group-hover:text-[#103f99] transition-colors">
+                                <h3 class="text-sm font-bold mb-2 text-gray-800 line-clamp-2 group-hover:text-[#103f99] transition-colors leading-snug">
                                     <a href="${linkUrl}">${article.title}</a>
                                 </h3>
-                                <p class="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow leading-relaxed">
-                                    ${article.summary || ''}
-                                </p>
-                                <div class="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100">
-                                     <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+                                <div class="flex items-center gap-2 mt-auto pt-3 border-t border-gray-100">
+                                     <div class="w-6 h-6 rounded-full bg-gray-200 overflow-hidden">
                                         <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${article.id}" alt="Author" />
                                      </div>
-                                     <span class="text-xs font-bold text-gray-500">Kokuban 編集部</span>
+                                     <span class="text-[10px] font-bold text-gray-500">Kokuban 編集部</span>
                                 </div>
                             </div>
                         </article>
@@ -431,7 +428,7 @@
                     // 対談を10件作成
                     for(let i=1; i<=10; i++){
                         mock.push({ 
-                            id: 'i'+i, slug: 'interview-'+i, title: '対談記事テスト '+i, 
+                            id: 'i'+i, slug: 'interview-'+i, title: '対談記事テストタイトル '+i + ' 教育の未来について語る', 
                             publishedAt: '2024-10-'+(20-i), category: ['interview'], 
                             eyecatch: { url: 'https://images.unsplash.com/photo-1544531320-94a523829032' },
                             summary: 'これは対談記事のテストデータです。'
@@ -440,7 +437,7 @@
                     // コラムを20件作成
                     for(let i=1; i<=20; i++){
                         mock.push({ 
-                            id: 'c'+i, slug: 'column-'+i, title: 'コラムテスト '+i, 
+                            id: 'c'+i, slug: 'column-'+i, title: 'コラムテストタイトル '+i, 
                             publishedAt: '2024-09-'+(20-i), category: ['column'], 
                             eyecatch: { url: 'https://images.unsplash.com/photo-1509062522246-3755977927d7' }
                         });
