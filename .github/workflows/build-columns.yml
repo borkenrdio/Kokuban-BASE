@@ -91,7 +91,6 @@ jobs:
           find . -name "*.html" -type f -not -path '*/node_modules/*' -exec sed -i "s|{{MICROCMS_SERVICE_DOMAIN}}|$CMS_DOMAIN|g" {} +
           find . -name "*.html" -type f -not -path '*/node_modules/*' -exec sed -i "s|{{MICROCMS_API_KEY}}|$CMS_KEY|g" {} +
           echo "Replacement complete."
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
