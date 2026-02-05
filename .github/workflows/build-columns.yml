@@ -1,5 +1,4 @@
 name: Build and Deploy SSG Contents
-
 on:
   repository_dispatch:
     types: [microcms-webhook]
