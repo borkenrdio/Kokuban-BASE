@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お知らせ・ニュース一覧 | Kokuban BASE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <style>
+        html, body { margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+        }
+        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+        .bg-custom-blue { background-color: rgb(16, 63, 153); }
+        .footer-link { color: #e5e7eb; transition: color 0.2s ease-in-out; }
+        .footer-link:hover { color: #ffffff; text-decoration: underline; }
+        .spinner { animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .pagination-active { background-color: #103f99; color: white; }
+
+        #image-modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #image-modal.hidden {
+            display: none;
+            opacity: 0;
+        }
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 min-h-screen">
+
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
+        <div class="px-6 lg:px-8">
+            <div class="flex items-stretch h-[50px] sm:h-20">
+                <div class="flex-1 flex items-center space-x-8">
+                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
+                        <a href="index.html" class="nav-link hover:opacity-80 transition-opacity">Kokuban BASE</a>
+                    </div>
+                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                        <a href="index.html#products" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">ラインナップ</a>
+                        <a href="information.html" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2 font-extrabold border-b-2 border-white">最新情報</a>
+                        <a href="index.html#columns" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <a href="index.html#faq" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
+                        <a href="index.html#access" class="nav-link text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
+                    </nav>
+                </div>
+                <div class="flex-shrink-0 flex justify-end">
+                    <div class="hidden sm:flex">
+                        <a href="contact.html" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
+                            <span>お問い合わせ</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="reservation.html" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
+                            <span>来場予約</span>
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:hidden flex items-center">
+                        <button id="mobile-menu-button" aria-label="メニューを開く" class="text-white hover:opacity-80 focus:outline-none p-2 text-shadow">
+                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html#products" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">ラインナップ</a>
+                <a href="information.html" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base bg-white/20">最新情報</a>
+                <a href="index.html#columns" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
+                <a href="index.html#faq" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
+                <a href="index.html#access" class="nav-link block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
+            </div>
+            <div class="p-4 space-y-3">
+                <a href="contact.html" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
+                <a href="reservation.html" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-12 md:py-20 max-w-4xl">
+        <header class="mb-10 md:mb-12">
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-2">最新情報</h1>
+            <p class="text-xl text-gray-600">お知らせ / ニュースアーカイブ</p>
+            <div class="h-1 bg-[#103f99] w-16 mt-4 rounded-full"></div>
+        </header>
+
+        <main id="news-container" class="space-y-8">
+            <div id="loading-message" class="text-center py-12">
+                <div class="flex items-center justify-center space-x-3 text-indigo-600">
+                    <svg class="spinner w-6 h-6 text-[#103f99]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span class="text-lg font-medium text-[#103f99]">最新情報を取得中...</span>
+                </div>
+            </div>
+            
+            <div id="news-list" class="space-y-4">
+                // ニュース項目がここに挿入されます
+            </div>
+        </main>
+
+        <div id="pagination" class="mt-12 flex justify-center hidden">
+            <nav class="flex items-center space-x-2">
+                <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition"><i class="fas fa-arrow-left"></i></a>
+                <a href="#" class="px-4 py-2 rounded-full font-semibold text-white bg-pink-500 hover:bg-pink-600 transition">1</a>
+                <a href="#" class="px-4 py-2 rounded-full text-gray-700 hover:bg-gray-200 transition">2</a>
+                <a href="#" class="px-4 py-2 rounded-full text-gray-700 hover:bg-gray-200 transition">3</a>
+                <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition"><i class="fas fa-arrow-right"></i></a>
+            </nav>
+        </div>
+    </div>
+
+    <div id="image-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 hidden" onclick="closeModal()">
+        <button class="absolute top-6 right-6 text-white text-3xl hover:text-gray-300 focus:outline-none" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </button>
+        <img id="modal-image" src="" alt="拡大画像" class="modal-content object-contain shadow-2xl">
+    </div>
+
+    <footer class="bg-custom-blue text-gray-200">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                    <h2 class="text-2xl font-bold text-white">Kokuban BASE</h2>
+                    <p class="text-blue-200 mt-2">株式会社idea spot</p>
+                </div>
+                <div class="w-full md:w-3/4">
+                    <div class="flex flex-wrap justify-between">
+                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
+                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
+                            <ul>
+                                <li class="mb-2"><a href="index.html#products" class="nav-link footer-link">ラインナップ</a></li>
+                                <li class="mb-2"><a href="index.html#news" class="nav-link footer-link">コラム</a></li>
+                                <li class="mb-2"><a href="index.html#faq" class="nav-link footer-link">よくある質問</a></li>
+                            </ul>
+                        </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
+                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">サポート</h3>
+                            <ul>
+                                <li class="mb-2"><a href="reservation.html" class="footer-link">来場予約</a></li>
+                                <li class="mb-2"><a href="contact.html" class="footer-link">お問い合わせ</a></li>
+                                <li class="mb-2"><a href="index.html#access" class="nav-link footer-link">アクセス</a></li>
+                            </ul>
+                        </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3">
+                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">会社情報</h3>
+                            <ul>
+                                <li class="mb-2"><a href="https://www.idea-spot.co.jp/" target="_blank" rel="noopener noreferrer" class="footer-link">企業概要</a></li>
+                                <li class="mb-2"><a href="privacy.html" class="footer-link">プライバシーポリシー</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-white/20 text-center text-blue-200">
+                <p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const JSON_PATH = 'information/index.json';
+        const newsList = document.getElementById('news-list');
+        const loadingMessage = document.getElementById('loading-message');
+        const pagination = document.getElementById('pagination');
+        const imageModal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+
+        function openModal(imageUrl, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            if (!imageUrl || imageUrl.includes('placehold.jp')) return;
+            modalImage.src = imageUrl;
+            imageModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            imageModal.classList.add('hidden');
+            document.body.style.overflow = '';
+            setTimeout(() => { modalImage.src = ''; }, 300);
+        }
+
+        const displayNewsItems = (contents) => {
+            newsList.innerHTML = contents.map(item => {
+                let categories = [];
+                if (item.category) {
+                    categories = Array.isArray(item.category) ? item.category : [item.category];
+                } else if (item.tags) {
+                    categories = Array.isArray(item.tags) ? item.tags : [item.tags];
+                }
+                
+                const tagHtml = categories.map(tag => {
+                    const tagName = typeof tag === 'object' && tag !== null && tag.name ? tag.name : tag;
+                    let colorClass = 'bg-gray-500 text-white'; 
+                    if (tagName === 'NEW') { colorClass = 'bg-yellow-500 text-white'; }
+                    else if (tagName === 'プレスリリース') { colorClass = 'bg-indigo-600 text-white'; }
+                    else if (tagName === 'イベント') { colorClass = 'bg-green-600 text-white'; }
+                    else if (tagName === '対談記事') { colorClass = 'bg-[#EC4899] text-white'; }
+                    else if (tagName === 'お知らせ') { colorClass = 'bg-[#103f99] text-white'; }
+                    return `<span class="px-3 py-1 rounded-md text-xs md:text-sm font-bold shadow-sm ${colorClass} tracking-wide">${tagName}</span>`;
+                }).join('');
+
+                const dateSource = item.date || item.publishedAt;
+                let displayDate = '日付不明';
+                if (dateSource) {
+                    const dateObj = new Date(dateSource);
+                    if (!isNaN(dateObj)) {
+                        displayDate = `${dateObj.getFullYear()}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${String(dateObj.getDate()).padStart(2, '0')}`;
+                    }
+                }
+
+                // 画像URL取得のロジック（microCMSのオブジェクト形式に完全対応）
+                let thumbnailSrc = 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
+                if (item.image && typeof item.image === 'object' && item.image.url) {
+                    thumbnailSrc = item.image.url;
+                } else if (item.thumbnail && typeof item.thumbnail === 'object' && item.thumbnail.url) {
+                    thumbnailSrc = item.thumbnail.url;
+                } else if (typeof item.image === 'string' && item.image.startsWith('http')) {
+                    thumbnailSrc = item.image;
+                }
+                
+                const hasValidLink = item.url && item.url !== '#' && item.url !== '';
+                const articleLink = hasValidLink ? item.url : '#';
+
+                return `
+                    <div class="relative bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out border border-gray-100 overflow-hidden group cursor-pointer"
+                         onclick="${!hasValidLink ? `openModal('${thumbnailSrc}', event)` : ''}">
+                        <div class="flex flex-col md:flex-row items-stretch">
+                            <div class="md:w-48 lg:w-56 flex-shrink-0 relative overflow-hidden bg-gray-200 cursor-zoom-in" 
+                                 onclick="openModal('${thumbnailSrc}', event)">
+                                <img src="${thumbnailSrc}" alt="${item.title}" class="w-full h-48 md:h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://placehold.jp/24/cccccc/ffffff/400x300.png?text=Image%20Error'">
+                                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <i class="fas fa-search-plus text-white text-2xl"></i>
+                                </div>
+                            </div>
+
+                            <div class="flex-1 p-5 md:p-6 flex flex-col justify-center">
+                                <div class="flex flex-col space-y-3">
+                                    <div class="flex flex-wrap items-center gap-3">
+                                        <div class="flex flex-wrap gap-2">${tagHtml}</div>
+                                        <p class="text-sm font-semibold text-gray-500">${displayDate}</p>
+                                    </div>
+                                    <div class="flex justify-between items-start">
+                                        ${hasValidLink ? 
+                                            `<a href="${articleLink}" target="_blank" rel="noopener noreferrer" class="block flex-1">
+                                                <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed hover:text-pink-500 transition duration-300">
+                                                    ${item.title || 'タイトルがありません'}
+                                                </h2>
+                                            </a>` : 
+                                            `<div class="flex-1" onclick="openModal('${thumbnailSrc}', event)">
+                                                <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300">
+                                                    ${item.title || 'タイトルがありません'}
+                                                </h2>
+                                            </div>`
+                                        }
+                                        <div class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-pink-500 transition duration-300">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            pagination.classList.remove('hidden');
+        };
+
+        const fetchNews = async () => {
+            loadingMessage.classList.remove('hidden');
+            newsList.innerHTML = '';
+            pagination.classList.add('hidden');
+            
+            try {
+                const response = await fetch(JSON_PATH);
+                if (!response.ok) throw new Error(`Failed to load ${JSON_PATH}`);
+                const data = await response.json();
+
+                // microCMSの生データ形式（data.contents）と配列形式（data）の両方に対応
+                const items = data.contents ? data.contents : (Array.isArray(data) ? data : []);
+
+                if (items.length > 0) {
+                    displayNewsItems(items);
+                } else {
+                    newsList.innerHTML = '<p class="text-center text-gray-500 py-12">現在、お知らせはありません。</p>';
+                }
+            } catch (error) {
+                console.error("Failed to fetch news:", error);
+                loadingMessage.innerHTML = `<div class="text-center py-12 text-red-600">
+                    <p class="text-lg font-medium">ニュースの取得に失敗しました。</p>
+                    <p class="text-sm text-gray-500 mt-2">（エラー: ${error.message}）</p>
+                </div>`;
+            } finally {
+                loadingMessage.classList.add('hidden');
+            }
+        };
+
+        function setupMobileMenu() {
+            const button = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (button && mobileMenu) {
+                button.addEventListener('click', () => {
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true' || false;
+                    button.setAttribute('aria-expanded', !isExpanded);
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMobileMenu();
+            fetchNews();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>
