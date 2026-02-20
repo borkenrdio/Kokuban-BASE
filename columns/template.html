@@ -369,18 +369,20 @@
             const container = document.getElementById('related-posts-container');
             const mainAuthorDisplay = document.getElementById('main-author-display');
             
-            // 現在の記事IDを特定
-            const currentId = location.pathname.split('/').filter(Boolean).pop()?.replace('.html', '');
+            // 現在のスラッグを特定（URLの末尾から取得）
+            const currentSlug = location.pathname.split('/').filter(Boolean).pop()?.replace('.html', '');
 
-            // メイン記事の執筆者が置換されていない（{{...}}のまま）場合のバックアップ処理
-            const fetchMainArticleData = () => {
-                if (mainAuthorDisplay && mainAuthorDisplay.textContent.includes('{{') && currentId && API_KEY && !API_KEY.includes("{{")) {
-                    const apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}/${currentId}`;
+            // メイン記事の執筆者情報をmicroCMSからスラッグ検索で取得する
+            const fetchMainArticleDataBySlug = () => {
+                if (mainAuthorDisplay && currentSlug && API_KEY && !API_KEY.includes("{{")) {
+                    // contentIdではなく、slugフィールドでフィルタリングして取得する
+                    const apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?filters=slug[equals]${currentSlug}`;
                     fetch(apiUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
                         .then(res => res.ok ? res.json() : Promise.reject())
                         .then(data => {
-                            if (data.author) {
-                                mainAuthorDisplay.textContent = data.author;
+                            const article = data.contents?.[0];
+                            if (article && article.author) {
+                                mainAuthorDisplay.textContent = article.author;
                             } else {
                                 mainAuthorDisplay.textContent = 'Kokuban BASE 編集部';
                             }
@@ -429,13 +431,14 @@
             };
 
             if (API_KEY && !API_KEY.includes("{{")) {
-                // メイン記事の執筆者補完
-                fetchMainArticleData();
+                // メイン記事の執筆者情報をスラッグ検索で補完（置換されていない場合の対策）
+                // {{author}}という文字列が含まれているかに関わらず実行し、最新データを反映させます
+                fetchMainArticleDataBySlug();
 
                 // 関連記事の取得
                 if (container) {
                     let apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`;
-                    if (currentId) apiUrl += `&filters=id[not_equals]${currentId}`;
+                    if (currentSlug) apiUrl += `&filters=slug[not_equals]${currentSlug}`;
                     fetch(apiUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
                         .then(res => res.ok ? res.json() : Promise.reject())
                         .then(data => renderArticles(data.contents))
