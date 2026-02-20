@@ -1,0 +1,92 @@
+[
+  {
+    "id": "dld-k--kno",
+    "createdAt": "2026-02-07T07:50:49.869Z",
+    "updatedAt": "2026-02-07T07:50:49.869Z",
+    "publishedAt": "2026-02-07T08:00:00.000Z",
+    "revisedAt": "2026-02-07T07:50:49.869Z",
+    "title": "〈電子黒板の活用〉Googleマップで中学受験対策―知識が「芋づる式」につながる社会科地理の授業アイデア",
+    "category": {
+      "id": "ug70uoyc0",
+      "createdAt": "2026-02-07T07:49:16.384Z",
+      "updatedAt": "2026-02-07T07:49:16.384Z",
+      "publishedAt": "2026-02-07T07:49:16.384Z",
+      "revisedAt": "2026-02-07T07:49:16.384Z",
+      "name": "活用事例"
+    },
+    "url": "https://kokuban-base.com/columns/ifp-lesson-lab-googlemap/",
+    "photo": []
+  },
+  {
+    "id": "54cru2qt_lb5",
+    "createdAt": "2026-02-05T11:12:05.761Z",
+    "updatedAt": "2026-02-05T11:12:05.761Z",
+    "publishedAt": "2026-02-05T11:00:00.000Z",
+    "revisedAt": "2026-02-05T11:12:05.761Z",
+    "title": "【対談の後日談】メーカー開発者との対談で分かった、自塾に合う電子黒板の選び方とは？",
+    "category": {
+      "id": "xxydv9qzz",
+      "createdAt": "2025-12-02T04:19:32.017Z",
+      "updatedAt": "2025-12-02T04:19:32.017Z",
+      "publishedAt": "2025-12-02T04:19:32.017Z",
+      "revisedAt": "2025-12-02T04:19:32.017Z",
+      "name": "対談記事"
+    },
+    "url": "https://kokuban-base.com/columns/denshikokuban-gakushujuku/",
+    "photo": []
+  },
+  {
+    "id": "rtyqnxxs8",
+    "createdAt": "2026-01-11T06:54:48.506Z",
+    "updatedAt": "2026-01-11T06:54:48.506Z",
+    "publishedAt": "2026-01-12T01:00:00.000Z",
+    "revisedAt": "2026-01-11T06:54:48.506Z",
+    "title": "【対談】誕生8年、累計出荷台数70,000台。MIRAI TOUCHが選ばれる理由とは？",
+    "category": {
+      "id": "xxydv9qzz",
+      "createdAt": "2025-12-02T04:19:32.017Z",
+      "updatedAt": "2025-12-02T04:19:32.017Z",
+      "publishedAt": "2025-12-02T04:19:32.017Z",
+      "revisedAt": "2025-12-02T04:19:32.017Z",
+      "name": "対談記事"
+    },
+    "url": "https://kokuban-base.com/columns/miraitouch-ideaspot-education-talk/",
+    "photo": []
+  },
+  {
+    "id": "napw3ursf",
+    "createdAt": "2026-01-05T03:15:17.472Z",
+    "updatedAt": "2026-01-05T05:07:33.784Z",
+    "publishedAt": "2026-01-05T03:30:00.000Z",
+    "revisedAt": "2026-01-05T05:07:33.784Z",
+    "title": "【新プラン】月額12,603円からの衝撃　学習塾専用「Kokuban リース」が2026年1月より開始。初期コストを抑え授業をDX化する。",
+    "category": {
+      "id": "kaca9-eu5",
+      "createdAt": "2025-11-25T12:19:24.704Z",
+      "updatedAt": "2025-11-25T12:19:24.704Z",
+      "publishedAt": "2025-11-25T12:19:24.704Z",
+      "revisedAt": "2025-11-25T12:19:24.704Z",
+      "name": "プレリリース"
+    },
+    "url": "https://kokuban-base.com/columns/pressrelease-lease/",
+    "photo": []
+  },
+  {
+    "id": "ya2y0hqnu140",
+    "createdAt": "2025-12-02T04:04:06.933Z",
+    "updatedAt": "2025-12-17T07:51:04.900Z",
+    "publishedAt": "2025-12-02T03:00:00.000Z",
+    "revisedAt": "2025-12-17T07:51:04.900Z",
+    "title": "【対談】世界50万台の実績　電子黒板「StarBoard」が選ばれる理由とは？電子黒板の営業歴２０年超のStarboard担当者に迫る ",
+    "category": {
+      "id": "xxydv9qzz",
+      "createdAt": "2025-12-02T04:19:32.017Z",
+      "updatedAt": "2025-12-02T04:19:32.017Z",
+      "publishedAt": "2025-12-02T04:19:32.017Z",
+      "revisedAt": "2025-12-02T04:19:32.017Z",
+      "name": "対談記事"
+    },
+    "url": "https://kokuban-base.com/columns/starboard-ideaspot-education-talk/",
+    "photo": []
+  }
+]
