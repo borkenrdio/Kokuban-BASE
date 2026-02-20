@@ -222,7 +222,7 @@
                             <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
                             <p class="author-name font-bold tracking-wider flex items-center">
                                 <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
-                                執筆者: {{author}}
+                                執筆者: <span id="main-author-display">{{author}}</span>
                             </p>
                             <span class="h-px w-4 bg-gray-300"></span>
                         </div>
@@ -367,7 +367,30 @@
             const API_KEY = "{{MICROCMS_API_KEY}}";
             const API_ENDPOINT = "news";
             const container = document.getElementById('related-posts-container');
+            const mainAuthorDisplay = document.getElementById('main-author-display');
             
+            // 現在の記事IDを特定
+            const currentId = location.pathname.split('/').filter(Boolean).pop()?.replace('.html', '');
+
+            // メイン記事の執筆者が置換されていない（{{...}}のまま）場合のバックアップ処理
+            const fetchMainArticleData = () => {
+                if (mainAuthorDisplay && mainAuthorDisplay.textContent.includes('{{') && currentId && API_KEY && !API_KEY.includes("{{")) {
+                    const apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}/${currentId}`;
+                    fetch(apiUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
+                        .then(res => res.ok ? res.json() : Promise.reject())
+                        .then(data => {
+                            if (data.author) {
+                                mainAuthorDisplay.textContent = data.author;
+                            } else {
+                                mainAuthorDisplay.textContent = 'Kokuban BASE 編集部';
+                            }
+                        })
+                        .catch(() => {
+                            mainAuthorDisplay.textContent = 'Kokuban BASE 編集部';
+                        });
+                }
+            };
+
             const renderArticles = (articles) => {
                 if (!container) return;
                 if (!articles || articles.length === 0) {
@@ -379,8 +402,6 @@
                     const date = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.') : '';
                     const imageUrl = article.eyecatch?.url || 'https://placehold.jp/24/cccccc/ffffff/800x450.png?text=No+Image';
                     const linkUrl = `/columns/${article.slug || article.id}/`; 
-                    
-                    // authorがテキストフィールドの場合の値取得。空の場合はデフォルトテキストを表示
                     const authorValue = article.author || 'Kokuban BASE 編集部';
 
                     return `
@@ -407,14 +428,19 @@
                 }).join('');
             };
 
-            if (container && API_KEY && !API_KEY.includes("{{")) {
-                const currentId = location.pathname.split('/').filter(Boolean).pop()?.replace('.html', '');
-                let apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`;
-                if (currentId) apiUrl += `&filters=id[not_equals]${currentId}`;
-                fetch(apiUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
-                    .then(res => res.ok ? res.json() : Promise.reject())
-                    .then(data => renderArticles(data.contents))
-                    .catch(() => renderArticles([]));
+            if (API_KEY && !API_KEY.includes("{{")) {
+                // メイン記事の執筆者補完
+                fetchMainArticleData();
+
+                // 関連記事の取得
+                if (container) {
+                    let apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`;
+                    if (currentId) apiUrl += `&filters=id[not_equals]${currentId}`;
+                    fetch(apiUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
+                        .then(res => res.ok ? res.json() : Promise.reject())
+                        .then(data => renderArticles(data.contents))
+                        .catch(() => renderArticles([]));
+                }
             }
         });
     </script>
