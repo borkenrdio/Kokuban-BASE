@@ -222,7 +222,7 @@
                             <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
                             <p class="author-name font-bold tracking-wider flex items-center">
                                 <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
-                                執筆者: {{AUTHOR}}
+                                執筆者: {{author}}
                             </p>
                             <span class="h-px w-4 bg-gray-300"></span>
                         </div>
@@ -380,8 +380,8 @@
                     const imageUrl = article.eyecatch?.url || 'https://placehold.jp/24/cccccc/ffffff/800x450.png?text=No+Image';
                     const linkUrl = `/columns/${article.slug || article.id}/`; 
                     
-                    // authorがテキストフィールドの場合、直接値を取得（空なら編集部を表示）
-                    const authorName = article.author || 'Kokuban BASE 編集部';
+                    // authorがテキストフィールドの場合の値取得。空の場合はデフォルトテキストを表示
+                    const authorValue = article.author || 'Kokuban BASE 編集部';
 
                     return `
                         <a href="${linkUrl}" class="group flex flex-col h-full bg-white transition-all">
@@ -398,7 +398,7 @@
                                     </time>
                                     <span class="text-gray-500 flex items-center">
                                         <i class="fas fa-user-edit mr-1 text-gray-300"></i>
-                                        ${authorName}
+                                        ${authorValue}
                                     </span>
                                 </div>
                             </div>
