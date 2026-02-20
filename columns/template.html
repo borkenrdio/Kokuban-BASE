@@ -87,7 +87,6 @@
         .title-block { text-align: center; }
         .title-block h1 { line-height: 1.4; }
         
-        /* サブタイトル用のスタイル定義 */
         .subtitle-text {
             display: block;
             font-size: 0.55em;
@@ -98,7 +97,7 @@
             letter-spacing: 0.02em;
         }
 
-        .title-block .publish-date { font-size: 0.875rem; color: #6b7280; }
+        .publish-date, .author-name { font-size: 0.875rem; color: #6b7280; }
 
         .article-body {
             line-height: 1.8;
@@ -212,11 +211,21 @@
                 </div>
                 
                 <div class="title-block mb-12 sm:mb-16">
-                    <h1 id="main-article-title" class="text-2xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-[1.3]">{{TITLE_HTML}}</h1>
-                    <div class="flex items-center justify-center space-x-4">
-                        <span class="h-px w-8 bg-gray-300"></span>
-                        <p class="publish-date font-medium tracking-wider">公開日: {{PUBLISHED_AT_FORMATTED}}</p>
-                        <span class="h-px w-8 bg-gray-300"></span>
+                    <h1 id="main-article-title" class="text-2xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-8 leading-[1.3]">{{TITLE_HTML}}</h1>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                        <div class="flex items-center space-x-2">
+                            <span class="h-px w-4 bg-gray-300"></span>
+                            <p class="publish-date font-bold tracking-wider">公開日: {{PUBLISHED_AT_FORMATTED}}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
+                            <p class="author-name font-bold tracking-wider flex items-center">
+                                <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
+                                執筆者: {{AUTHOR_NAME}}
+                            </p>
+                            <span class="h-px w-4 bg-gray-300"></span>
+                        </div>
                     </div>
                 </div>
                 
@@ -370,6 +379,10 @@
                     const date = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.') : '';
                     const imageUrl = article.eyecatch?.url || 'https://placehold.jp/24/cccccc/ffffff/800x450.png?text=No+Image';
                     const linkUrl = `/columns/${article.slug || article.id}/`; 
+                    
+                    // 関連記事用の執筆者情報取得（microCMSでauthorフィールドが設定されている前提）
+                    const authorName = article.author?.name || 'Kokuban BASE 編集部';
+
                     return `
                         <a href="${linkUrl}" class="group flex flex-col h-full bg-white transition-all">
                             <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
@@ -379,9 +392,15 @@
                                 <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
                                     ${title}
                                 </h4>
-                                <time class="mt-auto text-xs text-gray-400 font-bold tracking-widest uppercase">
-                                    ${date}
-                                </time>
+                                <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                                    <time class="text-gray-400">
+                                        ${date}
+                                    </time>
+                                    <span class="text-gray-500 flex items-center">
+                                        <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                                        ${authorName}
+                                    </span>
+                                </div>
                             </div>
                         </a>
                     `;
