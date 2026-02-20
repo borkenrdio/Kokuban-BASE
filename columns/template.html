@@ -190,7 +190,7 @@
         <div id="mobile-menu" class="hidden lg:hidden bg-[#103f99] border-t border-white/10">
             <div class="px-4 pt-2 pb-6 space-y-1">
                 <a href="/#products" class="block py-3 text-white font-bold border-b border-white/10">ラインナップ</a>
-                <a href="/article.html" class="block py-3 text-white font-bold border-b border-white/10">コラム</a>
+                <a href="/#news" class="block py-3 text-white font-bold border-b border-white/10">コラム</a>
                 <a href="/#faq" class="block py-3 text-white font-bold border-b border-white/10">よくある質問</a>
                 <a href="/#access" class="block py-3 text-white font-bold">アクセス</a>
                 <div class="grid grid-cols-2 gap-3 mt-6">
@@ -222,7 +222,7 @@
                             <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
                             <p class="author-name font-bold tracking-wider flex items-center">
                                 <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
-                                執筆者: {{AUTHOR_NAME}}
+                                執筆者: {{AUTHOR}}
                             </p>
                             <span class="h-px w-4 bg-gray-300"></span>
                         </div>
@@ -380,8 +380,8 @@
                     const imageUrl = article.eyecatch?.url || 'https://placehold.jp/24/cccccc/ffffff/800x450.png?text=No+Image';
                     const linkUrl = `/columns/${article.slug || article.id}/`; 
                     
-                    // 関連記事用の執筆者情報取得（microCMSでauthorフィールドが設定されている前提）
-                    const authorName = article.author?.name || 'Kokuban BASE 編集部';
+                    // authorがテキストフィールドの場合、直接値を取得（空なら編集部を表示）
+                    const authorName = article.author || 'Kokuban BASE 編集部';
 
                     return `
                         <a href="${linkUrl}" class="group flex flex-col h-full bg-white transition-all">
