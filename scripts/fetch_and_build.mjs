@@ -357,3 +357,4 @@ buildStaticPages().catch(err => {
     console.error('ビルドプロセス全体でエラーが発生しました:', err);
     process.exit(1);
 });
+
