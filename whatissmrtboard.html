@@ -130,6 +130,7 @@
         </div>
     </section>
 
+    <!-- 授業アイデアセクション -->
     <section id="columns" class="py-16 sm:py-24 px-6 bg-white border-t border-gray-50">
         <div class="max-w-7xl mx-auto">
             <div class="flex items-center gap-3 mb-10 border-b border-gray-100 pb-8">
@@ -137,6 +138,8 @@
                 <h2 class="text-2xl sm:text-3xl font-black text-[#103f99] tracking-tight">授業アイデア</h2>
             </div>
             <p class="mb-12 text-base sm:text-lg text-slate-800 font-bold">研究の結果生まれた、具体的な活用法をご紹介します。</p>
+
+            <div id="column-error-container" class="hidden mb-8 p-4 bg-red-50 text-red-700 rounded-lg text-center"></div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
                 <div id="main-columns-container" class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -154,6 +157,7 @@
         </div>
     </section>
 
+    <!-- 標準搭載機能 -->
     <section id="products" class="py-16 sm:py-24 px-6 bg-[#103f99]">
         <div class="max-w-6xl mx-auto text-center text-white">
             <h2 class="text-3xl sm:text-4xl font-black mb-6">標準搭載機能</h2>
@@ -273,6 +277,7 @@
         </div>
     </section>
 
+    <!-- 授業の変化セクション -->
     <section class="py-16 sm:py-24 px-6 bg-white overflow-hidden">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-16">
@@ -361,6 +366,7 @@
         </div>
     </section>
 
+    <!-- よくある質問セクション -->
     <section id="faq" class="py-16 sm:py-24 px-6 bg-stone-50">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-16">
@@ -377,7 +383,7 @@
                         <i class="fa-solid fa-plus text-[#103f99] transition-transform duration-300"></i>
                     </button>
                     <div class="answer overflow-hidden">
-                        <div class="pt-8 border-t border-gray-200 mt-8 space-y-6 text-slate-600 leading-relaxed font-medium text-base sm:text-lg">
+                        <div class="pt-8 border-t border-gray-100 mt-8 space-y-6 text-slate-600 leading-relaxed font-medium text-base sm:text-lg">
                             <p>はい、Kokuban BASEで取り扱う製品はプロ講師による審査をクリアしています。紙や黒板と同じ感覚でスムーズに執筆可能です。</p>
                             <p>StarBoardはなめらかさ、SHARPはしっかり止まる感触が特徴です。ショールームで実際に書き比べてみてください。</p>
                         </div>
@@ -420,7 +426,7 @@
                         <i class="fa-solid fa-plus text-[#103f99] transition-transform duration-300"></i>
                     </button>
                     <div class="answer overflow-hidden">
-                        <div class="pt-8 border-t border-gray-200 mt-8 space-y-6 text-slate-600 leading-relaxed font-medium text-base sm:text-lg">
+                        <div class="pt-8 border-t border-gray-100 mt-8 space-y-6 text-slate-600 leading-relaxed font-medium text-base sm:text-lg">
                             <p>はい、特別なスキルは必要ありません。教育現場で磨かれたUIを持つモデルを厳選しているため、スマホを触るような感覚で使い始められます。</p>
                         </div>
                     </div>
@@ -482,19 +488,19 @@
     </footer>
 
     <script>
-        // 設定 (画像 ff7b09.png に基づく)
+        // 設定
         const MICROCMS_SERVICE_DOMAIN = "microcms-service-domain"; 
         const MICROCMS_API_KEY = "microcms-api-key";
         const API_ENDPOINT = "news"; 
 
         document.addEventListener('DOMContentLoaded', () => {
-            const btn = document.getElementById('mobile-menu-button');
-            const menu = document.getElementById('mobile-menu');
-            if (btn && menu) {
-                btn.addEventListener('click', () => {
-                    const isHidden = menu.classList.contains('hidden');
-                    menu.classList.toggle('hidden');
-                    btn.innerHTML = isHidden 
+            const mmBtn = document.getElementById('mobile-menu-button');
+            const mm = document.getElementById('mobile-menu');
+            if (mmBtn && mm) {
+                mmBtn.addEventListener('click', () => {
+                    const isHidden = mm.classList.contains('hidden');
+                    mm.classList.toggle('hidden');
+                    mmBtn.innerHTML = isHidden 
                         ? '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>'
                         : '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>';
                 });
@@ -505,21 +511,30 @@
         async function fetchColumns() {
             const mainContainer = document.getElementById('main-columns-container');
             const sideContainer = document.getElementById('side-columns-container');
+            const errorContainer = document.getElementById('column-error-container');
             
             try {
-                // microCMS API 呼び出し
-                const response = await fetch(`https://${MICROCMS_SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}`, {
+                // キャッシュ回避用のタイムスタンプ付与
+                const url = `https://${MICROCMS_SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?t=${new Date().getTime()}`;
+                
+                const response = await fetch(url, {
                     headers: { "X-MICROCMS-API-KEY": MICROCMS_API_KEY }
                 });
                 
-                if (!response.ok) throw new Error("API取得失敗");
+                if (!response.ok) throw new Error("API取得に失敗しました。キーやドメインを確認してください。");
+                
                 const data = await response.json();
                 renderColumns(data.contents);
             } catch (error) {
                 console.error(error);
-                // 失敗時のフォールバック (モック表示)
+                if (errorContainer) {
+                    errorContainer.textContent = error.message;
+                    errorContainer.classList.remove('hidden');
+                }
+                // プレビュー用にフォールバックデータを表示
                 const mockFallback = [
-                    { id: '1', title: '理科の授業を変える。3Dモデルを使った視覚的アプローチの有効性について', category: '実践レポート', publishedAt: '2024.11.20', time: '15:00-16:30', excerpt: '教科書平面だけでは伝わりにくい宇宙のスケール感を解決。', tagTitle: 'AR×理科', tagSub: '宇宙を教室に呼び出す', bgColor: 'bg-[#eef2ff]', tagColor: 'text-[#3730a3]', badgeColor: 'bg-[#3b82f6]', isMain: true }
+                    { id: '1', title: '理科の授業を変える。3Dモデルを使った視覚的アプローチの有効性について', category: '実践レポート', publishedAt: '2024.11.20', excerpt: '教科書平面だけでは伝わりにくい宇宙のスケール感を解決。', tagTitle: 'AR×理科', tagSub: '宇宙を教室に呼び出す', bgColor: 'bg-[#eef2ff]', tagColor: 'text-[#3730a3]', badgeColor: 'bg-[#3b82f6]', isMain: true },
+                    { id: '2', title: '「世界とつながる教室」を実現する、電子黒板を活用したオンライン海外研修の実踐', category: 'イベント録', publishedAt: '2024.10.15', excerpt: '姉妹校との合同発表会を電子黒板一台で実現。', tagTitle: '英語×オンライン', tagSub: '世界とつながる瞬間', bgColor: 'bg-[#fff1f2]', tagColor: 'text-[#9f1239]', badgeColor: 'bg-[#ef4444]', isMain: true }
                 ];
                 renderColumns(mockFallback);
             }
@@ -534,7 +549,13 @@
             sideContainer.innerHTML = '';
 
             items.forEach((item, index) => {
-                if (index < 2) { // 最初の2つをメインカードに
+                // 画像URLの取得を柔軟に（eyecatch.url または eyecatchUrl）
+                const rawImg = item.eyecatchUrl || (item.eyecatch && item.eyecatch.url);
+                const img = rawImg ? `${rawImg}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
+                const date = new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
+                const linkUrl = `/columns/${item.slug || item.id}/`;
+
+                if (index < 2) { 
                     const card = document.createElement('div');
                     card.className = 'flex flex-col group cursor-pointer fade-in';
                     const bgColor = index === 0 ? 'bg-[#eef2ff]' : 'bg-[#fff1f2]';
@@ -542,30 +563,33 @@
                     const badgeColor = index === 0 ? 'bg-[#3b82f6]' : 'bg-[#ef4444]';
 
                     card.innerHTML = `
-                        <div class="aspect-[1.5/1] ${bgColor} rounded-xl mb-6 overflow-hidden relative shadow-sm border border-gray-50">
-                            <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                                <span class="text-xs sm:text-sm font-black ${tagColor} mb-1 opacity-80 tracking-widest">${item.tagTitle || 'RESEARCH'}</span>
-                                <span class="text-base sm:text-lg font-black ${tagColor}">${item.tagSub || '研究レポート'}</span>
+                        <a href="${linkUrl}" class="block">
+                            <div class="aspect-[1.5/1] ${bgColor} rounded-xl mb-6 overflow-hidden relative shadow-sm border border-gray-50">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                                    <span class="text-xs sm:text-sm font-black ${tagColor} mb-1 opacity-80 tracking-widest">${item.tagTitle || 'RESEARCH'}</span>
+                                    <span class="text-base sm:text-xl font-black ${tagColor}">${item.tagSub || '研究レポート'}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="${badgeColor} text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">${item.category || 'コラム'}</span>
-                        </div>
-                        <div class="flex items-center gap-4 text-xs font-bold text-gray-400 mb-4">
-                            <span>${new Date(item.publishedAt).toLocaleDateString()}</span>
-                        </div>
-                        <h3 class="text-lg font-black mb-4 group-hover:text-[#ed5b8c] transition-colors leading-relaxed">${item.title}</h3>
-                        <p class="text-xs text-slate-500 leading-loose font-medium text-justify">${item.excerpt || ''}</p>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="${badgeColor} text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">${item.category || 'コラム'}</span>
+                            </div>
+                            <div class="flex items-center gap-4 text-xs font-bold text-gray-400 mb-4">
+                                <span>${date}</span>
+                            </div>
+                            <h3 class="text-lg font-black mb-4 group-hover:text-[#ed5b8c] transition-colors leading-relaxed">${item.title}</h3>
+                            <p class="text-xs text-slate-500 leading-loose font-medium text-justify">${item.excerpt || ''}</p>
+                        </a>
                     `;
                     mainContainer.appendChild(card);
-                } else { // それ以外をサイドリストに
+                } else if (index < 5) { 
                     const row = document.createElement('a');
-                    row.href = `/columns/${item.id}`;
+                    row.href = linkUrl;
                     row.className = 'flex gap-5 items-start group fade-in';
+                    const type = item.type || 'IDEA';
                     row.innerHTML = `
-                        <div class="w-16 h-12 shrink-0 bg-[#f1f5f9] rounded flex items-center justify-center text-[11px] font-black text-slate-500 group-hover:bg-[#e2e8f0] transition-colors">IDEA</div>
+                        <div class="w-16 h-12 shrink-0 bg-[#f1f5f9] rounded flex items-center justify-center text-[11px] font-black text-slate-500 group-hover:bg-[#e2e8f0] transition-colors">${type}</div>
                         <div>
-                            <div class="text-[10px] font-bold text-gray-300 mb-1 tracking-wider">${new Date(item.publishedAt).toLocaleDateString()}</div>
+                            <div class="text-[10px] font-bold text-gray-300 mb-1 tracking-wider">${date}</div>
                             <h4 class="text-[13px] font-black text-gray-800 group-hover:text-[#ed5b8c] transition-colors line-clamp-2 leading-snug">${item.title}</h4>
                         </div>
                     `;
@@ -574,6 +598,7 @@
             });
         }
 
+        // FAQ アコーディオン
         document.querySelectorAll('.faq-item .question').forEach(btn => {
             btn.addEventListener('click', () => {
                 const item = btn.closest('.faq-item');
