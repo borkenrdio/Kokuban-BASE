@@ -36,6 +36,7 @@
             font-family: 'Inter', 'Noto Sans JP', sans-serif; 
             background-color: #ffffff; 
             color: #333; 
+            line-height: 1.6;
         }
         .bg-custom-blue { background-color: #103f99; }
         .text-custom-blue { color: #103f99; }
@@ -60,10 +61,9 @@
 <body class="bg-stone-50">
 
     <!-- ヘッダー -->
-        <!-- Header -->
-    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-50 transition-colors duration-300 shadow-md">
         <div class="px-6 lg:px-8">
-            <div class="flex items-stretch h-[50px] sm:h-20">
+            <div class="flex items-stretch h-[60px] sm:h-20">
                 <div class="flex-1 flex items-center space-x-8">
                     <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
                         <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
@@ -75,36 +75,37 @@
                         <a href="#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
                     </nav>
                 </div>
-                <div class="flex-shrink-0 flex justify-end">
+                <div class="flex-shrink-0 flex justify-end items-center">
                     <div class="hidden sm:flex h-full">
-                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
+                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
                             <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
                         </a>
-                      <a href="/on-line-reservation" class="bg-green-500 text-white font-bold text-base lg:text-xl flex items-center justify-center whitespace-nowrap px-6 lg:px-10 hover:bg-green-600 transition-colors">
-                        <span>オンラインデモ予約</span><i class="fa-solid fa-arrow-right ml-2"></i>
-                      </a>
-                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
+                        <a href="/on-line-reservation" class="bg-green-500 text-white font-bold text-base lg:text-lg flex items-center justify-center whitespace-nowrap px-6 lg:px-10 hover:bg-green-600 transition-colors">
+                            <span>オンラインデモ</span><i class="fa-solid fa-desktop ml-2"></i>
+                        </a>
+                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
                             <span>体験予約</span><i class="fa-solid fa-calendar-check ml-2"></i>
                         </a>
                     </div>
                     <div class="lg:hidden flex items-center">
-                        <button id="mobile-menu-button" class="text-white p-2">
+                        <button id="mobile-menu-button" class="text-white p-2" aria-label="メニューを開く">
                             <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                         </button>
                     </div>
                 </div>
             </div>
-            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
-                <div class="px-2 pt-2 pb-3 space-y-1">
-                    <a href="/Kokubanlease" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">Kokuban リース</a>
-                    <a href="/article" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
-                    <a href="#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
-                    <a href="#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
-                </div>
-                <div class="p-4 space-y-3">
-                    <a href="/contact" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
-                  <a href="/on-line-reservation" class="block text-center bg-green text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">オンラインデモ予約</a>
-                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
+            <!-- モバイルメニュー -->
+            <div id="mobile-menu" class="hidden lg:hidden bg-[#103f99] border-t border-white/10 pb-6">
+                <nav class="px-4 py-4 space-y-1">
+                    <a href="/Kokubanlease" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">Kokuban リース</a>
+                    <a href="/article" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">コラム</a>
+                    <a href="#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">よくある質問</a>
+                    <a href="#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">アクセス</a>
+                </nav>
+                <div class="px-4 space-y-3 pt-4">
+                    <a href="/contact" class="block text-center bg-white text-[#103f99] font-bold py-4 rounded-xl shadow-md">お問い合わせ</a>
+                    <a href="/on-line-reservation" class="block text-center bg-green-500 text-white font-bold py-4 rounded-xl shadow-md">オンラインデモ予約</a>
+                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold py-4 rounded-xl shadow-md">体験予約</a>
                 </div>
             </div>
         </div>
@@ -112,47 +113,50 @@
 
     <main>
         <!-- セクション 1: ヒーロー -->
-        <section class="relative bg-[#103f99] py-16 md:py-28 overflow-hidden text-white">
+        <section class="relative bg-[#103f99] py-12 md:py-28 overflow-hidden text-white">
             <div class="container mx-auto px-6 relative z-10">
-                <div class="flex flex-col md:flex-row items-center gap-12">
-                    <div class="md:w-1/2">
-                        <div class="mb-6 space-y-3">
-                            <div class="skew-badge bg-pink-500 inline-block px-4 py-1 font-black text-lg shadow-lg">
+                <div class="flex flex-col md:flex-row items-center gap-10 md:gap-12 text-center md:text-left">
+                    <div class="md:w-1/2 w-full">
+                        <div class="mb-6 space-y-2 md:space-y-3">
+                            <div class="skew-badge bg-pink-500 inline-block px-3 py-1 font-black text-sm sm:text-lg shadow-lg">
                                 <span class="skew-content">47都道府県 全国対応</span>
                             </div>
-                            <br>
-                            <div class="skew-badge bg-pink-500 inline-block px-4 py-1 font-black text-lg shadow-lg">
+                            <br class="md:hidden">
+                            <div class="skew-badge bg-pink-500 inline-block px-3 py-1 font-black text-sm sm:text-lg shadow-lg">
                                 <span class="skew-content">オンライン相談受付中</span>
                             </div>
                         </div>
 
-                        <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tighter">
+                        <h1 class="text-3xl sm:text-4xl md:text-6xl font-black mb-4 md:mb-6 leading-tight tracking-tighter">
                             Kokuban リース
                         </h1>
-                        <p class="text-2xl md:text-3xl font-bold mb-4 text-pink-300">
-                            月々13,863円(税込)〜 
+                        <p class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 text-pink-300">
+                            月々13,863円<span class="text-sm md:text-lg">(税込)</span>〜 
                         </p>
-                        <p class="text-xl mb-2 font-medium">安心の5年保証込み</p>
-                        <p class="text-sm mb-8 text-blue-200">※リース適用には審査があります</p>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-1 mb-8">
+                            <p class="text-lg md:text-xl font-medium">安心の5年保証込み</p>
+                            <p class="text-xs md:text-sm text-blue-200 self-center">※リース適用には審査があります</p>
+                        </div>
                         
-                        <p class="mb-10 text-blue-100 leading-relaxed text-lg font-medium">
-                            最新の教育向け電子黒板が<br class="hidden sm:block">
-                            月々定額で購入できる！
+                        <p class="mb-10 text-blue-100 leading-relaxed text-base md:text-lg font-medium">
+                            <span class="inline-block">最新の教育向け電子黒板が</span>
+                            <br>
+                            <span class="inline-block text-white font-bold text-xl md:text-2xl mt-1">月々定額で購入できる！</span>
                         </p>
-                        <div class="flex flex-wrap gap-4">
-                            <a href="/reservation" class="px-8 py-4 bg-pink-500 text-white rounded-full font-bold text-lg shadow-xl hover:bg-pink-600 transition-all transform hover:scale-105">
+                        <div class="flex justify-center md:justify-start">
+                            <a href="/reservation" class="w-full sm:w-auto px-10 py-4 bg-pink-500 text-white rounded-full font-bold text-lg shadow-xl hover:bg-pink-600 transition-all transform hover:scale-105">
                                 実機を体験してみる
                             </a>
                         </div>
                     </div>
-                    <div class="md:w-1/2 relative">
-                        <div class="bg-white p-3 rounded-2xl shadow-2xl rotate-2">
+                    <div class="md:w-1/2 w-full relative">
+                        <div class="bg-white p-2 md:p-3 rounded-2xl shadow-2xl rotate-2">
                             <div class="aspect-video bg-gray-200 rounded-xl flex items-center justify-center overflow-hidden">
                                 <img src="og-image.jpg" alt="電子黒板の利用シーン" class="w-full h-full object-cover">
                             </div>
                         </div>
-                        <div class="absolute -bottom-6 -left-6 bg-yellow-400 text-gray-900 p-6 rounded-2xl shadow-xl -rotate-6 hidden md:block">
-                            <p class="font-black text-xl">初期費用 0円</p>
+                        <div class="absolute -bottom-4 -left-2 md:-bottom-6 md:-left-6 bg-yellow-400 text-gray-900 px-4 py-2 md:p-6 rounded-xl md:rounded-2xl shadow-xl -rotate-6">
+                            <p class="font-black text-base md:text-xl">初期費用 0円</p>
                         </div>
                     </div>
                 </div>
@@ -161,134 +165,132 @@
         </section>
 
         <!-- セクション 2: プラン概要 -->
-        <section id="about" class="py-20 bg-white text-center">
+        <section id="about" class="py-16 md:py-24 bg-white text-center">
             <div class="container mx-auto px-6">
-                <div class="max-w-5xl mx-auto mb-16">
-                    <h2 class="text-3xl md:text-5xl font-black text-[#103f99] mb-10 leading-tight">
-                        <span class="inline-block">月々定額のスマートなプランで、</span>
+                <div class="max-w-4xl mx-auto mb-16">
+                    <h2 class="text-2xl sm:text-3xl md:text-5xl font-black text-[#103f99] mb-8 md:mb-10 leading-snug">
+                        <span class="inline-block">月々定額のスマートなプランで、</span><br class="sm:hidden">
                         <span class="inline-block">最新の電子黒板を導入！</span>
                     </h2>
-                    <div class="text-gray-600 text-base md:text-lg leading-relaxed font-medium">
+                    <div class="text-gray-600 text-sm md:text-lg leading-relaxed font-medium space-y-1">
                         <p class="md:inline-block">フルサービスリースプランなので、</p>
-                        <p class="md:inline-block">大きな初期費用の負担を抑えつつ、</p>
+                        <p class="md:inline-block">大きな初期費用の負担を抑えつつ、</p><br class="hidden md:block">
                         <p class="md:inline-block">手軽に最新の電子黒板を教室へ導入いただけます。</p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-stone-50 p-8 rounded-3xl border border-gray-100 transition-shadow">
-                        <div class="w-14 h-14 bg-[#103f99] rounded-xl flex items-center justify-center text-white mb-6 shadow-md mx-auto">
-                            <i class="fa-solid fa-display text-2xl"></i>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    <div class="bg-stone-50 p-6 md:p-8 rounded-3xl border border-gray-100 transition-shadow">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-[#103f99] rounded-xl flex items-center justify-center text-white mb-4 md:mb-6 shadow-md mx-auto">
+                            <i class="fa-solid fa-display text-xl md:text-2xl"></i>
                         </div>
-                        <h3 class="font-bold text-xl mb-3 text-gray-800">電子黒板本体代金</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed font-medium">ご希望の最新機種の本体代金が含まれます。</p>
+                        <h3 class="font-bold text-lg md:text-xl mb-2 text-gray-800">電子黒板本体代金</h3>
+                        <p class="text-xs md:text-sm text-gray-500 leading-relaxed font-medium">ご希望の最新機種の本体代金が含まれます。</p>
                     </div>
-                    <div class="bg-stone-50 p-8 rounded-3xl border border-gray-100 transition-shadow">
-                        <div class="w-14 h-14 bg-[#103f99] rounded-xl flex items-center justify-center text-white mb-6 shadow-md mx-auto">
-                            <i class="fa-solid fa-toolbox text-2xl"></i>
+                    <div class="bg-stone-50 p-6 md:p-8 rounded-3xl border border-gray-100 transition-shadow">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-[#103f99] rounded-xl flex items-center justify-center text-white mb-4 md:mb-6 shadow-md mx-auto">
+                            <i class="fa-solid fa-toolbox text-xl md:text-2xl"></i>
                         </div>
-                        <h3 class="font-bold text-xl mb-3 text-gray-800">専用スタンド</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed font-medium">各メーカー純正または推奨スタンドが標準付属。</p>
+                        <h3 class="font-bold text-lg md:text-xl mb-2 text-gray-800">専用スタンド</h3>
+                        <p class="text-xs md:text-sm text-gray-500 leading-relaxed font-medium">各メーカー純正または推奨スタンドが標準付属。</p>
                     </div>
-                    <div class="bg-stone-50 p-8 rounded-3xl border border-gray-100 transition-shadow">
-                        <div class="w-14 h-14 bg-[#103f99] rounded-xl flex items-center justify-center text-white mb-6 shadow-md mx-auto">
-                            <i class="fa-solid fa-shield-halved text-2xl"></i>
+                    <div class="bg-stone-50 p-6 md:p-8 rounded-3xl border border-gray-100 transition-shadow">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-[#103f99] rounded-xl flex items-center justify-center text-white mb-4 md:mb-6 shadow-md mx-auto">
+                            <i class="fa-solid fa-shield-halved text-xl md:text-2xl"></i>
                         </div>
-                        <h3 class="font-bold text-xl mb-3 text-gray-800">手厚い5年保証</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed font-medium">万が一の故障時も安心。長期間の無償保証付き。</p>
+                        <h3 class="font-bold text-lg md:text-xl mb-2 text-gray-800">手厚い5年保証</h3>
+                        <p class="text-xs md:text-sm text-gray-500 leading-relaxed font-medium">万が一の故障時も安心。長期間の無償保証付き。</p>
                     </div>
-                    <div class="bg-stone-50 p-8 rounded-3xl border border-gray-100 transition-shadow">
-                        <div class="w-14 h-14 bg-[#103f99] rounded-xl flex items-center justify-center text-white mb-6 shadow-md mx-auto">
-                            <i class="fa-solid fa-file-invoice-dollar text-2xl"></i>
+                    <div class="bg-stone-50 p-6 md:p-8 rounded-3xl border border-gray-100 transition-shadow">
+                        <div class="w-12 h-12 md:w-14 md:h-14 bg-[#103f99] rounded-xl flex items-center justify-center text-white mb-4 md:mb-6 shadow-md mx-auto">
+                            <i class="fa-solid fa-file-invoice-dollar text-xl md:text-2xl"></i>
                         </div>
-                        <h3 class="font-bold text-xl mb-3 text-gray-800">初期費用は0円</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed font-medium">固定資産税や契約事務手数料などは弊社負担。</p>
+                        <h3 class="font-bold text-lg md:text-xl mb-2 text-gray-800">初期費用は0円</h3>
+                        <p class="text-xs md:text-sm text-gray-500 leading-relaxed font-medium">固定資産税や契約事務手数料などは弊社負担。</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- セクション 3: 実機体験 -->
-        <section id="experience" class="py-24 bg-white overflow-hidden text-center">
+        <section id="experience" class="py-16 md:py-24 bg-white overflow-hidden text-center">
             <div class="container mx-auto px-6">
-                <div class="max-w-5xl mx-auto mb-16">
-                    <div class="inline-block px-4 py-1 rounded-full bg-blue-50 text-[#103f99] font-bold text-xs mb-6 uppercase tracking-widest">EXPERIENCE</div>
-                    <h2 class="text-3xl md:text-5xl font-black text-[#103f99] mb-12 leading-tight">
-                        <span class="highlight-line">Kokuban BASEで「実機」の体験を。</span>
+                <div class="max-w-4xl mx-auto mb-12 md:mb-16">
+                    <div class="inline-block px-4 py-1 rounded-full bg-blue-50 text-[#103f99] font-bold text-[10px] md:text-xs mb-4 md:mb-6 uppercase tracking-widest">EXPERIENCE</div>
+                    <h2 class="text-2xl sm:text-3xl md:text-5xl font-black text-[#103f99] mb-8 md:mb-12 leading-tight">
+                        <span class="highlight-line inline-block px-1">Kokuban BASEで「実機」の体験を。</span>
                     </h2>
                     
-                    <div class="text-gray-900 text-lg md:text-2xl font-bold leading-relaxed md:leading-extra-loose">
-                        <p class="md:inline-block">電子黒板の専門家であり、日々教壇に立つ現役講師が、</p>
-                        <p class="md:inline-block">メリットもデメリットも現場視点で詳しく解説。</p>
-                        <p class="block mt-4 md:mt-2 text-[#103f99] text-xl md:text-3xl font-black">
+                    <div class="text-gray-900 text-base md:text-2xl font-bold leading-relaxed space-y-2">
+                        <p class="inline-block">電子黒板の専門家であり、</p>
+                        <p class="inline-block">日々教壇に立つ現役講師が、</p><br class="hidden md:block">
+                        <p class="inline-block">メリットもデメリットも現場視点で詳しく解説。</p>
+                        <p class="block mt-4 text-[#103f99] text-lg md:text-3xl font-black">
                             確かな納得感を持って、安心・安全な導入をサポートします。
                         </p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-                    <div class="bg-white rounded-[3rem] p-10 md:p-14 card-shadow border border-gray-50 relative overflow-hidden flex flex-col items-center text-center">
-                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-pink-50 rounded-full opacity-60"></div>
-                        <div class="w-20 h-20 bg-[#e63080] rounded-2xl flex items-center justify-center text-white text-3xl mb-10 shadow-lg transform -rotate-6 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 max-w-5xl mx-auto">
+                    <!-- 来場予約カード -->
+                    <div class="bg-white rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-14 card-shadow border border-gray-50 relative overflow-hidden flex flex-col items-center text-center">
+                        <div class="absolute -top-10 -right-10 w-32 h-32 md:w-40 md:h-40 bg-pink-50 rounded-full opacity-60"></div>
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-[#e63080] rounded-2xl flex items-center justify-center text-white text-2xl md:text-3xl mb-8 md:mb-10 shadow-lg transform -rotate-6 relative z-10">
                             <i class="fa-solid fa-building-user"></i>
                         </div>
                         <div class="relative z-10 flex-grow w-full">
-                            <h3 class="text-2xl font-black text-gray-900 mb-6 tracking-tight">来場予約</h3>
-                            <div class="text-gray-500 text-sm leading-relaxed mb-10">
-                                <p class="mb-4">
-                                    <span class="inline-block">Kokuban BASE（ショールーム）へ</span>
+                            <h3 class="text-xl md:text-2xl font-black text-gray-900 mb-4 md:mb-6 tracking-tight">来場予約</h3>
+                            <div class="text-gray-500 text-sm leading-relaxed mb-8 md:mb-10 space-y-3">
+                                <p>
+                                    <span class="inline-block text-gray-800 font-bold">Kokuban BASE ショールーム</span><br>
                                     <span class="inline-block">直接お越しいただけます。</span>
                                 </p>
                                 <p>
-                                    <span class="inline-block"><strong class="text-gray-900">最大6ブランドの最新実機</strong>が展示されており、</span>
-                                    <span class="inline-block">その場で書き味や画面の鮮明さを徹底比較。</span>
-                                    <span class="inline-block">専門スタッフがその場で疑問にお答えします。</span>
+                                    <span class="inline-block"><strong class="text-gray-900">最大6ブランドの最新実機</strong>が展示中。</span><br>
+                                    <span class="inline-block">その場で書き味や画面を徹底比較。</span>
                                 </p>
                             </div>
-                            <div class="w-full flex justify-center mb-12">
-                                <ul class="text-left space-y-4 w-[240px] md:w-[260px]">
-                                    <li class="flex items-center text-gray-700 text-sm font-bold whitespace-nowrap"><i class="fa-solid fa-circle-check text-[#e63080] mr-3 flex-shrink-0"></i>複数ブランドを同時に比較</li>
-                                    <li class="flex items-center text-gray-700 text-sm font-bold whitespace-nowrap"><i class="fa-solid fa-circle-check text-[#e63080] mr-3 flex-shrink-0"></i>実際のサイズ感を体感</li>
-                                    <li class="flex items-center text-gray-700 text-sm font-bold whitespace-nowrap"><i class="fa-solid fa-circle-check text-[#e63080] mr-3 flex-shrink-0"></i>専門講師によるデモ授業</li>
+                            <div class="w-full flex justify-center mb-10">
+                                <ul class="text-left space-y-3 w-full max-w-[240px]">
+                                    <li class="flex items-center text-gray-700 text-xs md:text-sm font-bold"><i class="fa-solid fa-circle-check text-[#e63080] mr-3"></i>複数ブランドを同時に比較</li>
+                                    <li class="flex items-center text-gray-700 text-xs md:text-sm font-bold"><i class="fa-solid fa-circle-check text-[#e63080] mr-3"></i>実際のサイズ感を体感</li>
+                                    <li class="flex items-center text-gray-700 text-xs md:text-sm font-bold"><i class="fa-solid fa-circle-check text-[#e63080] mr-3"></i>専門講師によるデモ授業</li>
                                 </ul>
                             </div>
                         </div>
-                        <a href="/reservation" class="w-full py-5 bg-[#e63080] text-white rounded-2xl font-black text-lg shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 relative z-10">
+                        <a href="/reservation" class="w-full py-4 md:py-5 bg-[#e63080] text-white rounded-2xl font-black text-base md:text-lg shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 relative z-10">
                             <span>ショールーム来場予約</span><i class="fa-solid fa-arrow-right"></i>
                         </a>
                         <p class="mt-4 text-[10px] text-gray-400 relative z-10">※完全予約制となっております</p>
                     </div>
 
-                    <div class="bg-white rounded-[3rem] p-10 md:p-14 card-shadow border border-gray-50 relative overflow-hidden flex flex-col items-center text-center">
-                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-50 rounded-full opacity-60"></div>
-                        <div class="w-20 h-20 bg-[#103f99] rounded-2xl flex items-center justify-center text-white text-3xl mb-10 shadow-lg transform rotate-6 relative z-10">
+                    <!-- オンラインデモカード -->
+                    <div class="bg-white rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-14 card-shadow border border-gray-50 relative overflow-hidden flex flex-col items-center text-center">
+                        <div class="absolute -top-10 -right-10 w-32 h-32 md:w-40 md:h-40 bg-blue-50 rounded-full opacity-60"></div>
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-[#103f99] rounded-2xl flex items-center justify-center text-white text-2xl md:text-3xl mb-8 md:mb-10 shadow-lg transform rotate-6 relative z-10">
                             <i class="fa-solid fa-video"></i>
                         </div>
                         <div class="relative z-10 flex-grow w-full">
-                            <h3 class="text-2xl font-black text-gray-900 mb-6 tracking-tight">オンラインデモ</h3>
-                            <div class="text-gray-500 text-sm leading-relaxed mb-10">
-                                <p class="mb-4">
-                                    <span class="inline-block">遠方で来場が難しいお客様も</span>
-                                    <span class="inline-block">ご安心ください。</span><br>
-                                    <span class="inline-block">Kokuban BASEよりオンラインで</span>
-                                    <span class="inline-block">お繋ぎいたします。</span>
+                            <h3 class="text-xl md:text-2xl font-black text-gray-900 mb-4 md:mb-6 tracking-tight">オンラインデモ</h3>
+                            <div class="text-gray-500 text-sm leading-relaxed mb-8 md:mb-10 space-y-3">
+                                <p>
+                                    <span class="inline-block text-gray-800 font-bold">遠方・お急ぎの方へ</span><br>
+                                    <span class="inline-block">PCやタブレットでお繋ぎします。</span>
                                 </p>
                                 <p>
-                                    <span class="inline-block">ZoomやGoogle Meetを繋ぎ、</span>
-                                    <span class="inline-block">カメラを通して実機の操作風景を</span>
-                                    <span class="inline-block">リアルタイムにお見せします。</span>
-                                    <span class="inline-block">機能詳細も詳しく解説。</span>
+                                    <span class="inline-block">Zoom等を通じ、カメラで実機の</span><br>
+                                    <span class="inline-block">操作風景をリアルタイムにお見せします。</span>
                                 </p>
                             </div>
-                            <div class="w-full flex justify-center mb-12">
-                                <ul class="text-left space-y-4 w-[240px] md:w-[260px]">
-                                    <li class="flex items-center text-gray-700 text-sm font-bold whitespace-nowrap"><i class="fa-solid fa-circle-check text-[#103f99] mr-3 flex-shrink-0"></i>全国どこからでも参加可能</li>
-                                    <li class="flex items-center text-gray-700 text-sm font-bold whitespace-nowrap"><i class="fa-solid fa-circle-check text-[#103f99] mr-3 flex-shrink-0"></i>複数拠点からの同時接続OK</li>
-                                    <li class="flex items-center text-gray-700 text-sm font-bold whitespace-nowrap"><i class="fa-solid fa-circle-check text-[#103f99] mr-3 flex-shrink-0"></i>貴校の環境に合わせた個別相談</li>
+                            <div class="w-full flex justify-center mb-10">
+                                <ul class="text-left space-y-3 w-full max-w-[240px]">
+                                    <li class="flex items-center text-gray-700 text-xs md:text-sm font-bold"><i class="fa-solid fa-circle-check text-[#103f99] mr-3"></i>全国どこからでも参加可能</li>
+                                    <li class="flex items-center text-gray-700 text-xs md:text-sm font-bold"><i class="fa-solid fa-circle-check text-[#103f99] mr-3"></i>複数拠点からの同時接続OK</li>
+                                    <li class="flex items-center text-gray-700 text-xs md:text-sm font-bold"><i class="fa-solid fa-circle-check text-[#103f99] mr-3"></i>貴校の環境に合わせた個別相談</li>
                                 </ul>
                             </div>
                         </div>
-                        <a href="/on-line-reservation" class="w-full py-5 border-2 border-[#103f99] text-[#103f99] rounded-2xl font-black text-lg hover:bg-blue-50 transition-all flex items-center justify-center gap-2 relative z-10">
+                        <a href="/on-line-reservation" class="w-full py-4 md:py-5 border-2 border-[#103f99] text-[#103f99] rounded-2xl font-black text-base md:text-lg hover:bg-blue-50 transition-all flex items-center justify-center gap-2 relative z-10">
                             <span>オンラインデモ予約</span><i class="fa-solid fa-desktop"></i>
                         </a>
                         <p class="mt-4 text-[10px] text-gray-400 relative z-10">※所要時間は30分〜60分程度です</p>
@@ -298,188 +300,187 @@
         </section>
 
         <!-- セクション 4: ラインナップ -->
-        <section id="lineup" class="py-20 bg-stone-50">
+        <section id="lineup" class="py-16 md:py-20 bg-stone-50">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-black text-[#103f99] mb-4">ラインナップ</h2>
-                    <p class="text-gray-500 font-bold mb-2">用途や教室の規模にぴったりの一台をご提案します</p>
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-2xl md:text-4xl font-black text-[#103f99] mb-4">ラインナップ</h2>
+                    <p class="text-gray-500 font-bold mb-2 text-sm md:text-base">用途や教室の規模にぴったりの一台をご提案します</p>
                     <p class="text-[10px] text-gray-400">※各機種の最新の月額料金についてはお問い合わせください（審査あり）</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
                     <!-- Starboard -->
-                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col group hover:-translate-y-1 transition-all">
-                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 flex items-center justify-center overflow-hidden">
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col hover:-translate-y-1 transition-all">
+                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 overflow-hidden">
                             <img src="product-e.jpg" alt="Starboard本体" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-2xl font-black mb-4 text-gray-900">Starboard</h3>
+                        <h3 class="text-xl md:text-2xl font-black mb-4 text-gray-900">Starboard</h3>
                         <div class="bg-gray-100/60 p-4 rounded-xl mb-6 text-center">
-                            <p class="text-[10px] text-gray-400 font-bold mb-1 tracking-widest uppercase">納品目途</p>
+                            <p class="text-[10px] text-gray-400 font-bold mb-1 uppercase tracking-widest">納品目途</p>
                             <p class="text-sm font-bold text-gray-700">翌月〜2か月程度</p>
                         </div>
-                        <div class="w-full py-4 bg-gray-200 text-gray-500 rounded-xl font-bold text-center cursor-not-allowed">製品紹介ページ：Coming Soon</div>
+                        <div class="w-full py-3 bg-gray-200 text-gray-500 rounded-xl font-bold text-center text-xs md:text-sm">製品紹介ページ：準備中</div>
                     </div>
                     <!-- MIRAI TOUCH -->
-                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col group hover:-translate-y-1 transition-all">
-                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 flex items-center justify-center overflow-hidden">
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col hover:-translate-y-1 transition-all">
+                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 overflow-hidden">
                             <img src="product-h.jpg" alt="MIRAI TOUCH本体" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-2xl font-black mb-4 text-gray-900">MIRAI TOUCH</h3>
+                        <h3 class="text-xl md:text-2xl font-black mb-4 text-gray-900">MIRAI TOUCH</h3>
                         <div class="bg-gray-100/60 p-4 rounded-xl mb-6 text-center">
-                            <p class="text-[10px] text-gray-400 font-bold mb-1 tracking-widest uppercase">納品目途</p>
+                            <p class="text-[10px] text-gray-400 font-bold mb-1 uppercase tracking-widest">納品目途</p>
                             <p class="text-sm font-bold text-gray-700">翌月〜2か月程度</p>
                         </div>
-                        <div class="w-full py-4 bg-gray-200 text-gray-500 rounded-xl font-bold text-center cursor-not-allowed">製品紹介ページ：Coming Soon</div>
+                        <div class="w-full py-3 bg-gray-200 text-gray-500 rounded-xl font-bold text-center text-xs md:text-sm">製品紹介ページ：準備中</div>
                     </div>
                     <!-- BenQ Board -->
-                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col group hover:-translate-y-1 transition-all">
-                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 flex items-center justify-center overflow-hidden">
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col hover:-translate-y-1 transition-all">
+                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 overflow-hidden">
                             <img src="product-f.jpg" alt="BenQ Board本体" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-2xl font-black mb-4 text-gray-900">BenQ Board</h3>
+                        <h3 class="text-xl md:text-2xl font-black mb-4 text-gray-900">BenQ Board</h3>
                         <div class="bg-gray-100/60 p-4 rounded-xl mb-6 text-center">
-                            <p class="text-[10px] text-gray-400 font-bold mb-1 tracking-widest uppercase">納品目途</p>
+                            <p class="text-[10px] text-gray-400 font-bold mb-1 uppercase tracking-widest">納品目途</p>
                             <p class="text-sm font-bold text-gray-700">翌月〜2か月程度</p>
                         </div>
-                        <div class="w-full py-4 bg-gray-200 text-gray-500 rounded-xl font-bold text-center cursor-not-allowed">製品紹介ページ：Coming Soon</div>
+                        <div class="w-full py-3 bg-gray-200 text-gray-500 rounded-xl font-bold text-center text-xs md:text-sm">製品紹介ページ：準備中</div>
                     </div>
                     <!-- SHARP BIG PAD -->
-                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col group hover:-translate-y-1 transition-all">
-                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 flex items-center justify-center overflow-hidden">
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col hover:-translate-y-1 transition-all">
+                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 overflow-hidden">
                             <img src="product-d.jpg" alt="SHARP BIG PAD本体" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-2xl font-black mb-4 text-gray-900">SHARP BIG PAD</h3>
+                        <h3 class="text-xl md:text-2xl font-black mb-4 text-gray-900">SHARP BIG PAD</h3>
                         <div class="bg-gray-100/60 p-4 rounded-xl mb-6 text-center">
-                            <p class="text-[10px] text-gray-400 font-bold mb-1 tracking-widest uppercase">納品目途</p>
+                            <p class="text-[10px] text-gray-400 font-bold mb-1 uppercase tracking-widest">納品目途</p>
                             <p class="text-sm font-bold text-gray-700">翌月〜2か月程度</p>
                         </div>
-                        <div class="w-full py-4 bg-gray-200 text-gray-500 rounded-xl font-bold text-center cursor-not-allowed">製品紹介ページ：Coming Soon</div>
+                        <div class="w-full py-3 bg-gray-200 text-gray-500 rounded-xl font-bold text-center text-xs md:text-sm">製品紹介ページ：準備中</div>
                     </div>
                     <!-- MAXHUB -->
-                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col group hover:-translate-y-1 transition-all">
-                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 flex items-center justify-center overflow-hidden">
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col hover:-translate-y-1 transition-all">
+                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 overflow-hidden">
                             <img src="product-c.jpg" alt="MAX HUB本体" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-2xl font-black mb-4 text-gray-900">MAX HUB</h3>
+                        <h3 class="text-xl md:text-2xl font-black mb-4 text-gray-900">MAX HUB</h3>
                         <div class="bg-gray-100/60 p-4 rounded-xl mb-6 text-center">
-                            <p class="text-[10px] text-gray-400 font-bold mb-1 tracking-widest uppercase">納品目途</p>
-                            <p class="text-sm font-bold text-gray-700">製品紹介ページ：翌月〜2か月程度</p>
+                            <p class="text-[10px] text-gray-400 font-bold mb-1 uppercase tracking-widest">納品目途</p>
+                            <p class="text-sm font-bold text-gray-700">翌月〜2か月程度</p>
                         </div>
-                        <div class="w-full py-4 bg-gray-200 text-gray-500 rounded-xl font-bold text-center cursor-not-allowed">製品紹介ページ：Coming Soon</div>
+                        <div class="w-full py-3 bg-gray-200 text-gray-500 rounded-xl font-bold text-center text-xs md:text-sm">製品紹介ページ：準備中</div>
                     </div>
                     <!-- Promethean -->
-                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col group hover:-translate-y-1 transition-all">
-                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 flex items-center justify-center overflow-hidden">
+                    <div class="bg-white rounded-[2rem] p-6 card-shadow border border-gray-50 flex flex-col hover:-translate-y-1 transition-all">
+                        <div class="aspect-[4/3] bg-stone-100 rounded-2xl mb-6 overflow-hidden">
                             <img src="product-b.jpg" alt="Promethean本体" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-2xl font-black mb-4 text-gray-900">Promethean</h3>
+                        <h3 class="text-xl md:text-2xl font-black mb-4 text-gray-900">Promethean</h3>
                         <div class="bg-gray-100/60 p-4 rounded-xl mb-6 text-center">
-                            <p class="text-[10px] text-gray-400 font-bold mb-1 tracking-widest uppercase">納品目途</p>
+                            <p class="text-[10px] text-gray-400 font-bold mb-1 uppercase tracking-widest">納品目途</p>
                             <p class="text-sm font-bold text-gray-700">要お問い合わせ</p>
                         </div>
-                        <div class="w-full py-4 bg-gray-200 text-gray-500 rounded-xl font-bold text-center cursor-not-allowed">製品紹介ページ：Coming Soon</div>
+                        <div class="w-full py-3 bg-gray-200 text-gray-500 rounded-xl font-bold text-center text-xs md:text-sm">製品紹介ページ：準備中</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- セクション 5: お客様の声 -->
-        <section id="voice" class="py-20 bg-stone-50">
+        <section id="voice" class="py-16 md:py-20 bg-stone-50">
             <div class="container mx-auto px-6">
-                <div class="bg-[#103f99] rounded-[3rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl">
-                    <div class="relative z-10 max-w-4xl">
-                        <h2 class="text-3xl md:text-4xl font-black mb-12">導入校様の声</h2>
-                        <div class="mb-10">
-                            <span class="inline-block px-4 py-2 rounded-lg bg-pink-500 text-sm font-bold mb-6 shadow-md">東京都 進学塾 様</span>
-                            <blockquote class="text-xl md:text-2xl leading-relaxed font-bold italic">
-                                「開校直後の塾では設備投資に制限がありますが、Kokuban リースなら生徒一人分の授業料程度で最新環境が整います。ショールームで実際に触って、複数の機種を比較できたのが決め手でした。経理面でもキャッシュフローが安定し、非常に助かっています。」
+                <div class="bg-[#103f99] rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-20 text-white relative overflow-hidden shadow-2xl">
+                    <div class="relative z-10 max-w-4xl text-center md:text-left">
+                        <h2 class="text-2xl md:text-4xl font-black mb-8 md:mb-12">導入校様の声</h2>
+                        <div class="mb-6">
+                            <span class="inline-block px-4 py-2 rounded-lg bg-pink-500 text-xs md:text-sm font-bold mb-6 shadow-md">東京都 進学塾 様</span>
+                            <blockquote class="text-lg md:text-2xl leading-relaxed font-bold italic">
+                                「開校直後の塾では設備投資に制限がありますが、Kokuban リースなら生徒一人分の授業料程度で最新環境が整います。経理面でもキャッシュフローが安定し、非常に助かっています。」
                             </blockquote>
                         </div>
                     </div>
-                    <div class="absolute -right-20 -bottom-20 opacity-10">
-                        <i class="fa-solid fa-quote-right text-[300px]"></i>
+                    <div class="absolute -right-16 -bottom-16 opacity-10 pointer-events-none">
+                        <i class="fa-solid fa-quote-right text-[200px] md:text-[300px]"></i>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- セクション 6: 導入後支援 -->
-        <section id="support" class="py-20 bg-white">
+        <section id="support" class="py-16 md:py-20 bg-white">
             <div class="container mx-auto px-6">
-                <div class="max-w-4xl mx-auto text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-black text-[#103f99] mb-8">導入後のさらなる活用支援</h2>
-                    <p class="text-gray-600 text-lg mb-2 font-medium">
-                        電子黒板の使用歴5年を超えるプロ講師が、貴校の現場への定着を丁寧にサポート。
+                <div class="max-w-4xl mx-auto text-center mb-12 md:mb-16">
+                    <h2 class="text-2xl md:text-4xl font-black text-[#103f99] mb-6 md:mb-8">導入後のさらなる活用支援</h2>
+                    <p class="text-gray-600 text-base md:text-lg mb-4 font-medium leading-relaxed">
+                        <span class="inline-block">電子黒板の使用歴5年を超えるプロ講師が、</span><br class="sm:hidden">
+                        <span class="inline-block">貴校の現場への定着を丁寧にサポート。</span>
                     </p>
-                    <p class="text-pink-600 text-xl font-black">
-                        「宝の持ち腐れ」にならないよう、教育効果を最大化するノウハウをご提供します。
+                    <p class="text-pink-600 text-lg md:text-xl font-black leading-snug">
+                        「宝の持ち腐れ」にならないよう、<br class="sm:hidden">教育効果を最大化するノウハウをご提供します。
                     </p>
                 </div>
 
                 <div class="max-w-6xl mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                        <div class="bg-[#f8f9fa] p-8 rounded-2xl border border-gray-50">
-                            <h4 class="font-bold text-xl mb-4 text-[#103f99]">講師向け導入研修</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed font-medium">基本操作から、授業ですぐに使える応用テクニックまで現場目線でレクチャーします。</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6">
+                        <div class="bg-[#f8f9fa] p-6 md:p-8 rounded-2xl border border-gray-50">
+                            <h4 class="font-bold text-lg md:text-xl mb-4 text-[#103f99]">講師向け導入研修</h4>
+                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed font-medium">基本操作から、授業ですぐに使える応用テクニックまで現場目線でレクチャーします。</p>
                         </div>
-                        <div class="bg-[#f8f9fa] p-8 rounded-2xl border border-gray-50">
-                            <h4 class="font-bold text-xl mb-4 text-[#103f99]">デジタル環境構築支援</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed font-medium">効率的なデータ管理や校内共有など、教育現場のデジタル化を専門講師が支援します。</p>
+                        <div class="bg-[#f8f9fa] p-6 md:p-8 rounded-2xl border border-gray-50">
+                            <h4 class="font-bold text-lg md:text-xl mb-4 text-[#103f99]">デジタル環境構築支援</h4>
+                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed font-medium">効率的なデータ管理や校内共有など、教育現場のデジタル化を専門講師が支援します。</p>
                         </div>
-                        <div class="bg-[#f8f9fa] p-8 rounded-2xl border border-gray-50">
-                            <h4 class="font-bold text-xl mb-4 text-[#103f99]">板書データの資産化活用</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed font-medium">過去の板書をデータとして蓄積。教室全体の教育の質を底上げする仕組みを作ります。</p>
+                        <div class="bg-[#f8f9fa] p-6 md:p-8 rounded-2xl border border-gray-50">
+                            <h4 class="font-bold text-lg md:text-xl mb-4 text-[#103f99]">板書データの資産化活用</h4>
+                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed font-medium">過去の板書をデータとして蓄積。教室全体の教育の質を底上げする仕組みを作ります。</p>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:w-2/3 mx-auto">
-                        <div class="bg-[#f8f9fa] p-8 rounded-2xl border border-gray-50">
-                            <h4 class="font-bold text-xl mb-4 text-[#103f99]">外部アプリ連携の提案</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed font-medium">ロイロノートやGoogle Workspace等、既存ツールとの最適な連携プランをご提案します。</p>
+                        <div class="bg-[#f8f9fa] p-6 md:p-8 rounded-2xl border border-gray-50">
+                            <h4 class="font-bold text-lg md:text-xl mb-4 text-[#103f99]">外部アプリ連携の提案</h4>
+                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed font-medium">既存ツール（ロイロノート等）との最適な連携プランをご提案します。</p>
                         </div>
-                        <div class="bg-[#f8f9fa] p-8 rounded-2xl border border-gray-50">
-                            <h4 class="font-bold text-xl mb-4 text-[#103f99]">最新AI活用のノウハウ</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed font-medium">教育現場におけるAIツールの導入方法や、最新の具体的な活用事例を共有します。</p>
+                        <div class="bg-[#f8f9fa] p-6 md:p-8 rounded-2xl border border-gray-50">
+                            <h4 class="font-bold text-lg md:text-xl mb-4 text-[#103f99]">最新AI活用のノウハウ</h4>
+                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed font-medium">教育現場におけるAIツールの導入方法や、具体的な活用事例を共有します。</p>
                         </div>
                     </div>
-                    <div class="text-center mt-12">
-                        <p class="text-[10px] text-gray-400">※上記各サポートは、ご要望に合わせて別途お見積もりにて承ります</p>
+                    <div class="text-center mt-8">
+                        <p class="text-[10px] text-gray-400">※各サポートは、ご要望に合わせて別途お見積もりにて承ります</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- セクション 7: コンタクト -->
-        <section id="contact" class="py-20 bg-stone-50">
+        <section id="contact" class="py-16 md:py-20 bg-stone-50">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-2xl sm:text-4xl font-black text-[#103f99] mb-4">まずはお気軽にご相談ください</h2>
-                    <p class="text-gray-500 font-bold">専門スタッフが貴校に最適なプランをご提案いたします</p>
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-2xl md:text-4xl font-black text-[#103f99] mb-4">まずはお気軽にご相談ください</h2>
+                    <p class="text-gray-500 font-bold text-sm md:text-base">専門スタッフが貴校に最適なプランをご提案いたします</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div class="bg-white p-10 rounded-[2rem] shadow-lg text-center flex flex-col border-2 border-transparent hover:border-pink-500 transition-all">
-                        <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 mx-auto mb-6 shadow-sm">
-                            <i class="fa-solid fa-calendar-check text-3xl"></i>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+                    <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-lg text-center flex flex-col border-2 border-transparent hover:border-pink-500 transition-all">
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 mx-auto mb-6 shadow-sm">
+                            <i class="fa-solid fa-calendar-check text-2xl md:text-3xl"></i>
                         </div>
-                        <h3 class="font-black text-2xl mb-3 text-gray-800">来場予約</h3>
-                        <p class="text-gray-500 mb-8 font-medium">実機をじっくり比較したい方へ<br>横浜・青葉台のBASEにて受付中</p>
+                        <h3 class="font-black text-xl md:text-2xl mb-3 text-gray-800">来場予約</h3>
+                        <p class="text-gray-500 mb-8 font-medium text-sm">実機をじっくり比較したい方へ<br>横浜・青葉台のBASEにて受付中</p>
                         <a href="/reservation" class="mt-auto py-4 bg-pink-500 text-white rounded-full font-bold shadow-md hover:bg-pink-600 transition-colors">来場を予約する</a>
                     </div>
-                    <div class="bg-white p-10 rounded-[2rem] shadow-lg text-center flex flex-col border-2 border-transparent hover:border-[#103f99] transition-all">
-                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center text-[#103f99] mx-auto mb-6 shadow-sm">
-                            <i class="fa-solid fa-video text-3xl"></i>
+                    <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-lg text-center flex flex-col border-2 border-transparent hover:border-[#103f99] transition-all">
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-blue-100 rounded-full flex items-center justify-center text-[#103f99] mx-auto mb-6 shadow-sm">
+                            <i class="fa-solid fa-video text-2xl md:text-3xl"></i>
                         </div>
-                        <h3 class="font-black text-2xl mb-3 text-gray-800">オンラインデモ</h3>
-                        <p class="text-gray-500 mb-8 font-medium">遠方や多忙な方へ<br>Zoom等でクイックに体験</p>
-                        <a href="#" class="mt-auto py-4 border-2 border-[#103f99] text-[#103f99] rounded-full font-bold hover:bg-blue-50 transition-colors">予約・相談する</a>
+                        <h3 class="font-black text-xl md:text-2xl mb-3 text-gray-800">オンラインデモ</h3>
+                        <p class="text-gray-500 mb-8 font-medium text-sm">遠方や多忙な方へ<br>Zoom等でクイックに体験</p>
+                        <a href="/on-line-reservation" class="mt-auto py-4 border-2 border-[#103f99] text-[#103f99] rounded-full font-bold hover:bg-blue-50 transition-colors">予約・相談する</a>
                     </div>
-                    <div class="bg-white p-10 rounded-[2rem] shadow-lg text-center flex flex-col border-2 border-transparent hover:border-gray-800 transition-all">
-                        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center text-gray-800 mx-auto mb-6 shadow-sm">
-                            <i class="fa-solid fa-envelope text-3xl"></i>
+                    <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-lg text-center flex flex-col border-2 border-transparent hover:border-gray-800 transition-all">
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-gray-100 rounded-full flex items-center justify-center text-gray-800 mx-auto mb-6 shadow-sm">
+                            <i class="fa-solid fa-envelope text-2xl md:text-3xl"></i>
                         </div>
-                        <h3 class="font-black text-2xl mb-3 text-gray-800">お問い合わせ</h3>
-                        <p class="text-gray-500 mb-8 font-medium">Kokuban リースのご相談や<br>メディアの取材はこちら</p>
-                        <a href="/contact" class="mt-auto py-4 bg-gray-800 text-white rounded-full font-bold hover:bg-black transition-colors shadow-md">お問い合わせ</a>
+                        <h3 class="font-black text-xl md:text-2xl mb-3 text-gray-800">お問い合わせ</h3>
+                        <p class="text-gray-500 mb-8 font-medium text-sm"> Kokuban リースのご相談や<br>導入に関するご質問はこちら</p>
+                        <a href="/contact" class="mt-auto py-4 bg-gray-800 text-white rounded-full font-bold hover:bg-black transition-colors shadow-md">資料請求・相談</a>
                     </div>
                 </div>
             </div>
@@ -487,45 +488,45 @@
     </main>
 
     <!-- フッター -->
-        </div>
-        <footer class="bg-custom-blue text-gray-200">
-            <div class="container mx-auto px-6 py-12">
-                <div class="flex flex-wrap justify-between">
-                    <div class="w-full md:w-1/4 mb-8 md:mb-0">
-                        <h2 class="text-2xl font-bold text-white">Kokuban BASE</h2>
-                        <p class="text-blue-200 mt-2">株式会社idea spot</p>
+    <footer class="bg-custom-blue text-gray-200">
+        <div class="container mx-auto px-6 py-12 md:py-16">
+            <div class="flex flex-wrap justify-between gap-y-10">
+                <div class="w-full md:w-1/4">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tighter">Kokuban BASE</h2>
+                    <p class="text-blue-200 mt-3 font-medium text-sm">株式会社idea spot</p>
+                </div>
+                <div class="w-full md:w-3/4 flex flex-wrap justify-between gap-y-8">
+                    <div class="w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">メニュー</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="/Kokubanlease" class="footer-link">Kokuban リース</a></li>
+                            <li><a href="/article" class="footer-link">コラム</a></li>
+                            <li><a href="#faq" class="footer-link">よくある質問</a></li>
+                        </ul>
                     </div>
-                    <div class="w-full md:w-3/4 flex flex-wrap justify-between">
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
-                            <ul>
-                                <li class="mb-2"><a href="/Kokubanlease" class="nav-link footer-link">Kokuban リース</a></li>
-                                <li class="mb-2"><a href="/article" class="nav-link footer-link">コラム</a></li>
-                                <li class="mb-2"><a href="#faq" class="nav-link footer-link">よくある質問</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">サポート</h3>
-                            <ul>
-                                <li class="mb-2"><a href="/reservation" class="footer-link">来場予約</a></li>
-                              <li class="mb-2"><a href="/on-line-reservation" class="footer-link">オンラインデモ予約</a></li>
-                                <li class="mb-2"><a href="/contact" class="footer-link">お問い合わせ</a></li>
-                                <li class="mb-2"><a href="#access" class="nav-link footer-link">アクセス</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">会社情報</h3>
-                            <ul>
-                                <li class="mb-2"><a href="https://www.idea-spot.co.jp/" target="_blank" class="footer-link">企業概要</a></li>
-                                <li class="mb-2"><a href="/privacy" class="footer-link">プライバシーポリシー</a></li>
-                            </ul>
-                        </div>
+                    <div class="w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">サポート</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="/reservation" class="footer-link">来場予約</a></li>
+                            <li><a href="/on-line-reservation" class="footer-link">オンラインデモ</a></li>
+                            <li><a href="/contact" class="footer-link">お問い合わせ</a></li>
+                            <li><a href="#access" class="footer-link">アクセス</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">会社情報</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="https://www.idea-spot.co.jp/" target="_blank" rel="noopener" class="footer-link">企業概要</a></li>
+                            <li><a href="/privacy" class="footer-link">プライバシーポリシー</a></li>
+                        </ul>
                     </div>
                 </div>
-                <div class="mt-12 pt-8 border-t border-white/20 text-center text-blue-200"><p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p></div>
             </div>
-        </footer>
-    </div>
+            <div class="mt-12 md:mt-16 pt-8 border-t border-white/10 text-center text-blue-200 text-xs md:text-sm">
+                <p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const menuBtn = document.getElementById('mobile-menu-button');
@@ -533,10 +534,12 @@
         if(menuBtn && mobileMenu) {
             menuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
+                document.body.classList.toggle('overflow-hidden');
             });
             mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
                 });
             });
         }
