@@ -158,44 +158,51 @@
 </head>
 <body class="bg-stone-50 antialiased text-gray-900">
 
-    <header id="page-header" class="bg-[#103f99] sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-20">
-                <div class="flex items-center space-x-10">
-                    <div class="text-xl sm:text-2xl font-black text-white text-shadow tracking-tight">
-                        <a href="/" class="hover:opacity-90 transition-opacity">Kokuban BASE</a>
+    <!-- Header -->
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
+        <div class="px-6 lg:px-8">
+            <div class="flex items-stretch h-[50px] sm:h-20">
+                <div class="flex-1 flex items-center space-x-8">
+                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
+                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
                     </div>
-                    <nav class="hidden lg:flex items-center space-x-6 text-sm">
-                        <a href="/#products" class="text-white font-bold hover:text-blue-200 transition-colors p-2">ラインナップ</a>
-                        <a href="/article.html" class="text-white font-bold hover:text-blue-200 transition-colors p-2">コラム</a>
-                        <a href="/#faq" class="text-white font-bold hover:text-blue-200 transition-colors p-2">よくある質問</a>
-                        <a href="/#access" class="text-white font-bold hover:text-blue-200 transition-colors p-2">アクセス</a>
+                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                        <a href="/Kokubanlease" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">Kokuban リース</a>
+                        <a href="/article" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <a href="#faq" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
+                        <a href="#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
                     </nav>
                 </div>
-                <div class="flex items-center space-x-2 sm:space-x-4">
-                    <div class="hidden sm:flex space-x-2">
-                        <a href="/contact.html" class="bg-white text-[#103f99] font-bold text-sm lg:text-base flex items-center justify-center px-4 py-2 rounded shadow-sm hover:bg-gray-100 transition-colors">
-                            <span>お問い合わせ</span>
+                <div class="flex-shrink-0 flex justify-end">
+                    <div class="hidden sm:flex h-full">
+                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
+                            <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
                         </a>
-                        <a href="/reservation.html" class="bg-pink-500 text-white font-bold text-sm lg:text-base flex items-center justify-center px-4 py-2 rounded shadow-sm hover:bg-pink-600 transition-colors">
-                            <span>来場予約</span>
+                      <a href="/on-line-reservation" class="bg-green-500 text-white font-bold text-base lg:text-xl flex items-center justify-center whitespace-nowrap px-6 lg:px-10 hover:bg-green-600 transition-colors">
+                        <span>オンラインデモ予約</span><i class="fa-solid fa-arrow-right ml-2"></i>
+                      </a>
+                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
+                            <span>体験予約</span><i class="fa-solid fa-calendar-check ml-2"></i>
                         </a>
                     </div>
-                    <button id="mobile-menu-button" aria-label="メニュー" class="lg:hidden text-white p-2">
-                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                    </button>
+                    <div class="lg:hidden flex items-center">
+                        <button id="mobile-menu-button" class="text-white p-2">
+                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="mobile-menu" class="hidden lg:hidden bg-[#103f99] border-t border-white/10">
-            <div class="px-4 pt-2 pb-6 space-y-1">
-                <a href="/#products" class="block py-3 text-white font-bold border-b border-white/10">ラインナップ</a>
-                <a href="/#news" class="block py-3 text-white font-bold border-b border-white/10">コラム</a>
-                <a href="/#faq" class="block py-3 text-white font-bold border-b border-white/10">よくある質問</a>
-                <a href="/#access" class="block py-3 text-white font-bold">アクセス</a>
-                <div class="grid grid-cols-2 gap-3 mt-6">
-                    <a href="/contact.html" class="flex items-center justify-center bg-white text-[#103f99] font-bold py-3 rounded-md text-sm">お問い合わせ</a>
-                    <a href="/reservation.html" class="flex items-center justify-center bg-pink-500 text-white font-bold py-3 rounded-md text-sm">来場予約</a>
+            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="/Kokubanlease" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">Kokuban リース</a>
+                    <a href="#columns" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
+                    <a href="#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
+                    <a href="#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
+                </div>
+                <div class="p-4 space-y-3">
+                    <a href="/contact" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
+                  <a href="/on-line-reservation" class="block text-center bg-green text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">オンラインデモ予約</a>
+                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
                 </div>
             </div>
         </div>
