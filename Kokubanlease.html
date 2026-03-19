@@ -46,8 +46,13 @@
         .footer-link:hover { color: #ffffff; text-decoration: underline; }
         .card-shadow { box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08); }
         .highlight-line { 
-            background: linear-gradient(transparent 60%, #fff176 60%); 
             display: inline;
+        }
+        /* モバイルでは下線を非表示にし、PC(md)以上で表示する設定 */
+        @media (min-width: 768px) {
+            .highlight-line {
+                background: linear-gradient(transparent 60%, #fff176 60%); 
+            }
         }
         .skew-badge {
             transform: skewX(-15deg);
@@ -218,7 +223,7 @@
                 <div class="max-w-4xl mx-auto mb-12 md:mb-16">
                     <div class="inline-block px-4 py-1 rounded-full bg-blue-50 text-[#103f99] font-bold text-[10px] md:text-xs mb-4 md:mb-6 uppercase tracking-widest">EXPERIENCE</div>
                     <h2 class="text-2xl sm:text-3xl md:text-5xl font-black text-[#103f99] mb-8 md:mb-12 leading-tight">
-                        <span class="highlight-line inline-block px-1">Kokuban BASEで「実機」の体験を。</span>
+                        <span class="highlight-line px-1">Kokuban BASEで<br class="md:hidden">「実機」の体験を。</span>
                     </h2>
                     
                     <div class="text-gray-900 text-base md:text-2xl font-bold leading-relaxed space-y-2">
