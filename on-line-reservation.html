@@ -81,28 +81,30 @@
     </style>
 </head>
 <body>
-
-    <header id="page-header" class="bg-[#103f99] sticky top-0 z-50 shadow-md">
+    <!-- Header -->
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
         <div class="px-6 lg:px-8">
             <div class="flex items-stretch h-[50px] sm:h-20">
                 <div class="flex-1 flex items-center space-x-8">
                     <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
-                        <a href="index.html" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
+                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
                     </div>
                     <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                        <a href="index.html#about" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">プラン概要</a>
-                        <a href="index.html#experience" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">体験予約</a>
-                        <a href="index.html#lineup" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">ラインナップ</a>
-                        <a href="index.html#voice" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">お客様の声</a>
-                        <a href="index.html#support" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">導入支援</a>
+                        <a href="/Kokubanlease" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">Kokuban リース</a>
+                        <a href="/article" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <a href="#faq" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
+                        <a href="#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
                     </nav>
                 </div>
                 <div class="flex-shrink-0 flex justify-end">
                     <div class="hidden sm:flex h-full">
-                        <a href="index.html#contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
+                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
                             <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
                         </a>
-                        <a href="#" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
+                      <a href="/on-line-reservation" class="bg-green-500 text-white font-bold text-base lg:text-xl flex items-center justify-center whitespace-nowrap px-6 lg:px-10 hover:bg-green-600 transition-colors">
+                        <span>オンラインデモ予約</span><i class="fa-solid fa-arrow-right ml-2"></i>
+                      </a>
+                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
                             <span>体験予約</span><i class="fa-solid fa-calendar-check ml-2"></i>
                         </a>
                     </div>
@@ -113,17 +115,17 @@
                     </div>
                 </div>
             </div>
-            <div id="mobile-menu" class="hidden lg:hidden bg-[#103f99] border-t border-white/10 pb-6">
-                <nav class="px-4 py-4 space-y-2">
-                    <a href="index.html#about" class="block py-3 text-white font-semibold border-b border-white/5">プラン概要</a>
-                    <a href="index.html#experience" class="block py-3 text-white font-semibold border-b border-white/5">体験予約</a>
-                    <a href="index.html#lineup" class="block py-3 text-white font-semibold border-b border-white/5">ラインナップ</a>
-                    <a href="index.html#voice" class="block py-3 text-white font-semibold border-b border-white/5">お客様の声</a>
-                    <a href="index.html#support" class="block py-3 text-white font-semibold border-b border-white/5">導入支援</a>
-                </nav>
-                <div class="px-4 space-y-3">
-                    <a href="index.html#contact" class="block text-center bg-white text-[#103f99] font-bold py-4 rounded-md">お問い合わせ</a>
-                    <a href="#" class="block text-center bg-pink-500 text-white font-bold py-4 rounded-md">体験予約</a>
+            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="/Kokubanlease" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">Kokuban リース</a>
+                    <a href="#columns" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
+                    <a href="#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
+                    <a href="#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
+                </div>
+                <div class="p-4 space-y-3">
+                    <a href="/contact" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
+                  <a href="/on-line-reservation" class="block text-center bg-green text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">オンラインデモ予約</a>
+                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
                 </div>
             </div>
         </div>
