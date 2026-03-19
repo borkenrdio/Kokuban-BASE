@@ -142,7 +142,7 @@
 </head>
 <body class="bg-stone-50 antialiased text-gray-900">
 
-    <!-- Header (index.htmlと統合した最新デザイン) -->
+    <!-- Header (index.htmlと完全に統一) -->
     <header id="page-header" class="bg-[#103f99] sticky top-0 z-50 transition-colors duration-300 shadow-md">
         <div class="px-6 lg:px-8">
             <div class="flex items-stretch h-[60px] sm:h-20">
@@ -171,7 +171,7 @@
                     </div>
                     <div class="lg:hidden flex items-center">
                         <button id="mobile-menu-button" class="text-white p-2" aria-label="メニューを開く">
-                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                            <svg id="menu-icon" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                         </button>
                     </div>
                 </div>
@@ -196,12 +196,14 @@
     <main class="bg-white">
         <div class="max-w-screen-xl mx-auto px-4 py-8 sm:py-16">
             <article class="max-w-4xl mx-auto">
+                <!-- アイキャッチ -->
                 <div class="eyecatch-image mb-8 sm:mb-12">
                     <div class="rounded-2xl overflow-hidden shadow-xl">
                         {{EYECATCH_HTML}}
                     </div>
                 </div>
                 
+                <!-- タイトルブロック -->
                 <div class="title-block mb-12 sm:mb-16">
                     <h1 id="main-article-title" class="text-2xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-8 leading-[1.3]">{{TITLE_HTML}}</h1>
                     
@@ -221,10 +223,12 @@
                     </div>
                 </div>
                 
+                <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
                     {{BODY_HTML}}
                 </div>
 
+                <!-- シェアボタン -->
                 <div class="mt-20 py-10 border-t border-gray-100">
                     <h3 class="text-base font-bold text-center text-gray-500 uppercase tracking-widest mb-6">Share this article</h3>
                     <div class="flex justify-center items-center gap-6">
@@ -235,26 +239,133 @@
                 </div>
             </article>
 
-            <!-- 関連記事などは中略（ロジックは維持） -->
+            <!-- 関連記事 -->
+            <div class="mt-24 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between mb-10">
+                    <h3 class="text-2xl font-black text-gray-900">あわせて読みたい</h3>
+                    <a href="https://kokuban-base.com/article" class="text-sm font-bold text-customBlue hover:underline">すべて見る <i class="fas fa-chevron-right ml-1"></i></a>
+                </div>
+                <div id="related-posts-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"></div>
+            </div>
+            
+            <!-- CTA -->
+            <div class="mt-24 max-w-4xl mx-auto">
+                <div class="bg-gradient-to-br from-pink-50 to-white border border-pink-100 p-8 sm:p-12 rounded-3xl shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <i class="fas fa-chalkboard-teacher text-8xl text-pink-500"></i>
+                    </div>
+                    <div class="relative z-10 text-center sm:text-left">
+                        <h3 class="text-2xl sm:text-3xl font-black text-pink-600 mb-4">電子黒板を実際に体験しませんか？</h3>
+                        <p class="text-gray-700 leading-relaxed mb-10 max-w-2xl">
+                            Kokuban BASEでは、本記事で紹介した機能のほか、様々なモデルを直接触って比較できます。導入に関するご相談も承っておりますので、お気軽にご予約ください。
+                        </p>
+                        <!-- 2ボタン配置 -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-4">
+                            <a href="/reservation" class="w-full sm:w-auto inline-flex items-center justify-center bg-pink-500 text-white font-black text-lg px-8 py-4 rounded-full hover:bg-pink-600 transition-all shadow-lg hover:shadow-pink-200 transform hover:-translate-y-1">
+                                来場予約 <i class="fas fa-calendar-check ml-3"></i>
+                            </a>
+                            <a href="/on-line-reservation" class="w-full sm:w-auto inline-flex items-center justify-center bg-green-500 text-white font-black text-lg px-8 py-4 rounded-full hover:bg-green-600 transition-all shadow-lg hover:shadow-green-200 transform hover:-translate-y-1">
+                                オンラインデモ予約 <i class="fas fa-desktop ml-3"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 戻るリンク -->
+            <div class="mt-16 text-center">
+                <a href="https://kokuban-base.com/article" class="inline-flex items-center text-gray-500 font-bold hover:text-gray-900 transition-colors">
+                    <i class="fas fa-long-arrow-alt-left mr-2"></i> コラム一覧へ戻る
+                </a>
+            </div>
         </div>
     </main>
     
     <footer class="bg-customBlue text-gray-200">
-        <!-- フッター内容は index.html と同様のため中略 -->
+        <div class="container mx-auto px-6 py-12 md:py-16">
+            <div class="flex flex-wrap justify-between gap-y-10">
+                <div class="w-full md:w-1/4">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tighter">Kokuban BASE</h2>
+                    <p class="text-blue-200 mt-3 font-medium text-sm">株式会社idea spot</p>
+                </div>
+                <div class="w-full md:w-3/4 flex flex-wrap justify-between gap-y-8">
+                    <div class="w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">メニュー</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="/Kokubanlease" class="footer-link">Kokuban リース</a></li>
+                            <li><a href="/article" class="footer-link">コラム</a></li>
+                            <li><a href="/#faq" class="footer-link">よくある質問</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">サポート</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="/reservation" class="footer-link">来場予約</a></li>
+                            <li><a href="/on-line-reservation" class="footer-link">オンラインデモ</a></li>
+                            <li><a href="/contact" class="footer-link">お問い合わせ</a></li>
+                            <li><a href="/#access" class="footer-link">アクセス</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">会社情報</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="https://www.idea-spot.co.jp/" target="_blank" rel="noopener" class="footer-link">企業概要</a></li>
+                            <li><a href="/privacy" class="footer-link">プライバシーポリシー</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 md:mt-16 pt-8 border-t border-white/10 text-center text-blue-200 text-xs md:text-sm">
+                <p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p>
+            </div>
+        </div>
     </footer>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // モバイルメニュー制御
             const btn = document.getElementById('mobile-menu-button');
             const menu = document.getElementById('mobile-menu');
             if (btn && menu) {
                 btn.addEventListener('click', () => {
+                    const isHidden = menu.classList.contains('hidden');
                     menu.classList.toggle('hidden');
                     document.body.classList.toggle('overflow-hidden');
+                    btn.innerHTML = isHidden 
+                        ? '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>'
+                        : '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>';
                 });
             }
 
-            // タイトルのサブタイトル化、発言者スタイル適用、microCMS連携などのJSは維持してください
+            // タイトルのサブタイトル化
+            const titleEl = document.getElementById('main-article-title');
+            if (titleEl && titleEl.innerHTML.includes('<br>')) {
+                const parts = titleEl.innerHTML.split(/<br\s?\/?>/i);
+                if (parts.length > 1) {
+                    titleEl.innerHTML = `${parts[0]}<span class="subtitle-text">${parts[1]}</span>`;
+                }
+            }
+
+            // microCMS連携（執筆者情報・関連記事）
+            const SERVICE_DOMAIN = "{{MICROCMS_SERVICE_DOMAIN}}"; 
+            const API_KEY = "{{MICROCMS_API_KEY}}";
+            const API_ENDPOINT = "news";
+            const currentSlug = location.pathname.split('/').filter(Boolean).pop()?.replace('.html', '');
+
+            const fetchMainArticleData = () => {
+                if (currentSlug && API_KEY && !API_KEY.includes("{{")) {
+                    const apiUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?filters=slug[equals]${currentSlug}`;
+                    fetch(apiUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
+                        .then(res => res.json())
+                        .then(data => {
+                            const article = data.contents?.[0];
+                            if (article && article.author) {
+                                document.getElementById('main-author-display').textContent = article.author;
+                            }
+                        });
+                }
+            };
+            fetchMainArticleData();
         });
     </script>
 </body>
