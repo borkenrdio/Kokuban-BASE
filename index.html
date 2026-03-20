@@ -201,7 +201,8 @@
                 <!-- Brands -->
                 <section id="brands" class="bg-white py-8 sm:py-12 shadow-md">
                     <div class="container mx-auto px-6">
-                        <div class="flex flex-wrap lg:flex-nowrap justify-center items-center gap-6 sm:gap-8 lg:gap-10" id="brand-logos-container">
+                        <!-- 変更点：lg:flex-nowrapを削除し、どのサイズでも折り返しを許可 -->
+                        <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-12" id="brand-logos-container">
                             <!-- JSで生成 -->
                         </div>
                     </div>
@@ -373,7 +374,7 @@
                     <div class="container mx-auto px-6 lg:px-8 max-w-7xl">
                         <div class="text-center mb-12 animate-on-scroll">
                             <h2 class="text-3xl sm:text-4xl font-bold text-[#103f99]">スタッフ紹介</h2>
-                            <p class="mt-4 text-gray-600">日々、電子黒板を授業で使用している講師が、丁寧にお答えします。</p>
+                            <p class="mt-4 text-gray-600">日々、電子黒板を授業で使用している講師が, 丁寧にお答えします。</p>
                         </div>
                         <div class="swiper-container staff-swiper">
                             <div class="swiper-wrapper pb-12" id="staff-list">
@@ -503,16 +504,16 @@
         ];
 
         const comparisons = [
-            { color: 'purple', title: '書き心地', desc: 'Kokuban BASEでは、普段通りの書き方で試してください。止まらず、迷わず、スムーズに書き切れるか。さらに、書くときの音や消しゴムの使い勝手まで。“講師の感覚”で選ぶための比較体験をご用意しています。' },
+            { color: 'purple', title: '書き心地', desc: 'Kokuban BASEでは、普段通りの書き方で試してください。止まらず、迷わず, スムーズに書き切れるか。さらに、書くときの音や消しゴムの使い勝手まで。“講師の感覚”で選ぶための比較体験をご用意しています。' },
             { color: 'blue', title: '活用イメージ', desc: 'デジタル教科書への書き込み、PDF教材の利用、参考動画の再生まで。現役講師が、明日からの授業で本当に使える活用法を実演します。「自分の授業でどう使えるか？」、その具体的なイメージが掴めれば、導入後の成功は間違いありません。' },
-            { color: 'green', title: 'サイズ感', desc: '「後ろの生徒にも文字は見える？」「西日の反射は大丈夫？」そんな授業中の不安は、導入前に解消すべきです。55〜86インチの主要サイズを全て並べ、実際の教室と同じ距離感で確認可能。講師の目線で最適な一台を選べます。' },
+            { color: 'green', title: 'サイズ感', desc: '「後ろの生徒にも文字は見える？」「西日の反射は大丈夫？」そんな授業中の不安は, 導入前に解消すべきです。55〜86インチの主要サイズを全て並べ、実際の教室と同じ距離感で確認可能。講師の目線で最適な一台を選べます。' },
             { color: 'yellow', title: 'コストパフォーマンス', desc: '単なる価格比較に留まらず、印刷コスト削減や準備効率化といった長期的な投資対効果もシミュレーション。最新機器による宣伝効果や満足度向上、購入後のオンライン授業での活用法まで、総合的にご提案します。' }
         ];
 
         const products = [
             { brand: 'Promethean', name: 'Promethean-AP9', tag: '世界の教育市場シェアNo.1', desc: 'アメリカ・シアトル発、世界126カ国で愛されるブランドです。圧倒的な操作性と洗練されたデザインが融合し、教育からビジネスまでをラグジュアリーに彩ります。', img: 'product-b.jpg', link: 'https://www.prometheanworld.com/products/interactive-displays/activpanel/', color: 'pink-600' },
             { brand: 'MAXHUB', name: 'All in One Meeting Board V7シリーズ', tag: '国内会議向けツールシェアNo.1', desc: '大手から中小まで幅広く導入される会議DXツール。AIが雑音を排除し、声をクリアに届ける集音マイク＆スピーカーを搭載。快適な会議環境を実現します。', img: 'product-c.jpg', link: 'https://www.maxhub.com/jp/xboard_v7_series/', color: 'pink-600', isNew: true },
-            { brand: 'SHARP', name: 'BIG PAD スタンダードモデル', tag: '九州圏の公教育に人気！国産の安心感', desc: 'SHARPが誇る高品質電子黒板は、なめらかな書き心地と安定したアプリ動作が魅力。特に九州圏の公教育で高い評価を得る、信頼のスタンダードモデルです。', img: 'product-d.jpg', link: 'https://jp.sharp/business/bigpad/lineup/pnl752b/', color: 'pink-600', isNew: true },
+            { brand: 'SHARP', name: 'BIG PAD スタンダードモデル', tag: '九州圏の公教育に人気！国産の安心感', desc: 'SHARPが誇る高品質電子黒板は, なめらかな書き心地と安定したアプリ動作が魅力。特に九州圏の公教育で高い評価を得る、信頼のスタンダードモデルです。', img: 'product-d.jpg', link: 'https://jp.sharp/business/bigpad/lineup/pnl752b/', color: 'pink-600', isNew: true },
             { brand: 'StarBoard', name: 'TE-QS シリーズ(J14B)ベーシックモデル', tag: '世界80ヵ国以上総販売台数40万台以上', desc: '発売は1998年、日米で日立独自開発の電子黒板。日本で販売されている電子黒板の中では最も歴史の長い電子黒板ブランドです。', img: 'product-e.jpg', link: 'https://starboard-solutions.co.jp/', color: 'pink-600', isNew: true },
             { brand: 'BenQ', name: 'RPシリーズ', tag: 'Gemini標準搭載の唯一の電子黒板', desc: 'Google PlayやWorkspace for Educationに対応し、直感的な操作が可能。独自アプリと組み合わせ、ICT教育に革新をもたらすプレミアム電子黒板です。', img: 'product-f.jpg', link: 'https://www.benq.com/ja-jp/business/ifp/case-study-japan.html', color: 'pink-600', isNew: true },
             { brand: 'MIRAI TOUCH', name: 'Xシリーズ', tag: 'デュアルカメラ搭載の電子黒板', desc: '業界初となる電子黒板の下部に光学ズームを内蔵。専用光学ユニットを実装し、拡大時でも被写体を鮮明に表示することが可能になりました。', img: 'product-h.jpg', link: 'https://mirai-touch.com/', color: 'pink-600', isNew: true }
