@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-GSSKLZ6EDH');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GSSKLZ6EDH');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>電子黒板 比較体験倉庫｜Kokuban BASE（コクバンベース）京都</title>
@@ -21,7 +21,6 @@
     <meta property="og:locale" content="ja_JP">
     <meta property="og:site_name" content="Kokuban BASE（コクバンベース）">
     <meta property="og:type" content="website">
-    <!-- JSON-LD (構造化データ) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -49,7 +48,6 @@
     <link rel="preload" as="image" href="hero-poster-mobile.webp" media="(max-width: 767px)">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Swiper CSS (Version Fixed) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -62,7 +60,6 @@
         #preloader-subtitle { animation-delay: 0.5s; }
         @keyframes fadeInPreloaderText { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* 共通スタイル */
         .text-shadow { text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); }
         .bg-custom-blue { background-color: rgb(16, 63, 153); }
         .footer-link { color: #e5e7eb; transition: color 0.2s; }
@@ -72,7 +69,6 @@
         .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
         
-        /* Swiper Custom */
         .swiper-pagination-bullet-active { background-color: #ec4899; }
         .swiper-button-next, .swiper-button-prev { color: #103f99; background-color: rgba(255, 255, 255, 0.9); border-radius: 9999px; width: 48px; height: 48px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: all 0.2s; border: 1px solid rgba(0,0,0,0.05); opacity: 0.7; }
         .swiper-button-next:hover, .swiper-button-prev:hover { background-color: white; transform: scale(1.1); opacity: 1; }
@@ -99,7 +95,6 @@
         </div>
     </div>
 
-    <!-- Header -->
     <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
         <div class="px-6 lg:px-8">
             <div class="flex items-stretch h-[50px] sm:h-20">
@@ -151,7 +146,6 @@
 
     <div class="overflow-x-hidden">
         <div id="page-content">
-            <!-- Hero -->
             <section id="hero" class="relative flex items-center justify-center min-h-[500px] md:min-h-0 md:h-[calc(100vh-80px)] max-h-[1080px] text-white overflow-hidden">
                 <video loop muted playsinline autoplay preload="metadata" poster="hero-poster.webp" class="hero-video-background hidden md:block w-full h-full object-cover">
                     <source src="top.webm" type="video/webm"><source src="top.mp4" type="video/mp4">
@@ -161,19 +155,13 @@
                 </video>
                 <div class="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
                 <div class="relative z-10 text-center text-white p-4 sm:p-8 md:p-12 max-w-5xl w-full pb-16">
-                    <!-- 変更点：テキストを小さく調整 -->
                     <p class="text-lg sm:text-xl md:text-2xl font-bold mb-4 opacity-90 tracking-wider">複数ブランドを徹底比較</p>
-                    
-                    <!-- 追加点：教育機関の電子黒板導入なら（目立たせる） -->
                     <p class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 leading-tight text-shadow">
                         教育機関の電子黒板導入なら
                     </p>
-                    
-                    <!-- 変更点：電子黒板の比較体験倉庫を削除し、タイトルのみに -->
                     <h1 class="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-8 italic">
                         Kokuban BASE
                     </h1>
-
                     <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-5 px-4">
                         <a href="/contact" class="bg-white text-gray-800 font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full text-sm sm:text-xl shadow-lg hover:bg-gray-200 transition-colors transform hover:scale-105 whitespace-nowrap text-center">
                             お問い合わせ
@@ -188,7 +176,6 @@
                 </div>
             </section>
 
-            <!-- Announcement -->
             <section id="announcement" class="bg-[#103f99] text-white py-4 shadow-lg">
                 <div class="container mx-auto px-6 text-center">
                     <p class="text-base md:text-xl font-bold tracking-wider animate-pulse">
@@ -198,9 +185,7 @@
             </section>
 
             <main>
-                <!-- Brands -->
                 <section id="brands" class="bg-white py-8 sm:py-16 shadow-md overflow-hidden">
-                    <!-- コンテナのパディングを増やし、左右の余白を確保 -->
                     <div class="container mx-auto px-8 sm:px-12 md:px-16 lg:px-24">
                         <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-10 md:gap-12 lg:gap-16" id="brand-logos-container">
                             <!-- JSで生成 -->
@@ -208,7 +193,6 @@
                     </div>
                 </section>
                 
-                <!-- Latest News (JSON) -->
                 <section id="latest-information" class="py-16 sm:py-24 bg-gray-50">
                     <div class="container mx-auto px-6 lg:px-8 max-w-5xl">
                         <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden font-sans">
@@ -232,7 +216,6 @@
                     </div>
                 </section>
 
-                <!-- Problems / Solutions -->
                  <section id="problem" class="py-16 sm:py-24 bg-gray-50">
                     <div class="container mx-auto px-4 pb-8 sm:pb-12">
                         <header class="text-center my-8">
@@ -306,12 +289,10 @@
                             <h2 class="text-3xl md:text-4xl font-black text-white leading-tight">もう、電子黒板選びで<br class="sm:hidden">迷わない</h2>
                             <p class="mt-6 text-gray-200 text-2xl md:text-3xl font-bold">Kokuban BASEでできる<br class="sm:hidden"><span class="text-pink-400">４つの徹底比較</span></p>
                         </header>
-                        <!-- 比較ポイント: JSで生成 -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8" id="comparison-points"></div>
                     </div>
                 </section>
 
-                <!-- Products -->
                 <section id="products" class="py-16 sm:py-24 bg-gray-100">
                     <div class="container mx-auto px-6 lg:px-8">
                         <div class="text-center animate-on-scroll">
@@ -369,7 +350,6 @@
                     </div>
                 </section>
 
-                <!-- Staff -->
                 <section id="staff-introduction" class="py-16 sm:py-24 bg-white overflow-hidden">
                     <div class="container mx-auto px-6 lg:px-8 max-w-7xl">
                         <div class="text-center mb-12 animate-on-scroll">
@@ -385,7 +365,6 @@
                     </div>
                 </section>
 
-                <!-- Columns -->
                 <section id="columns" class="py-16 sm:py-24 bg-gray-50 overflow-hidden">
                     <div class="container mx-auto px-6 lg:px-8">
                         <div class="text-center animate-on-scroll">
@@ -406,7 +385,6 @@
                     </div>
                 </section>
 
-                <!-- FAQ -->
                 <section id="faq" class="py-16 sm:py-24 bg-gray-50">
                     <div class="container mx-auto px-6 lg:px-8 max-w-4xl">
                         <div class="text-center mb-12 animate-on-scroll">
@@ -418,7 +396,6 @@
                     </div>
                 </section>
 
-                <!-- Access (Custom Media Queries Removed) -->
                 <section id="access" class="py-16 sm:py-24 bg-white">
                     <div class="container mx-auto px-6 lg:px-8">
                         <div class="flex flex-col sm:flex-row gap-8 items-start">
@@ -494,13 +471,17 @@
             </div>
         </footer>
     </div>
-    <!-- Swiper JS (Version Fixed) -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // Data Definitions
+        // ロゴサイズ調整用のscaleプロパティを追加
         const brands = [
-            { name: 'Promethean', w: 240, h: 60 }, { name: 'BenQ', w: 200, h: 80 }, { name: 'StarBoard', w: 180, h: 40 },
-            { name: 'MAXHUB', w: 100, h: 30 }, { name: 'SHARP', w: 90, h: 30 }, { name: 'MiraiTouch', w: 150, h: 40 }
+            { name: 'Promethean', w: 240, h: 60, sizeClass: 'h-10 sm:h-16' },
+            { name: 'BenQ', w: 200, h: 80, sizeClass: 'h-7 sm:h-11' },
+            { name: 'StarBoard', w: 180, h: 40, sizeClass: 'h-6 sm:h-10' },
+            { name: 'MAXHUB', w: 100, h: 30, sizeClass: 'h-4 sm:h-7' },
+            { name: 'SHARP', w: 90, h: 30, sizeClass: 'h-4 sm:h-7' },
+            { name: 'MIRAI TOUCH', w: 150, h: 40, sizeClass: 'h-9 sm:h-14' }
         ];
 
         const comparisons = [
@@ -542,10 +523,9 @@
             { q: 'メディアの取材は可能ですか？', a: 'はい、歓迎いたします。取材をご希望の場合は、「お問い合わせ」フォームより、媒体名と企画内容を添えてご連絡ください。' }
         ];
 
-        // Rendering Functions
         const renderBrands = () => {
             document.getElementById('brand-logos-container').innerHTML = brands.map((b, i) => `
-                <img src="brand-${i+1}.png" alt="${b.name}" width="${b.w}" height="${b.h}" class="h-6 sm:h-10 w-auto object-contain hover:scale-110 opacity-90 hover:opacity-100 transition" onerror="this.src='https://placehold.co/${b.w}x${b.h}/f3f4f6/6b7280?text=${b.name}'">
+                <img src="brand-${i+1}.png" alt="${b.name}" width="${b.w}" height="${b.h}" class="${b.sizeClass} w-auto object-contain hover:scale-110 opacity-90 hover:opacity-100 transition" onerror="this.src='https://placehold.co/${b.w}x${b.h}/f3f4f6/6b7280?text=${b.name}'">
             `).join('');
         };
 
@@ -610,7 +590,6 @@
                 </div>
             `).join('');
             
-            // Re-attach listeners for new elements
             document.querySelectorAll('.faq-item .question').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const item = btn.closest('.faq-item');
@@ -622,12 +601,8 @@
             });
         };
 
-        // Utility Functions
         const initSwiperCommon = (selector, paginationEl, nextEl, prevEl, breakpoints) => {
-            if (typeof Swiper === 'undefined') {
-                console.error('Swiper library is not loaded. Slider initialization failed.');
-                return;
-            }
+            if (typeof Swiper === 'undefined') return;
             return new Swiper(selector, {
                 loop: selector === '.product-swiper',
                 slidesPerView: 1, spaceBetween: 20,
@@ -645,7 +620,6 @@
             }
         }
 
-        // Fetch & News Logic
         async function fetchNews(url, containerId, loadingId, errorId, isLatest = false) {
             const container = document.getElementById(containerId);
             const loader = document.getElementById(loadingId);
@@ -713,7 +687,6 @@
                     }).join('');
                 }
             } catch(e) {
-                console.error(e);
                 if(loader) loader.style.display = 'none';
                 if(errDiv) {
                     errDiv.textContent = 'データの読み込みに失敗しました: ' + e.message;
