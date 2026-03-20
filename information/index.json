@@ -1,0 +1,92 @@
+[
+  {
+    "id": "o70ijiu59",
+    "createdAt": "2026-03-15T12:22:40.086Z",
+    "updatedAt": "2026-03-16T01:40:11.848Z",
+    "publishedAt": "2026-03-15T13:00:00.000Z",
+    "revisedAt": "2026-03-16T01:40:11.848Z",
+    "title": "最難関理科を突破する、電子黒板×Javalabを活用した理科の授業アイデア",
+    "category": {
+      "id": "ug70uoyc0",
+      "createdAt": "2026-02-07T07:49:16.384Z",
+      "updatedAt": "2026-02-07T07:49:16.384Z",
+      "publishedAt": "2026-02-07T07:49:16.384Z",
+      "revisedAt": "2026-02-07T07:49:16.384Z",
+      "name": "活用事例"
+    },
+    "url": "https://kokuban-base.com/columns/javalab/",
+    "photo": []
+  },
+  {
+    "id": "7fnsq6fiiw",
+    "createdAt": "2026-03-09T07:58:14.677Z",
+    "updatedAt": "2026-03-09T07:58:14.677Z",
+    "publishedAt": "2026-03-09T08:00:00.000Z",
+    "revisedAt": "2026-03-09T07:58:14.677Z",
+    "title": "BenQ BoardのNFCタッチ機能でGoogleアカウントを瞬時に切り替え。生徒主体の探究授業も手軽に。",
+    "category": {
+      "id": "ug70uoyc0",
+      "createdAt": "2026-02-07T07:49:16.384Z",
+      "updatedAt": "2026-02-07T07:49:16.384Z",
+      "publishedAt": "2026-02-07T07:49:16.384Z",
+      "revisedAt": "2026-02-07T07:49:16.384Z",
+      "name": "活用事例"
+    },
+    "url": "https://kokuban-base.com/columns/benQboard-NFC/",
+    "photo": []
+  },
+  {
+    "id": "dld-k--kno",
+    "createdAt": "2026-02-07T07:50:49.869Z",
+    "updatedAt": "2026-02-07T07:50:49.869Z",
+    "publishedAt": "2026-02-07T08:00:00.000Z",
+    "revisedAt": "2026-02-07T07:50:49.869Z",
+    "title": "〈電子黒板の活用〉Googleマップで中学受験対策―知識が「芋づる式」につながる社会科地理の授業アイデア",
+    "category": {
+      "id": "ug70uoyc0",
+      "createdAt": "2026-02-07T07:49:16.384Z",
+      "updatedAt": "2026-02-07T07:49:16.384Z",
+      "publishedAt": "2026-02-07T07:49:16.384Z",
+      "revisedAt": "2026-02-07T07:49:16.384Z",
+      "name": "活用事例"
+    },
+    "url": "https://kokuban-base.com/columns/ifp-lesson-lab-googlemap/",
+    "photo": []
+  },
+  {
+    "id": "54cru2qt_lb5",
+    "createdAt": "2026-02-05T11:12:05.761Z",
+    "updatedAt": "2026-02-05T11:12:05.761Z",
+    "publishedAt": "2026-02-05T11:00:00.000Z",
+    "revisedAt": "2026-02-05T11:12:05.761Z",
+    "title": "【対談の後日談】メーカー開発者との対談で分かった、自塾に合う電子黒板の選び方とは？",
+    "category": {
+      "id": "xxydv9qzz",
+      "createdAt": "2025-12-02T04:19:32.017Z",
+      "updatedAt": "2025-12-02T04:19:32.017Z",
+      "publishedAt": "2025-12-02T04:19:32.017Z",
+      "revisedAt": "2025-12-02T04:19:32.017Z",
+      "name": "対談記事"
+    },
+    "url": "https://kokuban-base.com/columns/denshikokuban-gakushujuku/",
+    "photo": []
+  },
+  {
+    "id": "rtyqnxxs8",
+    "createdAt": "2026-01-11T06:54:48.506Z",
+    "updatedAt": "2026-01-11T06:54:48.506Z",
+    "publishedAt": "2026-01-12T01:00:00.000Z",
+    "revisedAt": "2026-01-11T06:54:48.506Z",
+    "title": "【対談】誕生8年、累計出荷台数70,000台。MIRAI TOUCHが選ばれる理由とは？",
+    "category": {
+      "id": "xxydv9qzz",
+      "createdAt": "2025-12-02T04:19:32.017Z",
+      "updatedAt": "2025-12-02T04:19:32.017Z",
+      "publishedAt": "2025-12-02T04:19:32.017Z",
+      "revisedAt": "2025-12-02T04:19:32.017Z",
+      "name": "対談記事"
+    },
+    "url": "https://kokuban-base.com/columns/miraitouch-ideaspot-education-talk/",
+    "photo": []
+  }
+]
