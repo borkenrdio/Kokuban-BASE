@@ -170,7 +170,7 @@
                     </p>
                     
                     <!-- 変更点：電子黒板の比較体験倉庫を削除し、タイトルのみに -->
-                    <h1 class="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-8">
+                    <h1 class="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-8 italic">
                         Kokuban BASE
                     </h1>
 
@@ -199,10 +199,10 @@
 
             <main>
                 <!-- Brands -->
-                <section id="brands" class="bg-white py-8 sm:py-12 shadow-md">
-                    <div class="container mx-auto px-6">
-                        <!-- 変更点：lg:flex-nowrapを削除し、どのサイズでも折り返しを許可 -->
-                        <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-10 lg:gap-12" id="brand-logos-container">
+                <section id="brands" class="bg-white py-8 sm:py-16 shadow-md overflow-hidden">
+                    <!-- コンテナのパディングを増やし、左右の余白を確保 -->
+                    <div class="container mx-auto px-8 sm:px-12 md:px-16 lg:px-24">
+                        <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-10 md:gap-12 lg:gap-16" id="brand-logos-container">
                             <!-- JSで生成 -->
                         </div>
                     </div>
@@ -271,7 +271,7 @@
                             </div>
                         </div>
                         <div class="text-center mt-12 sm:mt-16 flex flex-col items-center">
-                            <svg class="w-12 h-12 text-slate-400 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="w-12 h-12 text-slate-400 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
                             <div class="flex items-center justify-center space-x-4">
                                 <span class="text-5xl font-thin text-slate-400">\</span>
                                 <p class="text-[#103f99] font-bold text-2xl sm:text-4xl">その課題、<br class="sm:hidden">Kokuban BASEで一緒に<br class="sm:hidden">解決しましょう</p>
@@ -554,7 +554,7 @@
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-on-scroll flex" style="transition-delay: ${i * 0.1}s;">
                     <div class="p-6 sm:p-8 flex flex-col">
                         <span class="inline-block bg-${c.color}-500 text-white text-sm font-bold px-4 py-1 rounded-full shadow-md mb-4 self-start">#${c.title}</span>
-                        <h3 class="font-bold text-xl lg:text-2xl text-[#103f99]">${c.title === 'サイズ感' ? '教室に最適な' : c.title === 'コストパフォーマンス' ? '経営者視点で選ぶ' : c.title === '活用イメージ' ? '授業が劇的に変わる<br>世界基準の' : 'これまでを超える、<br>ストレスフリーな'}<span class="highlight-underline">「${c.title}」</span></h3>
+                        <h3 class="font-bold text-xl lg:text-2xl text-[#103f99]">${c.title === 'サイズ感' ? '教室に最適な' : c.title === 'コストパフォーマンス' ? '経営者視点で選ぶ' : c.title === '活用イメージ' ? '授業が劇的に変わる<br>世界基準 of' : 'これまでを超える、<br>ストレスフリーな'}<span class="highlight-underline">「${c.title}」</span></h3>
                         <p class="text-slate-700 mt-3 text-base flex-grow">${c.desc}</p>
                     </div>
                 </div>
