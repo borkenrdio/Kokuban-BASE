@@ -99,7 +99,6 @@ async function fetchAllArticles() {
       const response = await client.get({
         endpoint: 'news',
         queries: {
-          // ★ category を追加（一覧ページの分類に使用）
           fields: 'id,slug,title,body,eyecatch,publishedAt,updatedAt,description,category',
           limit: limit,
           offset: offset,
@@ -244,6 +243,7 @@ function buildCardHtml(article, type = 'standard') {
 /**
  * 記事一覧ページ (article.html) を静的生成する
  * SEO対策: 検索エンジンがクロールできるよう、初期HTMLに記事リンクを埋め込む
+ * セキュリティ対策: APIキーを含むscriptブロックを除去する
  */
 async function buildArticleListPage(articles) {
   console.log('article.html を静的生成中...');
@@ -301,9 +301,15 @@ async function buildArticleListPage(articles) {
     'id="column-more-container" style="display:none"'
   );
 
+  // ⑤ APIキーを含むscriptブロックを除去（静的生成済みのため不要、セキュリティ対策）
+  html = html.replace(
+    /<!--\s*JavaScript Logic\s*-->\s*<script>[\s\S]*?<\/script>/,
+    '<!-- Scripts removed: statically generated -->'
+  );
+
   try {
     fs.writeFileSync(ARTICLE_HTML_PATH, html);
-    console.log(`article.html の静的生成が完了しました（新着:${articles.slice(0,3).length}件 / 対談:${interviewArticles.length}件 / コラム:${columnArticles.length}件）。`);
+    console.log(`article.html の静的生成が完了しました（新着:${articles.slice(0, 3).length}件 / 対談:${interviewArticles.length}件 / コラム:${columnArticles.length}件）。`);
   } catch (err) {
     console.error('article.html の書き込みに失敗しました:', err);
   }
@@ -409,7 +415,6 @@ async function buildStaticPages() {
       publishedAt: article.publishedAt,
       eyecatchUrl: article.eyecatch?.url || null,
       description: description,
-      // ★ カテゴリ情報も保持（将来的なフロント側での参照用）
       category: article.category || null,
     });
   }
@@ -426,7 +431,7 @@ async function buildStaticPages() {
   // 6. サイトマップ (sitemap.xml) を生成・保存
   generateSitemap(publishedArticles);
 
-  // 7. 記事一覧ページ (article.html) を静的生成
+  // 7. 記事一覧ページ (article.html) を静的生成＆APIキー除去
   await buildArticleListPage(publishedArticles);
 
   console.log('静的ページ生成プロセスが完了しました。');
