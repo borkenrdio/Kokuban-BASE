@@ -1,0 +1,104 @@
+[
+  {
+    "id": "08xfp3xu6",
+    "createdAt": "2026-04-12T02:18:29.984Z",
+    "updatedAt": "2026-04-12T02:53:51.935Z",
+    "publishedAt": "2026-04-12T02:00:00.000Z",
+    "revisedAt": "2026-04-12T02:53:51.935Z",
+    "title": "〈電子黒板の活用〉「左」と「右」は書き順が違う。電子黒板の大画面で気づかせる低学年国語・漢字指導",
+    "category": {
+      "id": "ug70uoyc0",
+      "createdAt": "2026-02-07T07:49:16.384Z",
+      "updatedAt": "2026-02-07T07:49:16.384Z",
+      "publishedAt": "2026-02-07T07:49:16.384Z",
+      "revisedAt": "2026-02-07T07:49:16.384Z",
+      "name": "活用事例"
+    },
+    "url": "https://kokuban-base.com/columns/kokugo-kanji-denshikokuban/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/f77ee4e60cb841ae8d2a9e77c013ec89/%E9%BB%84%20%E3%83%94%E3%83%B3%E3%82%AF%20%E9%BB%92%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%20%E3%82%A4%E3%83%A4%E3%83%9B%E3%83%B3%20%E6%AF%94%E8%BC%83%20YouTube%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB.png",
+        "height": 720,
+        "width": 1280
+      }
+    ]
+  },
+  {
+    "id": "0rn5m4te3g",
+    "createdAt": "2026-04-08T00:37:08.761Z",
+    "updatedAt": "2026-04-12T02:54:02.409Z",
+    "publishedAt": "2026-04-08T01:00:00.000Z",
+    "revisedAt": "2026-04-12T02:54:02.409Z",
+    "title": "〈電子黒板の活用〉展開図は「動かして」覚える——立方体11種類が操作できるDigital geneで図形授業が変わる",
+    "category": {
+      "id": "ug70uoyc0",
+      "createdAt": "2026-02-07T07:49:16.384Z",
+      "updatedAt": "2026-02-07T07:49:16.384Z",
+      "publishedAt": "2026-02-07T07:49:16.384Z",
+      "revisedAt": "2026-02-07T07:49:16.384Z",
+      "name": "活用事例"
+    },
+    "url": "https://kokuban-base.com/columns/digital-gene",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/5280c364b88842f980a43a75f6698a46/%E7%AB%8B%E4%BD%93%E3%81%AE%E5%B1%95%E9%96%8B%E5%9B%B3%20(3).png",
+        "height": 720,
+        "width": 1280
+      }
+    ]
+  },
+  {
+    "id": "o70ijiu59",
+    "createdAt": "2026-03-15T12:22:40.086Z",
+    "updatedAt": "2026-04-12T02:54:10.259Z",
+    "publishedAt": "2026-03-15T13:00:00.000Z",
+    "revisedAt": "2026-04-12T02:54:10.259Z",
+    "title": "〈電子黒板の活用〉最難関理科を突破する、電子黒板×Javalabを活用した理科の授業アイデア",
+    "category": {
+      "id": "ug70uoyc0",
+      "createdAt": "2026-02-07T07:49:16.384Z",
+      "updatedAt": "2026-02-07T07:49:16.384Z",
+      "publishedAt": "2026-02-07T07:49:16.384Z",
+      "revisedAt": "2026-02-07T07:49:16.384Z",
+      "name": "活用事例"
+    },
+    "url": "https://kokuban-base.com/columns/javalab/",
+    "photo": []
+  },
+  {
+    "id": "7fnsq6fiiw",
+    "createdAt": "2026-03-09T07:58:14.677Z",
+    "updatedAt": "2026-04-12T02:54:17.159Z",
+    "publishedAt": "2026-03-09T08:00:00.000Z",
+    "revisedAt": "2026-04-12T02:54:17.159Z",
+    "title": "〈電子黒板の活用〉BenQ BoardのNFCタッチ機能でGoogleアカウントを瞬時に切り替え。生徒主体の探究授業も手軽に。",
+    "category": {
+      "id": "ug70uoyc0",
+      "createdAt": "2026-02-07T07:49:16.384Z",
+      "updatedAt": "2026-02-07T07:49:16.384Z",
+      "publishedAt": "2026-02-07T07:49:16.384Z",
+      "revisedAt": "2026-02-07T07:49:16.384Z",
+      "name": "活用事例"
+    },
+    "url": "https://kokuban-base.com/columns/benQboard-NFC/",
+    "photo": []
+  },
+  {
+    "id": "dld-k--kno",
+    "createdAt": "2026-02-07T07:50:49.869Z",
+    "updatedAt": "2026-02-07T07:50:49.869Z",
+    "publishedAt": "2026-02-07T08:00:00.000Z",
+    "revisedAt": "2026-02-07T07:50:49.869Z",
+    "title": "〈電子黒板の活用〉Googleマップで中学受験対策―知識が「芋づる式」につながる社会科地理の授業アイデア",
+    "category": {
+      "id": "ug70uoyc0",
+      "createdAt": "2026-02-07T07:49:16.384Z",
+      "updatedAt": "2026-02-07T07:49:16.384Z",
+      "publishedAt": "2026-02-07T07:49:16.384Z",
+      "revisedAt": "2026-02-07T07:49:16.384Z",
+      "name": "活用事例"
+    },
+    "url": "https://kokuban-base.com/columns/ifp-lesson-lab-googlemap/",
+    "photo": []
+  }
+]
