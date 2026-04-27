@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GSSKLZ6EDH');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア｜Kokuban BASE</title>
+    <meta name="description" content="中学受験理科の難関校入試（聖光学院・東大寺学園など）で求められる初見問題への対応力を育てる方法を解説。電子黒板とシミュレーションツール「Java Lab」を活用し、暗記に頼らず現象の本質的な理解を深める授業づくりのヒントをお届けします。">
+    <link rel="canonical" href="https://kokuban-base.com/columns/javalab/">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア｜Kokuban BASE">
+    <meta property="og:description" content="中学受験理科の難関校入試（聖光学院・東大寺学園など）で求められる初見問題への対応力を育てる方法を解説。電子黒板とシミュレーションツール「Java Lab」を活用し、暗記に頼らず現象の本質的な理解を深める授業づくりのヒントをお届けします。">
+    <meta property="og:url" content="https://kokuban-base.com/columns/javalab/">
+    <meta property="og:image" content="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/36b0a4cd136c4fb48051ed2eb77cc230/%E6%9C%80%E9%9B%A3%E9%96%A2%E7%90%86%E7%A7%91%E3%82%92%E7%AA%81%E7%A0%B4%E3%81%99%E3%82%8B%E6%8E%88%E6%A5%AD%20(1).png?fit=crop&w=1200&h=630">
+    <meta property="og:site_name" content="Kokuban BASE（コクバンベース）">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="article:published_time" content="2026-03-15T12:21:09.753Z">
+    <meta property="article:modified_time" content="2026-04-12T02:54:59.844Z">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア｜Kokuban BASE">
+    <meta name="twitter:description" content="中学受験理科の難関校入試（聖光学院・東大寺学園など）で求められる初見問題への対応力を育てる方法を解説。電子黒板とシミュレーションツール「Java Lab」を活用し、暗記に頼らず現象の本質的な理解を深める授業づくりのヒントをお届けします。">
+    <meta name="twitter:image" content="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/36b0a4cd136c4fb48051ed2eb77cc230/%E6%9C%80%E9%9B%A3%E9%96%A2%E7%90%86%E7%A7%91%E3%82%92%E7%AA%81%E7%A0%B4%E3%81%99%E3%82%8B%E6%8E%88%E6%A5%AD%20(1).png?fit=crop&w=1200&h=630">
+    
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": "https://kokuban-base.com/columns/javalab/" },
+            "headline": "〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア",
+            "description": "中学受験理科の難関校入試（聖光学院・東大寺学園など）で求められる初見問題への対応力を育てる方法を解説。電子黒板とシミュレーションツール「Java Lab」を活用し、暗記に頼らず現象の本質的な理解を深める授業づくりのヒントをお届けします。",
+            "image": ["https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/36b0a4cd136c4fb48051ed2eb77cc230/%E6%9C%80%E9%9B%A3%E9%96%A2%E7%90%86%E7%A7%91%E3%82%92%E7%AA%81%E7%A0%B4%E3%81%99%E3%82%8B%E6%8E%88%E6%A5%AD%20(1).png?fit=crop&w=1200&h=630"],
+            "datePublished": "2026-03-15T12:21:09.753Z",
+            "dateModified": "2026-04-12T02:54:59.844Z",
+            "author": { "@type": "Organization", "name": "Kokuban BASE（コクバンベース）", "url": "https://kokuban-base.com/" },
+            "publisher": { 
+                "@type": "Organization", 
+                "name": "Kokuban BASE（コクバンベース）", 
+                "logo": { "@type": "ImageObject", "url": "https://kokuban-base.com/ogp.jpg" } 
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://kokuban-base.com/" },
+                { "@type": "ListItem", "position": 2, "name": "コラム", "item": "https://kokuban-base.com/article" },
+                { "@type": "ListItem", "position": 3, "name": "〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア", "item": "https://kokuban-base.com/columns/javalab/" }
+            ]
+        }
+    ]
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        customBlue: '#103f99',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; line-height: 1.6; }
+        
+        .title-block { text-align: center; }
+        .title-block h1 { line-height: 1.4; }
+        
+        .subtitle-text {
+            display: block;
+            font-size: 0.55em;
+            font-weight: 700;
+            color: #6b7280;
+            margin-top: 1rem;
+            line-height: 1.5;
+            letter-spacing: 0.02em;
+        }
+
+        .publish-date, .author-name { font-size: 0.875rem; color: #6b7280; }
+
+        .article-body {
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+            word-break: break-all;
+        }
+
+        .article-body p { margin-bottom: 2em; }
+        .article-body br { display: inline; }
+        
+        .article-body h2 { 
+            font-size: 1.75rem; 
+            font-weight: 900; 
+            margin: 3em 0 1.5em; 
+            padding-bottom: 0.5em; 
+            border-bottom: 3px solid #103f99; 
+            position: relative;
+        }
+        .article-body h3 { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            margin: 2.5em 0 1.2em; 
+            padding-left: 0.75rem;
+            border-left: 5px solid #103f99;
+        }
+        
+        .speaker-a { color: #103f99; font-weight: 800; }
+        .speaker-b { color: #ec4899; font-weight: 800; }
+        .speaker-c { color: #059669; font-weight: 800; }
+        .speaker-default { color: #374151; font-weight: 800; }
+
+        /* 画像下の余白を完全に排除するための設定 */
+        .eyecatch-image .image-wrapper {
+            display: flex;
+            flex-direction: column;
+            font-size: 0;
+            line-height: 0;
+            background-color: transparent;
+            isolation: isolate;
+        }
+        .eyecatch-image img,
+        .eyecatch-image figure {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            border: none;
+            vertical-align: bottom;
+        }
+        
+        .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+
+        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+        
+        .share-button { display: inline-flex; width: 3.25rem; height: 3.25rem; align-items: center; justify-content: center; border-radius: 9999px; color: white; transition: all 0.2s ease; }
+        .share-button:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .share-twitter { background-color: #000000; }
+        .share-facebook { background-color: #1877F2; }
+        .share-line { background-color: #06C755; }
+
+        /* 関連記事カードのスタイル */
+        .related-card { transition: all 0.3s ease; }
+        .related-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-stone-50 antialiased text-gray-900">
+
+    <!-- Header (index.htmlと完全に統一) -->
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-50 transition-colors duration-300 shadow-md">
+        <div class="px-6 lg:px-8">
+            <div class="flex items-stretch h-[60px] sm:h-20">
+                <div class="flex-1 flex items-center space-x-8">
+                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
+                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
+                    </div>
+                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                        <a href="/Kokubanlease" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">Kokuban リース</a>
+                        <a href="/article" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <a href="/#faq" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
+                        <a href="/#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
+                    </nav>
+                </div>
+                <div class="flex-shrink-0 flex justify-end items-center">
+                    <div class="hidden sm:flex h-full items-center">
+                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-36 lg:w-48 h-full hover:bg-gray-100 transition-colors px-2">
+                            <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="/on-line-reservation" class="bg-green-500 text-white font-bold text-base lg:text-lg flex items-center justify-center whitespace-nowrap px-6 lg:px-10 h-full hover:bg-green-600 transition-colors">
+                            <span>オンラインデモ</span><i class="fa-solid fa-desktop ml-2"></i>
+                        </a>
+                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-36 lg:w-48 h-full hover:bg-pink-600 transition-colors px-2">
+                            <span>体験予約</span><i class="fa-solid fa-calendar-check ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:hidden flex items-center">
+                        <button id="mobile-menu-button" class="text-white p-2" aria-label="メニューを開く">
+                            <svg id="menu-icon" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- モバイルメニュー -->
+            <div id="mobile-menu" class="hidden lg:hidden bg-[#103f99] border-t border-white/10 pb-6">
+                <nav class="px-4 py-4 space-y-1">
+                    <a href="/Kokubanlease" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">Kokuban リース</a>
+                    <a href="/article" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">コラム</a>
+                    <a href="/#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">よくある質問</a>
+                    <a href="/#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">アクセス</a>
+                </nav>
+                <div class="px-4 space-y-3 pt-4">
+                    <a href="/contact" class="block text-center bg-white text-[#103f99] font-bold py-4 rounded-xl shadow-md">お問い合わせ</a>
+                    <a href="/on-line-reservation" class="block text-center bg-green-500 text-white font-bold py-4 rounded-xl shadow-md">オンラインデモ予約</a>
+                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold py-4 rounded-xl shadow-md">体験予約</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="bg-white">
+        <div class="max-w-screen-xl mx-auto px-4 py-8 sm:py-16">
+            <article class="max-w-4xl mx-auto">
+                <!-- アイキャッチ -->
+                <div class="eyecatch-image mb-8 sm:mb-12">
+                    <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
+                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/36b0a4cd136c4fb48051ed2eb77cc230/%E6%9C%80%E9%9B%A3%E9%96%A2%E7%90%86%E7%A7%91%E3%82%92%E7%AA%81%E7%A0%B4%E3%81%99%E3%82%8B%E6%8E%88%E6%A5%AD%20(1).png?fit=crop&w=1200&h=675&q=80" alt="〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア" width="1280" height="720" class="w-full h-auto object-cover rounded-lg mb-8 shadow-md" loading="eager" fetchpriority="high">
+                    </div>
+                </div>
+                
+                <!-- タイトルブロック -->
+                <div class="title-block mb-12 sm:mb-16">
+                    <h1 id="main-article-title" class="text-2xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-8 leading-[1.3]">〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア</h1>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                        <div class="flex items-center space-x-2">
+                            <span class="h-px w-4 bg-gray-300"></span>
+                            <p class="publish-date font-bold tracking-wider">公開日: 2026年3月15日</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
+                            <p class="author-name font-bold tracking-wider flex items-center">
+                                <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
+                                執筆者: <span id="main-author-display">{{author}}</span>
+                            </p>
+                            <span class="h-px w-4 bg-gray-300"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 本文 -->
+                <div class="article-body max-w-3xl mx-auto text-gray-800">
+                    <p>中学受験の理科、特に難関校の入試問題は、知識を暗記しただけでは合格点をとることはできません。単に知識を覚えているかどうかを問うだけでなく、「なぜこのような結果となったか説明しなさい」などの思考過程を問う記述問題を出題する学校が増えています。つまり、ひとつひとつの事象に対する本質的な深い理解が求められています。</p><p>理科学習の本質は「現象の正しい理解」にあります。ひとつひとつの現象を正しく捉えて理解することで、積み重なった知識がいつしか一本の線で繋がり、複数領域を跨ぐネットワークへと進化します。我々の指導経験から、理科の伸びる生徒は知識量が多いのではなく、ひとつひとつの現象への理解の解像度が極めて高いことが分かっています。</p><p>しかし、小学生が動的な自然事象をテキストの静止画だけで正しく理解することは困難です。イメージが湧かずに丸暗記に頼ったり、誤った解釈を固めたりするケースも少なくありません。</p><p>Java Lab（<a href="https://javalab.org/ja/）は、そういった本質的な理解を促すため、学習初期段階での認知的な誤りを防ぎ、ひとつひとつを正しく理解する土台となることができます。"><span style="color: #1162dc"><u>https://javalab.org/ja/</u></span>）</a>は、そういった本質的な理解を促すため、学習初期段階での認知的な誤りを防ぎ、ひとつひとつを正しく理解する土台となることができます。</p><hr><h2 id="h0e86438c63">Java Labとは？：インストール不要の強力なシミュレーター</h2><p>Java Labは、ブラウザ上で動作する科学シミュレーションサイトです。物理、化学、生物、地学、数学と幅広い分野をカバーし、複雑な科学的原理を直感的な操作で「見える化」できます。</p><p>このツールを導入することで、学習の質は次の3つのポイントで劇的に変化します。</p><p><strong><u>1. 「誤ったイメージ（誤概念）」の定着を未然に防げる</u></strong></p><p>一度染み付いた「間違ったイメージ」を修正するのは、新規に覚えるより何倍も困難です。テキストの矢印や図を自分なりに解釈して「こう動くに違いない」と誤解する前に、正しい物理現象を動的に提示できます。</p><p><strong><u>2. 「イメージしてみよう」ではなく、「なぜ、こうなるのだろうか」と問える</u></strong></p><p>これまでは「どう動くか」を想像させることに脳のリソースを割いていました。しかし、動きそのものが目の前で再現されることで、生徒は「なぜこの法則が成り立つのか」という高次の思考に全エネルギーを集中できるようになります。</p><p><strong><u>3. 難関校の初見問題を突破のきっかけに</u></strong></p><p>解像度の高い、精度の高い知識が脳内に蓄積されるため、異なる単元同士の共通点に気づきやすくなります。バラバラに見えていた知識が、ある日突然、カチッと音を立てて繋がる瞬間。その「知識の連鎖」こそが、難関校の初見問題を突破する真の力となります。</p><h2 id="h5c6c523b3c"><strong>例１：聖光学院2025年度の問題　～音の振動速度と風の影響～</strong></h2><p>音は目に見えないため、イメージしづらい単元のひとつです。Java Labの「音のシミュレーション」を活用すれば、音の三要素を視覚的に解剖できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/befd87dc1a9d488bbcff45c635a73e72/CPT2602181441-1227x633.gif" alt="" width="1227" height="633"></figure><p><strong>1. 音の大きさと高さの分離</strong></p><p>生徒が混同しやすい「音の大小（振幅）」と「音の高低（振動数）」の違いを、波形として提示します。もちろん、電子黒板から音も出ます。</p><ul><li><strong>振動数（Hz）：</strong> スライダーを右に動かすほど波の左右の幅がせまくなり、音が高くなる。</li><li><strong>振幅：</strong> 音量を上げると波の上下の幅が広がり、波形がダイナミックに変化する。<br>※振幅と振動数の説明は上下を逆にしたほうが対応していてわかりやすいです</li></ul><p>15000Hzを超えると、年代によっては聞こえなくなり、20000Hzからは「超音波」の領域に入ります。実際に電子黒板からも音が聞こえなくなっていきます。「音としては聞こえないが、波としては存在している」という事実は、センサー技術や動物の感覚といったはなしを展開するきっかけになります。</p><p>さらに、「三角波（リコーダーなどの音）」「のこぎり波（バイオリンなどの音）」といった波の形を切り替えることができます。同じ高さ・同じ大きさでも、音源が変われば「波の形（音色）」が変わることも視覚的に分かります。</p><p>このように「音⇔振動によって生じた波として伝わる自然現象」であることを捉えられると、難関校の入試問題にも挑戦できるようになります。</p><p><strong><u>聖光学院2025年度 理科問題</u></strong></p><p>　音源から壁に向かって風が吹いている場合、風が吹いていない場合よりも音源から出た音が壁に到達するまでにかかる時間は（う）。また、音が壁にはね返ってから戻ってくるまでにかかる時間は（え）。そして、音が往復するまでにかかる時間は（お）。</p><p>解答：（う）短くなる　（え）長くなる　（お）変わらない</p><h2 id="hfa5161939e"><strong>例２：東大寺学園2025年度の問題　～物質の状態変化と水の特性～</strong></h2><p>物質の状態変化を学ぶ際、最初から丸暗記させるべきではありません。大切なのは、熱エネルギーと分子の動きの関係を、まずは視覚的に正しく理解することです。<br>授業の導入では、電子黒板の大画面でJava Labのシミュレーションを見せます。こちらをご覧ください。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/96cfba1930434e339eba367efbc8ee0f/CPT2602181512-1210x605%20(1).gif" alt="" width="1210" height="605"></figure><ul><li><strong>固体：</strong> 分子が規則正しく並び、位置をほとんど変えずその場で振動している状態。</li><li><strong>液体：</strong>分子間の引力が弱まり、互いの間をすべるように動きながら位置を変えている状態。</li><li><strong>気体：</strong>分子同士が互いの影響をほとんど受けずに空間を自由に動き回っている状態。</li></ul><p>電子黒板の大画面でこれらを比較することで、生徒は「温度が高い⇔分子の熱運動が激しい⇔体積が大きい」という物理学の基礎概念を、直感的な納得感とともに習得します。</p><p><strong><u>この大前提を共有した上で、東大寺学園2025年の理科の問題を提示します。</u></strong></p><p>「氷、水、水蒸気をすべて同じ重さで用意しました。このとき、2番目に体積が大きいものはどれでしょうか。」<br>先ほどの基礎概念を理解した生徒たちは、自信を持って「体積の大きさは、水蒸気（気体）＞水（液体）＞氷（固体）の順になるから、2番目は水だ」と考えるはずです。</p><p>しかし、正解は「氷」です。</p><p>ここで生徒たちの頭の中に「あれ？ さっき電子黒板で見た概念と違うじゃん！ なんで？」という強烈な疑問が生まれます。この疑問を持った瞬間こそが、水という物質が持つ「分子構造の例外的な性質」を教える最高のタイミングなのです（この説明は今回は割愛します）。</p><p>ここで最も気をつけなければならないのは、「水と氷では、例外的に氷のほうが体積が大きい」という結果だけを単なる暗記で終わらせないことです。もし結果の丸暗記に留まってしまうと、生徒の理解の解像度はそこで途切れてしまいます。</p><p>そして、次に続くこのような問題を解くことができなくなります。※表現は一部改変</p><p>「水は0度から100度の間にも、水蒸気が発生している。〇か×か」</p><p>「氷の体積が大きい」という例外事項だけを独立して暗記している生徒は、この問題の意図に気づけません。しかし、最初の電子黒板とJavalabを使った視覚的な学びを通して、「物質は熱エネルギーによって常に分子が運動している」という大前提を根本から理解している生徒ならどうでしょうか。「100度（沸点）に達して全体が沸騰していなくても、水の表面では分子が常に熱エネルギーで動き回っているのだから、空気中に飛び出していく分子（水蒸気）が当然あるはずだ。そういう映像をさっきみたことがある。」と頭の中で分子の動きをイメージし、自信を持って「〇（発生している）」と正解を導き出すことができるのです。</p><p>例外を教える前に、まずは基礎概念となる熱エネルギーの動きを視覚的にしっかりと理解させる。このステップを踏むことで、生徒の中でバラバラだった知識が一本の線としてつながり、初見の問題にも対応できる本物の思考力が育ちます。</p><h2 id="h8427df1bb9"><strong>まとめ：デジタルが「共通の物差し」になる</strong></h2><p>デジタル化で経験格差を埋める理科授業は、生徒の探究心を加速させます。<br>Java Labには他にも、天体の年周運動、凸レンズの結像、オームの法則など、良質なシミュレーションが豊富です。</p><p>ぜひ、動く教科書として電子黒板でご活用ください。</p><p>出典：</p><p>聖光学院中学校 2025年度入学試験問題</p><p>東大寺学園中学校 2025年度入学試験問題</p><p></p>
+                </div>
+
+                <!-- シェアボタン -->
+                <div class="mt-20 py-10 border-t border-gray-100">
+                    <h3 class="text-base font-bold text-center text-gray-500 uppercase tracking-widest mb-6">Share this article</h3>
+                    <div class="flex justify-center items-center gap-6">
+                        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fjavalab%2F&text=%E3%80%88%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%E3%81%AE%E6%B4%BB%E7%94%A8%E3%80%89%E6%9C%80%E9%9B%A3%E9%96%A2%E7%90%86%E7%A7%91%E3%81%AE%E5%88%9D%E8%A6%8B%E5%95%8F%E9%A1%8C%E3%82%92%E7%AA%81%E7%A0%B4%E3%81%99%E3%82%8B%E3%80%81%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%C3%97Javalab%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%E7%90%86%E7%A7%91%E3%81%AE%E6%8E%88%E6%A5%AD%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="X" class="share-button share-twitter"><i class="fab fa-x-twitter text-xl"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fjavalab%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="share-button share-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fjavalab%2F&text=%E3%80%88%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%E3%81%AE%E6%B4%BB%E7%94%A8%E3%80%89%E6%9C%80%E9%9B%A3%E9%96%A2%E7%90%86%E7%A7%91%E3%81%AE%E5%88%9D%E8%A6%8B%E5%95%8F%E9%A1%8C%E3%82%92%E7%AA%81%E7%A0%B4%E3%81%99%E3%82%8B%E3%80%81%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%C3%97Javalab%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%E7%90%86%E7%A7%91%E3%81%AE%E6%8E%88%E6%A5%AD%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="LINE" class="share-button share-line"><i class="fab fa-line text-2xl"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 関連記事（JavaScriptで表示を制御） -->
+            <div class="mt-24 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between mb-10">
+                    <h3 class="text-2xl font-black text-gray-900">あわせて読みたい</h3>
+                    <a href="https://kokuban-base.com/article" class="text-sm font-bold text-customBlue hover:underline">すべて見る <i class="fas fa-chevron-right ml-1"></i></a>
+                </div>
+                <div id="related-posts-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    <!-- JSによりここにカードが挿入されます -->
+                </div>
+            </div>
+            
+            <!-- CTA -->
+            <div class="mt-24 max-w-4xl mx-auto">
+                <div class="bg-gradient-to-br from-pink-50 to-white border border-pink-100 p-8 sm:p-12 rounded-3xl shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <i class="fas fa-chalkboard-teacher text-8xl text-pink-500"></i>
+                    </div>
+                    <div class="relative z-10 text-center sm:text-left">
+                        <h3 class="text-2xl sm:text-3xl font-black text-pink-600 mb-4">電子黒板を実際に体験しませんか？</h3>
+                        <p class="text-gray-700 leading-relaxed mb-10 max-w-2xl">
+                            Kokuban BASEでは、本記事で紹介した機能のほか、様々なモデルを直接触って比較できます。導入に関するご相談も承っておりますので、お気軽にご予約ください。
+                        </p>
+                        <!-- 2ボタン配置 -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-4">
+                            <a href="/reservation" class="w-full sm:w-auto inline-flex items-center justify-center bg-pink-500 text-white font-black text-lg px-8 py-4 rounded-full hover:bg-pink-600 transition-all shadow-lg hover:shadow-pink-200 transform hover:-translate-y-1">
+                                来場予約 <i class="fas fa-calendar-check ml-3"></i>
+                            </a>
+                            <a href="/on-line-reservation" class="w-full sm:w-auto inline-flex items-center justify-center bg-green-500 text-white font-black text-lg px-8 py-4 rounded-full hover:bg-green-600 transition-all shadow-lg hover:shadow-green-200 transform hover:-translate-y-1">
+                                オンラインデモ予約 <i class="fas fa-desktop ml-3"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 戻るリンク -->
+            <div class="mt-16 text-center">
+                <a href="https://kokuban-base.com/article" class="inline-flex items-center text-gray-500 font-bold hover:text-gray-900 transition-colors">
+                    <i class="fas fa-long-arrow-alt-left mr-2"></i> コラム一覧へ戻る
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-customBlue text-gray-200">
+        <div class="container mx-auto px-6 py-12 md:py-16">
+            <div class="flex flex-wrap justify-between gap-y-10">
+                <div class="w-full md:w-1/4">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tighter">Kokuban BASE</h2>
+                    <p class="text-blue-200 mt-3 font-medium text-sm">株式会社idea spot</p>
+                </div>
+                <div class="w-full md:w-3/4 flex flex-wrap justify-between gap-y-8">
+                    <div class="w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">メニュー</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="/Kokubanlease" class="footer-link">Kokuban リース</a></li>
+                            <li><a href="/article" class="footer-link">コラム</a></li>
+                            <li><a href="/#faq" class="footer-link">よくある質問</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">サポート</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="/reservation" class="footer-link">来場予約</a></li>
+                            <li><a href="/on-line-reservation" class="footer-link">オンラインデモ</a></li>
+                            <li><a href="/contact" class="footer-link">お問い合わせ</a></li>
+                            <li><a href="/#access" class="footer-link">アクセス</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">会社情報</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="https://www.idea-spot.co.jp/" target="_blank" rel="noopener" class="footer-link">企業概要</a></li>
+                            <li><a href="/privacy" class="footer-link">プライバシーポリシー</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 md:mt-16 pt-8 border-t border-white/10 text-center text-blue-200 text-xs md:text-sm">
+                <p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // モバイルメニュー制御
+            const btn = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', () => {
+                    const isHidden = menu.classList.contains('hidden');
+                    menu.classList.toggle('hidden');
+                    document.body.classList.toggle('overflow-hidden');
+                    btn.innerHTML = isHidden 
+                        ? '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>'
+                        : '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>';
+                });
+            }
+
+            // タイトルのサブタイトル化
+            const titleEl = document.getElementById('main-article-title');
+            if (titleEl && titleEl.innerHTML.includes('<br>')) {
+                const parts = titleEl.innerHTML.split(/<br\s?\/?>/i);
+                if (parts.length > 1) {
+                    titleEl.innerHTML = `${parts[0]}<span class="subtitle-text">${parts[1]}</span>`;
+                }
+            }
+
+            // microCMS連携の設定
+            const SERVICE_DOMAIN = "kokubanbase"; 
+            const API_KEY = "1Mr8JvDoCxPQa6s3lIAJOwP78xM9AnEQd67v";
+            const API_ENDPOINT = "news";
+            const currentSlug = location.pathname.split('/').filter(Boolean).pop()?.replace('.html', '');
+            const container = document.getElementById('related-posts-container');
+
+            // 関連記事を描画する関数
+            const renderRelatedArticles = (articles) => {
+                if (!container) return;
+                if (!articles || articles.length === 0) {
+                    container.innerHTML = '<p class="text-gray-400 col-span-full text-center py-10">関連記事が見つかりませんでした。</p>';
+                    return;
+                }
+                container.innerHTML = articles.map(article => {
+                    const title = article.title || '無題のコラム';
+                    const date = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.') : '';
+                    const imageUrl = article.eyecatch?.url || 'https://placehold.jp/24/cccccc/ffffff/800x450.png?text=No+Image';
+                    const linkUrl = `/columns/${article.slug || article.id}/`; 
+                    const authorValue = article.author || 'Kokuban BASE 編集部';
+
+                    return `
+                        <a href="${linkUrl}" class="related-card group flex flex-col h-full bg-white transition-all">
+                            <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+                                <img src="${imageUrl}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="flex flex-col flex-grow">
+                                <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                                    ${title}
+                                </h4>
+                                <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                                    <time class="text-gray-400">${date}</time>
+                                    <span class="text-gray-500 flex items-center">
+                                        <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                                        ${authorValue}
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                }).join('');
+            };
+
+            const fetchArticleData = () => {
+                if (API_KEY && !API_KEY.includes("{{")) {
+                    // メイン記事情報の取得（執筆者更新用）
+                    if (currentSlug) {
+                        const mainUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?filters=slug[equals]${currentSlug}`;
+                        fetch(mainUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
+                            .then(res => res.json())
+                            .then(data => {
+                                const article = data.contents?.[0];
+                                if (article && article.author) {
+                                    document.getElementById('main-author-display').textContent = article.author;
+                                }
+                            })
+                            .catch(console.error);
+                    }
+
+                    // 関連記事の取得
+                    let relatedUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`;
+                    if (currentSlug) relatedUrl += `&filters=slug[not_equals]${currentSlug}`;
+                    
+                    fetch(relatedUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
+                        .then(res => res.json())
+                        .then(data => renderRelatedArticles(data.contents))
+                        .catch(() => renderRelatedArticles([]));
+                }
+            };
+
+            fetchArticleData();
+        });
+    </script>
+</body>
+</html>

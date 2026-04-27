@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電子黒板って何ができるの？ | Kokuban BASE（コクバンベース）京都</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        customBlue: '#103f99',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; }
+        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+        
+        .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows: 0.4s ease-in-out; }
+        .faq-item.open .answer { grid-template-rows: 1fr; }
+        
+        .highlight-underline { background: linear-gradient(transparent 70%, #fef3c7 70%); background-repeat: no-repeat; background-size: 100% 100%; padding: 0 0.2em; }
+        
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #103f99;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .fade-in { animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-stone-50 antialiased text-gray-900">
+
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <div class="flex items-center space-x-10">
+                    <div class="text-xl sm:text-2xl font-black text-white text-shadow tracking-tight">
+                        <a href="/" class="hover:opacity-90 transition-opacity">Kokuban BASE</a>
+                    </div>
+                    <nav class="hidden lg:flex items-center space-x-6 text-sm">
+                        <a href="#products" class="text-white font-bold hover:text-blue-200 transition-colors p-2">ラインナップ</a>
+                        <a href="#columns" class="text-white font-bold hover:text-blue-200 transition-colors p-2">コラム</a>
+                        <a href="#faq" class="text-white font-bold hover:text-blue-200 transition-colors p-2">よくある質問</a>
+                        <a href="#access" class="text-white font-bold hover:text-blue-200 transition-colors p-2">アクセス</a>
+                    </nav>
+                </div>
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <div class="hidden sm:flex space-x-2">
+                        <a href="/contact.html" class="bg-white text-[#103f99] font-bold text-sm lg:text-base flex items-center justify-center px-4 py-2 rounded shadow-sm hover:bg-gray-100 transition-colors">
+                            <span>お問い合わせ</span>
+                        </a>
+                        <a href="/reservation.html" class="bg-pink-500 text-white font-bold text-sm lg:text-base flex items-center justify-center px-4 py-2 rounded shadow-sm hover:bg-pink-600 transition-colors">
+                            <span>来場予約</span>
+                        </a>
+                    </div>
+                    <button id="mobile-menu-button" aria-label="メニュー" class="lg:hidden text-white p-2">
+                        <svg id="menu-icon" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-[#103f99] border-t border-white/10 shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#products" class="block py-3 text-white font-bold border-b border-white/10">ラインナップ</a>
+                <a href="#columns" class="block py-3 text-white font-bold border-b border-white/10">コラム</a>
+                <a href="#faq" class="block py-3 text-white font-bold border-b border-white/10">よくある質問</a>
+                <a href="#access" class="block py-3 text-white font-bold">アクセス</a>
+                <div class="grid grid-cols-2 gap-3 mt-6">
+                    <a href="/contact.html" class="flex items-center justify-center bg-white text-[#103f99] font-bold py-3 rounded-md text-sm shadow-md">お問い合わせ</a>
+                    <a href="/reservation.html" class="flex items-center justify-center bg-pink-500 text-white font-bold py-3 rounded-md text-sm shadow-md">来場予約</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-gradient-to-br from-blue-900 to-[#103f99] py-24 sm:py-32 px-6 text-center text-white">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-6 text-shadow">
+                電子黒板は<br class="sm:hidden">なにができるのか。
+            </h1>
+            <p class="text-lg sm:text-xl font-bold text-blue-100 opacity-90">
+                ただの大きなモニターではなく、「最高の授業」を作るためのパートナーとして。
+            </p>
+        </div>
+    </section>
+
+    <section class="py-16 sm:py-24 px-6 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div class="w-full lg:w-6/12">
+                <div class="mb-2">
+                    <span class="text-lg font-black tracking-widest text-[#103f99] uppercase">Our Mission</span>
+                    <div class="w-12 h-1 bg-pink-500 mt-2"></div>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black leading-snug my-8 text-slate-800">
+                    <span class="highlight-underline">教育現場における電子黒板の使い方を研究</span>
+                </h2>
+                <div class="space-y-6 text-slate-600 leading-loose font-medium text-base sm:text-lg text-justify">
+                    <p>電子黒板の「導入」は、あくまでスタートに過ぎません。大切なのは、その可能性をどう引き出し、現場でどう活かすかです。</p>
+                    <p>私たちは「電子黒板の専門家」であると同時に、日々教壇に立つ「教育のプロ」でもあります。授業の質を高めるための最適な「使い方」を日々研究し続けています。</p>
+                    <p>単なるツールの提供に留まらず、私たちが磨き上げた活用のノウハウを、あなたの教室へ余すことなくお届けします。</p>
+                </div>
+            </div>
+            <div class="w-full lg:w-6/12 relative group">
+                <div class="aspect-[16/10] bg-slate-100 rounded-xl overflow-hidden shadow-2xl border-8 border-white">
+                    <div class="w-full h-full flex items-center justify-center bg-slate-900 text-white relative overflow-hidden">
+                        <div class="absolute inset-0 bg-cover bg-center opacity-50 group-hover:scale-110 transition-transform duration-1000" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200')"></div>
+                        <div class="relative z-10 text-center p-8 bg-black/30 backdrop-blur-md rounded-2xl border border-white/20">
+                            <i class="fa-solid fa-graduation-cap text-5xl mb-4 text-pink-400"></i>
+                            <p class="text-xl font-black tracking-widest uppercase">Driven by Educators</p>
+                            <p class="text-xs mt-2 opacity-80 font-bold tracking-widest uppercase">Beyond Hardware Solutions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 授業アイデアセクション -->
+    <section id="columns" class="py-16 sm:py-24 px-6 bg-white border-t border-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center gap-3 mb-10 border-b border-gray-100 pb-8">
+                <i class="fa-solid fa-lightbulb text-[#ed5b8c] text-2xl"></i>
+                <h2 class="text-2xl sm:text-3xl font-black text-[#103f99] tracking-tight">授業アイデア</h2>
+            </div>
+            <p class="mb-12 text-base sm:text-lg text-slate-800 font-bold">研究の結果生まれた、具体的な活用法をご紹介します。</p>
+
+            <div id="column-error-container" class="hidden mb-8 p-4 bg-red-50 text-red-700 rounded-lg text-center"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+                <div id="main-columns-container" class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="col-span-full text-center"><div class="loader"></div></div>
+                </div>
+                <div class="lg:col-span-4 flex flex-col">
+                    <div id="side-columns-container" class="space-y-8 mb-12"></div>
+                    <div class="mt-auto">
+                        <a href="/columns" class="w-full py-4 border-2 border-[#103f99] rounded-full text-sm font-bold text-[#103f99] flex items-center justify-center gap-2 hover:bg-[#103f99] hover:text-white transition-all group">
+                            研究コラムをすべて見る <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 標準搭載機能 -->
+    <section id="products" class="py-16 sm:py-24 px-6 bg-[#103f99]">
+        <div class="max-w-6xl mx-auto text-center text-white">
+            <h2 class="text-3xl sm:text-4xl font-black mb-6">標準搭載機能</h2>
+            <p class="text-blue-100 mb-16 font-medium opacity-80">
+                教育現場の「教えやすさ」を支える電子黒板の標準搭載機能。<br>Kokuban BASEで取り扱う電子黒板は12の標準搭載機能のうち、11項目以上を網羅。
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-brands fa-google-play text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">Google Play Store</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・学習アプリの直接インストール</li>
+                        <li>・PCレスでのスムーズな起動</li>
+                        <li>・予習データの即時表示連携</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-file-pdf text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">PDF 表示/書き込み</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・デジタル教材への直接書き込み</li>
+                        <li>・ページめくりや拡大も自在</li>
+                        <li>・注釈付きデータの保存・活用</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-wifi text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">無線通信</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・デバイス画面のワイヤレス投影</li>
+                        <li>・最大9分割の同時画面投影</li>
+                        <li>・ケーブル不要のスマートな接続</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-globe text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">ブラウザ利用</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・最新資料や画像の即座検索</li>
+                        <li>・オンライン動画の鮮明な再生</li>
+                        <li>・Web上の情報をクラスで共有</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-camera text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">内蔵カメラ</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・オンライン授業の即時開始</li>
+                        <li>・他校や専門家との遠隔交流</li>
+                        <li>・外部機器不要のオールインワン</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-microphone text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">内蔵マイク</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・AIや検索への音声入力対応</li>
+                        <li>・双方向オンライン通信の集音</li>
+                        <li>・ノイズを抑えたクリアな録音</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-crop-simple text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">スクリーンショット</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・重要ポイントのみを瞬時に切取</li>
+                        <li>・ホワイトボードへの即時貼付</li>
+                        <li>・保存画像の二次利用もスムーズ</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-cloud-arrow-up text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">クラウド連携</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・各種クラウドへの直接接続</li>
+                        <li>・PC不要での教材呼び出し</li>
+                        <li>・職員室PCでの再編集・管理</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-qrcode text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">QR共有</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・板書内容をボタン一つでQR化</li>
+                        <li>・生徒端末へのデータ持ち帰り</li>
+                        <li>・欠席者への迅速な情報共有</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-person-chalkboard text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">ホワイトボード</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・方眼紙や五線譜への背景変更</li>
+                        <li>・消さずに残せる無限キャンバス</li>
+                        <li>・筆圧を検知する自然な書き味</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-brain text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">AI活用</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・生成AIによるアイデア創出支援</li>
+                        <li>・リアルタイムの音声字幕表示</li>
+                        <li>・授業中の疑問解決パートナー</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition-all group text-left">
+                    <i class="fa-solid fa-columns text-3xl mb-4 opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    <p class="font-bold text-base mb-3 border-b border-white/20 pb-2">画面分割</p>
+                    <ul class="text-[11px] text-blue-100/80 space-y-1.5 font-medium leading-relaxed">
+                        <li>・教材とホワイトボードの同時表示</li>
+                        <li>・資料を見ながらの解説をスムーズに</li>
+                        <li>・複数アプリを切り替えず一画面で操作</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 授業の変化セクション -->
+    <section class="py-16 sm:py-24 px-6 bg-white overflow-hidden">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block relative px-12 py-4 mb-4">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-[#103f99]"></div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-[#103f99] tracking-tight">授業はどう変わるのか</h2>
+                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-[#103f99]"></div>
+                </div>
+                <p class="text-slate-500 font-bold text-sm sm:text-base mt-8 opacity-80">講師の「教えやすさ」を劇的に変える、電子黒板の標準搭載機能</p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="flex flex-col sm:flex-row items-stretch border-[1.5px] border-black rounded-xl overflow-hidden group shadow-sm">
+                    <div class="w-full sm:w-1/3 bg-black flex items-center justify-center p-8 shrink-0">
+                        <span class="text-white text-3xl font-black tracking-tight">Function 1</span>
+                    </div>
+                    <div class="flex-1 bg-white p-6 sm:p-10 flex flex-col justify-center">
+                        <div class="flex items-start gap-4 mb-3">
+                            <span class="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-[10px] font-black shrink-0 mt-1">1</span>
+                            <h4 class="text-lg font-black text-black leading-tight">「前回の続き」から、1秒で再開できる</h4>
+                        </div>
+                        <p class="text-black text-[13px] leading-relaxed font-bold opacity-80 pl-10 text-justify">保存した前回の板書をパッと呼び出せば、授業開始とともに即、前回の復習へ。知識のつながりがより強固になります。</p>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch border-[1.5px] border-black rounded-xl overflow-hidden group shadow-sm">
+                    <div class="w-full sm:w-1/3 bg-black flex items-center justify-center p-8 shrink-0">
+                        <span class="text-white text-3xl font-black tracking-tight">Function 2</span>
+                    </div>
+                    <div class="flex-1 bg-white p-6 sm:p-10 flex flex-col justify-center">
+                        <div class="flex items-start gap-4 mb-3">
+                            <span class="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-[10px] font-black shrink-0 mt-1">2</span>
+                            <h4 class="text-lg font-black text-black leading-tight">教材と解説を「一画面」で完結させる</h4>
+                        </div>
+                        <p class="text-black text-[13px] leading-relaxed font-bold opacity-80 pl-10 text-justify">画面を二分割して、左にデジタル教科書、右にホワイトボードを表示。教材を見せながら、その横ですぐに解説が始められます。</p>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch border-[1.5px] border-black rounded-xl overflow-hidden group shadow-sm">
+                    <div class="w-full sm:w-1/3 bg-black flex items-center justify-center p-8 shrink-0">
+                        <span class="text-white text-3xl font-black tracking-tight">Function 3</span>
+                    </div>
+                    <div class="flex-1 bg-white p-6 sm:p-10 flex flex-col justify-center">
+                        <div class="flex items-start gap-4 mb-3">
+                            <span class="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-[10px] font-black shrink-0 mt-1">3</span>
+                            <h4 class="text-lg font-black text-black leading-tight">板書をQRコードで持ち帰り、質の高い復習へ</h4>
+                        </div>
+                        <p class="text-black text-[13px] leading-relaxed font-bold opacity-80 pl-10 text-justify">授業の終わりにQRコードを発行するだけで、生徒は自分の端末に板書を丸ごと保存できます。先生の話に集中できる環境を作ります。</p>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch border-[1.5px] border-black rounded-xl overflow-hidden group shadow-sm">
+                    <div class="w-full sm:w-1/3 bg-black flex items-center justify-center p-8 shrink-0">
+                        <span class="text-white text-3xl font-black tracking-tight">Function 4</span>
+                    </div>
+                    <div class="flex-1 bg-white p-6 sm:p-10 flex flex-col justify-center">
+                        <div class="flex items-start gap-4 mb-3">
+                            <span class="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-[10px] font-black shrink-0 mt-1">4</span>
+                            <h4 class="text-lg font-black text-black leading-tight">Google Play ストア対応でアプリDL可能</h4>
+                        </div>
+                        <p class="text-black text-[13px] leading-relaxed font-bold opacity-80 pl-10 text-justify">OneNoteやロイロノートなど、使い慣れたアプリを大画面で利用可能。新しい操作を覚えることなく強力な教育ツールを組み込めます。</p>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch border-[1.5px] border-black rounded-xl overflow-hidden group shadow-sm">
+                    <div class="w-full sm:w-1/3 bg-black flex items-center justify-center p-8 shrink-0">
+                        <span class="text-white text-3xl font-black tracking-tight">Function 5</span>
+                    </div>
+                    <div class="flex-1 bg-white p-6 sm:p-10 flex flex-col justify-center">
+                        <div class="flex items-start gap-4 mb-3">
+                            <span class="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-[10px] font-black shrink-0 mt-1">5</span>
+                            <h4 class="text-lg font-black text-black leading-tight">黒板消しは不要。手のひらで「さっと消して」次へ</h4>
+                        </div>
+                        <p class="text-black text-[13px] leading-relaxed font-bold opacity-80 pl-10 text-justify">手のひらで撫でるだけで消しゴムに早変わり。授業の熱量を維持したままノンストップで教えることができます。</p>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch border-[1.5px] border-black rounded-xl overflow-hidden group shadow-sm">
+                    <div class="w-full sm:w-1/3 bg-black flex items-center justify-center p-8 shrink-0">
+                        <span class="text-white text-3xl font-black tracking-tight">Function 6</span>
+                    </div>
+                    <div class="flex-1 bg-white p-6 sm:p-10 flex flex-col justify-center">
+                        <div class="flex items-start gap-4 mb-3">
+                            <span class="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-[10px] font-black shrink-0 mt-1">6</span>
+                            <h4 class="text-lg font-black text-black leading-tight">先生の「書く手間」をAIが賢くサポート</h4>
+                        </div>
+                        <p class="text-black text-[13px] leading-relaxed font-bold opacity-80 pl-10 text-justify">GeminiやChatGPTをマイクに話しかけるだけで活用。問題のヒント作成や要約など、教育現場へのAI利用に素早く対応できます。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- よくある質問セクション -->
+    <section id="faq" class="py-16 sm:py-24 px-6 bg-stone-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-black text-[#103f99] tracking-tight">はじめての電子黒板：よくある疑問</h2>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="faq-item bg-white p-6 sm:p-10 rounded-xl shadow-sm border border-gray-100 transition-all duration-300">
+                    <button class="question w-full flex justify-between items-center text-left">
+                        <span class="text-lg sm:text-xl font-bold text-gray-800 flex items-center">
+                            <span class="text-[#ed5b8c] font-black mr-4 text-xl sm:text-2xl">Q1.</span>
+                            書き心地はどうですか？違和感なく書くことができますか？
+                        </span>
+                        <i class="fa-solid fa-plus text-[#103f99] transition-transform duration-300"></i>
+                    </button>
+                    <div class="answer overflow-hidden">
+                        <div class="pt-8 border-t border-gray-100 mt-8 space-y-6 text-slate-600 leading-relaxed font-medium text-base sm:text-lg">
+                            <p>はい、Kokuban BASEで取り扱う製品はプロ講師による審査をクリアしています。紙や黒板と同じ感覚でスムーズに執筆可能です。</p>
+                            <p>StarBoardはなめらかさ、SHARPはしっかり止まる感触が特徴です。ショールームで実際に書き比べてみてください。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item bg-white p-6 sm:p-10 rounded-xl shadow-sm border border-gray-100 transition-all duration-300">
+                    <button class="question w-full flex justify-between items-center text-left">
+                        <span class="text-lg sm:text-xl font-bold text-gray-800 flex items-center">
+                            <span class="text-[#ed5b8c] font-black mr-4 text-xl sm:text-2xl">Q2.</span>
+                            今あるテレビやプロジェクターと何が違いますか？
+                        </span>
+                        <i class="fa-solid fa-plus text-[#103f99] transition-transform duration-300"></i>
+                    </button>
+                    <div class="answer overflow-hidden">
+                        <div class="pt-8 border-t border-gray-100 mt-8 space-y-6 text-slate-600 leading-relaxed font-medium text-base sm:text-lg">
+                            <p>最大の違いは「双方向性」です。単に映すだけでなく、直接書き込んだり操作したりできます。カーテンを閉めずに生徒の顔を見ながら授業が行えます。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item bg-white p-6 sm:p-10 rounded-xl shadow-sm border border-gray-100 transition-all duration-300">
+                    <button class="question w-full flex justify-between items-center text-left">
+                        <span class="text-lg sm:text-xl font-bold text-gray-800 flex items-center">
+                            <span class="text-[#ed5b8c] font-black mr-4 text-xl sm:text-2xl">Q3.</span>
+                            何年間使うことができますか？
+                        </span>
+                        <i class="fa-solid fa-plus text-[#103f99] transition-transform duration-300"></i>
+                    </button>
+                    <div class="answer overflow-hidden">
+                        <div class="pt-8 border-t border-gray-100 mt-8 space-y-6 text-slate-600 leading-relaxed font-medium text-base sm:text-lg">
+                            <p>すべての製品に安心の5年保証が付帯しています。2020年に導入した電子黒板が現在も最前線で活躍し続けています。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item bg-white p-6 sm:p-10 rounded-xl shadow-sm border border-gray-100 transition-all duration-300">
+                    <button class="question w-full flex justify-between items-center text-left">
+                        <span class="text-lg sm:text-xl font-bold text-gray-800 flex items-center">
+                            <span class="text-[#ed5b8c] font-black mr-4 text-xl sm:text-2xl">Q4.</span>
+                            ITスキルがなくても使いこなせますか？
+                        </span>
+                        <i class="fa-solid fa-plus text-[#103f99] transition-transform duration-300"></i>
+                    </button>
+                    <div class="answer overflow-hidden">
+                        <div class="pt-8 border-t border-gray-100 mt-8 space-y-6 text-slate-600 leading-relaxed font-medium text-base sm:text-lg">
+                            <p>はい、特別なスキルは必要ありません。教育現場で磨かれたUIを持つモデルを厳選しているため、スマホを触るような感覚で使い始められます。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 p-8 sm:p-14 bg-[#fdf2f4] rounded-[40px] text-center border border-pink-100 shadow-sm">
+                <h3 class="text-2xl font-black text-gray-800 mb-6 tracking-tight">もっと詳しく知りたい方へ</h3>
+                <p class="text-slate-600 mb-12 font-bold text-lg">専門のスタッフが丁寧にご説明いたします。</p>
+                <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+                    <a href="/contact.html" class="h-[64px] w-full max-w-[320px] flex items-center justify-center font-black text-[#103f99] bg-white border-2 border-[#103f99] rounded-full hover:bg-gray-50 transition-all shadow-md">
+                        お問い合わせ<i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                    <a href="/reservation.html" class="h-[64px] w-full max-w-[320px] flex items-center justify-center font-black text-white bg-[#ed5b8c] rounded-full hover:bg-[#d44876] transition-all shadow-lg">
+                        無料で来場予約<i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="access" class="bg-[#103f99] text-white">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1">
+                    <h2 class="text-2xl font-black mb-4">Kokuban BASE</h2>
+                    <p class="text-blue-200 text-sm font-bold">株式会社idea spot</p>
+                </div>
+                <div class="md:col-span-3 grid grid-cols-2 sm:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="font-black text-white mb-6 uppercase tracking-wider text-sm">メニュー</h3>
+                        <ul class="space-y-4 text-blue-100 text-sm font-medium">
+                            <li><a href="#products" class="hover:text-white transition-colors">ラインナップ</a></li>
+                            <li><a href="#columns" class="hover:text-white transition-colors">コラム</a></li>
+                            <li><a href="#faq" class="hover:text-white transition-colors">よくある質問</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-white mb-6 uppercase tracking-wider text-sm">サポート</h3>
+                        <ul class="space-y-4 text-blue-100 text-sm font-medium">
+                            <li><a href="/reservation.html" class="hover:text-white transition-colors">来場予約</a></li>
+                            <li><a href="/contact.html" class="hover:text-white transition-colors">お問い合わせ</a></li>
+                            <li><a href="#access" class="hover:text-white transition-colors">アクセス</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <h3 class="font-black text-white mb-6 uppercase tracking-wider text-sm">会社情報</h3>
+                        <ul class="space-y-4 text-blue-100 text-sm font-medium">
+                            <li><a href="https://www.idea-spot.co.jp/" target="_blank" class="hover:text-white transition-colors">企業概要</a></li>
+                            <li><a href="/privacy.html" class="hover:text-white transition-colors">プライバシーポリシー</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16 pt-8 border-t border-white/10 text-center text-blue-300 text-xs font-bold">
+                <p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 設定
+        const MICROCMS_SERVICE_DOMAIN = "microcms-service-domain"; 
+        const MICROCMS_API_KEY = "microcms-api-key";
+        const API_ENDPOINT = "news"; 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mmBtn = document.getElementById('mobile-menu-button');
+            const mm = document.getElementById('mobile-menu');
+            if (mmBtn && mm) {
+                mmBtn.addEventListener('click', () => {
+                    const isHidden = mm.classList.contains('hidden');
+                    mm.classList.toggle('hidden');
+                    mmBtn.innerHTML = isHidden 
+                        ? '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>'
+                        : '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>';
+                });
+            }
+            fetchColumns();
+        });
+
+        async function fetchColumns() {
+            const mainContainer = document.getElementById('main-columns-container');
+            const sideContainer = document.getElementById('side-columns-container');
+            const errorContainer = document.getElementById('column-error-container');
+            
+            try {
+                // キャッシュ回避用のタイムスタンプ付与
+                const url = `https://${MICROCMS_SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?t=${new Date().getTime()}`;
+                
+                const response = await fetch(url, {
+                    headers: { "X-MICROCMS-API-KEY": MICROCMS_API_KEY }
+                });
+                
+                if (!response.ok) throw new Error("API取得に失敗しました。キーやドメインを確認してください。");
+                
+                const data = await response.json();
+                renderColumns(data.contents);
+            } catch (error) {
+                console.error(error);
+                if (errorContainer) {
+                    errorContainer.textContent = error.message;
+                    errorContainer.classList.remove('hidden');
+                }
+                // プレビュー用にフォールバックデータを表示
+                const mockFallback = [
+                    { id: '1', title: '理科の授業を変える。3Dモデルを使った視覚的アプローチの有効性について', category: '実践レポート', publishedAt: '2024.11.20', excerpt: '教科書平面だけでは伝わりにくい宇宙のスケール感を解決。', tagTitle: 'AR×理科', tagSub: '宇宙を教室に呼び出す', bgColor: 'bg-[#eef2ff]', tagColor: 'text-[#3730a3]', badgeColor: 'bg-[#3b82f6]', isMain: true },
+                    { id: '2', title: '「世界とつながる教室」を実現する、電子黒板を活用したオンライン海外研修の実踐', category: 'イベント録', publishedAt: '2024.10.15', excerpt: '姉妹校との合同発表会を電子黒板一台で実現。', tagTitle: '英語×オンライン', tagSub: '世界とつながる瞬間', bgColor: 'bg-[#fff1f2]', tagColor: 'text-[#9f1239]', badgeColor: 'bg-[#ef4444]', isMain: true }
+                ];
+                renderColumns(mockFallback);
+            }
+        }
+
+        function renderColumns(items) {
+            const mainContainer = document.getElementById('main-columns-container');
+            const sideContainer = document.getElementById('side-columns-container');
+            if(!mainContainer || !sideContainer) return;
+            
+            mainContainer.innerHTML = '';
+            sideContainer.innerHTML = '';
+
+            items.forEach((item, index) => {
+                // 画像URLの取得を柔軟に（eyecatch.url または eyecatchUrl）
+                const rawImg = item.eyecatchUrl || (item.eyecatch && item.eyecatch.url);
+                const img = rawImg ? `${rawImg}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
+                const date = new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
+                const linkUrl = `/columns/${item.slug || item.id}/`;
+
+                if (index < 2) { 
+                    const card = document.createElement('div');
+                    card.className = 'flex flex-col group cursor-pointer fade-in';
+                    const bgColor = index === 0 ? 'bg-[#eef2ff]' : 'bg-[#fff1f2]';
+                    const tagColor = index === 0 ? 'text-[#3730a3]' : 'text-[#9f1239]';
+                    const badgeColor = index === 0 ? 'bg-[#3b82f6]' : 'bg-[#ef4444]';
+
+                    card.innerHTML = `
+                        <a href="${linkUrl}" class="block">
+                            <div class="aspect-[1.5/1] ${bgColor} rounded-xl mb-6 overflow-hidden relative shadow-sm border border-gray-50">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                                    <span class="text-xs sm:text-sm font-black ${tagColor} mb-1 opacity-80 tracking-widest">${item.tagTitle || 'RESEARCH'}</span>
+                                    <span class="text-base sm:text-xl font-black ${tagColor}">${item.tagSub || '研究レポート'}</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="${badgeColor} text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">${item.category || 'コラム'}</span>
+                            </div>
+                            <div class="flex items-center gap-4 text-xs font-bold text-gray-400 mb-4">
+                                <span>${date}</span>
+                            </div>
+                            <h3 class="text-lg font-black mb-4 group-hover:text-[#ed5b8c] transition-colors leading-relaxed">${item.title}</h3>
+                            <p class="text-xs text-slate-500 leading-loose font-medium text-justify">${item.excerpt || ''}</p>
+                        </a>
+                    `;
+                    mainContainer.appendChild(card);
+                } else if (index < 5) { 
+                    const row = document.createElement('a');
+                    row.href = linkUrl;
+                    row.className = 'flex gap-5 items-start group fade-in';
+                    const type = item.type || 'IDEA';
+                    row.innerHTML = `
+                        <div class="w-16 h-12 shrink-0 bg-[#f1f5f9] rounded flex items-center justify-center text-[11px] font-black text-slate-500 group-hover:bg-[#e2e8f0] transition-colors">${type}</div>
+                        <div>
+                            <div class="text-[10px] font-bold text-gray-300 mb-1 tracking-wider">${date}</div>
+                            <h4 class="text-[13px] font-black text-gray-800 group-hover:text-[#ed5b8c] transition-colors line-clamp-2 leading-snug">${item.title}</h4>
+                        </div>
+                    `;
+                    sideContainer.appendChild(row);
+                }
+            });
+        }
+
+        // FAQ アコーディオン
+        document.querySelectorAll('.faq-item .question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(other => {
+                    if(other !== item) {
+                        other.classList.remove('open');
+                        other.querySelector('i').classList.replace('fa-minus', 'fa-plus');
+                    }
+                });
+                item.classList.toggle('open');
+                const icon = btn.querySelector('i');
+                if(!isOpen) icon.classList.replace('fa-plus', 'fa-minus');
+                else icon.classList.replace('fa-minus', 'fa-plus');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オンラインデモ予約 | Kokuban BASE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', 'Noto Sans JP', sans-serif; 
+            background-color: #f9fafb; 
+            color: #333; 
+        }
+        .bg-custom-blue { background-color: #103f99; }
+        .text-custom-blue { color: #103f99; }
+        .border-custom-blue { border-color: #103f99; }
+        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+        .footer-link { color: #e5e7eb; transition: color 0.2s; }
+        .footer-link:hover { color: #ffffff; text-decoration: underline; }
+        
+        .required-mark::after {
+            content: '必須'; color: #fff; background-color: #ef4444;
+            padding: 2px 6px; border-radius: 4px; font-size: 11px;
+            margin-left: 8px; font-weight: 500; vertical-align: middle;
+        }
+        .calendar-day { transition: all 0.2s; position: relative; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .calendar-day.selected { background-color: #103f99 !important; color: #fff !important; border-radius: 8px; }
+        .calendar-day:not(.full):not(.pointer-events-none):hover { background-color: #e7f0ff; border-radius: 8px; }
+        .calendar-day.full {
+            background-color: #f3f4f6; color: #9ca3af; text-decoration: line-through;
+            pointer-events: none;
+        }
+        .calendar-day.full::after {
+            content: '満席'; position: absolute; bottom: 4px; left: 50%;
+            transform: translateX(-50%); font-size: 9px; color: #ef4444;
+            text-decoration: none; font-weight: bold;
+        }
+        .time-slot.selected { background-color: #103f99; color: #fff; border-color: #103f99; }
+        
+        .step-indicator {
+            padding: 0.75rem; font-weight: 700; text-align: center;
+            height: 46px; display: flex; align-items: center; justify-content: center;
+            position: relative; transition: all 0.3s; font-size: 0.825rem;
+        }
+        .step-indicator.active { background-color: #06b6d4; color: #fff; z-index: 10; }
+        .step-indicator.inactive { background-color: #ecfeff; color: #0891b2; z-index: 5; }
+        
+        @media (min-width: 640px) {
+            .step-indicator.active::after {
+                content: ''; position: absolute; top: 0; left: 100%;
+                border-style: solid; border-width: 23px 0 23px 20px;
+                border-color: transparent transparent transparent #06b6d4;
+            }
+        }
+        
+        .form-option-label {
+            display: block; padding: 1rem; border: 2px solid #e5e7eb;
+            border-radius: 0.5rem; cursor: pointer; background-color: #f9fafb;
+            text-align: center; transition: all 0.2s;
+        }
+        input:checked + .form-option-label {
+            border-color: #06b6d4; background-color: #ecfeff;
+            color: #0891b2; font-weight: 600;
+        }
+        input[type="radio"], input[type="checkbox"] { display: none; }
+
+        .loading-overlay {
+            background: rgba(255, 255, 255, 0.8);
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
+        <div class="px-6 lg:px-8">
+            <div class="flex items-stretch h-[50px] sm:h-20">
+                <div class="flex-1 flex items-center space-x-8">
+                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
+                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
+                    </div>
+                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                        <a href="/Kokubanlease" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">Kokuban リース</a>
+                        <a href="/article" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <a href="/#faq" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
+                        <a href="/#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
+                    </nav>
+                </div>
+                <div class="flex-shrink-0 flex justify-end">
+                    <div class="hidden sm:flex h-full">
+                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
+                            <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                      <a href="/on-line-reservation" class="bg-green-500 text-white font-bold text-base lg:text-xl flex items-center justify-center whitespace-nowrap px-6 lg:px-10 hover:bg-green-600 transition-colors">
+                        <span>オンラインデモ予約</span><i class="fa-solid fa-arrow-right ml-2"></i>
+                      </a>
+                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
+                            <span>体験予約</span><i class="fa-solid fa-calendar-check ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:hidden flex items-center">
+                        <button id="mobile-menu-button" class="text-white p-2">
+                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="/Kokubanlease" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">Kokuban リース</a>
+                    <a href="#columns" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
+                    <a href="/#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
+                    <a href="/#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
+                </div>
+                <div class="p-4 space-y-3">
+                    <a href="/contact" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
+                  <a href="/on-line-reservation" class="block text-center bg-green text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">オンラインデモ予約</a>
+                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-12 md:py-20">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div id="form-header" class="bg-white p-8 md:p-12 rounded-3xl shadow-sm mb-12 border-t-8 border-cyan-500 text-center">
+                <div class="inline-block px-4 py-1 rounded-full bg-cyan-100 text-cyan-700 font-bold text-xs mb-6 tracking-widest">ONLINE EXPERIENCE</div>
+                <h2 class="text-3xl md:text-4xl font-black text-[#103f99] mb-4">オンラインデモ予約</h2>
+                <p class="text-gray-500 font-medium mb-10">遠方の方や、ご来場が困難な方で機能を確認したい方に最適です。</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 p-6 rounded-2xl">
+                        <i class="fas fa-laptop-house text-cyan-500 text-2xl mb-3"></i>
+                        <p class="text-xs font-bold text-gray-400 mb-1">場所</p>
+                        <p class="text-sm font-bold">オフィス・自宅</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-2xl">
+                        <i class="fas fa-clock text-cyan-500 text-2xl mb-3"></i>
+                        <p class="text-xs font-bold text-gray-400 mb-1">所要時間</p>
+                        <p class="text-sm font-bold">約30〜60分</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-2xl">
+                        <i class="fas fa-link text-cyan-500 text-2xl mb-3"></i>
+                        <p class="text-xs font-bold text-gray-400 mb-1">ツール</p>
+                        <p class="text-sm font-bold">Zoom / Meet 等</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="form-wrapper">
+                <div class="flex flex-row mb-10 rounded-xl overflow-hidden shadow-sm">
+                    <div id="step-indicator-1" class="step-indicator active flex-1">1. 希望日時</div>
+                    <div id="step-indicator-2" class="step-indicator inactive flex-1">2. 連絡先</div>
+                    <div id="step-indicator-3" class="step-indicator inactive flex-1">3. ヒアリング</div>
+                    <div id="step-indicator-4" class="step-indicator inactive flex-1">4. 確認</div>
+                </div>
+
+                <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl border border-gray-100">
+                    <form id="reservation-form">
+                        <div id="form-step-1" class="form-step">
+                            <div class="space-y-10">
+                                <div>
+                                    <label class="block font-bold text-gray-800 mb-4 required-mark">接続予定の拠点数（または人数）</label>
+                                    <select id="number_of_participants" name="number_of_visitors" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none appearance-none bg-gray-50" required>
+                                        <option value="" selected disabled>選択してください</option>
+                                        <option value="1">1拠点（1〜2名）</option>
+                                        <option value="2">2拠点以上（グループ参加）</option>
+                                        <option value="other">未定</option>
+                                    </select>
+                                </div>
+                                
+                                <div id="date-selection-area" class="hidden">
+                                    <label class="block font-bold text-gray-800 mb-2 required-mark">体験希望日時（第3候補まで選択）</label>
+                                    <p class="text-xs text-gray-400 mb-6">平日 10:00〜17:00の間でご指定いただけます。</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                        <div id="calendar-container" class="border rounded-2xl p-6 bg-gray-50"></div>
+                                        <div id="time-slots-container" class="hidden">
+                                            <p class="font-bold text-gray-700 mb-4" id="time-slot-display-date"></p>
+                                            <div class="grid grid-cols-2 gap-3" id="time-slots-grid">
+                                                <button type="button" data-time="10:00" class="time-slot p-4 border rounded-xl bg-white hover:border-blue-400 font-bold">10:00〜</button>
+                                                <button type="button" data-time="11:00" class="time-slot p-4 border rounded-xl bg-white hover:border-blue-400 font-bold">11:00〜</button>
+                                                <button type="button" data-time="13:00" class="time-slot p-4 border rounded-xl bg-white hover:border-blue-400 font-bold">13:00〜</button>
+                                                <button type="button" data-time="14:00" class="time-slot p-4 border rounded-xl bg-white hover:border-blue-400 font-bold">14:00〜</button>
+                                                <button type="button" data-time="15:00" class="time-slot p-4 border rounded-xl bg-white hover:border-blue-400 font-bold">15:00〜</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-10 p-6 bg-cyan-50 rounded-2xl border border-cyan-100">
+                                        <h4 class="font-bold text-cyan-900 text-sm mb-4 flex items-center">
+                                            <i class="fas fa-list-ul mr-2"></i>選択中の予約候補
+                                        </h4>
+                                        <div id="selected-dates-list" class="space-y-3">
+                                            <p class="text-gray-400 text-sm italic">カレンダーから日付を選んで時間を指定してください</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <input type="hidden" id="visit_date_1" name="visit_date_1">
+                                    <input type="hidden" id="visit_date_2" name="visit_date_2">
+                                    <input type="hidden" id="visit_date_3" name="visit_date_3">
+                                </div>
+                            </div>
+                            <div class="text-center mt-12">
+                                <button type="button" onclick="changeStep(2)" class="bg-[#103f99] text-white font-bold py-5 px-16 rounded-full text-lg shadow-lg hover:bg-blue-800 transition-all inline-flex items-center">
+                                    <span>お客様情報の入力へ</span><i class="fas fa-arrow-right ml-3"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="form-step-2" class="form-step hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="md:col-span-2">
+                                    <label class="block font-bold text-gray-800 mb-2 required-mark">施設種別</label>
+                                    <select name="facility_type" class="w-full p-4 border border-gray-200 rounded-xl outline-none bg-gray-50" required>
+                                        <option value="" selected disabled>選択してください</option>
+                                        <option>学習塾</option><option>教育委員会</option><option>私立学校</option>
+                                        <option>公立学校</option><option>幼稚園/保育園</option><option>一般企業</option><option>その他</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block font-bold text-gray-800 mb-2 required-mark">法人名・事業者名</label>
+                                    <input type="text" name="company_name" class="w-full p-4 border border-gray-200 rounded-xl outline-none bg-gray-50" required placeholder="株式会社〇〇">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-gray-800 mb-2 required-mark">ご担当者名</label>
+                                    <input type="text" name="contact_name" class="w-full p-4 border border-gray-200 rounded-xl outline-none bg-gray-50" required placeholder="山田 太郎">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-gray-800 mb-2 required-mark">電話番号</label>
+                                    <input type="tel" name="phone" class="w-full p-4 border border-gray-200 rounded-xl outline-none bg-gray-50" required placeholder="09012345678">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block font-bold text-gray-800 mb-2 required-mark">メールアドレス</label>
+                                    <p class="text-[10px] text-gray-400 mb-2">こちらのアドレスに接続用URLをお送りします</p>
+                                    <input type="email" name="email" class="w-full p-4 border border-gray-200 rounded-xl outline-none bg-gray-50" required placeholder="example@mail.com">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block font-bold text-gray-800 mb-2">ご質問・ご要望</label>
+                                    <textarea name="questions" rows="4" class="w-full p-4 border border-gray-200 rounded-xl outline-none bg-gray-50" placeholder="特定のブランドの比較を希望する場合などはこちらへご記入ください"></textarea>
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:flex-row justify-center gap-6 mt-12">
+                                <button type="button" onclick="changeStep(1)" class="bg-gray-100 text-gray-600 font-bold py-5 px-12 rounded-full hover:bg-gray-200 transition-all">戻る</button>
+                                <button type="button" onclick="changeStep(3)" class="bg-[#103f99] text-white font-bold py-5 px-12 rounded-full shadow-lg hover:bg-blue-800 transition-all">アンケートへ進む</button>
+                            </div>
+                        </div>
+
+                        <div id="form-step-3" class="form-step hidden">
+                            <div class="space-y-10">
+                                <div>
+                                    <label class="block font-bold text-gray-800 mb-6 required-mark">Q. Kokuban BASEを知ったきっかけを教えてください。</label>
+                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                        <label><input type="radio" name="discovery_channel" value="Web検索" required><span class="form-option-label">Web検索</span></label>
+                                        <label><input type="radio" name="discovery_channel" value="紹介"><span class="form-option-label">紹介</span></label>
+                                        <label><input type="radio" name="discovery_channel" value="折込チラシ"><span class="form-option-label">折込チラシ</span></label>
+                                        <label><input type="radio" name="discovery_channel" value="SNS"><span class="form-option-label">SNS</span></label>
+                                        <label><input type="radio" name="discovery_channel" value="テレビ"><span class="form-option-label">テレビ</span></label>
+                                        <label><input type="radio" name="discovery_channel" value="WEB記事"><span class="form-option-label">WEB記事</span></label>
+                                        <label><input type="radio" name="discovery_channel" value="その他"><span class="form-option-label">その他</span></label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-gray-800 mb-6 required-mark">Q. 電子黒板の使用歴を教えてください。</label>
+                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                        <label><input type="radio" name="experience" value="一度も触ったことない" required><span class="form-option-label">一度も触ったことない</span></label>
+                                        <label><input type="radio" name="experience" value="体験をしたことがある"><span class="form-option-label">体験をしたことがある</span></label>
+                                        <label><input type="radio" name="experience" value="日常的に使用している"><span class="form-option-label">日常的に使用中</span></label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-gray-800 mb-6 required-mark">Q. 現在の教室・会議室環境（複数回答可）</label>
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                        <label><input type="checkbox" name="classroom_equipment" value="ホワイトボード"><span class="form-option-label">ホワイトボード</span></label>
+                                        <label><input type="checkbox" name="classroom_equipment" value="黒板（チョーク）"><span class="form-option-label">黒板</span></label>
+                                        <label><input type="checkbox" name="classroom_equipment" value="電子黒板"><span class="form-option-label">電子黒板</span></label>
+                                        <label><input type="checkbox" name="classroom_equipment" value="プロジェクター"><span class="form-option-label">プロジェクター</span></label>
+                                        <label><input type="checkbox" name="classroom_equipment" value="テレビモニター"><span class="form-option-label">モニター</span></label>
+                                        <label><input type="checkbox" name="classroom_equipment" value="その他"><span class="form-option-label">その他</span></label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-gray-800 mb-2 required-mark">Q. 導入の希望時期（目安）</label>
+                                    <select name="number_of_units" class="w-full p-4 border border-gray-200 rounded-xl outline-none bg-gray-50" required>
+                                        <option value="" selected disabled>選択してください</option>
+                                        <option>すぐにでも</option><option>3ヶ月以内</option><option>半年以内</option><option>来年度</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="flex flex-col sm:flex-row justify-center gap-6 mt-12">
+                                <button type="button" onclick="changeStep(2)" class="bg-gray-100 text-gray-600 font-bold py-5 px-12 rounded-full hover:bg-gray-200 transition-all">戻る</button>
+                                <button type="button" onclick="changeStep(4)" class="bg-[#103f99] text-white font-bold py-5 px-12 rounded-full shadow-lg hover:bg-blue-800 transition-all">確認画面へ進む</button>
+                            </div>
+                        </div>
+
+                        <div id="form-step-4" class="form-step hidden">
+                            <h3 class="text-xl font-bold text-[#103f99] mb-8 border-b pb-4 flex items-center">
+                                <i class="fas fa-clipboard-check mr-3 text-cyan-500"></i>お申込内容の最終確認
+                            </h3>
+                            <div id="confirmation-view" class="space-y-6 bg-gray-50 p-8 rounded-2xl border border-gray-100"></div>
+                            <div class="mt-10 bg-blue-50 border-l-8 border-blue-400 p-6 rounded-2xl">
+                                <p class="font-bold flex items-center text-blue-900 mb-2"><i class="fas fa-info-circle mr-2"></i>完了までの流れ</p>
+                                <p class="text-xs leading-relaxed text-blue-800">
+                                    送信後、担当者より日程確定とZoom等の接続URLをお送りします。当日はPCまたはタブレットからご参加ください。
+                                </p>
+                            </div>
+                            <div class="flex flex-col sm:flex-row justify-center gap-6 mt-12">
+                                <button type="button" onclick="changeStep(3)" class="bg-gray-100 text-gray-600 font-bold py-5 px-12 rounded-full hover:bg-gray-200">修正する</button>
+                                <button type="submit" id="submit-btn" class="bg-pink-500 text-white font-bold py-5 px-12 rounded-full shadow-xl hover:bg-pink-600 transition-all">この内容で申し込む</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="success-screen" class="hidden text-center bg-white p-16 md:p-24 rounded-[3rem] shadow-2xl animate-fade-in border-t-8 border-green-500">
+                <div class="w-24 h-24 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-8">
+                    <i class="fas fa-check fa-3x text-green-500"></i>
+                </div>
+                <h2 class="text-3xl font-black text-[#103f99] mb-6">予約申込を受け付けました</h2>
+                <p class="text-gray-500 max-w-md mx-auto leading-relaxed mb-12">
+                    ご入力のメールアドレス宛に自動控えをお送りしました。<br><br>
+                    <strong>3営業日以内</strong>に、担当者より日程のご相談と接続用URLをご案内いたします。
+                </p>
+                <a href="index.html" class="inline-block bg-[#103f99] text-white font-bold py-5 px-16 rounded-full transition-all hover:bg-black shadow-lg">トップページへ戻る</a>
+            </div>
+        </div>
+    </main>
+
+        </div>
+        <footer class="bg-custom-blue text-gray-200">
+            <div class="container mx-auto px-6 py-12">
+                <div class="flex flex-wrap justify-between">
+                    <div class="w-full md:w-1/4 mb-8 md:mb-0">
+                        <h2 class="text-2xl font-bold text-white">Kokuban BASE</h2>
+                        <p class="text-blue-200 mt-2">株式会社idea spot</p>
+                    </div>
+                    <div class="w-full md:w-3/4 flex flex-wrap justify-between">
+                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
+                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
+                            <ul>
+                                <li class="mb-2"><a href="/Kokubanlease" class="nav-link footer-link">Kokuban リース</a></li>
+                                <li class="mb-2"><a href="/article.html" class="nav-link footer-link">コラム</a></li>
+                                <li class="mb-2"><a href="/#faq" class="nav-link footer-link">よくある質問</a></li>
+                            </ul>
+                        </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
+                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">サポート</h3>
+                            <ul>
+                                <li class="mb-2"><a href="/reservation" class="footer-link">来場予約</a></li>
+                              <li class="mb-2"><a href="/on-line-reservation" class="footer-link">オンラインデモ予約</a></li>
+                                <li class="mb-2"><a href="/contact" class="footer-link">お問い合わせ</a></li>
+                                <li class="mb-2"><a href="/#access" class="nav-link footer-link">アクセス</a></li>
+                            </ul>
+                        </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3">
+                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">会社情報</h3>
+                            <ul>
+                                <li class="mb-2"><a href="https://www.idea-spot.co.jp/" target="_blank" class="footer-link">企業概要</a></li>
+                                <li class="mb-2"><a href="/privacy" class="footer-link">プライバシーポリシー</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 pt-8 border-t border-white/20 text-center text-blue-200"><p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p></div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-red-600 text-white px-8 py-4 rounded-full shadow-2xl z-50 hidden transition-all">
+        <span id="toast-msg">エラーが発生しました</span>
+    </div>
+    <div id="loading" class="loading-overlay">
+        <div class="text-center">
+            <div class="inline-block w-12 h-12 border-4 border-[#103f99] border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p class="font-bold text-[#103f99]">送信中...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvFYhlYyPVeMHDrcd8fc8u9ERHqZsURjXRiT6G-austEbjY7pX9ntRdTHVs7_n4Mp3/exec";
+            const FULLY_BOOKED = ["2025-05-15"]; 
+            
+            let currentStep = 1;
+            let selectedDates = []; 
+            let currentCalDate = new Date();
+            let tempDateStr = null;
+
+            const form = document.getElementById('reservation-form');
+            const menuBtn = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const participantSelect = document.getElementById('number_of_participants');
+            const dateArea = document.getElementById('date-selection-area');
+            const calWrapper = document.getElementById('calendar-container');
+            const timeWrapper = document.getElementById('time-slots-container');
+            const selectedList = document.getElementById('selected-dates-list');
+            const loading = document.getElementById('loading');
+            const toast = document.getElementById('toast');
+
+            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+            window.changeStep = (step) => {
+                if (step > currentStep && !validateCurrentStep()) return;
+                document.querySelectorAll('.form-step').forEach(el => el.classList.add('hidden'));
+                document.getElementById(`form-step-${step}`).classList.remove('hidden');
+                for(let i=1; i<=4; i++) {
+                    const ind = document.getElementById(`step-indicator-${i}`);
+                    ind.className = `step-indicator flex-1 ${i === step ? 'active' : 'inactive'}`;
+                }
+                if (step === 4) buildConfirmation();
+                currentStep = step;
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            };
+
+            function validateCurrentStep() {
+                const currentEl = document.getElementById(`form-step-${currentStep}`);
+                const requiredInputs = currentEl.querySelectorAll('[required]');
+                for (let input of requiredInputs) {
+                    if (input.type === 'radio' && !currentEl.querySelector(`input[name="${input.name}"]:checked`)) {
+                        showToast("必須項目を選択してください"); return false;
+                    }
+                    if (input.type === 'checkbox' && !currentEl.querySelector(`input[name="${input.name}"]:checked`)) {
+                        showToast("1つ以上選択してください"); return false;
+                    }
+                    if (!input.value.trim() && input.type !== 'radio' && input.type !== 'checkbox') {
+                        showToast("未入力の項目があります"); input.focus(); return false;
+                    }
+                }
+                if (currentStep === 1 && selectedDates.length < 3) {
+                    showToast("希望日時を第3候補まで選択してください"); return false;
+                }
+                return true;
+            }
+
+            participantSelect.addEventListener('change', () => {
+                dateArea.classList.remove('hidden');
+                renderCalendar();
+            });
+
+            function renderCalendar() {
+                const year = currentCalDate.getFullYear();
+                const month = currentCalDate.getMonth();
+                const today = new Date(); today.setHours(0,0,0,0);
+                const firstDay = new Date(year, month, 1).getDay();
+                const lastDate = new Date(year, month + 1, 0).getDate();
+
+                // 2か月制限（今月と来月まで）の計算
+                const maxMonthLimit = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+                const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+                const fmtDate = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+                const closeDates = [fmtDate(today), fmtDate(tomorrow)];
+
+                let html = `
+                    <div class="flex items-center justify-between mb-6">
+                        <button type="button" id="cal-prev" class="p-2 hover:bg-white rounded-full"><i class="fas fa-chevron-left"></i></button>
+                        <div class="font-bold text-gray-800">${year}年 ${month + 1}月</div>
+                        <button type="button" id="cal-next" class="p-2 hover:bg-white rounded-full"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-gray-400 mb-4">
+                        <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1">
+                `;
+                for (let i = 0; i < firstDay; i++) html += '<div></div>';
+                for (let d = 1; d <= lastDate; d++) {
+                    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+                    const isSelected = tempDateStr === dateStr;
+                    const dateObj = new Date(year, month, d);
+                    
+                    const isPast = dateObj < today;
+                    const isTooFar = dateObj > maxMonthLimit;
+                    const isWeekend = dateObj.getDay() === 0 || dateObj.getDay() === 6;
+                    const isCloseDate = closeDates.includes(dateStr);
+                    const isManualFull = FULLY_BOOKED.includes(dateStr);
+
+                    let classes = "calendar-day text-sm font-medium";
+                    
+                    if (isPast || isTooFar) {
+                        // 過去日または2か月先以降：薄い色にして選択不可
+                        classes += " opacity-20 pointer-events-none";
+                    } else if (isWeekend || isCloseDate || isManualFull) {
+                        // 土日・当日翌日・指定日：満席として表示
+                        classes += " full";
+                    } else if (isSelected) {
+                        classes += " selected";
+                    }
+
+                    html += `<div class="${classes}" data-date="${dateStr}">${d}</div>`;
+                }
+                calWrapper.innerHTML = html + '</div>';
+
+                // 前の月ボタンの制御（今月より前には戻れない）
+                const prevBtn = document.getElementById('cal-prev');
+                if (year === today.getFullYear() && month === today.getMonth()) {
+                    prevBtn.classList.add('opacity-10', 'pointer-events-none');
+                }
+                prevBtn.onclick = () => { currentCalDate.setMonth(month - 1); renderCalendar(); };
+
+                // 次の月ボタンの制御（来月より先には進めない）
+                const nextBtn = document.getElementById('cal-next');
+                if (year === maxMonthLimit.getFullYear() && month === maxMonthLimit.getMonth()) {
+                    nextBtn.classList.add('opacity-10', 'pointer-events-none');
+                }
+                nextBtn.onclick = () => { currentCalDate.setMonth(month + 1); renderCalendar(); };
+
+                calWrapper.querySelectorAll('.calendar-day:not(.full):not(.pointer-events-none)').forEach(el => {
+                    el.onclick = () => {
+                        tempDateStr = el.dataset.date;
+                        renderCalendar();
+                        showTimeSlots(tempDateStr);
+                    };
+                });
+            }
+
+            function showTimeSlots(date) {
+                document.getElementById('time-slot-display-date').textContent = `${date.replace(/-/g, '/')} の空き枠`;
+                timeWrapper.classList.remove('hidden');
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    const time = slot.dataset.time;
+                    const isPicked = selectedDates.some(s => s.date === date && s.time === time);
+                    slot.className = `time-slot p-4 border rounded-xl font-bold transition-all ${isPicked ? 'selected' : 'bg-white hover:border-blue-400'}`;
+                    slot.onclick = () => {
+                        if (selectedDates.length >= 3 && !isPicked) { showToast("第3候補まで選択済みです"); return; }
+                        if (isPicked) return;
+                        selectedDates.push({date, time});
+                        updateSelectedList();
+                        showTimeSlots(date);
+                    };
+                });
+            }
+
+            function updateSelectedList() {
+                selectedList.innerHTML = "";
+                selectedDates.forEach((item, idx) => {
+                    const div = document.createElement('div');
+                    div.className = "flex items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-cyan-100";
+                    div.innerHTML = `<div class="text-sm font-bold text-gray-700"><span class="text-cyan-600 mr-2">第${idx+1}候補</span>${item.date.replace(/-/g, '/')} ${item.time}〜</div><button type="button" class="text-gray-300 hover:text-red-500 px-2"><i class="fas fa-times"></i></button>`;
+                    div.querySelector('button').onclick = () => { selectedDates.splice(idx, 1); updateSelectedList(); if (tempDateStr) showTimeSlots(tempDateStr); };
+                    selectedList.appendChild(div);
+                    document.getElementById(`visit_date_${idx+1}`).value = `${item.date} ${item.time}`;
+                });
+            }
+
+            function buildConfirmation() {
+                const formData = new FormData(form);
+                const view = document.getElementById('confirmation-view');
+                let html = '<div class="space-y-6">';
+                html += `<div><p class="font-bold text-[#103f99] text-xs mb-2 uppercase tracking-widest">希望日時</p><div class="space-y-1">`;
+                selectedDates.forEach((d, i) => html += `<p class="text-gray-700 font-bold">・第${i+1}候補：${d.date} ${d.time}〜</p>`);
+                html += `</div></div><hr>`;
+                const labels = { discovery_channel: "知ったきっかけ", facility_type: "施設種別", company_name: "法人名", contact_name: "担当者名", phone: "電話番号", email: "メールアドレス", experience: "使用歴", number_of_units: "導入希望時期" };
+                for (let [key, label] of Object.entries(labels)) {
+                    html += `<div><p class="font-bold text-[#103f99] text-xs mb-1 uppercase tracking-widest">${label}</p><p class="text-gray-700">${formData.get(key)}</p></div>`;
+                }
+                view.innerHTML = html + '</div>';
+            }
+
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+                loading.style.display = 'flex';
+                try {
+                    const res = await fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form) });
+                    const result = await res.json();
+                    if (result.result === 'success') {
+                        document.getElementById('form-header').classList.add('hidden');
+                        document.getElementById('form-wrapper').classList.add('hidden');
+                        document.getElementById('success-screen').classList.remove('hidden');
+                        window.scrollTo({top: 0, behavior: 'smooth'});
+                    } else throw new Error();
+                } catch {
+                    showToast("送信に失敗しました。再試行してください。");
+                } finally { loading.style.display = 'none'; }
+            };
+
+            function showToast(msg) {
+                const toastMsg = document.getElementById('toast-msg');
+                toastMsg.textContent = msg;
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 3000);
+            }
+        });
+    </script>
+</body>
+</html>
