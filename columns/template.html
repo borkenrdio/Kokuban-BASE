@@ -240,7 +240,7 @@
                             <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
                             <p class="author-name font-bold tracking-wider flex items-center">
                                 <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
-                                執筆者: <span id="main-author-display">{{author}}</span>
+                                執筆者: <span id="main-author-display">{{AUTHOR}}</span>
                             </p>
                             <span class="h-px w-4 bg-gray-300"></span>
                         </div>
@@ -263,14 +263,14 @@
                 </div>
             </article>
 
-            <!-- 関連記事（JavaScriptで表示を制御） -->
+            <!-- 関連記事（ビルド時に静的生成） -->
             <div class="mt-24 max-w-5xl mx-auto">
                 <div class="flex items-center justify-between mb-10">
                     <h3 class="text-2xl font-black text-gray-900">あわせて読みたい</h3>
                     <a href="https://kokuban-base.com/article" class="text-sm font-bold text-customBlue hover:underline">すべて見る <i class="fas fa-chevron-right ml-1"></i></a>
                 </div>
                 <div id="related-posts-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                    <!-- JSによりここにカードが挿入されます -->
+                    {{RELATED_POSTS_HTML}}
                 </div>
             </div>
             
@@ -371,78 +371,6 @@
                     titleEl.innerHTML = `${parts[0]}<span class="subtitle-text">${parts[1]}</span>`;
                 }
             }
-
-            // microCMS連携の設定
-            const SERVICE_DOMAIN = "{{MICROCMS_SERVICE_DOMAIN}}"; 
-            const API_KEY = "{{MICROCMS_API_KEY}}";
-            const API_ENDPOINT = "news";
-            const currentSlug = location.pathname.split('/').filter(Boolean).pop()?.replace('.html', '');
-            const container = document.getElementById('related-posts-container');
-
-            // 関連記事を描画する関数
-            const renderRelatedArticles = (articles) => {
-                if (!container) return;
-                if (!articles || articles.length === 0) {
-                    container.innerHTML = '<p class="text-gray-400 col-span-full text-center py-10">関連記事が見つかりませんでした。</p>';
-                    return;
-                }
-                container.innerHTML = articles.map(article => {
-                    const title = article.title || '無題のコラム';
-                    const date = article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.') : '';
-                    const imageUrl = article.eyecatch?.url || 'https://placehold.jp/24/cccccc/ffffff/800x450.png?text=No+Image';
-                    const linkUrl = `/columns/${article.slug || article.id}/`; 
-                    const authorValue = article.author || 'Kokuban BASE 編集部';
-
-                    return `
-                        <a href="${linkUrl}" class="related-card group flex flex-col h-full bg-white transition-all">
-                            <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-                                <img src="${imageUrl}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                            </div>
-                            <div class="flex flex-col flex-grow">
-                                <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
-                                    ${title}
-                                </h4>
-                                <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
-                                    <time class="text-gray-400">${date}</time>
-                                    <span class="text-gray-500 flex items-center">
-                                        <i class="fas fa-user-edit mr-1 text-gray-300"></i>
-                                        ${authorValue}
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                    `;
-                }).join('');
-            };
-
-            const fetchArticleData = () => {
-                if (API_KEY && !API_KEY.includes("{{")) {
-                    // メイン記事情報の取得（執筆者更新用）
-                    if (currentSlug) {
-                        const mainUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?filters=slug[equals]${currentSlug}`;
-                        fetch(mainUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
-                            .then(res => res.json())
-                            .then(data => {
-                                const article = data.contents?.[0];
-                                if (article && article.author) {
-                                    document.getElementById('main-author-display').textContent = article.author;
-                                }
-                            })
-                            .catch(console.error);
-                    }
-
-                    // 関連記事の取得
-                    let relatedUrl = `https://${SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?limit=3`;
-                    if (currentSlug) relatedUrl += `&filters=slug[not_equals]${currentSlug}`;
-                    
-                    fetch(relatedUrl, { headers: { "X-MICROCMS-API-KEY": API_KEY } })
-                        .then(res => res.json())
-                        .then(data => renderRelatedArticles(data.contents))
-                        .catch(() => renderRelatedArticles([]));
-                }
-            };
-
-            fetchArticleData();
         });
     </script>
 </body>
