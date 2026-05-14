@@ -9,6 +9,7 @@ const TEMPLATE_PATH = path.resolve(COLUMNS_DIR, 'template.html');
 const JSON_OUTPUT_PATH = path.resolve(COLUMNS_DIR, 'index.json');
 const SITEMAP_OUTPUT_PATH = path.resolve(process.cwd(), 'sitemap.xml');
 const ARTICLE_HTML_PATH = path.resolve(process.cwd(), 'article.html');
+const WHATIS_HTML_PATH = path.resolve(process.cwd(), 'whatissmrtboard.html');
 
 // 関連記事の表示件数
 const RELATED_POSTS_COUNT = 3;
@@ -421,6 +422,98 @@ async function buildArticleListPage(articles) {
   }
 }
 
+/**
+ * 「電子黒板って何ができるの？」ページ (whatissmrtboard.html) を静的生成する
+ * 旧版はクライアントサイドでmicroCMS APIを呼び出していたためAPIキー露出リスクがあった
+ * ビルド時にコラム一覧をHTMLに埋め込むことで、APIキーを完全に排除する
+ */
+async function buildWhatisPage(articles) {
+  console.log('whatissmrtboard.html を静的生成中...');
+
+  let html;
+  try {
+    html = fs.readFileSync(WHATIS_HTML_PATH, 'utf-8');
+  } catch (err) {
+    console.warn('whatissmrtboard.html が存在しないためスキップします:', err.message);
+    return;
+  }
+
+  // slugがある記事のみ。最大5件 (メイン2件 + サイド3件)
+  const validArticles = articles.filter(a => a && a.slug).slice(0, 5);
+
+  // メイン2件のHTML
+  const mainHtml = validArticles.slice(0, 2).map((item, index) => {
+    const linkUrl = `/columns/${item.slug}/`;
+    const title = escapeHtml(item.title || '無題のコラム');
+    const date = item.publishedAt
+      ? new Date(item.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')
+      : '';
+    const category = escapeHtml((item.category && (typeof item.category === 'object' ? item.category.name : item.category)) || 'コラム');
+    const excerpt = escapeHtml(item.description || extractDescription(item.body, 80) || '');
+
+    const bgColor = index === 0 ? 'bg-[#eef2ff]' : 'bg-[#fff1f2]';
+    const tagColor = index === 0 ? 'text-[#3730a3]' : 'text-[#9f1239]';
+    const badgeColor = index === 0 ? 'bg-[#3b82f6]' : 'bg-[#ef4444]';
+
+    return `
+      <div class="flex flex-col group cursor-pointer fade-in">
+        <a href="${linkUrl}" class="block">
+          <div class="aspect-[1.5/1] ${bgColor} rounded-xl mb-6 overflow-hidden relative shadow-sm border border-gray-50">
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+              <span class="text-xs sm:text-sm font-black ${tagColor} mb-1 opacity-80 tracking-widest">RESEARCH</span>
+              <span class="text-base sm:text-xl font-black ${tagColor}">研究レポート</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="${badgeColor} text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">${category}</span>
+          </div>
+          <div class="flex items-center gap-4 text-xs font-bold text-gray-400 mb-4">
+            <span>${date}</span>
+          </div>
+          <h3 class="text-lg font-black mb-4 group-hover:text-[#ed5b8c] transition-colors leading-relaxed">${title}</h3>
+          <p class="text-xs text-slate-500 leading-loose font-medium text-justify">${excerpt}</p>
+        </a>
+      </div>`;
+  }).join('\n');
+
+  // サイド3件のHTML
+  const sideHtml = validArticles.slice(2, 5).map(item => {
+    const linkUrl = `/columns/${item.slug}/`;
+    const title = escapeHtml(item.title || '無題のコラム');
+    const date = item.publishedAt
+      ? new Date(item.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')
+      : '';
+
+    return `
+      <a href="${linkUrl}" class="flex gap-5 items-start group fade-in">
+        <div class="w-16 h-12 shrink-0 bg-[#f1f5f9] rounded flex items-center justify-center text-[11px] font-black text-slate-500 group-hover:bg-[#e2e8f0] transition-colors">IDEA</div>
+        <div>
+          <div class="text-[10px] font-bold text-gray-300 mb-1 tracking-wider">${date}</div>
+          <h4 class="text-[13px] font-black text-gray-800 group-hover:text-[#ed5b8c] transition-colors line-clamp-2 leading-snug">${title}</h4>
+        </div>
+      </a>`;
+  }).join('\n');
+
+  // メインのコラムコンテナを置換
+  html = html.replace(
+    /<div id="main-columns-container"[^>]*>[\s\S]*?<\/div>(?=\s*<div class="lg:col-span-4)/,
+    `<div id="main-columns-container" class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-10">\n${mainHtml || '<p class="col-span-full text-center text-gray-400 py-10">コラムは現在準備中です。</p>'}\n</div>`
+  );
+
+  // サイドのコラムコンテナを置換
+  html = html.replace(
+    /<div id="side-columns-container"[^>]*>[\s\S]*?<\/div>(?=\s*<div class="mt-auto")/,
+    `<div id="side-columns-container" class="space-y-8 mb-12">\n${sideHtml}\n</div>`
+  );
+
+  try {
+    fs.writeFileSync(WHATIS_HTML_PATH, html);
+    console.log(`whatissmrtboard.html の静的生成が完了しました (注入: ${validArticles.length}件)。`);
+  } catch (err) {
+    console.error('whatissmrtboard.html の書き込みに失敗しました:', err);
+  }
+}
+
 // --- メインのビルド処理 ---
 async function buildStaticPages() {
   console.log('静的ページ生成プロセスを開始します。');
@@ -549,7 +642,10 @@ async function buildStaticPages() {
   // 7. 記事一覧ページ (article.html) を静的生成
   await buildArticleListPage(publishedArticles);
 
-  // 8. 旧slugリダイレクトページを生成
+  // 8. 「電子黒板って何ができるの？」ページ (whatissmrtboard.html) を静的生成
+  await buildWhatisPage(publishedArticles);
+
+  // 9. 旧slugリダイレクトページを生成
   generateRedirectPages();
 
   console.log('静的ページ生成プロセスが完了しました。');
