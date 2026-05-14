@@ -23,21 +23,10 @@
         body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; }
         .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
         
-        .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows: 0.4s ease-in-out; }
+        .answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease-in-out; }
         .faq-item.open .answer { grid-template-rows: 1fr; }
         
         .highlight-underline { background: linear-gradient(transparent 70%, #fef3c7 70%); background-repeat: no-repeat; background-size: 100% 100%; padding: 0 0.2em; }
-        
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #103f99;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .fade-in { animation: fadeIn 0.8s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -139,16 +128,16 @@
             </div>
             <p class="mb-12 text-base sm:text-lg text-slate-800 font-bold">研究の結果生まれた、具体的な活用法をご紹介します。</p>
 
-            <div id="column-error-container" class="hidden mb-8 p-4 bg-red-50 text-red-700 rounded-lg text-center"></div>
-
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
                 <div id="main-columns-container" class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div class="col-span-full text-center"><div class="loader"></div></div>
+                    <!-- ビルド時に注入: メインのコラム2件 -->
                 </div>
                 <div class="lg:col-span-4 flex flex-col">
-                    <div id="side-columns-container" class="space-y-8 mb-12"></div>
+                    <div id="side-columns-container" class="space-y-8 mb-12">
+                        <!-- ビルド時に注入: サイドのコラム3件 -->
+                    </div>
                     <div class="mt-auto">
-                        <a href="/columns" class="w-full py-4 border-2 border-[#103f99] rounded-full text-sm font-bold text-[#103f99] flex items-center justify-center gap-2 hover:bg-[#103f99] hover:text-white transition-all group">
+                        <a href="/article" class="w-full py-4 border-2 border-[#103f99] rounded-full text-sm font-bold text-[#103f99] flex items-center justify-center gap-2 hover:bg-[#103f99] hover:text-white transition-all group">
                             研究コラムをすべて見る <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
@@ -475,7 +464,7 @@
                     <div class="col-span-2 sm:col-span-1">
                         <h3 class="font-black text-white mb-6 uppercase tracking-wider text-sm">会社情報</h3>
                         <ul class="space-y-4 text-blue-100 text-sm font-medium">
-                            <li><a href="https://www.idea-spot.co.jp/" target="_blank" class="hover:text-white transition-colors">企業概要</a></li>
+                            <li><a href="https://www.idea-spot.co.jp/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">企業概要</a></li>
                             <li><a href="/privacy.html" class="hover:text-white transition-colors">プライバシーポリシー</a></li>
                         </ul>
                     </div>
@@ -488,12 +477,8 @@
     </footer>
 
     <script>
-        // 設定
-        const MICROCMS_SERVICE_DOMAIN = "microcms-service-domain"; 
-        const MICROCMS_API_KEY = "microcms-api-key";
-        const API_ENDPOINT = "news"; 
-
         document.addEventListener('DOMContentLoaded', () => {
+            // モバイルメニュー
             const mmBtn = document.getElementById('mobile-menu-button');
             const mm = document.getElementById('mobile-menu');
             if (mmBtn && mm) {
@@ -505,114 +490,26 @@
                         : '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>';
                 });
             }
-            fetchColumns();
-        });
 
-        async function fetchColumns() {
-            const mainContainer = document.getElementById('main-columns-container');
-            const sideContainer = document.getElementById('side-columns-container');
-            const errorContainer = document.getElementById('column-error-container');
-            
-            try {
-                // キャッシュ回避用のタイムスタンプ付与
-                const url = `https://${MICROCMS_SERVICE_DOMAIN}.microcms.io/api/v1/${API_ENDPOINT}?t=${new Date().getTime()}`;
-                
-                const response = await fetch(url, {
-                    headers: { "X-MICROCMS-API-KEY": MICROCMS_API_KEY }
-                });
-                
-                if (!response.ok) throw new Error("API取得に失敗しました。キーやドメインを確認してください。");
-                
-                const data = await response.json();
-                renderColumns(data.contents);
-            } catch (error) {
-                console.error(error);
-                if (errorContainer) {
-                    errorContainer.textContent = error.message;
-                    errorContainer.classList.remove('hidden');
-                }
-                // プレビュー用にフォールバックデータを表示
-                const mockFallback = [
-                    { id: '1', title: '理科の授業を変える。3Dモデルを使った視覚的アプローチの有効性について', category: '実践レポート', publishedAt: '2024.11.20', excerpt: '教科書平面だけでは伝わりにくい宇宙のスケール感を解決。', tagTitle: 'AR×理科', tagSub: '宇宙を教室に呼び出す', bgColor: 'bg-[#eef2ff]', tagColor: 'text-[#3730a3]', badgeColor: 'bg-[#3b82f6]', isMain: true },
-                    { id: '2', title: '「世界とつながる教室」を実現する、電子黒板を活用したオンライン海外研修の実踐', category: 'イベント録', publishedAt: '2024.10.15', excerpt: '姉妹校との合同発表会を電子黒板一台で実現。', tagTitle: '英語×オンライン', tagSub: '世界とつながる瞬間', bgColor: 'bg-[#fff1f2]', tagColor: 'text-[#9f1239]', badgeColor: 'bg-[#ef4444]', isMain: true }
-                ];
-                renderColumns(mockFallback);
-            }
-        }
-
-        function renderColumns(items) {
-            const mainContainer = document.getElementById('main-columns-container');
-            const sideContainer = document.getElementById('side-columns-container');
-            if(!mainContainer || !sideContainer) return;
-            
-            mainContainer.innerHTML = '';
-            sideContainer.innerHTML = '';
-
-            items.forEach((item, index) => {
-                // 画像URLの取得を柔軟に（eyecatch.url または eyecatchUrl）
-                const rawImg = item.eyecatchUrl || (item.eyecatch && item.eyecatch.url);
-                const img = rawImg ? `${rawImg}?fit=crop&w=640&h=360` : 'https://placehold.co/640x360/e0e7ff/1e3a8a?text=News';
-                const date = new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
-                const linkUrl = `/columns/${item.slug || item.id}/`;
-
-                if (index < 2) { 
-                    const card = document.createElement('div');
-                    card.className = 'flex flex-col group cursor-pointer fade-in';
-                    const bgColor = index === 0 ? 'bg-[#eef2ff]' : 'bg-[#fff1f2]';
-                    const tagColor = index === 0 ? 'text-[#3730a3]' : 'text-[#9f1239]';
-                    const badgeColor = index === 0 ? 'bg-[#3b82f6]' : 'bg-[#ef4444]';
-
-                    card.innerHTML = `
-                        <a href="${linkUrl}" class="block">
-                            <div class="aspect-[1.5/1] ${bgColor} rounded-xl mb-6 overflow-hidden relative shadow-sm border border-gray-50">
-                                <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                                    <span class="text-xs sm:text-sm font-black ${tagColor} mb-1 opacity-80 tracking-widest">${item.tagTitle || 'RESEARCH'}</span>
-                                    <span class="text-base sm:text-xl font-black ${tagColor}">${item.tagSub || '研究レポート'}</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="${badgeColor} text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">${item.category || 'コラム'}</span>
-                            </div>
-                            <div class="flex items-center gap-4 text-xs font-bold text-gray-400 mb-4">
-                                <span>${date}</span>
-                            </div>
-                            <h3 class="text-lg font-black mb-4 group-hover:text-[#ed5b8c] transition-colors leading-relaxed">${item.title}</h3>
-                            <p class="text-xs text-slate-500 leading-loose font-medium text-justify">${item.excerpt || ''}</p>
-                        </a>
-                    `;
-                    mainContainer.appendChild(card);
-                } else if (index < 5) { 
-                    const row = document.createElement('a');
-                    row.href = linkUrl;
-                    row.className = 'flex gap-5 items-start group fade-in';
-                    const type = item.type || 'IDEA';
-                    row.innerHTML = `
-                        <div class="w-16 h-12 shrink-0 bg-[#f1f5f9] rounded flex items-center justify-center text-[11px] font-black text-slate-500 group-hover:bg-[#e2e8f0] transition-colors">${type}</div>
-                        <div>
-                            <div class="text-[10px] font-bold text-gray-300 mb-1 tracking-wider">${date}</div>
-                            <h4 class="text-[13px] font-black text-gray-800 group-hover:text-[#ed5b8c] transition-colors line-clamp-2 leading-snug">${item.title}</h4>
-                        </div>
-                    `;
-                    sideContainer.appendChild(row);
-                }
-            });
-        }
-
-        // FAQ アコーディオン
-        document.querySelectorAll('.faq-item .question').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const item = btn.closest('.faq-item');
-                const isOpen = item.classList.contains('open');
-                document.querySelectorAll('.faq-item').forEach(other => {
-                    if(other !== item) {
-                        other.classList.remove('open');
-                        other.querySelector('i').classList.replace('fa-minus', 'fa-plus');
+            // FAQ アコーディオン
+            document.querySelectorAll('.faq-item .question').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.closest('.faq-item');
+                    const isOpen = item.classList.contains('open');
+                    document.querySelectorAll('.faq-item').forEach(other => {
+                        if(other !== item) {
+                            other.classList.remove('open');
+                            const otherIcon = other.querySelector('i');
+                            if (otherIcon) otherIcon.classList.replace('fa-minus', 'fa-plus');
+                        }
+                    });
+                    item.classList.toggle('open');
+                    const icon = btn.querySelector('i');
+                    if (icon) {
+                        if(!isOpen) icon.classList.replace('fa-plus', 'fa-minus');
+                        else icon.classList.replace('fa-minus', 'fa-plus');
                     }
                 });
-                item.classList.toggle('open');
-                const icon = btn.querySelector('i');
-                if(!isOpen) icon.classList.replace('fa-plus', 'fa-minus');
-                else icon.classList.replace('fa-minus', 'fa-plus');
             });
         });
     </script>
