@@ -10,6 +10,19 @@ const JSON_OUTPUT_PATH = path.resolve(COLUMNS_DIR, 'index.json');
 const SITEMAP_OUTPUT_PATH = path.resolve(process.cwd(), 'sitemap.xml');
 const ARTICLE_HTML_PATH = path.resolve(process.cwd(), 'article.html');
 
+// 関連記事の表示件数
+const RELATED_POSTS_COUNT = 3;
+
+// 旧slug → 新slug のリダイレクトマップ
+// 過去のSearch Consoleで404になっていた旧slugから、現在の新slugへのリダイレクトを定義
+// 対応する記事が見つかった時点でここに追加していく
+// 例: 'old-random-slug': 'new-meaningful-slug'
+const SLUG_REDIRECTS = {
+  // '9lqjr-y2mk': '新しいslug',
+  // '8xod8yob-y': '新しいslug',
+  // 'j7o2-bk2wtbw': '新しいslug',
+};
+
 // --- 環境変数からAPIキーを取得 ---
 const { MICROCMS_SERVICE_DOMAIN, MICROCMS_API_KEY } = process.env;
 
@@ -85,6 +98,99 @@ function createEyecatchHtml(eyecatch, alt) {
 }
 
 /**
+ * 関連記事のHTMLを生成（静的）
+ * slugが必ず存在する記事のみを対象とし、undefined問題を根絶
+ */
+function buildRelatedPostsHtml(currentArticle, allArticles) {
+  // slug があり、自分自身ではない記事のみを抽出
+  const candidates = allArticles.filter(a => 
+    a && a.slug && a.id !== currentArticle.id
+  );
+
+  // 公開日が新しい順で最大件数まで取得
+  const related = candidates.slice(0, RELATED_POSTS_COUNT);
+
+  if (related.length === 0) {
+    return '<p class="text-gray-400 col-span-full text-center py-10">関連記事が見つかりませんでした。</p>';
+  }
+
+  return related.map(article => {
+    const title = escapeHtml(article.title || '無題のコラム');
+    const date = article.publishedAt 
+      ? new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.') 
+      : '';
+    const imageUrl = article.eyecatch?.url 
+      ? `${article.eyecatch.url}?fit=crop&w=600&h=338&q=80`
+      : 'https://placehold.jp/24/cccccc/ffffff/800x450.png?text=No+Image';
+    const linkUrl = `/columns/${article.slug}/`;
+    const author = escapeHtml(article.author || 'Kokuban BASE 編集部');
+
+    return `
+    <a href="${linkUrl}" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="${imageUrl}" alt="${title}" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                ${title}
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">${date}</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    ${author}
+                </span>
+            </div>
+        </div>
+    </a>`;
+  }).join('\n');
+}
+
+/**
+ * 旧slug用のリダイレクトHTMLを生成
+ */
+function generateRedirectPages() {
+  const redirectEntries = Object.entries(SLUG_REDIRECTS);
+  if (redirectEntries.length === 0) {
+    console.log('リダイレクト設定なし。スキップします。');
+    return;
+  }
+
+  console.log('旧slug用リダイレクトHTMLを生成中...');
+  for (const [oldSlug, newSlug] of redirectEntries) {
+    const redirectDir = path.resolve(COLUMNS_DIR, oldSlug);
+    const redirectHtmlPath = path.resolve(redirectDir, 'index.html');
+    const targetUrl = `${BASE_URL}/columns/${newSlug}/`;
+
+    if (!fs.existsSync(redirectDir)) {
+      fs.mkdirSync(redirectDir, { recursive: true });
+    }
+
+    const redirectHtml = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>移転しました｜Kokuban BASE</title>
+<link rel="canonical" href="${targetUrl}">
+<meta http-equiv="refresh" content="0; url=${targetUrl}">
+<meta name="robots" content="noindex">
+<script>window.location.replace("${targetUrl}");</script>
+</head>
+<body>
+<p>このページは <a href="${targetUrl}">${targetUrl}</a> に移動しました。</p>
+</body>
+</html>`;
+
+    try {
+      fs.writeFileSync(redirectHtmlPath, redirectHtml);
+      console.log(`リダイレクト生成: /columns/${oldSlug}/ → /columns/${newSlug}/`);
+    } catch (err) {
+      console.error(`リダイレクトHTMLの書き込み失敗 (${oldSlug}):`, err);
+    }
+  }
+}
+
+/**
  * 全記事を取得 (ページング対応)
  */
 async function fetchAllArticles() {
@@ -99,7 +205,7 @@ async function fetchAllArticles() {
       const response = await client.get({
         endpoint: 'news',
         queries: {
-          fields: 'id,slug,title,body,eyecatch,publishedAt,updatedAt,description,category',
+          fields: 'id,slug,title,body,eyecatch,publishedAt,updatedAt,description,category,author',
           limit: limit,
           offset: offset,
           orders: '-publishedAt',
@@ -380,6 +486,12 @@ async function buildStaticPages() {
 
     const eyecatchHtml = createEyecatchHtml(article.eyecatch, titlePlain);
 
+    // 執筆者（ビルド時に確定）
+    const authorName = escapeHtml(article.author || 'Kokuban BASE 編集部');
+
+    // 関連記事HTML（ビルド時に確定。undefinedバグの根絶）
+    const relatedPostsHtml = buildRelatedPostsHtml(article, publishedArticles);
+
     const encodedUrl = encodeURIComponent(canonicalUrl);
     const encodedTitle = encodeURIComponent(title);
     const shareUrlTwitter = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
@@ -387,20 +499,23 @@ async function buildStaticPages() {
     const shareUrlLine = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedTitle}`;
 
     let articleHtml = templateHtml
-      .replace(/{{TITLE}}/g, title)
-      .replace(/{{TITLE_PLAIN}}/g, titlePlain)
-      .replace(/{{TITLE_HTML}}/g, titleHtml)
-      .replace(/{{DESCRIPTION}}/g, description)
-      .replace(/{{CANONICAL_URL}}/g, canonicalUrl)
-      .replace(/{{OG_IMAGE_URL}}/g, ogImageUrl)
-      .replace(/{{PUBLISHED_AT_ISO}}/g, publishedAtISO)
-      .replace(/{{UPDATED_AT_ISO}}/g, updatedAtISO)
-      .replace(/{{PUBLISHED_AT_FORMATTED}}/g, publishedAtFormatted)
-      .replace(/{{EYECATCH_HTML}}/g, eyecatchHtml)
-      .replace(/{{BODY_HTML}}/g, article.body)
-      .replace(/{{SHARE_URL_TWITTER}}/g, shareUrlTwitter)
-      .replace(/{{SHARE_URL_FACEBOOK}}/g, shareUrlFacebook)
-      .replace(/{{SHARE_URL_LINE}}/g, shareUrlLine);
+      .replace(/\{\{TITLE\}\}/g, title)
+      .replace(/\{\{TITLE_PLAIN\}\}/g, titlePlain)
+      .replace(/\{\{TITLE_HTML\}\}/g, titleHtml)
+      .replace(/\{\{DESCRIPTION\}\}/g, description)
+      .replace(/\{\{CANONICAL_URL\}\}/g, canonicalUrl)
+      .replace(/\{\{OG_IMAGE_URL\}\}/g, ogImageUrl)
+      .replace(/\{\{PUBLISHED_AT_ISO\}\}/g, publishedAtISO)
+      .replace(/\{\{UPDATED_AT_ISO\}\}/g, updatedAtISO)
+      .replace(/\{\{PUBLISHED_AT_FORMATTED\}\}/g, publishedAtFormatted)
+      .replace(/\{\{EYECATCH_HTML\}\}/g, eyecatchHtml)
+      .replace(/\{\{BODY_HTML\}\}/g, article.body)
+      .replace(/\{\{SHARE_URL_TWITTER\}\}/g, shareUrlTwitter)
+      .replace(/\{\{SHARE_URL_FACEBOOK\}\}/g, shareUrlFacebook)
+      .replace(/\{\{SHARE_URL_LINE\}\}/g, shareUrlLine)
+      .replace(/\{\{AUTHOR\}\}/g, authorName)
+      .replace(/\{\{author\}\}/g, authorName) // 旧テンプレ互換用
+      .replace(/\{\{RELATED_POSTS_HTML\}\}/g, relatedPostsHtml);
 
     try {
       fs.writeFileSync(outputHtmlPath, articleHtml);
@@ -431,8 +546,11 @@ async function buildStaticPages() {
   // 6. サイトマップ (sitemap.xml) を生成・保存
   generateSitemap(publishedArticles);
 
-  // 7. 記事一覧ページ (article.html) を静的生成＆APIキー除去
+  // 7. 記事一覧ページ (article.html) を静的生成
   await buildArticleListPage(publishedArticles);
+
+  // 8. 旧slugリダイレクトページを生成
+  generateRedirectPages();
 
   console.log('静的ページ生成プロセスが完了しました。');
 }
