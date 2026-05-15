@@ -10,9 +10,70 @@ const JSON_OUTPUT_PATH = path.resolve(COLUMNS_DIR, 'index.json');
 const SITEMAP_OUTPUT_PATH = path.resolve(process.cwd(), 'sitemap.xml');
 const ARTICLE_HTML_PATH = path.resolve(process.cwd(), 'article.html');
 const WHATIS_HTML_PATH = path.resolve(process.cwd(), 'whatissmrtboard.html');
+const TEAM_DIR = path.resolve(process.cwd(), 'team');
 
 // 関連記事の表示件数
 const RELATED_POSTS_COUNT = 3;
+
+// 執筆者プロフィール情報(E-E-A-T強化用)
+// microCMS の article.author フィールドの値と matchKey を一致させると、
+// その執筆者の記事を「執筆者ページ」で一覧化できる
+const AUTHORS = [
+  {
+    slug: 'takeyama-junya',
+    matchKeys: ['竹山 隼矢', '竹山隼矢', 'Takeyama Junya'],
+    name: '竹山 隼矢',
+    nameRomaji: 'Takeyama Junya',
+    nameKana: 'たけやま じゅんや',
+    role: '株式会社idea spot 代表取締役',
+    photoUrl: '/img/staff-a.jpg',
+    specialties: ['中学受験算数', '電子黒板を活用したICT授業', '教育事業マネジメント'],
+    bio: '中学受験専門の現役トップ算数講師として、毎年多数の難関中学合格者を輩出。電子黒板の早期導入を決断し、ICT教材を駆使した算数授業は、生徒・保護者から高く評価されている。英俊社の塾・教育機関向けお役立ちコラムを執筆。',
+    achievements: [
+      '中学受験算数の現役トップ講師として10年以上の指導実績',
+      '灘・東大寺・洛星・同志社女子など難関校への合格者を多数輩出',
+      '英俊社の塾・教育機関向けコラムを継続執筆',
+      'Kokuban BASE プロジェクト立ち上げ・全体統括',
+    ],
+    socialUrls: [],
+  },
+  {
+    slug: 'endo-koji',
+    matchKeys: ['遠藤 幸治', '遠藤幸治', 'Endo Koji'],
+    name: '遠藤 幸治',
+    nameRomaji: 'Endo Koji',
+    nameKana: 'えんどう こうじ',
+    role: 'Kokuban BASE 運営責任者',
+    photoUrl: '/img/staff-b.jpg',
+    specialties: ['電子黒板とICT教材の連携', '公教育・私教育双方への導入支援', '中学受験・中高生指導'],
+    bio: '首都圏の大手学習塾で活躍し、様々なICT教材を授業に導入。電子黒板とICT教材の連携に関する知識は業界トップクラスで、公教育への導入提案にも定評あり。現在も教壇に立ち、中学受験から中高生の定期考査対策まで幅広く指導。',
+    achievements: [
+      '首都圏の大手学習塾でICT教材導入の最前線で活躍',
+      '電子黒板×ICT教材の連携知識は業界トップクラス',
+      '公教育機関への電子黒板導入提案の実績多数',
+      '中学受験から中高生まで幅広い学齢の指導経験',
+    ],
+    socialUrls: [],
+  },
+  {
+    slug: 'yamada-masaki',
+    matchKeys: ['山田 将生', '山田将生', 'Yamada Masaki'],
+    name: '山田 将生',
+    nameRomaji: 'Yamada Masaki',
+    nameKana: 'やまだ まさき',
+    role: 'Kokuban BASE 運営担当',
+    photoUrl: '/img/staff-c.jpg',
+    specialties: ['中学受験社会科', '情報システム・Webサイト構築', 'ICTの教育現場導入'],
+    bio: '現役で社会科のトップ講師として活躍する一方、情報システムの専門家でもある。社内の管理システムや本LPサイトの作成も一気通貫で完結させる、教育業界トップレベルのICT知識を有する。電子黒板導入にあたる、新システムの導入支援・サービス開発も相談可能。',
+    achievements: [
+      '現役で社会科のトップ講師として活躍',
+      '情報システムの専門家として教育業界トップレベルのICT知識',
+      '社内管理システム・Webサイトの構築実績',
+      '新システム導入支援・サービス開発の相談対応',
+    ],
+    socialUrls: [],
+  },
+];
 
 // 旧slug → 新slug のリダイレクトマップ
 // 過去のSearch Consoleで404になっていた旧slugから、現在の新slugへのリダイレクトを定義
@@ -49,6 +110,106 @@ function extractDescription(html, maxLength = 120) {
     return text.substring(0, maxLength) + '...';
   }
   return text;
+}
+
+/**
+ * 本文HTMLから読了時間(分)を計算
+ * 日本語の平均読了速度を 450 字/分として算出
+ * 最低 1 分を返す
+ */
+function calculateReadingTime(html) {
+  if (!html) return 1;
+  // タグ除去、空白整理
+  let text = html.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
+  text = text.replace(/\s+/g, '');
+  const charCount = text.length;
+  const minutes = Math.max(1, Math.ceil(charCount / 450));
+  return minutes;
+}
+
+/**
+ * 目次生成のためのID用文字列を生成
+ * 日本語含む見出しテキストから、URLに使える slug を作る
+ */
+function makeHeadingId(text, index) {
+  // タグ除去
+  let plain = text.replace(/<[^>]+>/g, '').trim();
+  // 英数とハイフン以外をハイフンに置換
+  let slug = plain
+    .replace(/[\s　]+/g, '-')
+    .replace(/[^\w\-\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff]+/g, '')
+    .substring(0, 40);
+  // 空ならインデックスベースのフォールバック
+  if (!slug) slug = `heading-${index}`;
+  return `toc-${index}-${slug}`;
+}
+
+/**
+ * 本文HTMLから目次(Table of Contents)を生成し、本文側にもID属性を追加する
+ * 返り値: { tocHtml, bodyWithIds, headingCount }
+ *
+ * - h2/h3 を対象(h1は記事タイトル用なので除外)
+ * - 見出し数が2個未満なら目次は空文字を返す(短すぎる記事には不要)
+ */
+function buildTocAndAnnotate(bodyHtml) {
+  if (!bodyHtml) return { tocHtml: '', bodyWithIds: bodyHtml || '', headingCount: 0 };
+
+  const headings = []; // { level, text, id }
+  let headingIndex = 0;
+
+  // h2/h3 を抽出しつつ、既存属性を保持してID属性を追加
+  const bodyWithIds = bodyHtml.replace(
+    /<(h[23])([^>]*)>([\s\S]*?)<\/\1>/gi,
+    (match, tag, attrs, inner) => {
+      const level = parseInt(tag.charAt(1));
+      // 既にidが付いていればそれを使う
+      const existingIdMatch = attrs.match(/\sid="([^"]+)"/i);
+      let id;
+      if (existingIdMatch) {
+        id = existingIdMatch[1];
+      } else {
+        id = makeHeadingId(inner, headingIndex);
+        attrs = ` id="${id}"${attrs}`;
+      }
+      const plainText = inner.replace(/<[^>]+>/g, '').trim();
+      if (plainText) {
+        headings.push({ level, text: plainText, id });
+        headingIndex++;
+      }
+      return `<${tag}${attrs}>${inner}</${tag}>`;
+    }
+  );
+
+  // 見出しが2個未満なら目次を出さない
+  if (headings.length < 2) {
+    return { tocHtml: '', bodyWithIds, headingCount: headings.length };
+  }
+
+  // 目次HTMLを構築
+  let tocItems = '';
+  headings.forEach(h => {
+    const indentClass = h.level === 3 ? 'ml-5' : '';
+    tocItems += `
+        <li class="${indentClass}">
+            <a href="#${h.id}" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">${h.level === 3 ? '— ' : ''}</span>${escapeHtmlSimple(h.text)}
+            </a>
+        </li>`;
+  });
+
+  const tocHtml = `
+<aside class="toc-container my-10 p-6 bg-gray-50 border-l-4 border-customBlue rounded-r-xl shadow-sm">
+    <h2 class="toc-title text-base font-bold text-customBlue mb-3 flex items-center">
+        <i class="fas fa-list-ul mr-2 text-sm" aria-hidden="true"></i>目次
+    </h2>
+    <nav aria-label="目次">
+        <ol class="toc-list text-sm space-y-0">${tocItems}
+        </ol>
+    </nav>
+</aside>
+`;
+
+  return { tocHtml, bodyWithIds, headingCount: headings.length };
 }
 
 /**
@@ -147,6 +308,524 @@ function buildRelatedPostsHtml(currentArticle, allArticles) {
   }).join('\n');
 }
 
+// ============================================================
+// 内部リンク自動生成
+// ============================================================
+
+/**
+ * 記事タイトル・slug・本文の特徴から「リンク化候補キーワード」を抽出
+ * これらのキーワードが他記事の本文に出現したら、そこから自動でリンクを張る
+ */
+function extractKeywordsFromArticle(article) {
+  const keywords = new Set();
+
+  // 1. タイトル中の特徴的なキーワードを抽出
+  const title = article.title || '';
+
+  // タイトルから接頭辞・記号を除去した「素のキーワード」
+  // 例: 〈電子黒板の活用〉Googleマップで中学受験対策― → "Googleマップで中学受験対策"
+  const cleanTitle = title
+    .replace(/[〈〉【】「」『』]/g, '')
+    .replace(/^電子黒板の活用/, '')
+    .trim();
+
+  // 2. 既知のツール・サービス名・固有名詞リスト
+  // これらが本文中に出てきたら、その記事へのリンク化候補とする
+  const KNOWN_TOOLS = [
+    'Stellarium', 'Google Earth', 'Googleマップ', 'Google Maps', 'Javalab', 'Java Lab',
+    'Digital gene', 'kakijun.jp', 'BenQ Board', 'MIRAI TOUCH', 'ミライタッチ',
+    'StarBoard', 'BIG PAD', 'MAXHUB', 'Promethean', 'NFC', 'ダイレクトボンディング',
+    'Kokuban リース', 'Kokubanリース',
+  ];
+
+  // 各ツール名について、記事のタイトルか本文に出てくるなら登録
+  const fullText = `${title} ${article.body || ''}`;
+  KNOWN_TOOLS.forEach(tool => {
+    if (fullText.includes(tool)) {
+      keywords.add(tool);
+    }
+  });
+
+  // 3. タイトル冒頭の特徴的なフレーズ(8-25文字程度)を1つだけ追加
+  // 例: タイトル "電子黒板×Google Earthで小中学生の歴史授業を時間旅行に変える方法" の場合
+  // 既存のKNOWN_TOOLS から「Google Earth」が拾えるので、ここは控えめに
+  
+  return Array.from(keywords);
+}
+
+/**
+ * 全記事を走査して、キーワード → 記事URL の辞書を構築
+ * 同じキーワードを複数記事が持つ場合は、新しい記事を優先(最新が現役)
+ */
+function buildKeywordIndex(allArticles) {
+  const index = new Map(); // keyword(lower) → { article, originalKeyword }
+
+  // publishedAt の新しい順にソート (前提として元から新着順だが念のため)
+  const sorted = [...allArticles].sort((a, b) =>
+    new Date(b.publishedAt) - new Date(a.publishedAt)
+  );
+
+  for (const article of sorted) {
+    if (!article.slug) continue;
+    const keywords = extractKeywordsFromArticle(article);
+    for (const kw of keywords) {
+      const key = kw.toLowerCase();
+      // 既に登録されていれば上書きしない (新しいものを優先しないことで安定)
+      // ただし、現状の article のタイトルにそのキーワードが含まれている方が「主役記事」なので優先
+      const inTitle = (article.title || '').toLowerCase().includes(key);
+      if (!index.has(key) || (inTitle && !index.get(key).inTitle)) {
+        index.set(key, { article, originalKeyword: kw, inTitle });
+      }
+    }
+  }
+
+  return index;
+}
+
+/**
+ * HTML文字列を安全に走査し、テキストノード(タグ外)の部分のみで
+ * 指定キーワードを最大 maxReplacements 回までリンク化する
+ *
+ * 制約:
+ * - <a> タグ内・<img> alt属性内・属性値内は触らない
+ * - 同じキーワードは1回だけ置換
+ * - 自分自身の記事は除外(呼び出し側で対応)
+ */
+function injectInternalLinks(bodyHtml, currentSlug, keywordIndex, maxReplacements = 3) {
+  if (!bodyHtml || keywordIndex.size === 0) return bodyHtml;
+
+  // HTMLをトークン化: タグの内部(<...>) vs テキスト の交互配列
+  const tokens = [];
+  const tagRegex = /<[^>]+>/g;
+  let lastIdx = 0;
+  let match;
+  while ((match = tagRegex.exec(bodyHtml)) !== null) {
+    if (match.index > lastIdx) {
+      tokens.push({ type: 'text', content: bodyHtml.slice(lastIdx, match.index) });
+    }
+    tokens.push({ type: 'tag', content: match[0] });
+    lastIdx = match.index + match[0].length;
+  }
+  if (lastIdx < bodyHtml.length) {
+    tokens.push({ type: 'text', content: bodyHtml.slice(lastIdx) });
+  }
+
+  // <a> タグの中に入っているかを判定する深度カウンター
+  let insideAnchorDepth = 0;
+  // 既に処理したキーワード(重複置換防止)
+  const usedKeywords = new Set();
+  let replacementCount = 0;
+
+  // キーワードを長い順に並べる(「Google Earth」を「Google」より先に処理)
+  const sortedKeywords = Array.from(keywordIndex.keys())
+    .sort((a, b) => b.length - a.length);
+
+  for (let i = 0; i < tokens.length; i++) {
+    const tok = tokens[i];
+
+    if (tok.type === 'tag') {
+      const lower = tok.content.toLowerCase();
+      if (lower.startsWith('<a ') || lower === '<a>') insideAnchorDepth++;
+      else if (lower.startsWith('</a>')) insideAnchorDepth = Math.max(0, insideAnchorDepth - 1);
+      continue;
+    }
+
+    if (insideAnchorDepth > 0) continue;
+    if (replacementCount >= maxReplacements) break;
+
+    let textContent = tok.content;
+    let textChanged = false;
+
+    for (const key of sortedKeywords) {
+      if (usedKeywords.has(key)) continue;
+      if (replacementCount >= maxReplacements) break;
+
+      const entry = keywordIndex.get(key);
+      if (!entry || !entry.article || entry.article.slug === currentSlug) continue;
+
+      // 大文字小文字を区別せずに最初の出現を見つける
+      const lowerText = textContent.toLowerCase();
+      const pos = lowerText.indexOf(key);
+      if (pos === -1) continue;
+
+      // 元の表記を保持してリンク化
+      const matched = textContent.substr(pos, key.length);
+      const linkUrl = `/columns/${entry.article.slug}/`;
+      const linkTitle = escapeHtml(entry.article.title || matched);
+      const linkedHtml = `<a href="${linkUrl}" class="internal-link" title="${linkTitle}">${matched}</a>`;
+
+      textContent = textContent.slice(0, pos) + linkedHtml + textContent.slice(pos + key.length);
+      usedKeywords.add(key);
+      replacementCount++;
+      textChanged = true;
+    }
+
+    if (textChanged) {
+      tok.content = textContent;
+    }
+  }
+
+  return tokens.map(t => t.content).join('');
+}
+
+/**
+ * 執筆者ページを生成(E-E-A-T強化)
+ * 各執筆者の個別プロフィールページを /team/{slug}/ に出力
+ */
+function buildAuthorPages(allArticles) {
+  console.log('執筆者ページを生成中...');
+
+  // /team/ ディレクトリを作成
+  if (!fs.existsSync(TEAM_DIR)) {
+    fs.mkdirSync(TEAM_DIR, { recursive: true });
+  }
+
+  for (const author of AUTHORS) {
+    // この執筆者が書いた記事を抽出
+    const myArticles = allArticles.filter(article => {
+      if (!article.author) return false;
+      return author.matchKeys.some(key => article.author.includes(key));
+    });
+
+    const articleListHtml = myArticles.length > 0
+      ? myArticles.map(a => {
+          const imageUrl = a.eyecatch?.url
+            ? `${a.eyecatch.url}?fit=crop&w=400&h=225&q=80`
+            : 'https://placehold.co/400x225/e0e7ff/1e3a8a?text=Kokuban+BASE';
+          const date = a.publishedAt
+            ? new Date(a.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')
+            : '';
+          return `
+        <a href="/columns/${a.slug}/" class="block group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all overflow-hidden border border-gray-100">
+            <div class="aspect-video overflow-hidden bg-gray-50">
+                <img src="${imageUrl}" alt="${escapeHtml(a.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width="400" height="225">
+            </div>
+            <div class="p-5">
+                <time class="text-xs font-bold text-gray-400 tracking-widest">${date}</time>
+                <h3 class="mt-2 text-base font-bold text-gray-800 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug">${escapeHtml(a.title)}</h3>
+            </div>
+        </a>`;
+        }).join('')
+      : '<p class="col-span-full text-center text-gray-400 py-12">執筆記事は準備中です。</p>';
+
+    const specialtiesHtml = author.specialties.map(s =>
+      `<span class="inline-block bg-blue-50 text-customBlue text-xs font-bold px-3 py-1 rounded-full mr-2 mb-2">${escapeHtml(s)}</span>`
+    ).join('');
+
+    const achievementsHtml = author.achievements.map(a =>
+      `<li class="flex items-start text-gray-700"><i class="fas fa-check text-customBlue text-xs mt-2 mr-3 flex-shrink-0"></i><span>${escapeHtml(a)}</span></li>`
+    ).join('');
+
+    const profileUrl = `${BASE_URL}/team/${author.slug}/`;
+
+    const html = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${escapeHtml(author.name)}(${escapeHtml(author.role)})｜執筆者プロフィール｜Kokuban BASE</title>
+    <meta name="description" content="${escapeHtml(author.name)}(${escapeHtml(author.role)})のプロフィール。${escapeHtml(author.specialties[0])}を専門とし、電子黒板の比較体験倉庫Kokuban BASEで活動中。執筆記事一覧もこちらから。">
+    <link rel="canonical" href="${profileUrl}">
+    <meta property="og:url" content="${profileUrl}">
+    <meta property="og:title" content="${escapeHtml(author.name)}｜執筆者プロフィール｜Kokuban BASE">
+    <meta property="og:description" content="${escapeHtml(author.role)}。${escapeHtml(author.specialties.join('、'))}が専門。Kokuban BASEで活動中。">
+    <meta property="og:image" content="${BASE_URL}${author.photoUrl}">
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="Kokuban BASE">
+    <meta property="og:locale" content="ja_JP">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${escapeHtml(author.name)}｜執筆者プロフィール｜Kokuban BASE">
+    <meta name="twitter:description" content="${escapeHtml(author.role)}。${escapeHtml(author.specialties.join('、'))}が専門。">
+    <meta name="twitter:image" content="${BASE_URL}${author.photoUrl}">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "url": "${profileUrl}",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "${escapeHtml(author.name)}",
+        "alternateName": "${escapeHtml(author.nameRomaji)}",
+        "jobTitle": "${escapeHtml(author.role)}",
+        "description": "${escapeHtml(author.bio)}",
+        "image": "${BASE_URL}${author.photoUrl}",
+        "url": "${profileUrl}",
+        "knowsAbout": [${author.specialties.map(s => `"${escapeHtml(s)}"`).join(', ')}],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "株式会社idea spot",
+          "url": "https://www.idea-spot.co.jp/",
+          "subOrganization": {
+            "@type": "Organization",
+            "name": "Kokuban BASE",
+            "url": "${BASE_URL}/"
+          }
+        }
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "トップ", "item": "${BASE_URL}/" },
+        { "@type": "ListItem", "position": 2, "name": "運営チーム", "item": "${BASE_URL}/team/" },
+        { "@type": "ListItem", "position": 3, "name": "${escapeHtml(author.name)}", "item": "${profileUrl}" }
+      ]
+    }
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #fafafa; color: #333; }
+        .bg-custom-blue { background-color: #103f99; }
+        .text-custom-blue, .text-customBlue { color: #103f99; }
+        .text-shadow { text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .line-clamp-2 {
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+    </style>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { customBlue: '#103f99' } } } };
+    </script>
+</head>
+<body>
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
+        <div class="px-6 lg:px-8">
+            <div class="flex items-stretch h-[50px] sm:h-20">
+                <div class="flex-1 flex items-center space-x-8">
+                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
+                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
+                    </div>
+                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                        <a href="/Kokubanlease" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">Kokuban リース</a>
+                        <a href="/article" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <a href="/#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
+                    </nav>
+                </div>
+                <div class="flex-shrink-0 flex justify-end">
+                    <div class="hidden sm:flex h-full">
+                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">お問い合わせ</a>
+                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">来場予約</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="bg-white">
+        <!-- パンくず -->
+        <nav aria-label="パンくずリスト" class="border-b border-gray-100">
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-3">
+                <ol class="flex items-center text-sm text-gray-600 flex-wrap gap-y-1">
+                    <li class="flex items-center">
+                        <a href="/" class="hover:text-customBlue transition-colors">トップ</a>
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li class="flex items-center">
+                        <a href="/team/" class="hover:text-customBlue transition-colors">運営チーム</a>
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li>
+                        <span aria-current="page" class="font-semibold text-gray-900">${escapeHtml(author.name)}</span>
+                    </li>
+                </ol>
+            </div>
+        </nav>
+
+        <!-- プロフィール -->
+        <section class="bg-gradient-to-br from-blue-50 to-white py-16 sm:py-24">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
+                    <div class="flex-shrink-0">
+                        <img src="${author.photoUrl}" alt="${escapeHtml(author.name)}(${escapeHtml(author.role)})" class="w-48 h-48 sm:w-56 sm:h-56 rounded-full object-cover shadow-xl ring-4 ring-white" width="512" height="512">
+                    </div>
+                    <div class="flex-grow text-center md:text-left">
+                        <p class="text-sm text-gray-500 font-bold tracking-widest mb-1 uppercase">${escapeHtml(author.nameRomaji)}</p>
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-2 leading-tight">${escapeHtml(author.name)}</h1>
+                        <p class="text-sm text-gray-500 mb-4">${escapeHtml(author.nameKana)}</p>
+                        <p class="inline-block bg-customBlue text-white text-base font-bold px-4 py-1.5 rounded-full mb-6">${escapeHtml(author.role)}</p>
+                        <div class="text-left">
+                            <h2 class="text-xs font-bold text-gray-500 tracking-widest uppercase mb-3">専門分野</h2>
+                            <div class="flex flex-wrap">${specialtiesHtml}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 経歴・実績 -->
+        <section class="py-12 sm:py-16">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8">
+                <div class="bg-white rounded-2xl shadow-sm p-8 sm:p-12 border border-gray-100">
+                    <h2 class="text-xl sm:text-2xl font-bold text-customBlue mb-6 flex items-center">
+                        <span class="w-1.5 h-7 bg-customBlue mr-3"></span>プロフィール
+                    </h2>
+                    <p class="text-gray-700 leading-relaxed mb-8">${escapeHtml(author.bio)}</p>
+
+                    <h2 class="text-xl sm:text-2xl font-bold text-customBlue mb-6 flex items-center">
+                        <span class="w-1.5 h-7 bg-customBlue mr-3"></span>主な経歴・実績
+                    </h2>
+                    <ul class="space-y-3">${achievementsHtml}</ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 執筆記事 -->
+        <section class="py-12 sm:py-16 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-customBlue mb-3">${escapeHtml(author.name)} の執筆記事</h2>
+                    <p class="text-gray-600">${myArticles.length > 0 ? `${myArticles.length}件の記事を執筆しています` : '執筆記事は準備中です'}</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">${articleListHtml}</div>
+                <div class="mt-12 text-center">
+                    <a href="/article" class="inline-flex items-center bg-white text-customBlue font-bold px-8 py-3 rounded-full border-2 border-customBlue hover:bg-customBlue hover:text-white transition-all shadow-md">
+                        コラム一覧へ <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#103f99] text-gray-200">
+        <div class="container mx-auto px-6 py-12">
+            <div class="text-2xl font-bold text-white mb-4">Kokuban BASE</div>
+            <p class="text-blue-200 mb-8">株式会社idea spot</p>
+            <div class="border-t border-white/20 pt-8 text-center text-blue-200">&copy; 2025 株式会社idea spot. All Rights Reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>`;
+
+    // 出力
+    const authorDir = path.resolve(TEAM_DIR, author.slug);
+    if (!fs.existsSync(authorDir)) {
+      fs.mkdirSync(authorDir, { recursive: true });
+    }
+    const outputPath = path.resolve(authorDir, 'index.html');
+    try {
+      fs.writeFileSync(outputPath, html);
+      console.log(`  👤 ${author.slug}: ${myArticles.length}件の執筆記事 / ${outputPath}`);
+    } catch (err) {
+      console.error(`  ✗ ${author.slug} の保存失敗:`, err);
+    }
+  }
+
+  // /team/ のインデックスページを作成
+  const teamIndexCards = AUTHORS.map(author => {
+    const myArticleCount = allArticles.filter(a =>
+      a.author && author.matchKeys.some(k => a.author.includes(k))
+    ).length;
+    return `
+        <a href="/team/${author.slug}/" class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all p-8 group border border-gray-100">
+            <img src="${author.photoUrl}" alt="${escapeHtml(author.name)}" class="w-32 h-32 rounded-full object-cover mx-auto shadow-md mb-5" width="256" height="256">
+            <h2 class="text-xl font-bold text-gray-900 text-center mb-1 group-hover:text-customBlue transition-colors">${escapeHtml(author.name)}</h2>
+            <p class="text-sm text-pink-500 font-semibold text-center mb-3">${escapeHtml(author.role)}</p>
+            <p class="text-sm text-gray-600 text-center line-clamp-2 mb-4">${escapeHtml(author.specialties.join(' / '))}</p>
+            <p class="text-xs text-gray-400 text-center">執筆記事 ${myArticleCount}件 →</p>
+        </a>`;
+  }).join('');
+
+  const teamIndexHtml = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>運営チーム｜現役講師による電子黒板比較体験｜Kokuban BASE</title>
+    <meta name="description" content="Kokuban BASEの運営チームをご紹介。中学受験算数・社会のトップ講師、ICT教材の専門家など、現役で授業を行う講師陣が電子黒板の比較体験をご案内します。">
+    <link rel="canonical" href="${BASE_URL}/team/">
+    <meta property="og:url" content="${BASE_URL}/team/">
+    <meta property="og:title" content="運営チーム｜Kokuban BASE">
+    <meta property="og:description" content="現役講師による電子黒板比較体験。Kokuban BASEの運営メンバーをご紹介します。">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Kokuban BASE">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #fafafa; color: #333; }
+        .text-customBlue { color: #103f99; }
+        .text-shadow { text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .line-clamp-2 {
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+    </style>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { customBlue: '#103f99' } } } };
+    </script>
+</head>
+<body>
+    <header class="bg-[#103f99] sticky top-0 z-20">
+        <div class="px-6 lg:px-8">
+            <div class="flex items-stretch h-[50px] sm:h-20">
+                <div class="flex-1 flex items-center">
+                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow">
+                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
+                    </div>
+                </div>
+                <div class="hidden sm:flex h-full">
+                    <a href="/contact" class="bg-white text-[#103f99] font-bold flex items-center justify-center w-36 hover:bg-gray-100 transition-colors px-4">お問い合わせ</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="bg-white">
+        <nav aria-label="パンくずリスト" class="border-b border-gray-100">
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-3">
+                <ol class="flex items-center text-sm text-gray-600">
+                    <li class="flex items-center">
+                        <a href="/" class="hover:text-customBlue transition-colors">トップ</a>
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li><span class="font-semibold text-gray-900">運営チーム</span></li>
+                </ol>
+            </div>
+        </nav>
+
+        <section class="py-16 sm:py-24 bg-gradient-to-br from-blue-50 to-white">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <p class="text-sm text-gray-500 font-bold tracking-widest mb-2 uppercase">Our Team</p>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-customBlue mb-4 leading-tight">運営チーム</h1>
+                <p class="text-gray-600 max-w-2xl mx-auto">日々、電子黒板を実際の授業で使用している<br class="sm:hidden">現役講師が、Kokuban BASEを運営しています。</p>
+            </div>
+        </section>
+
+        <section class="py-12 sm:py-16">
+            <div class="max-w-6xl mx-auto px-6 lg:px-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">${teamIndexCards}</div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#103f99] text-gray-200">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <div class="text-2xl font-bold text-white mb-2">Kokuban BASE</div>
+            <p class="text-blue-200 mb-6">株式会社idea spot</p>
+            <div class="border-t border-white/20 pt-6 text-blue-200">&copy; 2025 株式会社idea spot. All Rights Reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>`;
+
+  const teamIndexPath = path.resolve(TEAM_DIR, 'index.html');
+  try {
+    fs.writeFileSync(teamIndexPath, teamIndexHtml);
+    console.log(`  👥 運営チーム一覧ページ生成完了 / ${teamIndexPath}`);
+  } catch (err) {
+    console.error('  ✗ 運営チーム一覧の保存失敗:', err);
+  }
+}
+
 /**
  * 旧slug用のリダイレクトHTMLを生成
  */
@@ -206,7 +885,7 @@ async function fetchAllArticles() {
       const response = await client.get({
         endpoint: 'news',
         queries: {
-          fields: 'id,slug,title,body,eyecatch,publishedAt,updatedAt,description,category,author',
+          fields: 'id,slug,title,body,eyecatch,publishedAt,updatedAt,revisedAt,description,category,author',
           limit: limit,
           offset: offset,
           orders: '-publishedAt',
@@ -242,14 +921,26 @@ function generateSitemap(articles) {
   // 記事一覧ページもサイトマップに追加
   xml += `  <url>\n    <loc>${BASE_URL}/article</loc>\n    <priority>0.9</priority>\n    <changefreq>daily</changefreq>\n  </url>\n`;
 
-  const staticPages = ['contact.html', 'reservation.html', 'privacy.html'];
+  const staticPages = ['contact', 'reservation', 'on-line-reservation', 'privacy', 'terms', 'Kokubanlease', 'whatissmrtboard'];
   staticPages.forEach(page => {
     xml += `  <url>\n    <loc>${BASE_URL}/${page}</loc>\n    <priority>0.8</priority>\n    <changefreq>monthly</changefreq>\n  </url>\n`;
   });
 
+  // 執筆者ページ(E-E-A-T強化)
+  xml += `  <url>\n    <loc>${BASE_URL}/team/</loc>\n    <priority>0.7</priority>\n    <changefreq>monthly</changefreq>\n  </url>\n`;
+  AUTHORS.forEach(author => {
+    xml += `  <url>\n    <loc>${BASE_URL}/team/${author.slug}/</loc>\n    <priority>0.6</priority>\n    <changefreq>monthly</changefreq>\n  </url>\n`;
+  });
+
   articles.forEach(article => {
     const url = `${BASE_URL}/columns/${article.slug}/`;
-    const lastMod = new Date(article.updatedAt).toISOString().split('T')[0];
+    // sitemap の lastmod は revisedAt(手動更新日)優先、なければ publishedAt
+    // microCMSの自動 updatedAt は使わない(軽微な修正で更新通知が出るのを防ぐ)
+    const lastModSource = article.revisedAt
+      && new Date(article.revisedAt).toISOString().split('T')[0] > new Date(article.publishedAt).toISOString().split('T')[0]
+      ? article.revisedAt
+      : article.publishedAt;
+    const lastMod = new Date(lastModSource).toISOString().split('T')[0];
     xml += `  <url>\n    <loc>${url}</loc>\n    <lastmod>${lastMod}</lastmod>\n    <priority>0.6</priority>\n    <changefreq>weekly</changefreq>\n  </url>\n`;
   });
 
@@ -540,9 +1231,19 @@ async function buildStaticPages() {
     return;
   }
 
-  // 4. 各記事の静的HTMLを生成
+  // 4. 内部リンク自動生成のためのキーワードインデックスを構築
+  console.log('内部リンク用のキーワードインデックスを構築中...');
+  const keywordIndex = buildKeywordIndex(publishedArticles);
+  console.log(`  → ${keywordIndex.size} 個のキーワードを登録`);
+  if (keywordIndex.size > 0) {
+    const sample = Array.from(keywordIndex.keys()).slice(0, 8).join(', ');
+    console.log(`  → サンプル: ${sample}${keywordIndex.size > 8 ? '...' : ''}`);
+  }
+
+  // 5. 各記事の静的HTMLを生成
   console.log('各記事の静的HTMLを生成中...');
   const summaryList = [];
+  let totalInternalLinksAdded = 0;
 
   for (const article of publishedArticles) {
     if (!article.slug) {
@@ -557,8 +1258,10 @@ async function buildStaticPages() {
       fs.mkdirSync(articleDir, { recursive: true });
     }
 
-    const rawTitle = article.title;
-    const title = `${rawTitle.replace(/<br\s*\/?>/gi, ' ')}｜Kokuban BASE`;
+    const rawTitle = article.title || '無題のコラム';
+    // <title>タグやmeta属性に使う形式: <br>を空白に変換した上でHTMLエスケープ
+    // これを怠るとダブルクオートを含むタイトルで og:title が途中で切れる重大バグになる
+    const title = escapeHtml(`${rawTitle.replace(/<br\s*\/?>/gi, ' ')}｜Kokuban BASE`);
     const titlePlain = escapeHtml(rawTitle);
     const titleHtml = allowBrTags(rawTitle);
 
@@ -571,11 +1274,47 @@ async function buildStaticPages() {
       ? `${article.eyecatch.url}?fit=crop&w=1200&h=630`
       : `${BASE_URL}/ogp.jpg`;
 
+    // 日付の処理
+    // - publishedAt: 公開日(常に存在)
+    // - revisedAt: 手入力の更新日(任意。実質的な更新があった場合のみ編集者が入れる)
+    // - updatedAt: microCMSの自動更新日(誤字修正でも動くため、SEO表示には使わない)
     const publishedAtISO = new Date(article.publishedAt).toISOString();
-    const updatedAtISO = new Date(article.updatedAt).toISOString();
     const publishedAtFormatted = new Date(article.publishedAt).toLocaleDateString('ja-JP', {
       year: 'numeric', month: 'long', day: 'numeric'
     });
+
+    // revisedAt が公開日と同じ日(または前)なら、更新日として扱わない
+    let revisedAtISO = '';
+    let revisedAtFormatted = '';
+    let hasRevision = false;
+    if (article.revisedAt) {
+      const pubDate = new Date(article.publishedAt);
+      const revDate = new Date(article.revisedAt);
+      // 日付部分(YYYY-MM-DD)で比較。時刻の差は無視
+      const pubDay = pubDate.toISOString().split('T')[0];
+      const revDay = revDate.toISOString().split('T')[0];
+      if (revDay > pubDay) {
+        hasRevision = true;
+        revisedAtISO = revDate.toISOString();
+        revisedAtFormatted = revDate.toLocaleDateString('ja-JP', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+      }
+    }
+
+    // 構造化データ(Article schema)用の dateModified:
+    // revisedAt があれば優先、なければ publishedAt と同じ
+    // → microCMSの自動 updatedAt は意図的に使わない(SEO的に「軽微な修正で更新と誤認」を防ぐ)
+    const dateModifiedISO = hasRevision ? revisedAtISO : publishedAtISO;
+
+    // 後方互換性のため、updatedAtISO 変数も維持(テンプレが古い参照を持つ可能性に対応)
+    const updatedAtISO = dateModifiedISO;
+
+    // 画面表示用のHTML(template の {{REVISED_AT_BLOCK}} に埋め込む)
+    // 更新日がある場合のみ要素を出力、ない場合は空文字
+    const revisedAtBlockHtml = hasRevision
+      ? `<span class="revised-at-block ml-3 inline-flex items-center text-gray-500 text-sm"><i class="fas fa-pen-to-square text-gray-300 mr-1.5"></i>更新日: <time datetime="${revisedAtISO}" class="ml-1">${revisedAtFormatted}</time></span>`
+      : '';
 
     const eyecatchHtml = createEyecatchHtml(article.eyecatch, titlePlain);
 
@@ -591,6 +1330,25 @@ async function buildStaticPages() {
     const shareUrlFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
     const shareUrlLine = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedTitle}`;
 
+    // 本文に内部リンクを自動挿入(自身の記事は除外)
+    const bodyBeforeLinks = article.body || '';
+    const bodyWithLinks = injectInternalLinks(bodyBeforeLinks, article.slug, keywordIndex, 3);
+    const linksAdded = (bodyWithLinks.match(/class="internal-link"/g) || []).length;
+    totalInternalLinksAdded += linksAdded;
+    if (linksAdded > 0) {
+      console.log(`  📎 ${article.slug}: ${linksAdded} 個の内部リンクを追加`);
+    }
+
+    // 目次を生成し、本文の h2/h3 に ID を付与
+    const { tocHtml, bodyWithIds, headingCount } = buildTocAndAnnotate(bodyWithLinks);
+    if (headingCount >= 2) {
+      console.log(`  📑 ${article.slug}: ${headingCount} 個の見出しから目次生成`);
+    }
+
+    // 読了時間を計算
+    const readingMinutes = calculateReadingTime(bodyBeforeLinks);
+    const readingTimeHtml = `<span class="reading-time inline-flex items-center text-gray-500 text-sm ml-3"><i class="fas fa-clock text-gray-300 mr-1.5"></i>読了 約${readingMinutes}分</span>`;
+
     let articleHtml = templateHtml
       .replace(/\{\{TITLE\}\}/g, title)
       .replace(/\{\{TITLE_PLAIN\}\}/g, titlePlain)
@@ -600,15 +1358,33 @@ async function buildStaticPages() {
       .replace(/\{\{OG_IMAGE_URL\}\}/g, ogImageUrl)
       .replace(/\{\{PUBLISHED_AT_ISO\}\}/g, publishedAtISO)
       .replace(/\{\{UPDATED_AT_ISO\}\}/g, updatedAtISO)
+      .replace(/\{\{DATE_MODIFIED_ISO\}\}/g, dateModifiedISO)
       .replace(/\{\{PUBLISHED_AT_FORMATTED\}\}/g, publishedAtFormatted)
+      .replace(/\{\{REVISED_AT_BLOCK\}\}/g, revisedAtBlockHtml)
+      .replace(/\{\{REVISED_AT_ISO\}\}/g, revisedAtISO)
+      .replace(/\{\{REVISED_AT_FORMATTED\}\}/g, revisedAtFormatted)
+      .replace(/\{\{READING_TIME_HTML\}\}/g, readingTimeHtml)
+      .replace(/\{\{READING_MINUTES\}\}/g, String(readingMinutes))
+      .replace(/\{\{TOC_HTML\}\}/g, tocHtml)
       .replace(/\{\{EYECATCH_HTML\}\}/g, eyecatchHtml)
-      .replace(/\{\{BODY_HTML\}\}/g, article.body)
+      // 著者プレースホルダーはBODY_HTML置換より前に処理
+      .replace(/\{\{AUTHOR\}\}/g, authorName)
+      .replace(/\{\{author\}\}/g, authorName) // 旧テンプレ互換用
+      .replace(/\{\{BODY_HTML\}\}/g, bodyWithIds)
       .replace(/\{\{SHARE_URL_TWITTER\}\}/g, shareUrlTwitter)
       .replace(/\{\{SHARE_URL_FACEBOOK\}\}/g, shareUrlFacebook)
       .replace(/\{\{SHARE_URL_LINE\}\}/g, shareUrlLine)
+      .replace(/\{\{RELATED_POSTS_HTML\}\}/g, relatedPostsHtml)
+      // microCMSの記事本文内に紛れ込んだ {{author}} / {{AUTHOR}} を最終クリーンアップ
       .replace(/\{\{AUTHOR\}\}/g, authorName)
-      .replace(/\{\{author\}\}/g, authorName) // 旧テンプレ互換用
-      .replace(/\{\{RELATED_POSTS_HTML\}\}/g, relatedPostsHtml);
+      .replace(/\{\{author\}\}/g, authorName);
+
+    // 検証: 未置換のプレースホルダーが残っていないか確認
+    const unreplacedMatches = articleHtml.match(/\{\{[A-Za-z_]+\}\}/g);
+    if (unreplacedMatches && unreplacedMatches.length > 0) {
+      const unique = [...new Set(unreplacedMatches)];
+      console.warn(`⚠️ 警告: ${article.slug} に未置換プレースホルダーが残存: ${unique.join(', ')}`);
+    }
 
     try {
       fs.writeFileSync(outputHtmlPath, articleHtml);
@@ -621,12 +1397,14 @@ async function buildStaticPages() {
       slug: article.slug,
       title: titlePlain,
       publishedAt: article.publishedAt,
+      revisedAt: hasRevision ? revisedAtISO : null,
       eyecatchUrl: article.eyecatch?.url || null,
       description: description,
       category: article.category || null,
     });
   }
   console.log(`合計 ${summaryList.length} 件の静的HTMLページを生成しました。`);
+  console.log(`📎 内部リンク自動生成: 合計 ${totalInternalLinksAdded} 個のリンクを挿入しました。`);
 
   // 5. 一覧用JSON (index.json) を保存
   try {
@@ -645,7 +1423,10 @@ async function buildStaticPages() {
   // 8. 「電子黒板って何ができるの？」ページ (whatissmrtboard.html) を静的生成
   await buildWhatisPage(publishedArticles);
 
-  // 9. 旧slugリダイレクトページを生成
+  // 9. 執筆者ページを生成(E-E-A-T強化)
+  buildAuthorPages(publishedArticles);
+
+  // 10. 旧slugリダイレクトページを生成
   generateRedirectPages();
 
   console.log('静的ページ生成プロセスが完了しました。');
