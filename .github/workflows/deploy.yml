@@ -1,0 +1,107 @@
+name: Build and Deploy SSG Contents
+
+on:
+  repository_dispatch:
+    types: [microcms-webhook]
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'information/**'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install microcms-js-sdk
+
+      # information サービスのビルド
+      - name: Run information JSON build
+        env:
+          MICROCMS_INFO_DOMAIN: ${{ secrets.INFORMATION_SERVICE_DOMAIN }}
+          MICROCMS_INFO_KEY: ${{ secrets.MICROCMS_INFORMATION_KEY }}
+        run: |
+          cat > build-information.mjs << 'EOF'
+          import { createClient } from 'microcms-js-sdk';
+          import fs from 'fs';
+          import path from 'path';
+          const SERVICE_DOMAIN = (process.env.MICROCMS_INFO_DOMAIN || '').trim();
+          const API_KEY = (process.env.MICROCMS_INFO_KEY || '').trim();
+          const API_ENDPOINT = 'information';
+          if (!SERVICE_DOMAIN || !API_KEY) {
+            console.error('Missing environment variables for information service.');
+            process.exit(1);
+          }
+          const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });
+          const main = async () => {
+            try {
+              const data = await client.getList({ endpoint: API_ENDPOINT, queries: { limit: 5 } });
+              const outDir = path.join(process.cwd(), 'information');
+              const outPath = path.join(outDir, 'index.json');
+              if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+              fs.writeFileSync(outPath, JSON.stringify(data.contents, null, 2));
+              console.log(`Success: Generated ${outPath}`);
+            } catch (err) {
+              console.error('Failed to fetch from information microCMS:', err.message);
+              process.exit(1);
+            }
+          };
+          main();
+          EOF
+          node build-information.mjs
+
+      # columns/news サービスのSSG
+      # 関連記事・執筆者をビルド時に静的生成するため、HTMLへのAPIキー埋め込みは廃止
+      - name: Run Columns SSG
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.COLUMNS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_COLUMNS_KEY }}
+        run: node scripts/fetch_and_build.mjs
+
+      # セキュリティ検証: 生成HTMLにAPIキーや未置換プレースホルダーが残っていないか確認
+      - name: Security check - no leaked secrets in HTML
+        run: |
+          echo "Checking for leaked API keys and unreplaced placeholders..."
+          if grep -rln "X-MICROCMS-API-KEY" --include="*.html" .; then
+            echo "ERROR: APIキー参照がHTMLに残っています。ビルドを中断します。"
+            exit 1
+          fi
+          if grep -rln "{{MICROCMS_API_KEY}}\|{{MICROCMS_SERVICE_DOMAIN}}" --include="*.html" .; then
+            echo "ERROR: 未置換のプレースホルダーがHTMLに残っています。ビルドを中断します。"
+            exit 1
+          fi
+          echo "Security check passed."
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: "Deploy: Build static pages (auto-generated)"
+          exclude_assets: |
+            .github/
+            scripts/
+            node_modules/
+            package.json
+            package-lock.json
+            .gitignore
+            build-information.mjs
