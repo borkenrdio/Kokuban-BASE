@@ -1,4 +1,5 @@
-microCMSのAPIキー情報が含まれるため、Gitの管理対象から除外します
+# microCMSのAPIキー情報が含まれるため、Gitの管理対象から除外します
 config.js
+
 # ビルド時に自動生成されるためソース管理しない
-   /sitemap.xml
+/sitemap.xml
