@@ -104,4 +104,5 @@ jobs:
             package.json
             package-lock.json
             .gitignore
+            
             build-information.mjs
