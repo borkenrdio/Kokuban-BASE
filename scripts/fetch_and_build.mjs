@@ -8,8 +8,8 @@ const COLUMNS_DIR = path.resolve(process.cwd(), 'columns');
 const TEMPLATE_PATH = path.resolve(COLUMNS_DIR, 'template.html');
 const JSON_OUTPUT_PATH = path.resolve(COLUMNS_DIR, 'index.json');
 const SITEMAP_OUTPUT_PATH = path.resolve(process.cwd(), 'sitemap.xml');
-const ARTICLE_HTML_PATH = path.resolve(process.cwd(), 'article.html');
-const WHATIS_HTML_PATH = path.resolve(process.cwd(), 'whatissmrtboard.html');
+const ARTICLE_HTML_PATH = path.resolve(process.cwd(), 'article', 'index.html');
+const WHATIS_HTML_PATH = path.resolve(process.cwd(), 'whatissmrtboard', 'index.html');
 const TEAM_DIR = path.resolve(process.cwd(), 'team');
 
 // 関連記事の表示件数
