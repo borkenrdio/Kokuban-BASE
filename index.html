@@ -80,8 +80,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
     <!-- 重要リソースの先読み(LCP高速化) -->
-    <link rel="preload" as="image" href="img/hero-poster.webp" media="(min-width: 768px)" fetchpriority="high">
-    <link rel="preload" as="image" href="img/hero-poster-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/img/hero-poster.webp" media="(min-width: 768px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/img/hero-poster-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -189,17 +189,17 @@
                 <!-- 即座に表示される画像(LCP最適化) -->
                 <picture>
                     <source media="(min-width: 768px)" srcset="img/hero-poster.webp">
-                    <img id="hero-image-bg" src="img/hero-poster-mobile.webp" alt="" width="1920" height="1080" fetchpriority="high">
+                    <img id="hero-image-bg" src="/img/hero-poster-mobile.webp" alt="" width="1920" height="1080" fetchpriority="high">
                 </picture>
 
                 <!-- 読み込み完了後にフェードインする動画 -->
                 <video id="hero-video-desktop" loop muted playsinline preload="none" class="hero-video-background hidden md:block" aria-hidden="true">
-                    <source data-src="img/top.webm" type="video/webm">
-                    <source data-src="img/top.mp4" type="video/mp4">
+                    <source data-src="/img/top.webm" type="video/webm">
+                    <source data-src="/img/top.mp4" type="video/mp4">
                 </video>
                 <video id="hero-video-mobile" loop muted playsinline preload="none" class="hero-video-background md:hidden" aria-hidden="true">
-                    <source data-src="img/top-mobile.webm" type="video/webm">
-                    <source data-src="img/top-mobile.mp4" type="video/mp4">
+                    <source data-src="/img/top-mobile.webm" type="video/webm">
+                    <source data-src="/img/top-mobile.mp4" type="video/mp4">
                 </video>
 
                 <div class="absolute top-0 left-0 w-full h-full bg-black opacity-40 z-10"></div>
@@ -326,10 +326,10 @@
                         </div>
                         <div class="pb-12 md:pb-24 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                             <div class="group rounded-lg overflow-hidden shadow-lg">
-                                <img src="img/Souko.jpg" alt="Kokuban BASE 体験倉庫の内観" width="600" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/103f99/FFFFFF?text=Souko.jpg';">
+                                <img src="/img/Souko.jpg" alt="Kokuban BASE 体験倉庫の内観" width="600" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/103f99/FFFFFF?text=Souko.jpg';">
                             </div>
                             <div class="group rounded-lg overflow-hidden shadow-lg">
-                                <img src="img/try.jpg" alt="電子黒板の比較体験の様子" width="600" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/103f99/FFFFFF?text=try.jpg';">
+                                <img src="/img/try.jpg" alt="電子黒板の比較体験の様子" width="600" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/103f99/FFFFFF?text=try.jpg';">
                             </div>
                         </div>
                     </div>
@@ -384,7 +384,7 @@
                     <div class="container mx-auto px-6 lg:px-8 max-w-6xl">
                         <div class="bg-white rounded-2xl shadow-2xl p-8 sm:p-12 animate-on-scroll grid md:grid-cols-2 gap-8 items-center">
                             <div class="text-center md:text-left">
-                                <img src="img/ideaspot-logo.jpg" alt="イデアスポット京都校ロゴ" width="200" height="100" loading="lazy" decoding="async" class="w-48 h-auto mx-auto md:mx-0 mb-4" onerror="this.src='https://placehold.co/200x100/ec4899/FFFFFF?text=idea+spot';">
+                                <img src="/img/ideaspot-logo.jpg" alt="イデアスポット京都校ロゴ" width="200" height="100" loading="lazy" decoding="async" class="w-48 h-auto mx-auto md:mx-0 mb-4" onerror="this.src='https://placehold.co/200x100/ec4899/FFFFFF?text=idea+spot';">
                                 <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">運営: イデアスポット京都校</h2>
                                 <p class="mt-4 text-gray-600">2016年開校。少人数制で一人ひとりに寄り添った指導を徹底。高い指導力を有する厳選されたプロ講師が数多く活躍しています。</p>
                                 <div class="mt-6">
@@ -394,7 +394,7 @@
                                 <div class="mt-8"><a href="https://idea-spot.net/" target="_blank" rel="noopener noreferrer" class="inline-block bg-pink-500 text-white font-bold text-lg px-8 py-3 rounded-full hover:bg-pink-600 transition-all shadow-lg transform hover:scale-105">教室HPはこちら！ <i class="fas fa-arrow-right ml-2"></i></a></div>
                             </div>
                             <div class="rounded-lg overflow-hidden shadow-lg">
-                                <img src="img/ideaspot-classroom.jpg" alt="イデアスポット京都校の教室風景" width="600" height="400" loading="lazy" decoding="async" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/103f99/FFFFFF?text=Classroom';">
+                                <img src="/img/ideaspot-classroom.jpg" alt="イデアスポット京都校の教室風景" width="600" height="400" loading="lazy" decoding="async" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/103f99/FFFFFF?text=Classroom';">
                             </div>
                         </div>
                     </div>
@@ -460,7 +460,7 @@
                             <div class="w-full sm:w-3/5">
                                 <div class="aspect-video rounded-lg overflow-hidden shadow-xl border-4 border-white">
                                     <a href="https://www.google.com/maps/search/?api=1&query=Kokuban+BASE" target="_blank" rel="noopener noreferrer" class="block w-full h-full group" aria-label="Google Mapsで開く">
-                                        <img src="img/kokubanbase-map.png" alt="Kokuban BASE の所在地マップ" width="960" height="540" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.src='https://placehold.co/960x540/e0e7ff/1e3a8a?text=Map';">
+                                        <img src="/img/kokubanbase-map.png" alt="Kokuban BASE の所在地マップ" width="960" height="540" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.src='https://placehold.co/960x540/e0e7ff/1e3a8a?text=Map';">
                                     </a>
                                 </div>
                             </div>
@@ -583,7 +583,7 @@
         // --- レンダラ ---
         const renderBrands = () => {
             document.getElementById('brand-logos-container').innerHTML = brands.map((b, i) => `
-                <img src="img/brand-${i+1}.png" alt="${b.name}" width="${b.w}" height="${b.h}" loading="lazy" decoding="async" class="${b.sizeClass} w-auto object-contain hover:scale-110 opacity-90 hover:opacity-100 transition" onerror="this.src='https://placehold.co/${b.w}x${b.h}/f3f4f6/6b7280?text=${b.name}'">
+                <img src="/img/brand-${i+1}.png" alt="${b.name}" width="${b.w}" height="${b.h}" loading="lazy" decoding="async" class="${b.sizeClass} w-auto object-contain hover:scale-110 opacity-90 hover:opacity-100 transition" onerror="this.src='https://placehold.co/${b.w}x${b.h}/f3f4f6/6b7280?text=${b.name}'">
             `).join('');
         };
 
@@ -620,7 +620,7 @@
         const renderSteps = () => {
             document.getElementById('steps-container').innerHTML = steps.map((s, i) => `
                 <div class="animate-on-scroll text-center md:text-left w-full sm:w-3/4 md:w-auto md:flex-1 flex flex-col" style="transition-delay: ${i * 0.1}s;">
-                    <img src="img/step-${i+1}.png" alt="ステップ${i+1}: ${s.title}" width="96" height="96" loading="lazy" decoding="async" class="w-24 h-24 mx-auto md:mx-0 mb-4" onerror="this.src='https://placehold.co/96x96/fce7f3/db2777?text=${i+1}'">
+                    <img src="/img/step-${i+1}.png" alt="ステップ${i+1}: ${s.title}" width="96" height="96" loading="lazy" decoding="async" class="w-24 h-24 mx-auto md:mx-0 mb-4" onerror="this.src='https://placehold.co/96x96/fce7f3/db2777?text=${i+1}'">
                     <h3 class="text-xl font-bold text-gray-800">${i+1}. ${s.title}</h3>
                     <div class="mt-2 flex-grow flex items-center justify-center md:justify-start"><p class="text-gray-600 text-base font-bold md:text-left">${s.desc}</p></div>
                 </div>
