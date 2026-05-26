@@ -11,6 +11,8 @@ const SITEMAP_OUTPUT_PATH = path.resolve(process.cwd(), 'sitemap.xml');
 const ARTICLE_HTML_PATH = path.resolve(process.cwd(), 'article', 'index.html');
 const WHATIS_HTML_PATH = path.resolve(process.cwd(), 'whatissmrtboard', 'index.html');
 const TEAM_DIR = path.resolve(process.cwd(), 'team');
+// お知らせ(information エンドポイント)の出力先
+const INFORMATION_JSON_PATH = path.resolve(process.cwd(), 'information', 'index.json');
 
 // 関連記事の表示件数
 const RELATED_POSTS_COUNT = 3;
@@ -909,6 +911,99 @@ async function fetchAllArticles() {
 }
 
 /**
+ * お知らせ(information エンドポイント)を取得し、
+ * information/index.json として書き出す
+ *
+ * microCMS スキーマ:
+ *   title       … タイトル (テキスト)
+ *   publishedAt … 公開日 (日時)
+ *   category    … カテゴリ (コンテンツ参照。{ id, name } のオブジェクト)
+ *   url         … 外部リンクURL (テキスト。空ならクリックで画像モーダル表示)
+ *   photo       … 関連画像 (複数画像 = 配列)
+ *
+ * information/index.html の表示コードは item.image / item.thumbnail / item.category / item.url / item.date を見るため、
+ * ここで読みやすい形に詰め替えて出力する。
+ */
+async function buildInformationJson() {
+  console.log('お知らせ(information)データを取得開始...');
+  const allItems = [];
+  let offset = 0;
+  const limit = 50;
+  const now = new Date().toISOString();
+
+  try {
+    while (true) {
+      const response = await client.get({
+        endpoint: 'information',
+        queries: {
+          fields: 'id,title,publishedAt,category,url,photo',
+          limit: limit,
+          offset: offset,
+          orders: '-publishedAt',
+          filters: `publishedAt[less_than]${now}`,
+        },
+      });
+
+      if (!response.contents || response.contents.length === 0) break;
+      allItems.push(...response.contents);
+      offset += response.contents.length;
+      if (offset >= response.totalCount) break;
+    }
+
+    console.log(`合計 ${allItems.length} 件のお知らせを取得しました。`);
+
+    // 表示用HTML(information/index.html)が読める形に整形
+    const formatted = allItems.map(item => {
+      // 画像: photo は複数画像(配列)。先頭を image として渡す
+      let image = null;
+      if (Array.isArray(item.photo) && item.photo.length > 0 && item.photo[0] && item.photo[0].url) {
+        image = { url: item.photo[0].url };
+      } else if (item.photo && typeof item.photo === 'object' && item.photo.url) {
+        // 念のため単一画像で返ってきた場合にも対応
+        image = { url: item.photo.url };
+      }
+
+      // カテゴリ: 参照オブジェクトの name を取り出す(色分けに使用)
+      // 単一参照なら文字列、複数参照なら配列で返す
+      let category = null;
+      if (item.category) {
+        if (Array.isArray(item.category)) {
+          category = item.category.map(c =>
+            (c && typeof c === 'object' && c.name) ? c.name : c
+          );
+        } else if (typeof item.category === 'object' && item.category.name) {
+          category = item.category.name;
+        } else {
+          category = item.category;
+        }
+      }
+
+      return {
+        id: item.id,
+        title: item.title || '',
+        publishedAt: item.publishedAt || null,
+        date: item.publishedAt || null,
+        category: category,
+        url: item.url || '',
+        image: image,
+      };
+    });
+
+    // 出力先ディレクトリが無ければ作成
+    const informationDir = path.dirname(INFORMATION_JSON_PATH);
+    if (!fs.existsSync(informationDir)) {
+      fs.mkdirSync(informationDir, { recursive: true });
+    }
+
+    fs.writeFileSync(INFORMATION_JSON_PATH, JSON.stringify(formatted, null, 2));
+    console.log(`information/index.json を ${INFORMATION_JSON_PATH} に保存しました(${formatted.length}件)。`);
+  } catch (err) {
+    // お知らせの取得に失敗しても、コラム側のビルド成果物は守りたいので throw しない
+    console.error('お知らせ(information)の取得・保存に失敗しました:', err);
+  }
+}
+
+/**
  * サイトマップ (sitemap.xml) を生成
  */
 function generateSitemap(articles) {
@@ -1228,6 +1323,8 @@ async function buildStaticPages() {
     console.warn('警告: 公開中の記事が見つかりませんでした。');
     fs.writeFileSync(JSON_OUTPUT_PATH, '[]');
     generateSitemap([]);
+    // コラムが無くても、お知らせは独立して生成する
+    await buildInformationJson();
     return;
   }
 
@@ -1443,7 +1540,7 @@ async function buildStaticPages() {
   console.log(`合計 ${summaryList.length} 件の静的HTMLページを生成しました。`);
   console.log(`📎 内部リンク自動生成: 合計 ${totalInternalLinksAdded} 個のリンクを挿入しました。`);
 
-  // 5. 一覧用JSON (index.json) を保存
+  // 6. 一覧用JSON (index.json) を保存
   try {
     fs.writeFileSync(JSON_OUTPUT_PATH, JSON.stringify(summaryList, null, 2));
     console.log(`columns/index.json を ${JSON_OUTPUT_PATH} に保存しました。`);
@@ -1451,20 +1548,23 @@ async function buildStaticPages() {
     console.error('columns/index.json の保存に失敗しました:', err);
   }
 
-  // 6. サイトマップ (sitemap.xml) を生成・保存
+  // 7. サイトマップ (sitemap.xml) を生成・保存
   generateSitemap(publishedArticles);
 
-  // 7. 記事一覧ページ (article.html) を静的生成
+  // 8. 記事一覧ページ (article.html) を静的生成
   await buildArticleListPage(publishedArticles);
 
-  // 8. 「電子黒板って何ができるの？」ページ (whatissmrtboard.html) を静的生成
+  // 9. 「電子黒板って何ができるの？」ページ (whatissmrtboard.html) を静的生成
   await buildWhatisPage(publishedArticles);
 
-  // 9. 執筆者ページを生成(E-E-A-T強化)
+  // 10. 執筆者ページを生成(E-E-A-T強化)
   buildAuthorPages(publishedArticles);
 
-  // 10. 旧slugリダイレクトページを生成
+  // 11. 旧slugリダイレクトページを生成
   generateRedirectPages();
+
+  // 12. お知らせ(information)JSONを生成
+  await buildInformationJson();
 
   console.log('静的ページ生成プロセスが完了しました。');
 }
