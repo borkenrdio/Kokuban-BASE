@@ -184,6 +184,10 @@
         const pagination = document.getElementById('pagination');
         const imageModal = document.getElementById('image-modal');
         const modalImage = document.getElementById('modal-image');
+        const ITEMS_PER_PAGE = 5;
+        const NO_IMAGE_URL = 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
+        let allNewsItems = [];
+        let currentPage = 1;
 
         
         function openModal(imageUrl, event) {
@@ -201,6 +205,64 @@
             imageModal.classList.add('hidden');
             document.body.style.overflow = '';
             setTimeout(() => { modalImage.src = ''; }, 300);
+        }
+
+        function getImageUrl(item) {
+            const fields = [item.image, item.thumbnail, item.photo, item.eyecatch];
+            for (const field of fields) {
+                if (!field) continue;
+                if (typeof field === 'string' && field.startsWith('http')) return field;
+                if (Array.isArray(field) && field.length > 0) {
+                    const firstImage = field.find(image => image && image.url);
+                    if (firstImage) return firstImage.url;
+                }
+                if (typeof field === 'object' && field.url) return field.url;
+            }
+            return '';
+        }
+
+        function getInitialPage(totalPages) {
+            const pageParam = Number(new URLSearchParams(window.location.search).get('page'));
+            if (!Number.isInteger(pageParam) || pageParam < 1) return 1;
+            return Math.min(pageParam, totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            if (totalPages <= 1) {
+                pagination.classList.add('hidden');
+                pagination.innerHTML = '';
+                return;
+            }
+
+            const pageLinks = Array.from({ length: totalPages }, (_, index) => {
+                const page = index + 1;
+                const activeClass = page === currentPage
+                    ? 'pagination-active'
+                    : 'text-gray-700 hover:bg-gray-200';
+                return `<a href="?page=${page}" data-page="${page}" class="px-4 py-2 rounded-full font-semibold transition ${activeClass}" aria-current="${page === currentPage ? 'page' : 'false'}">${page}</a>`;
+            }).join('');
+
+            pagination.innerHTML = `
+                <nav class="flex items-center space-x-2" aria-label="Pagination">
+                    <a href="?page=${Math.max(1, currentPage - 1)}" data-page="${Math.max(1, currentPage - 1)}" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition ${currentPage === 1 ? 'pointer-events-none opacity-40' : ''}" aria-label="Previous page"><i class="fas fa-arrow-left"></i></a>
+                    ${pageLinks}
+                    <a href="?page=${Math.min(totalPages, currentPage + 1)}" data-page="${Math.min(totalPages, currentPage + 1)}" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition ${currentPage === totalPages ? 'pointer-events-none opacity-40' : ''}" aria-label="Next page"><i class="fas fa-arrow-right"></i></a>
+                </nav>
+            `;
+            pagination.classList.remove('hidden');
+        }
+
+        function renderCurrentPage(shouldScroll = false) {
+            const totalPages = Math.max(1, Math.ceil(allNewsItems.length / ITEMS_PER_PAGE));
+            currentPage = Math.min(Math.max(currentPage, 1), totalPages);
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            displayNewsItems(allNewsItems.slice(startIndex, startIndex + ITEMS_PER_PAGE));
+            renderPagination(totalPages);
+
+            if (shouldScroll) {
+                const top = newsList.getBoundingClientRect().top + window.scrollY - 120;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
         }
 
         const displayNewsItems = (contents) => {
@@ -233,14 +295,7 @@
                 }
 
                 // 画像URL取得のロジック（microCMSのオブジェクト形式に完全対応）
-                let thumbnailSrc = 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
-                if (item.image && typeof item.image === 'object' && item.image.url) {
-                    thumbnailSrc = item.image.url;
-                } else if (item.thumbnail && typeof item.thumbnail === 'object' && item.thumbnail.url) {
-                    thumbnailSrc = item.thumbnail.url;
-                } else if (typeof item.image === 'string' && item.image.startsWith('http')) {
-                    thumbnailSrc = item.image;
-                }
+                let thumbnailSrc = getImageUrl(item) || NO_IMAGE_URL;
                 
                 const hasValidLink = item.url && item.url !== '#' && item.url !== '';
                 const articleLink = hasValidLink ? item.url : '#';
@@ -288,7 +343,6 @@
                     </div>
                 `;
             }).join('');
-            pagination.classList.remove('hidden');
         };
 
         const fetchNews = async () => {
@@ -305,9 +359,12 @@
                 const items = data.contents ? data.contents : (Array.isArray(data) ? data : []);
 
                 if (items.length > 0) {
-                    displayNewsItems(items);
+                    allNewsItems = items;
+                    currentPage = getInitialPage(Math.ceil(allNewsItems.length / ITEMS_PER_PAGE));
+                    renderCurrentPage(false);
                 } else {
                     newsList.innerHTML = '<p class="text-center text-gray-500 py-12">現在、お知らせはありません。</p>';
+                    pagination.classList.add('hidden');
                 }
             } catch (error) {
                 console.error("Failed to fetch news:", error);
@@ -335,6 +392,24 @@
         document.addEventListener('DOMContentLoaded', () => {
             setupMobileMenu();
             fetchNews();
+        });
+
+        pagination.addEventListener('click', (event) => {
+            const link = event.target.closest('[data-page]');
+            if (!link) return;
+            event.preventDefault();
+            const nextPage = Number(link.dataset.page);
+            if (!Number.isInteger(nextPage) || nextPage === currentPage) return;
+            currentPage = nextPage;
+            const url = new URL(window.location.href);
+            url.searchParams.set('page', String(currentPage));
+            window.history.pushState({}, '', url);
+            renderCurrentPage(true);
+        });
+
+        window.addEventListener('popstate', () => {
+            currentPage = getInitialPage(Math.ceil(allNewsItems.length / ITEMS_PER_PAGE));
+            renderCurrentPage(false);
         });
 
         document.addEventListener('keydown', (e) => {
