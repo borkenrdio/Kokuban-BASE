@@ -5,8 +5,6 @@ on:
     types: [microcms-webhook]
   push:
     branches: [main]
-    paths-ignore:
-      - 'information/**'
   workflow_dispatch:
 
 concurrency:
