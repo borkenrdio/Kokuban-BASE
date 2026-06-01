@@ -265,6 +265,12 @@
             }
         }
 
+        function getItemDate(item) {
+            const dateSource = item.date || item.publishedAt || item.createdAt || item.updatedAt;
+            const timestamp = dateSource ? new Date(dateSource).getTime() : 0;
+            return Number.isNaN(timestamp) ? 0 : timestamp;
+        }
+
         const displayNewsItems = (contents) => {
             newsList.innerHTML = contents.map(item => {
                 let categories = [];
@@ -359,7 +365,7 @@
                 const items = data.contents ? data.contents : (Array.isArray(data) ? data : []);
 
                 if (items.length > 0) {
-                    allNewsItems = items;
+                    allNewsItems = [...items].sort((a, b) => getItemDate(b) - getItemDate(a));
                     currentPage = getInitialPage(Math.ceil(allNewsItems.length / ITEMS_PER_PAGE));
                     renderCurrentPage(false);
                 } else {

@@ -50,12 +50,27 @@ jobs:
           const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });
           const main = async () => {
             try {
-              const data = await client.getList({ endpoint: API_ENDPOINT, queries: { limit: 5 } });
+              const allContents = [];
+              const limit = 100;
+              let offset = 0;
+              while (true) {
+                const data = await client.getList({
+                  endpoint: API_ENDPOINT,
+                  queries: {
+                    limit,
+                    offset,
+                    orders: '-publishedAt',
+                  },
+                });
+                allContents.push(...data.contents);
+                offset += data.contents.length;
+                if (offset >= data.totalCount || data.contents.length === 0) break;
+              }
               const outDir = path.join(process.cwd(), 'information');
               const outPath = path.join(outDir, 'index.json');
               if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
-              fs.writeFileSync(outPath, JSON.stringify(data.contents, null, 2));
-              console.log(`Success: Generated ${outPath}`);
+              fs.writeFileSync(outPath, JSON.stringify(allContents, null, 2));
+              console.log(`Success: Generated ${outPath} (${allContents.length} items)`);
             } catch (err) {
               console.error('Failed to fetch from information microCMS:', err.message);
               process.exit(1);
