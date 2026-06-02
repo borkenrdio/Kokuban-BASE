@@ -129,6 +129,33 @@ function calculateReadingTime(html) {
   return minutes;
 }
 
+const JST_DATE_FORMATTER_LONG = new Intl.DateTimeFormat('ja-JP', {
+  timeZone: 'Asia/Tokyo',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const JST_DATE_FORMATTER_DOT = new Intl.DateTimeFormat('ja-JP', {
+  timeZone: 'Asia/Tokyo',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
+function formatDateJST(dateLike, style = 'dot') {
+  if (!dateLike) return '';
+  const date = new Date(dateLike);
+  if (Number.isNaN(date.getTime())) return '';
+  const formatter = style === 'long' ? JST_DATE_FORMATTER_LONG : JST_DATE_FORMATTER_DOT;
+  return formatter.format(date).replace(/\//g, '.');
+}
+
+function getJSTDateKey(dateLike) {
+  const formatted = formatDateJST(dateLike, 'dot');
+  return formatted ? formatted.replace(/\./g, '-') : '';
+}
+
 /**
  * 目次生成のためのID用文字列を生成
  * 日本語含む見出しテキストから、URLに使える slug を作る
@@ -281,7 +308,7 @@ function buildRelatedPostsHtml(currentArticle, allArticles) {
   return related.map(article => {
     const title = escapeHtml(article.title || '無題のコラム');
     const date = article.publishedAt 
-      ? new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.') 
+      ? formatDateJST(article.publishedAt)
       : '';
     const imageUrl = article.eyecatch?.url 
       ? `${article.eyecatch.url}?fit=crop&w=600&h=338&q=80`
@@ -773,7 +800,7 @@ function buildAuthorPages(allArticles) {
             ? `${a.eyecatch.url}?fit=crop&w=400&h=225&q=80`
             : 'https://placehold.co/400x225/e0e7ff/1e3a8a?text=Kokuban+BASE';
           const date = a.publishedAt
-            ? new Date(a.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')
+            ? formatDateJST(a.publishedAt)
             : '';
           return `
         <a href="/columns/${a.slug}/" class="block group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all overflow-hidden border border-gray-100">
@@ -1332,10 +1359,10 @@ function generateSitemap(articles) {
     // sitemap の lastmod は revisedAt(手動更新日)優先、なければ publishedAt
     // microCMSの自動 updatedAt は使わない(軽微な修正で更新通知が出るのを防ぐ)
     const lastModSource = article.revisedAt
-      && new Date(article.revisedAt).toISOString().split('T')[0] > new Date(article.publishedAt).toISOString().split('T')[0]
+      && getJSTDateKey(article.revisedAt) > getJSTDateKey(article.publishedAt)
       ? article.revisedAt
       : article.publishedAt;
-    const lastMod = new Date(lastModSource).toISOString().split('T')[0];
+    const lastMod = getJSTDateKey(lastModSource);
     xml += `  <url>\n    <loc>${url}</loc>\n    <lastmod>${lastMod}</lastmod>\n    <priority>0.6</priority>\n    <changefreq>weekly</changefreq>\n  </url>\n`;
   });
 
@@ -1367,7 +1394,7 @@ function isInterview(article) {
  * 記事カードのHTMLを生成（article.html の静的生成用）
  */
 function buildCardHtml(article, type = 'standard') {
-  const date = new Date(article.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.');
+  const date = formatDateJST(article.publishedAt);
   const url = `/columns/${article.slug}/`;
   const img = article.eyecatchUrl
     ? `${article.eyecatchUrl}?fit=crop&w=600&h=338&q=80`
@@ -1532,7 +1559,7 @@ async function buildWhatisPage(articles) {
     const linkUrl = `/columns/${item.slug}/`;
     const title = escapeHtml(item.title || '無題のコラム');
     const date = item.publishedAt
-      ? new Date(item.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')
+      ? formatDateJST(item.publishedAt)
       : '';
     const category = escapeHtml((item.category && (typeof item.category === 'object' ? item.category.name : item.category)) || 'コラム');
     const excerpt = escapeHtml(item.description || extractDescription(item.body, 80) || '');
@@ -1567,7 +1594,7 @@ async function buildWhatisPage(articles) {
     const linkUrl = `/columns/${item.slug}/`;
     const title = escapeHtml(item.title || '無題のコラム');
     const date = item.publishedAt
-      ? new Date(item.publishedAt).toLocaleDateString('ja-JP').replace(/\//g, '.')
+      ? formatDateJST(item.publishedAt)
       : '';
 
     return `
@@ -1676,26 +1703,21 @@ async function buildStaticPages() {
     // - revisedAt: 手入力の更新日(任意。実質的な更新があった場合のみ編集者が入れる)
     // - updatedAt: microCMSの自動更新日(誤字修正でも動くため、SEO表示には使わない)
     const publishedAtISO = new Date(article.publishedAt).toISOString();
-    const publishedAtFormatted = new Date(article.publishedAt).toLocaleDateString('ja-JP', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
+    const publishedAtFormatted = formatDateJST(article.publishedAt, 'long');
 
     // revisedAt が公開日と同じ日(または前)なら、更新日として扱わない
     let revisedAtISO = '';
     let revisedAtFormatted = '';
     let hasRevision = false;
     if (article.revisedAt) {
-      const pubDate = new Date(article.publishedAt);
       const revDate = new Date(article.revisedAt);
       // 日付部分(YYYY-MM-DD)で比較。時刻の差は無視
-      const pubDay = pubDate.toISOString().split('T')[0];
-      const revDay = revDate.toISOString().split('T')[0];
+      const pubDay = getJSTDateKey(article.publishedAt);
+      const revDay = getJSTDateKey(article.revisedAt);
       if (revDay > pubDay) {
         hasRevision = true;
         revisedAtISO = revDate.toISOString();
-        revisedAtFormatted = revDate.toLocaleDateString('ja-JP', {
-          year: 'numeric', month: 'long', day: 'numeric'
-        });
+        revisedAtFormatted = formatDateJST(article.revisedAt, 'long');
       }
     }
 
