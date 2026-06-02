@@ -401,7 +401,7 @@ async function fetchExternalLinkMetadata(rawUrl) {
     return externalLinkMetadataCache.get(normalizedUrl);
   }
 
-  const fallback = {
+  const metadata = {
     url: normalizedUrl,
     host: url.hostname.replace(/^www\./, ''),
     title: url.hostname.replace(/^www\./, ''),
@@ -409,41 +409,8 @@ async function fetchExternalLinkMetadata(rawUrl) {
     image: '',
   };
 
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 6000);
-    const response = await fetch(normalizedUrl, {
-      headers: {
-        'User-Agent': 'KokubanBASE-LinkCardBot/1.0',
-        'Accept': 'text/html,application/xhtml+xml',
-      },
-      signal: controller.signal,
-    });
-    clearTimeout(timeout);
-
-    const contentType = response.headers.get('content-type') || '';
-    if (!response.ok || !contentType.includes('text/html')) {
-      externalLinkMetadataCache.set(normalizedUrl, fallback);
-      return fallback;
-    }
-
-    const html = await response.text();
-    const imageRaw = getMetaContent(html, ['og:image', 'twitter:image']);
-    const image = imageRaw ? new URL(imageRaw, normalizedUrl).href : '';
-    const metadata = {
-      url: normalizedUrl,
-      host: url.hostname.replace(/^www\./, ''),
-      title: getMetaContent(html, ['og:title', 'twitter:title']) || getTitleFromHtml(html) || fallback.title,
-      description: getMetaContent(html, ['og:description', 'twitter:description', 'description']) || fallback.description,
-      image,
-    };
-    externalLinkMetadataCache.set(normalizedUrl, metadata);
-    return metadata;
-  } catch (error) {
-    console.warn(`External link metadata fetch failed: ${normalizedUrl} (${error.message})`);
-    externalLinkMetadataCache.set(normalizedUrl, fallback);
-    return fallback;
-  }
+  externalLinkMetadataCache.set(normalizedUrl, metadata);
+  return metadata;
 }
 
 function buildExternalLinkCardHtml(metadata) {
