@@ -349,6 +349,13 @@ function buildInternalLinkCardHtml(article) {
 }
 
 const externalLinkMetadataCache = new Map();
+const STATIC_EXTERNAL_LINK_METADATA = {
+  'https://kawasemi.eisyun.jp/kawasemi-lite/': {
+    title: 'プリント教材作成システム「KAWASEMI Lite」のご案内',
+    description: '赤本のデータベースを使って、オリジナルのプリント教材を作成できる英俊社の教材作成システムです。全国の公立高校入試を網羅し、難易度選択や小問単位での利用にも対応しています。',
+    image: 'https://kawasemi.eisyun.jp/wp/wp-content/uploads/common/logo-eisyunsya.svg',
+  },
+};
 
 function decodeHtmlEntities(text) {
   if (!text) return '';
@@ -422,7 +429,7 @@ function buildExternalLinkCardHtml(metadata) {
     : `<span class="flex h-full w-full items-center justify-center bg-[#e0f2fe] px-3 text-center text-xs font-black text-[#103f99]">${host || 'LINK'}</span>`;
 
   return `<a href="${escapeHtml(metadata.url)}" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="${title}">
-    <span class="internal-link-card__image">${imageHtml}</span>
+    <span class="internal-link-card__image internal-link-card__image--external">${imageHtml}</span>
     <span class="internal-link-card__body">
       <span class="internal-link-card__title">${title}</span>
       <span class="internal-link-card__description">${description}</span>
@@ -453,12 +460,15 @@ function getExternalLinkMetadataFromUrl(rawUrl) {
 
   if (!/^https?:$/.test(url.protocol) || isInternalColumnUrl(url.href)) return null;
 
+  const metadataKey = url.href.endsWith('/') ? url.href : `${url.href}/`;
+  const staticMetadata = STATIC_EXTERNAL_LINK_METADATA[metadataKey] || STATIC_EXTERNAL_LINK_METADATA[url.href];
+
   return {
     url: url.href,
     host: url.hostname.replace(/^www\./, ''),
-    title: url.hostname.replace(/^www\./, ''),
-    description: url.href,
-    image: '',
+    title: staticMetadata?.title || url.hostname.replace(/^www\./, ''),
+    description: staticMetadata?.description || url.href,
+    image: staticMetadata?.image || '',
   };
 }
 
