@@ -484,14 +484,21 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
       .filter(article => article && article.slug && article.slug !== currentSlug)
       .map(article => [article.slug, article])
   );
+  const cardPlaceholders = [];
 
-  const getCard = async (rawUrl) => {
+  const makeCardPlaceholder = (cardHtml) => {
+    const token = `@@KOKUBAN_LINK_CARD_${cardPlaceholders.length}@@`;
+    cardPlaceholders.push({ token, cardHtml });
+    return token;
+  };
+
+  const getCardPlaceholder = async (rawUrl) => {
     const slug = getArticleSlugFromUrl(rawUrl);
     const article = slug ? articleBySlug.get(slug) : null;
-    if (article) return buildInternalLinkCardHtml(article);
+    if (article) return makeCardPlaceholder(buildInternalLinkCardHtml(article));
 
     const metadata = await fetchExternalLinkMetadata(rawUrl);
-    return metadata ? buildExternalLinkCardHtml(metadata) : null;
+    return metadata ? makeCardPlaceholder(buildExternalLinkCardHtml(metadata)) : null;
   };
 
   let html = bodyHtml;
@@ -499,7 +506,7 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
   html = await replaceAsync(
     html,
     /<p([^>]*)>\s*<a\b[^>]*href=(["'])(.*?)\2[^>]*>[\s\S]*?<\/a>\s*<\/p>/gi,
-    async (match, attrs, quote, href) => await getCard(href) || match
+    async (match, attrs, quote, href) => await getCardPlaceholder(href) || match
   );
 
   html = await replaceAsync(
@@ -511,7 +518,7 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
         innerHtml,
         /<a\b[^>]*href=(["'])(.*?)\1[^>]*>[\s\S]*?<\/a>/gi,
         async (anchorMatch, quote, href) => {
-          const card = await getCard(href);
+          const card = await getCardPlaceholder(href);
           if (!card) return anchorMatch;
           replaced = true;
           return card;
@@ -522,7 +529,7 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
         nextInner,
         /https?:\/\/[^\s<"'）)、。,.]+/gi,
         async (url) => {
-          const card = await getCard(url);
+          const card = await getCardPlaceholder(url);
           if (!card) return url;
           replaced = true;
           return card;
@@ -542,7 +549,7 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
         innerHtml,
         /https?:\/\/[^\s<"'）)、。,.]+/gi,
         async (url) => {
-          const card = await getCard(url);
+          const card = await getCardPlaceholder(url);
           if (!card) return url;
           cardHtml += card;
           return '';
@@ -557,8 +564,12 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
   html = await replaceAsync(
     html,
     /<a\b[^>]*href=(["'])(.*?)\1[^>]*>[\s\S]*?<\/a>/gi,
-    async (match, quote, href) => await getCard(href) || match
+    async (match, quote, href) => await getCardPlaceholder(href) || match
   );
+
+  for (const { token, cardHtml } of cardPlaceholders) {
+    html = html.split(token).join(cardHtml);
+  }
 
   return html;
 }
