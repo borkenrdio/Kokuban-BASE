@@ -310,6 +310,121 @@ function buildRelatedPostsHtml(currentArticle, allArticles) {
   }).join('\n');
 }
 
+function getArticleSlugFromUrl(rawUrl) {
+  if (!rawUrl) return '';
+
+  let url;
+  try {
+    url = new URL(rawUrl, BASE_URL);
+  } catch {
+    return '';
+  }
+
+  const allowedHosts = new Set([
+    'kokuban-base.com',
+    'www.kokuban-base.com',
+    new URL(BASE_URL).host,
+  ]);
+  if (url.host && !allowedHosts.has(url.host)) return '';
+
+  const match = url.pathname.match(/^\/columns\/([^/?#]+)\/?$/);
+  return match ? decodeURIComponent(match[1]) : '';
+}
+
+function buildInternalLinkCardHtml(article) {
+  const title = escapeHtml(article.title || '関連記事');
+  const description = escapeHtml(article.description || extractDescription(article.body, 110) || '');
+  const imageUrl = article.eyecatch?.url
+    ? `${article.eyecatch.url}?fit=crop&w=320&h=180&q=80`
+    : 'https://placehold.jp/24/103f99/ffffff/320x180.png?text=Kokuban%20BASE';
+  const linkUrl = `/columns/${article.slug}/`;
+
+  return `<a href="${linkUrl}" class="internal-link-card" aria-label="${title}">
+    <span class="internal-link-card__image"><img src="${imageUrl}" alt="${title}" loading="lazy" decoding="async"></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">${title}</span>
+      <span class="internal-link-card__description">${description}</span>
+    </span>
+  </a>`;
+}
+
+function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles) {
+  if (!bodyHtml) return bodyHtml || '';
+
+  const articleBySlug = new Map(
+    allArticles
+      .filter(article => article && article.slug && article.slug !== currentSlug)
+      .map(article => [article.slug, article])
+  );
+
+  const getCard = (rawUrl) => {
+    const slug = getArticleSlugFromUrl(rawUrl);
+    const article = slug ? articleBySlug.get(slug) : null;
+    return article ? buildInternalLinkCardHtml(article) : null;
+  };
+
+  let html = bodyHtml;
+
+  html = html.replace(
+    /<p([^>]*)>\s*<a\b[^>]*href=(["'])(.*?)\2[^>]*>[\s\S]*?<\/a>\s*<\/p>/gi,
+    (match, attrs, quote, href) => getCard(href) || match
+  );
+
+  html = html.replace(
+    /<blockquote([^>]*)>([\s\S]*?)<\/blockquote>/gi,
+    (match, attrs, innerHtml) => {
+      let replaced = false;
+      let nextInner = innerHtml.replace(
+        /<a\b[^>]*href=(["'])(.*?)\1[^>]*>[\s\S]*?<\/a>/gi,
+        (anchorMatch, quote, href) => {
+          const card = getCard(href);
+          if (!card) return anchorMatch;
+          replaced = true;
+          return card;
+        }
+      );
+
+      nextInner = nextInner.replace(
+        /https?:\/\/(?:www\.)?kokuban-base\.com\/columns\/[^\s<"'）)]+\/?/gi,
+        (url) => {
+          const card = getCard(url);
+          if (!card) return url;
+          replaced = true;
+          return card;
+        }
+      );
+
+      return replaced ? `<blockquote${attrs}>${nextInner}</blockquote>` : match;
+    }
+  );
+
+  html = html.replace(
+    /<p([^>]*)>([\s\S]*?https?:\/\/(?:www\.)?kokuban-base\.com\/columns\/[^\s<"']+[\s\S]*?)<\/p>/gi,
+    (match, attrs, innerHtml) => {
+      let cardHtml = '';
+      const textHtml = innerHtml.replace(
+        /https?:\/\/(?:www\.)?kokuban-base\.com\/columns\/[^\s<"'）)]+\/?/gi,
+        (url) => {
+          const card = getCard(url);
+          if (!card) return url;
+          cardHtml += card;
+          return '';
+        }
+      ).trim();
+
+      if (!cardHtml) return match;
+      return `${textHtml ? `<p${attrs}>${textHtml}</p>` : ''}${cardHtml}`;
+    }
+  );
+
+  html = html.replace(
+    /<a\b[^>]*href=(["'])(.*?)\1[^>]*>[\s\S]*?<\/a>/gi,
+    (match, quote, href) => getCard(href) || match
+  );
+
+  return html;
+}
+
 // ============================================================
 // 内部リンク自動生成
 // ============================================================
@@ -1487,7 +1602,8 @@ async function buildStaticPages() {
 
     // 本文に内部リンクを自動挿入(自身の記事は除外)
     const bodyBeforeLinks = article.body || '';
-    const bodyWithLinks = injectInternalLinks(bodyBeforeLinks, article.slug, keywordIndex, 3);
+    const bodyWithCards = replaceManualInternalLinksWithCards(bodyBeforeLinks, article.slug, publishedArticles);
+    const bodyWithLinks = injectInternalLinks(bodyWithCards, article.slug, keywordIndex, 3);
     const linksAdded = (bodyWithLinks.match(/class="internal-link"/g) || []).length;
     totalInternalLinksAdded += linksAdded;
     if (linksAdded > 0) {
