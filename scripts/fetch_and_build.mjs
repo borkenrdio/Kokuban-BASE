@@ -348,7 +348,135 @@ function buildInternalLinkCardHtml(article) {
   </a>`;
 }
 
-function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles) {
+const externalLinkMetadataCache = new Map();
+
+function decodeHtmlEntities(text) {
+  if (!text) return '';
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, num) => String.fromCodePoint(parseInt(num, 10)));
+}
+
+function getMetaContent(html, names) {
+  for (const name of names) {
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const patterns = [
+      new RegExp(`<meta[^>]+(?:property|name)=["']${escaped}["'][^>]+content=["']([^"']+)["'][^>]*>`, 'i'),
+      new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']${escaped}["'][^>]*>`, 'i'),
+    ];
+    for (const pattern of patterns) {
+      const match = html.match(pattern);
+      if (match && match[1]) return decodeHtmlEntities(match[1].trim());
+    }
+  }
+  return '';
+}
+
+function getTitleFromHtml(html) {
+  const match = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  return match ? decodeHtmlEntities(match[1].replace(/\s+/g, ' ').trim()) : '';
+}
+
+function isInternalColumnUrl(rawUrl) {
+  return Boolean(getArticleSlugFromUrl(rawUrl));
+}
+
+async function fetchExternalLinkMetadata(rawUrl) {
+  let url;
+  try {
+    url = new URL(rawUrl);
+  } catch {
+    return null;
+  }
+
+  if (!/^https?:$/.test(url.protocol) || isInternalColumnUrl(url.href)) return null;
+
+  const normalizedUrl = url.href;
+  if (externalLinkMetadataCache.has(normalizedUrl)) {
+    return externalLinkMetadataCache.get(normalizedUrl);
+  }
+
+  const fallback = {
+    url: normalizedUrl,
+    host: url.hostname.replace(/^www\./, ''),
+    title: url.hostname.replace(/^www\./, ''),
+    description: normalizedUrl,
+    image: '',
+  };
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+    const response = await fetch(normalizedUrl, {
+      headers: {
+        'User-Agent': 'KokubanBASE-LinkCardBot/1.0',
+        'Accept': 'text/html,application/xhtml+xml',
+      },
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
+    const contentType = response.headers.get('content-type') || '';
+    if (!response.ok || !contentType.includes('text/html')) {
+      externalLinkMetadataCache.set(normalizedUrl, fallback);
+      return fallback;
+    }
+
+    const html = await response.text();
+    const imageRaw = getMetaContent(html, ['og:image', 'twitter:image']);
+    const image = imageRaw ? new URL(imageRaw, normalizedUrl).href : '';
+    const metadata = {
+      url: normalizedUrl,
+      host: url.hostname.replace(/^www\./, ''),
+      title: getMetaContent(html, ['og:title', 'twitter:title']) || getTitleFromHtml(html) || fallback.title,
+      description: getMetaContent(html, ['og:description', 'twitter:description', 'description']) || fallback.description,
+      image,
+    };
+    externalLinkMetadataCache.set(normalizedUrl, metadata);
+    return metadata;
+  } catch (error) {
+    console.warn(`External link metadata fetch failed: ${normalizedUrl} (${error.message})`);
+    externalLinkMetadataCache.set(normalizedUrl, fallback);
+    return fallback;
+  }
+}
+
+function buildExternalLinkCardHtml(metadata) {
+  const title = escapeHtml(metadata.title || metadata.host || metadata.url);
+  const description = escapeHtml(metadata.description || metadata.url);
+  const host = escapeHtml(metadata.host || '');
+  const imageHtml = metadata.image
+    ? `<img src="${escapeHtml(metadata.image)}" alt="${title}" loading="lazy" decoding="async">`
+    : `<span class="flex h-full w-full items-center justify-center bg-[#e0f2fe] px-3 text-center text-xs font-black text-[#103f99]">${host || 'LINK'}</span>`;
+
+  return `<a href="${escapeHtml(metadata.url)}" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="${title}">
+    <span class="internal-link-card__image">${imageHtml}</span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">${title}</span>
+      <span class="internal-link-card__description">${description}</span>
+      <span class="internal-link-card__site">${host}</span>
+    </span>
+  </a>`;
+}
+
+async function replaceAsync(text, regex, replacer) {
+  const parts = [];
+  let lastIndex = 0;
+  for (const match of text.matchAll(regex)) {
+    parts.push(text.slice(lastIndex, match.index));
+    parts.push(await replacer(...match));
+    lastIndex = match.index + match[0].length;
+  }
+  parts.push(text.slice(lastIndex));
+  return parts.join('');
+}
+
+async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles) {
   if (!bodyHtml) return bodyHtml || '';
 
   const articleBySlug = new Map(
@@ -357,37 +485,44 @@ function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles)
       .map(article => [article.slug, article])
   );
 
-  const getCard = (rawUrl) => {
+  const getCard = async (rawUrl) => {
     const slug = getArticleSlugFromUrl(rawUrl);
     const article = slug ? articleBySlug.get(slug) : null;
-    return article ? buildInternalLinkCardHtml(article) : null;
+    if (article) return buildInternalLinkCardHtml(article);
+
+    const metadata = await fetchExternalLinkMetadata(rawUrl);
+    return metadata ? buildExternalLinkCardHtml(metadata) : null;
   };
 
   let html = bodyHtml;
 
-  html = html.replace(
+  html = await replaceAsync(
+    html,
     /<p([^>]*)>\s*<a\b[^>]*href=(["'])(.*?)\2[^>]*>[\s\S]*?<\/a>\s*<\/p>/gi,
-    (match, attrs, quote, href) => getCard(href) || match
+    async (match, attrs, quote, href) => await getCard(href) || match
   );
 
-  html = html.replace(
+  html = await replaceAsync(
+    html,
     /<blockquote([^>]*)>([\s\S]*?)<\/blockquote>/gi,
-    (match, attrs, innerHtml) => {
+    async (match, attrs, innerHtml) => {
       let replaced = false;
-      let nextInner = innerHtml.replace(
+      let nextInner = await replaceAsync(
+        innerHtml,
         /<a\b[^>]*href=(["'])(.*?)\1[^>]*>[\s\S]*?<\/a>/gi,
-        (anchorMatch, quote, href) => {
-          const card = getCard(href);
+        async (anchorMatch, quote, href) => {
+          const card = await getCard(href);
           if (!card) return anchorMatch;
           replaced = true;
           return card;
         }
       );
 
-      nextInner = nextInner.replace(
-        /https?:\/\/(?:www\.)?kokuban-base\.com\/columns\/[^\s<"'）)]+\/?/gi,
-        (url) => {
-          const card = getCard(url);
+      nextInner = await replaceAsync(
+        nextInner,
+        /https?:\/\/[^\s<"'）)、。,.]+/gi,
+        async (url) => {
+          const card = await getCard(url);
           if (!card) return url;
           replaced = true;
           return card;
@@ -398,14 +533,16 @@ function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles)
     }
   );
 
-  html = html.replace(
-    /<p([^>]*)>([\s\S]*?https?:\/\/(?:www\.)?kokuban-base\.com\/columns\/[^\s<"']+[\s\S]*?)<\/p>/gi,
-    (match, attrs, innerHtml) => {
+  html = await replaceAsync(
+    html,
+    /<p([^>]*)>([\s\S]*?https?:\/\/[^\s<"']+[\s\S]*?)<\/p>/gi,
+    async (match, attrs, innerHtml) => {
       let cardHtml = '';
-      const textHtml = innerHtml.replace(
-        /https?:\/\/(?:www\.)?kokuban-base\.com\/columns\/[^\s<"'）)]+\/?/gi,
-        (url) => {
-          const card = getCard(url);
+      const textHtml = await replaceAsync(
+        innerHtml,
+        /https?:\/\/[^\s<"'）)、。,.]+/gi,
+        async (url) => {
+          const card = await getCard(url);
           if (!card) return url;
           cardHtml += card;
           return '';
@@ -417,9 +554,10 @@ function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles)
     }
   );
 
-  html = html.replace(
+  html = await replaceAsync(
+    html,
     /<a\b[^>]*href=(["'])(.*?)\1[^>]*>[\s\S]*?<\/a>/gi,
-    (match, quote, href) => getCard(href) || match
+    async (match, quote, href) => await getCard(href) || match
   );
 
   return html;
@@ -1602,7 +1740,7 @@ async function buildStaticPages() {
 
     // 本文に内部リンクを自動挿入(自身の記事は除外)
     const bodyBeforeLinks = article.body || '';
-    const bodyWithCards = replaceManualInternalLinksWithCards(bodyBeforeLinks, article.slug, publishedArticles);
+    const bodyWithCards = await replaceManualInternalLinksWithCards(bodyBeforeLinks, article.slug, publishedArticles);
     const bodyWithLinks = injectInternalLinks(bodyWithCards, article.slug, keywordIndex, 3);
     const linksAdded = (bodyWithLinks.match(/class="internal-link"/g) || []).length;
     totalInternalLinksAdded += linksAdded;
