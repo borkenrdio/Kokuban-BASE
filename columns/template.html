@@ -170,6 +170,7 @@
         .article-body .internal-link-card {
             display: grid;
             grid-template-columns: 160px 1fr;
+            align-items: start;
             gap: 1rem;
             margin: 2rem 0;
             overflow: hidden;
@@ -187,8 +188,8 @@
         .article-body .internal-link-card__image {
             position: relative;
             width: 160px;
-            height: 100%;
-            min-height: 90px;
+            height: auto;
+            aspect-ratio: 16 / 9;
             overflow: hidden;
             background: #f1f5f9;
         }
@@ -249,7 +250,6 @@
             .article-body .internal-link-card__image {
                 width: 100%;
                 height: auto;
-                min-height: 0;
                 aspect-ratio: 16 / 9;
             }
             .article-body .internal-link-card__body {
