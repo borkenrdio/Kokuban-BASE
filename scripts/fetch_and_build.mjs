@@ -349,6 +349,7 @@ function buildInternalLinkCardHtml(article) {
 }
 
 const externalLinkMetadataCache = new Map();
+const BARE_URL_REGEX = /https?:\/\/[^\s<"'）)、。,.]+/gi;
 const STATIC_EXTERNAL_LINK_METADATA = {
   'https://kawasemi.eisyun.jp/kawasemi-lite/': {
     title: 'プリント教材作成システム「KAWASEMI Lite」のご案内',
@@ -472,6 +473,30 @@ function getExternalLinkMetadataFromUrl(rawUrl) {
   };
 }
 
+function replaceBareUrlsInHtmlText(html, replacer) {
+  const tokens = [];
+  const tagRegex = /<[^>]+>/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = tagRegex.exec(html)) !== null) {
+    if (match.index > lastIndex) {
+      tokens.push({ type: 'text', content: html.slice(lastIndex, match.index) });
+    }
+    tokens.push({ type: 'tag', content: match[0] });
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < html.length) {
+    tokens.push({ type: 'text', content: html.slice(lastIndex) });
+  }
+
+  return tokens.map(token => {
+    if (token.type === 'tag') return token.content;
+    return token.content.replace(BARE_URL_REGEX, replacer);
+  }).join('');
+}
+
 function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles) {
   if (!bodyHtml) return bodyHtml || '';
 
@@ -518,8 +543,8 @@ function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles)
         }
       );
 
-      nextInner = nextInner.replace(
-        /https?:\/\/[^\s<"'）)、。,.]+/gi,
+      nextInner = replaceBareUrlsInHtmlText(
+        nextInner,
         (url) => {
           const card = getCardPlaceholder(url);
           if (!card) return url;
@@ -533,11 +558,11 @@ function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles)
   );
 
   html = html.replace(
-    /<p([^>]*)>([\s\S]*?https?:\/\/[^\s<"']+[\s\S]*?)<\/p>/gi,
+    /<p([^>]*)>([\s\S]*?)<\/p>/gi,
     (match, attrs, innerHtml) => {
       let cardHtml = '';
-      const textHtml = innerHtml.replace(
-        /https?:\/\/[^\s<"'）)、。,.]+/gi,
+      const textHtml = replaceBareUrlsInHtmlText(
+        innerHtml,
         (url) => {
           const card = getCardPlaceholder(url);
           if (!card) return url;
