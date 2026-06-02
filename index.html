@@ -700,6 +700,16 @@
         }
 
         // --- ニュース/コラムの読み込み ---
+        function getCategoryName(category) {
+            if (Array.isArray(category)) {
+                const first = category.find(Boolean);
+                if (!first) return 'その他';
+                return typeof first === 'object' ? (first.name || first.id || 'その他') : first;
+            }
+            if (category && typeof category === 'object') return category.name || category.id || 'その他';
+            return category || 'その他';
+        }
+
         async function fetchNews(url, containerId, loadingId, errorId, isLatest = false) {
             const container = document.getElementById(containerId);
             const loader = document.getElementById(loadingId);
@@ -724,7 +734,7 @@
                     const formatted = items.map(item => ({
                         id: item.id, url: item.url,
                         date: new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }),
-                        category: { name: item.category?.name || 'その他' },
+                        category: { name: getCategoryName(item.category) },
                         title: item.title,
                         isNew: (new Date() - new Date(item.publishedAt || item.createdAt)) / 86400000 < 14
                     }));
@@ -773,7 +783,7 @@
 
         function generateLatestListHTML(items) {
             return items.map(item => {
-                const c = item.category.name;
+                const c = getCategoryName(item.category);
                 let tagClass = 'bg-gray-500 text-white';
                 if (c.includes('プレスリリース')) tagClass = 'bg-[#6366f1] text-white';
                 else if (c.includes('イベント')) tagClass = 'bg-[#22c55e] text-white';

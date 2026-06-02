@@ -925,6 +925,28 @@ async function fetchAllArticles() {
  * ここで読みやすい形に詰め替えて出力する。
  */
 async function buildInformationJson() {
+  const infoServiceDomain = (
+    process.env.INFORMATION_SERVICE_DOMAIN ||
+    process.env.MICROCMS_INFORMATION_DOMAIN ||
+    process.env.MICROCMS_INFO_DOMAIN ||
+    ''
+  ).trim();
+  const infoApiKey = (
+    process.env.MICROCMS_INFORMATION_KEY ||
+    process.env.INFORMATION_API_KEY ||
+    process.env.MICROCMS_INFO_KEY ||
+    ''
+  ).trim();
+
+  if (!infoServiceDomain || !infoApiKey) {
+    console.log('Skipping information JSON build: information microCMS env vars are not set.');
+    return;
+  }
+
+  const informationClient = createClient({
+    serviceDomain: infoServiceDomain,
+    apiKey: infoApiKey,
+  });
   console.log('お知らせ(information)データを取得開始...');
   const allItems = [];
   let offset = 0;
@@ -933,7 +955,7 @@ async function buildInformationJson() {
 
   try {
     while (true) {
-      const response = await client.get({
+      const response = await informationClient.get({
         endpoint: 'information',
         queries: {
           fields: 'id,title,publishedAt,category,url,photo',

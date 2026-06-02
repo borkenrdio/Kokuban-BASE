@@ -2,6 +2,10 @@
   "name": "kokuban-base-ssg",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "build:information": "node scripts/build_information.mjs",
+    "build:columns": "node scripts/fetch_and_build.mjs"
+  },
   "dependencies": {
     "microcms-js-sdk": "^3.0.0"
   }

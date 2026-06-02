@@ -28,76 +28,29 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install microcms-js-sdk
+        run: npm ci
 
-      # information サービスのビルド
       - name: Run information JSON build
         env:
-          MICROCMS_INFO_DOMAIN: ${{ secrets.INFORMATION_SERVICE_DOMAIN }}
-          MICROCMS_INFO_KEY: ${{ secrets.MICROCMS_INFORMATION_KEY }}
-        run: |
-          cat > build-information.mjs << 'EOF'
-          import { createClient } from 'microcms-js-sdk';
-          import fs from 'fs';
-          import path from 'path';
-          const SERVICE_DOMAIN = (process.env.MICROCMS_INFO_DOMAIN || '').trim();
-          const API_KEY = (process.env.MICROCMS_INFO_KEY || '').trim();
-          const API_ENDPOINT = 'information';
-          if (!SERVICE_DOMAIN || !API_KEY) {
-            console.error('Missing environment variables for information service.');
-            process.exit(1);
-          }
-          const client = createClient({ serviceDomain: SERVICE_DOMAIN, apiKey: API_KEY });
-          const main = async () => {
-            try {
-              const allContents = [];
-              const limit = 100;
-              let offset = 0;
-              while (true) {
-                const data = await client.getList({
-                  endpoint: API_ENDPOINT,
-                  queries: {
-                    limit,
-                    offset,
-                    orders: '-publishedAt',
-                  },
-                });
-                allContents.push(...data.contents);
-                offset += data.contents.length;
-                if (offset >= data.totalCount || data.contents.length === 0) break;
-              }
-              const outDir = path.join(process.cwd(), 'information');
-              const outPath = path.join(outDir, 'index.json');
-              if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
-              fs.writeFileSync(outPath, JSON.stringify(allContents, null, 2));
-              console.log(`Success: Generated ${outPath} (${allContents.length} items)`);
-            } catch (err) {
-              console.error('Failed to fetch from information microCMS:', err.message);
-              process.exit(1);
-            }
-          };
-          main();
-          EOF
-          node build-information.mjs
+          INFORMATION_SERVICE_DOMAIN: ${{ secrets.INFORMATION_SERVICE_DOMAIN }}
+          MICROCMS_INFORMATION_KEY: ${{ secrets.MICROCMS_INFORMATION_KEY }}
+        run: npm run build:information
 
-      # columns/news サービスのSSG
-      # 関連記事・執筆者をビルド時に静的生成するため、HTMLへのAPIキー埋め込みは廃止
       - name: Run Columns SSG
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.COLUMNS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_COLUMNS_KEY }}
-        run: node scripts/fetch_and_build.mjs
+        run: npm run build:columns
 
-      # セキュリティ検証: 生成HTMLにAPIキーや未置換プレースホルダーが残っていないか確認
       - name: Security check - no leaked secrets in HTML
         run: |
           echo "Checking for leaked API keys and unreplaced placeholders..."
           if grep -rln "X-MICROCMS-API-KEY" --include="*.html" .; then
-            echo "ERROR: APIキー参照がHTMLに残っています。ビルドを中断します。"
+            echo "ERROR: API key references remain in HTML."
             exit 1
           fi
           if grep -rln "{{MICROCMS_API_KEY}}\|{{MICROCMS_SERVICE_DOMAIN}}" --include="*.html" .; then
-            echo "ERROR: 未置換のプレースホルダーがHTMLに残っています。ビルドを中断します。"
+            echo "ERROR: Unreplaced microCMS placeholders remain in HTML."
             exit 1
           fi
           echo "Security check passed."
@@ -117,5 +70,3 @@ jobs:
             package.json
             package-lock.json
             .gitignore
-            
-            build-information.mjs
