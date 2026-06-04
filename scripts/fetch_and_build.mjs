@@ -1432,11 +1432,11 @@ function buildCardHtml(article, type = 'standard') {
       <article class="article-card bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full border border-gray-100 group">
         <a href="${url}" class="block img-container relative">
           <img src="${img}" alt="${title}" class="w-full h-full object-cover" loading="lazy">
-          <span class="absolute top-3 left-3 ${categoryClass} text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md">${categoryName}</span>
         </a>
         <div class="p-4 flex flex-col flex-grow">
-          <div class="text-[10px] text-gray-400 mb-1 flex items-center gap-1 font-bold">
-            <i class="far fa-calendar-alt"></i> ${date}
+          <div class="text-[10px] text-gray-400 mb-1 flex items-center gap-2 font-bold">
+            <span><i class="far fa-calendar-alt"></i> ${date}</span>
+            <span class="${categoryClass} text-white px-2 py-0.5 rounded-full shadow-sm">${categoryName}</span>
           </div>
           <h3 class="text-sm font-bold mb-2 text-gray-800 line-clamp-2 group-hover:text-[#103f99] transition-colors leading-snug">
             <a href="${url}">${title}</a>
@@ -1448,10 +1448,12 @@ function buildCardHtml(article, type = 'standard') {
       <article class="article-card bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full group">
         <a href="${url}" class="block img-container relative">
           <img src="${img}" alt="${title}" class="w-full h-full object-cover" loading="lazy">
-          <span class="absolute top-2 left-2 ${categoryClass} text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">${categoryName}</span>
         </a>
         <div class="p-5 flex flex-col flex-grow">
-          <div class="text-xs text-gray-400 mb-2 font-bold">${date}</div>
+          <div class="text-xs text-gray-400 mb-2 font-bold flex items-center gap-2">
+            <span>${date}</span>
+            <span class="${categoryClass} text-white text-[10px] px-2 py-0.5 rounded shadow-sm">${categoryName}</span>
+          </div>
           <h3 class="font-bold text-gray-800 mb-2 line-clamp-2 text-sm md:text-base group-hover:text-[#103f99] transition-colors">
             <a href="${url}">${title}</a>
           </h3>
