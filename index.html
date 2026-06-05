@@ -722,7 +722,7 @@
 
             try {
                 const sep = url.indexOf('?') >= 0 ? '&' : '?';
-                const res = await fetch(`${url}${sep}t=${Date.now()}`);
+                const res = await fetch(`${url}${sep}t=${Date.now()}`, { cache: 'no-store' });
                 if (!res.ok) throw new Error('Network response was not ok');
                 const data = await res.json();
                 if (loader) loader.remove();

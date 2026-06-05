@@ -357,7 +357,8 @@
             pagination.classList.add('hidden');
             
             try {
-                const response = await fetch(JSON_PATH);
+                const cacheBustUrl = `${JSON_PATH}?t=${Date.now()}`;
+                const response = await fetch(cacheBustUrl, { cache: 'no-store' });
                 if (!response.ok) throw new Error(`Failed to load ${JSON_PATH}`);
                 const data = await response.json();
 
