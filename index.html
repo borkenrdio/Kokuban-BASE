@@ -522,6 +522,65 @@
             { name: '山田 将生', role: 'Kokuban BASE運営担当', desc: ['現役で社会科のトップ講師として活躍する一方、情報システムの専門家でもある。', '社内の管理システムや本LPサイトの作成も一気通貫で完結させる、教育業界トップレベルのICT知識を有する。', '電子黒板導入にあたる、新システムの導入支援・サービス開発も相談可能。'], img: 'img/staff-c.jpg', color: '103f99' }
         ];
 
+        const renderBrands = () => {
+            document.getElementById('brand-logos-container').innerHTML = brands.map((b, i) => `
+                <img src="/img/brand-${i+1}.png" alt="${b.name}" width="${b.w}" height="${b.h}" loading="lazy" decoding="async" class="${b.sizeClass} w-auto object-contain hover:scale-110 opacity-90 hover:opacity-100 transition" onerror="this.src='https://placehold.co/${b.w}x${b.h}/f3f4f6/6b7280?text=${b.name}'">
+            `).join('');
+        };
+
+        const renderComparisons = () => {
+            document.getElementById('comparison-points').innerHTML = comparisons.map((c, i) => {
+                const titlePrefix = c.title === 'サイズ感' ? '教室に最適な' : c.title === 'コストパフォーマンス' ? '経営者視点で選ぶ' : c.title === '活用イメージ' ? '授業が劇的に変わる<br>世界基準 of' : 'これまでを超える、<br>ストレスフリーな';
+                return `
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-on-scroll flex" style="transition-delay: ${i * 0.1}s;">
+                    <div class="p-6 sm:p-8 flex flex-col">
+                        <span class="inline-block bg-${c.color}-500 text-white text-sm font-bold px-4 py-1 rounded-full shadow-md mb-4 self-start">#${c.title}</span>
+                        <h3 class="font-bold text-xl lg:text-2xl text-[#103f99]">${titlePrefix}<span class="highlight-underline">「${c.title}」</span></h3>
+                        <p class="text-slate-700 mt-3 text-base flex-grow">${c.desc}</p>
+                    </div>
+                </div>`;
+            }).join('');
+        };
+
+        const renderProducts = () => {
+            document.getElementById('product-list').innerHTML = products.map(p => `
+                <div class="swiper-slide h-auto">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col transition-shadow duration-300 hover:shadow-xl relative">
+                        <img src="${p.img}" alt="${p.brand} ${p.name}" width="600" height="400" loading="lazy" decoding="async" class="w-full h-56 object-contain" onerror="this.src='https://placehold.co/600x400/e0e7ff/1e3a8a?text=${encodeURIComponent(p.name)}'">
+                        <div class="p-6 flex flex-col flex-grow relative">
+                            ${p.isNew ? '<span class="absolute top-6 right-6 text-xs font-bold py-1 px-2 rounded-full bg-red-500 text-white">最新製品</span>' : ''}
+                            <div class="min-h-24"><span class="text-sm md:text-base font-semibold text-${p.color}">${p.brand}</span><h3 class="mt-2 text-lg sm:text-xl font-bold text-gray-900">${p.name}</h3></div>
+                            <p class="mt-1 text-sm md:text-base font-bold text-gray-700">${p.tag}</p>
+                            <p class="mt-4 text-sm md:text-base text-gray-600 flex-grow">${p.desc}</p>
+                            <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="mt-4 text-${p.color} font-bold hover:underline self-start">詳しく見る &raquo;</a>
+                        </div>
+                    </div>
+                </div>`).join('');
+        };
+
+        const renderSteps = () => {
+            document.getElementById('steps-container').innerHTML = steps.map((s, i) => `
+                <div class="animate-on-scroll text-center md:text-left w-full sm:w-3/4 md:w-auto md:flex-1 flex flex-col" style="transition-delay: ${i * 0.1}s;">
+                    <img src="/img/step-${i+1}.png" alt="ステップ${i+1}: ${s.title}" width="96" height="96" loading="lazy" decoding="async" class="w-24 h-24 mx-auto md:mx-0 mb-4" onerror="this.src='https://placehold.co/96x96/fce7f3/db2777?text=${i+1}'">
+                    <h3 class="text-xl font-bold text-gray-800">${i+1}. ${s.title}</h3>
+                    <div class="mt-2 flex-grow flex items-center justify-center md:justify-start"><p class="text-gray-600 text-base font-bold md:text-left">${s.desc}</p></div>
+                </div>
+                ${i < steps.length - 1 ? '<div class="text-pink-300 animate-on-scroll self-center" style="transition-delay: '+ (i * 0.1) +'s;" aria-hidden="true"><svg class="w-8 h-8 md:rotate-0 rotate-90" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg></div>' : ''}
+            `).join('');
+        };
+
+        const renderStaff = () => {
+            document.getElementById('staff-list').innerHTML = staff.map((s, i) => `
+                <div class="swiper-slide h-auto">
+                    <div class="animate-on-scroll bg-white p-8 rounded-lg shadow-lg flex flex-col items-center text-center h-full hover:shadow-xl" style="transition-delay: ${i * 0.1}s;">
+                        <img src="${s.img}" alt="${s.name}（${s.role}）" width="128" height="128" loading="lazy" decoding="async" class="w-32 h-32 rounded-full object-cover mb-4 shadow-md" onerror="this.src='https://placehold.co/128x128/${s.color}/FFFFFF?text=${encodeURIComponent(s.name.split(' ')[0])}'">
+                        <h3 class="text-xl font-bold text-gray-900">${s.name}</h3>
+                        <p class="text-pink-500 font-semibold mt-1">${s.role}</p>
+                        <ul class="mt-4 space-y-2 text-gray-600 list-disc list-inside text-left flex-grow text-sm md:text-base">${s.desc.map(d => `<li>${d}</li>`).join('')}</ul>
+                    </div>
+                </div>`).join('');
+        };
+
         const initSwiperCommon = (selector, paginationEl, nextEl, prevEl, breakpoints) => {
             if (typeof Swiper === 'undefined') return null;
             return new Swiper(selector, {
