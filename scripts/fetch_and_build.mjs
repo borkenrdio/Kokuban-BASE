@@ -1526,7 +1526,7 @@ function buildCardHtml(article, type = 'standard') {
   }
   if (['interview', '対談記事', 'taidan'].includes(categoryId)) {
     categoryId = 'interview';
-    categoryName = '対談記事';
+    categoryName = 'Kokuban BASE独自取材';
   } else if (['column', 'コラム'].includes(categoryId)) {
     categoryId = 'column';
     categoryName = 'コラム';
@@ -1592,10 +1592,10 @@ async function buildArticleListPage(articles) {
   // 新着3件（全カテゴリから）
   const newArrivalsHtml = articles.slice(0, 3).map(a => buildCardHtml(a, 'standard')).join('\n');
 
-  // 対談記事（全件）
+  // Kokuban BASE独自取材（全件）
   const interviewHtml = interviewArticles.length > 0
     ? interviewArticles.map(a => buildCardHtml(a, 'interview')).join('\n')
-    : '<div class="col-span-full text-center text-gray-500 py-8">対談記事は現在準備中です。</div>';
+    : '<div class="col-span-full text-center text-gray-500 py-8">Kokuban BASE独自取材は現在準備中です。</div>';
 
   // コラム（全件）
   const columnHtml = columnArticles.length > 0
@@ -1608,7 +1608,7 @@ async function buildArticleListPage(articles) {
     `<div id="new-arrivals-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">\n${newArrivalsHtml}\n</div>\n`
   );
 
-  // ② 対談記事セクションを置換
+  // ② Kokuban BASE独自取材セクションを置換
   html = html.replace(
     /<div id="interview-list"[\s\S]*?<\/div>\s*(?=\n\s*<div class="mt)/,
     `<div id="interview-list" class="grid grid-cols-2 lg:grid-cols-4 gap-6">\n${interviewHtml}\n</div>\n`
