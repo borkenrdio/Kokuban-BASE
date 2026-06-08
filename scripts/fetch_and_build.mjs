@@ -417,6 +417,37 @@ function getTitleFromHtml(html) {
   return match ? decodeHtmlEntities(match[1].replace(/\s+/g, ' ').trim()) : '';
 }
 
+function getRepresentativeImageFromHtml(html, pageUrl) {
+  const images = [...html.matchAll(/<img\b[^>]*>/gi)]
+    .map(match => match[0])
+    .map((tag) => {
+      const src = tag.match(/\s(?:src|data-src)=["']([^"']+)["']/i)?.[1] || '';
+      const alt = tag.match(/\salt=["']([^"']*)["']/i)?.[1] || '';
+      if (!src) return null;
+      try {
+        return {
+          src: new URL(src, pageUrl).href,
+          alt: decodeHtmlEntities(alt),
+        };
+      } catch {
+        return null;
+      }
+    })
+    .filter(Boolean);
+
+  const preferred = images.find(({ src }) => {
+    const lower = src.toLowerCase();
+    return !lower.includes('/common/')
+      && !lower.includes('logo')
+      && !lower.includes('facebook')
+      && !lower.includes('twitter')
+      && !lower.includes('instagram')
+      && !lower.endsWith('.svg');
+  });
+
+  return preferred?.src || images.find(({ src }) => !src.toLowerCase().includes('facebook'))?.src || '';
+}
+
 function isInternalColumnUrl(rawUrl) {
   return Boolean(getArticleSlugFromUrl(rawUrl));
 }
@@ -436,13 +467,58 @@ async function fetchExternalLinkMetadata(rawUrl) {
     return externalLinkMetadataCache.get(normalizedUrl);
   }
 
+  const metadataKey = normalizedUrl.endsWith('/') ? normalizedUrl : `${normalizedUrl}/`;
+  const staticMetadata = STATIC_EXTERNAL_LINK_METADATA[metadataKey] || STATIC_EXTERNAL_LINK_METADATA[normalizedUrl];
   const metadata = {
     url: normalizedUrl,
     host: url.hostname.replace(/^www\./, ''),
-    title: url.hostname.replace(/^www\./, ''),
-    description: normalizedUrl,
-    image: '',
+    title: staticMetadata?.title || url.hostname.replace(/^www\./, ''),
+    description: staticMetadata?.description || normalizedUrl,
+    image: staticMetadata?.image || '',
   };
+
+  if (staticMetadata) {
+    externalLinkMetadataCache.set(normalizedUrl, metadata);
+    return metadata;
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await fetch(normalizedUrl, {
+        signal: controller.signal,
+        headers: {
+          'user-agent': 'Mozilla/5.0 (compatible; KokubanBASEBot/1.0; +https://kokuban-base.com/)',
+          accept: 'text/html,application/xhtml+xml',
+        },
+      });
+
+      const contentType = response.headers.get('content-type') || '';
+      if (response.ok && contentType.includes('text/html')) {
+        const html = await response.text();
+        const title = getMetaContent(html, ['og:title', 'twitter:title']) || getTitleFromHtml(html);
+        const description = getMetaContent(html, ['og:description', 'description', 'twitter:description']);
+        const image = getMetaContent(html, ['og:image', 'twitter:image']);
+
+        if (title) metadata.title = title;
+        if (description) metadata.description = description;
+        if (image) {
+          try {
+            metadata.image = new URL(image, normalizedUrl).href;
+          } catch {
+            metadata.image = image;
+          }
+        } else {
+          metadata.image = getRepresentativeImageFromHtml(html, normalizedUrl);
+        }
+      }
+    } finally {
+      clearTimeout(timeout);
+    }
+  } catch (error) {
+    console.warn(`Could not fetch external link metadata for ${normalizedUrl}: ${error.message}`);
+  }
 
   externalLinkMetadataCache.set(normalizedUrl, metadata);
   return metadata;
@@ -524,7 +600,7 @@ function replaceBareUrlsInHtmlText(html, replacer) {
   }).join('');
 }
 
-function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles) {
+async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles) {
   if (!bodyHtml) return bodyHtml || '';
 
   const articleBySlug = new Map(
@@ -533,6 +609,31 @@ function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles)
       .map(article => [article.slug, article])
   );
   const cardPlaceholders = [];
+  const externalMetadataByUrl = new Map();
+
+  const collectExternalUrl = (rawUrl) => {
+    let url;
+    try {
+      url = new URL(rawUrl);
+    } catch {
+      return;
+    }
+    if (!/^https?:$/.test(url.protocol) || isInternalColumnUrl(url.href)) return;
+    externalMetadataByUrl.set(url.href, null);
+  };
+
+  for (const match of bodyHtml.matchAll(/<a\b[^>]*href=(["'])(.*?)\1[^>]*>/gi)) {
+    collectExternalUrl(match[2]);
+  }
+  for (const match of bodyHtml.matchAll(BARE_URL_REGEX)) {
+    collectExternalUrl(match[0]);
+  }
+
+  await Promise.all(
+    [...externalMetadataByUrl.keys()].map(async (url) => {
+      externalMetadataByUrl.set(url, await fetchExternalLinkMetadata(url));
+    })
+  );
 
   const makeCardPlaceholder = (cardHtml) => {
     const token = `@@KOKUBAN_LINK_CARD_${cardPlaceholders.length}@@`;
@@ -545,7 +646,13 @@ function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArticles)
     const article = slug ? articleBySlug.get(slug) : null;
     if (article) return makeCardPlaceholder(buildInternalLinkCardHtml(article));
 
-    const metadata = getExternalLinkMetadataFromUrl(rawUrl);
+    let normalizedUrl = '';
+    try {
+      normalizedUrl = new URL(rawUrl).href;
+    } catch {
+      return null;
+    }
+    const metadata = externalMetadataByUrl.get(normalizedUrl) || getExternalLinkMetadataFromUrl(rawUrl);
     return metadata ? makeCardPlaceholder(buildExternalLinkCardHtml(metadata)) : null;
   };
 
