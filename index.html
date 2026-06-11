@@ -765,7 +765,7 @@
 
             // ニュース/コラムの非同期読み込み
             fetchNews('columns/index.json', 'articles-container', 'loading-list-news', 'error-container-news');
-            fetchNews('information/index.json', 'latest-news-list', 'loading-indicator-latest', 'error-message-latest', true);
+            fetchNews('columns/index.json', 'latest-news-list', 'loading-indicator-latest', 'error-message-latest', true);
 
             // スクロールアニメーション
             const obs = new IntersectionObserver(entries => entries.forEach(e => {
