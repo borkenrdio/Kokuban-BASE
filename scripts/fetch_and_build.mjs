@@ -17,6 +17,7 @@ const INFORMATION_JSON_PATH = path.resolve(process.cwd(), 'information', 'index.
 
 // 関連記事の表示件数
 const RELATED_POSTS_COUNT = 3;
+const ENABLE_AUTO_INTERNAL_LINKS = false;
 
 // 執筆者プロフィール情報(E-E-A-T強化用)
 // microCMS の article.author フィールドの値と matchKey を一致させると、
@@ -807,6 +808,7 @@ function buildKeywordIndex(allArticles) {
  * - 自分自身の記事は除外(呼び出し側で対応)
  */
 function injectInternalLinks(bodyHtml, currentSlug, keywordIndex, maxReplacements = 3) {
+  if (!ENABLE_AUTO_INTERNAL_LINKS) return bodyHtml || '';
   if (!bodyHtml || keywordIndex.size === 0) return bodyHtml;
 
   // HTMLをトークン化: タグの内部(<...>) vs テキスト の交互配列
