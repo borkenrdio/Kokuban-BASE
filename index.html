@@ -651,7 +651,9 @@
                 const items = isLatest ? data.slice(0, 5) : data.slice(0, 3);
                 if (isLatest) {
                     const formatted = items.map(item => ({
-                        id: item.id, url: item.url,
+                        id: item.id,
+                        slug: item.slug,
+                        url: item.url || (item.slug ? `/columns/${item.slug}/` : ''),
                         date: new Date(item.publishedAt || item.createdAt).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }),
                         category: { name: getCategoryName(item.category) },
                         title: item.title,
@@ -709,9 +711,10 @@
                 else if (c.includes('対談') || c.includes('インタビュー')) tagClass = 'bg-[#ec4899] text-white';
                 else if (c.includes('お知らせ')) tagClass = 'bg-[#1e40af] text-white';
                 const newBadge = item.isNew ? `<span class="inline-block bg-yellow-400 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-1">NEW</span>` : '';
+                const linkUrl = item.url || (item.slug ? `/columns/${item.slug}/` : `/information/${item.id}/`);
                 return `
                 <li class="group">
-                    <a href="${item.url || `/information/${item.id}`}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-5 sm:p-6 border border-gray-100">
+                    <a href="${linkUrl}" class="block bg-white rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-5 sm:p-6 border border-gray-100">
                         <div class="flex flex-col sm:flex-row sm:items-center gap-4">
                             <div class="flex flex-row sm:flex-col items-center sm:items-start justify-between sm:justify-center min-w-[120px] flex-shrink-0 gap-3 sm:gap-1">
                                 <div class="flex flex-col items-start">${newBadge}<span class="${tagClass} text-xs font-bold px-3 py-1 rounded-md shadow-sm min-w-[80px] text-center">${c}</span></div>
