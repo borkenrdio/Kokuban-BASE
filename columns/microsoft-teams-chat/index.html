@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GSSKLZ6EDH');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>電子黒板×Microsoft Teamsでチャット参加型の授業をつくる方法｜Kokuban BASE</title>
+    <meta name="description" content="電子黒板にMicrosoft Teamsのチャット画面を表示すれば、生徒は発表中にタブレットからリアルタイムでコメントを投稿できます。手を挙げて発言する形式では拾いきれなかった意見も集めやすくなり、発表への心理的ハードルを下げながら、双方向の授業を実現できます。授業や保護者会での活用法を紹介します。">
+    <link rel="canonical" href="https://kokuban-base.com/columns/microsoft-teams-chat/">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="電子黒板×Microsoft Teamsでチャット参加型の授業をつくる方法｜Kokuban BASE">
+    <meta property="og:description" content="電子黒板にMicrosoft Teamsのチャット画面を表示すれば、生徒は発表中にタブレットからリアルタイムでコメントを投稿できます。手を挙げて発言する形式では拾いきれなかった意見も集めやすくなり、発表への心理的ハードルを下げながら、双方向の授業を実現できます。授業や保護者会での活用法を紹介します。">
+    <meta property="og:url" content="https://kokuban-base.com/columns/microsoft-teams-chat/">
+    <meta property="og:image" content="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/5b0bae2acab840c08150e7c1f56d68b9/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%885%E6%97%A5%2011_46_59%20(1).png?fit=crop&w=1200&h=630">
+    <meta property="og:site_name" content="Kokuban BASE（コクバンベース）">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="article:published_time" content="2026-06-05T02:54:02.896Z">
+    <meta property="article:modified_time" content="2026-06-05T02:54:02.896Z">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="電子黒板×Microsoft Teamsでチャット参加型の授業をつくる方法｜Kokuban BASE">
+    <meta name="twitter:description" content="電子黒板にMicrosoft Teamsのチャット画面を表示すれば、生徒は発表中にタブレットからリアルタイムでコメントを投稿できます。手を挙げて発言する形式では拾いきれなかった意見も集めやすくなり、発表への心理的ハードルを下げながら、双方向の授業を実現できます。授業や保護者会での活用法を紹介します。">
+    <meta name="twitter:image" content="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/5b0bae2acab840c08150e7c1f56d68b9/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%885%E6%97%A5%2011_46_59%20(1).png?fit=crop&w=1200&h=630">
+    
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": "https://kokuban-base.com/columns/microsoft-teams-chat/" },
+            "headline": "電子黒板×Microsoft Teamsでチャット参加型の授業をつくる方法",
+            "description": "電子黒板にMicrosoft Teamsのチャット画面を表示すれば、生徒は発表中にタブレットからリアルタイムでコメントを投稿できます。手を挙げて発言する形式では拾いきれなかった意見も集めやすくなり、発表への心理的ハードルを下げながら、双方向の授業を実現できます。授業や保護者会での活用法を紹介します。",
+            "image": ["https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/5b0bae2acab840c08150e7c1f56d68b9/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%885%E6%97%A5%2011_46_59%20(1).png?fit=crop&w=1200&h=630"],
+            "datePublished": "2026-06-05T02:54:02.896Z",
+            "dateModified": "2026-06-05T02:54:02.896Z",
+            "author": {"@type":"Organization","name":"Kokuban BASE編集部","url":"https://kokuban-base.com/"},
+            "publisher": { 
+                "@type": "Organization", 
+                "name": "Kokuban BASE（コクバンベース）", 
+                "logo": { "@type": "ImageObject", "url": "https://kokuban-base.com/ogp.jpg" } 
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kokuban-base.com/" },
+                { "@type": "ListItem", "position": 2, "name": "コラム", "item": "https://kokuban-base.com/article" },
+                { "@type": "ListItem", "position": 3, "name": "電子黒板×Microsoft Teamsでチャット参加型の授業をつくる方法", "item": "https://kokuban-base.com/columns/microsoft-teams-chat/" }
+            ]
+        }
+    ]
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        customBlue: '#103f99',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; line-height: 1.6; }
+        
+        .title-block { text-align: center; }
+        .title-block h1 { line-height: 1.4; }
+        
+        .subtitle-text {
+            display: block;
+            font-size: 0.55em;
+            font-weight: 700;
+            color: #6b7280;
+            margin-top: 1rem;
+            line-height: 1.5;
+            letter-spacing: 0.02em;
+        }
+
+        .publish-date, .author-name { font-size: 0.875rem; color: #6b7280; }
+
+        .article-body {
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+            word-break: break-all;
+        }
+
+        .article-body p { margin-bottom: 2em; }
+        .article-body br { display: inline; }
+        
+        .article-body h2 { 
+            font-size: 1.75rem; 
+            font-weight: 900; 
+            margin: 3em 0 1.5em; 
+            padding-bottom: 0.5em; 
+            border-bottom: 3px solid #103f99; 
+            position: relative;
+        }
+        .article-body h3 { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            margin: 2.5em 0 1.2em; 
+            padding-left: 0.75rem;
+            border-left: 5px solid #103f99;
+        }
+        
+        .speaker-a { color: #103f99; font-weight: 800; }
+        .speaker-b { color: #ec4899; font-weight: 800; }
+        .speaker-c { color: #059669; font-weight: 800; }
+        .speaker-default { color: #374151; font-weight: 800; }
+
+        /* 画像下の余白を完全に排除するための設定 */
+        .eyecatch-image .image-wrapper {
+            display: flex;
+            flex-direction: column;
+            font-size: 0;
+            line-height: 0;
+            background-color: transparent;
+            isolation: isolate;
+        }
+        .eyecatch-image img,
+        .eyecatch-image figure {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            border: none;
+            vertical-align: bottom;
+        }
+        
+        .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+
+        /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
+        .article-body a.internal-link {
+            color: #103f99;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1.5px solid rgba(16, 63, 153, 0.3);
+            padding-bottom: 1px;
+            transition: all 0.2s ease;
+        }
+        .article-body a.internal-link:hover {
+            color: #ed5b8c;
+            border-bottom-color: #ed5b8c;
+            background-color: rgba(237, 91, 140, 0.05);
+        }
+
+        /* 目次(Table of Contents) */
+        .article-body .internal-link-card {
+            display: grid;
+            grid-template-columns: 160px minmax(0, 1fr);
+            align-items: start;
+            gap: 1rem;
+            margin: 2rem 0;
+            overflow: hidden;
+            border: 1px solid #d1d5db;
+            background: #fff;
+            color: inherit;
+            text-decoration: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .article-body .internal-link-card:hover {
+            border-color: #103f99;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+            transform: translateY(-2px);
+        }
+        .article-body .internal-link-card__image {
+            position: relative;
+            width: 160px;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+        .article-body .internal-link-card__image img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border-radius: 0;
+            object-fit: cover;
+            box-shadow: none;
+        }
+        .article-body .internal-link-card__image--external img {
+            padding: 0.75rem;
+            background: #f8fafc;
+            object-fit: contain;
+        }
+        .article-body .internal-link-card__body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+            height: 90px;
+            overflow: hidden;
+            padding: 0.5rem 1rem 0.5rem 0;
+        }
+        .article-body .internal-link-card__title {
+            display: -webkit-box;
+            margin: 0 0 0.35rem;
+            overflow: hidden;
+            color: #111827;
+            font-size: 0.9rem;
+            font-weight: 800;
+            line-height: 1.35;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .article-body .internal-link-card__description {
+            display: -webkit-box;
+            margin: 0;
+            overflow: hidden;
+            color: #6b7280;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .article-body .internal-link-card__site {
+            display: block;
+            margin-top: 0.45rem;
+            overflow: hidden;
+            color: #103f99;
+            font-size: 0.7rem;
+            font-weight: 700;
+            line-height: 1.3;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .article-body blockquote .internal-link-card {
+            margin: 1.25rem 0 0;
+        }
+        @media (max-width: 640px) {
+            .article-body .internal-link-card {
+                grid-template-columns: 1fr;
+            }
+            .article-body .internal-link-card__image {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 9;
+            }
+            .article-body .internal-link-card__body {
+                height: auto;
+                padding: 0 1rem 1rem;
+            }
+        }
+
+        .toc-container { max-width: 720px; margin-left: auto; margin-right: auto; }
+        .toc-list li { list-style: none; }
+        .toc-link {
+            position: relative;
+            border-left: 2px solid transparent;
+            padding-left: 12px;
+            margin-left: -14px;
+            transition: all 0.2s ease;
+        }
+        .toc-link:hover {
+            border-left-color: #103f99;
+            background-color: rgba(16, 63, 153, 0.03);
+        }
+
+        /* アンカークリック時、固定ヘッダー(高さ80px)に隠れないよう調整 */
+        .article-body h2[id],
+        .article-body h3[id] {
+            scroll-margin-top: 100px;
+        }
+
+        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+        
+        .share-button { display: inline-flex; width: 3.25rem; height: 3.25rem; align-items: center; justify-content: center; border-radius: 9999px; color: white; transition: all 0.2s ease; }
+        .share-button:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .share-twitter { background-color: #000000; }
+        .share-facebook { background-color: #1877F2; }
+        .share-line { background-color: #06C755; }
+
+        /* 関連記事カードのスタイル */
+        .related-card { transition: all 0.3s ease; }
+        .related-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-stone-50 antialiased text-gray-900">
+
+    <!-- Header (index.htmlと完全に統一) -->
+    <header id="page-header" class="bg-[#103f99] sticky top-0 z-50 transition-colors duration-300 shadow-md">
+        <div class="px-6 lg:px-8">
+            <div class="flex items-stretch h-[60px] sm:h-20">
+                <div class="flex-1 flex items-center space-x-8">
+                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
+                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
+                    </div>
+                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
+                        <a href="/Kokubanlease" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">Kokuban リース</a>
+                        <a href="/article" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
+                        <a href="/#faq" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
+                        <a href="/#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
+                    </nav>
+                </div>
+                <div class="flex-shrink-0 flex justify-end items-center">
+                    <div class="hidden sm:flex h-full items-center">
+                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-36 lg:w-48 h-full hover:bg-gray-100 transition-colors px-2">
+                            <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="/on-line-reservation" class="bg-green-500 text-white font-bold text-base lg:text-lg flex items-center justify-center whitespace-nowrap px-6 lg:px-10 h-full hover:bg-green-600 transition-colors">
+                            <span>オンラインデモ</span><i class="fa-solid fa-desktop ml-2"></i>
+                        </a>
+                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-36 lg:w-48 h-full hover:bg-pink-600 transition-colors px-2">
+                            <span>体験予約</span><i class="fa-solid fa-calendar-check ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:hidden flex items-center">
+                        <button id="mobile-menu-button" class="text-white p-2" aria-label="メニューを開く">
+                            <svg id="menu-icon" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- モバイルメニュー -->
+            <div id="mobile-menu" class="hidden lg:hidden bg-[#103f99] border-t border-white/10 pb-6">
+                <nav class="px-4 py-4 space-y-1">
+                    <a href="/Kokubanlease" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">Kokuban リース</a>
+                    <a href="/article" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">コラム</a>
+                    <a href="/#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">よくある質問</a>
+                    <a href="/#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/10 rounded">アクセス</a>
+                </nav>
+                <div class="px-4 space-y-3 pt-4">
+                    <a href="/contact" class="block text-center bg-white text-[#103f99] font-bold py-4 rounded-xl shadow-md">お問い合わせ</a>
+                    <a href="/on-line-reservation" class="block text-center bg-green-500 text-white font-bold py-4 rounded-xl shadow-md">オンラインデモ予約</a>
+                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold py-4 rounded-xl shadow-md">体験予約</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="bg-white">
+        <!-- パンくずリスト(画面表示) -->
+        <nav aria-label="パンくずリスト" class="border-b border-gray-100">
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-3">
+                <ol class="flex items-center text-sm text-gray-600 flex-wrap gap-y-1" itemscope itemtype="https://schema.org/BreadcrumbList">
+                    <li class="flex items-center" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="/" class="hover:text-customBlue transition-colors" itemprop="item">
+                            <span itemprop="name">トップ</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li class="flex items-center" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="/article" class="hover:text-customBlue transition-colors" itemprop="item">
+                            <span itemprop="name">コラム</span>
+                        </a>
+                        <meta itemprop="position" content="2">
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <span aria-current="page" class="font-semibold text-gray-900 line-clamp-1" itemprop="name">電子黒板×Microsoft Teamsでチャット参加型の授業をつくる方法</span>
+                        <meta itemprop="position" content="3">
+                    </li>
+                </ol>
+            </div>
+        </nav>
+
+        <div class="max-w-screen-xl mx-auto px-4 py-8 sm:py-16">
+            <article class="max-w-4xl mx-auto">
+                <!-- アイキャッチ -->
+                <div class="eyecatch-image mb-8 sm:mb-12">
+                    <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
+                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/5b0bae2acab840c08150e7c1f56d68b9/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%885%E6%97%A5%2011_46_59%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板×Microsoft Teamsでチャット参加型の授業をつくる方法" width="1672" height="941" class="w-full h-auto object-cover rounded-lg mb-8 shadow-md" loading="eager" fetchpriority="high">
+                    </div>
+                </div>
+                
+                <!-- タイトルブロック -->
+                <div class="title-block mb-12 sm:mb-16">
+                    <h1 id="main-article-title" class="text-2xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-8 leading-[1.3]">電子黒板×Microsoft Teamsでチャット参加型の授業をつくる方法</h1>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                        <div class="flex items-center space-x-2 flex-wrap justify-center">
+                            <span class="h-px w-4 bg-gray-300"></span>
+                            <p class="publish-date font-bold tracking-wider">公開日: <time datetime="2026-06-05T02:54:02.896Z">2026年6月5日</time></p>
+                            
+                            <span class="reading-time inline-flex items-center text-gray-500 text-sm ml-3"><i class="fas fa-clock text-gray-300 mr-1.5"></i>読了 約7分</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
+                            <p class="author-name font-bold tracking-wider flex items-center">
+                                <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
+                                執筆者: <span id="main-author-display">Kokuban BASE編集部</span>
+                            </p>
+                            <span class="h-px w-4 bg-gray-300"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 目次(見出し2個以上の場合のみ自動生成) -->
+                <div class="max-w-3xl mx-auto">
+                    
+<aside class="toc-container my-10 p-6 bg-gray-50 border-l-4 border-customBlue rounded-r-xl shadow-sm">
+    <h2 class="toc-title text-base font-bold text-customBlue mb-3 flex items-center">
+        <i class="fas fa-list-ul mr-2 text-sm" aria-hidden="true"></i>目次
+    </h2>
+    <nav aria-label="目次">
+        <ol class="toc-list text-sm space-y-0">
+        <li class="">
+            <a href="#ha428418b87" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>これまでの授業で起こりがちな課題
+            </a>
+        </li>
+        <li class="">
+            <a href="#ha5f472067b" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>活用例①：発言しにくい生徒の意見を拾う
+            </a>
+        </li>
+        <li class="">
+            <a href="#he3c8b12cb6" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>活用例②：時間制約に縛られず、多くの意見を集める
+            </a>
+        </li>
+        <li class="">
+            <a href="#h89b87d9706" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>活用例③：保護者会で質問・感想をリアルタイムに集める
+            </a>
+        </li>
+        <li class="">
+            <a href="#hb4e7a57d35" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>運用のポイント：投稿ルールを最初に決める
+            </a>
+        </li>
+        <li class="">
+            <a href="#h342b3c1a79" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>まとめ：チャット機能で、授業参加の入口を増やす
+            </a>
+        </li>
+        </ol>
+    </nav>
+</aside>
+
+                </div>
+
+                <!-- 本文 -->
+                <div class="article-body max-w-3xl mx-auto text-gray-800">
+                    <p>授業中に「意見がある人？」と聞いても、手が挙がるのは一部の生徒だけ。そんな場面は少なくありません。意見は持っていても、人前で話すのが苦手な生徒もいます。発表者に直接コメントするのは緊張する生徒もいます。時間の都合で、全員の意見を聞くことが難しい場合もあります。</p><p style="text-align: start">そこで活用したいのが、電子黒板とMicrosoft Teamsのチャット機能です。電子黒板にTeamsのチャット画面を表示し、生徒は手元のタブレットからコメントを投稿します。発表を聞きながら、気づいたこと、質問、良かった点、改善点をリアルタイムで書き込む。これにより、手を挙げて発言する形式よりも、多くの意見を短時間で集められます。</p><h2 style="text-align: start" id="ha428418b87"><strong>これまでの授業で起こりがちな課題</strong></h2><p style="text-align: start">従来の授業では、意見を集める方法として「手を挙げて発言する」スタイルが一般的でした。もちろん、口頭で発言する力は大切です。しかし、この方法だけでは拾える意見に限りがあります。発言できる人数は時間に左右されますし、発言する生徒も固定化しがちです。特に中学生以上の学校環境では、多くの生徒がタブレット端末を持っています。それなら、発言の方法を「声」だけに限定する必要はありません。</p><p style="text-align: start">チャット機能を使えば、発表を聞く側の生徒全員が、同時にコメントを投稿できます。1人ずつ当てていく方法では数人の意見しか聞けなくても、チャットなら短時間で多くの意見を集められます。場面によっては、手を挙げる形式の何十倍ものコメントが集まることもあります。大切なのは、声の大きい生徒だけで授業を進めないことです。チャットを使えば、普段は発言しない生徒の考えも、教室全体に共有できます。</p><h2 style="text-align: start" id="ha5f472067b"><strong>活用例①：発言しにくい生徒の意見を拾う</strong></h2><p style="text-align: start">クラスには、手を挙げて発言するのが得意な生徒もいれば、苦手な生徒もいます。特に、全員の前で話すことに抵抗がある生徒は、よい意見を持っていても発言できないことがあります。授業後にノートを見ると、実は深く考えていたことが分かる。そんな経験をした先生も多いのではないでしょうか。Teamsチャットを使うと、そうした生徒の意見を拾いやすくなります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2e6dce99ed1c4469aec867c362d9d739/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%885%E6%97%A5%2011_48_55%20(1).png" alt="" width="1536" height="1024"></figure><p>※画像はイメージです</p><p style="text-align: start">口頭で話す必要はなく、タブレットから短く投稿できます。文章であれば、自分の考えを落ち着いて書ける生徒もいます。電子黒板にチャットを表示すれば、投稿された意見を教室全体で共有できます。先生はその中から気になるコメントを取り上げ、「この意見は面白いですね」「この視点をもう少し考えてみましょう」と授業に活かせます。普段はあまり話さない生徒が、チャットでは一番活発に意見を出すこともあります。隠れていた思考や才能が見つかるきっかけにもなります。</p><h2 style="text-align: start" id="he3c8b12cb6"><strong>活用例②：時間制約に縛られず、多くの意見を集める</strong></h2><p style="text-align: start">授業中に意見を集めるとき、もっとも大きな制約になるのが時間です。「この発表について、意見がある人？」と聞いて、手を挙げた生徒を一人ずつ指名する。これも大切なやり取りですが、授業時間の中で発言できる人数には限りがあります。1人が話している間、他の生徒は待つことになりますし、発言する生徒も固定されがちです。</p><p style="text-align: start">一方、Teamsチャットを使えば、全員が同じタイミングでコメントできます。これにより、短い時間でも多くの意見を集められます。</p><p style="text-align: start">たとえば、発表後に3分間だけコメント時間を設けるとします。手を挙げる形式であれば、発言できるのは数人かもしれません。しかしチャットであれば、クラス全員が同時に投稿できます。30人のクラスなら、1人1コメントでも30件の意見が集まります。生徒によっては、良かった点と改善点を分けて2件、3件と投稿することもできます。発表者にとっても、1人か2人の感想ではなく、クラス全体から反応を受け取れる点が大きなメリットです。「声が聞き取りやすかった」「スライドの文字が少し小さかった」「最初に結論を言うともっと分かりやすい」「具体例がよかった」など、複数の視点から改善点を確認できます。</p><p style="text-align: start">また、先生にとっても、チャットは授業を調整するための材料になります。リアルな情報を見れば、「次の発表ではここを意識しましょう」「今出ている質問にまとめて答えます」と、その場で授業に反映できます。チャットを使うことで、意見収集は「一人ずつ発言を待つ時間」から、「全員が同時に参加する時間」に変わります。時間制約に縛られず、より多くの声を授業に取り入れられるのです。</p><h2 style="text-align: start" id="h89b87d9706"><strong>活用例③：保護者会で質問・感想をリアルタイムに集める</strong></h2><p style="text-align: start">Microsoft Teamsのチャット機能は授業内の意見共有に向いていますが、保護者会で保護者様をTeamsに招待し、チャットに参加してもらう運用は少し手間がかかります。アカウントの有無やログインの問題があり、当日の案内も複雑になりがちです。そこで保護者会では、Googleフォームを使った質問受付がおすすめです。</p><p style="text-align: start">事前に「質問・感想フォーム」を作成し、QRコードを生成します。当日は、そのQRコードを含んだスライドを電子黒板に大きく表示します。保護者様はスマートフォンでQRコードを読み取り質問や感想を投稿できます。先生側は、Googleフォームの回答をスプレッドシートで確認します。投稿内容をリアルタイムで確認できるため、似た質問をまとめて回答したり、時間内に扱えなかった質問を後日フォローしたりできます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/c0329fff5a3a49158b19cf843af7a4d7/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%885%E6%97%A5%2012_16_25%20(1).png" alt="" width="1536" height="1024"></figure><p style="text-align: start">この方法なら、保護者様にTeamsへ参加してもらう必要がありません。スマートフォンでQRコードを読み取るだけなので、参加のハードルが低くなります。また、回答がスプレッドシートに蓄積される点も大きなメリットです。保護者様がどのような点に不安を感じているのか、どの説明に質問が多かったのかを後から振り返れます。次回の保護者会や個別面談、配布資料の改善にも活かせます。保護者会は、一方的に説明するだけではなく、保護者様のリアルな声を集める場でもあります。電子黒板にGoogleフォームのQRコードを表示すれば、質問しやすく、学校・塾側もデータとして活用しやすい運用ができます。</p><h2 style="text-align: start" id="hb4e7a57d35"><strong>運用のポイント：投稿ルールを最初に決める</strong></h2><p style="text-align: start">Teamsチャットを授業で使う場合は、最初に簡単な投稿ルールを決めておくことが大切です。たとえば、発表者を傷つける言葉は使わない。良かった点と改善点を分けて書く。質問は短く具体的に書く。関係のない投稿はしない。ルールを厳しくしすぎる必要はありません。ただ、安心して投稿できる場にするためには、最低限の約束が必要です。</p><p style="text-align: start">おすすめは、コメントの型を用意することです。</p><p style="text-align: start">「よかった点：」<br>「質問：」<br>「もっとよくなる点：」<br>「印象に残った言葉：」</p><p style="text-align: start">このような型があると、生徒はコメントしやすくなります。先生も投稿を整理しやすくなります。</p><h2 style="text-align: start" id="h342b3c1a79"><strong>まとめ：チャット機能で、授業参加の入口を増やす</strong></h2><p style="text-align: start">電子黒板とMicrosoft Teamsを組み合わせると、授業参加の形が広がります。</p><p style="text-align: start">手を挙げなくても意見を出せる。<br>発表中にリアルタイムでコメントできる。<br>普段発言しにくい生徒の考えを拾える。<br>プレゼンの改善点をその場で共有できる。<br>保護者会でも質問をタイムリーに集められる。</p><p style="text-align: start">授業は、一方通行の講義だけではありません。生徒の「分かった」「気づいた」「質問したい」を拾い上げ、双方向に作り上げていくものです。</p><p style="text-align: start">Microsoft Teamsのチャット機能を電子黒板に表示すれば、その場の思考が可視化されます。教室の中で声にならなかった意見も、チャットを通じて共有できます。</p><p style="text-align: start">「手を挙げる」勇気がなくても、授業に参加できる。</p><p style="text-align: start">それが、電子黒板×Teamsチャット活用の大きな価値です。</p>
+                </div>
+
+                <!-- シェアボタン -->
+                <div class="mt-20 py-10 border-t border-gray-100">
+                    <h3 class="text-base font-bold text-center text-gray-500 uppercase tracking-widest mb-6">Share this article</h3>
+                    <div class="flex justify-center items-center gap-6">
+                        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fmicrosoft-teams-chat%2F&text=%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%C3%97Microsoft%20Teams%E3%81%A7%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E5%8F%82%E5%8A%A0%E5%9E%8B%E3%81%AE%E6%8E%88%E6%A5%AD%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8B%E6%96%B9%E6%B3%95%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="X" class="share-button share-twitter"><i class="fab fa-x-twitter text-xl"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fmicrosoft-teams-chat%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="share-button share-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fmicrosoft-teams-chat%2F&text=%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%C3%97Microsoft%20Teams%E3%81%A7%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E5%8F%82%E5%8A%A0%E5%9E%8B%E3%81%AE%E6%8E%88%E6%A5%AD%E3%82%92%E3%81%A4%E3%81%8F%E3%82%8B%E6%96%B9%E6%B3%95%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="LINE" class="share-button share-line"><i class="fab fa-line text-2xl"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 関連記事（ビルド時に静的生成） -->
+            <div class="mt-24 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between mb-10">
+                    <h3 class="text-2xl font-black text-gray-900">あわせて読みたい</h3>
+                    <a href="https://kokuban-base.com/article" class="text-sm font-bold text-customBlue hover:underline">すべて見る <i class="fas fa-chevron-right ml-1"></i></a>
+                </div>
+                <div id="related-posts-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    
+    <a href="/columns/cpu/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/ac52d1f0badc4788b87f0df2d0123134/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8811%E6%97%A5%2017_48_44%20(1).png?fit=crop&w=600&h=338&q=80" alt="失敗しない電子黒板選び｜CPUの見方を初心者向けに解説" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                失敗しない電子黒板選び｜CPUの見方を初心者向けに解説
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.06.12</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+
+    <a href="/columns/onenote/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/bd8d920ba784448ba221ff76620c2fc6/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8811%E6%97%A5%2012_34_35%20(1).png?fit=crop&w=600&h=338&q=80" alt="OneNoteを電子黒板のホワイトボードとして活用！予習・板書・復習をラクにする授業方法" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                OneNoteを電子黒板のホワイトボードとして活用！予習・板書・復習をラクにする授業方法
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.06.11</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+
+    <a href="/columns/doga/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e87aab1094b244a092c16a469aca1a22/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8810%E6%97%A5%2014_21_32%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板に動画を埋め込む授業活用法｜解説動画・発表振り返り・幼稚園の観察学習まで" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板に動画を埋め込む授業活用法｜解説動画・発表振り返り・幼稚園の観察学習まで
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.06.10</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+                </div>
+            </div>
+            
+            <!-- CTA -->
+            <div class="mt-24 max-w-4xl mx-auto">
+                <div class="bg-gradient-to-br from-pink-50 to-white border border-pink-100 p-8 sm:p-12 rounded-3xl shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <i class="fas fa-chalkboard-teacher text-8xl text-pink-500"></i>
+                    </div>
+                    <div class="relative z-10 text-center sm:text-left">
+                        <h3 class="text-2xl sm:text-3xl font-black text-pink-600 mb-4">電子黒板を実際に体験しませんか？</h3>
+                        <p class="text-gray-700 leading-relaxed mb-10 max-w-2xl">
+                            Kokuban BASEでは、本記事で紹介した機能のほか、様々なモデルを直接触って比較できます。導入に関するご相談も承っておりますので、お気軽にご予約ください。
+                        </p>
+                        <!-- 2ボタン配置 -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-4">
+                            <a href="/reservation" class="w-full sm:w-auto inline-flex items-center justify-center bg-pink-500 text-white font-black text-lg px-8 py-4 rounded-full hover:bg-pink-600 transition-all shadow-lg hover:shadow-pink-200 transform hover:-translate-y-1">
+                                来場予約 <i class="fas fa-calendar-check ml-3"></i>
+                            </a>
+                            <a href="/on-line-reservation" class="w-full sm:w-auto inline-flex items-center justify-center bg-green-500 text-white font-black text-lg px-8 py-4 rounded-full hover:bg-green-600 transition-all shadow-lg hover:shadow-green-200 transform hover:-translate-y-1">
+                                オンラインデモ予約 <i class="fas fa-desktop ml-3"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 戻るリンク -->
+            <div class="mt-16 text-center">
+                <a href="https://kokuban-base.com/article" class="inline-flex items-center text-gray-500 font-bold hover:text-gray-900 transition-colors">
+                    <i class="fas fa-long-arrow-alt-left mr-2"></i> コラム一覧へ戻る
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-customBlue text-gray-200">
+        <div class="container mx-auto px-6 py-12 md:py-16">
+            <div class="flex flex-wrap justify-between gap-y-10">
+                <div class="w-full md:w-1/4">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tighter">Kokuban BASE</h2>
+                    <p class="text-blue-200 mt-3 font-medium text-sm">株式会社idea spot</p>
+                </div>
+                <div class="w-full md:w-3/4 flex flex-wrap justify-between gap-y-8">
+                    <div class="w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">メニュー</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="/Kokubanlease" class="footer-link">Kokuban リース</a></li>
+                            <li><a href="/article" class="footer-link">コラム</a></li>
+                            <li><a href="/#faq" class="footer-link">よくある質問</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-1/2 lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">サポート</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="/reservation" class="footer-link">来場予約</a></li>
+                            <li><a href="/on-line-reservation" class="footer-link">オンラインデモ</a></li>
+                            <li><a href="/contact" class="footer-link">お問い合わせ</a></li>
+                            <li><a href="/#access" class="footer-link">アクセス</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full lg:w-1/3">
+                        <h3 class="text-white font-bold tracking-widest uppercase mb-4 md:mb-6 text-sm">会社情報</h3>
+                        <ul class="space-y-3 font-medium text-sm">
+                            <li><a href="https://www.idea-spot.co.jp/" target="_blank" rel="noopener" class="footer-link">企業概要</a></li>
+                            <li><a href="/privacy" class="footer-link">プライバシーポリシー</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 md:mt-16 pt-8 border-t border-white/10 text-center text-blue-200 text-xs md:text-sm">
+                <p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // モバイルメニュー制御
+            const btn = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', () => {
+                    const isHidden = menu.classList.contains('hidden');
+                    menu.classList.toggle('hidden');
+                    document.body.classList.toggle('overflow-hidden');
+                    btn.innerHTML = isHidden 
+                        ? '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>'
+                        : '<svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>';
+                });
+            }
+
+            // タイトルのサブタイトル化
+            const titleEl = document.getElementById('main-article-title');
+            if (titleEl && titleEl.innerHTML.includes('<br>')) {
+                const parts = titleEl.innerHTML.split(/<br\s?\/?>/i);
+                if (parts.length > 1) {
+                    titleEl.innerHTML = `${parts[0]}<span class="subtitle-text">${parts[1]}</span>`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
