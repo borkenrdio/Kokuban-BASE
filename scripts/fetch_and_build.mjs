@@ -596,8 +596,15 @@ function replaceBareUrlsInHtmlText(html, replacer) {
     tokens.push({ type: 'text', content: html.slice(lastIndex) });
   }
 
+  let insideAnchorDepth = 0;
   return tokens.map(token => {
-    if (token.type === 'tag') return token.content;
+    if (token.type === 'tag') {
+      const lower = token.content.toLowerCase();
+      if (lower.startsWith('<a ') || lower === '<a>') insideAnchorDepth++;
+      else if (lower.startsWith('</a>')) insideAnchorDepth = Math.max(0, insideAnchorDepth - 1);
+      return token.content;
+    }
+    if (insideAnchorDepth > 0) return token.content;
     return token.content.replace(BARE_URL_REGEX, replacer);
   }).join('');
 }
