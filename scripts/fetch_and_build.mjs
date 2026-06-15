@@ -380,6 +380,11 @@ function buildInternalLinkCardHtml(article) {
 const externalLinkMetadataCache = new Map();
 const BARE_URL_REGEX = /https?:\/\/[^\s<"'）)、。,.]+/gi;
 const STATIC_EXTERNAL_LINK_METADATA = {
+  'https://earth.google.com/web/': {
+    title: 'Google Earth',
+    description: 'ブラウザで地球上の場所を探索できる Google Earth の公式Web版です。',
+    image: 'https://www.gstatic.com/earth/social/00_generic_facebook-001.jpg',
+  },
   'https://kawasemi.eisyun.jp/kawasemi-lite/': {
     title: 'プリント教材作成システム「KAWASEMI Lite」のご案内',
     description: '赤本のデータベースを使って、オリジナルのプリント教材を作成できる英俊社の教材作成システムです。全国の公立高校入試を網羅し、難易度選択や小問単位での利用にも対応しています。',
