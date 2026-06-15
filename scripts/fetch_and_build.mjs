@@ -658,6 +658,22 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
     return metadata ? makeCardPlaceholder(buildExternalLinkCardHtml(metadata)) : null;
   };
 
+  const buildInlineLink = (rawUrl) => {
+    let href = rawUrl;
+    try {
+      href = new URL(rawUrl).href;
+    } catch {
+      // Keep the original text if URL normalization fails.
+    }
+    return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(rawUrl)}</a>`;
+  };
+
+  const hasNonUrlText = (html) => html
+    .replace(BARE_URL_REGEX, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .trim().length > 0;
+
   let html = bodyHtml;
 
   html = html.replace(
@@ -696,6 +712,11 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
   html = html.replace(
     /<p([^>]*)>([\s\S]*?)<\/p>/gi,
     (match, attrs, innerHtml) => {
+      if (hasNonUrlText(innerHtml)) {
+        const linkedHtml = replaceBareUrlsInHtmlText(innerHtml, buildInlineLink);
+        return linkedHtml === innerHtml ? match : `<p${attrs}>${linkedHtml}</p>`;
+      }
+
       let cardHtml = '';
       const textHtml = replaceBareUrlsInHtmlText(
         innerHtml,
@@ -710,11 +731,6 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
       if (!cardHtml) return match;
       return `${textHtml ? `<p${attrs}>${textHtml}</p>` : ''}${cardHtml}`;
     }
-  );
-
-  html = html.replace(
-    /<a\b[^>]*href=(["'])(.*?)\1[^>]*>[\s\S]*?<\/a>/gi,
-    (match, quote, href) => getCardPlaceholder(href) || match
   );
 
   for (const { token, cardHtml } of cardPlaceholders) {
@@ -1317,8 +1333,16 @@ async function fetchAllArticles() {
 
       if (offset >= response.totalCount) break;
     }
-    console.log(`合計 ${allContents.length} 件の記事データを取得しました。`);
-    return allContents;
+    const normalizedContents = allContents.map((article) => {
+      if (typeof article.slug !== 'string') return article;
+      const trimmedSlug = article.slug.trim();
+      if (trimmedSlug === article.slug) return article;
+      console.warn(`警告: 記事ID ${article.id} のslug前後の空白を除去しました: "${article.slug}" -> "${trimmedSlug}"`);
+      return { ...article, slug: trimmedSlug };
+    });
+
+    console.log(`合計 ${normalizedContents.length} 件の記事データを取得しました。`);
+    return normalizedContents;
   } catch (err) {
     console.error('記事データの取得に失敗しました:', err);
     throw err;
