@@ -413,9 +413,10 @@
                 const imgField = article.eyecatch || article.thumbnail || article.main_image || article.image;
                 const thumbnail = imgField ? imgField.url : 'https://placehold.co/600x400?text=No+Image';
                 
-                let linkUrl = article.url; 
+                const cleanSlug = typeof article.slug === 'string' ? article.slug.trim() : '';
+                let linkUrl = typeof article.url === 'string' ? article.url.trim() : article.url; 
                 if (!linkUrl) {
-                    linkUrl = article.slug ? `/columns/${article.slug}/` : `article.html?id=${article.id}`;
+                    linkUrl = cleanSlug ? `/columns/${cleanSlug}/` : `article.html?id=${article.id}`;
                 }
 
                 let cardHtml = '';
