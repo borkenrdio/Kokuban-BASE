@@ -276,10 +276,40 @@ function markdownTableLinesToHtml(lines) {
   return `<table><thead><tr>${headerHtml}</tr></thead><tbody>${rowsHtml}</tbody></table>`;
 }
 
+function getMarkdownListItem(line) {
+  const unordered = line.match(/^[-*+]\s+(.+)$/);
+  if (unordered) return { type: 'ul', content: unordered[1].trim() };
+
+  const ordered = line.match(/^\d+[.)]\s+(.+)$/);
+  if (ordered) return { type: 'ol', content: ordered[1].trim() };
+
+  return null;
+}
+
+function markdownListLinesToHtml(lines) {
+  const items = lines.map(getMarkdownListItem);
+  if (items.length === 0 || items.some(item => !item)) return '';
+
+  const type = items[0].type === 'ol' && items.every(item => item.type === 'ol') ? 'ol' : 'ul';
+  const listItems = items
+    .map(item => `<li>${escapeHtmlSimple(item.content)}</li>`)
+    .join('');
+
+  return `<${type}>${listItems}</${type}>`;
+}
+
 function normalizeMarkdownArtifacts(bodyHtml) {
   if (!bodyHtml) return bodyHtml || '';
 
   let html = bodyHtml;
+
+  html = html.replace(/(?:<p[^>]*>\s*(?:[-*+]|\d+[.)])\s+[\s\S]*?<\/p>\s*){2,}/gi, (block) => {
+    const lines = [...block.matchAll(/<p[^>]*>\s*([\s\S]*?)\s*<\/p>/gi)]
+      .map(match => match[1].replace(/<br\s*\/?>/gi, '').trim())
+      .filter(Boolean);
+    const listHtml = markdownListLinesToHtml(lines);
+    return listHtml || block;
+  });
 
   html = html.replace(/(?:<p[^>]*>\s*\|[\s\S]*?\|\s*<\/p>\s*){2,}/gi, (block) => {
     const lines = [...block.matchAll(/<p[^>]*>\s*([\s\S]*?)\s*<\/p>/gi)]
@@ -300,6 +330,11 @@ function normalizeMarkdownArtifacts(bodyHtml) {
     if (normalizedLines.length >= 2 && normalizedLines.every(line => line.startsWith('|'))) {
       const tableHtml = markdownTableLinesToHtml(normalizedLines);
       if (tableHtml) return tableHtml;
+    }
+
+    if (normalizedLines.length >= 1 && normalizedLines.every(line => getMarkdownListItem(line))) {
+      const listHtml = markdownListLinesToHtml(normalizedLines);
+      if (listHtml) return listHtml;
     }
 
     const plain = innerHtml.replace(/<[^>]+>/g, '').trim();
