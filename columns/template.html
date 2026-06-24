@@ -122,6 +122,12 @@
             padding-left: 0.75rem;
             border-left: 5px solid #103f99;
         }
+        .article-body h4 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin: 2em 0 1em;
+            color: #103f99;
+        }
         
         .speaker-a { color: #103f99; font-weight: 800; }
         .speaker-b { color: #ec4899; font-weight: 800; }
@@ -151,6 +157,12 @@
         .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .article-body img[src*=".gif"] { width: 100%; }
         .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+        .article-body table { display: block; width: 100%; max-width: 100%; margin: 2rem 0; overflow-x: auto; border-collapse: collapse; border-spacing: 0; font-size: 0.95rem; line-height: 1.6; }
+        .article-body th, .article-body td { min-width: 8rem; border: 1px solid #dbe3ef; padding: 0.85rem 1rem; vertical-align: top; text-align: left; }
+        .article-body th { background: #eff6ff; color: #0f2f73; font-weight: 800; }
+        .article-body td { background: #fff; }
+        .article-body tr:nth-child(even) td { background: #f8fafc; }
+        .article-body th p, .article-body td p { margin: 0; }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
         .article-body a.internal-link {
@@ -284,7 +296,8 @@
 
         /* アンカークリック時、固定ヘッダー(高さ80px)に隠れないよう調整 */
         .article-body h2[id],
-        .article-body h3[id] {
+        .article-body h3[id],
+        .article-body h4[id] {
             scroll-margin-top: 100px;
         }
 
