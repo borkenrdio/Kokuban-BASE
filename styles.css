@@ -637,6 +637,15 @@ a {
   object-fit: cover;
 }
 
+.column-thumb-img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
 .column-thumb span {
   position: relative;
   z-index: 1;
