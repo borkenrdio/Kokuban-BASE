@@ -1031,15 +1031,16 @@ a {
 }
 
 .information-card-link {
-  min-height: 160px;
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
+  align-items: center;
   color: inherit;
 }
 
 .information-thumb {
   position: relative;
-  min-height: 100%;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
   margin: 0;
   overflow: hidden;
   background: #eef3fb;
@@ -1202,7 +1203,6 @@ a {
   }
 
   .information-thumb {
-    min-height: 0;
     aspect-ratio: 16 / 9;
   }
 
