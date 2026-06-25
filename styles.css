@@ -618,6 +618,24 @@ a {
   bottom: 22px;
 }
 
+.column-thumb-img {
+  padding: 0;
+  background: #eef3fb;
+}
+
+.column-thumb-img::before,
+.column-thumb-img::after {
+  display: none;
+}
+
+.column-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .column-thumb span {
   position: relative;
   z-index: 1;

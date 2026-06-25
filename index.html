@@ -267,9 +267,18 @@
           const href = item.slug ? 'columns/' + encodeURIComponent(item.slug) + '/' : 'article/';
           const dateSource = item.publishedAt || item.createdAt;
           const title = escapeHtml(item.title || 'コラム');
-          const thumbClass = 'column-thumb column-thumb-0' + ((index % 3) + 1);
+          const rawImg = item.eyecatchUrl || (item.eyecatch && item.eyecatch.url) || item.thumbnail || item.image;
+          let thumb;
+          if (rawImg) {
+            const sep = String(rawImg).indexOf('?') >= 0 ? '&' : '?';
+            const src = escapeHtml(rawImg + sep + 'fit=crop&w=600&h=338&q=80');
+            thumb = '<div class="column-thumb column-thumb-img"><img src="' + src + '" alt="" loading="lazy"></div>';
+          } else {
+            const thumbClass = 'column-thumb column-thumb-0' + ((index % 3) + 1);
+            thumb = '<div class="' + thumbClass + '" aria-hidden="true"><span>' + title + '</span></div>';
+          }
           return '<article class="column-card"><a href="' + href + '">' +
-            '<div class="' + thumbClass + '" aria-hidden="true"><span>' + title + '</span></div>' +
+            thumb +
             '<time datetime="' + escapeHtml(dateSource || '') + '">' + escapeHtml(formatDate(dateSource)) + '</time>' +
             '<h3>' + title + '</h3>' +
             '</a></article>';
