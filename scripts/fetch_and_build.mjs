@@ -1709,48 +1709,14 @@ function getArticleCategoryName(category) {
   return category || 'その他';
 }
 
-function buildHomepageLatestNewsHtml(items) {
-  return items.slice(0, 5).map((item) => {
-    const category = getArticleCategoryName(item.category);
-    const date = formatDateJST(item.publishedAt, 'slash');
-    const isNew = item.publishedAt && (Date.now() - new Date(item.publishedAt).getTime()) / 86400000 < 14;
-    const newBadge = isNew
-      ? '<span class="inline-block bg-yellow-400 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-1">NEW</span>'
-      : '';
-
-    let tagClass = 'bg-gray-500 text-white';
-    if (category.includes('プレスリリース')) tagClass = 'bg-[#6366f1] text-white';
-    else if (category.includes('イベント')) tagClass = 'bg-[#22c55e] text-white';
-    else if (category.includes('対談') || category.includes('インタビュー') || category.includes('独自取材')) tagClass = 'bg-[#ec4899] text-white';
-    else if (category.includes('お知らせ')) tagClass = 'bg-[#1e40af] text-white';
-
-    return `                                    <li class="group">
-                                        <a href="${BASE_URL}/columns/${escapeHtml(item.slug)}/" class="block bg-white rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-5 sm:p-6 border border-gray-100">
-                                            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-                                                <div class="flex flex-row sm:flex-col items-center sm:items-start justify-between sm:justify-center min-w-[120px] flex-shrink-0 gap-3 sm:gap-1">
-                                                    <div class="flex flex-col items-start">${newBadge}<span class="${tagClass} text-xs font-bold px-3 py-1 rounded-md shadow-sm min-w-[80px] text-center">${escapeHtml(category)}</span></div>
-                                                    <time class="text-sm font-medium text-gray-500 tracking-wider font-sans">${escapeHtml(date)}</time>
-                                                </div>
-                                                <div class="flex-grow border-l-0 sm:border-l-2 border-gray-100 sm:pl-6 py-1">
-                                                    <h3 class="text-base sm:text-lg font-bold text-gray-800 group-hover:text-[#103f99] transition-colors leading-relaxed">${escapeHtml(item.title || '')}</h3>
-                                                </div>
-                                                <div class="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 text-gray-400 group-hover:bg-[#103f99] group-hover:text-white transition-all flex-shrink-0">
-                                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>`;
-  }).join('\n');
-}
 
 function updateHomepageLatestNewsFromColumns(summaryList) {
   if (!fs.existsSync(HOME_HTML_PATH)) return;
 
   const html = fs.readFileSync(HOME_HTML_PATH, 'utf8');
-  const latestHtml = buildHomepageLatestNewsHtml(summaryList);
   const nextHtml = html.replace(
     /<ul id="latest-news-list"[^>]*>[\s\S]*?<\/ul>/,
-    `<ul id="latest-news-list" class="news-list">\n${latestHtml}\n      </ul>`
+    '<ul id="latest-news-list" class="news-list"></ul>'
   );
 
   if (nextHtml !== html) {

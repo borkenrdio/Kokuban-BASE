@@ -109,35 +109,14 @@ function formatDate(dateSource) {
   });
 }
 
-function buildLatestNewsHtml(items) {
-  return items.slice(0, 5).map((item) => {
-    const dateSource = item.publishedAt || item.createdAt || item.date;
-    const date = formatDate(dateSource);
-    const category = getCategoryName(item.category);
-    const title = escapeHtml(item.title || '');
-    const url = escapeHtml(item.url || 'information/');
-    let categoryClass = 'news-cat';
-    if (category.includes('イベント')) categoryClass += ' news-cat-event';
-    else if (category.includes('メディア') || category.includes('取材')) categoryClass += ' news-cat-media';
-
-    return `        <li class="news-item">
-          <a href="${url}">
-            <time datetime="${escapeHtml(dateSource || '')}">${escapeHtml(date)}</time>
-            <span class="${categoryClass}">${escapeHtml(category)}</span>
-            <span class="news-title">${title}</span>
-          </a>
-        </li>`;
-  }).join('\n');
-}
 
 function updateHomeLatestNews(items) {
   if (!fs.existsSync(HOME_PATH)) return;
 
   const html = fs.readFileSync(HOME_PATH, 'utf8');
-  const latestHtml = buildLatestNewsHtml(items);
   const nextHtml = html.replace(
     /<ul id="latest-news-list"[^>]*>[\s\S]*?<\/ul>/,
-    `<ul id="latest-news-list" class="news-list">\n${latestHtml}\n      </ul>`
+    '<ul id="latest-news-list" class="news-list"></ul>'
   );
 
   if (nextHtml !== html) {
