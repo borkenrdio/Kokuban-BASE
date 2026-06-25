@@ -996,6 +996,233 @@ a {
   padding: clamp(26px, 3vw, 40px) 0;
 }
 
+.information-section {
+  width: min(900px, calc(100% - 40px));
+}
+
+.information-heading {
+  margin-bottom: 22px;
+}
+
+.information-heading h2 {
+  margin: 0 0 8px;
+  color: var(--blue);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.information-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.information-list {
+  display: grid;
+  gap: 16px;
+}
+
+.information-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, .07);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.information-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, .1);
+}
+
+.information-card-link {
+  min-height: 160px;
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  color: inherit;
+}
+
+.information-thumb {
+  position: relative;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #eef3fb;
+}
+
+.information-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .3s;
+}
+
+.information-card:hover .information-thumb img {
+  transform: scale(1.04);
+}
+
+.information-thumb--empty {
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(135deg, var(--blue), #6ba4e8);
+}
+
+.information-thumb--empty span {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(16, 63, 153, .9);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.information-card-body {
+  min-width: 0;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.information-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.information-meta time {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.information-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--blue);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.information-tag--event {
+  background: #16a34a;
+}
+
+.information-tag--media {
+  background: #0ea5a3;
+}
+
+.information-tag--interview {
+  background: var(--pink);
+}
+
+.information-tag--press {
+  background: #6366f1;
+}
+
+.information-card h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.information-card:hover h2 {
+  color: var(--blue);
+}
+
+.information-more {
+  width: fit-content;
+  margin-top: 12px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.information-state {
+  padding: 28px 16px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 14px;
+}
+
+.information-state--error {
+  color: #b91c1c;
+}
+
+.information-pagination {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.information-pagination button {
+  min-width: 38px;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--blue);
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.information-pagination button[aria-current="page"] {
+  color: #fff;
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.information-pagination button:disabled {
+  color: var(--muted);
+  background: #f1f5f9;
+  cursor: default;
+  opacity: .6;
+}
+
+@media (max-width: 720px) {
+  .information-section {
+    width: min(660px, calc(100% - 32px));
+  }
+
+  .information-card-link {
+    grid-template-columns: 1fr;
+  }
+
+  .information-thumb {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  .information-card-body {
+    padding: 18px;
+  }
+
+  .information-card h2 {
+    font-size: 15px;
+  }
+}
+
 .service-list,
 .lineup-grid {
   display: grid;

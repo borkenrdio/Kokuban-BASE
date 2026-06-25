@@ -1,429 +1,267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>お知らせ・ニュース一覧｜Kokuban BASE</title>
-    <meta name="description" content="Kokuban BASEからの最新のお知らせ・プレスリリース・イベント情報をご覧いただけます。電子黒板の比較体験倉庫の最新動向をお届けします。">
-    <link rel="canonical" href="https://kokuban-base.com/information">
-    <meta property="og:url" content="https://kokuban-base.com/information">
-    <meta property="og:title" content="お知らせ・ニュース一覧｜Kokuban BASE">
-    <meta property="og:description" content="Kokuban BASEからの最新のお知らせ・プレスリリース・イベント情報をお届けします。">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Kokuban BASE">
-    <meta property="og:locale" content="ja_JP">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <style>
-        html, body { margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            background-color: #ffffff;
-            color: #333;
-        }
-        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
-        .bg-custom-blue { background-color: rgb(16, 63, 153); }
-        .footer-link { color: #e5e7eb; transition: color 0.2s ease-in-out; }
-        .footer-link:hover { color: #ffffff; text-decoration: underline; }
-        .spinner { animation: spin 1s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .pagination-active { background-color: #103f99; color: white; }
-
-        #image-modal {
-            transition: opacity 0.3s ease-in-out;
-        }
-        #image-modal.hidden {
-            display: none;
-            opacity: 0;
-        }
-        .modal-content {
-            max-width: 90vw;
-            max-height: 90vh;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>お知らせ・ニュース一覧 | Kokuban BASE</title>
+  <meta name="description" content="Kokuban BASEからのお知らせ、ニュース、メディア掲載、コラム更新情報を掲載しています。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#103f99">
+  <link rel="canonical" href="https://kokuban-base.com/information/">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kokuban BASE">
+  <meta property="og:title" content="お知らせ・ニュース一覧 | Kokuban BASE">
+  <meta property="og:description" content="Kokuban BASEからのお知らせ、ニュース、メディア掲載、コラム更新情報を掲載しています。">
+  <meta property="og:url" content="https://kokuban-base.com/information/">
+  <meta property="og:image" content="https://kokuban-base.com/assets/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kokuban BASE 電子黒板選びの総合窓口">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="お知らせ・ニュース一覧 | Kokuban BASE">
+  <meta name="twitter:description" content="Kokuban BASEからのお知らせ、ニュース、メディア掲載、コラム更新情報を掲載しています。">
+  <meta name="twitter:image" content="https://kokuban-base.com/assets/ogp.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=20260625-4">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kokuban BASE","item":"https://kokuban-base.com/"},{"@type":"ListItem","position":2,"name":"お知らせ・ニュース","item":"https://kokuban-base.com/information/"}]}
+  </script>
 </head>
-<body class="bg-stone-50 min-h-screen">
-
-    <!-- Header -->
-    <header id="page-header" class="bg-[#103f99] sticky top-0 z-20 transition-colors duration-300">
-        <div class="px-6 lg:px-8">
-            <div class="flex items-stretch h-[50px] sm:h-20">
-                <div class="flex-1 flex items-center space-x-8">
-                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
-                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
-                    </div>
-                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                        <a href="/Kokubanlease" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">Kokuban リース</a>
-                        <a href="/article" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
-                        <a href="/#faq" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
-                        <a href="/#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
-                    </nav>
-                </div>
-                <div class="flex-shrink-0 flex justify-end">
-                    <div class="hidden sm:flex h-full">
-                        <a href="../contact/" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
-                            <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                      <a href="/on-line-reservation" class="bg-green-500 text-white font-bold text-base lg:text-xl flex items-center justify-center whitespace-nowrap px-6 lg:px-10 hover:bg-green-600 transition-colors">
-                        <span>オンラインデモ予約</span><i class="fa-solid fa-arrow-right ml-2"></i>
-                      </a>
-                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
-                            <span>体験予約</span><i class="fa-solid fa-calendar-check ml-2"></i>
-                        </a>
-                    </div>
-                    <div class="lg:hidden flex items-center">
-                        <button id="mobile-menu-button" class="text-white p-2">
-                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
-                <div class="px-2 pt-2 pb-3 space-y-1">
-                    <a href="/Kokubanlease" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">Kokuban リース</a>
-                    <a href="#columns" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
-                    <a href="/#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
-                    <a href="/#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
-                </div>
-                <div class="p-4 space-y-3">
-                    <a href="../contact/" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
-                  <a href="/on-line-reservation" class="block text-center bg-green text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">オンラインデモ予約</a>
-                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container mx-auto px-4 py-12 md:py-20 max-w-4xl">
-        <header class="mb-10 md:mb-12">
-            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-2">最新情報</h1>
-            <p class="text-xl text-gray-600">お知らせ / ニュースアーカイブ</p>
-            <div class="h-1 bg-[#103f99] w-16 mt-4 rounded-full"></div>
-        </header>
-
-        <main id="news-container" class="space-y-8">
-            <div id="loading-message" class="text-center py-12">
-                <div class="flex items-center justify-center space-x-3 text-indigo-600">
-                    <svg class="spinner w-6 h-6 text-[#103f99]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span class="text-lg font-medium text-[#103f99]">最新情報を取得中...</span>
-                </div>
-            </div>
-            
-            <div id="news-list" class="space-y-4">
-                // ニュース項目がここに挿入されます
-            </div>
-        </main>
-
-        <div id="pagination" class="mt-12 flex justify-center hidden">
-            <nav class="flex items-center space-x-2">
-                <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition"><i class="fas fa-arrow-left"></i></a>
-                <a href="#" class="px-4 py-2 rounded-full font-semibold text-white bg-pink-500 hover:bg-pink-600 transition">1</a>
-                <a href="#" class="px-4 py-2 rounded-full text-gray-700 hover:bg-gray-200 transition">2</a>
-                <a href="#" class="px-4 py-2 rounded-full text-gray-700 hover:bg-gray-200 transition">3</a>
-                <a href="#" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition"><i class="fas fa-arrow-right"></i></a>
-            </nav>
-        </div>
+<body>
+  <header class="site-header">
+    <div class="header-main">
+      <a class="brand" href="../"><span class="brand-mark">K</span><span>Kokuban BASE</span></a>
+      <div class="header-actions">
+        <a class="header-phone" href="tel:0752317711" aria-label="075-231-7711に電話する"><span class="phone-icon">☎</span><span><small>お電話で予約</small><strong>075-231-7711</strong></span></a>
+        <a class="btn btn-outline" href="../guide/">ご利用ガイド</a>
+        <a class="btn btn-primary" href="../contact/">お問い合わせ</a>
+      </div>
+      <button class="mobile-menu-button" type="button" aria-label="メニューを開く"><span></span><b>メニュー</b></button>
     </div>
+    <nav class="global-nav" aria-label="主要メニュー">
+      <a href="../service/">Kokuban BASEでできること</a>
+      <a href="../lease/">リース</a>
+      <a href="../guide/">ご利用ガイド</a>
+      <a href="../lineup/">ラインナップ</a>
+      <a href="../article/">コラム</a>
+      <a href="../support/">導入サポート</a>
+      <a href="../voices/">先生の体験談</a>
+    </nav>
+  </header>
 
-    <div id="image-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 hidden" onclick="closeModal()">
-        <button class="absolute top-6 right-6 text-white text-3xl hover:text-gray-300 focus:outline-none" onclick="closeModal()">
-            <i class="fas fa-times"></i>
-        </button>
-        <img id="modal-image" src="" alt="拡大画像" class="modal-content object-contain shadow-2xl">
+  <main class="subpage">
+    <section class="page-hero">
+      <p>Information</p>
+      <h1>お知らせ・ニュース</h1>
+      <span>Kokuban BASEからのお知らせ、メディア掲載、コラム更新情報をまとめています。</span>
+    </section>
+
+    <section class="page-section information-section">
+      <div class="information-heading">
+        <h2>最新情報</h2>
+        <p>電子黒板の活用コラムやサービスに関する更新情報を新しい順に掲載しています。</p>
+      </div>
+
+      <div id="information-loading" class="information-state">お知らせを読み込んでいます。</div>
+      <div id="information-error" class="information-state information-state--error" hidden>お知らせを読み込めませんでした。</div>
+      <div id="information-list" class="information-list" aria-live="polite"></div>
+      <nav id="information-pagination" class="information-pagination" aria-label="お知らせページ送り" hidden></nav>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><strong>Kokuban BASE</strong><p>電子黒板選びの総合窓口</p></div>
+      <div class="footer-contact"><a class="footer-phone" href="tel:0752317711"><small>お電話で予約</small><span>075-231-7711</span></a><a class="footer-btn" href="../contact/">お問い合わせ</a></div>
+      <nav class="footer-nav" aria-label="フッターメニュー"><a href="../service/">Kokuban BASEでできること</a><a href="../lease/">リース</a><a href="../guide/">ご利用ガイド</a><a href="../lineup/">ラインナップ</a><a href="../article/">コラム</a><a href="../voices/">先生の体験談</a><a href="../company/">会社概要</a><a href="../faq/">よくある質問</a></nav>
+      <small class="footer-copy">© Kokuban BASE. Demo site.</small>
     </div>
+  </footer>
 
-        </div>
-        <footer class="bg-custom-blue text-gray-200">
-            <div class="container mx-auto px-6 py-12">
-                <div class="flex flex-wrap justify-between">
-                    <div class="w-full md:w-1/4 mb-8 md:mb-0">
-                        <h2 class="text-2xl font-bold text-white">Kokuban BASE</h2>
-                        <p class="text-blue-200 mt-2">株式会社idea spot</p>
-                    </div>
-                    <div class="w-full md:w-3/4 flex flex-wrap justify-between">
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
-                            <ul>
-                                <li class="mb-2"><a href="/Kokubanlease" class="nav-link footer-link">Kokuban リース</a></li>
-                                <li class="mb-2"><a href="/article" class="nav-link footer-link">コラム</a></li>
-                                <li class="mb-2"><a href="/#faq" class="nav-link footer-link">よくある質問</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">サポート</h3>
-                            <ul>
-                                <li class="mb-2"><a href="/reservation" class="footer-link">来場予約</a></li>
-                              <li class="mb-2"><a href="/on-line-reservation" class="footer-link">オンラインデモ予約</a></li>
-                                <li class="mb-2"><a href="../contact/" class="footer-link">お問い合わせ</a></li>
-                                <li class="mb-2"><a href="/#access" class="nav-link footer-link">アクセス</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">会社情報</h3>
-                            <ul>
-                                <li class="mb-2"><a href="https://www.idea-spot.co.jp/" target="_blank" class="footer-link">企業概要</a></li>
-                                <li class="mb-2"><a href="/privacy" class="footer-link">プライバシーポリシー</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-12 pt-8 border-t border-white/20 text-center text-blue-200"><p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p></div>
-            </div>
-        </footer>
-    </div>
+  <script>
+    (function () {
+      const JSON_PATH = '/information/index.json';
+      const ITEMS_PER_PAGE = 8;
+      const list = document.getElementById('information-list');
+      const loading = document.getElementById('information-loading');
+      const error = document.getElementById('information-error');
+      const pagination = document.getElementById('information-pagination');
+      let items = [];
+      let currentPage = 1;
 
-    <script>
-        const JSON_PATH = '/information/index.json';
-        const newsList = document.getElementById('news-list');
-        const loadingMessage = document.getElementById('loading-message');
-        const pagination = document.getElementById('pagination');
-        const imageModal = document.getElementById('image-modal');
-        const modalImage = document.getElementById('modal-image');
-        const ITEMS_PER_PAGE = 5;
-        const NO_IMAGE_URL = 'https://placehold.jp/24/103f99/ffffff/400x300.png?text=No%20Image';
-        let allNewsItems = [];
-        let currentPage = 1;
-
-        
-        function openModal(imageUrl, event) {
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            if (!imageUrl || imageUrl.includes('placehold.jp')) return;
-            modalImage.src = imageUrl;
-            imageModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            imageModal.classList.add('hidden');
-            document.body.style.overflow = '';
-            setTimeout(() => { modalImage.src = ''; }, 300);
-        }
-
-        function getImageUrl(item) {
-            const fields = [item.image, item.thumbnail, item.photo, item.eyecatch];
-            for (const field of fields) {
-                if (!field) continue;
-                if (typeof field === 'string' && field.startsWith('http')) return field;
-                if (Array.isArray(field) && field.length > 0) {
-                    const firstImage = field.find(image => image && image.url);
-                    if (firstImage) return firstImage.url;
-                }
-                if (typeof field === 'object' && field.url) return field.url;
-            }
-            return '';
-        }
-
-        function getInitialPage(totalPages) {
-            const pageParam = Number(new URLSearchParams(window.location.search).get('page'));
-            if (!Number.isInteger(pageParam) || pageParam < 1) return 1;
-            return Math.min(pageParam, totalPages);
-        }
-
-        function renderPagination(totalPages) {
-            if (totalPages <= 1) {
-                pagination.classList.add('hidden');
-                pagination.innerHTML = '';
-                return;
-            }
-
-            const pageLinks = Array.from({ length: totalPages }, (_, index) => {
-                const page = index + 1;
-                const activeClass = page === currentPage
-                    ? 'pagination-active'
-                    : 'text-gray-700 hover:bg-gray-200';
-                return `<a href="?page=${page}" data-page="${page}" class="px-4 py-2 rounded-full font-semibold transition ${activeClass}" aria-current="${page === currentPage ? 'page' : 'false'}">${page}</a>`;
-            }).join('');
-
-            pagination.innerHTML = `
-                <nav class="flex items-center space-x-2" aria-label="Pagination">
-                    <a href="?page=${Math.max(1, currentPage - 1)}" data-page="${Math.max(1, currentPage - 1)}" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition ${currentPage === 1 ? 'pointer-events-none opacity-40' : ''}" aria-label="Previous page"><i class="fas fa-arrow-left"></i></a>
-                    ${pageLinks}
-                    <a href="?page=${Math.min(totalPages, currentPage + 1)}" data-page="${Math.min(totalPages, currentPage + 1)}" class="p-3 rounded-full text-gray-500 hover:bg-gray-200 transition ${currentPage === totalPages ? 'pointer-events-none opacity-40' : ''}" aria-label="Next page"><i class="fas fa-arrow-right"></i></a>
-                </nav>
-            `;
-            pagination.classList.remove('hidden');
-        }
-
-        function renderCurrentPage(shouldScroll = false) {
-            const totalPages = Math.max(1, Math.ceil(allNewsItems.length / ITEMS_PER_PAGE));
-            currentPage = Math.min(Math.max(currentPage, 1), totalPages);
-            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-            displayNewsItems(allNewsItems.slice(startIndex, startIndex + ITEMS_PER_PAGE));
-            renderPagination(totalPages);
-
-            if (shouldScroll) {
-                const top = newsList.getBoundingClientRect().top + window.scrollY - 120;
-                window.scrollTo({ top, behavior: 'smooth' });
-            }
-        }
-
-        function getItemDate(item) {
-            const dateSource = item.date || item.publishedAt || item.createdAt || item.updatedAt;
-            const timestamp = dateSource ? new Date(dateSource).getTime() : 0;
-            return Number.isNaN(timestamp) ? 0 : timestamp;
-        }
-
-        const displayNewsItems = (contents) => {
-            newsList.innerHTML = contents.map(item => {
-                let categories = [];
-                if (item.category) {
-                    categories = Array.isArray(item.category) ? item.category : [item.category];
-                } else if (item.tags) {
-                    categories = Array.isArray(item.tags) ? item.tags : [item.tags];
-                }
-                
-                const tagHtml = categories.map(tag => {
-                    const tagName = typeof tag === 'object' && tag !== null && tag.name ? tag.name : tag;
-                    let colorClass = 'bg-gray-500 text-white'; 
-                    if (tagName === 'NEW') { colorClass = 'bg-yellow-500 text-white'; }
-                    else if (tagName === 'プレスリリース') { colorClass = 'bg-indigo-600 text-white'; }
-                    else if (tagName === 'イベント') { colorClass = 'bg-green-600 text-white'; }
-                    else if (tagName === '対談記事') { colorClass = 'bg-[#EC4899] text-white'; }
-                    else if (tagName === 'お知らせ') { colorClass = 'bg-[#103f99] text-white'; }
-                    return `<span class="px-3 py-1 rounded-md text-xs md:text-sm font-bold shadow-sm ${colorClass} tracking-wide">${tagName}</span>`;
-                }).join('');
-
-                const dateSource = item.date || item.publishedAt;
-                let displayDate = '日付不明';
-                if (dateSource) {
-                    const dateObj = new Date(dateSource);
-                    if (!isNaN(dateObj)) {
-                        displayDate = `${dateObj.getFullYear()}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${String(dateObj.getDate()).padStart(2, '0')}`;
-                    }
-                }
-
-                // 画像URL取得のロジック（microCMSのオブジェクト形式に完全対応）
-                let thumbnailSrc = getImageUrl(item) || NO_IMAGE_URL;
-                
-                const hasValidLink = item.url && item.url !== '#' && item.url !== '';
-                const articleLink = hasValidLink ? item.url : '#';
-
-                return `
-                    <div class="relative bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out border border-gray-100 overflow-hidden group cursor-pointer"
-                         onclick="${!hasValidLink ? `openModal('${thumbnailSrc}', event)` : ''}">
-                        <div class="flex flex-col md:flex-row items-stretch">
-                            <div class="w-full md:w-64 lg:w-72 flex-shrink-0 relative overflow-hidden bg-gray-200 cursor-zoom-in aspect-video" 
-                                 onclick="openModal('${thumbnailSrc}', event)">
-                                <img src="${thumbnailSrc}" alt="${item.title}" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://placehold.jp/24/cccccc/ffffff/400x300.png?text=Image%20Error'">
-                                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <i class="fas fa-search-plus text-white text-2xl"></i>
-                                </div>
-                            </div>
-
-                            <div class="flex-1 p-5 md:p-6 flex flex-col justify-center">
-                                <div class="flex flex-col space-y-3">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <div class="flex flex-wrap gap-2">${tagHtml}</div>
-                                        <p class="text-sm font-semibold text-gray-500">${displayDate}</p>
-                                    </div>
-                                    <div class="flex justify-between items-start">
-                                        ${hasValidLink ? 
-                                            `<a href="${articleLink}" target="_blank" rel="noopener noreferrer" class="block flex-1">
-                                                <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed hover:text-pink-500 transition duration-300">
-                                                    ${item.title || 'タイトルがありません'}
-                                                </h2>
-                                            </a>` : 
-                                            `<div class="flex-1" onclick="openModal('${thumbnailSrc}', event)">
-                                                <h2 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed group-hover:text-pink-500 transition duration-300">
-                                                    ${item.title || 'タイトルがありません'}
-                                                </h2>
-                                            </div>`
-                                        }
-                                        <div class="ml-4 w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-pink-500 transition duration-300">
-                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        };
-
-        const fetchNews = async () => {
-            loadingMessage.classList.remove('hidden');
-            newsList.innerHTML = '';
-            pagination.classList.add('hidden');
-            
-            try {
-                const cacheBustUrl = `${JSON_PATH}?t=${Date.now()}`;
-                const response = await fetch(cacheBustUrl, { cache: 'no-store' });
-                if (!response.ok) throw new Error(`Failed to load ${JSON_PATH}`);
-                const data = await response.json();
-
-                // microCMSの生データ形式（data.contents）と配列形式（data）の両方に対応
-                const items = data.contents ? data.contents : (Array.isArray(data) ? data : []);
-
-                if (items.length > 0) {
-                    allNewsItems = [...items].sort((a, b) => getItemDate(b) - getItemDate(a));
-                    currentPage = getInitialPage(Math.ceil(allNewsItems.length / ITEMS_PER_PAGE));
-                    renderCurrentPage(false);
-                } else {
-                    newsList.innerHTML = '<p class="text-center text-gray-500 py-12">現在、お知らせはありません。</p>';
-                    pagination.classList.add('hidden');
-                }
-            } catch (error) {
-                console.error("Failed to fetch news:", error);
-                loadingMessage.innerHTML = `<div class="text-center py-12 text-red-600">
-                    <p class="text-lg font-medium">ニュースの取得に失敗しました。</p>
-                    <p class="text-sm text-gray-500 mt-2">（エラー: ${error.message}）</p>
-                </div>`;
-            } finally {
-                loadingMessage.classList.add('hidden');
-            }
-        };
-
-        function setupMobileMenu() {
-            const button = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (button && mobileMenu) {
-                button.addEventListener('click', () => {
-                    const isExpanded = button.getAttribute('aria-expanded') === 'true' || false;
-                    button.setAttribute('aria-expanded', !isExpanded);
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            setupMobileMenu();
-            fetchNews();
+      function escapeHtml(value) {
+        return String(value || '').replace(/[&<>"']/g, function (char) {
+          return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+          }[char];
         });
+      }
 
-        pagination.addEventListener('click', (event) => {
-            const link = event.target.closest('[data-page]');
-            if (!link) return;
-            event.preventDefault();
-            const nextPage = Number(link.dataset.page);
-            if (!Number.isInteger(nextPage) || nextPage === currentPage) return;
-            currentPage = nextPage;
-            const url = new URL(window.location.href);
-            url.searchParams.set('page', String(currentPage));
-            window.history.pushState({}, '', url);
-            renderCurrentPage(true);
-        });
+      function getImageUrl(value) {
+        if (!value) return '';
+        if (typeof value === 'string') return value.trim();
+        if (Array.isArray(value)) {
+          for (let i = 0; i < value.length; i += 1) {
+            const url = getImageUrl(value[i]);
+            if (url) return url;
+          }
+          return '';
+        }
+        if (typeof value === 'object') {
+          return getImageUrl(value.url || value.src || value.image || value.thumbnail || value.eyecatch || value.photo);
+        }
+        return '';
+      }
 
-        window.addEventListener('popstate', () => {
-            currentPage = getInitialPage(Math.ceil(allNewsItems.length / ITEMS_PER_PAGE));
-            renderCurrentPage(false);
-        });
+      function getItemImage(item) {
+        return getImageUrl(item.image || item.thumbnail || item.photo || item.eyecatch);
+      }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-    </script>
+      function getItemDate(item) {
+        const dateSource = item.date || item.publishedAt || item.createdAt || item.updatedAt;
+        const date = new Date(dateSource || 0);
+        return Number.isNaN(date.getTime()) ? null : date;
+      }
+
+      function formatDate(date) {
+        if (!date) return '';
+        return [
+          date.getFullYear(),
+          String(date.getMonth() + 1).padStart(2, '0'),
+          String(date.getDate()).padStart(2, '0')
+        ].join('.');
+      }
+
+      function getCategory(item) {
+        const category = Array.isArray(item.category) ? item.category.find(Boolean) : item.category;
+        if (!category) return 'お知らせ';
+        if (typeof category === 'object') return category.name || category.id || 'お知らせ';
+        return category;
+      }
+
+      function categoryType(category) {
+        if (category.includes('イベント')) return 'event';
+        if (category.includes('メディア') || category.includes('取材')) return 'media';
+        if (category.includes('対談')) return 'interview';
+        if (category.includes('プレ')) return 'press';
+        return 'default';
+      }
+
+      function isExternalLink(url) {
+        if (!url) return false;
+        try {
+          const parsed = new URL(url, window.location.href);
+          return parsed.hostname !== window.location.hostname;
+        } catch {
+          return false;
+        }
+      }
+
+      function renderItem(item) {
+        const date = getItemDate(item);
+        const category = getCategory(item);
+        const image = getItemImage(item);
+        const href = item.url || '#';
+        const external = isExternalLink(href);
+        const target = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+        const thumb = image
+          ? '<img src="' + escapeHtml(image) + '" alt="" loading="lazy" decoding="async">'
+          : '<span>Kokuban BASE</span>';
+
+        return '<article class="information-card">' +
+          '<a class="information-card-link" href="' + escapeHtml(href) + '"' + target + '>' +
+            '<figure class="information-thumb' + (image ? '' : ' information-thumb--empty') + '">' + thumb + '</figure>' +
+            '<div class="information-card-body">' +
+              '<div class="information-meta">' +
+                '<time datetime="' + escapeHtml(date ? date.toISOString() : '') + '">' + escapeHtml(formatDate(date)) + '</time>' +
+                '<span class="information-tag information-tag--' + categoryType(category) + '">' + escapeHtml(category) + '</span>' +
+              '</div>' +
+              '<h2>' + escapeHtml(item.title || 'お知らせ') + '</h2>' +
+              '<span class="information-more">' + (external ? '外部サイトで見る' : '詳しく見る') + '</span>' +
+            '</div>' +
+          '</a>' +
+        '</article>';
+      }
+
+      function renderPagination(totalPages) {
+        if (totalPages <= 1) {
+          pagination.hidden = true;
+          pagination.innerHTML = '';
+          return;
+        }
+
+        let html = '<button type="button" data-page="' + Math.max(1, currentPage - 1) + '"' + (currentPage === 1 ? ' disabled' : '') + '>前へ</button>';
+        for (let page = 1; page <= totalPages; page += 1) {
+          html += '<button type="button" data-page="' + page + '"' + (page === currentPage ? ' aria-current="page"' : '') + '>' + page + '</button>';
+        }
+        html += '<button type="button" data-page="' + Math.min(totalPages, currentPage + 1) + '"' + (currentPage === totalPages ? ' disabled' : '') + '>次へ</button>';
+        pagination.innerHTML = html;
+        pagination.hidden = false;
+      }
+
+      function renderPage(shouldScroll) {
+        const totalPages = Math.max(1, Math.ceil(items.length / ITEMS_PER_PAGE));
+        currentPage = Math.min(Math.max(currentPage, 1), totalPages);
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        const pageItems = items.slice(start, start + ITEMS_PER_PAGE);
+        list.innerHTML = pageItems.length ? pageItems.map(renderItem).join('') : '<p class="information-state">お知らせは準備中です。</p>';
+        renderPagination(totalPages);
+        if (shouldScroll) {
+          list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      async function fetchItems() {
+        loading.hidden = false;
+        error.hidden = true;
+        try {
+          const response = await fetch(JSON_PATH + '?t=' + Date.now(), { cache: 'no-store' });
+          if (!response.ok) throw new Error('Failed to load information');
+          const data = await response.json();
+          const rawItems = data.contents ? data.contents : (Array.isArray(data) ? data : []);
+          items = rawItems.sort(function (a, b) {
+            const aTime = getItemDate(a);
+            const bTime = getItemDate(b);
+            return (bTime ? bTime.getTime() : 0) - (aTime ? aTime.getTime() : 0);
+          });
+          const pageParam = Number(new URLSearchParams(window.location.search).get('page'));
+          currentPage = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
+          renderPage(false);
+        } catch (err) {
+          console.error(err);
+          error.hidden = false;
+        } finally {
+          loading.hidden = true;
+        }
+      }
+
+      pagination.addEventListener('click', function (event) {
+        const button = event.target.closest('[data-page]');
+        if (!button || button.disabled) return;
+        currentPage = Number(button.dataset.page);
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', String(currentPage));
+        window.history.pushState({}, '', url);
+        renderPage(true);
+      });
+
+      window.addEventListener('popstate', function () {
+        const pageParam = Number(new URLSearchParams(window.location.search).get('page'));
+        currentPage = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
+        renderPage(false);
+      });
+
+      document.addEventListener('DOMContentLoaded', fetchItems);
+    })();
+  </script>
   <script src="../assets/site.js" defer></script>
 </body>
 </html>
-
