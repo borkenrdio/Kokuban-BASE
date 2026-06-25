@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://kokuban-base.com/sitemap.xml

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kokuban BASE">
+  <rect width="64" height="64" rx="14" fill="#103f99"/>
+  <path d="M12 44V20h8v9.2L30 20h10L27.8 31.1 41.5 44H31.2L20 33.1V44z" fill="#fff"/>
+  <circle cx="48" cy="16" r="8" fill="#ec4899"/>
+</svg>

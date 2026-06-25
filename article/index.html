@@ -38,10 +38,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- サイト共通ヘッダー/フッターのスタイル -->
+    <link rel="stylesheet" href="../styles.css">
 
     <style>
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #fdfdfd; color: #333; }
+        /* styles.css の body { font-size: 80% } を本文では打ち消す */
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #fdfdfd; color: #333; font-size: 16px; line-height: 1.6; }
         
         /* 共通カラー定義 */
         .text-custom-blue { color: #103f99; }
@@ -72,54 +75,26 @@
 </head>
 <body class="bg-stone-50 flex flex-col min-h-screen">
 
-    <!-- Header -->
-    <header id="page-header" class="bg-[#103f99] sticky top-0 z-50 transition-colors duration-300">
-        <div class="px-6 lg:px-8">
-            <div class="flex items-stretch h-[50px] sm:h-20">
-                <div class="flex-1 flex items-center space-x-8">
-                    <div class="text-xl sm:text-2xl font-bold text-white text-shadow flex-shrink-0">
-                        <a href="/" class="hover:opacity-80 transition-opacity">Kokuban BASE</a>
-                    </div>
-                    <nav class="hidden lg:flex items-center space-x-1 text-sm">
-                        <a href="/Kokubanlease" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">Kokuban リース</a>
-                        <a href="/article" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">コラム</a>
-                        <a href="/#faq" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">よくある質問</a>
-                        <a href="/#access" class="text-white font-semibold hover:opacity-80 transition-opacity text-shadow p-2">アクセス</a>
-                    </nav>
-                </div>
-                <div class="flex-shrink-0 flex justify-end">
-                    <div class="hidden sm:flex h-full">
-                        <a href="/contact" class="bg-white text-[#103f99] font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-gray-100 transition-colors px-2">
-                            <span>お問い合わせ</span><i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                      <a href="/on-line-reservation" class="bg-green-500 text-white font-bold text-base lg:text-xl flex items-center justify-center whitespace-nowrap px-6 lg:px-10 hover:bg-green-600 transition-colors">
-                        <span>オンラインデモ予約</span><i class="fa-solid fa-arrow-right ml-2"></i>
-                      </a>
-                        <a href="/reservation" class="bg-pink-500 text-white font-bold text-base lg:text-lg flex items-center justify-center w-full sm:w-36 lg:w-48 hover:bg-pink-600 transition-colors px-2">
-                            <span>体験予約</span><i class="fa-solid fa-calendar-check ml-2"></i>
-                        </a>
-                    </div>
-                    <div class="lg:hidden flex items-center">
-                        <button id="mobile-menu-button" class="text-white p-2">
-                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                        </button>
-                    </div>
-                </div>
+    <!-- Header (サイト共通) -->
+    <header class="site-header">
+        <div class="header-main">
+            <a class="brand" href="../"><span class="brand-mark">K</span><span>Kokuban BASE</span></a>
+            <div class="header-actions">
+                <a class="header-phone" href="tel:0752317711" aria-label="075-231-7711に電話する"><span class="phone-icon">☎</span><span><small>お電話で予約</small><strong>075-231-7711</strong></span></a>
+                <a class="btn btn-outline" href="/guide/">ご利用ガイド</a>
+                <a class="btn btn-primary" href="../contact/">お問い合わせ</a>
             </div>
-            <div id="mobile-menu" class="hidden lg:hidden bg-black/75 rounded-md shadow-lg">
-                <div class="px-2 pt-2 pb-3 space-y-1">
-                    <a href="/Kokubanlease" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">Kokuban リース</a>
-                    <a href="#columns" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">コラム</a>
-                    <a href="/#faq" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">よくある質問</a>
-                    <a href="/#access" class="block py-3 px-4 text-white font-semibold hover:bg-white/20 rounded text-base">アクセス</a>
-                </div>
-                <div class="p-4 space-y-3">
-                    <a href="/contact" class="block text-center bg-white text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">お問い合わせ</a>
-                  <a href="/on-line-reservation" class="block text-center bg-green text-[#103f99] font-bold w-full text-lg hover:bg-gray-100 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">オンラインデモ予約</a>
-                    <a href="/reservation" class="block text-center bg-pink-500 text-white font-bold w-full text-lg hover:bg-pink-600 transition-colors rounded-md h-[58px] flex items-center justify-center shadow-md">来場予約</a>
-                </div>
-            </div>
+            <button class="mobile-menu-button" type="button" aria-label="メニューを開く"><span></span><b>メニュー</b></button>
         </div>
+        <nav class="global-nav" aria-label="主要メニュー">
+            <a href="../service/">Kokuban BASEでできること</a>
+            <a href="../lease/">リース</a>
+            <a href="../guide/">ご利用ガイド</a>
+            <a href="../lineup/">ラインナップ</a>
+            <a href="../article/">コラム</a>
+            <a href="../support/">導入サポート</a>
+            <a href="../voices/">先生の体験談</a>
+        </nav>
     </header>
 
     <main class="flex-grow">
@@ -208,59 +183,18 @@
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer (サイト共通) -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand"><strong>Kokuban BASE</strong><p>電子黒板選びの総合窓口</p></div>
+            <div class="footer-contact"><a class="footer-phone" href="tel:0752317711"><small>お電話で予約</small><span>075-231-7711</span></a><a class="footer-btn" href="../contact/">お問い合わせ</a></div>
+            <nav class="footer-nav" aria-label="フッターメニュー"><a href="../service/">Kokuban BASEでできること</a><a href="../lease/">リース</a><a href="../guide/">ご利用ガイド</a><a href="../lineup/">ラインナップ</a><a href="../article/">コラム</a><a href="../voices/">先生の体験談</a><a href="../company/">会社概要</a><a href="../faq/">よくある質問</a></nav>
+            <small class="footer-copy">© Kokuban BASE. Demo site.</small>
         </div>
-        <footer class="bg-custom-blue text-gray-200">
-            <div class="container mx-auto px-6 py-12">
-                <div class="flex flex-wrap justify-between">
-                    <div class="w-full md:w-1/4 mb-8 md:mb-0">
-                        <h2 class="text-2xl font-bold text-white">Kokuban BASE</h2>
-                        <p class="text-blue-200 mt-2">株式会社idea spot</p>
-                    </div>
-                    <div class="w-full md:w-3/4 flex flex-wrap justify-between">
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">メニュー</h3>
-                            <ul>
-                                <li class="mb-2"><a href="/Kokubanlease" class="nav-link footer-link">Kokuban リース</a></li>
-                                <li class="mb-2"><a href="/article" class="nav-link footer-link">コラム</a></li>
-                                <li class="mb-2"><a href="/#faq" class="nav-link footer-link">よくある質問</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3 mb-8 sm:mb-0">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">サポート</h3>
-                            <ul>
-                                <li class="mb-2"><a href="/reservation" class="footer-link">来場予約</a></li>
-                              <li class="mb-2"><a href="/on-line-reservation" class="footer-link">オンラインデモ予約</a></li>
-                                <li class="mb-2"><a href="/contact" class="footer-link">お問い合わせ</a></li>
-                                <li class="mb-2"><a href="/#access" class="nav-link footer-link">アクセス</a></li>
-                            </ul>
-                        </div>
-                        <div class="w-full sm:w-1/2 lg:w-1/3">
-                            <h3 class="text-white font-semibold tracking-wider uppercase mb-4">会社情報</h3>
-                            <ul>
-                                <li class="mb-2"><a href="https://www.idea-spot.co.jp/" target="_blank" class="footer-link">企業概要</a></li>
-                                <li class="mb-2"><a href="/privacy" class="footer-link">プライバシーポリシー</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-12 pt-8 border-t border-white/20 text-center text-blue-200"><p>&copy; 2025 株式会社idea spot. All Rights Reserved.</p></div>
-            </div>
-        </footer>
-    </div>
+    </footer>
 
     <!-- JavaScript Logic -->
     <script>
-        // Header / Mobile Menu
-        const mmBtn = document.getElementById('mobile-menu-button');
-        const mm = document.getElementById('mobile-menu');
-        if(mmBtn && mm) {
-            mmBtn.addEventListener('click', () => { 
-                mm.classList.toggle('hidden'); 
-                document.body.classList.toggle('overflow-hidden', !mm.classList.contains('hidden')); 
-            });
-        }
-
         // ---------------------------------------------------------
         // CMS Settings
         // ---------------------------------------------------------
@@ -491,5 +425,6 @@
             });
         }
     </script>
+  <script src="../assets/site.js" defer></script>
 </body>
 </html>

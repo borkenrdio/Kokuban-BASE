@@ -190,7 +190,7 @@ function buildTocAndAnnotate(bodyHtml) {
 
   // h2/h3 を抽出しつつ、既存属性を保持してID属性を追加
   const bodyWithIds = bodyHtml.replace(
-    /<(h[2-4])([^>]*)>([\s\S]*?)<\/\1>/gi,
+    /<(h[23])([^>]*)>([\s\S]*?)<\/\1>/gi,
     (match, tag, attrs, inner) => {
       const level = parseInt(tag.charAt(1));
       // 既にidが付いていればそれを使う
@@ -219,11 +219,11 @@ function buildTocAndAnnotate(bodyHtml) {
   // 目次HTMLを構築
   let tocItems = '';
   headings.forEach(h => {
-    const indentClass = h.level === 4 ? 'ml-8' : (h.level === 3 ? 'ml-5' : '');
+    const indentClass = h.level === 3 ? 'ml-5' : '';
     tocItems += `
         <li class="${indentClass}">
             <a href="#${h.id}" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
-                <span class="toc-bullet">${h.level >= 3 ? '— ' : ''}</span>${escapeHtmlSimple(h.text)}
+                <span class="toc-bullet">${h.level === 3 ? '— ' : ''}</span>${escapeHtmlSimple(h.text)}
             </a>
         </li>`;
   });
@@ -246,110 +246,6 @@ function buildTocAndAnnotate(bodyHtml) {
 /**
  * プレーンテキスト化（タグ除去＆エンティティ変換）
  */
-function splitMarkdownTableRow(line) {
-  return line
-    .trim()
-    .replace(/^\|/, '')
-    .replace(/\|$/, '')
-    .split('|')
-    .map(cell => cell.trim());
-}
-
-function isMarkdownTableSeparator(line) {
-  const cells = splitMarkdownTableRow(line);
-  return cells.length > 0 && cells.every(cell => /^:?-{3,}:?$/.test(cell));
-}
-
-function markdownTableLinesToHtml(lines) {
-  if (lines.length < 2 || !isMarkdownTableSeparator(lines[1])) return '';
-
-  const headers = splitMarkdownTableRow(lines[0]);
-  const rows = lines.slice(2).map(splitMarkdownTableRow).filter(row => row.length > 0);
-  if (headers.length === 0 || rows.length === 0) return '';
-
-  const headerHtml = headers.map(cell => `<th>${cell}</th>`).join('');
-  const rowsHtml = rows.map(row => {
-    const cells = headers.map((_, index) => `<td>${row[index] || ''}</td>`).join('');
-    return `<tr>${cells}</tr>`;
-  }).join('');
-
-  return `<table><thead><tr>${headerHtml}</tr></thead><tbody>${rowsHtml}</tbody></table>`;
-}
-
-function getMarkdownListItem(line) {
-  const unordered = line.match(/^[-*+]\s+(.+)$/);
-  if (unordered) return { type: 'ul', content: unordered[1].trim() };
-
-  const ordered = line.match(/^\d+[.)]\s+(.+)$/);
-  if (ordered) return { type: 'ol', content: ordered[1].trim() };
-
-  return null;
-}
-
-function markdownListLinesToHtml(lines) {
-  const items = lines.map(getMarkdownListItem);
-  if (items.length === 0 || items.some(item => !item)) return '';
-
-  const type = items[0].type === 'ol' && items.every(item => item.type === 'ol') ? 'ol' : 'ul';
-  const listItems = items
-    .map(item => `<li>${escapeHtmlSimple(item.content)}</li>`)
-    .join('');
-
-  return `<${type}>${listItems}</${type}>`;
-}
-
-function normalizeMarkdownArtifacts(bodyHtml) {
-  if (!bodyHtml) return bodyHtml || '';
-
-  let html = bodyHtml;
-
-  html = html.replace(/(?:<p[^>]*>\s*(?:[-*+]|\d+[.)])\s+[\s\S]*?<\/p>\s*){2,}/gi, (block) => {
-    const lines = [...block.matchAll(/<p[^>]*>\s*([\s\S]*?)\s*<\/p>/gi)]
-      .map(match => match[1].replace(/<br\s*\/?>/gi, '').trim())
-      .filter(Boolean);
-    const listHtml = markdownListLinesToHtml(lines);
-    return listHtml || block;
-  });
-
-  html = html.replace(/(?:<p[^>]*>\s*\|[\s\S]*?\|\s*<\/p>\s*){2,}/gi, (block) => {
-    const lines = [...block.matchAll(/<p[^>]*>\s*([\s\S]*?)\s*<\/p>/gi)]
-      .map(match => match[1].replace(/<br\s*\/?>/gi, '').trim())
-      .filter(Boolean);
-    const tableHtml = markdownTableLinesToHtml(lines);
-    return tableHtml || block;
-  });
-
-  html = html.replace(/<p([^>]*)>([\s\S]*?)<\/p>/gi, (match, attrs, innerHtml) => {
-    const normalizedLines = innerHtml
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/&nbsp;/gi, ' ')
-      .split(/\r?\n/)
-      .map(line => line.trim())
-      .filter(Boolean);
-
-    if (normalizedLines.length >= 2 && normalizedLines.every(line => line.startsWith('|'))) {
-      const tableHtml = markdownTableLinesToHtml(normalizedLines);
-      if (tableHtml) return tableHtml;
-    }
-
-    if (normalizedLines.length >= 1 && normalizedLines.every(line => getMarkdownListItem(line))) {
-      const listHtml = markdownListLinesToHtml(normalizedLines);
-      if (listHtml) return listHtml;
-    }
-
-    const plain = innerHtml.replace(/<[^>]+>/g, '').trim();
-    const headingMatch = plain.match(/^(#{1,4})\s+(.+)$/);
-    if (headingMatch) {
-      const level = Math.min(3, Math.max(2, headingMatch[1].length + 1));
-      return `<h${level}>${escapeHtmlSimple(headingMatch[2])}</h${level}>`;
-    }
-
-    return match;
-  });
-
-  return html;
-}
-
 function escapeHtmlSimple(str) {
   if (!str) return '';
   let text = str.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
@@ -1591,11 +1487,22 @@ function generateSitemap(articles) {
   xml += `  <url>\n    <loc>${BASE_URL}/</loc>\n    <priority>1.0</priority>\n    <changefreq>daily</changefreq>\n  </url>\n`;
 
   // 記事一覧ページもサイトマップに追加
-  xml += `  <url>\n    <loc>${BASE_URL}/article</loc>\n    <priority>0.9</priority>\n    <changefreq>daily</changefreq>\n  </url>\n`;
+  xml += `  <url>\n    <loc>${BASE_URL}/article/</loc>\n    <priority>0.9</priority>\n    <changefreq>daily</changefreq>\n  </url>\n`;
 
-  const staticPages = ['contact', 'reservation', 'on-line-reservation', 'privacy', 'terms', 'Kokubanlease', 'whatissmrtboard'];
+  const staticPages = [
+    'service',
+    'lease',
+    'lease/first-time',
+    'online-consultation',
+    'lineup',
+    'support',
+    'voices',
+    'company',
+    'faq',
+    'information'
+  ];
   staticPages.forEach(page => {
-    xml += `  <url>\n    <loc>${BASE_URL}/${page}</loc>\n    <priority>0.8</priority>\n    <changefreq>monthly</changefreq>\n  </url>\n`;
+    xml += `  <url>\n    <loc>${BASE_URL}/${page}/</loc>\n    <priority>0.8</priority>\n    <changefreq>monthly</changefreq>\n  </url>\n`;
   });
 
   // 執筆者ページ(E-E-A-T強化)
@@ -1842,8 +1749,8 @@ function updateHomepageLatestNewsFromColumns(summaryList) {
   const html = fs.readFileSync(HOME_HTML_PATH, 'utf8');
   const latestHtml = buildHomepageLatestNewsHtml(summaryList);
   const nextHtml = html.replace(
-    /<ul id="latest-news-list" class="space-y-4">[\s\S]*?<\/ul>/,
-    `<ul id="latest-news-list" class="space-y-4">\n${latestHtml}\n                                </ul>`
+    /<ul id="latest-news-list"[^>]*>[\s\S]*?<\/ul>/,
+    `<ul id="latest-news-list" class="news-list">\n${latestHtml}\n      </ul>`
   );
 
   if (nextHtml !== html) {
@@ -2098,7 +2005,7 @@ async function buildStaticPages() {
     const shareUrlLine = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedTitle}`;
 
     // 本文に内部リンクを自動挿入(自身の記事は除外)
-    const bodyBeforeLinks = normalizeMarkdownArtifacts(article.body || '');
+    const bodyBeforeLinks = article.body || '';
     const bodyWithCards = await replaceManualInternalLinksWithCards(bodyBeforeLinks, article.slug, publishedArticles);
     const bodyWithLinks = injectInternalLinks(bodyWithCards, article.slug, keywordIndex, 3);
     const linksAdded = (bodyWithLinks.match(/class="internal-link"/g) || []).length;
@@ -2178,7 +2085,6 @@ async function buildStaticPages() {
   // 6. 一覧用JSON (index.json) を保存
   try {
     fs.writeFileSync(JSON_OUTPUT_PATH, JSON.stringify(summaryList, null, 2));
-    updateHomepageLatestNewsFromColumns(summaryList);
     console.log(`columns/index.json を ${JSON_OUTPUT_PATH} に保存しました。`);
   } catch (err) {
     console.error('columns/index.json の保存に失敗しました:', err);
@@ -2210,4 +2116,3 @@ buildStaticPages().catch(err => {
   console.error('ビルドプロセス全体でエラーが発生しました:', err);
   process.exit(1);
 });
-
