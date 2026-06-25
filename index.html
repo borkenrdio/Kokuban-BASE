@@ -237,6 +237,29 @@
         return category || 'お知らせ';
       }
 
+      function getImageUrl(value) {
+        if (!value) return '';
+        if (typeof value === 'string') return value.trim();
+        if (Array.isArray(value)) {
+          for (let i = 0; i < value.length; i += 1) {
+            const url = getImageUrl(value[i]);
+            if (url) return url;
+          }
+          return '';
+        }
+        if (typeof value === 'object') {
+          return getImageUrl(value.url || value.src || value.image || value.thumbnail || value.eyecatch);
+        }
+        return '';
+      }
+
+      function getOptimizedImageUrl(url) {
+        const cleanUrl = getImageUrl(url);
+        if (!cleanUrl || cleanUrl.startsWith('data:') || cleanUrl.startsWith('blob:')) return cleanUrl;
+        const sep = cleanUrl.indexOf('?') >= 0 ? '&' : '?';
+        return cleanUrl + sep + 'fit=crop&w=600&h=338&q=80';
+      }
+
       function newsCategoryClass(category) {
         const name = getCategoryName(category);
         if (name.includes('イベント')) return 'news-cat news-cat-event';
@@ -267,12 +290,18 @@
           const href = item.slug ? 'columns/' + encodeURIComponent(item.slug) + '/' : 'article/';
           const dateSource = item.publishedAt || item.createdAt;
           const title = escapeHtml(item.title || 'コラム');
-          const rawImg = item.eyecatchUrl || (item.eyecatch && item.eyecatch.url) || item.thumbnail || item.image;
+          const rawImg = [
+            item.eyecatchUrl,
+            item.eyecatch,
+            item.thumbnail,
+            item.main_image,
+            item.image,
+            item.photo
+          ].map(getImageUrl).find(Boolean);
           let thumb;
           if (rawImg) {
-            const sep = String(rawImg).indexOf('?') >= 0 ? '&' : '?';
-            const src = escapeHtml(rawImg + sep + 'fit=crop&w=600&h=338&q=80');
-            thumb = '<div class="column-thumb column-thumb-img"><img src="' + src + '" alt="" loading="lazy"></div>';
+            const src = escapeHtml(getOptimizedImageUrl(rawImg));
+            thumb = '<div class="column-thumb column-thumb-img"><img src="' + src + '" alt="' + title + '" loading="lazy" decoding="async"></div>';
           } else {
             const thumbClass = 'column-thumb column-thumb-0' + ((index % 3) + 1);
             thumb = '<div class="' + thumbClass + '" aria-hidden="true"><span>' + title + '</span></div>';
