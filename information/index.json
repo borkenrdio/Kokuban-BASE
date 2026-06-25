@@ -1,0 +1,907 @@
+[
+  {
+    "id": "column-spec",
+    "createdAt": "2026-06-25T03:00:00.000Z",
+    "updatedAt": "2026-06-25T03:00:00.000Z",
+    "publishedAt": "2026-06-25T03:00:00.000Z",
+    "revisedAt": "2026-06-25T03:00:00.000Z",
+    "title": "【電子黒板の選び方｜スペック編】OS・メモリ・CPUの見方がこれ1本で分かる",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/spec/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/83ebd9357c654b2998e134d56b0d6edf/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8825%E6%97%A5%2004_51_29%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-25T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/83ebd9357c654b2998e134d56b0d6edf/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8825%E6%97%A5%2004_51_29%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "column-benqboard",
+    "createdAt": "2026-06-24T03:00:00.000Z",
+    "updatedAt": "2026-06-24T03:00:00.000Z",
+    "publishedAt": "2026-06-24T03:00:00.000Z",
+    "revisedAt": "2026-06-24T03:00:00.000Z",
+    "title": "【電子黒板】BenQ Board が選ばれる３つの理由",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/BenQBoard/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/0f154dd1f44840a09b28510003ffdd70/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8824%E6%97%A5%2012_40_39%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-24T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/0f154dd1f44840a09b28510003ffdd70/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8824%E6%97%A5%2012_40_39%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "column-mirai-touch",
+    "createdAt": "2026-06-23T03:00:00.000Z",
+    "updatedAt": "2026-06-23T03:00:00.000Z",
+    "publishedAt": "2026-06-23T03:00:00.000Z",
+    "revisedAt": "2026-06-23T03:00:00.000Z",
+    "title": "電子黒板「MIRAI TOUCH」が授業で選ばれる3つの理由",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/MIRAI TOUCH/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/37376afacde54a11a2deaff75865948b/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8823%E6%97%A5%2011_31_58.png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-23T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/37376afacde54a11a2deaff75865948b/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8823%E6%97%A5%2011_31_58.png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "column-starboard",
+    "createdAt": "2026-06-22T03:00:00.000Z",
+    "updatedAt": "2026-06-22T03:00:00.000Z",
+    "publishedAt": "2026-06-22T03:00:00.000Z",
+    "revisedAt": "2026-06-22T03:00:00.000Z",
+    "title": "電子黒板「StarBoard」の魅力とは？授業現場を変える3つの強みを紹介",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/Starboard/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d2c02cbeab744834af15c32dd601608a/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%2011_45_28%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-22T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d2c02cbeab744834af15c32dd601608a/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%2011_45_28%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "column-shakaika-kiso",
+    "createdAt": "2026-06-19T03:00:00.000Z",
+    "updatedAt": "2026-06-19T03:00:00.000Z",
+    "publishedAt": "2026-06-19T03:00:00.000Z",
+    "revisedAt": "2026-06-19T03:00:00.000Z",
+    "title": "【社会科×電子黒板】小学4年「低い土地のくらし」| 木曽三川・輪中を読み解く 授業プラン",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/shakaika-kiso/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/34cb382f7cea4f79ba0d140c5afff35e/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%2011_51_11%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-19T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/34cb382f7cea4f79ba0d140c5afff35e/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%2011_51_11%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "column-os",
+    "createdAt": "2026-06-18T03:00:00.000Z",
+    "updatedAt": "2026-06-18T03:00:00.000Z",
+    "publishedAt": "2026-06-18T03:00:00.000Z",
+    "revisedAt": "2026-06-18T03:00:00.000Z",
+    "title": "【電子黒板の選び方】結局どのOSを選べばいいの？Android13？Android14？",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/os/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/c924e746a9044416b64a49c0570a7869/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8818%E6%97%A5%2013_07_00%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-18T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/c924e746a9044416b64a49c0570a7869/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8818%E6%97%A5%2013_07_00%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "column-camera1",
+    "createdAt": "2026-06-17T03:00:00.000Z",
+    "updatedAt": "2026-06-17T03:00:00.000Z",
+    "publishedAt": "2026-06-17T03:00:00.000Z",
+    "revisedAt": "2026-06-17T03:00:00.000Z",
+    "title": "書画カメラ×電子黒板で算数の図形授業を効率化！複雑な図を描かずに解説する方法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/camera1/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e902518efa14438a9ed354a0eb5e940f/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%2011_55_37%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-17T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e902518efa14438a9ed354a0eb5e940f/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%2011_55_37%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "column-googleearth-flight-simulator",
+    "createdAt": "2026-06-16T03:00:00.000Z",
+    "updatedAt": "2026-06-16T03:00:00.000Z",
+    "publishedAt": "2026-06-16T03:00:00.000Z",
+    "revisedAt": "2026-06-16T03:00:00.000Z",
+    "title": "Google Earthフライトシミュレーターの使い方｜地理の授業での活用方法を完全解説",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/googleearth-Flight-simulator/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2d79b1fad5a0499ca0d12b383836d185/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8816%E6%97%A5%2000_41_32%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-16T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2d79b1fad5a0499ca0d12b383836d185/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8816%E6%97%A5%2000_41_32%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "column-memory",
+    "createdAt": "2026-06-15T03:00:00.000Z",
+    "updatedAt": "2026-06-15T03:00:00.000Z",
+    "publishedAt": "2026-06-15T03:00:00.000Z",
+    "revisedAt": "2026-06-15T03:00:00.000Z",
+    "title": "失敗しない電子黒板選び｜メモリの見方を初心者向けに解説",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/memory/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/c8b9c7258c3c4cf189a4368339e8b130/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8815%E6%97%A5%2001_26_07%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-15T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/c8b9c7258c3c4cf189a4368339e8b130/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8815%E6%97%A5%2001_26_07%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "column-cpu",
+    "createdAt": "2026-06-12T03:00:00.000Z",
+    "updatedAt": "2026-06-12T03:00:00.000Z",
+    "publishedAt": "2026-06-12T03:00:00.000Z",
+    "revisedAt": "2026-06-12T03:00:00.000Z",
+    "title": "失敗しない電子黒板選び｜CPUの見方を初心者向けに解説",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/cpu/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/ac52d1f0badc4788b87f0df2d0123134/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8811%E6%97%A5%2017_48_44%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-12T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/ac52d1f0badc4788b87f0df2d0123134/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8811%E6%97%A5%2017_48_44%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "zcsruxlzz",
+    "createdAt": "2026-06-11T03:48:32.066Z",
+    "updatedAt": "2026-06-11T03:48:32.066Z",
+    "publishedAt": "2026-06-11T03:30:00.000Z",
+    "revisedAt": "2026-06-11T03:48:32.066Z",
+    "title": "OneNoteを電子黒板のホワイトボードとして活用！予習・板書・復習をラクにする授業方法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/onenote/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/b96b9d0f08c1481992b0d000435688b8/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8811%E6%97%A5%2012_34_35%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-11T03:30:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/b96b9d0f08c1481992b0d000435688b8/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8811%E6%97%A5%2012_34_35%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "pyhgyof998",
+    "createdAt": "2026-06-10T05:32:39.804Z",
+    "updatedAt": "2026-06-10T05:32:39.804Z",
+    "publishedAt": "2026-06-10T05:00:00.000Z",
+    "revisedAt": "2026-06-10T05:32:39.804Z",
+    "title": "電子黒板に動画を埋め込む授業活用法｜解説動画・発表振り返り・幼稚園の観察学習まで",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/doga/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/9d6a3310938048a49f430987c84f011f/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8810%E6%97%A5%2014_21_32%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-10T05:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/9d6a3310938048a49f430987c84f011f/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8810%E6%97%A5%2014_21_32%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "fyj4zos09s",
+    "createdAt": "2026-06-09T03:26:53.525Z",
+    "updatedAt": "2026-06-09T03:26:53.525Z",
+    "publishedAt": "2026-06-09T03:00:00.000Z",
+    "revisedAt": "2026-06-09T03:26:53.525Z",
+    "title": "電子黒板のスクリーンショット機能！PDF・答案・AI回答を切り取って授業で活用する方法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/screenshot/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/bcb0f6a0e16a429d88f9036824d4c9d8/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%889%E6%97%A5%2012_19_05%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-09T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/bcb0f6a0e16a429d88f9036824d4c9d8/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%889%E6%97%A5%2012_19_05%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "ybazc7owf",
+    "createdAt": "2026-06-08T02:47:15.007Z",
+    "updatedAt": "2026-06-08T02:47:15.007Z",
+    "publishedAt": "2026-06-08T02:00:00.000Z",
+    "revisedAt": "2026-06-08T02:47:15.007Z",
+    "title": "紙の資料を即座に電子黒板で表示する方法｜カメラ・クラウド・書画カメラの活用法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/camera-cloud/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/d260af68700d4cc280704a21347f2f82/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%888%E6%97%A5%2011_29_37%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-08T02:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/d260af68700d4cc280704a21347f2f82/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%888%E6%97%A5%2011_29_37%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "8m_yilx33oeh",
+    "createdAt": "2026-06-05T02:54:54.270Z",
+    "updatedAt": "2026-06-05T02:54:54.270Z",
+    "publishedAt": "2026-06-05T02:45:00.000Z",
+    "revisedAt": "2026-06-05T02:54:54.270Z",
+    "title": "電子黒板×Microsoft Teamsでチャット参加型の授業をつくる方法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/microsoft-teams-chat/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/00cb1e2f7ff948579cb9edd06abd70ba/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%885%E6%97%A5%2011_46_59%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-05T02:45:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/00cb1e2f7ff948579cb9edd06abd70ba/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%885%E6%97%A5%2011_46_59%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "k6bbztbtkj",
+    "createdAt": "2026-06-04T03:17:36.430Z",
+    "updatedAt": "2026-06-04T03:17:36.430Z",
+    "publishedAt": "2026-06-04T02:45:00.000Z",
+    "revisedAt": "2026-06-04T03:17:36.430Z",
+    "title": "電子黒板でPowerPoint資料を活用！授業・保護者会で使える3つの方法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/PowerPoint/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/a11734c2a5944ec8ad5ca17ac326ef18/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_14_02%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-04T02:45:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/a11734c2a5944ec8ad5ca17ac326ef18/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_14_02%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "o7tl2xqvt0x7",
+    "createdAt": "2026-06-02T16:54:55.251Z",
+    "updatedAt": "2026-06-02T16:54:55.251Z",
+    "publishedAt": "2026-06-03T02:00:00.000Z",
+    "revisedAt": "2026-06-02T16:54:55.251Z",
+    "title": "複数台の電子黒板で大きな教室の授業が変わる｜グループ討論・プレゼン活用法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/groupwork/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/db14eb1158164ea2a8ccabf4ae6ad30d/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%882%E6%97%A5%2018_33_31.png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-03T02:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/db14eb1158164ea2a8ccabf4ae6ad30d/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%882%E6%97%A5%2018_33_31.png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "ixoeo_e5js7",
+    "createdAt": "2026-06-02T03:06:11.207Z",
+    "updatedAt": "2026-06-02T03:06:11.207Z",
+    "publishedAt": "2026-06-02T03:00:00.000Z",
+    "revisedAt": "2026-06-02T03:06:11.207Z",
+    "title": "電子黒板の画面分割機能で「資料」と「板書」を1画面に並べる授業活用法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/gamenbunkatsu/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/456965ad38f54369b7cc2089e88ca0f6/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%882%E6%97%A5%2011_49_50%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-02T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/456965ad38f54369b7cc2089e88ca0f6/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%882%E6%97%A5%2011_49_50%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "vx1u1c9simcn",
+    "createdAt": "2026-06-01T00:29:57.192Z",
+    "updatedAt": "2026-06-01T05:00:02.403Z",
+    "publishedAt": "2026-06-01T01:00:00.000Z",
+    "revisedAt": "2026-06-01T05:00:02.403Z",
+    "title": "電子黒板を活用した国語の読解指導｜「線を引く」過程を可視化する授業術",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/kokugo-idea/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/cae01ba89f14416f80300f6d35ca20a5/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%881%E6%97%A5%2009_09_19%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-06-01T01:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/cae01ba89f14416f80300f6d35ca20a5/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%881%E6%97%A5%2009_09_19%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "f6k9e3sxok8",
+    "createdAt": "2026-05-31T23:58:18.419Z",
+    "updatedAt": "2026-05-31T23:58:18.419Z",
+    "publishedAt": "2026-05-30T15:00:00.000Z",
+    "revisedAt": "2026-05-31T23:58:18.419Z",
+    "title": "月刊私塾界2026年6月号にKokuban BASEが掲載されました",
+    "category": "メディア",
+    "url": "https://www.shijyukukai.jp/2026/05/30191",
+    "photo": [],
+    "date": "2026-05-30T15:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "uunn9338voeo",
+    "createdAt": "2026-05-29T06:16:11.796Z",
+    "updatedAt": "2026-05-29T06:16:11.796Z",
+    "publishedAt": "2026-05-29T06:00:00.000Z",
+    "revisedAt": "2026-05-29T06:16:11.796Z",
+    "title": "電子黒板で英語リスニング授業はどう変わる？音声・スクリプト・板書を同時に使う授業活用法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/listening/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/0fe998de2f6042a5832a21a43c691548/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8829%E6%97%A5%2015_07_19%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-05-29T06:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/0fe998de2f6042a5832a21a43c691548/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8829%E6%97%A5%2015_07_19%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "30auh2daa5jj",
+    "createdAt": "2026-05-26T23:41:33.290Z",
+    "updatedAt": "2026-05-26T23:41:33.290Z",
+    "publishedAt": "2026-05-27T00:00:00.000Z",
+    "revisedAt": "2026-05-26T23:41:33.290Z",
+    "title": "電子黒板×AIで学習塾の授業はどう変わる？先生の“優秀な助手”として使う３つの活用例",
+    "category": null,
+    "url": "https://kokuban-base.com/columns/AI-education/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/3d0b599be1b14cc5b31f08955dc28553/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8827%E6%97%A5%2008_09_10%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-05-27T00:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/3d0b599be1b14cc5b31f08955dc28553/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8827%E6%97%A5%2008_09_10%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "3e41_hy3zd",
+    "createdAt": "2026-05-26T06:09:00.475Z",
+    "updatedAt": "2026-05-26T06:09:00.475Z",
+    "publishedAt": "2026-05-26T06:00:00.000Z",
+    "revisedAt": "2026-05-26T06:09:00.475Z",
+    "title": "電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/bansho/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/c4448cee2de34109acfc4b99bc6d6e36/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8826%E6%97%A5%2014_39_56%20(1).png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-05-26T06:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/c4448cee2de34109acfc4b99bc6d6e36/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8826%E6%97%A5%2014_39_56%20(1).png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "3aawlgcv5v9",
+    "createdAt": "2026-05-25T02:52:44.649Z",
+    "updatedAt": "2026-05-25T02:52:44.649Z",
+    "publishedAt": "2026-05-25T03:00:00.000Z",
+    "revisedAt": "2026-05-25T02:52:44.649Z",
+    "title": "電子黒板はスタンドと壁掛け、どっちがいい？メリット・デメリット徹底比較",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/stand/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/a81a77191198455599906d83fd426784/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8825%E6%97%A5%2011_34_35%20(1).png",
+        "height": 1024,
+        "width": 1536
+      }
+    ],
+    "date": "2026-05-25T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/a81a77191198455599906d83fd426784/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8825%E6%97%A5%2011_34_35%20(1).png",
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  {
+    "id": "jqyko7rkg",
+    "createdAt": "2026-05-22T03:02:39.063Z",
+    "updatedAt": "2026-05-22T03:02:39.063Z",
+    "publishedAt": "2026-05-22T03:00:00.000Z",
+    "revisedAt": "2026-05-22T03:02:39.063Z",
+    "title": "板書はクラウドに保存！一枚の板書がずっと使える資産になる、電子黒板の使い方",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/cloud/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/c019332a6fb340a5a3a263c13ceae69b/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8822%E6%97%A5%2011_37_20.png",
+        "height": 1024,
+        "width": 1536
+      }
+    ],
+    "date": "2026-05-22T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/c019332a6fb340a5a3a263c13ceae69b/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8822%E6%97%A5%2011_37_20.png",
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  {
+    "id": "xzlbqqlhb",
+    "createdAt": "2026-05-21T03:21:15.234Z",
+    "updatedAt": "2026-05-21T03:21:15.234Z",
+    "publishedAt": "2026-05-21T03:00:00.000Z",
+    "revisedAt": "2026-05-21T03:21:15.234Z",
+    "title": "板書をQRコードで持ち帰る。生徒が「書き写し」から解放される電子黒板の使い方",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/qrcode/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/feb815270a554b65a9db8a5fa2784501/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8821%E6%97%A5%2011_56_28.png",
+        "height": 941,
+        "width": 1672
+      }
+    ],
+    "date": "2026-05-21T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/feb815270a554b65a9db8a5fa2784501/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8821%E6%97%A5%2011_56_28.png",
+      "width": 1672,
+      "height": 941
+    }
+  },
+  {
+    "id": "p5v3-cnz9fs2",
+    "createdAt": "2026-05-20T03:05:15.196Z",
+    "updatedAt": "2026-05-21T03:20:26.457Z",
+    "publishedAt": "2026-05-20T03:00:00.000Z",
+    "revisedAt": "2026-05-21T03:20:26.457Z",
+    "title": "デジタルで音楽の楽しみ方が変わる——電子黒板×Chrome Music Labの音楽授業",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/chromemusiclab/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/11220abd8f4f4adeafc9cd13e3513de0/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8820%E6%97%A5%2012_03_57.png",
+        "height": 1024,
+        "width": 1536
+      }
+    ],
+    "date": "2026-05-20T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/11220abd8f4f4adeafc9cd13e3513de0/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8820%E6%97%A5%2012_03_57.png",
+      "width": 1536,
+      "height": 1024
+    }
+  },
+  {
+    "id": "cw-s8ipd8g8",
+    "createdAt": "2026-05-18T05:39:48.922Z",
+    "updatedAt": "2026-05-18T05:39:48.922Z",
+    "publishedAt": "2026-05-18T05:30:00.000Z",
+    "revisedAt": "2026-05-18T05:39:48.922Z",
+    "title": "走る前と後で心拍数が「3倍」になる——電子黒板×心拍計で体の仕組みを学ぶ保健体育",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/denshikokuba-taiiku/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/12f007285fbb4ef69f6668826efa3dae/Dynamic%20Pop-Art%20Educational%20Thumbnail.png",
+        "height": 720,
+        "width": 1280
+      }
+    ],
+    "date": "2026-05-18T05:30:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/12f007285fbb4ef69f6668826efa3dae/Dynamic%20Pop-Art%20Educational%20Thumbnail.png",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  {
+    "id": "b-z6wvm2s",
+    "createdAt": "2026-05-31T23:55:26.644Z",
+    "updatedAt": "2026-05-31T23:55:41.761Z",
+    "publishedAt": "2026-05-01T01:00:00.000Z",
+    "revisedAt": "2026-05-31T23:55:41.761Z",
+    "title": "（株）idea spot（イデアスポット） 複数ブランドを徹底比較！ 学習塾の電子黒板導入なら「Kokuban BASE」",
+    "category": "メディア",
+    "url": "http://www.juku-kyoiku.com/news/30260.html",
+    "photo": [],
+    "date": "2026-05-01T01:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "9so03qdi391",
+    "createdAt": "2026-04-27T05:43:18.504Z",
+    "updatedAt": "2026-04-27T05:43:18.504Z",
+    "publishedAt": "2026-04-27T07:45:00.000Z",
+    "revisedAt": "2026-04-27T05:43:18.504Z",
+    "title": "最新Edtechをフル活用！授業で天体観測をし、天体を本質的に理解するアイデア",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/seiza-rika/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/2b963084e3d7424abaedfa8f7f64dfc3/%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E3%80%80%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%80%80%E6%98%9F%E5%BA%A7%E3%80%80%E5%AE%87%E5%AE%99%E3%80%80YouTube%E3%80%80%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB.png",
+        "height": 720,
+        "width": 1280
+      }
+    ],
+    "date": "2026-04-27T07:45:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/2b963084e3d7424abaedfa8f7f64dfc3/%E3%83%96%E3%83%A9%E3%83%83%E3%82%AF%E3%80%80%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%80%80%E6%98%9F%E5%BA%A7%E3%80%80%E5%AE%87%E5%AE%99%E3%80%80YouTube%E3%80%80%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB.png",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  {
+    "id": "ewsbx4ck_3q",
+    "createdAt": "2026-04-24T03:10:43.300Z",
+    "updatedAt": "2026-04-24T03:10:43.300Z",
+    "publishedAt": "2026-04-24T03:00:00.000Z",
+    "revisedAt": "2026-04-24T03:10:43.300Z",
+    "title": "電子黒板×Google Earthで小中学生の歴史授業を\"時間旅行\"に変える方法",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/google-earth/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/7149a14207d34e1b92e13ff5a47036ab/%E3%82%B0%E3%83%AC%E3%83%BC%E3%80%80%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%80%80%E6%97%85%E8%A8%98%E9%8C%B2%E3%80%80YouTube%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB.png",
+        "height": 720,
+        "width": 1280
+      }
+    ],
+    "date": "2026-04-24T03:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/7149a14207d34e1b92e13ff5a47036ab/%E3%82%B0%E3%83%AC%E3%83%BC%E3%80%80%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%80%80%E6%97%85%E8%A8%98%E9%8C%B2%E3%80%80YouTube%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB.png",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  {
+    "id": "x3jmny3tp",
+    "createdAt": "2026-04-20T07:58:17.769Z",
+    "updatedAt": "2026-04-20T07:58:17.769Z",
+    "publishedAt": "2026-04-20T08:00:00.000Z",
+    "revisedAt": "2026-04-20T07:58:17.769Z",
+    "title": "電子黒板×社会科地理・地形図で「まちの形」を読み解く。女川町に学ぶ地震・津波防災授業",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/onagawa-denshikokuban/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/636e3fce459e44bfa49cea4646c57b97/%E8%B5%A4%20%E3%82%A4%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E9%87%8D%E5%A4%A7%E7%99%BA%E8%A1%A8%20YouTube%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB%20(3)%20(1).png",
+        "height": 720,
+        "width": 1280
+      }
+    ],
+    "date": "2026-04-20T08:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/636e3fce459e44bfa49cea4646c57b97/%E8%B5%A4%20%E3%82%A4%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E9%87%8D%E5%A4%A7%E7%99%BA%E8%A1%A8%20YouTube%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB%20(3)%20(1).png",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  {
+    "id": "08xfp3xu6",
+    "createdAt": "2026-04-12T02:18:29.984Z",
+    "updatedAt": "2026-04-12T02:53:51.935Z",
+    "publishedAt": "2026-04-12T02:00:00.000Z",
+    "revisedAt": "2026-04-12T02:53:51.935Z",
+    "title": "〈電子黒板の活用〉「左」と「右」は書き順が違う。電子黒板の大画面で気づかせる低学年国語・漢字指導",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/kokugo-kanji-denshikokuban/",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/f77ee4e60cb841ae8d2a9e77c013ec89/%E9%BB%84%20%E3%83%94%E3%83%B3%E3%82%AF%20%E9%BB%92%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%20%E3%82%A4%E3%83%A4%E3%83%9B%E3%83%B3%20%E6%AF%94%E8%BC%83%20YouTube%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB.png",
+        "height": 720,
+        "width": 1280
+      }
+    ],
+    "date": "2026-04-12T02:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/f77ee4e60cb841ae8d2a9e77c013ec89/%E9%BB%84%20%E3%83%94%E3%83%B3%E3%82%AF%20%E9%BB%92%20%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%20%E3%82%A4%E3%83%A4%E3%83%9B%E3%83%B3%20%E6%AF%94%E8%BC%83%20YouTube%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB.png",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  {
+    "id": "0rn5m4te3g",
+    "createdAt": "2026-04-08T00:37:08.761Z",
+    "updatedAt": "2026-04-12T02:54:02.409Z",
+    "publishedAt": "2026-04-08T01:00:00.000Z",
+    "revisedAt": "2026-04-12T02:54:02.409Z",
+    "title": "〈電子黒板の活用〉展開図は「動かして」覚える——立方体11種類が操作できるDigital geneで図形授業が変わる",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/digital-gene",
+    "photo": [
+      {
+        "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/5280c364b88842f980a43a75f6698a46/%E7%AB%8B%E4%BD%93%E3%81%AE%E5%B1%95%E9%96%8B%E5%9B%B3%20(3).png",
+        "height": 720,
+        "width": 1280
+      }
+    ],
+    "date": "2026-04-08T01:00:00.000Z",
+    "image": {
+      "url": "https://images.microcms-assets.io/assets/3bfef1fb9ff24c90a1e6fa555fbd29c5/5280c364b88842f980a43a75f6698a46/%E7%AB%8B%E4%BD%93%E3%81%AE%E5%B1%95%E9%96%8B%E5%9B%B3%20(3).png",
+      "width": 1280,
+      "height": 720
+    }
+  },
+  {
+    "id": "o70ijiu59",
+    "createdAt": "2026-03-15T12:22:40.086Z",
+    "updatedAt": "2026-04-12T02:54:10.259Z",
+    "publishedAt": "2026-03-15T13:00:00.000Z",
+    "revisedAt": "2026-04-12T02:54:10.259Z",
+    "title": "〈電子黒板の活用〉最難関理科を突破する、電子黒板×Javalabを活用した理科の授業アイデア",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/javalab/",
+    "photo": [],
+    "date": "2026-03-15T13:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "7fnsq6fiiw",
+    "createdAt": "2026-03-09T07:58:14.677Z",
+    "updatedAt": "2026-04-12T02:54:17.159Z",
+    "publishedAt": "2026-03-09T08:00:00.000Z",
+    "revisedAt": "2026-04-12T02:54:17.159Z",
+    "title": "〈電子黒板の活用〉BenQ BoardのNFCタッチ機能でGoogleアカウントを瞬時に切り替え。生徒主体の探究授業も手軽に。",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/benQboard-NFC/",
+    "photo": [],
+    "date": "2026-03-09T08:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "dld-k--kno",
+    "createdAt": "2026-02-07T07:50:49.869Z",
+    "updatedAt": "2026-02-07T07:50:49.869Z",
+    "publishedAt": "2026-02-07T08:00:00.000Z",
+    "revisedAt": "2026-02-07T07:50:49.869Z",
+    "title": "〈電子黒板の活用〉Googleマップで中学受験対策―知識が「芋づる式」につながる社会科地理の授業アイデア",
+    "category": "活用事例",
+    "url": "https://kokuban-base.com/columns/ifp-lesson-lab-googlemap/",
+    "photo": [],
+    "date": "2026-02-07T08:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "54cru2qt_lb5",
+    "createdAt": "2026-02-05T11:12:05.761Z",
+    "updatedAt": "2026-02-05T11:12:05.761Z",
+    "publishedAt": "2026-02-05T11:00:00.000Z",
+    "revisedAt": "2026-02-05T11:12:05.761Z",
+    "title": "【対談の後日談】メーカー開発者との対談で分かった、自塾に合う電子黒板の選び方とは？",
+    "category": "対談記事",
+    "url": "https://kokuban-base.com/columns/denshikokuban-gakushujuku/",
+    "photo": [],
+    "date": "2026-02-05T11:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "rtyqnxxs8",
+    "createdAt": "2026-01-11T06:54:48.506Z",
+    "updatedAt": "2026-01-11T06:54:48.506Z",
+    "publishedAt": "2026-01-12T01:00:00.000Z",
+    "revisedAt": "2026-01-11T06:54:48.506Z",
+    "title": "【対談】誕生8年、累計出荷台数70,000台。MIRAI TOUCHが選ばれる理由とは？",
+    "category": "対談記事",
+    "url": "https://kokuban-base.com/columns/miraitouch-ideaspot-education-talk/",
+    "photo": [],
+    "date": "2026-01-12T01:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "napw3ursf",
+    "createdAt": "2026-01-05T03:15:17.472Z",
+    "updatedAt": "2026-01-05T05:07:33.784Z",
+    "publishedAt": "2026-01-05T03:30:00.000Z",
+    "revisedAt": "2026-01-05T05:07:33.784Z",
+    "title": "【新プラン】月額12,603円からの衝撃　学習塾専用「Kokuban リース」が2026年1月より開始。初期コストを抑え授業をDX化する。",
+    "category": "プレリリース",
+    "url": "https://kokuban-base.com/columns/pressrelease-lease/",
+    "photo": [],
+    "date": "2026-01-05T03:30:00.000Z",
+    "image": null
+  },
+  {
+    "id": "ya2y0hqnu140",
+    "createdAt": "2025-12-02T04:04:06.933Z",
+    "updatedAt": "2025-12-17T07:51:04.900Z",
+    "publishedAt": "2025-12-02T03:00:00.000Z",
+    "revisedAt": "2025-12-17T07:51:04.900Z",
+    "title": "【対談】世界50万台の実績　電子黒板「StarBoard」が選ばれる理由とは？電子黒板の営業歴２０年超のStarboard担当者に迫る ",
+    "category": "対談記事",
+    "url": "https://kokuban-base.com/columns/starboard-ideaspot-education-talk/",
+    "photo": [],
+    "date": "2025-12-02T03:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "8o827stz9y",
+    "createdAt": "2025-11-25T12:22:00.317Z",
+    "updatedAt": "2025-12-17T07:53:19.355Z",
+    "publishedAt": "2025-11-25T13:00:00.000Z",
+    "revisedAt": "2025-12-17T07:53:19.355Z",
+    "title": "【対談】国内最大手SHARPの電子黒板「BIG PAD」が選ばれる理由とは？",
+    "category": "対談記事",
+    "url": "https://kokuban-base.com/columns/sharp-ideaspot-education-talk/",
+    "photo": [],
+    "date": "2025-11-25T13:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "u3qazs3gi",
+    "createdAt": "2025-11-12T07:34:30.466Z",
+    "updatedAt": "2025-12-17T07:52:19.960Z",
+    "publishedAt": "2025-11-11T01:00:00.000Z",
+    "revisedAt": "2025-12-17T07:52:19.960Z",
+    "title": "【対談】国内インターナショナルスクールシェアNo.1　Gemini搭載の電子黒板「BenQ Board」が選ばれる理由とは？",
+    "category": "対談記事",
+    "url": "https://kokuban-base.com/columns/benq-ideaspot-education-talk/",
+    "photo": [],
+    "date": "2025-11-11T01:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "77jo1e1lzes",
+    "createdAt": "2025-11-12T04:48:53.209Z",
+    "updatedAt": "2025-11-25T12:25:33.217Z",
+    "publishedAt": "2025-11-01T01:00:00.000Z",
+    "revisedAt": "2025-11-25T12:25:33.217Z",
+    "title": "日本初、電子黒板の比較体験倉庫「Kokuban BASE」、11月1日オープン",
+    "category": "プレリリース",
+    "url": "https://prtimes.jp/main/html/rd/p/000000001.000170903.html",
+    "photo": [],
+    "date": "2025-11-01T01:00:00.000Z",
+    "image": null
+  },
+  {
+    "id": "2n6adgdho5",
+    "createdAt": "2026-05-31T23:56:32.170Z",
+    "updatedAt": "2026-05-31T23:56:48.392Z",
+    "publishedAt": "2025-10-30T15:00:00.000Z",
+    "revisedAt": "2026-05-31T23:56:48.392Z",
+    "title": "電子黒板の“比較体験倉庫”──イデアスポットが提案する新たなICT導入の形",
+    "category": "メディア",
+    "url": "https://www.shijyukukai.jp/2025/10/29126",
+    "photo": [],
+    "date": "2025-10-30T15:00:00.000Z",
+    "image": null
+  }
+]
