@@ -9,6 +9,136 @@
   --white: #fff;
 }
 
+/* ===== Wider, clearer site-wide reading update ===== */
+:root {
+  --kb-content-width: 960px;
+  --kb-wide-width: 1120px;
+  --kb-reading-width: 760px;
+  --kb-content-gutter: 48px;
+  --kb-page-title: clamp(32px, 3.5vw, 44px);
+  --kb-section-title: clamp(24px, 2.5vw, 30px);
+  --kb-card-title: 19px;
+  --kb-body: 15px;
+}
+
+body {
+  font-size: 100%;
+}
+
+.header-main,
+.footer-inner,
+.hero-content,
+.news-heading,
+.news-list,
+.declaration-panel,
+.column-heading,
+.column-grid,
+.top-guide-cta,
+.lineup-showcase,
+.lease-products-section,
+.lease-benefits,
+.support-features,
+.guide-grid,
+.card-grid,
+.page-column-list .column-heading,
+.page-column-list .column-grid {
+  width: min(var(--kb-wide-width), calc(100% - var(--kb-content-gutter)));
+}
+
+.page-section,
+#consultation,
+.lease-about-section,
+.lease-feature-section,
+.lease-flow-section,
+.faq-page-list,
+.voices-section,
+.contact-form-section {
+  width: min(var(--kb-content-width), calc(100% - var(--kb-content-gutter)));
+}
+
+.container {
+  width: min(var(--kb-wide-width), calc(100% - var(--kb-content-gutter))) !important;
+  max-width: var(--kb-wide-width) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.max-w-3xl,
+.toc-container {
+  max-width: var(--kb-reading-width) !important;
+}
+
+.max-w-4xl {
+  max-width: min(920px, var(--kb-content-width)) !important;
+}
+
+.max-w-5xl {
+  max-width: var(--kb-wide-width) !important;
+}
+
+.hero-copy,
+.news-heading p,
+.column-heading p,
+.declaration p,
+.top-guide-card p,
+.guide-flow-card p,
+.support-feature-card p,
+.lease-benefits p,
+.company-message p,
+.company-business-grid p,
+.voice-slide-card > p:last-child,
+.lineup-description,
+.showroom-options p,
+.rental-placement-grid p,
+.article-body {
+  font-size: var(--kb-body);
+  line-height: 1.9;
+}
+
+.header-actions .btn,
+.global-nav,
+.footer-btn,
+.footer-nav,
+.contact-privacy,
+.contact-submit-row p {
+  font-size: 13px;
+}
+
+.header-phone small,
+.footer-phone small,
+.footer-copy {
+  font-size: 11px;
+}
+
+.article-body {
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.btn,
+.news-more,
+.page-btn,
+.top-guide-btn,
+.flow-cta,
+.quote-btn,
+.contact-submit {
+  font-size: 15px;
+}
+
+:is(.declaration, .top-guide-card, .guide-flow-card, .support-feature-card, .lease-benefits article, .company-business-grid article, .card-grid a, .guide-grid a)::before {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 42px;
+  margin-bottom: 18px;
+  border: 2px solid rgba(16, 63, 153, .9);
+  border-radius: 10px;
+  background:
+    linear-gradient(90deg, rgba(236, 72, 153, .18), rgba(16, 63, 153, .12)),
+    linear-gradient(#fff, #fff);
+  box-shadow: inset 0 -9px 0 rgba(16, 63, 153, .08), 0 10px 22px rgba(16, 63, 153, .12);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -1474,4 +1604,59 @@ details p {
   .footer-nav a:first-child {
     padding-left: 0;
   }
+}
+
+/* Final override for wider pages and larger text. */
+:root {
+  --kb-content-width: 960px;
+  --kb-wide-width: 1120px;
+  --kb-reading-width: 760px;
+  --kb-content-gutter: 48px;
+  --kb-body: 15px;
+}
+
+body {
+  font-size: 100%;
+}
+
+.header-main,
+.footer-inner,
+.hero-content,
+.news-heading,
+.news-list,
+.declaration-panel,
+.column-heading,
+.column-grid,
+.top-guide-cta,
+.lineup-showcase,
+.lease-products-section,
+.lease-benefits,
+.support-features,
+.guide-grid,
+.card-grid {
+  width: min(var(--kb-wide-width), calc(100% - var(--kb-content-gutter)));
+}
+
+.page-section,
+#consultation,
+.lease-about-section,
+.lease-feature-section,
+.lease-flow-section,
+.faq-page-list,
+.voices-section,
+.contact-form-section {
+  width: min(var(--kb-content-width), calc(100% - var(--kb-content-gutter)));
+}
+
+.hero-copy,
+.news-heading p,
+.column-heading p,
+.declaration p,
+.top-guide-card p,
+.guide-flow-card p,
+.support-feature-card p,
+.lease-benefits p,
+.article-body {
+  font-size: var(--kb-body);
+  line-height: 1.9;
 }
