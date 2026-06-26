@@ -92,4 +92,5 @@ jobs:
             echo "If GitHub Pages does not redeploy after this workflow commits, add MICROCMS_UPDATE_TOKEN as a fine-grained PAT with contents:write."
           fi
 
+
           git push origin main
