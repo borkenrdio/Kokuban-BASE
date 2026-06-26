@@ -1,5 +1,8 @@
 # microCMSのAPIキー情報が含まれるため、Gitの管理対象から除外します
 config.js
 
+# npm dependencies are installed during builds and should not be committed.
+node_modules/
+
 # ビルド時に自動生成されるためソース管理しない
 /sitemap.xml
