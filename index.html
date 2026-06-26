@@ -264,7 +264,7 @@
         if (!container) return;
         const html = items.slice(0, 5).map(function (item) {
           const dateSource = item.publishedAt || item.date || item.createdAt;
-          const href = item.url || (item.id ? 'information/' : '#');
+          const href = item.url || (item.slug ? 'columns/' + encodeURIComponent(item.slug) + '/' : 'article/');
           const category = getCategoryName(item.category);
           return '<li class="news-item"><a href="' + escapeHtml(href) + '">' +
             '<time datetime="' + escapeHtml(dateSource || '') + '">' + escapeHtml(formatDate(dateSource)) + '</time>' +
@@ -315,7 +315,7 @@
       }
 
       document.addEventListener('DOMContentLoaded', function () {
-        loadJson('information/index.json')
+        loadJson('columns/index.json')
           .then(renderNews)
           .catch(function () {
             const error = document.getElementById('error-message-latest');
