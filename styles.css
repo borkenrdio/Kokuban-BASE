@@ -169,6 +169,7 @@ a {
   padding: 0 clamp(14px, 1.8vw, 26px);
   line-height: 1.2;
   border-right: 1px solid var(--line);
+  font-weight: 700;
 }
 
 .global-nav a:first-child {
