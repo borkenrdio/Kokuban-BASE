@@ -704,7 +704,7 @@ a {
 .page-hero p {
   margin: 0 0 5px;
   color: var(--pink);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: .16em;
 }
@@ -952,12 +952,12 @@ a {
 
 .page-anchor-nav a {
   position: relative;
-  padding: 0 38px 0 18px;
+  padding: 0 40px 0 18px;
   color: var(--blue);
   border-right: 1px solid var(--line);
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
-  line-height: 20px;
+  line-height: 22px;
 }
 
 .page-anchor-nav a:first-child {
@@ -2997,7 +2997,7 @@ a {
 .lease-product-card .maker {
   margin: 0 0 2px;
   color: #374151;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: .03em;
 }
@@ -3005,7 +3005,7 @@ a {
 .lease-product-card h3 {
   margin: 0 0 5px;
   color: #111827;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
 }
 
@@ -3013,7 +3013,7 @@ a {
 .price-label {
   margin: 0 0 2px;
   color: #334155;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -3125,7 +3125,7 @@ a {
 .lease-feature-grid p {
   margin: 0;
   color: #475569;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.8;
 }
@@ -3140,7 +3140,7 @@ a {
   border-radius: 8px;
   color: #fff;
   background: var(--blue);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   box-shadow: 0 5px 0 rgba(11, 45, 112, .22);
 }
@@ -3173,8 +3173,8 @@ a {
 
 .lease-flow-steps span {
   display: inline-flex;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
@@ -3184,7 +3184,7 @@ a {
   color: #fff;
   background: var(--blue);
   font-family: Assistant, var(--font-family);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -3192,7 +3192,7 @@ a {
   display: block;
   min-height: 38px;
   color: #111827;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.55;
 }
@@ -3200,7 +3200,7 @@ a {
 .lease-flow-steps p {
   margin: 5px 0 0;
   color: #475569;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 1.55;
 }
@@ -5601,20 +5601,20 @@ details p {
     width: 42px;
     height: 42px;
     margin: 0;
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .lease-flow-steps strong {
     align-self: end;
     min-height: 0;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.4;
   }
 
   .lease-flow-steps p {
     align-self: start;
     margin-top: 2px;
-    font-size: 9px;
+    font-size: 12px;
     line-height: 1.5;
   }
 
@@ -5653,13 +5653,13 @@ details p {
   .lease-feature-grid h3 {
     align-self: end;
     margin: 0 0 3px;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.45;
   }
 
   .lease-feature-grid p {
     align-self: start;
-    font-size: 10px;
+    font-size: 13px;
     line-height: 1.6;
   }
 
@@ -5694,7 +5694,7 @@ details p {
     padding: 10px 30px 10px 12px;
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.5;
   }
 
