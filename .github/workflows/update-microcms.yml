@@ -1,14 +1,13 @@
 name: Update microCMS content
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
-  repository_dispatch:
-    types:
-      - microcms_publish
-      - microcms_update
-      - update_microcms
+  repository_dispatch: {}
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/15 * * * *"
 
 permissions:
   contents: write
@@ -41,6 +40,8 @@ jobs:
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+          COLUMNS_SERVICE_DOMAIN: ${{ secrets.COLUMNS_SERVICE_DOMAIN }}
+          MICROCMS_COLUMNS_KEY: ${{ secrets.MICROCMS_COLUMNS_KEY }}
           INFORMATION_SERVICE_DOMAIN: ${{ secrets.INFORMATION_SERVICE_DOMAIN }}
           MICROCMS_INFORMATION_DOMAIN: ${{ secrets.MICROCMS_INFORMATION_DOMAIN }}
           MICROCMS_INFO_DOMAIN: ${{ secrets.MICROCMS_INFO_DOMAIN }}
@@ -53,18 +54,21 @@ jobs:
 
           ran_build=false
 
-          if [[ -n "${MICROCMS_SERVICE_DOMAIN}" && -n "${MICROCMS_API_KEY}" ]]; then
-            npm run build:columns
-            ran_build=true
-          else
-            echo "Skipping columns build: MICROCMS_SERVICE_DOMAIN or MICROCMS_API_KEY is not set."
-          fi
-
           if [[ -n "${INFORMATION_SERVICE_DOMAIN}${MICROCMS_INFORMATION_DOMAIN}${MICROCMS_INFO_DOMAIN}" && -n "${MICROCMS_INFORMATION_KEY}${INFORMATION_API_KEY}${MICROCMS_INFO_KEY}" ]]; then
             npm run build:information
             ran_build=true
           else
             echo "Skipping information build: information microCMS secrets are not set."
+          fi
+
+          if [[ -n "${COLUMNS_SERVICE_DOMAIN}" && -n "${MICROCMS_COLUMNS_KEY}" ]]; then
+            MICROCMS_SERVICE_DOMAIN="${COLUMNS_SERVICE_DOMAIN}" MICROCMS_API_KEY="${MICROCMS_COLUMNS_KEY}" npm run build:columns
+            ran_build=true
+          elif [[ -n "${MICROCMS_SERVICE_DOMAIN}" && -n "${MICROCMS_API_KEY}" ]]; then
+            npm run build:columns
+            ran_build=true
+          else
+            echo "Skipping columns build: columns microCMS secrets are not set."
           fi
 
           if [[ "${ran_build}" != "true" ]]; then
@@ -91,6 +95,5 @@ jobs:
             echo "MICROCMS_UPDATE_TOKEN is not set. The commit will be pushed with GITHUB_TOKEN."
             echo "If GitHub Pages does not redeploy after this workflow commits, add MICROCMS_UPDATE_TOKEN as a fine-grained PAT with contents:write."
           fi
-
 
           git push origin main
