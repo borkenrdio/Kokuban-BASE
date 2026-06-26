@@ -569,6 +569,7 @@ function getExternalLinkMetadataFromUrl(rawUrl) {
     return null;
   }
 
+  
   if (!/^https?:$/.test(url.protocol) || isInternalColumnUrl(url.href)) return null;
 
   const metadataKey = url.href.endsWith('/') ? url.href : `${url.href}/`;
