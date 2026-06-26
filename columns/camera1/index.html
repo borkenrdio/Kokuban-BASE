@@ -109,6 +109,26 @@
 
         .article-body p { margin-bottom: 2em; }
         .article-body br { display: inline; }
+
+        .article-body ul,
+        .article-body ol {
+            margin: 1.5em 0 2em;
+            padding-left: 1.6em;
+        }
+        .article-body ul { list-style: disc; }
+        .article-body ol { list-style: decimal; }
+        .article-body li {
+            margin: 0.45em 0;
+            padding-left: 0.2em;
+        }
+        .article-body li > ul,
+        .article-body li > ol {
+            margin: 0.5em 0;
+        }
+        .article-body li::marker {
+            color: #103f99;
+            font-weight: 700;
+        }
         
         .article-body h2 { 
             font-size: 1.75rem; 
