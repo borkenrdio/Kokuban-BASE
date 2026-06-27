@@ -4143,6 +4143,7 @@ a {
 .voice-slider {
   position: relative;
   z-index: 0;
+  padding: 0 52px;
 }
 
 .voice-slider-window {
@@ -4318,16 +4319,16 @@ a {
   position: absolute;
   top: 50%;
   z-index: 20;
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   display: grid;
   place-items: center;
-  border: 0;
-  border-radius: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
   color: var(--pink);
-  background: transparent;
-  box-shadow: none;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, .12);
   font-size: 0;
   line-height: 0;
   transform: translateY(-50%);
@@ -4343,7 +4344,7 @@ a {
 }
 
 .voice-slider-prev {
-  left: 10px;
+  left: 2px;
 }
 
 .voice-slider-prev::before {
@@ -4351,7 +4352,7 @@ a {
 }
 
 .voice-slider-next {
-  right: 10px;
+  right: 2px;
 }
 
 .voice-slider-next::before {
@@ -5656,12 +5657,16 @@ details p {
     flex-basis: calc((100% - 24px) / 2);
   }
 
+  .voice-slider {
+    padding: 0 46px;
+  }
+
   .voice-slider-prev {
-    left: -12px;
+    left: 2px;
   }
 
   .voice-slider-next {
-    right: -12px;
+    right: 2px;
   }
 
   .voice-scenes-heading {
