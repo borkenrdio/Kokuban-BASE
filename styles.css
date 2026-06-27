@@ -6260,17 +6260,21 @@ details p {
   }
 
   .voice-slider-btn {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     font-size: 0;
   }
 
+  .voice-slider {
+    padding: 0 40px;
+  }
+
   .voice-slider-prev {
-    left: 6px;
+    left: 2px;
   }
 
   .voice-slider-next {
-    right: 6px;
+    right: 2px;
   }
 
   .voice-scenes-section {
