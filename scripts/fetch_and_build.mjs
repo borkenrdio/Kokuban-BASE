@@ -10,6 +10,8 @@ const JSON_OUTPUT_PATH = path.resolve(COLUMNS_DIR, 'index.json');
 const SITEMAP_OUTPUT_PATH = path.resolve(process.cwd(), 'sitemap.xml');
 const HOME_HTML_PATH = path.resolve(process.cwd(), 'index.html');
 const ARTICLE_HTML_PATH = path.resolve(process.cwd(), 'article', 'index.html');
+// 破損しない固定テンプレート（Bot は書き換えない）。これを入力に使い article/index.html を毎回生成する。
+const ARTICLE_TEMPLATE_PATH = path.resolve(process.cwd(), 'article', 'index.template.html');
 const WHATIS_HTML_PATH = path.resolve(process.cwd(), 'whatissmrtboard', 'index.html');
 const TEAM_DIR = path.resolve(process.cwd(), 'team');
 // お知らせ(information エンドポイント)の出力先
@@ -1628,13 +1630,25 @@ function buildCardHtml(article, type = 'standard') {
 async function buildArticleListPage(articles) {
   console.log('article.html を静的生成中...');
 
+  // クリーンなテンプレート（article/index.template.html）を入力に使う。
+  // 生成先の article/index.html を入力に使うと、マージ事故で混入した
+  // コンフリクトマーカーや重複セクションが自分自身に蓄積し続けてしまうため、
+  // 破損し得る生成物ではなく、Bot が書き換えない固定テンプレートから毎回生成する。
   let html;
   try {
-    html = fs.readFileSync(ARTICLE_HTML_PATH, 'utf-8');
-  } catch (err) {
-    console.error('article.html の読み込みに失敗しました:', err);
-    return;
+    html = fs.readFileSync(ARTICLE_TEMPLATE_PATH, 'utf-8');
+  } catch (templateErr) {
+    console.warn('article テンプレートが見つからないため、生成済み article.html をフォールバックに使用します:', templateErr.message);
+    try {
+      html = fs.readFileSync(ARTICLE_HTML_PATH, 'utf-8');
+    } catch (err) {
+      console.error('article.html の読み込みに失敗しました:', err);
+      return;
+    }
   }
+
+  // 念のための保険: 何らかの理由で混入した git コンフリクトマーカー行を除去
+  html = html.replace(/^[ \t]*(?:<{7}|={7}|>{7})[^\n]*\r?\n?/gm, '');
 
   // カテゴリ分け
   const interviewArticles = articles.filter(a => isInterview(a));
@@ -1671,13 +1685,13 @@ async function buildArticleListPage(articles) {
     `<div id="column-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">\n${columnHtml}\n</div>\n`
   );
 
-  // ④ 「もっと読み込む」系のボタンは全件表示済みなので非表示に
+  // ④ 「もっと読み込む」系のボタンは全件表示済みなので非表示に（冪等: 既に付与済みなら追加しない）
   html = html.replace(
-    /id="interview-more-container"/g,
+    /id="interview-more-container"(?!\s+style="display:none")/g,
     'id="interview-more-container" style="display:none"'
   );
   html = html.replace(
-    /id="column-more-container"/g,
+    /id="column-more-container"(?!\s+style="display:none")/g,
     'id="column-more-container" style="display:none"'
   );
 
