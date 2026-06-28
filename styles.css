@@ -1350,7 +1350,7 @@ a {
 .contact-panel p,
 .page-note {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   line-height: 1.9;
 }
@@ -1585,7 +1585,7 @@ a {
 
 .lineup-description {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: .03em;
@@ -1716,7 +1716,7 @@ a {
 .online-note {
   width: min(680px, 100%);
   margin: 12px auto 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 11px;
   font-weight: 700;
   line-height: 1.7;
@@ -1788,7 +1788,7 @@ a {
 
 .online-cta-lead {
   margin: 0 0 24px;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   font-weight: 500;
   line-height: 1.85;
@@ -2048,7 +2048,7 @@ a {
 .online-about > p {
   width: min(760px, 100%);
   margin: 0 auto;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   font-weight: 700;
   line-height: 1.9;
@@ -2117,7 +2117,7 @@ a {
 }
 
 .showroom-access dd {
-  color: #334155;
+  color: #0f1419;
   font-weight: 700;
 }
 
@@ -2256,7 +2256,7 @@ a {
 
 .support-feature-card p {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: .03em;
@@ -2331,7 +2331,7 @@ a {
 
 .online-flow-list p {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 12px;
   font-weight: 700;
   line-height: 1.8;
@@ -2408,7 +2408,7 @@ a {
 
 .lease-benefits p {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 12px;
   font-weight: 700;
   line-height: 1.8;
@@ -3042,7 +3042,7 @@ a {
 .contract,
 .price-label {
   margin: 0 0 2px;
-  color: #334155;
+  color: #0f1419;
   font-size: 12px;
   font-weight: 700;
 }
@@ -3546,7 +3546,7 @@ a {
 
 .showroom-map figcaption {
   padding: 14px 18px 16px;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   line-height: 1.75;
 }
@@ -3585,7 +3585,7 @@ a {
 
 .showroom-options p {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 12px;
   line-height: 1.85;
 }
@@ -3705,7 +3705,7 @@ a {
 
 .rental-placement-grid p {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   line-height: 1.85;
 }
@@ -3771,7 +3771,7 @@ a {
 
 .rental-stand-note > p {
   margin: 0 0 16px;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   line-height: 1.85;
 }
@@ -3859,7 +3859,7 @@ a {
 .company-business-grid p,
 .company-source {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   line-height: 1.85;
 }
@@ -3886,7 +3886,7 @@ a {
 
 .company-profile dd {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 14px;
   line-height: 1.8;
 }
@@ -4022,7 +4022,7 @@ a {
   position: relative;
   z-index: 1;
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 14px;
   line-height: 1.9;
 }
@@ -4062,7 +4062,7 @@ a {
 
 .voices-note p {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   line-height: 1.85;
 }
@@ -4528,7 +4528,7 @@ a {
 
 .usecase-grid p {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 13px;
   line-height: 1.85;
 }
@@ -4881,7 +4881,7 @@ details p {
 
 .guide-intro-right p {
   margin: 0;
-  color: #334155;
+  color: #0f1419;
   font-size: 14px;
   line-height: 2;
 }
@@ -5031,155 +5031,243 @@ details p {
 }
 
 /* トッチE ご利用ガイチE/ お問ぁE��わせ CTAカーチE*/
-.top-guide-cta {
-  width: min(880px, calc(100% - 40px));
+section.top-guide-cta {
+  width: min(1040px, calc(100% - 40px));
   margin: 0 auto;
   padding: 6px 0 64px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 26px;
 }
 
 .top-guide-card {
   position: relative;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 34px 28px 32px;
+  align-items: stretch;
+  min-height: 226px;
+  text-align: left;
   border: 1px solid var(--line);
-  border-top: 4px solid var(--blue);
-  border-radius: 12px;
+  border-radius: 20px;
   background: #fff;
-  box-shadow: 0 10px 26px rgba(15, 23, 42, .05);
-}
-
-.top-guide-card--guide {
-  border-top-color: var(--blue);
-  background: var(--blue);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, .08);
 }
 
 .top-guide-card--faq {
-  border-top-color: var(--pink);
-  background: var(--pink);
+  border-color: #f6d3e3;
+  background: linear-gradient(135deg, #fff6fb 0%, #ffe6f1 100%);
 }
 
-.top-guide-card--guide h3,
-.top-guide-card--guide p,
-.top-guide-card--faq h3,
-.top-guide-card--faq p {
-  color: #fff;
-}
-
-.top-guide-head {
+.top-guide-content {
+  position: relative;
+  z-index: 3;
+  flex: 0 0 47%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px 8px 28px 32px;
 }
 
-.top-guide-head .top-guide-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0;
+.top-guide-icon {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  margin: 0 0 16px;
+  border-radius: 16px;
 }
 
-.top-guide-head .top-guide-icon svg {
+.top-guide-icon svg {
   width: 28px;
   height: 28px;
 }
 
-.top-guide-head h3 {
-  margin: 0;
-}
-
-.top-guide-icon {
-  width: 72px;
-  height: 72px;
-  display: grid;
-  place-items: center;
-  margin-bottom: 18px;
-  border-radius: 18px;
+.top-guide-card--guide .top-guide-icon {
   color: var(--blue);
-  background: var(--soft);
-  box-shadow: inset 0 0 0 1px rgba(16, 63, 153, .12);
+  background: #e9edf4;
 }
 
-.top-guide-card--guide .top-guide-icon,
 .top-guide-card--faq .top-guide-icon {
   color: #fff;
-  background: rgba(255, 255, 255, .18);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35);
-}
-
-.top-guide-icon svg {
-  width: 38px;
-  height: 38px;
+  background: var(--pink);
 }
 
 .top-guide-card h3 {
-  margin: 0 0 14px;
-  color: var(--ink);
-  font-size: 18px;
-  font-weight: 700;
+  margin: 0 0 12px;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 800;
+  line-height: 1.25;
 }
 
-.top-guide-card p {
-  margin: 0 0 24px;
-  color: var(--muted);
+.top-guide-card--guide h3 {
+  color: var(--blue);
+}
+
+.top-guide-card--faq h3 {
+  color: var(--pink);
+}
+
+.top-guide-cta .top-guide-card p {
+  margin: 0 0 22px;
+  color: #0f1419;
   font-size: 13px;
   line-height: 1.8;
 }
 
 .top-guide-btn {
   margin-top: auto;
-  min-width: 200px;
-  min-height: 46px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
-  padding: 10px 26px;
+  min-height: 44px;
+  padding: 11px 14px 11px 26px;
   border-radius: 999px;
   color: #fff;
-  background: var(--blue);
   font-size: 14px;
   font-weight: 700;
 }
 
 .top-guide-card--guide .top-guide-btn {
-  background: #fff;
-  color: var(--blue);
+  background: var(--blue);
 }
 
 .top-guide-card--faq .top-guide-btn {
-  background: #fff;
-  color: var(--pink);
-}
-
-.top-guide-card--guide .top-guide-btn i,
-.top-guide-card--faq .top-guide-btn i {
-  background: rgba(15, 20, 25, .14);
+  background: var(--pink);
 }
 
 .top-guide-btn i {
   display: grid;
   place-items: center;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .25);
+  background: #fff;
   font-style: normal;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
 }
 
-@media (max-width: 640px) {
-  .top-guide-cta {
+.top-guide-card--guide .top-guide-btn i {
+  color: var(--blue);
+}
+
+.top-guide-card--faq .top-guide-btn i {
+  color: var(--pink);
+}
+
+/* Right-side visuals */
+.top-guide-visual {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 53%;
+  align-self: stretch;
+  overflow: visible;
+}
+
+/* Guide card: blue panel with 3-step flow */
+.guide-steps-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.guide-steps {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  margin: 0;
+  padding: 0 22px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.guide-steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(9, 31, 84, .22);
+}
+
+.guide-steps li:nth-child(1) { margin-left: -16px; }
+.guide-steps li:nth-child(2) { margin-left: -34px; }
+.guide-steps li:nth-child(3) { margin-left: -12px; }
+
+.guide-step-num {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.guide-step-label {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f1f44;
+  white-space: nowrap;
+}
+
+.guide-step-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+}
+
+.guide-step-icon svg {
+  width: 24px;
+  height: 22px;
+}
+
+/* FAQ card: support illustration */
+.faq-illust {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (max-width: 760px) {
+  section.top-guide-cta {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 18px;
     padding-bottom: 48px;
+  }
+}
+
+@media (max-width: 560px) {
+  .top-guide-card {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .top-guide-content {
+    flex: none;
+    width: 100%;
+    padding: 26px 24px 6px;
+  }
+
+  .top-guide-visual {
+    width: 100%;
+    min-height: 190px;
+  }
+
+  .guide-steps li {
+    margin-left: 0;
   }
 }
 
@@ -6783,7 +6871,7 @@ details p {
   padding: 12px 14px;
   border: 1px solid #dbe3ef;
   border-radius: 8px;
-  color: #334155;
+  color: #0f1419;
   background: #f8fbff;
   font-size: 13px;
   font-weight: 700;
@@ -7516,4 +7604,25 @@ body:has(.sticky-cta) .site-footer {
     padding: 9px 20px;
     font-size: 14px;
   }
+}
+
+/* ===== Unify section-description / card-body text size across pages =====
+   Body descriptions were authored at 13/14/15px on different pages; this
+   pins the genuine "説明文" paragraphs to the shared body token (15px / 1.9).
+   Eyebrow labels, compact lists, notes and decorative text are intentionally
+   left out. */
+.news-heading p,
+.column-heading p,
+.information-heading p,
+.section-title-block p,
+.lease-section-heading span,
+.lease-about-card > p,
+.guide-intro-right p,
+.operator-intro p:not(.operator-label),
+.usecase-grid p:not(.usecase-value),
+.online-cta-lead,
+.online-about > p,
+.online-feature-grid p {
+  font-size: var(--kb-body);
+  line-height: 1.9;
 }
