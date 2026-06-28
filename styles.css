@@ -5266,8 +5266,26 @@ section.top-guide-cta {
     min-height: 190px;
   }
 
-  .guide-steps li {
+  .top-guide-visual--steps {
+    background: linear-gradient(160deg, #2b5fbf 0%, #0f3a93 100%);
+  }
+
+  .guide-steps-bg {
+    display: none;
+  }
+
+  .guide-steps {
+    padding: 20px 18px;
+  }
+
+  .guide-steps li:nth-child(1),
+  .guide-steps li:nth-child(2),
+  .guide-steps li:nth-child(3) {
     margin-left: 0;
+  }
+
+  .top-guide-visual--faq {
+    min-height: 210px;
   }
 }
 
