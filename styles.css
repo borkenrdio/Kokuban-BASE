@@ -7061,6 +7061,12 @@ section.top-guide-cta {
   box-shadow: 0 16px 28px rgba(236, 72, 153, .28);
 }
 
+.contact-submit:disabled {
+  cursor: wait;
+  opacity: .68;
+  transform: none;
+}
+
 .contact-form-result {
   margin-top: 24px;
   padding: 16px 18px;
@@ -7068,6 +7074,29 @@ section.top-guide-cta {
   border-radius: 8px;
   color: #0f172a;
   background: #f3f8ff;
+}
+
+.contact-form-result.is-success {
+  border-left-color: #0f9f6e;
+  background: #f0fdf8;
+}
+
+.contact-form-result.is-success strong {
+  color: #047857;
+}
+
+.contact-form-result.is-error {
+  border-left-color: #dc2626;
+  background: #fff1f2;
+}
+
+.contact-form-result.is-error strong {
+  color: #b91c1c;
+}
+
+.contact-form-result.is-loading {
+  border-left-color: var(--pink);
+  background: #fff7fb;
 }
 
 .contact-form-result strong,
