@@ -8309,7 +8309,13 @@ body:has(.sticky-cta) .site-footer {
 }
 
 @media (max-width: 760px) {
-  .selection-title-line {
+  .selection-panel {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .selection-title-line,
+  .selection-board-line {
     white-space: normal;
   }
 
@@ -8334,7 +8340,7 @@ body:has(.sticky-cta) .site-footer {
 /* Service implementation support redesign */
 .implementation-support-section {
   max-width: none;
-  width: min(660px, calc(100% - 40px));
+  width: min(var(--kb-content-width), calc(100% - var(--kb-content-gutter)));
   margin-inline: auto;
   padding: clamp(26px, 3vw, 40px) 0;
   overflow: hidden;
@@ -8370,32 +8376,27 @@ body:has(.sticky-cta) .site-footer {
 
 .implementation-support-copy h2 {
   position: relative;
-  margin: 0 0 42px;
-  padding-left: 32px;
-  font-size: clamp(46px, 5.2vw, 76px);
-  line-height: 1.1;
-  letter-spacing: 0;
-  font-weight: 900;
+  margin: 0 0 18px;
+  padding-left: 18px;
+  border-left: 2px solid #6b7280;
+  color: #111827;
+  font-size: var(--kb-section-title);
+  line-height: 1.5;
+  letter-spacing: .02em;
+  font-weight: 700;
 }
 
 .implementation-support-copy h2::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: .12em;
-  width: 5px;
-  height: 1.15em;
-  border-radius: 999px;
-  background: var(--pink);
-  box-shadow: 0 0 20px rgba(236, 72, 153, .2);
+  content: none;
 }
 
 .implementation-support-copy p:not(.implementation-support-brand) {
   margin: 0;
   max-width: 760px;
-  font-size: clamp(18px, 1.42vw, 26px);
-  line-height: 1.95;
-  font-weight: 700;
+  color: #0f1419;
+  font-size: var(--kb-body);
+  line-height: 1.9;
+  font-weight: 400;
 }
 
 .implementation-support-visual {
@@ -8405,25 +8406,11 @@ body:has(.sticky-cta) .site-footer {
 }
 
 .implementation-support-visual::before {
-  content: "";
-  position: absolute;
-  inset: 8% 6% 0 10%;
-  border-radius: 50%;
-  background: linear-gradient(140deg, rgba(226, 239, 255, .95), rgba(246, 249, 255, .55));
-  z-index: 0;
+  content: none;
 }
 
 .implementation-support-visual::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 18%;
-  width: 112px;
-  height: 112px;
-  opacity: .45;
-  background-image: radial-gradient(circle, rgba(236, 72, 153, .55) 2.5px, transparent 3px);
-  background-size: 18px 18px;
-  z-index: 1;
+  content: none;
 }
 
 .implementation-support-visual img {
@@ -8432,14 +8419,10 @@ body:has(.sticky-cta) .site-footer {
   display: block;
   width: min(460px, 100%);
   height: clamp(230px, 34vw, 310px);
-  margin-left: auto;
+  margin-inline: auto;
   object-fit: cover;
   object-position: 50% 55%;
-  border-radius: 0 0 0 80px;
-  mix-blend-mode: multiply;
-  filter: saturate(.92) brightness(1.2) contrast(.9);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 88%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 88%, transparent 100%);
+  border-radius: 16px;
 }
 
 .implementation-support-panel {
@@ -8555,13 +8538,12 @@ body:has(.sticky-cta) .site-footer {
   }
 
   .implementation-support-copy h2 {
-    padding-left: 20px;
-    margin-bottom: 24px;
-    font-size: clamp(38px, 11vw, 52px);
+    padding-left: 18px;
+    margin-bottom: 16px;
   }
 
   .implementation-support-copy p:not(.implementation-support-brand) {
-    font-size: 16px;
+    font-size: var(--kb-body);
     line-height: 1.85;
   }
 
