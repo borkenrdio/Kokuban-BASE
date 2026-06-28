@@ -7646,6 +7646,10 @@ body:has(.sticky-cta) .site-footer {
 }
 
 /* ===== 購入・リース契約 セクション（#contract）===== */
+#contract .split-panel {
+  margin-left: 0;
+  margin-right: auto;
+}
 #contract .split-panel h2 {
   border-left: 4px solid var(--blue);
   padding-left: 16px;
@@ -7653,7 +7657,7 @@ body:has(.sticky-cta) .site-footer {
 
 .lease-price {
   width: min(760px, 100%);
-  margin: 20px auto 0;
+  margin: 20px 0 0;
   display: flex;
   align-items: center;
   gap: 22px;
@@ -7750,14 +7754,16 @@ body:has(.sticky-cta) .site-footer {
 
 #contract .lease-desc {
   width: min(760px, 100%);
-  margin: 22px auto 0;
+  margin: 22px 0 0;
   color: #0f1419;
   font-size: var(--kb-body);
   line-height: 1.9;
 }
 
-.check-list.check-list--row {
+#contract .check-list.check-list--row {
   width: min(760px, 100%);
+  margin-left: 0;
+  margin-right: auto;
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   padding: 18px 8px;
