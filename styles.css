@@ -35,6 +35,9 @@ body {
   font-size: 100%;
   font-weight: 400;
   line-height: 1.8;
+  /* 日本語を文節単位で折り返し、語中での不自然な改行を抑える（対応ブラウザのみ／非対応は従来動作） */
+  line-break: strict;
+  word-break: auto-phrase;
 }
 
 a {
@@ -7827,13 +7830,13 @@ body:has(.sticky-cta) .site-footer {
     border-top: 1px solid var(--line);
   }
 
-  .check-list.check-list--row {
+  #contract .check-list.check-list--row {
     grid-template-columns: 1fr;
     gap: 12px;
     padding: 20px 18px;
   }
 
-  .check-list--row li {
+  #contract .check-list--row li {
     border-left: 0;
     padding: 0;
   }
@@ -8579,6 +8582,17 @@ body:has(.sticky-cta) .site-footer {
 
   .page-btn--support {
     min-height: 58px;
+  }
+}
+
+/* ===== モバイルでの不自然な改行対策 =====
+   PC用に入れた見出しの強制改行(<br>)が、スマホでは折り返しと重なって
+   「短い孤立行」を生むため、対象見出しではモバイル時のみ<br>を無効化し、
+   文節折り返し(word-break:auto-phrase)に任せる。 */
+@media (max-width: 640px) {
+  .voice-slide-card h2 br,
+  .guide-intro-right h2 br {
+    display: none;
   }
 }
 
