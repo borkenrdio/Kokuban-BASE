@@ -85,6 +85,7 @@
   <script>
     (function () {
       const JSON_PATH = '/information/index.json';
+      const COLUMNS_JSON_PATH = '/columns/index.json';
       const ITEMS_PER_PAGE = 8;
       const list = document.getElementById('information-list');
       const loading = document.getElementById('information-loading');
@@ -122,7 +123,7 @@
       }
 
       function getItemImage(item) {
-        return getImageUrl(item.image || item.thumbnail || item.photo || item.eyecatch);
+        return getImageUrl(item.image || item.thumbnail || item.photo || item.eyecatch || item.eyecatchUrl);
       }
 
       function getItemDate(item) {
@@ -163,6 +164,57 @@
         } catch {
           return false;
         }
+      }
+      function toColumnInformationItem(item) {
+        const slug = item.slug ? encodeURIComponent(item.slug) : '';
+        const url = item.url || (slug ? '/columns/' + slug + '/' : '/article/');
+        return {
+          id: item.id ? 'column-' + item.id : 'column-' + (item.slug || item.title || url),
+          title: item.title || 'コラム',
+          publishedAt: item.publishedAt || item.date || item.createdAt,
+          date: item.publishedAt || item.date || item.createdAt,
+          category: getCategory(item) || 'コラム',
+          url: url,
+          image: item.eyecatchUrl ? { url: item.eyecatchUrl } : (item.eyecatch || item.image || item.thumbnail || item.photo),
+          source: 'columns'
+        };
+      }
+
+      function getDedupeKey(item) {
+        if (item.url) {
+          try {
+            const parsed = new URL(item.url, window.location.origin);
+            return parsed.pathname.replace(/\/$/, '').toLowerCase();
+          } catch {
+            return String(item.url).toLowerCase();
+          }
+        }
+        return String(item.id || item.title || '').toLowerCase();
+      }
+
+      function dedupeItems(rawItems) {
+        const map = new Map();
+        rawItems.forEach(function (item) {
+          const key = getDedupeKey(item);
+          if (!key) return;
+          const previous = map.get(key);
+          if (!previous) {
+            map.set(key, item);
+            return;
+          }
+          const previousTime = getItemDate(previous);
+          const itemTime = getItemDate(item);
+          if ((itemTime ? itemTime.getTime() : 0) >= (previousTime ? previousTime.getTime() : 0)) {
+            map.set(key, item);
+          }
+        });
+        return Array.from(map.values());
+      }
+
+      async function loadJson(path) {
+        const response = await fetch(path + '?t=' + Date.now(), { cache: 'no-store' });
+        if (!response.ok) throw new Error('Failed to load ' + path);
+        return response.json();
       }
 
       function renderItem(item) {
@@ -223,10 +275,15 @@
         loading.hidden = false;
         error.hidden = true;
         try {
-          const response = await fetch(JSON_PATH + '?t=' + Date.now(), { cache: 'no-store' });
-          if (!response.ok) throw new Error('Failed to load information');
-          const data = await response.json();
-          const rawItems = data.contents ? data.contents : (Array.isArray(data) ? data : []);
+          const results = await Promise.allSettled([
+            loadJson(JSON_PATH),
+            loadJson(COLUMNS_JSON_PATH)
+          ]);
+          const informationData = results[0].status === 'fulfilled' ? results[0].value : [];
+          const columnsData = results[1].status === 'fulfilled' ? results[1].value : [];
+          const informationItems = informationData.contents ? informationData.contents : (Array.isArray(informationData) ? informationData : []);
+          const columnItems = Array.isArray(columnsData) ? columnsData.map(toColumnInformationItem) : [];
+          const rawItems = dedupeItems(informationItems.concat(columnItems));
           items = rawItems.sort(function (a, b) {
             const aTime = getItemDate(a);
             const bTime = getItemDate(b);
