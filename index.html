@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260629-navicons2">
+  <link rel="stylesheet" href="styles.css?v=20260629-tophero1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -100,17 +100,133 @@
   </header>
 
   <main>
-    <section class="hero">
-      <video class="hero-video" autoplay muted loop playsinline poster="https://kokuban-base.com/img/hero-poster.webp" aria-hidden="true">
-        <source src="https://kokuban-base.com/img/top.webm" type="video/webm">
-        <source src="https://kokuban-base.com/img/top.mp4" type="video/mp4">
-      </video>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-content">
-        <h1>電子黒板選びの総合窓口</h1>
-        <p class="hero-brand">Kokuban BASE</p>
-        <p class="hero-copy">さまざまな電子黒板を取扱い、<br>お客様に合った商品を一緒に考える。<br>電子黒板の総合販売代理店です。</p>
-        <a class="btn btn-primary btn-hero" href="contact/">無料で相談する</a>
+    <!-- ===== 1. ヒーロー（電子黒板選びの総合窓口） ===== -->
+    <section class="lp-hero">
+      <div class="lp-hero-deco" aria-hidden="true">
+        <span class="lp-hero-glow"></span>
+        <svg class="lp-hero-curve" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice"><path d="M-50 420C300 300 620 520 900 380 1180 240 1340 360 1500 300" fill="none" stroke="rgba(120,170,255,.18)" stroke-width="2"/><path d="M-50 480C300 360 640 560 920 430 1200 300 1360 410 1500 350" fill="none" stroke="rgba(120,170,255,.1)" stroke-width="2"/></svg>
+      </div>
+      <div class="lp-hero-inner">
+        <div class="lp-hero-copy">
+          <p class="lp-hero-eyebrow">電子黒板選びの総合窓口</p>
+          <h1 class="lp-hero-title">Kokuban BASE</h1>
+          <p class="lp-hero-lead">比べる、相談する、導入するまで。<br>電子黒板選びを、まとめてサポートします。</p>
+          <ul class="lp-hero-points">
+            <li>
+              <span class="lp-hero-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></span>
+              <span class="lp-hero-point-text"><strong>相談</strong>プロに相談できる</span>
+            </li>
+            <li>
+              <span class="lp-hero-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V10"/><path d="M11 21V4"/><path d="M17 21v-7"/><path d="M3 21h18"/></svg></span>
+              <span class="lp-hero-point-text"><strong>比較</strong>製品を比較できる</span>
+            </li>
+            <li>
+              <span class="lp-hero-point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h3.5l2.5 3v3h-6"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg></span>
+              <span class="lp-hero-point-text"><strong>導入</strong>納品までサポート</span>
+            </li>
+          </ul>
+          <a class="lp-hero-cta" href="contact/">無料で相談する<i aria-hidden="true">›</i></a>
+        </div>
+        <div class="lp-hero-visual">
+          <!-- TODO: ヒーロー用の電子黒板画像（背景透過PNG推奨）を assets/hero-board.png として保存してください -->
+          <img class="lp-hero-board" src="assets/hero-board.png" alt="Kokuban BASE 電子黒板" width="820" height="660" loading="eager">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. 授業が変わる代表機能 ===== -->
+    <section id="features" class="lp-features">
+      <div class="lp-features-head">
+        <h2>まずは、<span class="lp-accent">授業が変わる代表機能</span>から。</h2>
+        <p>Kokuban BASEの製品には、授業をもっと創造的に、スムーズにする標準機能を搭載しています。</p>
+      </div>
+      <div class="lp-features-body">
+        <figure class="lp-features-demo">
+          <!-- TODO: 機能デモ画像（PDF表示・書き込み画面）を assets/feature-pdf-demo.png に差し替え -->
+          <img src="assets/feature-pdf-demo.png" alt="電子黒板でPDFを表示しながら書き込みするデモ画面">
+        </figure>
+        <div class="lp-features-list">
+          <!-- TODO: 各機能カードのリンク先URLは確定後に差し替え -->
+          <a class="lp-feature-card lp-feature-card--main" href="#feature-pdf">
+            <span class="lp-feature-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h4M9 16h4"/></svg></span>
+            <span class="lp-feature-card-label">PDF表示 / 書き込み</span>
+            <span class="lp-feature-card-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4 4 10-10.5"/></svg></span>
+          </a>
+          <a class="lp-feature-card" href="#feature-split">
+            <span class="lp-feature-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></svg></span>
+            <span class="lp-feature-card-label">画面分割</span>
+            <i class="lp-feature-card-arrow" aria-hidden="true">›</i>
+          </a>
+          <a class="lp-feature-card" href="#feature-qr">
+            <span class="lp-feature-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 17v4h-4M17.5 17.5v.01"/></svg></span>
+            <span class="lp-feature-card-label">QR共有</span>
+            <i class="lp-feature-card-arrow" aria-hidden="true">›</i>
+          </a>
+          <div class="lp-feature-note">
+            <div class="lp-feature-note-text">
+              <h3>標準搭載機能について</h3>
+              <p>授業をもっとスムーズに進めるための便利な機能を標準で搭載しています。直感的な操作で、誰でもすぐに使えます。</p>
+            </div>
+            <!-- TODO: 標準搭載機能の補足画像を assets/feature-standard.png に差し替え -->
+            <img src="assets/feature-standard.png" alt="標準搭載機能のイメージ">
+          </div>
+          <!-- TODO: 全機能ページのURLに差し替え -->
+          <a class="lp-features-more" href="#all-features">すべての標準搭載機能を見る<i aria-hidden="true">›</i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. 選定に必要なことを、ひとつの窓口で ===== -->
+    <section id="service" class="lp-window">
+      <div class="lp-window-inner">
+        <div class="lp-window-copy">
+          <p class="lp-window-eyebrow">Kokuban BASEでできること</p>
+          <h2>選定に必要なことを、<br><span class="lp-accent">ひとつの窓口</span>で。</h2>
+          <p class="lp-window-lead">相談から比較、導入まで、<br>Kokuban BASEがまとめて支えます。</p>
+          <div class="lp-window-cards">
+            <a class="lp-window-card" href="service/">
+              <span class="lp-window-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h8"/><path d="M8 14h5"/></svg></span>
+              <span class="lp-window-card-text"><strong>相談する</strong><em>条件を整理</em></span>
+              <i aria-hidden="true">›</i>
+            </a>
+            <a class="lp-window-card" href="service/">
+              <span class="lp-window-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V10"/><path d="M11 21V4"/><path d="M17 21v-7"/><path d="M3 21h18"/></svg></span>
+              <span class="lp-window-card-text"><strong>比べる</strong><em>違いを見える化</em></span>
+              <i aria-hidden="true">›</i>
+            </a>
+            <a class="lp-window-card" href="service/">
+              <span class="lp-window-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h3.5l2.5 3v3h-6"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg></span>
+              <span class="lp-window-card-text"><strong>導入する</strong><em>納品まで対応</em></span>
+              <i aria-hidden="true">›</i>
+            </a>
+          </div>
+        </div>
+        <div class="lp-window-visual">
+          <svg class="lp-window-diagram" viewBox="0 0 440 380" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="220" cy="200" rx="180" ry="150" fill="none" stroke="rgba(150,190,255,.28)" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round"/>
+            <rect x="120" y="120" width="200" height="128" rx="8" fill="#0c2c6e" stroke="rgba(150,190,255,.5)" stroke-width="2.5"/>
+            <path d="M150 222l24-30 18 18 22-34 26 46" fill="none" stroke="#5b8def" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="270" cy="168" r="16" fill="none" stroke="#ec4899" stroke-width="3"/>
+            <path d="M270 152v16h14" stroke="#ec4899" stroke-width="3" stroke-linecap="round"/>
+            <path d="M196 248v14h48v-14" stroke="rgba(150,190,255,.5)" stroke-width="2.5"/>
+            <rect x="186" y="262" width="68" height="9" rx="4" fill="rgba(150,190,255,.5)"/>
+            <g>
+              <circle cx="220" cy="56" r="30" fill="#ec4899"/>
+              <path d="M210 56h20M210 56l8-8M210 56l8 8" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="231" cy="48" r="3.4" fill="#fff"/><circle cx="231" cy="64" r="3.4" fill="#fff"/><circle cx="210" cy="56" r="3.4" fill="#fff"/>
+            </g>
+            <g>
+              <circle cx="372" cy="200" r="30" fill="#2f6fe0"/>
+              <path d="M361 212V202M372 212V190M383 212v-6M359 212h26" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            </g>
+            <g>
+              <circle cx="220" cy="344" r="30" fill="#19b3a6"/>
+              <circle cx="213" cy="338" r="5" fill="#fff"/><circle cx="229" cy="340" r="4" fill="#fff"/>
+              <path d="M205 356c0-5 4-8 8-8s8 3 8 8M222 356c0-4 3-7 7-7s6 2 6 6" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            </g>
+          </svg>
+          <p class="lp-window-caption">現場に合う<span class="lp-accent-num">1台</span>を、一緒に選ぶ。</p>
+        </div>
       </div>
     </section>
 
@@ -124,44 +240,17 @@
       <a class="news-more" href="information/">NEWS一覧を見る<i aria-hidden="true">›</i></a>
     </section>
 
-    <section id="service" class="service-section service-selection-section">
-      <div class="selection-panel">
-        <div class="selection-copy">
-          <p class="selection-eyebrow">Kokuban BASEでできること</p>
-          <h2><span class="selection-title-line">選定に必要なことを、</span><br><span class="selection-title-line"><span class="selection-title-pink">ひとつの窓口</span>で。</span></h2>
-          <p class="selection-lead">相談から比較、導入まで。<br>Kokuban BASE がまとめて支えます。</p>
+    <!-- ===== 5. よくある質問CTA（新設） ===== -->
+    <section class="lp-faqcta" aria-label="よくある質問のご案内">
+      <div class="lp-faqcta-inner">
+        <div class="lp-faqcta-text">
+          <span class="lp-faqcta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2.1-2.5 4"/><path d="M12 17h.01"/></svg></span>
+          <div>
+            <h2>電子黒板選びでよくあるご質問</h2>
+            <p>導入前の不安や費用、設置方法などをまとめています。</p>
+          </div>
         </div>
-
-        <div class="selection-flow" aria-label="Kokuban BASEの特徴">
-          <a class="selection-card" href="service/">
-            <span class="selection-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h8"/><path d="M8 14h5"/></svg></span>
-            <span class="selection-card-text"><small>特徴1</small><strong>相談する</strong><em>条件を整理</em></span>
-            <img src="assets/top-feature-consult.png" alt="相談しながら電子黒板導入の条件を整理するイメージ" loading="lazy">
-          </a>
-          <a class="selection-card" href="service/">
-            <span class="selection-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9"/><path d="M10 19V5"/><path d="M16 19v-8"/><path d="M22 19H2"/></svg></span>
-            <span class="selection-card-text"><small>特徴2</small><strong>比べる</strong><em>違いを見える化</em></span>
-            <img src="assets/top-feature-compare.png" alt="複数の電子黒板候補を比較するイメージ" loading="lazy">
-          </a>
-          <a class="selection-card" href="service/">
-            <span class="selection-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="12" height="9" rx="1.5"/><path d="M14.5 10h3.2l3.8 4v1h-7"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></span>
-            <span class="selection-card-text"><small>特徴3</small><strong>導入する</strong><em>発送まで対応</em></span>
-            <img src="assets/top-feature-install.png" alt="電子黒板を設置場所へ搬入するイメージ" loading="lazy">
-          </a>
-        </div>
-
-        <figure class="selection-board">
-          <img src="assets/top-feature-board.png" alt="現場に合う電子黒板を選ぶイメージ" loading="lazy">
-          <figcaption><span class="selection-board-line">現場に合う<span class="selection-board-accent">1台</span>を、</span><span class="selection-board-line">一緒に選ぶ。</span></figcaption>
-        </figure>
-      </div>
-
-      <div class="faq-cta">
-        <h2>よくある質問</h2>
-        <a class="faq-link" href="faq/">
-          <span>Q &amp; A をみる</span>
-          <i aria-hidden="true">›</i>
-        </a>
+        <a class="lp-faqcta-btn" href="faq/">よくある質問を見る<i aria-hidden="true">›</i></a>
       </div>
     </section>
     <section id="column" class="column-section">
