@@ -1,5 +1,17 @@
 [
   {
+    "id": "994o9yswyuxd",
+    "slug": "inch",
+    "title": "【豆知識】電子黒板の「インチ」とは？",
+    "publishedAt": "2026-06-29T19:17:16.399Z",
+    "revisedAt": null,
+    "eyecatchUrl": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png",
+    "description": "電子黒板やテレビの「○インチ」は画面の対角線の長さで、1インチは約2.54cmです。なぜ横幅でなく対角線で測るのか（丸いテレビの名残）、16:9という画面の形の意味、なぜ55・65・75・86・98という刻みなのかまで、電子黒板のサイズ選びの前に知っておきたい豆知識をやさしく解説します。",
+    "category": [
+      "活用事例"
+    ]
+  },
+  {
     "id": "zu11kzo03",
     "slug": "Gemini",
     "title": "電子黒板×生成AI Geminiで「演習量」を確保！国語・接続詞の問題をその場で作って解説する授業法",
