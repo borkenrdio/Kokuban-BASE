@@ -156,7 +156,7 @@
         showContactResult(
           'error',
           '送信先が未設定です',
-          'Google Apps Script のWebアプリURLを設定すると、この内容をスプレッドシートへ転記できます。'
+          '現在フォームの送信準備中です。お手数ですが、お電話または時間をおいて再度お問い合わせください。'
         );
         return;
       }
@@ -168,7 +168,7 @@
 
       contactSubmit.disabled = true;
       contactSubmit.textContent = '送信中...';
-      showContactResult('loading', '送信中です', '内容をGoogleスプレッドシートへ転記しています。');
+      showContactResult('loading', '送信中です', '内容を送信しています。このまま少々お待ちください。');
 
       try {
         await fetch(endpoint, {
