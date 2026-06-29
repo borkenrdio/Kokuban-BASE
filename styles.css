@@ -9541,6 +9541,157 @@ body:has(.sticky-cta) .site-footer {
 .lp-window-caption { margin: 10px 0 0; text-align: center; font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; }
 .lp-accent-num { color: #ff5fa6; font-size: 1.3em; }
 
+/* ===== 2.5 プロが相談に乗ります ===== */
+.lp-pro-consult {
+  color: #071b42;
+  background: linear-gradient(135deg, #ffe6f1 0%, #ffd3e8 54%, #ffc1dc 100%);
+  padding: clamp(26px, 4vw, 46px) 0 clamp(22px, 3.5vw, 34px);
+  overflow: hidden;
+}
+
+.lp-pro-consult-inner {
+  width: min(var(--kb-wide-width), calc(100% - var(--kb-content-gutter)));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(250px, .78fr) minmax(0, 1.35fr);
+  gap: clamp(18px, 2.8vw, 34px);
+  align-items: center;
+}
+
+.lp-pro-consult-copy { min-width: 0; }
+
+.lp-pro-consult-eyebrow {
+  margin: 0 0 6px;
+  color: #d62f82;
+  font-size: clamp(11px, 1vw, 13px);
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.lp-pro-consult-copy h2 {
+  margin: 0;
+  color: #061a42;
+  font-size: clamp(26px, 3vw, 42px);
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.lp-pro-consult-copy h2 span {
+  color: var(--pink);
+  font-size: 1.18em;
+}
+
+.lp-pro-consult-copy p {
+  margin: 12px 0 0;
+  max-width: 460px;
+  color: rgba(6, 26, 66, .78);
+  font-size: clamp(12px, 1.05vw, 14px);
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.lp-pro-consult-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: min(100%, 300px);
+  min-height: 42px;
+  margin-top: 18px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f45ca5, var(--pink));
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: 0 12px 26px rgba(236, 72, 153, .28);
+}
+
+.lp-pro-consult-btn i {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .24);
+  font-style: normal;
+  line-height: 1;
+}
+
+.lp-pro-consult-copy small {
+  display: block;
+  margin-top: 9px;
+  color: rgba(6, 26, 66, .58);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.lp-pro-consult-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(10px, 1.4vw, 16px);
+}
+
+.lp-pro-consult-card {
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .76);
+  border: 1px solid rgba(255, 255, 255, .76);
+  box-shadow: 0 16px 34px rgba(166, 42, 100, .16);
+}
+
+.lp-pro-consult-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.lp-pro-consult-card-body {
+  position: relative;
+  padding: 18px 16px 17px;
+}
+
+.lp-pro-consult-icon {
+  position: absolute;
+  top: -24px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--pink);
+  box-shadow: 0 10px 24px rgba(236, 72, 153, .2);
+}
+
+.lp-pro-consult-icon svg { width: 24px; height: 24px; }
+
+.lp-pro-consult-card h3 {
+  margin: 0;
+  color: #071b42;
+  font-size: clamp(14px, 1.15vw, 17px);
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.lp-pro-consult-card p {
+  margin: 9px 0 0;
+  color: rgba(7, 27, 66, .64);
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.lp-pro-consult-note {
+  width: min(var(--kb-wide-width), calc(100% - var(--kb-content-gutter)));
+  margin: 14px auto 0;
+  text-align: center;
+  color: #c91f76;
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 900;
+}
 /* ===== 5. よくある質問CTA ===== */
 .lp-faqcta {
   width: min(var(--kb-content-width), calc(100% - var(--kb-content-gutter)));
@@ -9610,6 +9761,7 @@ body:has(.sticky-cta) .site-footer {
   .lp-hero-inner { grid-template-columns: 1fr; gap: clamp(20px, 4vw, 32px); }
   .lp-features-body { grid-template-columns: 1fr; }
   .lp-window-inner { grid-template-columns: 1fr; gap: 30px; }
+  .lp-pro-consult-inner { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
@@ -9618,6 +9770,12 @@ body:has(.sticky-cta) .site-footer {
   .lp-hero-points li:first-child { padding-top: 0; }
   .lp-hero-points li + li { border-left: 0; border-top: 1px solid rgba(255, 255, 255, .16); }
   .lp-feature-note { flex-direction: column; align-items: flex-start; }
+  .lp-pro-consult-cards { grid-template-columns: 1fr; }
+  .lp-pro-consult-card { display: grid; grid-template-columns: 42% 1fr; align-items: stretch; }
+  .lp-pro-consult-card img { height: 100%; aspect-ratio: auto; }
+  .lp-pro-consult-card-body { padding: 16px 14px; }
+  .lp-pro-consult-icon { top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 12px; }
+  .lp-pro-consult-icon svg { width: 20px; height: 20px; }
   .lp-feature-note img { width: 100%; height: 130px; }
   .lp-features-more { justify-self: start; }
   .lp-faqcta-inner { flex-direction: column; align-items: flex-start; }
