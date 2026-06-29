@@ -285,11 +285,11 @@ function allowBrTags(str) {
  */
 function createEyecatchHtml(eyecatch, alt) {
   if (!eyecatch || !eyecatch.url) return '';
-  const width = eyecatch.width || 1200;
-  const height = eyecatch.height || 675;
+  const width = 1200;
+  const height = 675;
   const altText = escapeHtml(alt);
   const optimizedUrl = `${eyecatch.url}?fit=crop&w=1200&h=675&q=80`;
-  return `<img src="${optimizedUrl}" alt="${altText}" width="${width}" height="${height}" class="w-full h-[42vw] max-h-[420px] min-h-[190px] object-cover rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">`;
+  return `<img src="${optimizedUrl}" alt="${altText}" width="${width}" height="${height}" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">`;
 }
 
 /**
