@@ -196,11 +196,11 @@ a {
 }
 
 .global-nav a[href$="service/"] {
-  --nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='6.5' width='15' height='10' rx='2'/%3E%3Cpath d='M8 20h6M11 16.5V20M19.5 4.5l.7 1.5 1.5.7-1.5.7-.7 1.5-.7-1.5-1.5-.7 1.5-.7.7-1.5'/%3E%3C/svg%3E");
+  --nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='6' width='14' height='10' rx='2'/%3E%3Cpath d='M8 20h6M11 16v4M19 4l.5 1.1L20.6 5.6 19.5 6.1 19 7.2l-.5-1.1-1.1-.5 1.1-.5L19 4Z'/%3E%3C/svg%3E");
 }
 
 .global-nav a[href$="lease/"] {
-  --nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='5.5' width='13' height='9.5' rx='2'/%3E%3Cpath d='M3.5 9h13M6.5 17.5h5'/%3E%3Ccircle cx='17' cy='16.5' r='3.6'/%3E%3Cpath d='M15.8 15.1 17 16.4l1.2-1.3M15.8 17.5h2.4'/%3E%3C/svg%3E");
+  --nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='13' height='9' rx='2'/%3E%3Cpath d='M3 8h13M6 12h4'/%3E%3Ccircle cx='17' cy='16' r='4'/%3E%3Cpath d='M15.5 14.4 17 16l1.5-1.6M17 16v3M15.6 17.2h2.8'/%3E%3C/svg%3E");
 }
 
 .global-nav a[href$="guide/"] {
@@ -8850,6 +8850,53 @@ body:has(.sticky-cta) .site-footer {
 
   .mobile-menu-button span::before {
     border-top: 3px solid var(--blue);
+  }
+  .header-actions {
+    right: 74px;
+  }
+
+  .header-actions .btn-primary,
+  .mobile-menu-button {
+    width: 62px;
+    height: 56px;
+    display: grid !important;
+    grid-template-rows: 32px 16px;
+    place-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 2px;
+    text-align: center;
+  }
+
+  .header-actions .btn-primary svg,
+  .mobile-menu-button span {
+    grid-row: 1;
+    align-self: center;
+    justify-self: center;
+    margin: 0;
+  }
+
+  .header-actions .btn-primary svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .mobile-menu-button span {
+    width: 34px;
+    height: 24px;
+  }
+
+  .header-actions .btn-primary::after,
+  .mobile-menu-button b {
+    grid-row: 2;
+    width: 100%;
+    height: 16px;
+    margin: 0;
+    color: #4b5563;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 16px;
+    text-align: center;
   }
 }
 
