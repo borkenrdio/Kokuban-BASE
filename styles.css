@@ -8747,7 +8747,7 @@ body:has(.sticky-cta) .site-footer {
 
 /* Lease feature renewed cards */
 .lease-feature-section--renewed {
-  width: min(1180px, calc(100% - 32px));
+  width: min(1120px, calc(100% - 48px));
   padding: clamp(30px, 3.6vw, 46px) 0;
 }
 
