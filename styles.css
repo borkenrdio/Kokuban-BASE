@@ -8855,41 +8855,44 @@ body:has(.sticky-cta) .site-footer {
     right: 74px;
   }
 
+  /* 不可視テキスト等の影響を受けないよう、アイコンとラベルを同一座標に絶対配置して両ボタンを揃える */
   .header-actions .btn-primary,
   .mobile-menu-button {
     width: 62px;
     height: 56px;
-    display: grid !important;
-    grid-template-rows: 32px 16px;
-    place-items: center;
-    align-content: center;
-    justify-content: center;
-    gap: 2px;
+    display: block !important;
     text-align: center;
+  }
+
+  .header-actions .btn-primary {
+    position: relative;
   }
 
   .header-actions .btn-primary svg,
   .mobile-menu-button span {
-    grid-row: 1;
-    align-self: center;
-    justify-self: center;
+    position: absolute;
+    top: 17px;
+    left: 50%;
+    transform: translate(-50%, -50%);
     margin: 0;
   }
 
   .header-actions .btn-primary svg {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 24px;
   }
 
   .mobile-menu-button span {
-    width: 34px;
-    height: 24px;
+    width: 32px;
+    height: 22px;
   }
 
   .header-actions .btn-primary::after,
   .mobile-menu-button b {
-    grid-row: 2;
-    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px;
     height: 16px;
     margin: 0;
     color: #4b5563;
