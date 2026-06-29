@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=20260629-lineupfix1">
+  <link rel="stylesheet" href="../styles.css?v=20260629-lineuptabs1">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kokuban BASE","item":"https://kokuban-base.com/"},{"@type":"ListItem","position":2,"name":"ラインナップ","item":"https://kokuban-base.com/lineup/"}]}
   </script>
@@ -88,10 +88,25 @@
                     <div class="lineup-guide-illustration" aria-hidden="true"><svg viewBox="0 0 220 76" fill="none"><path d="M18 64h184" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><path d="M50 64V35h38v29M132 64V28h42v36" stroke="#1d64d8" stroke-width="3"/><path d="M62 45h6M76 45h6M144 39h6M158 39h6M144 51h6M158 51h6" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><circle cx="36" cy="49" r="15" fill="#dbeafe" stroke="#1d64d8" stroke-width="2"/><path d="M36 38v26M29 51l7 7 8-11" stroke="#1d64d8" stroke-width="2" stroke-linecap="round"/><path d="M194 37c8 5 10 18 2 27M190 45c3 3 4 10 0 15" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/></svg></div>
                   </div>
                   <div class="lineup-guide-main">
-                    <div class="lineup-guide-tabs" aria-hidden="true"><span class="is-active">&#36984;&#12403;&#26041;&#12398;&#12509;&#12452;&#12531;&#12488;</span><span>&#20104;&#31639;&#12398;&#32771;&#12360;&#26041;</span><span>&#23566;&#20837;&#24460;&#12398;&#27963;&#29992;</span></div>
-                    <div class="lineup-guide-featurebox">
-                      <div class="lineup-guide-feature-summary"><p>&#27161;&#28310;&#25645;&#36617;&#27231;&#33021;</p><strong>&#24460;&#12411;&#12393;</strong><em>&#21830;&#21697;&#12398;&#32048;&#12363;&#12356;&#35500;&#26126;&#12399;&#24460;&#12411;&#12393;&#36861;&#35352;&#12375;&#12414;&#12377;&#12290;</em></div>
-                      <div class="lineup-guide-feature-grid" aria-label="planned information"><span>&#27161;&#28310;&#27231;&#33021;</span><span>&#12469;&#12452;&#12474;&#36984;&#23450;</span><span>&#35373;&#32622;&#30456;&#35527;</span><span>&#27604;&#36611;&#12509;&#12452;&#12531;&#12488;</span><span>&#27963;&#29992;&#20363;</span><span>&#36939;&#29992;&#12469;&#12509;&#12540;&#12488;</span></div>
+                    <div class="lineup-guide-tabs" role="tablist">
+                      <button class="lineup-guide-tab is-active" type="button" role="tab" aria-selected="true" data-guide-tab="0">選び方のポイント</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="1">予算の考え方</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="2">導入後の活用</button>
+                    </div>
+                    <!-- ダミー内容。後ほど各タブの正式コンテンツ（テキスト・画像）に差し替えてください -->
+                    <div class="lineup-guide-panels">
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel is-active" role="tabpanel" data-guide-panel="0">
+                        <div class="lineup-guide-feature-summary"><p>標準搭載機能</p><strong>後ほど</strong><em>選び方のポイントは後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>標準機能</span><span>サイズ選定</span><span>設置相談</span><span>比較ポイント</span><span>活用例</span><span>運用サポート</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="1">
+                        <div class="lineup-guide-feature-summary"><p>月額の目安</p><strong>後ほど</strong><em>予算の考え方は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期費用</span><span>月額目安</span><span>リース</span><span>お見積り</span><span>補助金</span><span>支払い方法</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="2">
+                        <div class="lineup-guide-feature-summary"><p>導入後サポート</p><strong>後ほど</strong><em>導入後の活用は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期設定</span><span>操作研修</span><span>活用相談</span><span>トラブル対応</span><span>教材活用</span><span>定着支援</span></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -133,10 +148,25 @@
                     <div class="lineup-guide-illustration" aria-hidden="true"><svg viewBox="0 0 220 76" fill="none"><path d="M18 64h184" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><path d="M50 64V35h38v29M132 64V28h42v36" stroke="#1d64d8" stroke-width="3"/><path d="M62 45h6M76 45h6M144 39h6M158 39h6M144 51h6M158 51h6" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><circle cx="36" cy="49" r="15" fill="#dbeafe" stroke="#1d64d8" stroke-width="2"/><path d="M36 38v26M29 51l7 7 8-11" stroke="#1d64d8" stroke-width="2" stroke-linecap="round"/><path d="M194 37c8 5 10 18 2 27M190 45c3 3 4 10 0 15" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/></svg></div>
                   </div>
                   <div class="lineup-guide-main">
-                    <div class="lineup-guide-tabs" aria-hidden="true"><span class="is-active">&#36984;&#12403;&#26041;&#12398;&#12509;&#12452;&#12531;&#12488;</span><span>&#20104;&#31639;&#12398;&#32771;&#12360;&#26041;</span><span>&#23566;&#20837;&#24460;&#12398;&#27963;&#29992;</span></div>
-                    <div class="lineup-guide-featurebox">
-                      <div class="lineup-guide-feature-summary"><p>&#27161;&#28310;&#25645;&#36617;&#27231;&#33021;</p><strong>&#24460;&#12411;&#12393;</strong><em>&#21830;&#21697;&#12398;&#32048;&#12363;&#12356;&#35500;&#26126;&#12399;&#24460;&#12411;&#12393;&#36861;&#35352;&#12375;&#12414;&#12377;&#12290;</em></div>
-                      <div class="lineup-guide-feature-grid" aria-label="planned information"><span>&#27161;&#28310;&#27231;&#33021;</span><span>&#12469;&#12452;&#12474;&#36984;&#23450;</span><span>&#35373;&#32622;&#30456;&#35527;</span><span>&#27604;&#36611;&#12509;&#12452;&#12531;&#12488;</span><span>&#27963;&#29992;&#20363;</span><span>&#36939;&#29992;&#12469;&#12509;&#12540;&#12488;</span></div>
+                    <div class="lineup-guide-tabs" role="tablist">
+                      <button class="lineup-guide-tab is-active" type="button" role="tab" aria-selected="true" data-guide-tab="0">選び方のポイント</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="1">予算の考え方</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="2">導入後の活用</button>
+                    </div>
+                    <!-- ダミー内容。後ほど各タブの正式コンテンツ（テキスト・画像）に差し替えてください -->
+                    <div class="lineup-guide-panels">
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel is-active" role="tabpanel" data-guide-panel="0">
+                        <div class="lineup-guide-feature-summary"><p>標準搭載機能</p><strong>後ほど</strong><em>選び方のポイントは後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>標準機能</span><span>サイズ選定</span><span>設置相談</span><span>比較ポイント</span><span>活用例</span><span>運用サポート</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="1">
+                        <div class="lineup-guide-feature-summary"><p>月額の目安</p><strong>後ほど</strong><em>予算の考え方は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期費用</span><span>月額目安</span><span>リース</span><span>お見積り</span><span>補助金</span><span>支払い方法</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="2">
+                        <div class="lineup-guide-feature-summary"><p>導入後サポート</p><strong>後ほど</strong><em>導入後の活用は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期設定</span><span>操作研修</span><span>活用相談</span><span>トラブル対応</span><span>教材活用</span><span>定着支援</span></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -178,10 +208,25 @@
                     <div class="lineup-guide-illustration" aria-hidden="true"><svg viewBox="0 0 220 76" fill="none"><path d="M18 64h184" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><path d="M50 64V35h38v29M132 64V28h42v36" stroke="#1d64d8" stroke-width="3"/><path d="M62 45h6M76 45h6M144 39h6M158 39h6M144 51h6M158 51h6" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><circle cx="36" cy="49" r="15" fill="#dbeafe" stroke="#1d64d8" stroke-width="2"/><path d="M36 38v26M29 51l7 7 8-11" stroke="#1d64d8" stroke-width="2" stroke-linecap="round"/><path d="M194 37c8 5 10 18 2 27M190 45c3 3 4 10 0 15" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/></svg></div>
                   </div>
                   <div class="lineup-guide-main">
-                    <div class="lineup-guide-tabs" aria-hidden="true"><span class="is-active">&#36984;&#12403;&#26041;&#12398;&#12509;&#12452;&#12531;&#12488;</span><span>&#20104;&#31639;&#12398;&#32771;&#12360;&#26041;</span><span>&#23566;&#20837;&#24460;&#12398;&#27963;&#29992;</span></div>
-                    <div class="lineup-guide-featurebox">
-                      <div class="lineup-guide-feature-summary"><p>&#27161;&#28310;&#25645;&#36617;&#27231;&#33021;</p><strong>&#24460;&#12411;&#12393;</strong><em>&#21830;&#21697;&#12398;&#32048;&#12363;&#12356;&#35500;&#26126;&#12399;&#24460;&#12411;&#12393;&#36861;&#35352;&#12375;&#12414;&#12377;&#12290;</em></div>
-                      <div class="lineup-guide-feature-grid" aria-label="planned information"><span>&#27161;&#28310;&#27231;&#33021;</span><span>&#12469;&#12452;&#12474;&#36984;&#23450;</span><span>&#35373;&#32622;&#30456;&#35527;</span><span>&#27604;&#36611;&#12509;&#12452;&#12531;&#12488;</span><span>&#27963;&#29992;&#20363;</span><span>&#36939;&#29992;&#12469;&#12509;&#12540;&#12488;</span></div>
+                    <div class="lineup-guide-tabs" role="tablist">
+                      <button class="lineup-guide-tab is-active" type="button" role="tab" aria-selected="true" data-guide-tab="0">選び方のポイント</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="1">予算の考え方</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="2">導入後の活用</button>
+                    </div>
+                    <!-- ダミー内容。後ほど各タブの正式コンテンツ（テキスト・画像）に差し替えてください -->
+                    <div class="lineup-guide-panels">
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel is-active" role="tabpanel" data-guide-panel="0">
+                        <div class="lineup-guide-feature-summary"><p>標準搭載機能</p><strong>後ほど</strong><em>選び方のポイントは後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>標準機能</span><span>サイズ選定</span><span>設置相談</span><span>比較ポイント</span><span>活用例</span><span>運用サポート</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="1">
+                        <div class="lineup-guide-feature-summary"><p>月額の目安</p><strong>後ほど</strong><em>予算の考え方は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期費用</span><span>月額目安</span><span>リース</span><span>お見積り</span><span>補助金</span><span>支払い方法</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="2">
+                        <div class="lineup-guide-feature-summary"><p>導入後サポート</p><strong>後ほど</strong><em>導入後の活用は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期設定</span><span>操作研修</span><span>活用相談</span><span>トラブル対応</span><span>教材活用</span><span>定着支援</span></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -223,10 +268,25 @@
                     <div class="lineup-guide-illustration" aria-hidden="true"><svg viewBox="0 0 220 76" fill="none"><path d="M18 64h184" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><path d="M50 64V35h38v29M132 64V28h42v36" stroke="#1d64d8" stroke-width="3"/><path d="M62 45h6M76 45h6M144 39h6M158 39h6M144 51h6M158 51h6" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><circle cx="36" cy="49" r="15" fill="#dbeafe" stroke="#1d64d8" stroke-width="2"/><path d="M36 38v26M29 51l7 7 8-11" stroke="#1d64d8" stroke-width="2" stroke-linecap="round"/><path d="M194 37c8 5 10 18 2 27M190 45c3 3 4 10 0 15" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/></svg></div>
                   </div>
                   <div class="lineup-guide-main">
-                    <div class="lineup-guide-tabs" aria-hidden="true"><span class="is-active">&#36984;&#12403;&#26041;&#12398;&#12509;&#12452;&#12531;&#12488;</span><span>&#20104;&#31639;&#12398;&#32771;&#12360;&#26041;</span><span>&#23566;&#20837;&#24460;&#12398;&#27963;&#29992;</span></div>
-                    <div class="lineup-guide-featurebox">
-                      <div class="lineup-guide-feature-summary"><p>&#27161;&#28310;&#25645;&#36617;&#27231;&#33021;</p><strong>&#24460;&#12411;&#12393;</strong><em>&#21830;&#21697;&#12398;&#32048;&#12363;&#12356;&#35500;&#26126;&#12399;&#24460;&#12411;&#12393;&#36861;&#35352;&#12375;&#12414;&#12377;&#12290;</em></div>
-                      <div class="lineup-guide-feature-grid" aria-label="planned information"><span>&#27161;&#28310;&#27231;&#33021;</span><span>&#12469;&#12452;&#12474;&#36984;&#23450;</span><span>&#35373;&#32622;&#30456;&#35527;</span><span>&#27604;&#36611;&#12509;&#12452;&#12531;&#12488;</span><span>&#27963;&#29992;&#20363;</span><span>&#36939;&#29992;&#12469;&#12509;&#12540;&#12488;</span></div>
+                    <div class="lineup-guide-tabs" role="tablist">
+                      <button class="lineup-guide-tab is-active" type="button" role="tab" aria-selected="true" data-guide-tab="0">選び方のポイント</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="1">予算の考え方</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="2">導入後の活用</button>
+                    </div>
+                    <!-- ダミー内容。後ほど各タブの正式コンテンツ（テキスト・画像）に差し替えてください -->
+                    <div class="lineup-guide-panels">
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel is-active" role="tabpanel" data-guide-panel="0">
+                        <div class="lineup-guide-feature-summary"><p>標準搭載機能</p><strong>後ほど</strong><em>選び方のポイントは後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>標準機能</span><span>サイズ選定</span><span>設置相談</span><span>比較ポイント</span><span>活用例</span><span>運用サポート</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="1">
+                        <div class="lineup-guide-feature-summary"><p>月額の目安</p><strong>後ほど</strong><em>予算の考え方は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期費用</span><span>月額目安</span><span>リース</span><span>お見積り</span><span>補助金</span><span>支払い方法</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="2">
+                        <div class="lineup-guide-feature-summary"><p>導入後サポート</p><strong>後ほど</strong><em>導入後の活用は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期設定</span><span>操作研修</span><span>活用相談</span><span>トラブル対応</span><span>教材活用</span><span>定着支援</span></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -268,10 +328,25 @@
                     <div class="lineup-guide-illustration" aria-hidden="true"><svg viewBox="0 0 220 76" fill="none"><path d="M18 64h184" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><path d="M50 64V35h38v29M132 64V28h42v36" stroke="#1d64d8" stroke-width="3"/><path d="M62 45h6M76 45h6M144 39h6M158 39h6M144 51h6M158 51h6" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/><circle cx="36" cy="49" r="15" fill="#dbeafe" stroke="#1d64d8" stroke-width="2"/><path d="M36 38v26M29 51l7 7 8-11" stroke="#1d64d8" stroke-width="2" stroke-linecap="round"/><path d="M194 37c8 5 10 18 2 27M190 45c3 3 4 10 0 15" stroke="#1d64d8" stroke-width="3" stroke-linecap="round"/></svg></div>
                   </div>
                   <div class="lineup-guide-main">
-                    <div class="lineup-guide-tabs" aria-hidden="true"><span class="is-active">&#36984;&#12403;&#26041;&#12398;&#12509;&#12452;&#12531;&#12488;</span><span>&#20104;&#31639;&#12398;&#32771;&#12360;&#26041;</span><span>&#23566;&#20837;&#24460;&#12398;&#27963;&#29992;</span></div>
-                    <div class="lineup-guide-featurebox">
-                      <div class="lineup-guide-feature-summary"><p>&#27161;&#28310;&#25645;&#36617;&#27231;&#33021;</p><strong>&#24460;&#12411;&#12393;</strong><em>&#21830;&#21697;&#12398;&#32048;&#12363;&#12356;&#35500;&#26126;&#12399;&#24460;&#12411;&#12393;&#36861;&#35352;&#12375;&#12414;&#12377;&#12290;</em></div>
-                      <div class="lineup-guide-feature-grid" aria-label="planned information"><span>&#27161;&#28310;&#27231;&#33021;</span><span>&#12469;&#12452;&#12474;&#36984;&#23450;</span><span>&#35373;&#32622;&#30456;&#35527;</span><span>&#27604;&#36611;&#12509;&#12452;&#12531;&#12488;</span><span>&#27963;&#29992;&#20363;</span><span>&#36939;&#29992;&#12469;&#12509;&#12540;&#12488;</span></div>
+                    <div class="lineup-guide-tabs" role="tablist">
+                      <button class="lineup-guide-tab is-active" type="button" role="tab" aria-selected="true" data-guide-tab="0">選び方のポイント</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="1">予算の考え方</button>
+                      <button class="lineup-guide-tab" type="button" role="tab" aria-selected="false" data-guide-tab="2">導入後の活用</button>
+                    </div>
+                    <!-- ダミー内容。後ほど各タブの正式コンテンツ（テキスト・画像）に差し替えてください -->
+                    <div class="lineup-guide-panels">
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel is-active" role="tabpanel" data-guide-panel="0">
+                        <div class="lineup-guide-feature-summary"><p>標準搭載機能</p><strong>後ほど</strong><em>選び方のポイントは後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>標準機能</span><span>サイズ選定</span><span>設置相談</span><span>比較ポイント</span><span>活用例</span><span>運用サポート</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="1">
+                        <div class="lineup-guide-feature-summary"><p>月額の目安</p><strong>後ほど</strong><em>予算の考え方は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期費用</span><span>月額目安</span><span>リース</span><span>お見積り</span><span>補助金</span><span>支払い方法</span></div>
+                      </div>
+                      <div class="lineup-guide-featurebox lineup-guide-tabpanel" role="tabpanel" data-guide-panel="2">
+                        <div class="lineup-guide-feature-summary"><p>導入後サポート</p><strong>後ほど</strong><em>導入後の活用は後ほど追記します。</em></div>
+                        <div class="lineup-guide-feature-grid" aria-label="planned information"><span>初期設定</span><span>操作研修</span><span>活用相談</span><span>トラブル対応</span><span>教材活用</span><span>定着支援</span></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -309,6 +384,21 @@
       tabs.forEach((tab) => tab.addEventListener('click', () => showCard(Number(tab.dataset.lineupTab || 0))));
       prev.addEventListener('click', () => showCard(current - 1));
       next.addEventListener('click', () => showCard(current + 1));
+
+      // ブランドガイド内の「選び方のポイント／予算の考え方／導入後の活用」タブ切り替え
+      document.querySelectorAll('.lineup-guide-main').forEach((main) => {
+        const gtabs = Array.from(main.querySelectorAll('.lineup-guide-tab'));
+        const panels = Array.from(main.querySelectorAll('.lineup-guide-tabpanel'));
+        gtabs.forEach((gtab) => gtab.addEventListener('click', () => {
+          const idx = Number(gtab.dataset.guideTab || 0);
+          gtabs.forEach((x, i) => {
+            const on = i === idx;
+            x.classList.toggle('is-active', on);
+            x.setAttribute('aria-selected', on ? 'true' : 'false');
+          });
+          panels.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+        }));
+      });
     })();
   </script>
   <script src="../assets/site.js" defer></script>

@@ -1488,7 +1488,7 @@ a {
 
 .lineup-slider-btn {
   position: absolute;
-  top: 50%;
+  top: 150px;
   z-index: 3;
   width: 46px;
   height: 46px;
@@ -9972,5 +9972,53 @@ body:has(.sticky-cta) .site-footer {
 
   .lineup-brand-guide .lineup-guide-feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ===== ラインナップ ブランドガイド: タブUI（クリックで内容切替） ===== */
+.lineup-guide-tabs button.lineup-guide-tab {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 56px;
+  padding: 10px;
+  border: 0;
+  border-right: 1px solid rgba(47, 111, 224, .16);
+  background: transparent;
+  color: var(--blue);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.lineup-guide-tabs button.lineup-guide-tab:last-child {
+  border-right: 0;
+}
+
+.lineup-guide-tabs button.lineup-guide-tab:hover {
+  background: rgba(47, 111, 224, .07);
+}
+
+.lineup-guide-tabs button.lineup-guide-tab.is-active,
+.lineup-guide-tabs button.lineup-guide-tab.is-active:hover {
+  background: linear-gradient(135deg, #f45ca5, var(--pink));
+  color: #fff;
+}
+
+.lineup-guide-tabpanel {
+  display: none;
+}
+
+.lineup-guide-tabpanel.is-active {
+  display: grid;
+}
+
+@media (max-width: 640px) {
+  .lineup-guide-tabs button.lineup-guide-tab {
+    min-height: 46px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(47, 111, 224, .16);
   }
 }
