@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260630-fix1">
+  <link rel="stylesheet" href="styles.css?v=20260630-trust1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -260,7 +260,7 @@
         <p>Kokuban BASE からのお知らせ</p>
       </div>
       <ul id="latest-news-list" class="news-list"></ul>
-      <div id="error-message-latest" class="news-error" hidden>NEWSを読み込めませんでした。</div>
+      <div id="error-message-latest" class="news-error" hidden aria-hidden="true"></div>
       <a class="news-more" href="information/">NEWS一覧を見る<i aria-hidden="true">›</i></a>
     </section>
 
@@ -282,7 +282,7 @@
         <h2>コラム</h2>
         <p>電子黒板の選び方や活用術をご紹介します。</p>
       </div>
-      <div id="error-container-news" class="column-error" hidden>コラムを読み込めませんでした。</div>
+      <div id="error-container-news" class="column-error" hidden aria-hidden="true"></div>
       <div id="articles-container" class="column-grid">
         <p id="loading-list-news" class="column-loading">コラムを読み込んでいます。</p>
       </div>
@@ -355,7 +355,7 @@
         <a href="company/">会社概要</a>
         <a href="faq/">よくある質問</a>
       </nav>
-      <small class="footer-copy">© Kokuban BASE. Demo site.</small>
+      <small class="footer-copy">© Kokuban BASE.</small>
     </div>
   </footer>
   <script>
@@ -437,7 +437,7 @@
             '<span class="news-title">' + escapeHtml(item.title) + '</span>' +
             '</a></li>';
         }).join('');
-        container.innerHTML = html || '<li class="news-item"><a href="information/"><span class="news-title">NEWSは準備中です。</span></a></li>';
+        container.innerHTML = html || '<li class="news-item"><a href="information/"><span class="news-title">最新情報を一覧で見る</span></a></li>';
       }
 
       function renderColumns(items) {
@@ -469,7 +469,7 @@
             '<h3>' + title + '</h3>' +
             '</a></article>';
         }).join('');
-        container.innerHTML = html || '<p class="column-loading">コラムは準備中です。</p>';
+        container.innerHTML = html || '<p class="column-loading"><a href="article/">コラム一覧を見る</a></p>';
       }
 
       async function loadJson(url) {
@@ -483,15 +483,13 @@
         loadJson('columns/index.json')
           .then(renderNews)
           .catch(function () {
-            const error = document.getElementById('error-message-latest');
-            if (error) error.hidden = false;
+            renderNews([]);
           });
 
         loadJson('columns/index.json')
           .then(renderColumns)
           .catch(function () {
-            const error = document.getElementById('error-container-news');
-            if (error) error.hidden = false;
+            renderColumns([]);
           });
       });
     })();
