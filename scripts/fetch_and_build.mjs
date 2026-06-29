@@ -289,7 +289,7 @@ function createEyecatchHtml(eyecatch, alt) {
   const height = eyecatch.height || 675;
   const altText = escapeHtml(alt);
   const optimizedUrl = `${eyecatch.url}?fit=crop&w=1200&h=675&q=80`;
-  return `<img src="${optimizedUrl}" alt="${altText}" width="${width}" height="${height}" class="w-full h-auto object-cover rounded-lg mb-8 shadow-md" loading="eager" fetchpriority="high">`;
+  return `<img src="${optimizedUrl}" alt="${altText}" width="${width}" height="${height}" class="w-full h-[42vw] max-h-[420px] min-h-[190px] object-cover rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">`;
 }
 
 /**
