@@ -8374,15 +8374,15 @@ body:has(.sticky-cta) .site-footer {
   max-width: none;
   width: min(var(--kb-content-width), calc(100% - var(--kb-content-gutter)));
   margin-inline: auto;
-  padding: clamp(26px, 3vw, 40px) 0;
+  padding: clamp(22px, 2.4vw, 32px) 0;
   overflow: hidden;
 }
 
 .implementation-support-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
   align-items: center;
-  gap: clamp(22px, 4vw, 34px);
+  gap: clamp(24px, 4vw, 44px);
 }
 
 .implementation-support-copy {
@@ -8434,7 +8434,7 @@ body:has(.sticky-cta) .site-footer {
 .implementation-support-visual {
   position: relative;
   margin: 0;
-  min-height: 260px;
+  min-height: 0;
 }
 
 .implementation-support-visual::before {
@@ -8449,16 +8449,16 @@ body:has(.sticky-cta) .site-footer {
   position: relative;
   z-index: 2;
   display: block;
-  width: min(460px, 100%);
-  height: clamp(230px, 34vw, 310px);
-  margin-inline: auto;
+  width: 100%;
+  height: clamp(190px, 19vw, 240px);
+  margin: 0;
   object-fit: cover;
-  object-position: 50% 55%;
+  object-position: 50% 50%;
   border-radius: 16px;
 }
 
 .implementation-support-panel {
-  margin-top: clamp(20px, 2.8vw, 40px);
+  margin-top: clamp(16px, 2vw, 26px);
   padding: clamp(24px, 3.6vw, 34px) clamp(18px, 3vw, 26px) clamp(28px, 4vw, 38px);
   border-radius: 10px;
   background: linear-gradient(180deg, #f4f9ff 0%, #eef6ff 100%);
@@ -8526,18 +8526,6 @@ body:has(.sticky-cta) .site-footer {
 }
 
 @media (max-width: 1180px) {
-  .implementation-support-hero {
-    grid-template-columns: 1fr;
-  }
-
-  .implementation-support-visual {
-    min-height: 280px;
-  }
-
-  .implementation-support-visual img {
-    margin-inline: auto;
-  }
-
   .implementation-support-points {
     grid-template-columns: 1fr;
     gap: 22px;
@@ -8584,9 +8572,15 @@ body:has(.sticky-cta) .site-footer {
     display: none;
   }
 
+  .implementation-support-hero {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
   .implementation-support-visual img {
-    height: 250px;
-    border-radius: 0 0 0 42px;
+    width: 100%;
+    height: 220px;
+    border-radius: 16px;
   }
 
   .implementation-support-panel {
