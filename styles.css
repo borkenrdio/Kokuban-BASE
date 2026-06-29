@@ -5061,6 +5061,26 @@ section.top-guide-cta {
   background: linear-gradient(135deg, #fff6fb 0%, #ffe6f1 100%);
 }
 
+.top-guide-card--guide {
+  border-color: rgba(16, 63, 153, .18);
+  background:
+    radial-gradient(circle at 88% 18%, rgba(255, 255, 255, .22) 0 70px, transparent 71px),
+    linear-gradient(135deg, #1557c8 0%, #103f99 58%, #082a72 100%);
+  box-shadow: 0 18px 36px rgba(16, 63, 153, .22);
+}
+
+.top-guide-card--guide::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  bottom: -96px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  pointer-events: none;
+}
+
 .top-guide-content {
   position: relative;
   z-index: 3;
@@ -5069,6 +5089,13 @@ section.top-guide-cta {
   flex-direction: column;
   align-items: flex-start;
   padding: 30px 8px 28px 32px;
+}
+
+.top-guide-card--guide .top-guide-content {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 360px;
+  padding-right: 32px;
 }
 
 .top-guide-icon {
@@ -5086,8 +5113,8 @@ section.top-guide-cta {
 }
 
 .top-guide-card--guide .top-guide-icon {
-  color: var(--blue);
-  background: #e9edf4;
+  color: #fff;
+  background: rgba(255, 255, 255, .18);
 }
 
 .top-guide-card--faq .top-guide-icon {
@@ -5103,7 +5130,7 @@ section.top-guide-cta {
 }
 
 .top-guide-card--guide h3 {
-  color: var(--blue);
+  color: #fff;
 }
 
 .top-guide-card--faq h3 {
@@ -5115,6 +5142,10 @@ section.top-guide-cta {
   color: #0f1419;
   font-size: 13px;
   line-height: 1.8;
+}
+
+.top-guide-cta .top-guide-card--guide p {
+  color: rgba(255, 255, 255, .92);
 }
 
 .top-guide-btn {
@@ -5131,7 +5162,9 @@ section.top-guide-cta {
 }
 
 .top-guide-card--guide .top-guide-btn {
-  background: var(--blue);
+  color: var(--blue);
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(5, 20, 60, .2);
 }
 
 .top-guide-card--faq .top-guide-btn {
@@ -5151,7 +5184,8 @@ section.top-guide-cta {
 }
 
 .top-guide-card--guide .top-guide-btn i {
-  color: var(--blue);
+  color: #fff;
+  background: var(--blue);
 }
 
 .top-guide-card--faq .top-guide-btn i {
