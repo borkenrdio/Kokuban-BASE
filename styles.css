@@ -8747,7 +8747,7 @@ body:has(.sticky-cta) .site-footer {
 
 /* Lease feature renewed cards */
 .lease-feature-section--renewed {
-  width: min(1120px, calc(100% - 48px));
+  width: min(960px, calc(100% - 48px));
   padding: clamp(30px, 3.6vw, 46px) 0;
 }
 
@@ -8859,10 +8859,10 @@ body:has(.sticky-cta) .site-footer {
   background: transparent;
 }
 
-.lease-feature-grid--renewed .lease-feature-icon svg {
+.lease-feature-grid--renewed .lease-feature-icon img {
   width: 112px;
   height: 112px;
-  filter: drop-shadow(0 7px 10px rgba(16, 63, 153, .15));
+  object-fit: contain;
 }
 
 .lease-feature-detail--renewed {
@@ -8911,7 +8911,7 @@ body:has(.sticky-cta) .site-footer {
     height: 108px;
   }
 
-  .lease-feature-grid--renewed .lease-feature-icon svg {
+  .lease-feature-grid--renewed .lease-feature-icon img {
     width: 100px;
     height: 100px;
   }
