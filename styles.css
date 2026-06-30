@@ -10244,3 +10244,57 @@ body:has(.sticky-cta) .site-footer {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+/* Lineup guide icons: images already include label, icon, and frame */
+.lineup-brand-guide .lineup-guide-icon-grid {
+  gap: clamp(10px, 1.2vw, 16px);
+  align-items: center;
+}
+
+.lineup-brand-guide .lineup-guide-icon-grid span {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.lineup-brand-guide .lineup-guide-icon-grid img {
+  display: block;
+  width: min(100%, 132px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: 14px;
+  filter: drop-shadow(0 8px 16px rgba(47, 111, 224, .10));
+}
+
+.lineup-brand-guide .lineup-guide-icon-grid b {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lineup-brand-guide .lineup-guide-icon-grid span.is-muted img {
+  opacity: .48;
+  filter: grayscale(.7) drop-shadow(0 8px 16px rgba(47, 111, 224, .08));
+}
+
+@media (max-width: 900px) {
+  .lineup-brand-guide .lineup-guide-icon-grid img {
+    width: min(100%, 118px);
+  }
+}
+
+@media (max-width: 640px) {
+  .lineup-brand-guide .lineup-guide-icon-grid img {
+    width: min(100%, 126px);
+  }
+}
