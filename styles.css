@@ -1,3 +1,52 @@
+/* ============================================================================
+   Kokuban BASE — styles.css  目次 / TABLE OF CONTENTS
+   ----------------------------------------------------------------------------
+   ファイルが約11,000行に肥大化しているため、ナビゲーション用の目次です。
+   各セクションは右の「検索アンカー」をエディタで検索すると移動できます。
+   ※ 見た目を変えないため、ルールの並べ替え・統合・削除は行っていません
+     （カスケード順を保持）。経緯と未使用候補はファイル末尾の MAINTENANCE NOTES 参照。
+
+   --- 基本・共通 ---
+   1.  デザイントークン / CSS変数 ............... 検索:  :root {
+   2.  リセット & 基本要素 ...................... 検索:  body {
+   3.  ヘッダー ................................. 検索:  .site-header {
+   4.  グローバルナビ ........................... 検索:  .global-nav {
+   5.  ボタン共通 ............................... 検索:  .btn {
+   --- トップページ ---
+   6.  ヒーロー ................................. 検索:  .hero {
+   7.  新着情報 (news) .......................... 検索:  .news-section {
+   8.  サービス / 宣言パネル .................... 検索:  .service-section {
+   9.  FAQ CTA ................................... 検索:  .faq-cta {
+   10. コラム一覧 ............................... 検索:  .column-section {
+   11. 上部3セクション(刷新版) .................. 検索:  ===== 1. ヒーロー
+   --- 下層ページ共通 ---
+   12. 下層ページ (page-hero) ................... 検索:  .subpage {
+   13. 初回限定 (first-time) .................... 検索:  .firsttime-hero {
+   14. ページ内アンカーナビ ..................... 検索:  .page-anchor-nav {
+   15. お知らせ (information) ................... 検索:  .information-section {
+   16. サービス/ラインナップ グリッド .......... 検索:  .service-list, .lineup-grid
+   --- ラインナップ ---
+   17. ラインナップ ページ ..................... 検索:  .lineup-page {
+   18. ブランドガイド ........................... 検索:  .lineup-brand-guide {
+   19. ブランドガイド タブUI ................... 検索:  ブランドガイド: タブUI
+   20. カタログ スペックタブ ................... 検索:  Lineup catalog spec tab
+   --- リース ---
+   21. リース料金例カード ....................... 検索:  .lease-example-grid {
+   22. リース機能カード(刷新) ................... 検索:  Lease feature renewed
+   23. リース活用の流れ ......................... 検索:  リース活用の流れ
+   24. 購入・リース契約 ......................... 検索:  購入・リース契約
+   --- お問い合わせ / オンライン / その他 ---
+   25. お問い合わせ / 2カラム ................... 検索:  .two-column {
+   26. オンライン相談 CTA ....................... 検索:  .online-lead {
+   27. ご利用ガイド ページ ..................... 検索:  ご利用ガイ
+   28. Sticky bottom CTA ........................ 検索:  Sticky bottom CTA
+   29. サイト全体タイポ調整 ..................... 検索:  Page layout / typography
+   30. 可読性アップデート ....................... 検索:  Wider, clearer site-wide
+   31. Service implementation support .......... 検索:  Service implementation support
+   32. Top feature 系(※未使用候補) ............. 検索:  Top feature redesign
+   33. トップ モバイル微調整 ................... 検索:  トップページ モバイル微調整
+   ============================================================================ */
+
 :root {
   --blue: #103f99;
   --blue-dark: #092b70;
@@ -10824,10 +10873,8 @@ body:has(.sticky-cta) .site-footer {
 }
 
 @media (max-width: 1180px) {
-  .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-hero {
-    grid-template-columns: 1fr;
-  }
-
+  /* NOTE: 重複していた .lineup-guide-spec-hero { grid-template-columns:1fr } をここから除去。
+     同一メディアクエリ内の後方ブロックで同じ宣言が再定義されており結果は不変。 */
   .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-copy {
     min-height: auto;
     padding: 0 0 18px;
@@ -11077,3 +11124,73 @@ body:has(.sticky-cta) .site-footer {
     margin: 0;
   }
 }
+
+/* ============================================================================
+   MAINTENANCE NOTES  （2026-07-01 リファクタリング調査メモ）
+   ----------------------------------------------------------------------------
+   ■ このパスで行った変更（見た目への影響なし）
+     - 先頭に目次(TOC)コメントを追加。
+     - 完全重複ルール1件を除去: @media(max-width:1180px) 内の
+       .lineup-guide-spec-hero { grid-template-columns:1fr }。
+       同一メディアクエリ後方で同じ宣言が再定義されているため結果は不変。
+     - この MAINTENANCE NOTES を追記。
+     ※ ルールの並べ替え・上書きレイヤーの統合・クラス削除は一切していません。
+
+   ■ なぜ大幅な統合・削除をしていないか（重要）
+     1) 完全一致する重複ルールは全11,000行中わずか1件のみでした。
+        「同一セレクタの複数定義」は多数ありますが、中身が異なる歴代リデザインの
+        上書きレイヤーで、順序を変えるとカスケードが崩れ見た目が変わります。
+     2) 未使用に見えるクラスの多くは inline JS が実行時に文字列連結で生成します。
+        例) index.html: 'column-thumb column-thumb-0' + ((index%3)+1)
+            information/index.html: 'information-tag information-tag--' + categoryType()
+            index.html: news 種別 → 'news-cat news-cat-event' 等
+        これらはソースに完全文字列が存在せず grep / includes でも検出不可のため、
+        静的解析だけでの自動削除は破壊リスクが高く、行っていません。
+
+   ■ 削除厳禁（実行時生成・誤検知。静的には未使用に見えるが実際は使用中）
+     column-thumb-01, column-thumb-02, column-thumb-03, information-tag--event
+     information-tag--interview, information-tag--media, information-tag--press, information-thumb--empty
+     news-cat-event, news-cat-media
+
+   ■ 未使用候補（旧デザイン残骸の可能性／手動確認のうえ削除検討すること）
+     ※ 削除前に必ず: 本番のレンダリング済みDOM(特に microCMS 由来の
+        information / columns 一覧)と、各ページの inline <script> を確認すること。
+        確証が取れないものは残すこと。
+     board-visual-02, board-visual-03, board-visual-04, board-visual-05
+     btn-hero, btn-white, card-grid, contact-actions
+     contact-checkbox-grid, contact-choice, contact-choice-grid, contact-fieldset
+     contact-fieldset-compact, contact-form-card, contact-form-grid, contact-form-section
+     contact-intro, contact-panel, contact-privacy, contact-section
+     contact-submit-row, declaration, declaration-icon, declaration-kicker
+     declaration-panel, declaration-title, faq-cta, faq-heading-icon
+     faq-link, faq-list, faq-section, feature-body
+     feature-icon, firsttime-mission, firsttime-mission-inner, guide-flow-figure--logo
+     guide-grid, guide-section, guide-step-icon, guide-step-label
+     guide-step-num, guide-steps, guide-steps-bg, hero
+     hero-brand, hero-content, hero-copy, hero-overlay
+     hero-video, implementation-support-brand, is-price, lease-example-card
+     lease-example-grid, lease-example-note, lease-example-photo, lease-example-spec
+     lease-flow-steps, lease-hero, lease-hero-btn, lease-hero-content
+     lease-hero-dots, lease-panel, lease-slide, lease-slide-01
+     lease-slide-02, lease-slide-03, lease-slide-04, lease-slides
+     lineup-grid, lineup-guide-comment, lineup-guide-illustration, lineup-guide-label
+     lineup-guide-spec-summary, lineup-hero, lineup-slider-head, lp-hero-point-icon
+     lp-hero-point-text, lp-hero-points, online-about, online-cta-figure-placeholder
+     online-feature-grid, online-feature-section, online-flow-list, online-flow-section
+     online-lead, online-lead-title, online-note, operator-label
+     operator-logo, operator-logo-mark, page-column-list, page-note
+     partner-logo, partner-logos, section-blue, section-heading
+     selection-board, selection-board-accent, selection-board-line, selection-card
+     selection-card-icon, selection-card-text, selection-copy, selection-eyebrow
+     selection-flow, selection-lead, selection-panel, selection-title-line
+     selection-title-pink, service-concern, service-section, service-selection-section
+     showroom-access, support-hero, support-label, support-section
+     top-guide-visual--steps, two-column, voice-avatar, voice-card
+     voice-card-grid, voice-card-head, voices-lead, voices-note
+     voices-section
+
+   ■ 既知の上書きレイヤー（統合する場合は計算後の値が一致するか要検証）
+     - .selection-* 系: 7981(redesign)/8204(refinements)/8356(final balance) の3層
+     - .lineup-guide-tabpanel[data-guide-panel="1"] 系: スペックタブで3層
+     - .declaration* / .faq-* : 上部宣言ブロックで2層
+   ============================================================================ */
