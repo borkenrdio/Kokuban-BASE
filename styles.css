@@ -10033,3 +10033,214 @@ body:has(.sticky-cta) .site-footer {
   display: block;
   white-space: nowrap;
 }
+
+/* Lineup guide tab visual refresh */
+.lineup-brand-guide .lineup-guide-main {
+  border-radius: 22px;
+  border: 1px solid rgba(236, 72, 153, .24);
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 18px 40px rgba(47, 111, 224, .12);
+}
+
+.lineup-brand-guide .lineup-guide-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #f6fbff 0%, #e8f3ff 100%);
+  border-bottom: 1px solid rgba(236, 72, 153, .24);
+}
+
+.lineup-guide-tabs button.lineup-guide-tab {
+  min-height: 58px;
+  border-right: 1px solid rgba(47, 111, 224, .14);
+  border-radius: 0;
+  color: #0b2f78;
+  font-size: clamp(13px, 1.15vw, 16px);
+  letter-spacing: .02em;
+}
+
+.lineup-guide-tabs button.lineup-guide-tab.is-active,
+.lineup-guide-tabs button.lineup-guide-tab.is-active:hover {
+  background: linear-gradient(135deg, #f04a9b 0%, #ec3f94 100%);
+  color: #fff;
+  box-shadow: inset 0 -3px 0 rgba(255, 255, 255, .26);
+}
+
+.lineup-brand-guide .lineup-guide-featurebox {
+  grid-template-columns: minmax(190px, .42fr) minmax(0, 1fr);
+  gap: clamp(14px, 2vw, 24px);
+  align-items: center;
+  padding: clamp(18px, 2.6vw, 30px);
+  border: 2px solid rgba(236, 72, 153, .34);
+  border-top: 0;
+  border-radius: 0 0 22px 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .98) 0%, rgba(244, 249, 255, .95) 100%);
+}
+
+.lineup-guide-score p,
+.lineup-guide-spec-summary p,
+.lineup-guide-support-summary p {
+  margin: 0 0 8px;
+  color: #0b47b7;
+  font-size: clamp(15px, 1.45vw, 22px);
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.lineup-guide-score strong {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  margin: 0 0 14px;
+  color: #0d4dbd;
+  font-weight: 950;
+  line-height: .9;
+  letter-spacing: -0.02em;
+}
+
+.lineup-guide-score strong span {
+  font-size: clamp(54px, 7vw, 96px);
+}
+
+.lineup-guide-score strong small {
+  margin-bottom: 8px;
+  font-size: clamp(20px, 2.3vw, 34px);
+  font-weight: 950;
+}
+
+.lineup-guide-score em,
+.lineup-guide-spec-summary em,
+.lineup-guide-support-summary em {
+  display: block;
+  margin: 0 0 12px;
+  color: #0a255e;
+  font-size: clamp(12px, 1vw, 14px);
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.75;
+}
+
+.lineup-guide-score > b {
+  display: block;
+  position: relative;
+  padding-left: 24px;
+  color: #0b2f78;
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.lineup-guide-score > b::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .15em;
+  width: 17px;
+  height: 17px;
+  border: 2px solid #f04a9b;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(236, 72, 153, .16), rgba(255, 255, 255, .9));
+}
+
+.lineup-guide-score > b::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: .33em;
+  width: 6px;
+  height: 10px;
+  border-right: 2px solid #f04a9b;
+  border-bottom: 2px solid #f04a9b;
+  transform: rotate(40deg);
+}
+
+.lineup-brand-guide .lineup-guide-icon-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(8px, 1.1vw, 13px);
+}
+
+.lineup-brand-guide .lineup-guide-icon-grid span,
+.lineup-brand-guide .lineup-guide-spec-grid span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(82px, 8.5vw, 112px);
+  padding: 10px 8px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fff 0%, #f9fcff 100%);
+  border: 1px solid rgba(47, 111, 224, .12);
+  box-shadow: 0 10px 22px rgba(47, 111, 224, .10);
+  color: #0b2f78;
+  text-align: center;
+}
+
+.lineup-brand-guide .lineup-guide-icon-grid span.is-muted {
+  opacity: .46;
+  filter: grayscale(.75);
+}
+
+.lineup-brand-guide .lineup-guide-icon-grid img {
+  width: clamp(26px, 3.1vw, 42px);
+  height: clamp(26px, 3.1vw, 42px);
+  object-fit: contain;
+  margin: 0 0 8px;
+}
+
+.lineup-brand-guide .lineup-guide-icon-grid b,
+.lineup-brand-guide .lineup-guide-spec-grid b {
+  display: block;
+  color: #0b2f78;
+  font-size: clamp(10px, .9vw, 13px);
+  font-weight: 950;
+  line-height: 1.35;
+}
+
+.lineup-brand-guide .lineup-guide-spec-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.lineup-brand-guide .lineup-guide-spec-grid small {
+  display: block;
+  margin-top: 6px;
+  color: #4b5f86;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.lineup-guide-spec-summary strong,
+.lineup-guide-support-summary strong {
+  display: block;
+  margin-bottom: 12px;
+  color: #0d4dbd;
+  font-size: clamp(34px, 4.6vw, 58px);
+  font-weight: 950;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 900px) {
+  .lineup-brand-guide .lineup-guide-featurebox {
+    grid-template-columns: 1fr;
+  }
+  .lineup-brand-guide .lineup-guide-icon-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .lineup-brand-guide .lineup-guide-tabs {
+    grid-template-columns: 1fr;
+  }
+  .lineup-guide-tabs button.lineup-guide-tab {
+    border-right: 0;
+    border-bottom: 1px solid rgba(47, 111, 224, .14);
+  }
+  .lineup-brand-guide .lineup-guide-icon-grid,
+  .lineup-brand-guide .lineup-guide-spec-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
