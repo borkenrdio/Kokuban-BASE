@@ -10356,13 +10356,12 @@ body:has(.sticky-cta) .site-footer {
   display: inline-grid;
   place-items: center;
   flex: 0 0 auto;
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  background: #fff;
-  border: 2px solid rgba(47, 111, 224, .18);
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: 0;
   color: #1257c8;
-  box-shadow: 0 5px 12px rgba(47, 111, 224, .10);
+  box-shadow: none;
 }
 
 .lineup-guide-tab-icon svg {
@@ -10377,8 +10376,8 @@ body:has(.sticky-cta) .site-footer {
 
 .lineup-guide-tabs button.lineup-guide-tab.is-active .lineup-guide-tab-icon {
   color: #fff;
-  background: rgba(255, 255, 255, .18);
-  border-color: rgba(255, 255, 255, .62);
+  background: transparent;
+  border-color: transparent;
   box-shadow: none;
 }
 
@@ -10860,13 +10859,12 @@ body:has(.sticky-cta) .site-footer {
 }
 
 .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-hero {
-  grid-template-columns: minmax(218px, .28fr) minmax(0, 1fr);
-  gap: clamp(22px, 2.4vw, 34px);
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-copy {
-  min-height: 500px;
-  padding-right: clamp(18px, 2vw, 28px);
+  display: none;
 }
 
 .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-copy p {
@@ -10965,10 +10963,10 @@ body:has(.sticky-cta) .site-footer {
   order: 2;
   display: block;
   max-width: 100%;
-  color: #4b5b76;
-  font-size: clamp(12px, 1vw, 15px);
-  font-weight: 600;
-  line-height: 1.5;
+  color: #0a2a6b;
+  font-size: clamp(15px, 1.45vw, 20px);
+  font-weight: 800;
+  line-height: 1.4;
   letter-spacing: 0;
   text-align: center;
   overflow-wrap: break-word;
