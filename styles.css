@@ -11006,3 +11006,74 @@ body:has(.sticky-cta) .site-footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== トップページ モバイル微調整 ===== */
+/* 代表機能: デモ画像を機能カードの「下」に表示（スマホ／タブレットの縦積み時） */
+@media (max-width: 980px) {
+  .lp-features-list { order: 1; }
+  .lp-features-demo { order: 2; }
+}
+
+/* モバイルヘッダー: 「相談する」をデスクトップと同じピンクの「お問い合わせ」ボタンに戻し、
+   メニューはヘッダー内で縦中央・右寄せに揃える */
+@media (max-width: 640px) {
+  .header-main {
+    padding: 8px 12px;
+  }
+
+  .header-actions {
+    position: static;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* お問い合わせ: ピンクのピル型ボタン（デスクトップ同等） */
+  .header-actions .btn-primary {
+    position: static;
+    width: auto;
+    height: auto;
+    min-height: 40px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    display: inline-flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: #fff;
+    background: var(--pink);
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .header-actions .btn-primary::before,
+  .header-actions .btn-primary::after {
+    content: none;
+  }
+
+  .header-actions .btn-primary svg {
+    position: static;
+    transform: none;
+    width: 18px;
+    height: 18px;
+    color: #fff;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  /* メニュー: フローに戻しつつ内部アイコンの包含ブロックは維持（relative）。
+     ヘッダー内で縦中央・右端に */
+  .mobile-menu-button {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin: 0;
+  }
+}
