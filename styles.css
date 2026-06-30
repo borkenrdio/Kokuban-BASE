@@ -10921,28 +10921,15 @@ body:has(.sticky-cta) .site-footer {
 .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-grid small {
   order: 2;
   display: block;
-  color: #0647ad;
-  font-size: clamp(31px, 3.8vw, 52px);
-  font-weight: 950;
-  line-height: 1.08;
+  max-width: 100%;
+  color: #4b5b76;
+  font-size: clamp(12px, 1vw, 15px);
+  font-weight: 600;
+  line-height: 1.5;
   letter-spacing: 0;
   text-align: center;
-  overflow-wrap: normal;
-  word-break: keep-all;
-}
-
-.lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-grid span[data-spec="os"] small {
-  white-space: nowrap;
-  font-size: clamp(30px, 3.15vw, 43px);
-}
-
-.lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-grid span[data-spec="cpu"] small {
-  font-size: clamp(24px, 3vw, 42px);
-  line-height: 1.18;
-}
-
-.lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-grid span[data-spec="size"] small {
-  font-size: clamp(30px, 3.7vw, 52px);
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-note {
@@ -10950,11 +10937,16 @@ body:has(.sticky-cta) .site-footer {
 }
 
 @media (max-width: 1180px) {
+  .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-hero {
+    grid-template-columns: 1fr;
+  }
+
   .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-copy {
     min-height: auto;
   }
 
   .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-copy strong {
+    white-space: normal;
     font-size: clamp(31px, 5vw, 48px);
   }
 }
@@ -10962,9 +10954,5 @@ body:has(.sticky-cta) .site-footer {
 @media (max-width: 720px) {
   .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-grid {
     grid-template-columns: 1fr;
-  }
-
-  .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-grid small {
-    font-size: clamp(30px, 9vw, 44px);
   }
 }
