@@ -9910,12 +9910,48 @@ body:has(.sticky-cta) .site-footer {
 .lineup-story-card .lineup-brand-guide {
   grid-column: 1 / -1;
   width: 100%;
-  margin-top: 28px;
+  margin-top: 22px;
 }
 
 .lineup-story-card .lineup-card-actions {
+  grid-column: 2;
+  justify-self: start;
+  margin-top: 18px;
+}
+
+.lineup-story-card .lineup-size-guide {
   grid-column: 1 / -1;
-  justify-self: center;
+  margin: 22px 0 0;
+}
+
+/* おすすめサイズの目安: 縦幅を抑え、説明テキストを主役にする */
+.lineup-size-guide li {
+  min-height: 0;
+  gap: 2px;
+  padding: 10px 12px;
+}
+
+.lineup-size-guide .lineup-size-people {
+  display: none;
+}
+
+.lineup-size-guide li > strong {
+  order: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: #6a7a99;
+}
+
+.lineup-size-guide li em {
+  order: 1;
+  font-size: clamp(12.5px, 1.15vw, 15px);
+  font-weight: 900;
+  line-height: 1.35;
+  color: #09256a;
+}
+
+.lineup-size-guide-title strong {
+  font-size: 17px;
 }
 
 .lineup-story-card .lineup-logo {
@@ -9930,7 +9966,7 @@ body:has(.sticky-cta) .site-footer {
 }
 
 .lineup-brand-guide .lineup-guide-panel {
-  grid-template-columns: minmax(250px, .52fr) minmax(0, 1.48fr);
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .lineup-brand-guide .lineup-guide-main {
@@ -9959,6 +9995,7 @@ body:has(.sticky-cta) .site-footer {
   .lineup-story-card .lineup-story-meta,
   .lineup-story-card h3,
   .lineup-story-card .lineup-description,
+  .lineup-story-card .lineup-size-guide,
   .lineup-story-card .lineup-brand-guide,
   .lineup-story-card .lineup-card-actions {
     grid-column: 1;
