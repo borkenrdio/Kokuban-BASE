@@ -9864,7 +9864,8 @@ body:has(.sticky-cta) .site-footer {
 /* Lineup brand detail layout refinement */
 .lineup-story-card {
   grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
-  gap: clamp(26px, 4vw, 46px);
+  column-gap: clamp(26px, 4vw, 46px);
+  row-gap: 0;
   align-items: start;
 }
 
@@ -9890,11 +9891,16 @@ body:has(.sticky-cta) .site-footer {
 }
 
 .lineup-story-card .lineup-story-meta {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .lineup-story-card h3 {
-  margin-bottom: 18px;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 14px;
+  padding: 2px 6px 1px;
+  background: linear-gradient(transparent 58%, rgba(236, 72, 153, .28) 58%);
+  background-repeat: no-repeat;
 }
 
 .lineup-story-card .lineup-description {
