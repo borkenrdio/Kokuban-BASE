@@ -10364,6 +10364,13 @@ body:has(.sticky-cta) .site-footer {
   box-shadow: none;
 }
 
+/* レガシーの .lineup-guide-tabs span 由来の境界線を打ち消す */
+.lineup-guide-tabs button.lineup-guide-tab span {
+  min-height: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
 .lineup-guide-tab-icon svg {
   width: 22px;
   height: 22px;
