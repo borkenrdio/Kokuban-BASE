@@ -11715,6 +11715,27 @@ body:has(.lineup-page) {
   }
 }
 
+/* Mobile header: keep the menu button pinned to the left edge on every page. */
+@media (max-width: 760px) {
+  .header-main {
+    position: relative;
+    padding-left: 78px;
+  }
+
+  .mobile-menu-button {
+    position: absolute !important;
+    left: 10px;
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+  }
+
+  .header-actions {
+    margin-left: auto;
+  }
+}
+
 /* ============================================================================
    MAINTENANCE NOTES  （2026-07-01 リファクタリング調査メモ）
    ----------------------------------------------------------------------------
