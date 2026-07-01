@@ -6,11 +6,6 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://kokuban-base.com/denshikokuban/</loc>
-    <priority>0.9</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
     <loc>https://kokuban-base.com/article/</loc>
     <priority>0.9</priority>
     <changefreq>daily</changefreq>
