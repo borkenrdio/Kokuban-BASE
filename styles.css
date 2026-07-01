@@ -11419,14 +11419,21 @@ body:has(.lineup-page) .mobile-menu-button b {
   background: transparent !important;
   color: #101828 !important;
   text-align: center !important;
-  place-items: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   padding: 0 !important;
 }
 
 .lineup-size-guide-title::before {
-  content: "▭";
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 16px;
   margin-right: 10px;
-  color: #ec4899;
+  border: 2px solid #ec4899;
+  border-radius: 3px;
+  box-shadow: 0 8px 0 -5px #ec4899;
 }
 
 .lineup-size-guide-title span {
@@ -11845,5 +11852,372 @@ body:has(.lineup-page) .lineup-brand-guide .lineup-guide-bottom {
 
   body:has(.lineup-page) .lineup-brand-guide .lineup-guide-icon-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Lineup page: match the 2026-07 reference layout details. */
+body:has(.lineup-page) .header-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 22px;
+}
+
+body:has(.lineup-page) .header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+body:has(.lineup-page) .header-actions .btn-primary {
+  min-height: 64px;
+  padding-inline: 34px;
+  border-radius: 12px;
+  font-size: 22px;
+  line-height: 1;
+}
+
+body:has(.lineup-page) .mobile-menu-button {
+  align-self: center;
+  justify-self: end;
+  width: 72px;
+  height: 66px;
+  margin: 0;
+}
+
+body:has(.lineup-page) .lineup-brand-logos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 18px 20px;
+  margin-bottom: 26px;
+}
+
+body:has(.lineup-page) .lineup-brand-tab {
+  width: auto;
+  min-height: 104px;
+  border-radius: 10px;
+}
+
+body:has(.lineup-page) .lineup-brand-tab:nth-child(1),
+body:has(.lineup-page) .lineup-brand-tab:nth-child(2),
+body:has(.lineup-page) .lineup-brand-tab:nth-child(3) {
+  grid-column: span 2;
+}
+
+body:has(.lineup-page) .lineup-brand-tab:nth-child(4) {
+  grid-column: 1 / span 3;
+}
+
+body:has(.lineup-page) .lineup-brand-tab:nth-child(5) {
+  grid-column: 4 / span 3;
+}
+
+body:has(.lineup-page) .lineup-brand-tab img {
+  max-width: min(84%, 290px);
+  max-height: 72px;
+}
+
+body:has(.lineup-page) .lineup-story-visual {
+  min-height: clamp(230px, 27vw, 292px);
+  border: 0;
+  background: linear-gradient(100deg, #fff3f7 0%, #ffe7ef 54%, #ffdce8 100%);
+  box-shadow: 0 16px 34px rgba(236, 72, 153, .13);
+}
+
+body:has(.lineup-page) .lineup-story-visual .lineup-logo {
+  justify-self: start;
+  width: min(54%, 430px);
+  min-height: 96px;
+  margin-bottom: 12px;
+}
+
+body:has(.lineup-page) .lineup-story-visual .lineup-logo img {
+  max-height: 104px;
+  object-position: left center;
+}
+
+body:has(.lineup-page) .lineup-story-visual::after {
+  width: min(42%, 430px);
+  inset: 20px 54px 20px auto;
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
+  grid-template-areas:
+    "headline headline"
+    "description trust"
+    "strength strength"
+    "sizes sizes"
+    "guide guide";
+  gap: 18px 34px;
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3 {
+  grid-area: headline;
+  position: relative;
+  padding-inline: 72px;
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::before,
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 42px;
+  height: 76px;
+  border-block: 3px solid #d79b31;
+  border-left: 3px solid #d79b31;
+  border-radius: 28px 0 0 28px;
+  color: #d79b31;
+  transform: translateY(-50%) rotate(-11deg);
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::before {
+  left: 0;
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::after {
+  right: 0;
+  border-left: 0;
+  border-right: 3px solid #d79b31;
+  border-radius: 0 28px 28px 0;
+  transform: translateY(-50%) rotate(11deg);
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-description {
+  grid-area: description;
+  width: 100%;
+  align-self: center;
+}
+
+body:has(.lineup-page) .lineup-trust-badge {
+  grid-area: trust;
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 300px);
+  aspect-ratio: 1;
+  display: grid;
+  align-content: center;
+  gap: 20px;
+  padding: 38px 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 30%, #fff 0 18%, #ffe9f1 52%, #ffdce9 100%);
+  color: #111827;
+  box-shadow: inset 0 0 0 1px rgba(236, 72, 153, .08);
+}
+
+body:has(.lineup-page) .lineup-trust-badge div {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  column-gap: 8px;
+  border-bottom: 1px solid rgba(236, 72, 153, .22);
+  padding-bottom: 16px;
+}
+
+body:has(.lineup-page) .lineup-trust-badge div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+body:has(.lineup-page) .lineup-trust-badge span {
+  color: #ec4899;
+  font-size: 34px;
+}
+
+body:has(.lineup-page) .lineup-trust-badge strong {
+  color: #ec4899;
+  font-family: Assistant, var(--font-family);
+  font-size: clamp(42px, 5vw, 58px);
+  font-weight: 900;
+  line-height: .9;
+}
+
+body:has(.lineup-page) .lineup-trust-badge em,
+body:has(.lineup-page) .lineup-trust-badge small {
+  font-style: normal;
+  font-weight: 900;
+}
+
+body:has(.lineup-page) .lineup-trust-badge small {
+  grid-column: 2 / 4;
+  color: #111827;
+  font-size: 13px;
+}
+
+body:has(.lineup-page) .lineup-strength-list {
+  grid-area: strength;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 4px 0 0;
+  padding: 14px 12px;
+  list-style: none;
+  border: 1px solid rgba(236, 72, 153, .14);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(84, 52, 24, .06);
+}
+
+body:has(.lineup-page) .lineup-strength-list li {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 4px 10px;
+  align-items: center;
+  padding: 8px 14px;
+  border-right: 1px dashed rgba(84, 52, 24, .18);
+}
+
+body:has(.lineup-page) .lineup-strength-list li:last-child {
+  border-right: 0;
+}
+
+body:has(.lineup-page) .lineup-strength-list span {
+  grid-row: 1 / 3;
+  color: #ec4899;
+  font-size: 30px;
+  text-align: center;
+}
+
+body:has(.lineup-page) .lineup-strength-list strong {
+  color: #ec4899;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+body:has(.lineup-page) .lineup-strength-list small {
+  color: #111827;
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+body:has(.lineup-page) .lineup-size-guide {
+  grid-area: sizes;
+  align-items: center;
+  margin-top: 4px;
+}
+
+body:has(.lineup-page) .lineup-size-guide-title strong {
+  font-size: 0;
+}
+
+body:has(.lineup-page) .lineup-size-guide-title strong::before {
+  content: "ラインアップ（選べるサイズ）";
+  font-size: clamp(17px, 2vw, 22px);
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-logo-starboard) .lineup-size-guide-title strong::before {
+  content: "StarBoard ラインアップ（選べるサイズ）";
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-logo-mirai) .lineup-size-guide-title strong::before {
+  content: "MIRAI TOUCH ラインアップ（選べるサイズ）";
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-logo-sharp) .lineup-size-guide-title strong::before {
+  content: "SHARP ラインアップ（選べるサイズ）";
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-logo-benq) .lineup-size-guide-title strong::before {
+  content: "BenQ Board ラインアップ（選べるサイズ）";
+}
+
+body:has(.lineup-page) .lineup-story-card:has(.lineup-logo-promethean) .lineup-size-guide-title strong::before {
+  content: "Promethean ラインアップ（選べるサイズ）";
+}
+
+body:has(.lineup-page) .lineup-brand-guide {
+  grid-area: guide;
+}
+
+body:has(.lineup-page) .lineup-brand-guide .lineup-guide-gallery {
+  grid-template-columns: 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+body:has(.lineup-page) .lineup-brand-guide .lineup-guide-gallery strong {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+body:has(.lineup-page) .lineup-brand-guide .lineup-guide-gallery div {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  body:has(.lineup-page) .header-main {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 8px;
+  }
+
+  body:has(.lineup-page) .header-actions .btn-primary {
+    width: 52px;
+    min-height: 48px;
+    padding-inline: 0;
+    border-radius: 999px;
+    font-size: 0;
+  }
+
+  body:has(.lineup-page) .header-actions .btn-primary .btn-icon {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  body:has(.lineup-page) .mobile-menu-button {
+    width: 54px;
+    height: 58px;
+  }
+
+  body:has(.lineup-page) .lineup-brand-logos {
+    gap: 12px;
+  }
+
+  body:has(.lineup-page) .lineup-brand-tab {
+    min-height: 86px;
+  }
+
+  body:has(.lineup-page) .lineup-brand-tab img {
+    max-height: 58px;
+  }
+
+  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "headline"
+      "description"
+      "trust"
+      "strength"
+      "sizes"
+      "guide";
+    gap: 16px;
+  }
+
+  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3 {
+    padding-inline: 0;
+  }
+
+  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::before,
+  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::after {
+    display: none;
+  }
+
+  body:has(.lineup-page) .lineup-trust-badge {
+    width: min(270px, 100%);
+  }
+
+  body:has(.lineup-page) .lineup-strength-list {
+    grid-template-columns: 1fr;
+  }
+
+  body:has(.lineup-page) .lineup-strength-list li {
+    border-right: 0;
+    border-bottom: 1px dashed rgba(84, 52, 24, .18);
+  }
+
+  body:has(.lineup-page) .lineup-strength-list li:last-child {
+    border-bottom: 0;
   }
 }
