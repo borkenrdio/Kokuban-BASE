@@ -70,14 +70,15 @@
 }
 
 .kb-about-hero h1 {
-  font-size: clamp(54px, 5.8vw, 96px);
-  line-height: 1.08;
+  color: var(--about-blue);
+  font-size: clamp(38px, 4.2vw, 66px);
+  line-height: 1.12;
 }
 
 .kb-about-hero h2 {
-  margin-top: 24px;
-  font-size: clamp(32px, 3.5vw, 58px);
-  line-height: 1.28;
+  margin-top: 18px;
+  font-size: clamp(24px, 2.8vw, 40px);
+  line-height: 1.3;
 }
 
 .kb-about-hero p:not(.kb-about-kicker),
@@ -182,33 +183,28 @@
   border-radius: 0;
   border: 0;
   box-shadow: none;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .64)),
-    linear-gradient(90deg, #f8f8f7 0 46%, #ede7e1 46% 47%, #f5f1ec 47% 100%);
+  overflow: hidden;
+  /* 画像未設定時のフォールバック（実写を assets/denshikokuban-hero.jpg に置くと表示） */
+  background: linear-gradient(135deg, #eef4ff 0%, #dbe8ff 100%);
 }
 
-.kb-about-hero__visual::before {
-  content: "";
+/* ヒーロー実写：教室で電子黒板を使用している写真 */
+.kb-about-hero-photo {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 33%;
-  background:
-    linear-gradient(90deg, transparent 0 6%, rgba(180, 126, 61, .35) 6% 13%, transparent 13% 25%, rgba(180, 126, 61, .32) 25% 33%, transparent 33% 47%, rgba(180, 126, 61, .30) 47% 55%, transparent 55% 70%, rgba(180, 126, 61, .28) 70% 78%, transparent 78%),
-    linear-gradient(#e9d1ab, #c99d67);
-  clip-path: polygon(0 56%, 100% 35%, 100% 100%, 0 100%);
-  opacity: .74;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
+/* 左端をコピー側の白へなじませる（縦の境目を消す） */
 .kb-about-hero__visual::after {
   content: "";
   position: absolute;
-  left: 7%;
-  right: 4%;
-  top: 12%;
-  height: 1px;
-  background: rgba(145, 151, 160, .18);
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0) 17%);
 }
 
 .kb-about-board-mock {
@@ -882,10 +878,8 @@
     border-radius: 16px;
   }
 
-  .kb-about-hero__visual .kb-about-board-mock {
-    transform: none;
-    width: 86%;
-    border-width: 8px;
+  .kb-about-hero__visual::after {
+    display: none;
   }
 
   .kb-about-feature-pill {
