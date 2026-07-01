@@ -24,16 +24,14 @@
   grid-template-columns: minmax(390px, .92fr) minmax(560px, 1.08fr);
   gap: clamp(22px, 4vw, 70px);
   align-items: center;
-  min-height: clamp(520px, 47vw, 770px);
+  min-height: clamp(480px, 44vw, 720px);
   margin: 28px auto 34px;
-  padding: clamp(44px, 5vw, 88px) clamp(34px, 5vw, 88px);
+  padding: clamp(20px, 3vw, 44px) 0;
   overflow: hidden;
-  border: 1px solid #e6edf7;
-  border-radius: 28px;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, .98) 0 43%, rgba(255, 255, 255, .76) 54%, rgba(255, 255, 255, .08) 100%),
-    linear-gradient(135deg, #fff 0%, #eef5ff 100%);
-  box-shadow: 0 24px 70px rgba(7, 29, 69, .13);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .kb-about-hero__copy {
@@ -507,31 +505,75 @@
 }
 
 .kb-about-compare-table thead th {
-  background: #eaf2ff;
-  color: var(--about-blue);
+  padding: 22px 16px 18px;
+  background: #fff;
+  color: #334466;
   font-weight: 900;
 }
 
+.kb-about-compare-table thead th.th-corner {
+  background: #fff;
+}
+
+.th-media {
+  display: block;
+  height: clamp(84px, 9vw, 128px);
+}
+
+.th-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.th-name {
+  display: block;
+  margin-top: 12px;
+  font-size: clamp(16px, 1.4vw, 20px);
+  font-weight: 900;
+}
+
+.kb-about-compare-table thead th.is-primary .th-name {
+  color: var(--about-blue);
+}
+
 .kb-about-compare-table tbody th {
-  width: 28%;
-  background: #f8fbff;
+  width: 26%;
+  background: #fff;
   color: #071d45;
   text-align: left;
   font-weight: 800;
 }
 
-.mark {
-  display: inline-grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  font-weight: 900;
+/* 電子黒板 列を強調 */
+.kb-about-compare-table th.is-primary,
+.kb-about-compare-table td.is-primary {
+  background: #eef5ff;
 }
 
-.mark.is-good { background: #e9f7ff; color: var(--about-blue); }
-.mark.is-limited { background: #fff5df; color: #9b6a00; }
-.mark.is-none { background: #eef1f6; color: #8290a7; }
+.mark {
+  display: inline-block;
+  font-size: clamp(24px, 2.4vw, 30px);
+  font-weight: 700;
+  line-height: 1;
+  color: #9aa7bd;
+}
+
+.kb-about-compare-table td.is-primary .mark {
+  color: var(--about-blue);
+}
+
+.cost {
+  display: inline-block;
+  font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 800;
+  color: #50617f;
+}
+
+.kb-about-compare-table td.is-primary .cost {
+  color: var(--about-blue);
+  font-weight: 900;
+}
 
 .kb-about-reasons {
   display: grid;
@@ -862,7 +904,12 @@
 
   .kb-about-hero h2 {
     margin-top: 14px;
-    font-size: clamp(24px, 7vw, 34px);
+    font-size: clamp(22px, 6vw, 32px);
+  }
+
+  /* 狭幅では固定改行(<br>)を無効化し、自然な折り返しで2行に収める */
+  .kb-about-hero h2 br {
+    display: none;
   }
 
   .kb-about-hero p:not(.kb-about-kicker) {
