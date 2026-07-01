@@ -174,6 +174,22 @@
         .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .article-body img[src*=".gif"] { width: 100%; }
         .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+        .article-body table { width: 100%; margin: 2rem 0; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
+        .article-body th,
+        .article-body td { padding: 14px 16px; border-right: 1px solid #dbe3f0; border-bottom: 1px solid #dbe3f0; color: #0f172a; text-align: left; vertical-align: middle; }
+        .article-body th:last-child,
+        .article-body td:last-child { border-right: 0; }
+        .article-body tr:last-child th,
+        .article-body tr:last-child td { border-bottom: 0; }
+        .article-body th { background: #eef5ff; color: #103f99; font-weight: 800; }
+        .article-body td p,
+        .article-body th p { margin: 0; }
+        .article-body tbody tr:nth-child(even) td { background: #f8fbff; }
+        @media (max-width: 640px) {
+            .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+            .article-body th,
+            .article-body td { min-width: 128px; padding: 12px 14px; white-space: nowrap; }
+        }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
         .article-body a.internal-link {
