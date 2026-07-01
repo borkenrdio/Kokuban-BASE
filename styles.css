@@ -10017,9 +10017,9 @@ body:has(.sticky-cta) .site-footer {
 
 .lineup-size-guide li > strong {
   order: 0;
-  font-size: 13px;
-  font-weight: 800;
-  color: #6a7a99;
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 900;
+  color: #111;
 }
 
 .lineup-size-guide li em {
@@ -11310,12 +11310,12 @@ body:has(.lineup-page) .mobile-menu-button b {
 }
 
 .lineup-story-visual::before {
-  content: "★ おすすめメーカー";
+  content: "おすすめメーカー";
   width: max-content;
   margin-bottom: 20px;
-  padding: 8px 18px;
+  padding: 8px 18px 8px 44px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #e11d48, #ec4899);
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%3E%20%3Cpath%20d%3D'M12%202%2014.7%208.6%2021.8%209.1%2016.3%2013.7%2018.1%2020.6%2012%2016.8%205.9%2020.6%207.7%2013.7%202.2%209.1%209.3%208.6Z'%20fill%3D'%23ffd233'%20stroke%3D'%23e59a00'%20stroke-width%3D'1.1'%20stroke-linejoin%3D'round'%2F%3E%3C%2Fsvg%3E") 16px center / 19px 19px no-repeat, linear-gradient(135deg, #e11d48, #ec4899);
   color: #fff;
   font-size: 17px;
   font-weight: 900;
@@ -11359,9 +11359,9 @@ body:has(.lineup-page) .mobile-menu-button b {
   z-index: 1;
   margin: 0;
   color: #141414;
-  font-size: clamp(18px, 2.2vw, 25px);
+  font-size: clamp(13px, 1.5vw, 17px);
   line-height: 1.4;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .lineup-story-visual small {
@@ -11447,7 +11447,8 @@ body:has(.lineup-page) .mobile-menu-button b {
 
 .lineup-size-guide li:not(.lineup-size-guide-title) {
   min-height: 46px;
-  padding: 10px 14px;
+  /* 文字拡大に伴う余白の残りすぎを防ぐため上下 padding を圧縮（縦幅 min-height は維持） */
+  padding: 4px 14px;
   border: 1px solid rgba(84, 52, 24, .12) !important;
   border-radius: 999px;
   background: #fff;
@@ -11502,7 +11503,7 @@ body:has(.lineup-page) .mobile-menu-button b {
   border-radius: 0;
   background: #fff;
   color: #111;
-  font-size: clamp(14px, 1.8vw, 19px);
+  font-size: clamp(16px, 2.1vw, 23px);
 }
 
 .lineup-guide-tabs button.lineup-guide-tab:last-child {
@@ -11540,14 +11541,16 @@ body:has(.lineup-page) .mobile-menu-button b {
 }
 
 .lineup-brand-guide .lineup-guide-gallery {
-  margin: 0;
+  /* 直上の特長ボックスとの余白を広げる */
+  margin: clamp(24px, 3.4vw, 46px) 0 0;
   padding: 0 clamp(18px, 2.7vw, 28px) clamp(16px, 2.2vw, 24px);
   grid-template-columns: 150px minmax(0, 1fr);
 }
 
 .lineup-brand-guide .lineup-guide-gallery img {
   height: 88px;
-  border-color: rgba(84, 52, 24, .1);
+  /* 画像の枠線を削除 */
+  border: 0;
 }
 
 .lineup-brand-guide .lineup-guide-bottom {
@@ -11926,13 +11929,15 @@ body:has(.lineup-page) .lineup-story-visual {
 
 body:has(.lineup-page) .lineup-story-visual .lineup-logo {
   justify-self: start;
-  width: min(54%, 430px);
-  min-height: 96px;
+  width: min(60%, 480px);
+  min-height: 108px;
   margin-bottom: 12px;
+  /* バッジの星の左端と縦ラインを揃える（星は pill 左端から約16px） */
+  margin-left: 16px;
 }
 
 body:has(.lineup-page) .lineup-story-visual .lineup-logo img {
-  max-height: 104px;
+  max-height: 128px;
   object-position: left center;
 }
 
@@ -11956,7 +11961,13 @@ body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story
 body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3 {
   grid-area: headline;
   position: relative;
-  padding-inline: 72px;
+  padding-inline: 92px;
+  margin: 6px auto 10px;
+  /* ピンクの蛍光マーカー風下線（.lineup-story-card h3 の背景グラデ）を打ち消す */
+  background: none;
+  font-weight: 800;
+  line-height: 1.62;
+  letter-spacing: .02em;
 }
 
 body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::before,
@@ -11964,25 +11975,21 @@ body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story
   content: "";
   position: absolute;
   top: 50%;
-  width: 42px;
-  height: 76px;
-  border-block: 3px solid #d79b31;
-  border-left: 3px solid #d79b31;
-  border-radius: 28px 0 0 28px;
-  color: #d79b31;
-  transform: translateY(-50%) rotate(-11deg);
+  width: 54px;
+  height: 94px;
+  /* 月桂樹（ローレル）モチーフ：ゴールド系グラデーションのインラインSVG */
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2056%2096'%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D'g'%20x1%3D'0.1'%20y1%3D'0'%20x2%3D'0.9'%20y2%3D'1'%3E%20%3Cstop%20offset%3D'0'%20stop-color%3D'%238a5a12'%2F%3E%3Cstop%20offset%3D'0.5'%20stop-color%3D'%23e3a41c'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%23ffe08a'%2F%3E%20%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Cpath%20d%3D'M45%2092%20C%2020%2076%2013%2046%2031%208'%20fill%3D'none'%20stroke%3D'url(%23g)'%20stroke-width%3D'3.2'%20stroke-linecap%3D'round'%2F%3E%20%3Cg%20fill%3D'url(%23g)'%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3.7'%20ry%3D'8.6'%20transform%3D'translate(40%2082)%20rotate(-38)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3.7'%20ry%3D'8.6'%20transform%3D'translate(31%2070)%20rotate(-52)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3.7'%20ry%3D'8.6'%20transform%3D'translate(24%2057)%20rotate(-66)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3.7'%20ry%3D'8.6'%20transform%3D'translate(20%2043)%20rotate(-82)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3.7'%20ry%3D'8.6'%20transform%3D'translate(21%2029)%20rotate(-100)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3.7'%20ry%3D'8.6'%20transform%3D'translate(27%2016)%20rotate(-120)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3.2'%20ry%3D'7'%20transform%3D'translate(35%207)%20rotate(-140)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3'%20ry%3D'6.6'%20transform%3D'translate(43%2074)%20rotate(18)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3'%20ry%3D'6.6'%20transform%3D'translate(35%2061)%20rotate(4)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3'%20ry%3D'6.6'%20transform%3D'translate(29%2048)%20rotate(-12)'%2F%3E%20%3Cellipse%20cx%3D'0'%20cy%3D'0'%20rx%3D'3'%20ry%3D'6.6'%20transform%3D'translate(27%2034)%20rotate(-30)'%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E") center / contain no-repeat;
+  transform: translateY(-50%);
 }
 
 body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::before {
-  left: 0;
+  left: 4px;
 }
 
 body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::after {
-  right: 0;
-  border-left: 0;
-  border-right: 3px solid #d79b31;
-  border-radius: 0 28px 28px 0;
-  transform: translateY(-50%) rotate(11deg);
+  right: 4px;
+  /* 同じSVGを左右反転して対称配置 */
+  transform: translateY(-50%) scaleX(-1);
 }
 
 body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-description {
@@ -12220,4 +12227,31 @@ body:has(.lineup-page) .lineup-brand-guide .lineup-guide-gallery div {
   body:has(.lineup-page) .lineup-strength-list li:last-child {
     border-bottom: 0;
   }
+}
+
+/* ===== Lineup ブランドガイド 追加調整（2026-07 参照デザイン反映） ===== */
+
+/* 特長ボックス（.lineup-strength-list）のアイコンを image2 風の細線アウトラインSVGへ。
+   HTMLの絵文字は font-size:0 で不可視化し、背景SVGで表示する（コンテンツ非変更）。 */
+body:has(.lineup-page) .lineup-strength-list li span {
+  width: 34px;
+  height: 34px;
+  font-size: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30px 30px;
+}
+
+body:has(.lineup-page) .lineup-strength-list li:nth-child(1) span { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'%23374151'%20stroke-width%3D'1.7'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M10%2010V5a1.6%201.6%200%200%201%203.2%200v5'%2F%3E%3Cpath%20d%3D'M13.2%209a1.6%201.6%200%200%201%203.2%200v2'%2F%3E%3Cpath%20d%3D'M16.4%2010a1.6%201.6%200%200%201%203.1%200v4.2c0%203-2%205.3-5.2%205.3h-1.6c-1.8%200-2.9-.7-3.9-2L4.6%2015a1.55%201.55%200%200%201%202.4-2L10%2015.5'%2F%3E%3C%2Fsvg%3E"); }
+body:has(.lineup-page) .lineup-strength-list li:nth-child(2) span { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'%23374151'%20stroke-width%3D'1.7'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Cpath%20d%3D'M12%2021s7-3.6%207-9V5.6L12%203%205%205.6V12c0%205.4%207%209%207%209Z'%2F%3E%3Cpath%20d%3D'M9%2011.7l2.1%202.1L15.2%2010'%2F%3E%3C%2Fsvg%3E"); }
+body:has(.lineup-page) .lineup-strength-list li:nth-child(3) span { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'%23374151'%20stroke-width%3D'1.7'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Ccircle%20cx%3D'9'%20cy%3D'8.4'%20r%3D'3'%2F%3E%3Cpath%20d%3D'M3.6%2019c.6-3.1%202.7-4.8%205.4-4.8s4.8%201.7%205.4%204.8'%2F%3E%3Cpath%20d%3D'M16%205.7a3%203%200%200%201%200%205.6'%2F%3E%3Cpath%20d%3D'M17.4%2014.4c2.1.5%203.5%202%204%204.6'%2F%3E%3C%2Fsvg%3E"); }
+body:has(.lineup-page) .lineup-strength-list li:nth-child(4) span { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2024%2024'%20fill%3D'none'%20stroke%3D'%23374151'%20stroke-width%3D'1.7'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%3E%3Crect%20x%3D'3'%20y%3D'4'%20width%3D'18'%20height%3D'12.5'%20rx%3D'2'%2F%3E%3Cpath%20d%3D'M8.5%2020h7M12%2016.5V20'%2F%3E%3C%2Fsvg%3E"); }
+
+/* タブのアイコン色：非選択=青(--blue) / 選択中=ピンク(--pink)。SVGは stroke:currentColor */
+.lineup-guide-tabs button.lineup-guide-tab .lineup-guide-tab-icon {
+  color: var(--blue);
+}
+
+.lineup-guide-tabs button.lineup-guide-tab.is-active .lineup-guide-tab-icon {
+  color: var(--pink);
 }
