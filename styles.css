@@ -7503,6 +7503,69 @@ section.top-guide-cta {
   letter-spacing: .02em;
 }
 
+.article-body table {
+  width: 100%;
+  margin: 2rem 0;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #dbe3f0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(16, 63, 153, .08);
+}
+
+.article-body th,
+.article-body td {
+  padding: 14px 16px;
+  border-right: 1px solid #dbe3f0;
+  border-bottom: 1px solid #dbe3f0;
+  color: #0f172a;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.article-body th:last-child,
+.article-body td:last-child {
+  border-right: 0;
+}
+
+.article-body tr:last-child th,
+.article-body tr:last-child td {
+  border-bottom: 0;
+}
+
+.article-body th {
+  background: #eef5ff;
+  color: #103f99;
+  font-weight: 800;
+}
+
+.article-body td p,
+.article-body th p {
+  margin: 0;
+}
+
+.article-body tbody tr:nth-child(even) td {
+  background: #f8fbff;
+}
+
+@media (max-width: 640px) {
+  .article-body table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+  }
+
+  .article-body th,
+  .article-body td {
+    min-width: 128px;
+    padding: 12px 14px;
+    white-space: nowrap;
+  }
+}
+
 .btn,
 .news-more,
 .page-btn,
@@ -9614,6 +9677,24 @@ body:has(.sticky-cta) .site-footer {
 
 .lp-feature-card-check svg { width: 16px; height: 16px; }
 
+.lp-feature-mobile-preview {
+  display: none;
+  margin: -2px 0 0;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: #091f49;
+  box-shadow: 0 22px 44px rgba(0, 0, 0, .28);
+  aspect-ratio: 16 / 11;
+}
+
+.lp-feature-mobile-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .lp-feature-note {
   display: flex;
   align-items: center;
@@ -11543,7 +11624,8 @@ body:has(.lineup-page) {
 /* 代表機能: デモ画像を機能カードの「下」に表示（スマホ／タブレットの縦積み時） */
 @media (max-width: 980px) {
   .lp-features-list { order: 1; }
-  .lp-features-demo { order: 2; }
+  .lp-features-demo { display: none; }
+  .lp-feature-mobile-preview { display: block; }
 }
 
 /* モバイルヘッダー: 「相談する」をデスクトップと同じピンクの「お問い合わせ」ボタンに戻し、
