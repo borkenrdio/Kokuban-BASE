@@ -615,7 +615,6 @@ a {
   height: 25px;
 }
 
-
 .faq-cta h2::before,
 .faq-cta h2::after {
   display: inline-block;
@@ -1707,8 +1706,6 @@ a {
   font-size: 12px;
   font-weight: 800;
 }
-
-
 
 .lineup-brand-guide{margin:26px 0 24px;padding:clamp(18px,2.6vw,28px);border-radius:24px;background:radial-gradient(circle at 3% 10%,rgba(236,72,153,.18) 0 18px,transparent 19px),radial-gradient(circle at 98% 7%,rgba(236,72,153,.2) 0 16px,transparent 17px),linear-gradient(135deg,#eaf4ff 0%,#f7fbff 47%,#dbeeff 100%);border:1px solid rgba(47,111,224,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 18px 44px rgba(47,111,224,.13)}
 .lineup-size-guide{display:grid;grid-template-columns:1.08fr repeat(4,minmax(0,1fr));align-items:stretch;gap:0;margin:0 0 18px;padding:0;overflow:hidden;list-style:none;border:2px solid #ff63aa;border-radius:18px;background:rgba(255,255,255,.86)}
@@ -8777,7 +8774,6 @@ body:has(.sticky-cta) .site-footer {
   }
 }
 
-
 /* Top FAQ CTA pop emphasis */
 .faq-cta {
   margin-top: clamp(52px, 6vw, 84px);
@@ -11090,73 +11086,7 @@ body:has(.lineup-page) {
     linear-gradient(180deg, #fffaf5 0%, #fff 46%, #f7fbff 100%);
 }
 
-body:has(.lineup-page) .site-header {
-  box-shadow: 0 6px 18px rgba(12, 33, 70, .12);
-}
-
-body:has(.lineup-page) .header-main {
-  min-height: 90px;
-}
-
-body:has(.lineup-page) .brand {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  color: var(--blue);
-  font-size: clamp(28px, 3vw, 40px);
-  line-height: 1;
-}
-
-body:has(.lineup-page) .brand-mark {
-  display: none;
-}
-
-body:has(.lineup-page) .brand::after {
-  content: "電子黒板の選び方と導入サポート";
-  color: #222;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .08em;
-}
-
-body:has(.lineup-page) .header-phone,
-body:has(.lineup-page) .header-actions .btn-outline,
-body:has(.lineup-page) .global-nav {
-  display: none;
-}
-
-body:has(.lineup-page) .header-actions .btn-primary {
-  min-height: 58px;
-  padding-inline: 30px;
-  border-radius: 12px;
-  font-size: 20px;
-  box-shadow: 0 12px 26px rgba(236, 72, 153, .28);
-}
-
-body:has(.lineup-page) .mobile-menu-button {
-  position: static;
-  display: inline-grid;
-  width: 82px;
-  height: 68px;
-  margin-left: 20px;
-  border: 0;
-  background: transparent;
-  color: #103f99;
-}
-
-body:has(.lineup-page) .mobile-menu-button span,
-body:has(.lineup-page) .mobile-menu-button span::before,
-body:has(.lineup-page) .mobile-menu-button span::after {
-  height: 3px;
-  border-radius: 999px;
-  background: #103f99;
-}
-
-body:has(.lineup-page) .mobile-menu-button b {
-  color: #1f2937;
-  font-size: 13px;
-  letter-spacing: .04em;
-}
+/* ラインナップ: ヘッダー/メニューは他ページと共通デザインに統一（専用の上書きは削除） */
 
 .lineup-page {
   padding-top: 0;
@@ -11567,52 +11497,6 @@ body:has(.lineup-page) .mobile-menu-button b {
 }
 
 @media (max-width: 900px) {
-  body:has(.lineup-page) .header-main {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    gap: 8px;
-    align-items: center;
-    padding-inline: 12px;
-  }
-
-  body:has(.lineup-page) .header-main {
-    min-height: 78px;
-  }
-
-  body:has(.lineup-page) .brand {
-    min-width: 0;
-    font-size: clamp(22px, 7vw, 28px);
-  }
-
-  body:has(.lineup-page) .brand::after {
-    font-size: 10px;
-    letter-spacing: .02em;
-    white-space: nowrap;
-  }
-
-  body:has(.lineup-page) .header-actions {
-    display: flex;
-    min-width: 0;
-  }
-
-  body:has(.lineup-page) .header-actions .btn-primary {
-    min-height: 48px;
-    padding-inline: 13px;
-    font-size: 14px;
-    white-space: nowrap;
-  }
-
-  body:has(.lineup-page) .mobile-menu-button {
-    width: 54px;
-    height: 58px;
-    margin-left: 0;
-    padding-inline: 4px;
-  }
-
-  body:has(.lineup-page) .mobile-menu-button b {
-    font-size: 11px;
-  }
-
   .lineup-brand-logos {
     grid-template-columns: 1fr;
   }
@@ -11856,36 +11740,6 @@ body:has(.lineup-page) .lineup-brand-guide .lineup-guide-bottom {
   body:has(.lineup-page) .lineup-brand-guide .lineup-guide-icon-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
-
-/* Lineup page: match the 2026-07 reference layout details. */
-body:has(.lineup-page) .header-main {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
-  align-items: center;
-  gap: 22px;
-}
-
-body:has(.lineup-page) .header-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-body:has(.lineup-page) .header-actions .btn-primary {
-  min-height: 64px;
-  padding-inline: 34px;
-  border-radius: 12px;
-  font-size: 22px;
-  line-height: 1;
-}
-
-body:has(.lineup-page) .mobile-menu-button {
-  align-self: center;
-  justify-self: end;
-  width: 72px;
-  height: 66px;
-  margin: 0;
 }
 
 body:has(.lineup-page) .lineup-brand-logos {
@@ -12163,29 +12017,6 @@ body:has(.lineup-page) .lineup-brand-guide .lineup-guide-gallery div {
 }
 
 @media (max-width: 900px) {
-  body:has(.lineup-page) .header-main {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    gap: 8px;
-  }
-
-  body:has(.lineup-page) .header-actions .btn-primary {
-    width: 52px;
-    min-height: 48px;
-    padding-inline: 0;
-    border-radius: 999px;
-    font-size: 0;
-  }
-
-  body:has(.lineup-page) .header-actions .btn-primary .btn-icon {
-    margin: 0;
-    font-size: 20px;
-  }
-
-  body:has(.lineup-page) .mobile-menu-button {
-    width: 54px;
-    height: 58px;
-  }
-
   body:has(.lineup-page) .lineup-brand-logos {
     gap: 12px;
   }
