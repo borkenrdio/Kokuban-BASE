@@ -11929,15 +11929,23 @@ body:has(.lineup-page) .lineup-story-visual {
 
 body:has(.lineup-page) .lineup-story-visual .lineup-logo {
   justify-self: start;
-  width: min(60%, 480px);
-  min-height: 108px;
+  /* グリッド内の画像も左寄せにする（中央寄せを解除） */
+  justify-items: start;
+  /* 右側の製品画像(::after, 42%)と重ならない範囲で左寄せ拡大 */
+  width: min(46%, 410px);
+  min-height: 100px;
   margin-bottom: 12px;
   /* バッジの星の左端と縦ラインを揃える（星は pill 左端から約16px） */
   margin-left: 16px;
 }
 
 body:has(.lineup-page) .lineup-story-visual .lineup-logo img {
-  max-height: 128px;
+  /* .lineup-story-card .lineup-logo img の max-width:230px 上限を解除し、
+     ボックス幅いっぱいに左寄せで拡大する */
+  width: 100%;
+  max-width: none;
+  max-height: 100px;
+  object-fit: contain;
   object-position: left center;
 }
 
