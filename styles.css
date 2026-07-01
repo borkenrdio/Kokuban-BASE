@@ -11830,6 +11830,13 @@ body:has(.lineup-page) .lineup-brand-guide .lineup-guide-tabpanel[data-guide-pan
   grid-template-columns: minmax(180px, .34fr) minmax(0, 1fr);
 }
 
+/* カタログスペックタブ(panel 1)は縦積み：スペックグリッド全幅 → 注記。
+   上の2カラム指定だとヒーローが潰れてグリッドと注記が重なるため単一カラムに戻す。 */
+body:has(.lineup-page) .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"],
+body:has(.lineup-page) .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-hero {
+  grid-template-columns: 1fr;
+}
+
 body:has(.lineup-page) .lineup-brand-guide .lineup-guide-icon-grid {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   width: 100%;
