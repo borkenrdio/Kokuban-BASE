@@ -9382,12 +9382,16 @@ body:has(.sticky-cta) .site-footer {
 
 .lp-accent { color: #ff5fa6; }
 
+:root {
+  --lp-home-blue-bg: radial-gradient(125% 95% at 76% 28%, #1a3e86 0%, #0c2b6a 44%, #071d4d 100%);
+}
+
 /* ===== 1. ヒーロー ===== */
 .lp-hero {
   position: relative;
   overflow: hidden;
   color: #fff;
-  background: radial-gradient(125% 95% at 76% 28%, #1a3e86 0%, #0c2b6a 44%, #071d4d 100%);
+  background: var(--lp-home-blue-bg);
 }
 
 .lp-hero-deco { position: absolute; inset: 0; pointer-events: none; }
@@ -9515,7 +9519,7 @@ body:has(.sticky-cta) .site-footer {
 /* ===== 2. 授業が変わる代表機能 ===== */
 .lp-features {
   color: #fff;
-  background: linear-gradient(180deg, #0a2459 0%, #0b2c6a 100%);
+  background: var(--lp-home-blue-bg);
   padding: clamp(46px, 6vw, 84px) 0;
 }
 
@@ -9640,7 +9644,7 @@ body:has(.sticky-cta) .site-footer {
 /* ===== 3. 選定に必要なことを、ひとつの窓口で ===== */
 .lp-window {
   color: #fff;
-  background: linear-gradient(180deg, #0b2c6a 0%, #081f4c 100%);
+  background: var(--lp-home-blue-bg);
   padding: clamp(48px, 6vw, 86px) 0 clamp(54px, 7vw, 94px);
 }
 
