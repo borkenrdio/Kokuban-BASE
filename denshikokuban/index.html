@@ -116,19 +116,21 @@
     </section>
 
     <section class="kb-about-section kb-about-reasons">
-      <div>
+      <div class="kb-about-reasons__copy">
         <div class="kb-about-section-head is-left">
           <span>4. 選ばれる理由</span>
           <h2>なぜ、学校や学習塾で電子黒板が選ばれているのか</h2>
         </div>
         <ol class="kb-about-reason-list">
-          <li><strong>授業の理解度が上がり、集中力が続きやすい</strong></li>
-          <li><strong>板書時間を削減し、対話や演習の時間を増やせる</strong></li>
-          <li><strong>データ活用で、振り返りや個別フォローがしやすい</strong></li>
-          <li><strong>ICT環境の整備で、学校・塾の価値向上につながる</strong></li>
+          <li><strong>授業の理解度が上がり、集中力が続きやすい。</strong><p>視覚的にわかりやすく、興味を引きつける授業が実現します。</p></li>
+          <li><strong>板書時間を削減し、対話や演習の時間を増やせる。</strong><p>準備や書き写しの負担を減らし、指導の質を高めます。</p></li>
+          <li><strong>データ活用で、振り返りや個別フォローがしやすい。</strong><p>授業内容を保存・共有でき、復習や課題配布もスムーズに。</p></li>
+          <li><strong>ICT環境の整備で、学校・塾の価値向上につながる。</strong><p>先進的な学習環境が、保護者や生徒からの信頼につながります。</p></li>
         </ol>
       </div>
-      <figure class="kb-about-image-slot kb-about-reasons__image" data-image-role="授業風景の写真"></figure>
+      <figure class="kb-about-reasons__image">
+        <img src="../assets/denshikokuban-board.jpg" alt="教室で電子黒板を使用しているイメージ" loading="lazy">
+      </figure>
     </section>
 
     <section class="kb-about-section" id="size">
@@ -147,12 +149,32 @@
     <section class="kb-about-section kb-about-cost">
       <div class="kb-about-section-head">
         <span>6. 価格</span>
-        <h2>電子黒板の価格は、本体だけでなく設置・保証・運用まで見て考えます。</h2>
+        <h2>電子黒板の価格は、必要な3つの要素で考えます。</h2>
+        <p>本体価格に加えて、設置方法に応じたスタンドまたは壁掛け金具、そして保証内容まで含めて確認することが大切です。</p>
       </div>
-      <div class="kb-about-cost-map">
-        <div class="cost-chip">電子黒板本体</div><div class="cost-chip">スタンド、金具</div><div class="cost-chip">搬入、設置</div>
-        <div class="cost-center">導入総額</div>
-        <div class="cost-chip">初期設定</div><div class="cost-chip">保証、保守</div><div class="cost-chip">活用研修</div>
+      <div class="kb-about-cost-map" aria-label="電子黒板の価格を構成する3つの要素">
+        <article class="cost-chip">
+          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><rect x="10" y="15" width="44" height="29" rx="3" stroke="currentColor" stroke-width="4"/><path d="M24 51h16M32 44v7" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>
+          <strong>本体価格</strong>
+          <p>電子黒板本体の購入費用です。</p>
+        </article>
+        <span class="cost-plus" aria-hidden="true">+</span>
+        <article class="cost-chip">
+          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M20 12h24M24 12v28M40 12v28M17 40h30M22 40l-7 12M42 40l7 12" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17" cy="54" r="3" fill="currentColor"/><circle cx="49" cy="54" r="3" fill="currentColor"/></svg></span>
+          <strong>スタンド or 壁掛け金具</strong>
+          <p>教室の使い方に合わせた設置部材の費用です。</p>
+        </article>
+        <span class="cost-plus" aria-hidden="true">+</span>
+        <article class="cost-chip">
+          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M32 8l20 8v14c0 13-8 22-20 28-12-6-20-15-20-28V16l20-8Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M23 32l6 6 13-15" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <strong>保証</strong>
+          <p>Kokuban BASEは5年保証が付帯します。</p>
+        </article>
+        <span class="cost-equal" aria-hidden="true">=</span>
+        <div class="cost-center">導入費用<br><span>総額</span></div>
+      </div>
+      <div class="kb-about-cost-note">
+        <strong>トータルで考えることで、長く安心して使える環境をつくれます。</strong>
       </div>
       <div class="kb-about-section-cta"><a class="kb-about-btn kb-about-btn--primary" href="../lease/">電子黒板の価格・リースを詳しく見る</a></div>
     </section>
@@ -184,37 +206,75 @@
     </section>
 
     <section class="kb-about-section kb-about-support">
-      <div class="kb-about-section-head">
-        <span>9. Kokuban BASEのサポート</span>
-        <h2>現場に合う一台を、比較から導入後まで一緒に考えます。</h2>
-        <p>授業スタイルや教室環境をヒアリングし、複数メーカーを比較。予算に合わせた提案、実機体験、オンライン相談、設置、導入サポート、使い始めるための活用相談まで対応します。</p>
+      <div class="kb-about-support-title">
+        <h2>導入前にご相談から運用まで、しっかりサポートします。</h2>
       </div>
       <ol class="kb-about-step-row">
-        <li><span>相談</span></li><li><span>比較</span></li><li><span>提案</span></li><li><span>設置</span></li><li><span>活用相談</span></li>
+        <li>
+          <span class="step-num">1</span>
+          <strong>ヒアリング</strong>
+          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M18 14h22l8 8v26a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V18a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="4"/><path d="M40 14v10h10M23 30h15M23 39h19M23 48h12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="47" cy="43" r="8" fill="currentColor"/></svg></i>
+          <p>ご要望や使用環境をお聞きします。</p>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <strong>ご提案・比較</strong>
+          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><rect x="8" y="16" width="30" height="22" rx="3" stroke="currentColor" stroke-width="4"/><path d="M17 46h20M27 38v8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><rect x="42" y="25" width="14" height="22" rx="2" stroke="currentColor" stroke-width="4"/><path d="M47 40v-6M52 40V30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></i>
+          <p>最適な製品・プランをご提案します。</p>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <strong>お見積り</strong>
+          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M18 8h21l9 9v39H18V8Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M38 8v12h10M27 26h10M25 36h14M32 25v22" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></i>
+          <p>ご要望に合わせたお見積りをご提示します。</p>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <strong>導入・設置</strong>
+          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M8 35h20v13H8zM35 26h11l10 10v12H35z" fill="currentColor"/><circle cx="18" cy="51" r="4" fill="currentColor"/><circle cx="47" cy="51" r="4" fill="currentColor"/><path d="M28 48h7M40 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM40 22v15M34 30h12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></i>
+          <p>納品・設置まで丁寧に対応します。</p>
+        </li>
+        <li>
+          <span class="step-num">5</span>
+          <strong>運用サポート</strong>
+          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M16 35v-6a16 16 0 0 1 32 0v6" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><rect x="10" y="32" width="12" height="16" rx="4" fill="currentColor"/><rect x="42" y="32" width="12" height="16" rx="4" fill="currentColor"/><path d="M42 48c-2 5-6 8-12 8h-4" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="25" cy="56" r="3" fill="currentColor"/></svg></i>
+          <p>運用開始後もサポートで安心して使える環境に。</p>
+        </li>
       </ol>
-      <div class="kb-about-section-cta"><a class="kb-about-btn kb-about-btn--pink" href="../contact/">無料で相談する</a><a class="kb-about-btn kb-about-btn--outline" href="../guide/">ショールーム・実機体験を相談する</a></div>
+      <div class="kb-about-support-band">
+        <div class="support-band-title">サポート・保証体制</div>
+        <ul>
+          <li>導入後のサポートや保証内容を確認する</li>
+          <li>困ったときも安心のサポート体制</li>
+          <li>万が一のトラブルにも迅速に対応</li>
+        </ul>
+        <div class="support-download">
+          <strong>資料をダウンロードする</strong>
+          <p>製品資料・導入事例・仕様書などをご用意しています。</p>
+          <a class="kb-about-btn kb-about-btn--primary" href="../contact/">資料をダウンロードする</a>
+        </div>
+      </div>
     </section>
 
     <section class="kb-about-section kb-about-faq">
       <div class="kb-about-section-head">
-        <span>10. よくある質問</span>
-        <h2>電子黒板の導入前によくある質問</h2>
+        <h2>よくあるご質問</h2>
       </div>
       <div class="kb-about-faq-grid">
-        <details><summary>電子黒板は普通のテレビやモニターと何が違いますか？</summary><p>教材表示に加えて、画面への直接書き込み、保存、共有、タッチ操作など授業に必要な機能を一台で使える点が違います。</p></details>
-        <details><summary>電子黒板は何インチを選べばよいですか？</summary><p>少人数や補助利用なら65インチ、16〜30名程度で授業の中心に使うなら75インチ以上、大教室では86インチ以上が目安です。</p></details>
-        <details><summary>学校や学習塾ではどのサイズが多いですか？</summary><p>普通教室や学習塾では65インチ、人数が多い教室や電子黒板中心の授業では75インチ以上が選ばれやすいです。</p></details>
-        <details><summary>電子黒板はリースできますか？</summary><p>はい。購入だけでなく、月額リースで導入費用を抑える選択肢もあります。</p></details>
-        <details><summary>設置工事は必要ですか？</summary><p>スタンド設置なら大きな工事なしで導入できる場合があります。壁掛けや大型機では設置環境の確認が必要です。</p></details>
-        <details><summary>導入後に使い方を教えてもらえますか？</summary><p>Kokuban BASEでは、導入後の活用相談や操作説明も含めてサポートします。</p></details>
+        <details><summary>電子黒板と大型モニターの違いは何ですか？</summary><p>電子黒板は、表示だけでなく画面への書き込み、保存、共有、タッチ操作まで授業で使いやすい形にまとまっています。</p></details>
+        <details><summary>設置に必要なスペースや工事はどのくらいですか？</summary><p>スタンド設置か壁掛け設置か、教室の広さや導線によって異なります。事前に使用環境を確認してご提案します。</p></details>
+        <details><summary>どのサイズを選べばよいか迷っています。</summary><p>教室の人数、後方席からの見やすさ、黒板との併用有無をもとにサイズを選びます。</p></details>
+        <details><summary>保証やサポート体制を教えてください。</summary><p>Kokuban BASEでは保証内容の確認から導入後の使い方相談まで、安心して使えるようサポートします。</p></details>
+        <details><summary>生徒の端末に共有するにはどうすればよいですか？</summary><p>QR共有や保存機能を使い、授業内容を生徒の端末へスムーズに共有できます。</p></details>
+        <details><summary>購入前に実機を体験することはできますか？</summary><p>ショールームやオンライン相談で、実際の使用感を確認いただけます。</p></details>
       </div>
+      <div class="kb-about-faq-more"><a class="kb-about-btn kb-about-btn--outline" href="../faq/">すべての質問を見る</a></div>
     </section>
 
     <section class="kb-about-final-cta">
       <div>
-        <p class="kb-about-kicker">CONTACT</p>
         <h2>電子黒板選びで迷ったら、まずはご相談ください。</h2>
-        <p>教室の広さ、人数、予算、授業スタイルに合わせて、必要な機能とサイズをご提案します。</p>
+        <p>経験豊富なスタッフが、最適な一台をご提案します。</p>
       </div>
       <div class="kb-about-actions">
         <a class="kb-about-btn kb-about-btn--pink" href="../contact/">無料で相談する</a>
