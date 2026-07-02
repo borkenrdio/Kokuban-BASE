@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=20260630-trust1">
-  <link rel="stylesheet" href="about.css">
+  <link rel="stylesheet" href="about.css?v=20260703-redesign">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kokuban BASE","item":"https://kokuban-base.com/"},{"@type":"ListItem","position":2,"name":"電子黒板とは","item":"https://kokuban-base.com/denshikokuban/"}]}
   </script>
@@ -43,242 +43,319 @@
 
   <main class="kb-about-page">
     <section class="kb-about-hero">
-      <div class="kb-about-hero__copy">
-        <p class="kb-about-kicker">初めての電子黒板選びに</p>
-        <h1>電子黒板とは？</h1>
-        <h2>学校・学習塾向けの<br>選び方・価格・サイズを解説</h2>
-        <p>電子黒板は、表示した教材に直接書き込み、そのまま保存・共有までできる、授業に特化したディスプレイです。学校・学習塾向けに、価格・サイズ・選び方を分かりやすく解説します。</p>
-        <div class="kb-about-actions">
-          <a class="kb-about-btn kb-about-btn--primary" href="#select">電子黒板の選び方を見る</a>
-          <a class="kb-about-btn kb-about-btn--pink" href="../contact/">無料で相談する</a>
+      <div class="kb-about-hero__inner">
+        <div class="kb-about-hero__copy">
+          <h1>電子黒板とは？</h1>
+          <h2>学校・学習塾向けの<br>選び方・価格・サイズを解説</h2>
+          <p>電子黒板は、表示した教材に直接書き込み、そのまま保存・共有までできる、授業に特化したディスプレイです。<br>学校・学習塾向けに、価格・サイズ・選び方を分かりやすく解説します。</p>
+          <div class="kb-about-actions">
+            <a class="kb-about-btn kb-about-btn--navy" href="#select">電子黒板の選び方を見る</a>
+            <a class="kb-about-btn kb-about-btn--pink" href="../contact/">無料で相談する</a>
+          </div>
         </div>
+        <figure class="kb-about-hero__visual" role="img" aria-label="教室で電子黒板を使って授業をしている様子">
+          <img class="kb-about-hero-photo" src="../assets/denshikokuban-hero.jpg" alt="教室で電子黒板を使って授業をしている様子" loading="eager" decoding="async" onerror="this.style.display='none'">
+        </figure>
       </div>
-      <figure class="kb-about-hero__visual" role="img" aria-label="教室で電子黒板を使って三角形の合同を解説している様子">
-        <img class="kb-about-hero-photo" src="../assets/denshikokuban-hero.jpg" alt="教室で電子黒板を使って三角形の合同を解説している様子" loading="eager" decoding="async" onerror="this.style.display='none'">
-      </figure>
     </section>
 
     <section class="kb-about-section kb-about-concept" id="what">
-      <div class="kb-about-section-head">
-        <span>1. 基本</span>
-        <h2>電子黒板は、「映す」だけでなく「その場で書ける」授業用ディスプレイです。</h2>
-      </div>
+      <h2 class="kb-about-h is-center">1. 電子黒板は、「映す」だけでなく「その場で書ける」授業用ディスプレイです。</h2>
       <div class="kb-about-feature-map">
-        <div class="kb-about-feature-pill is-left-top"><strong>PDF表示</strong><small>教材やプリントをそのまま大画面に表示</small></div>
-        <div class="kb-about-feature-pill is-left-bottom"><strong>書き込み</strong><small>指やペンでスラスラ書き込み。色や太さも自由に変更</small></div>
-        <div class="kb-about-feature-pill is-bottom"><strong>動画</strong><small>動画教材もスムーズに再生。一時停止・書き込みも可能</small></div>
-        <figure class="kb-about-board" role="img" aria-label="電子黒板の画面に三角形の合同の授業内容を表示・書き込みしている例">
-          <img class="kb-about-board-photo" src="../assets/denshikokuban-board.jpg" alt="電子黒板の画面に三角形の合同の授業内容を表示・書き込みしている例" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        <div class="feature-col is-left">
+          <div class="kb-feature-pill">
+            <span class="pill-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h4"/></svg></span>
+            <span class="pill-text"><strong>PDF表示</strong><small>教科書やプリントを<br>そのまま大画面に表示</small></span>
+          </div>
+          <div class="kb-feature-pill">
+            <span class="pill-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 1.2-4.2L16.4 4.6a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L8.2 18.8 4 20Z"/><path d="m13.8 6.2 3 3"/></svg></span>
+            <span class="pill-text"><strong>書き込み</strong><small>指やペンでスラスラ書き込み<br>色や太さも自由に変更</small></span>
+          </div>
+          <div class="kb-feature-pill">
+            <span class="pill-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5L10 9.5Z" fill="currentColor" stroke="none"/></svg></span>
+            <span class="pill-text"><strong>動画</strong><small>動画教材もスムーズに再生<br>一時停止・書き込みも可能</small></span>
+          </div>
+        </div>
+        <figure class="kb-about-board" role="img" aria-label="電子黒板の画面に授業内容を表示・書き込みしている例">
+          <img class="kb-about-board-photo" src="../assets/denshikokuban-board.jpg" alt="電子黒板の画面に授業内容を表示・書き込みしている例" loading="lazy" decoding="async" onerror="this.style.display='none'">
         </figure>
-        <div class="kb-about-feature-pill is-right-top"><strong>保存</strong><small>書き込んだ内容をそのまま保存</small></div>
-        <div class="kb-about-feature-pill is-right-bottom"><strong>QR共有</strong><small>ワンタップでQR生成、生徒の端末にすぐ共有</small></div>
+        <div class="feature-col is-right">
+          <div class="kb-feature-pill">
+            <span class="pill-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h9l5 5v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z"/><path d="M8 4v5h7V4"/><path d="M8 20v-6h8v6"/></svg></span>
+            <span class="pill-text"><strong>保存</strong><small>書き込んだ内容を<br>そのまま保存</small></span>
+          </div>
+          <div class="kb-feature-pill">
+            <span class="pill-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><path d="M14 14h3v3h-3zM20 14v2M20 19v1M17 20h-3"/></svg></span>
+            <span class="pill-text"><strong>QR共有</strong><small>ワンタップでQR生成<br>生徒の端末にすぐ共有</small></span>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="kb-about-section" id="features">
-      <div class="kb-about-section-head">
-        <span>2. できること</span>
-        <h2>授業で使う「見せる・書く・残す・共有する」を一台に。</h2>
-      </div>
-      <div class="kb-about-card-grid kb-about-card-grid--four">
-        <article class="kb-about-use-card"><i>01</i><h3>見せる</h3><p>教材、Web、動画を大きく表示。</p></article>
-        <article class="kb-about-use-card"><i>02</i><h3>書く</h3><p>画面の上から直接メモを書き込み。</p></article>
-        <article class="kb-about-use-card"><i>03</i><h3>残す</h3><p>板書や注釈を授業後も確認。</p></article>
-        <article class="kb-about-use-card"><i>04</i><h3>共有する</h3><p>QRやデータで生徒へ共有。</p></article>
-      </div>
-    </section>
-
-    <section class="kb-about-section" id="difference">
-      <div class="kb-about-section-head">
-        <span>3. 違い</span>
-        <h2>電子黒板は、大型モニターやプロジェクターと何が違う？</h2>
-      </div>
-      <div class="kb-about-table-wrap">
-        <table class="kb-about-compare-table">
-          <thead>
-            <tr>
-              <th class="th-corner"></th>
-              <th class="is-primary"><span class="th-media"><img src="../assets/compare-board.png" alt="電子黒板" loading="lazy" decoding="async" onerror="this.style.display='none'"></span><span class="th-name">電子黒板</span></th>
-              <th><span class="th-media"><img src="../assets/compare-monitor.png" alt="大型モニター" loading="lazy" decoding="async" onerror="this.style.display='none'"></span><span class="th-name">大型モニター</span></th>
-              <th><span class="th-media"><img src="../assets/compare-projector.png" alt="プロジェクター" loading="lazy" decoding="async" onerror="this.style.display='none'"></span><span class="th-name">プロジェクター</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th>その場で書き込み</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">△</span></td><td><span class="mark">−</span></td></tr>
-            <tr><th>保存・データ化</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">△</span></td><td><span class="mark">−</span></td></tr>
-            <tr><th>QRで簡単共有</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">△</span></td><td><span class="mark">−</span></td></tr>
-            <tr><th>明るい環境でも見やすさ</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">△</span></td><td><span class="mark">△</span></td></tr>
-            <tr><th>設置のしやすさ</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">○</span></td><td><span class="mark">−</span></td></tr>
-            <tr><th>ランニングコスト</th><td class="is-primary"><span class="cost">ほぼなし</span></td><td><span class="cost">ほぼなし</span></td><td><span class="cost">ランプ交換などあり</span></td></tr>
-          </tbody>
-        </table>
+      <h2 class="kb-about-h is-center">2. 授業で使う「見せる・書く・残す・共有する」を一台に。</h2>
+      <div class="kb-about-use-grid">
+        <article class="kb-about-use-card">
+          <div class="use-head"><span class="use-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>見せる</h3></div>
+          <p>高精細な大画面で、<br>どの席からも見やすい。</p>
+        </article>
+        <article class="kb-about-use-card">
+          <div class="use-head"><span class="use-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 1.2-4.2L16.4 4.6a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L8.2 18.8 4 20Z"/><path d="m13.8 6.2 3 3"/></svg></span><h3>書く</h3></div>
+          <p>滑らかな書き心地で、<br>板書のように書き込める。</p>
+        </article>
+        <article class="kb-about-use-card">
+          <div class="use-head"><span class="use-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h9l5 5v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z"/><path d="M8 4v5h7V4"/><path d="M8 20v-6h8v6"/></svg></span><h3>残す</h3></div>
+          <p>授業内容をデータで保存し、<br>復習や共有に活用できる。</p>
+        </article>
+        <article class="kb-about-use-card">
+          <div class="use-head"><span class="use-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="m8.3 10.8 7.4-4.6M8.3 13.2l7.4 4.6"/></svg></span><h3>共有する</h3></div>
+          <p>QRやクラウドで、<br>生徒の端末にすぐ共有。</p>
+        </article>
       </div>
     </section>
 
-    <section class="kb-about-section kb-about-reasons">
-      <div class="kb-about-reasons__copy">
-        <div class="kb-about-section-head is-left">
-          <span>4. 選ばれる理由</span>
-          <h2>なぜ、学校や学習塾で電子黒板が選ばれているのか</h2>
+    <section class="kb-about-section kb-about-duo" id="difference">
+      <div class="kb-about-duo__col">
+        <h2 class="kb-about-h">3. 電子黒板は、大型モニターやプロジェクターと何が違う？</h2>
+        <div class="kb-about-table-wrap">
+          <table class="kb-about-compare-table">
+            <thead>
+              <tr>
+                <th class="th-corner"></th>
+                <th class="is-primary"><span class="th-media"><img src="../assets/compare-board.png" alt="電子黒板" loading="lazy" decoding="async" onerror="this.style.display='none'"></span><span class="th-name">電子黒板</span></th>
+                <th><span class="th-media"><img src="../assets/compare-monitor.png" alt="大型モニター" loading="lazy" decoding="async" onerror="this.style.display='none'"></span><span class="th-name">大型モニター</span></th>
+                <th><span class="th-media"><img src="../assets/compare-projector.png" alt="プロジェクター" loading="lazy" decoding="async" onerror="this.style.display='none'"></span><span class="th-name">プロジェクター</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th>その場で書き込み</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">△</span></td><td><span class="mark">−</span></td></tr>
+              <tr><th>保存・データ化</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">△</span></td><td><span class="mark">−</span></td></tr>
+              <tr><th>QRで簡単共有</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">△</span></td><td><span class="mark">−</span></td></tr>
+              <tr><th>明るい教室での見やすさ</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">△</span></td><td><span class="mark">△</span></td></tr>
+              <tr><th>設置のしやすさ</th><td class="is-primary"><span class="mark">○</span></td><td><span class="mark">○</span></td><td><span class="mark">−</span></td></tr>
+              <tr><th>ランニングコスト</th><td class="is-primary"><span class="cost">ほぼなし</span></td><td><span class="cost">ほぼなし</span></td><td><span class="cost">ランプ交換などあり</span></td></tr>
+            </tbody>
+          </table>
         </div>
-        <ol class="kb-about-reason-list">
-          <li><strong>授業の理解度が上がり、集中力が続きやすい。</strong><p>視覚的にわかりやすく、興味を引きつける授業が実現します。</p></li>
-          <li><strong>板書時間を削減し、対話や演習の時間を増やせる。</strong><p>準備や書き写しの負担を減らし、指導の質を高めます。</p></li>
-          <li><strong>データ活用で、振り返りや個別フォローがしやすい。</strong><p>授業内容を保存・共有でき、復習や課題配布もスムーズに。</p></li>
-          <li><strong>ICT環境の整備で、学校・塾の価値向上につながる。</strong><p>先進的な学習環境が、保護者や生徒からの信頼につながります。</p></li>
-        </ol>
       </div>
-      <figure class="kb-about-reasons__image">
-        <img src="../assets/denshikokuban-board.jpg" alt="教室で電子黒板を使用しているイメージ" loading="lazy" decoding="async">
-      </figure>
+      <div class="kb-about-duo__col">
+        <h2 class="kb-about-h">4. なぜ、学校や学習塾で電子黒板が選ばれているのか</h2>
+        <ol class="kb-about-reason-list">
+          <li><strong>授業の理解度が上がり、集中力が続きやすい。</strong></li>
+          <li><strong>板書時間を削減し、対話や演習の時間を増やせる。</strong></li>
+          <li><strong>データ活用で、振り返りや個別フォローがしやすい。</strong></li>
+          <li><strong>ICT環境の整備で、学校・塾の価値向上につながる。</strong></li>
+        </ol>
+        <figure class="kb-about-reasons__image">
+          <img src="../assets/denshikokuban-board.jpg" alt="教室で電子黒板を使用しているイメージ" loading="lazy" decoding="async">
+        </figure>
+      </div>
     </section>
 
     <section class="kb-about-section" id="size">
-      <div class="kb-about-section-head">
-        <span>5. サイズ</span>
-        <h2>電子黒板は、使い方と人数でサイズを選びます。</h2>
+      <h2 class="kb-about-h is-center">5. 電子黒板は、使い方と人数でサイズを選びます。</h2>
+      <div class="kb-about-size-layout">
+        <article class="kb-about-size-card">
+          <p class="size-num">65<small>インチ</small></p>
+          <p class="size-for">少人数の教室におすすめ</p>
+          <div class="size-visual is-65"><img src="../assets/compare-board.png" alt="65インチの電子黒板" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+          <p class="size-people">推奨人数：〜20名</p>
+        </article>
+        <article class="kb-about-size-card">
+          <p class="size-num">75<small>インチ</small></p>
+          <p class="size-for">標準的な教室におすすめ</p>
+          <div class="size-visual is-75"><img src="../assets/compare-board.png" alt="75インチの電子黒板" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+          <p class="size-people">推奨人数：20〜35名</p>
+        </article>
+        <article class="kb-about-size-card">
+          <p class="size-num">86<small>インチ</small></p>
+          <p class="size-for">広い教室・ホールにおすすめ</p>
+          <div class="size-visual is-86"><img src="../assets/compare-board.png" alt="86インチの電子黒板" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+          <p class="size-people">推奨人数：35名〜</p>
+        </article>
+        <aside class="kb-about-size-points">
+          <h3>サイズ選びのポイント</h3>
+          <ul>
+            <li>後方からの視認性</li>
+            <li>設置スペース・視聴距離</li>
+            <li>教室の明るさ・環境</li>
+          </ul>
+          <p>迷ったら、教室の写真や図面をお送りいただければご提案します。</p>
+        </aside>
+        <figure class="kb-about-size-illust" role="img" aria-label="サイズごとの視聴距離の目安は約2.5mから4.5m">
+          <svg viewBox="0 0 440 214" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g fill="#9fabc0">
+              <circle cx="38" cy="86" r="11"/>
+              <rect x="26" y="100" width="24" height="52" rx="11"/>
+              <circle cx="76" cy="99" r="9"/>
+              <rect x="66" y="110" width="20" height="42" rx="9"/>
+            </g>
+            <g>
+              <rect x="150" y="106" width="72" height="46" rx="4" fill="#1c2c55"/>
+              <rect x="153" y="109" width="66" height="36" rx="2" fill="#27407e"/>
+              <text x="186" y="132" fill="#fff" font-size="13" font-weight="700" text-anchor="middle" font-family="'Noto Sans JP',sans-serif">65”</text>
+              <rect x="182" y="152" width="8" height="10" fill="#31415f"/>
+            </g>
+            <g>
+              <rect x="240" y="96" width="86" height="56" rx="4" fill="#1c2c55"/>
+              <rect x="243" y="99" width="80" height="46" rx="2" fill="#27407e"/>
+              <text x="283" y="128" fill="#fff" font-size="14" font-weight="700" text-anchor="middle" font-family="'Noto Sans JP',sans-serif">75”</text>
+              <rect x="279" y="152" width="8" height="10" fill="#31415f"/>
+            </g>
+            <g>
+              <rect x="344" y="86" width="100" height="66" rx="4" fill="#1c2c55" transform="translate(-14 0)"/>
+              <rect x="333" y="89" width="94" height="56" rx="2" fill="#27407e"/>
+              <text x="380" y="122" fill="#fff" font-size="15" font-weight="700" text-anchor="middle" font-family="'Noto Sans JP',sans-serif">86”</text>
+              <rect x="376" y="152" width="8" height="10" fill="#31415f"/>
+            </g>
+            <g stroke="#2f5dab" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 182h392"/>
+              <path d="m32 176-8 6 8 6"/>
+              <path d="m408 176 8 6-8 6"/>
+            </g>
+            <text x="220" y="208" fill="#33507e" font-size="13" font-weight="700" text-anchor="middle" font-family="'Noto Sans JP',sans-serif">視聴距離の目安：約2.5m〜4.5m</text>
+          </svg>
+        </figure>
       </div>
-      <div class="kb-about-size-grid">
-        <article class="kb-about-size-card"><div class="screen is-65">65"</div><h3>65インチ</h3><p>少人数の教室、黒板と併用する教室向け</p><small>推奨人数: 〜20名</small></article>
-        <article class="kb-about-size-card is-main"><div class="screen is-75">75"</div><h3>75インチ</h3><p>16〜30名程度の教室、電子黒板を授業の中心にしたい場合</p><small>推奨人数: 20〜35名</small></article>
-        <article class="kb-about-size-card"><div class="screen is-86">86"</div><h3>86インチ</h3><p>30名以上の教室、大きな教室、後方席まで見せたい場合</p><small>推奨人数: 35名〜</small></article>
-      </div>
-      <div class="kb-about-section-cta"><a class="kb-about-btn kb-about-btn--primary" href="../columns/65inch/">電子黒板のサイズ選びを詳しく見る</a></div>
     </section>
 
     <section class="kb-about-section kb-about-cost">
-      <div class="kb-about-section-head">
-        <span>6. 価格</span>
-        <h2>電子黒板の価格は、必要な3つの要素で考えます。</h2>
-        <p>本体価格に加えて、設置方法に応じたスタンドまたは壁掛け金具、そして保証内容まで含めて確認することが大切です。</p>
-      </div>
-      <div class="kb-about-cost-map" aria-label="電子黒板の価格を構成する3つの要素">
+      <h2 class="kb-about-h is-center">6. 電子黒板の価格は、本体だけでなく設置・保証・運用まで見て考えます。</h2>
+      <div class="kb-about-cost-row" aria-label="電子黒板の導入費用を構成する要素">
         <article class="cost-chip">
-          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><rect x="10" y="15" width="44" height="29" rx="3" stroke="currentColor" stroke-width="4"/><path d="M24 51h16M32 44v7" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>
+          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M9 21h6M12 17v4"/></svg></span>
           <strong>本体価格</strong>
-          <p>電子黒板本体の購入費用です。</p>
         </article>
-        <span class="cost-plus" aria-hidden="true">+</span>
+        <span class="cost-op" aria-hidden="true">+</span>
         <article class="cost-chip">
-          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M20 12h24M24 12v28M40 12v28M17 40h30M22 40l-7 12M42 40l7 12" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17" cy="54" r="3" fill="currentColor"/><circle cx="49" cy="54" r="3" fill="currentColor"/></svg></span>
-          <strong>スタンド or 壁掛け金具</strong>
-          <p>教室の使い方に合わせた設置部材の費用です。</p>
+          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10M9.5 4v10M14.5 4v10M6 14h12M9.5 14l-3.5 6M14.5 14l3.5 6"/></svg></span>
+          <strong>スタンド・金具</strong>
+          <small>周辺機器</small>
         </article>
-        <span class="cost-plus" aria-hidden="true">+</span>
+        <span class="cost-op" aria-hidden="true">+</span>
         <article class="cost-chip">
-          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M32 8l20 8v14c0 13-8 22-20 28-12-6-20-15-20-28V16l20-8Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M23 32l6 6 13-15" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <strong>保証</strong>
-          <p>Kokuban BASEは5年保証が付帯します。</p>
+          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+          <strong>設置工事</strong>
+          <small>配線・設定</small>
         </article>
-        <span class="cost-equal" aria-hidden="true">=</span>
-        <div class="cost-center">導入費用<br><span>総額</span></div>
+        <span class="cost-op" aria-hidden="true">+</span>
+        <article class="cost-chip">
+          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.4-3 7.5-7 9-4-1.5-7-4.6-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <strong>保証・保守</strong>
+          <small>延長保証</small>
+        </article>
+        <span class="cost-op" aria-hidden="true">+</span>
+        <article class="cost-chip">
+          <span class="cost-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9.5" r="2.4"/><path d="M15.6 14.6a4.8 4.8 0 0 1 5 4.4"/></svg></span>
+          <strong>運用・サポート</strong>
+          <small>研修・活用支援</small>
+        </article>
+        <span class="cost-op" aria-hidden="true">=</span>
+        <div class="cost-total"><strong>導入費用</strong><small>（総額）</small></div>
+        <p class="kb-about-cost-note">トータルで考えることで、長く安心して使える環境をつくることができます。</p>
       </div>
-      <div class="kb-about-cost-note">
-        <strong>トータルで考えることで、長く安心して使える環境をつくれます。</strong>
-      </div>
-      <div class="kb-about-section-cta"><a class="kb-about-btn kb-about-btn--primary" href="../lease/">電子黒板の価格・リースを詳しく見る</a></div>
     </section>
 
     <section class="kb-about-section" id="select">
-      <div class="kb-about-section-head">
-        <span>7. 確認ポイント</span>
-        <h2>選ぶ前に確認したい、5つのポイント</h2>
-      </div>
+      <h2 class="kb-about-h">7. 選ぶ前に確認したい、5つのポイント</h2>
       <ul class="kb-about-checklist">
-        <li>教室の人数と後方席までの見やすさ</li>
-        <li>黒板と併用するか、電子黒板中心で進めるか</li>
-        <li>PDF、動画、Web教材などの使い方</li>
-        <li>Google Playやアプリ利用の必要性</li>
-        <li>設置方法、保証、導入後のサポート</li>
+        <li><strong>用途・利用シーン</strong><span>学校用／塾用での使い方を明確にする</span></li>
+        <li><strong>サイズ・設置場所</strong><span>教室の広さ・視聴距離を確認する</span></li>
+        <li><strong>書き心地・操作性</strong><span>ペンの反応や使いやすさをチェック</span></li>
+        <li><strong>保存・共有のしやすさ</strong><span>データ保存・QR共有が簡単かどうか</span></li>
+        <li><strong>サポート・保証体制</strong><span>導入後のサポートや保証内容を確認する</span></li>
       </ul>
     </section>
 
     <section class="kb-about-section kb-about-maker">
-      <div class="kb-about-section-head is-left">
-        <span>8. メーカー比較</span>
-        <h2>メーカーごとに、得意なことは異なります。</h2>
-        <p>画面サイズ、OS、メモリ・CPU、Google Play対応、タッチ性能、書き込み機能、保証、価格帯、学校・学習塾との相性などを比較できます。</p>
+      <div class="kb-about-maker__head">
+        <h2 class="kb-about-h">8. メーカーごとに、得意なことは異なります。</h2>
+        <p>機能・操作性・サポートなどを比較して、最適な一台を選びましょう。</p>
       </div>
-      <div class="kb-about-maker-row" aria-label="電子黒板メーカー比較イメージ">
-        <div class="maker-board"></div><div class="maker-board is-large"></div><div class="maker-board"></div>
+      <div class="kb-about-maker__body">
+        <div class="maker-item">
+          <figure><img src="../assets/lease-benq-board-65.png" alt="BenQ Boardの電子黒板" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
+          <ul><li>書き心地</li><li>操作のしやすさ</li><li>サポート体制</li></ul>
+        </div>
+        <div class="maker-item">
+          <figure><img src="../assets/lease-mirai-touch-65.jpg" alt="MIRAI TOUCHの電子黒板" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
+          <ul><li>書き心地</li><li>操作のしやすさ</li><li>サポート体制</li></ul>
+        </div>
+        <div class="maker-item">
+          <figure><img src="../assets/lease-promethean-65.jpg" alt="Prometheanの電子黒板" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
+          <ul><li>書き心地</li><li>操作のしやすさ</li><li>サポート体制</li></ul>
+        </div>
+        <div class="maker-item">
+          <figure><img src="../assets/lease-starboard-65.png" alt="StarBoardの電子黒板" loading="lazy" decoding="async" onerror="this.style.display='none'"></figure>
+          <ul><li>書き心地</li><li>操作のしやすさ</li><li>サポート体制</li></ul>
+        </div>
+        <aside class="maker-check">
+          <h3>比較表でチェック</h3>
+          <p>詳しい比較ポイントをまとめた資料をご用意しています。</p>
+          <a class="kb-about-btn kb-about-btn--navy kb-about-btn--dl" href="../contact/">資料をダウンロードする<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m-5-4 5 5 5-5M5 20h14"/></svg></a>
+        </aside>
       </div>
-      <div class="kb-about-section-cta"><a class="kb-about-btn kb-about-btn--primary" href="../lineup/">電子黒板メーカー比較を見る</a><a class="kb-about-btn kb-about-btn--outline" href="../contact/">比較表をダウンロード</a></div>
     </section>
 
-    <section class="kb-about-section kb-about-support">
-      <div class="kb-about-support-title">
-        <h2>導入前にご相談から運用まで、しっかりサポートします。</h2>
-      </div>
-      <ol class="kb-about-step-row">
-        <li>
-          <span class="step-num">1</span>
-          <strong>ヒアリング</strong>
-          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M18 14h22l8 8v26a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V18a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="4"/><path d="M40 14v10h10M23 30h15M23 39h19M23 48h12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="47" cy="43" r="8" fill="currentColor"/></svg></i>
-          <p>ご要望や使用環境をお聞きします。</p>
-        </li>
-        <li>
-          <span class="step-num">2</span>
-          <strong>ご提案・比較</strong>
-          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><rect x="8" y="16" width="30" height="22" rx="3" stroke="currentColor" stroke-width="4"/><path d="M17 46h20M27 38v8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><rect x="42" y="25" width="14" height="22" rx="2" stroke="currentColor" stroke-width="4"/><path d="M47 40v-6M52 40V30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></i>
-          <p>最適な製品・プランをご提案します。</p>
-        </li>
-        <li>
-          <span class="step-num">3</span>
-          <strong>お見積り</strong>
-          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M18 8h21l9 9v39H18V8Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M38 8v12h10M27 26h10M25 36h14M32 25v22" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></i>
-          <p>ご要望に合わせたお見積りをご提示します。</p>
-        </li>
-        <li>
-          <span class="step-num">4</span>
-          <strong>導入・設置</strong>
-          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M8 35h20v13H8zM35 26h11l10 10v12H35z" fill="currentColor"/><circle cx="18" cy="51" r="4" fill="currentColor"/><circle cx="47" cy="51" r="4" fill="currentColor"/><path d="M28 48h7M40 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM40 22v15M34 30h12" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></i>
-          <p>納品・設置まで丁寧に対応します。</p>
-        </li>
-        <li>
-          <span class="step-num">5</span>
-          <strong>運用サポート</strong>
-          <i aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M16 35v-6a16 16 0 0 1 32 0v6" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><rect x="10" y="32" width="12" height="16" rx="4" fill="currentColor"/><rect x="42" y="32" width="12" height="16" rx="4" fill="currentColor"/><path d="M42 48c-2 5-6 8-12 8h-4" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><circle cx="25" cy="56" r="3" fill="currentColor"/></svg></i>
-          <p>運用開始後もサポートで安心して使える環境に。</p>
-        </li>
-      </ol>
-      <div class="kb-about-support-band">
-        <div class="support-band-title">サポート・保証体制</div>
-        <ul>
-          <li>導入後のサポートや保証内容を確認する</li>
-          <li>困ったときも安心のサポート体制</li>
-          <li>万が一のトラブルにも迅速に対応</li>
-        </ul>
-        <div class="support-download">
-          <strong>資料をダウンロードする</strong>
-          <p>製品資料・導入事例・仕様書などをご用意しています。</p>
-          <a class="kb-about-btn kb-about-btn--primary" href="../contact/">資料をダウンロードする</a>
+    <section class="kb-about-section kb-about-flow">
+      <h2 class="kb-about-h">9. 現場に合う一台を、比較から導入後まで一緒に考えます。</h2>
+      <div class="kb-about-flow__body">
+        <ol class="kb-about-step-row">
+          <li>
+            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9h8M8 12h5"/></svg></span>
+            <strong>ヒアリング</strong>
+            <p>ご要望や課題を<br>お聞きします</p>
+          </li>
+          <li>
+            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="10" height="8" rx="1.5"/><path d="M6 17h4M8 13v4"/><rect x="15" y="8" width="6" height="9" rx="1.5"/></svg></span>
+            <strong>ご提案・比較</strong>
+            <p>最適な製品・プランを<br>ご提案します</p>
+          </li>
+          <li>
+            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01"/></svg></span>
+            <strong>お見積り</strong>
+            <p>導入費用の目安を<br>ご提示します</p>
+          </li>
+          <li>
+            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></span>
+            <strong>導入・設置</strong>
+            <p>設置・設定まで<br>丁寧に対応します</p>
+          </li>
+          <li>
+            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="6" rx="2"/><rect x="17" y="13" width="4" height="6" rx="2"/><path d="M19 19a4 4 0 0 1-4 3h-2"/></svg></span>
+            <strong>運用サポート</strong>
+            <p>活用支援・サポートで<br>安心して使える環境に</p>
+          </li>
+        </ol>
+        <div class="kb-about-flow__cta">
+          <a class="kb-about-btn kb-about-btn--pink" href="../contact/">無料で相談する</a>
+          <a class="kb-about-btn kb-about-btn--outline" href="../online-consultation/">ショールーム・実機体験を相談する</a>
         </div>
       </div>
     </section>
 
     <section class="kb-about-section kb-about-faq">
-      <div class="kb-about-section-head">
-        <h2>よくあるご質問</h2>
-      </div>
+      <h2 class="kb-about-h">10. よくあるご質問</h2>
       <div class="kb-about-faq-grid">
-        <details><summary>電子黒板と大型モニターの違いは何ですか？</summary><p>電子黒板は、表示だけでなく画面への書き込み、保存、共有、タッチ操作まで授業で使いやすい形にまとまっています。</p></details>
-        <details><summary>設置に必要なスペースや工事はどのくらいですか？</summary><p>スタンド設置か壁掛け設置か、教室の広さや導線によって異なります。事前に使用環境を確認してご提案します。</p></details>
-        <details><summary>どのサイズを選べばよいか迷っています。</summary><p>教室の人数、後方席からの見やすさ、黒板との併用有無をもとにサイズを選びます。</p></details>
-        <details><summary>保証やサポート体制を教えてください。</summary><p>Kokuban BASEでは保証内容の確認から導入後の使い方相談まで、安心して使えるようサポートします。</p></details>
-        <details><summary>生徒の端末に共有するにはどうすればよいですか？</summary><p>QR共有や保存機能を使い、授業内容を生徒の端末へスムーズに共有できます。</p></details>
-        <details><summary>購入前に実機を体験することはできますか？</summary><p>ショールームやオンライン相談で、実際の使用感を確認いただけます。</p></details>
+        <details><summary><i>Q.</i>電子黒板と大型モニターの違いは何ですか？</summary><p>電子黒板は、表示だけでなく画面への書き込み、保存、共有、タッチ操作まで授業で使いやすい形にまとまっています。</p></details>
+        <details><summary><i>Q.</i>設置に必要なスペースや工事はどのくらいですか？</summary><p>スタンド設置か壁掛け設置か、教室の広さや導線によって異なります。事前に使用環境を確認してご提案します。</p></details>
+        <details><summary><i>Q.</i>どのサイズを選べばよいか迷っています。</summary><p>教室の人数、後方席からの見やすさ、黒板との併用有無をもとにサイズを選びます。</p></details>
+        <details><summary><i>Q.</i>保証やサポート体制を教えてください。</summary><p>Kokuban BASEでは保証内容の確認から導入後の使い方相談まで、安心して使えるようサポートします。</p></details>
+        <details><summary><i>Q.</i>生徒の端末に共有するにはどうすればよいですか？</summary><p>QR共有や保存機能を使い、授業内容を生徒の端末へスムーズに共有できます。</p></details>
+        <details><summary><i>Q.</i>購入前に実機を体験することはできますか？</summary><p>ショールームやオンライン相談で、実際の使用感を確認いただけます。</p></details>
       </div>
-      <div class="kb-about-faq-more"><a class="kb-about-btn kb-about-btn--outline" href="../faq/">すべての質問を見る</a></div>
     </section>
 
     <section class="kb-about-final-cta">
-      <div>
-        <h2>電子黒板選びで迷ったら、まずはご相談ください。</h2>
-        <p>経験豊富なスタッフが、最適な一台をご提案します。</p>
-      </div>
-      <div class="kb-about-actions">
-        <a class="kb-about-btn kb-about-btn--pink" href="../contact/">無料で相談する</a>
-        <a class="kb-about-btn kb-about-btn--light" href="../lineup/">電子黒板を比較する</a>
+      <div class="kb-about-final-cta__inner">
+        <div class="kb-about-final-cta__copy">
+          <h2>電子黒板選びで迷ったら、まずはご相談ください。</h2>
+          <p>経験豊富なスタッフが、最適な一台をご提案します。</p>
+        </div>
+        <div class="kb-about-actions">
+          <a class="kb-about-btn kb-about-btn--pink" href="../contact/">無料で相談する</a>
+          <a class="kb-about-btn kb-about-btn--ghost" href="../lineup/">電子黒板を比較する</a>
+        </div>
       </div>
     </section>
   </main>
