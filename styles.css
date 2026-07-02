@@ -1673,7 +1673,7 @@ a {
   font-weight: 800;
 }
 
-.lineup-story-body h3 {
+.lineup-story-body h2 {
   margin: 0 0 28px;
   color: var(--ink);
   font-size: clamp(20px, 2.5vw, 28px);
@@ -5652,7 +5652,7 @@ section.top-guide-cta {
     max-height: 112px;
   }
 
-  .lineup-story-body h3 {
+  .lineup-story-body h2 {
     margin-bottom: 18px;
     font-size: 19px;
   }
@@ -6756,7 +6756,7 @@ section.top-guide-cta {
 .guide-flow-card h3,
 .support-feature-card h3,
 .voice-slide-card h2,
-.lineup-story-body h3,
+.lineup-story-body h2,
 .showroom-options h3,
 .rental-placement-grid h3 {
   font-size: var(--kb-card-title);
@@ -10059,7 +10059,7 @@ body:has(.sticky-cta) .site-footer {
 }
 
 .lineup-story-card .lineup-story-meta,
-.lineup-story-card h3,
+.lineup-story-card h2,
 .lineup-story-card .lineup-description {
   grid-column: 2;
   min-width: 0;
@@ -10069,7 +10069,7 @@ body:has(.sticky-cta) .site-footer {
   margin-bottom: 10px;
 }
 
-.lineup-story-card h3 {
+.lineup-story-card h2 {
   width: fit-content;
   max-width: 100%;
   margin-bottom: 14px;
@@ -10168,7 +10168,7 @@ body:has(.sticky-cta) .site-footer {
 
   .lineup-story-card .lineup-story-visual,
   .lineup-story-card .lineup-story-meta,
-  .lineup-story-card h3,
+  .lineup-story-card h2,
   .lineup-story-card .lineup-description,
   .lineup-story-card .lineup-size-guide,
   .lineup-story-card .lineup-brand-guide,
@@ -11405,7 +11405,7 @@ body:has(.lineup-page) {
   box-shadow: 0 16px 38px rgba(84, 52, 24, .08);
 }
 
-.lineup-story-body h3 {
+.lineup-story-body h2 {
   width: min(640px, 100%);
   margin: 0 auto 16px;
   color: #111;
@@ -11957,20 +11957,20 @@ body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story
   gap: 18px 34px;
 }
 
-body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3 {
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h2 {
   grid-area: headline;
   position: relative;
   padding-inline: 92px;
   margin: 6px auto 10px;
-  /* ピンクの蛍光マーカー風下線（.lineup-story-card h3 の背景グラデ）を打ち消す */
+  /* ピンクの蛍光マーカー風下線（.lineup-story-card h2 の背景グラデ）を打ち消す */
   background: none;
   font-weight: 800;
   line-height: 1.62;
   letter-spacing: .02em;
 }
 
-body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::before,
-body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::after {
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h2::before,
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h2::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -11981,11 +11981,11 @@ body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story
   transform: translateY(-50%);
 }
 
-body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::before {
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h2::before {
   left: 4px;
 }
 
-body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::after {
+body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h2::after {
   right: 4px;
   /* 同じSVGを左右反転して対称配置 */
   transform: translateY(-50%) scaleX(-1);
@@ -12178,12 +12178,12 @@ body:has(.lineup-page) .lineup-brand-guide .lineup-guide-gallery div {
     gap: 16px;
   }
 
-  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3 {
+  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h2 {
     padding-inline: 0;
   }
 
-  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::before,
-  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h3::after {
+  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h2::before,
+  body:has(.lineup-page) .lineup-story-card:has(.lineup-trust-badge) .lineup-story-body h2::after {
     display: none;
   }
 
@@ -12233,7 +12233,7 @@ body:has(.lineup-page) .lineup-strength-list li:nth-child(4) span { background-i
 }
 
 /* ラインナップ ブランド個別ページ: タイトルは蛍光線を使わず、左右に月桂樹＋重要語をピンク強調 */
-body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3 {
+body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2 {
   position: relative;
   width: min(720px, 100%);
   margin: 6px auto 12px;
@@ -12246,12 +12246,12 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3 {
   letter-spacing: .02em;
 }
 
-body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3 .em {
+body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2 .em {
   color: var(--pink);
 }
 
-body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3::before,
-body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3::after {
+body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::before,
+body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -12261,17 +12261,17 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3::after {
   transform: translateY(-50%);
 }
 
-body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3::before { left: 2px; }
+body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::before { left: 2px; }
 
-body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3::after {
+body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   right: 2px;
   transform: translateY(-50%) scaleX(-1);
 }
 
 @media (max-width: 900px) {
-  body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3 { padding-inline: 0; font-size: clamp(15px, 4.4vw, 21px); }
+  body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2 { padding-inline: 0; font-size: clamp(15px, 4.4vw, 21px); }
   /* 狭幅では固定の改行(<br>)を無効化し、自然な折り返しで2行に収める */
-  body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3 br { display: none; }
-  body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3::before,
-  body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h3::after { display: none; }
+  body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2 br { display: none; }
+  body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::before,
+  body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after { display: none; }
 }
