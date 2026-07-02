@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "build:information": "node scripts/build_information.mjs",
-    "build:columns": "node scripts/fetch_and_build.mjs"
+    "build:columns": "node scripts/fetch_and_build.mjs",
+    "build:css": "tailwindcss -i input.css -o assets/tw.min.css --minify"
   },
   "dependencies": {
     "microcms-js-sdk": "^3.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
   }
 }
