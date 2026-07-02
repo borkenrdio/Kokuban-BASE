@@ -7565,8 +7565,10 @@ section.top-guide-cta {
   .article-body th,
   .article-body td {
     min-width: 128px;
+    max-width: 70vw;
     padding: 12px 14px;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: break-word;
   }
 }
 
@@ -12275,3 +12277,134 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::before,
   body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after { display: none; }
 }
+
+/* ============================================================================
+   ===== MOBILE FIX LAYER (2026-07) =====
+   モバイル改善レポート(2026-07-02)対応。既存ルールは並べ替え・削除せず、
+   カスケード最後に勝つこのレイヤーへ帯域限定で追記する方針。
+   PC(>980px)のレンダリング結果は変更しない。
+   ============================================================================ */
+
+/* 【高-1】お問い合わせフォームのiOS自動ズーム防止（入力欄16px・48px高） */
+@media (max-width: 820px) {
+  .contact-field input,
+  .contact-field select,
+  .contact-field textarea,
+  .contact-page-simple .contact-field input,
+  .contact-page-simple .contact-field select,
+  .contact-page-simple .contact-field textarea {
+    min-height: 48px;
+    font-size: 16px; /* iOS自動ズーム防止の下限 */
+  }
+  .contact-page-simple .contact-submit {
+    width: 100%;
+    min-height: 50px;
+  }
+}
+
+/* 【高-4】【高-5】641〜760px: ハンバーガー表示帯とナビ切替帯を一致させる＋横あふれ対策
+   ドロップダウンの値は既存 ≤640px 版(L6485〜6510)と同一。 */
+@media (min-width: 641px) and (max-width: 760px) {
+  .global-nav { display: none; }            /* 横スクロールナビを止める */
+  .header-phone { display: none; }          /* 幅あふれ対策（高-5） */
+  .brand { font-size: 22px; }               /* 641〜760px帯でブランド名を縮小 */
+
+  .site-header.is-menu-open .global-nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 40;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow: visible;
+    white-space: normal;
+    box-shadow: 0 18px 30px rgba(15, 23, 42, .18);
+  }
+  .site-header.is-menu-open .global-nav a {
+    width: 100%;
+    padding: 15px 22px;
+    border-right: 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    line-height: 1.3;
+  }
+}
+
+/* 【高-3】lease ヒーロー背景のモバイル軽量化（w=1800→w=900） */
+@media (max-width: 640px) {
+  .lease-slide-01 {
+    background-image:
+      linear-gradient(135deg, rgba(16, 63, 153, .24), rgba(236, 72, 153, .2)),
+      url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=70");
+  }
+  .lease-slide-02 {
+    background-image:
+      linear-gradient(135deg, rgba(16, 63, 153, .24), rgba(236, 72, 153, .2)),
+      url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=70");
+  }
+  .lease-slide-03 {
+    background-image:
+      linear-gradient(135deg, rgba(16, 63, 153, .24), rgba(236, 72, 153, .2)),
+      url("https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=900&q=70");
+  }
+  .lease-slide-04 {
+    background-image:
+      linear-gradient(135deg, rgba(16, 63, 153, .24), rgba(236, 72, 153, .2)),
+      url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=70");
+  }
+}
+
+/* 【中-5】本文系の極小文字をモバイルで底上げ／【中-7】会社概要の定義リスト縦積み */
+@media (max-width: 640px) {
+  .service-list p { font-size: 13px; }
+  .declaration p { font-size: 13px; }
+  .footer-nav,
+  .footer-copy,
+  .company-source { font-size: 12px; }
+
+  .company-profile div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 14px 0;
+  }
+}
+
+/* 【低-1】タップ寸法の確保（フッターリンク・カルーセルドット） */
+@media (max-width: 820px) {
+  .footer-nav a {
+    display: inline-block;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .lease-hero-dots button {
+    width: 12px;
+    height: 12px;
+  }
+  .lease-hero-dots { gap: 14px; } /* 実タップ領域を確保 */
+}
+
+/* 【中-2】選定サポートパネルの761〜860px帯の見切れ対策 */
+@media (min-width: 761px) and (max-width: 860px) {
+  .selection-panel {
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1fr);
+  }
+}
+
+/* 【中-4】タブレット帯グローバルナビに「続きがある」フェードを付与 */
+@media (min-width: 641px) and (max-width: 980px) {
+  .global-nav {
+    -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent);
+            mask-image: linear-gradient(90deg, #000 92%, transparent);
+  }
+}
+
+/* 【中-8】ヒーロータイトルの320〜340px端末での見切れ対策 */
+@media (max-width: 360px) {
+  .lp-hero-title { font-size: clamp(30px, 11vw, 40px); }
+}
+/* ===== END MOBILE FIX LAYER ===== */

@@ -104,7 +104,7 @@
         .article-body {
             line-height: 1.8;
             letter-spacing: 0.03em;
-            word-break: break-all;
+            word-break: normal; overflow-wrap: break-word;
         }
 
         .article-body p { margin-bottom: 2em; }
@@ -188,7 +188,7 @@
         @media (max-width: 640px) {
             .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
             .article-body th,
-            .article-body td { min-width: 128px; padding: 12px 14px; white-space: nowrap; }
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -396,7 +396,7 @@
                 <!-- アイキャッチ -->
                 <div class="eyecatch-image mb-8 sm:mb-12">
                     <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
-                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8c602e5624184d30bed26915601b9e1b/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%889%E6%97%A5%2012_19_05%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板のスクリーンショット機能！PDF・答案・AI回答を切り取って授業で活用する方法" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8c602e5624184d30bed26915601b9e1b/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%889%E6%97%A5%2012_19_05%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板のスクリーンショット機能！PDF・答案・AI回答を切り取って授業で活用する方法" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                 </div>
                 
@@ -460,13 +460,13 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>授業中、「この部分だけ切り取って説明したい」と思う場面があります。こうした場面で便利なのが、電子黒板に搭載されているスクリーンショット機能です。電子黒板では、表示している画面全体を保存することもできますし、必要な範囲だけを部分的に切り取ることもできます。画面全体を記録したいときは全体スクリーンショット、教材の一部だけを使いたいときは範囲指定のスクリーンキャプチャ、というように使い分けられます。切り取った画像は、ホワイトボードに貼り付けて活用できます。資料をそのまま見せるだけでなく、貼り付けた画像に線を引いたり、丸を付けたり、矢印を書き込んだりすることで、授業中に必要な部分だけをホワイトボードへ反映させることができます。</p><h2 id="h20b8d70837"><strong>活用例①：理科の複雑な実験図を一部を切り抜き、ホワイトボードに貼り付ける</strong></h2><p>もっとも使いやすいのが、電子黒板に表示したPDFの一部をスクリーンショット/キャプチャして、ホワイトボードに貼り付ける使い方です。たとえば理科の授業では、実験の図や装置の模式図を扱うことがあります。教材PDFの中から実験図だけを切り取り、ホワイトボードに貼り付ければ、その図をもとに説明できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/cb812df8faca48dd9acadc916fdabdc7/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%889%E6%97%A5%2012_19_28%20(1).png" alt="" width="1536" height="1024"></figure><p>「この試験管では何が起きているのか」<br>「この矢印は何の流れを表しているのか」<br>「条件が変わると結果はどう変わるのか」</p><p>このような問いを立てながら、図の上に直接書き込めます。特に、理科の初見問題では効果的です。そもそも、先生は生徒の演習中に理科の図を黒板へ手書きで写していることが少なくありません。スクリーンショットを使えば、その作業を数秒で板書に置き換えられます。さらに、ボタンひとつで複製できるため、同じ図を並べて複数のパターン（条件違いや解き方の違いなど）を示すこともできます。手書きの場合は、図が一つしかないため別パターンを重ねて示しにくく、書き込んだものを誤って消してしまうこともありますが、スクショならそうした心配もありません。</p><blockquote><a href="/columns/javalab/" class="internal-link-card" aria-label="〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア">
+                    <p>授業中、「この部分だけ切り取って説明したい」と思う場面があります。こうした場面で便利なのが、電子黒板に搭載されているスクリーンショット機能です。電子黒板では、表示している画面全体を保存することもできますし、必要な範囲だけを部分的に切り取ることもできます。画面全体を記録したいときは全体スクリーンショット、教材の一部だけを使いたいときは範囲指定のスクリーンキャプチャ、というように使い分けられます。切り取った画像は、ホワイトボードに貼り付けて活用できます。資料をそのまま見せるだけでなく、貼り付けた画像に線を引いたり、丸を付けたり、矢印を書き込んだりすることで、授業中に必要な部分だけをホワイトボードへ反映させることができます。</p><h2 id="h20b8d70837"><strong>活用例①：理科の複雑な実験図を一部を切り抜き、ホワイトボードに貼り付ける</strong></h2><p>もっとも使いやすいのが、電子黒板に表示したPDFの一部をスクリーンショット/キャプチャして、ホワイトボードに貼り付ける使い方です。たとえば理科の授業では、実験の図や装置の模式図を扱うことがあります。教材PDFの中から実験図だけを切り取り、ホワイトボードに貼り付ければ、その図をもとに説明できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/cb812df8faca48dd9acadc916fdabdc7/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%889%E6%97%A5%2012_19_28%20(1).png" alt="" width="1536" height="1024" loading="lazy" decoding="async"></figure><p>「この試験管では何が起きているのか」<br>「この矢印は何の流れを表しているのか」<br>「条件が変わると結果はどう変わるのか」</p><p>このような問いを立てながら、図の上に直接書き込めます。特に、理科の初見問題では効果的です。そもそも、先生は生徒の演習中に理科の図を黒板へ手書きで写していることが少なくありません。スクリーンショットを使えば、その作業を数秒で板書に置き換えられます。さらに、ボタンひとつで複製できるため、同じ図を並べて複数のパターン（条件違いや解き方の違いなど）を示すこともできます。手書きの場合は、図が一つしかないため別パターンを重ねて示しにくく、書き込んだものを誤って消してしまうこともありますが、スクショならそうした心配もありません。</p><blockquote><a href="/columns/javalab/" class="internal-link-card" aria-label="〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア">
     <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/36b0a4cd136c4fb48051ed2eb77cc230/%E6%9C%80%E9%9B%A3%E9%96%A2%E7%90%86%E7%A7%91%E3%82%92%E7%AA%81%E7%A0%B4%E3%81%99%E3%82%8B%E6%8E%88%E6%A5%AD%20(1).png?fit=crop&w=320&h=180&q=80" alt="〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア" loading="lazy" decoding="async"></span>
     <span class="internal-link-card__body">
       <span class="internal-link-card__title">〈電子黒板の活用〉最難関理科の初見問題を突破する、電子黒板×Javalabを活用した理科の授業アイデア</span>
       <span class="internal-link-card__description">中学受験理科の難関校入試（聖光学院・東大寺学園など）で求められる初見問題への対応力を育てる方法を解説。電子黒板とシミュレーションツール「Java Lab」を活用し、暗記に頼らず現象の本質的な理解を深める授業づくりのヒントをお届けします。</span>
     </span>
-  </a></blockquote><h2 id="h73bba4e40b"><strong>活用例②：生徒の記述答案に赤入れし、解説する</strong></h2><p>生徒の解答やノートを共有したい場面でも、スクリーンショット機能は役立ちます。たとえば、書画カメラやデュアルカメラで生徒の答案を電子黒板に表示します。その中から、良い解き方が書かれている部分や、よくある間違いが含まれている部分だけをスクリーンショットします。切り取った画像をホワイトボードに貼り付ければ、その答案をもとに解説できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b34fead936fa42e4a9ab87dab12f80c6/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%889%E6%97%A5%2012_23_26%20(1).png" alt="" width="1448" height="1086"></figure><blockquote><a href="/columns/camera-cloud/" class="internal-link-card" aria-label="紙の資料を即座に電子黒板で表示する方法｜カメラ・クラウド・書画カメラの活用法">
+  </a></blockquote><h2 id="h73bba4e40b"><strong>活用例②：生徒の記述答案に赤入れし、解説する</strong></h2><p>生徒の解答やノートを共有したい場面でも、スクリーンショット機能は役立ちます。たとえば、書画カメラやデュアルカメラで生徒の答案を電子黒板に表示します。その中から、良い解き方が書かれている部分や、よくある間違いが含まれている部分だけをスクリーンショットします。切り取った画像をホワイトボードに貼り付ければ、その答案をもとに解説できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b34fead936fa42e4a9ab87dab12f80c6/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%889%E6%97%A5%2012_23_26%20(1).png" alt="" width="1448" height="1086" loading="lazy" decoding="async"></figure><blockquote><a href="/columns/camera-cloud/" class="internal-link-card" aria-label="紙の資料を即座に電子黒板で表示する方法｜カメラ・クラウド・書画カメラの活用法">
     <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/4ad678b6760347809343fefeca1809d8/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%888%E6%97%A5%2011_29_37%20(1).png?fit=crop&w=320&h=180&q=80" alt="紙の資料を即座に電子黒板で表示する方法｜カメラ・クラウド・書画カメラの活用法" loading="lazy" decoding="async"></span>
     <span class="internal-link-card__body">
       <span class="internal-link-card__title">紙の資料を即座に電子黒板で表示する方法｜カメラ・クラウド・書画カメラの活用法</span>
@@ -516,7 +516,7 @@
                     
     <a href="/columns/monitor-or-denshikokuban/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -534,7 +534,7 @@
 
     <a href="/columns/65inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -552,7 +552,7 @@
 
     <a href="/columns/inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">

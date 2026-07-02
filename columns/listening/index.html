@@ -104,7 +104,7 @@
         .article-body {
             line-height: 1.8;
             letter-spacing: 0.03em;
-            word-break: break-all;
+            word-break: normal; overflow-wrap: break-word;
         }
 
         .article-body p { margin-bottom: 2em; }
@@ -188,7 +188,7 @@
         @media (max-width: 640px) {
             .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
             .article-body th,
-            .article-body td { min-width: 128px; padding: 12px 14px; white-space: nowrap; }
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -396,7 +396,7 @@
                 <!-- アイキャッチ -->
                 <div class="eyecatch-image mb-8 sm:mb-12">
                     <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
-                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/9b337b8d73524fdca82e54ca0d664c63/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8829%E6%97%A5%2015_07_19%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板で英語リスニング授業はどう変わる？音声・スクリプト・板書を同時に使う授業活用法" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/9b337b8d73524fdca82e54ca0d664c63/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8829%E6%97%A5%2015_07_19%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板で英語リスニング授業はどう変わる？音声・スクリプト・板書を同時に使う授業活用法" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                 </div>
                 
@@ -460,7 +460,7 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>英語のリスニング授業では、「音声を聞く」「問題を解く」「スクリプトを確認する」「聞き取れなかった部分を解説する」という流れが一般的です。</p><p style="text-align: start">ただ、従来の授業では、音声を流す機器、スクリプトを表示する資料、板書するホワイトボードが別々になりがちでした。先生がPCを操作し、音声を止め、プリントを見せ、黒板にポイントを書く。授業としては成立しますが、教材や視線が分散すると、生徒の理解も途切れやすくなります。</p><p style="text-align: start">電子黒板を活用すれば、音声を再生しながら、スクリプトPDFをホワイトボードに挿入し、その上に直接書き込めます。聞く・読む・理解する・書き込むという流れを、一つの画面でつなげられるのです。</p><h2 style="text-align: start" id="hb77ffd288e"><strong>活用例①：スピーカーで本番に近い環境を作る</strong></h2><p style="text-align: start">多くの生徒は、普段のリスニング練習をイヤホンで行っています。スマートフォンやタブレットで音声を聞く場合、イヤホンの方が聞き取りやすく、周囲の音も入りにくいからです。しかし、英検などの試験が近づいてきたら、リスニング練習はスピーカーを使うことをおすすめします。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/38f4d3bba4654d459d15f76bfd82f34a/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8829%E6%97%A5%2015_11_00%20(1).png" alt="" width="1535" height="1024"></figure><p style="text-align: start">本番のリスニングは「大きな教室」で、しかも「スピーカーを使って」行われることが多いからです。イヤホンで聞く音声と、教室のスピーカーから流れる音声では、聞こえ方が大きく異なります。イヤホンでははっきり聞き取れていた単語が、スピーカーでは少しぼやけて聞こえることがあります。教室の広さ、座る位置、音の反響、周囲の物音によっても聞こえ方は変わります。これに慣れていないと、本番でかなり焦ります。</p><p style="text-align: start">電子黒板を使えば、教室全体に音声を流し、クラス全員が同じ条件で問題に取り組めます。<strong>本番に近い環境で練習できること</strong>は、大きなメリットです。</p><h2 style="text-align: start" id="h34bf788cca"><strong>活用例②：スクリプトPDFに直接書き込みながら解説する</strong></h2><p style="text-align: start">リスニング授業で大切なのは、”解説”です。正解・不正解を確認するだけでは、生徒は「なぜ聞き取れなかったのか」を理解できません。そこで役立つのが、電子黒板のホワイトボード機能です。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/fb0debabf66444c5919118af2fb3be52/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8829%E6%97%A5%2015_08_15%20(1).png" alt="" width="1535" height="1024"></figure><p style="text-align: start">解説時には、ホワイトボード上にスクリプトPDFを挿入します。先生はスクリプトを表示しながら、重要な単語、聞き取りにくい音、文法のポイント、設問の根拠などを直接書き込めます。たとえば、音声を再生しながらスクリプトを一緒に追っていくと、いろいろな発見があります。たとえば、「Can you help me？」という英文を見たとき、多くの生徒は「キャン ユー ヘルプ ミー」と聞こえるイメージを持っています。しかし、正確に音を聞くと、「キャン」ではなく「ケン」に聞こえます。Canは、文のどこにあるか、強調されているかどうかによって発音が変わります。こうした違いは、丸付けだけではなかなか伝わらず、教えてもらう必要があります。</p><p style="text-align: start">実際に音声を流しながら、「ここを聞いてください」とスクリプト上に印を付け解説を行っていく。このように、音声を聞かせながら直接書き込んで解説することで、生徒は「文字ではこう書いてあるけれど、音ではこう聞こえる」という感覚をつかみやすくなります。</p><h2 style="text-align: start" id="h89dc8aed1b"><strong>AIでリスニング教材を作成することもできる</strong></h2><p style="text-align: start">英語リスニング授業で使用する音声やスクリプトは、先生や塾側で用意したものを使うのが安心です。</p><p style="text-align: start">最近では、AIに学年・レベル・文法事項・テーマを指定して、リスニング音声とスクリプト原稿を作成することもできます。たとえば「英検3級レベルで、道案内をテーマにしたリスニング音声とスクリプト原稿を作ってください」と依頼すれば、授業内容に合わせた教材のたたき台を作れます。</p><h2 style="text-align: start" id="h4ddbf68b80"><strong>まとめ：電子黒板なら、リスニングの「聞く・読む・書く」を一画面でつなげられる</strong></h2><p style="text-align: start">電子黒板を活用すると、英語リスニング授業はより実践的で、分かりやすいものになります。リスニングは、ただ音声を聞くだけでは伸びにくい分野です。聞き取れなかった原因を見つけ、スクリプトで確認し、もう一度音声で聞き直す。その繰り返しによって、少しずつ「聞こえる」部分が増えていきます。</p><p style="text-align: start">また、試験本番ではイヤホンではなく、教室のスピーカーから音声が流れることが多くあります。普段から電子黒板のスピーカーで練習しておけば、本番の聞こえ方にも慣れやすくなります。</p><p style="text-align: start">電子黒板は、音声を流すだけの機器ではありません。リスニングの本番環境を再現し、スクリプトと書き込みを組み合わせながら、聞き取る力を育てるための授業ツールです。</p>
+                    <p>英語のリスニング授業では、「音声を聞く」「問題を解く」「スクリプトを確認する」「聞き取れなかった部分を解説する」という流れが一般的です。</p><p style="text-align: start">ただ、従来の授業では、音声を流す機器、スクリプトを表示する資料、板書するホワイトボードが別々になりがちでした。先生がPCを操作し、音声を止め、プリントを見せ、黒板にポイントを書く。授業としては成立しますが、教材や視線が分散すると、生徒の理解も途切れやすくなります。</p><p style="text-align: start">電子黒板を活用すれば、音声を再生しながら、スクリプトPDFをホワイトボードに挿入し、その上に直接書き込めます。聞く・読む・理解する・書き込むという流れを、一つの画面でつなげられるのです。</p><h2 style="text-align: start" id="hb77ffd288e"><strong>活用例①：スピーカーで本番に近い環境を作る</strong></h2><p style="text-align: start">多くの生徒は、普段のリスニング練習をイヤホンで行っています。スマートフォンやタブレットで音声を聞く場合、イヤホンの方が聞き取りやすく、周囲の音も入りにくいからです。しかし、英検などの試験が近づいてきたら、リスニング練習はスピーカーを使うことをおすすめします。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/38f4d3bba4654d459d15f76bfd82f34a/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8829%E6%97%A5%2015_11_00%20(1).png" alt="" width="1535" height="1024" loading="lazy" decoding="async"></figure><p style="text-align: start">本番のリスニングは「大きな教室」で、しかも「スピーカーを使って」行われることが多いからです。イヤホンで聞く音声と、教室のスピーカーから流れる音声では、聞こえ方が大きく異なります。イヤホンでははっきり聞き取れていた単語が、スピーカーでは少しぼやけて聞こえることがあります。教室の広さ、座る位置、音の反響、周囲の物音によっても聞こえ方は変わります。これに慣れていないと、本番でかなり焦ります。</p><p style="text-align: start">電子黒板を使えば、教室全体に音声を流し、クラス全員が同じ条件で問題に取り組めます。<strong>本番に近い環境で練習できること</strong>は、大きなメリットです。</p><h2 style="text-align: start" id="h34bf788cca"><strong>活用例②：スクリプトPDFに直接書き込みながら解説する</strong></h2><p style="text-align: start">リスニング授業で大切なのは、”解説”です。正解・不正解を確認するだけでは、生徒は「なぜ聞き取れなかったのか」を理解できません。そこで役立つのが、電子黒板のホワイトボード機能です。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/fb0debabf66444c5919118af2fb3be52/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8829%E6%97%A5%2015_08_15%20(1).png" alt="" width="1535" height="1024" loading="lazy" decoding="async"></figure><p style="text-align: start">解説時には、ホワイトボード上にスクリプトPDFを挿入します。先生はスクリプトを表示しながら、重要な単語、聞き取りにくい音、文法のポイント、設問の根拠などを直接書き込めます。たとえば、音声を再生しながらスクリプトを一緒に追っていくと、いろいろな発見があります。たとえば、「Can you help me？」という英文を見たとき、多くの生徒は「キャン ユー ヘルプ ミー」と聞こえるイメージを持っています。しかし、正確に音を聞くと、「キャン」ではなく「ケン」に聞こえます。Canは、文のどこにあるか、強調されているかどうかによって発音が変わります。こうした違いは、丸付けだけではなかなか伝わらず、教えてもらう必要があります。</p><p style="text-align: start">実際に音声を流しながら、「ここを聞いてください」とスクリプト上に印を付け解説を行っていく。このように、音声を聞かせながら直接書き込んで解説することで、生徒は「文字ではこう書いてあるけれど、音ではこう聞こえる」という感覚をつかみやすくなります。</p><h2 style="text-align: start" id="h89dc8aed1b"><strong>AIでリスニング教材を作成することもできる</strong></h2><p style="text-align: start">英語リスニング授業で使用する音声やスクリプトは、先生や塾側で用意したものを使うのが安心です。</p><p style="text-align: start">最近では、AIに学年・レベル・文法事項・テーマを指定して、リスニング音声とスクリプト原稿を作成することもできます。たとえば「英検3級レベルで、道案内をテーマにしたリスニング音声とスクリプト原稿を作ってください」と依頼すれば、授業内容に合わせた教材のたたき台を作れます。</p><h2 style="text-align: start" id="h4ddbf68b80"><strong>まとめ：電子黒板なら、リスニングの「聞く・読む・書く」を一画面でつなげられる</strong></h2><p style="text-align: start">電子黒板を活用すると、英語リスニング授業はより実践的で、分かりやすいものになります。リスニングは、ただ音声を聞くだけでは伸びにくい分野です。聞き取れなかった原因を見つけ、スクリプトで確認し、もう一度音声で聞き直す。その繰り返しによって、少しずつ「聞こえる」部分が増えていきます。</p><p style="text-align: start">また、試験本番ではイヤホンではなく、教室のスピーカーから音声が流れることが多くあります。普段から電子黒板のスピーカーで練習しておけば、本番の聞こえ方にも慣れやすくなります。</p><p style="text-align: start">電子黒板は、音声を流すだけの機器ではありません。リスニングの本番環境を再現し、スクリプトと書き込みを組み合わせながら、聞き取る力を育てるための授業ツールです。</p>
                 </div>
 
                 <!-- お問い合わせCTA -->
@@ -504,7 +504,7 @@
                     
     <a href="/columns/monitor-or-denshikokuban/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -522,7 +522,7 @@
 
     <a href="/columns/65inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -540,7 +540,7 @@
 
     <a href="/columns/inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">

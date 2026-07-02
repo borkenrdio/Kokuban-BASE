@@ -104,7 +104,7 @@
         .article-body {
             line-height: 1.8;
             letter-spacing: 0.03em;
-            word-break: break-all;
+            word-break: normal; overflow-wrap: break-word;
         }
 
         .article-body p { margin-bottom: 2em; }
@@ -188,7 +188,7 @@
         @media (max-width: 640px) {
             .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
             .article-body th,
-            .article-body td { min-width: 128px; padding: 12px 14px; white-space: nowrap; }
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -396,7 +396,7 @@
                 <!-- アイキャッチ -->
                 <div class="eyecatch-image mb-8 sm:mb-12">
                     <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
-                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/6d493a907a65404a83ae18056a0e852b/Gemini_Generated_Image_tyo96otyo96otyo9.png?fit=crop&w=1200&h=675&q=80" alt="〈電子黒板の活用〉BenQ BoardのNFCタッチ機能でGoogleアカウントを瞬時に切り替え。生徒主体の探究授業も手軽に。" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/6d493a907a65404a83ae18056a0e852b/Gemini_Generated_Image_tyo96otyo96otyo9.png?fit=crop&w=1200&h=675&q=80" alt="〈電子黒板の活用〉BenQ BoardのNFCタッチ機能でGoogleアカウントを瞬時に切り替え。生徒主体の探究授業も手軽に。" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                 </div>
                 
@@ -460,7 +460,7 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>探究学習の発表時など、生徒を含めさまざまな使用者が入れ替わりで電子黒板を使用する場合には、電子黒板本体のGoogleアカウントをその都度切り替えるケースがあります。しかし、そのたびにIDやパスワードを手入力するのは時間がかかり、流れを止めてしまいがちです。</p><p>BenQ Boardなら、NFCタグをかざすだけで簡単にAMSアカウント（BenQ Boardのユーザーアカウント）の切り替えができるようになります。AMSアカウントはGoogle アカウントのログインとも連携でき、ユーザーごとに切り替えもスムーズです。今回は、その設定方法と具体的な運用アイデアをまとめました。</p><h2 id="h6e73db57e9"><strong>BenQ Board導入で授業はどう変わる？ 3つのメリット</strong></h2><p>NFCログインを活用することで、これまでの当たり前だった不便が次のように解消されます。</p><p><strong>1．ワンタッチで確実にログイン完了</strong></p><p>・ <strong>これまで</strong>：Googleアカウントを切り替えるために、IDやパスワードを手打ち。一言でいえば、大変面倒でした。もしくは、自身の端末とプロジェクターを有線ケーブルでつなぎ直す。「うまく投影されない」「変換アダプタが足りない」といった接続トラブルの解決も、先生の仕事です。限られた授業時間を、ログインや接続設定だけで数分削られたくないと思っている先生は多いのではないでしょうか。</p><p>・ <strong>BenQ Boardの電子黒板</strong>：改札と同じように“タッチ”するだけでログイン完了。発表者が瞬時に切り替わります。操作のサポートに回る時間を減らし、生徒の発表内容や議論に集中できる時間が増えます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/223b6c376abf4637a4aa27786ab34df7/Gemini_Generated_Image_7t8rno7t8rno7t8r.png" alt="" width="2898" height="1472"></figure><p><strong>2．自分専用に最適化された環境がすぐ使える</strong></p><p>・ <strong>これまで</strong>：生徒にプレゼン資料などのデータを事前に共有フォルダへ入れてもらい、先生がそれを一つずつ確認して回る……。そんな「授業前の下準備」が大きな負担でした。</p><p>・ <strong>BenQ Boardの電子黒板</strong>：タッチするだけで、生徒が自分のアカウントで直接ログインできるため、事前のファイル集約は不要です。各々が使い慣れたGoogleドライブやスライドから直接資料を開けるようになり、先生の管理の手間がなくなります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/34cda80b66094f008ca737b45e0ab06a/Gemini_Generated_Image_dxfghkdxfghkdxfg.png" alt="" width="2832" height="1504"></figure><p><strong>3．情報が残らない安心感</strong></p><p>・ <strong>これまで</strong>：共有端末に個人アカウントを紐付けるのは、セキュリティ面で非常に慎重になる作業でした。ブラウザにIDが保存されてしまったり、ログアウトが不完全だったりと、共有端末ならではの消し忘れのリスクが常に付きまとっていたからです。</p><p>・ <strong>BenQ Boardの電子黒板</strong>：BenQ Boardなら、ログアウトした瞬間に連携が完全に切断されます。物理的な「鍵」であるNFCタグと連動させることで、プライバシーを確実に保護。安心して次のクラスへ向かうことができます。</p><p>活用事例</p><a href="https://www.benq.com/ja-jp/business/ifp/case-study-japan/kochi-university-of-technology.html?srsltid=AfmBOooS575zWwVuMnflOnNN3b_pjehBN8w2UfOw0-TBgYg_gZRa1ltK" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="BenQ Board 導入事例｜大学｜高知工科大学">
+                    <p>探究学習の発表時など、生徒を含めさまざまな使用者が入れ替わりで電子黒板を使用する場合には、電子黒板本体のGoogleアカウントをその都度切り替えるケースがあります。しかし、そのたびにIDやパスワードを手入力するのは時間がかかり、流れを止めてしまいがちです。</p><p>BenQ Boardなら、NFCタグをかざすだけで簡単にAMSアカウント（BenQ Boardのユーザーアカウント）の切り替えができるようになります。AMSアカウントはGoogle アカウントのログインとも連携でき、ユーザーごとに切り替えもスムーズです。今回は、その設定方法と具体的な運用アイデアをまとめました。</p><h2 id="h6e73db57e9"><strong>BenQ Board導入で授業はどう変わる？ 3つのメリット</strong></h2><p>NFCログインを活用することで、これまでの当たり前だった不便が次のように解消されます。</p><p><strong>1．ワンタッチで確実にログイン完了</strong></p><p>・ <strong>これまで</strong>：Googleアカウントを切り替えるために、IDやパスワードを手打ち。一言でいえば、大変面倒でした。もしくは、自身の端末とプロジェクターを有線ケーブルでつなぎ直す。「うまく投影されない」「変換アダプタが足りない」といった接続トラブルの解決も、先生の仕事です。限られた授業時間を、ログインや接続設定だけで数分削られたくないと思っている先生は多いのではないでしょうか。</p><p>・ <strong>BenQ Boardの電子黒板</strong>：改札と同じように“タッチ”するだけでログイン完了。発表者が瞬時に切り替わります。操作のサポートに回る時間を減らし、生徒の発表内容や議論に集中できる時間が増えます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/223b6c376abf4637a4aa27786ab34df7/Gemini_Generated_Image_7t8rno7t8rno7t8r.png" alt="" width="2898" height="1472" loading="lazy" decoding="async"></figure><p><strong>2．自分専用に最適化された環境がすぐ使える</strong></p><p>・ <strong>これまで</strong>：生徒にプレゼン資料などのデータを事前に共有フォルダへ入れてもらい、先生がそれを一つずつ確認して回る……。そんな「授業前の下準備」が大きな負担でした。</p><p>・ <strong>BenQ Boardの電子黒板</strong>：タッチするだけで、生徒が自分のアカウントで直接ログインできるため、事前のファイル集約は不要です。各々が使い慣れたGoogleドライブやスライドから直接資料を開けるようになり、先生の管理の手間がなくなります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/34cda80b66094f008ca737b45e0ab06a/Gemini_Generated_Image_dxfghkdxfghkdxfg.png" alt="" width="2832" height="1504" loading="lazy" decoding="async"></figure><p><strong>3．情報が残らない安心感</strong></p><p>・ <strong>これまで</strong>：共有端末に個人アカウントを紐付けるのは、セキュリティ面で非常に慎重になる作業でした。ブラウザにIDが保存されてしまったり、ログアウトが不完全だったりと、共有端末ならではの消し忘れのリスクが常に付きまとっていたからです。</p><p>・ <strong>BenQ Boardの電子黒板</strong>：BenQ Boardなら、ログアウトした瞬間に連携が完全に切断されます。物理的な「鍵」であるNFCタグと連動させることで、プライバシーを確実に保護。安心して次のクラスへ向かうことができます。</p><p>活用事例</p><a href="https://www.benq.com/ja-jp/business/ifp/case-study-japan/kochi-university-of-technology.html?srsltid=AfmBOooS575zWwVuMnflOnNN3b_pjehBN8w2UfOw0-TBgYg_gZRa1ltK" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="BenQ Board 導入事例｜大学｜高知工科大学">
     <span class="internal-link-card__image internal-link-card__image--external"><img src="https://image.benq.com/is/image/benqco/DSC_5428?$ResponsivePreset$" alt="BenQ Board 導入事例｜大学｜高知工科大学" loading="lazy" decoding="async"></span>
     <span class="internal-link-card__body">
       <span class="internal-link-card__title">BenQ Board 導入事例｜大学｜高知工科大学</span>
@@ -511,7 +511,7 @@
                     
     <a href="/columns/monitor-or-denshikokuban/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -529,7 +529,7 @@
 
     <a href="/columns/65inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -547,7 +547,7 @@
 
     <a href="/columns/inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">

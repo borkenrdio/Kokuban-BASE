@@ -104,7 +104,7 @@
         .article-body {
             line-height: 1.8;
             letter-spacing: 0.03em;
-            word-break: break-all;
+            word-break: normal; overflow-wrap: break-word;
         }
 
         .article-body p { margin-bottom: 2em; }
@@ -188,7 +188,7 @@
         @media (max-width: 640px) {
             .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
             .article-body th,
-            .article-body td { min-width: 128px; padding: 12px 14px; white-space: nowrap; }
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -396,7 +396,7 @@
                 <!-- アイキャッチ -->
                 <div class="eyecatch-image mb-8 sm:mb-12">
                     <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
-                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/83ebd9357c654b2998e134d56b0d6edf/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8825%E6%97%A5%2004_51_29%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板のスペックの見方｜OS・メモリ・CPUの見方を初心者向けに解説" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/83ebd9357c654b2998e134d56b0d6edf/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8825%E6%97%A5%2004_51_29%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板のスペックの見方｜OS・メモリ・CPUの見方を初心者向けに解説" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                 </div>
                 
@@ -547,7 +547,7 @@
                     
     <a href="/columns/monitor-or-denshikokuban/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -565,7 +565,7 @@
 
     <a href="/columns/65inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -583,7 +583,7 @@
 
     <a href="/columns/inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">

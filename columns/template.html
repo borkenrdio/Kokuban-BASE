@@ -104,7 +104,7 @@
         .article-body {
             line-height: 1.8;
             letter-spacing: 0.03em;
-            word-break: break-all;
+            word-break: normal; overflow-wrap: break-word;
         }
 
         .article-body p { margin-bottom: 2em; }
@@ -188,7 +188,7 @@
         @media (max-width: 640px) {
             .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
             .article-body th,
-            .article-body td { min-width: 128px; padding: 12px 14px; white-space: nowrap; }
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */

@@ -104,7 +104,7 @@
         .article-body {
             line-height: 1.8;
             letter-spacing: 0.03em;
-            word-break: break-all;
+            word-break: normal; overflow-wrap: break-word;
         }
 
         .article-body p { margin-bottom: 2em; }
@@ -188,7 +188,7 @@
         @media (max-width: 640px) {
             .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
             .article-body th,
-            .article-body td { min-width: 128px; padding: 12px 14px; white-space: nowrap; }
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -396,7 +396,7 @@
                 <!-- アイキャッチ -->
                 <div class="eyecatch-image mb-8 sm:mb-12">
                     <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
-                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b03771bf0c4840f7b62567886af41606/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_14_02%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板でPowerPoint資料を活用！授業・保護者会で使える3つの方法" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b03771bf0c4840f7b62567886af41606/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_14_02%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板でPowerPoint資料を活用！授業・保護者会で使える3つの方法" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                 </div>
                 
@@ -460,7 +460,7 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>授業や保護者会でPowerPointを使う先生は多いのではないでしょうか。PowerPointは、文字・画像・図表・動画を整理して見せられる便利な資料作成ツールです。ただ、従来の使い方では、スライドを「表示する」だけで終わってしまうことも少なくありません。「資料に書き込むをしたい」と思う先生はかなり多いはずです。電子黒板を使えば、スライドへの直接書き込みはもちろん、必要なページをホワイトボードに貼り付けたり、動画をその場で再生することも可能です。こうした使い方により、PowerPointを静的な資料だけではなく、授業や保護者会の中で動かしながら使える資料にできます。</p><h2 id="h76ce97d578"><strong>活用例①：注釈機能でPowerPoint資料に直接書き込む</strong></h2><p>電子黒板では、PowerPointを表示したまま注釈機能を使い、スライド上に直接書き込めます。この注釈は、PowerPointそのものに書き込むのではなく、スライドの上に透明なシートを重ねて書くようなイメージです。そのため、注釈機能を終了すると、書き込んだ内容は消えます。PowerPointの資料を汚さずに、必要なときに必要な分だけ書き込めるのが特長です。</p><p>保護者会では、年間カリキュラムのスライドに「ここが受験対策の山場です」と印を付けたり、グラフの問題に「ここに注目してください」と赤く丸をつけて説明したりできます。受け手がどこを見ればよいのかが明確になるため、説明が伝わりやすくなります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d6d00ffbda184e2ea1b756b557228ecf/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_08_53%20(1).png" alt="" width="1536" height="1024"></figure><p></p><h2 id="h18ee58a479"><strong>活用例②：使いたいスライドをスクショして、ホワイトボードへ添付する</strong></h2><p>PowerPointの中には、授業中にじっくり使いたいスライドもあります。たとえば、図表が入ったスライド、問題演習用のスライド、比較したい資料、解説の土台にしたい画像などです。このような場合は、使いたいスライドをスクリーンショットして、電子黒板のホワイトボードへ添付する方法が便利です。</p><p>ホワイトボードに貼り付ければ、注釈機能とは異なり、書き込んだ内容が消えず、板書として残ります。スライドを1枚の教材として固定できるので、必要な部分に線を引いたり、補足を書き込んだり、余白に解き方を整理したりできます。たとえば算数・数学なら、図形問題のスライドを貼り付けて、補助線や角度を書き込むといった使い方ができます。ホワイトボードの左側に挿入したスライドを表示し、右側に立式を書く、といったことも可能です。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d15506a8c55742f1b7b98ee14e83264e/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_11_12%20(1).png" alt="" width="1536" height="1024"></figure><h2 id="hb6e28ba653"><strong>活用例③：PowerPoint内に動画を埋め込んで、その場で再生する</strong></h2><p>PowerPointには、動画を埋め込むこともできます。電子黒板でPowerPointを表示すれば、スライド内の動画をその場で再生できます。別のアプリやブラウザに切り替える必要がないため、授業や説明会の流れを止めずに動画を見せられます。授業では、理科の実験動画、社会のニュース映像、英語のリスニング動画、体育や音楽の動作例などをスライドに入れておけば、説明と動画を一体化できます。</p><p>「このあと動画で確認します」<br>「今の説明を実際の映像で見てみましょう」<br>「ここで一度止めて、何が起きているか考えましょう」</p><p>このように、動画を授業の中に自然に組み込めます。文字や口頭説明だけでは伝わりにくいを説明を、映像で共有できます。動画を一時停止し、注釈機能やホワイトボード機能でポイントを整理すれば、見るだけで終わらない説明になります。映像で理解し、書き込みで整理する流れを作れるのです。たとえば、部活動の試合映像を流し、重要な場面で一時停止し、個々の生徒の動きに印をつけ、指導できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/6f5e4dbec8424d79bc26b99891cf5b38/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_13_52%20(1).png" alt="" width="1536" height="1024"></figure><h2 id="h5bb68ac4e1"><strong>まとめ：電子黒板ならPowerPoint資料を授業でも保護者会でも使い倒せる</strong></h2><p>電子黒板でPowerPointを使えば、スライドを表示するだけでなく、場面に合わせて柔軟に活用できます。</p><p>重要箇所に線を引く。<br>図や表に直接書き込む。<br>スライドをホワイトボードに貼り付けて解説する。<br>動画をその場で再生する。<br>保護者会で資料や映像を見せながら説明する。</p><p>こうした使い方により、生徒や保護者は、資料のどこを見ればよいのか、何が重要なのかを理解しやすくなります。PowerPointは、すでに多くの先生が使い慣れているツールです。電子黒板と組み合わせれば、その資料をさらに分かりやすく、授業や説明会に合わせて活用できます。電子黒板は、PowerPointを映すだけの画面ではありません。PowerPoint資料に書き込み、動かし、授業や保護者会の中で活かすためのツールです。</p><p></p>
+                    <p>授業や保護者会でPowerPointを使う先生は多いのではないでしょうか。PowerPointは、文字・画像・図表・動画を整理して見せられる便利な資料作成ツールです。ただ、従来の使い方では、スライドを「表示する」だけで終わってしまうことも少なくありません。「資料に書き込むをしたい」と思う先生はかなり多いはずです。電子黒板を使えば、スライドへの直接書き込みはもちろん、必要なページをホワイトボードに貼り付けたり、動画をその場で再生することも可能です。こうした使い方により、PowerPointを静的な資料だけではなく、授業や保護者会の中で動かしながら使える資料にできます。</p><h2 id="h76ce97d578"><strong>活用例①：注釈機能でPowerPoint資料に直接書き込む</strong></h2><p>電子黒板では、PowerPointを表示したまま注釈機能を使い、スライド上に直接書き込めます。この注釈は、PowerPointそのものに書き込むのではなく、スライドの上に透明なシートを重ねて書くようなイメージです。そのため、注釈機能を終了すると、書き込んだ内容は消えます。PowerPointの資料を汚さずに、必要なときに必要な分だけ書き込めるのが特長です。</p><p>保護者会では、年間カリキュラムのスライドに「ここが受験対策の山場です」と印を付けたり、グラフの問題に「ここに注目してください」と赤く丸をつけて説明したりできます。受け手がどこを見ればよいのかが明確になるため、説明が伝わりやすくなります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d6d00ffbda184e2ea1b756b557228ecf/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_08_53%20(1).png" alt="" width="1536" height="1024" loading="lazy" decoding="async"></figure><p></p><h2 id="h18ee58a479"><strong>活用例②：使いたいスライドをスクショして、ホワイトボードへ添付する</strong></h2><p>PowerPointの中には、授業中にじっくり使いたいスライドもあります。たとえば、図表が入ったスライド、問題演習用のスライド、比較したい資料、解説の土台にしたい画像などです。このような場合は、使いたいスライドをスクリーンショットして、電子黒板のホワイトボードへ添付する方法が便利です。</p><p>ホワイトボードに貼り付ければ、注釈機能とは異なり、書き込んだ内容が消えず、板書として残ります。スライドを1枚の教材として固定できるので、必要な部分に線を引いたり、補足を書き込んだり、余白に解き方を整理したりできます。たとえば算数・数学なら、図形問題のスライドを貼り付けて、補助線や角度を書き込むといった使い方ができます。ホワイトボードの左側に挿入したスライドを表示し、右側に立式を書く、といったことも可能です。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d15506a8c55742f1b7b98ee14e83264e/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_11_12%20(1).png" alt="" width="1536" height="1024" loading="lazy" decoding="async"></figure><h2 id="hb6e28ba653"><strong>活用例③：PowerPoint内に動画を埋め込んで、その場で再生する</strong></h2><p>PowerPointには、動画を埋め込むこともできます。電子黒板でPowerPointを表示すれば、スライド内の動画をその場で再生できます。別のアプリやブラウザに切り替える必要がないため、授業や説明会の流れを止めずに動画を見せられます。授業では、理科の実験動画、社会のニュース映像、英語のリスニング動画、体育や音楽の動作例などをスライドに入れておけば、説明と動画を一体化できます。</p><p>「このあと動画で確認します」<br>「今の説明を実際の映像で見てみましょう」<br>「ここで一度止めて、何が起きているか考えましょう」</p><p>このように、動画を授業の中に自然に組み込めます。文字や口頭説明だけでは伝わりにくいを説明を、映像で共有できます。動画を一時停止し、注釈機能やホワイトボード機能でポイントを整理すれば、見るだけで終わらない説明になります。映像で理解し、書き込みで整理する流れを作れるのです。たとえば、部活動の試合映像を流し、重要な場面で一時停止し、個々の生徒の動きに印をつけ、指導できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/6f5e4dbec8424d79bc26b99891cf5b38/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%884%E6%97%A5%2012_13_52%20(1).png" alt="" width="1536" height="1024" loading="lazy" decoding="async"></figure><h2 id="h5bb68ac4e1"><strong>まとめ：電子黒板ならPowerPoint資料を授業でも保護者会でも使い倒せる</strong></h2><p>電子黒板でPowerPointを使えば、スライドを表示するだけでなく、場面に合わせて柔軟に活用できます。</p><p>重要箇所に線を引く。<br>図や表に直接書き込む。<br>スライドをホワイトボードに貼り付けて解説する。<br>動画をその場で再生する。<br>保護者会で資料や映像を見せながら説明する。</p><p>こうした使い方により、生徒や保護者は、資料のどこを見ればよいのか、何が重要なのかを理解しやすくなります。PowerPointは、すでに多くの先生が使い慣れているツールです。電子黒板と組み合わせれば、その資料をさらに分かりやすく、授業や説明会に合わせて活用できます。電子黒板は、PowerPointを映すだけの画面ではありません。PowerPoint資料に書き込み、動かし、授業や保護者会の中で活かすためのツールです。</p><p></p>
                 </div>
 
                 <!-- お問い合わせCTA -->
@@ -504,7 +504,7 @@
                     
     <a href="/columns/monitor-or-denshikokuban/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -522,7 +522,7 @@
 
     <a href="/columns/65inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -540,7 +540,7 @@
 
     <a href="/columns/inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">

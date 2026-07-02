@@ -104,7 +104,7 @@
         .article-body {
             line-height: 1.8;
             letter-spacing: 0.03em;
-            word-break: break-all;
+            word-break: normal; overflow-wrap: break-word;
         }
 
         .article-body p { margin-bottom: 2em; }
@@ -188,7 +188,7 @@
         @media (max-width: 640px) {
             .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
             .article-body th,
-            .article-body td { min-width: 128px; padding: 12px 14px; white-space: nowrap; }
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -396,7 +396,7 @@
                 <!-- アイキャッチ -->
                 <div class="eyecatch-image mb-8 sm:mb-12">
                     <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
-                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e495322e1d104ee094f4f3b039558656/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8823%E6%97%A5%2012_17_55%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板×生成AI Geminiで「演習量」を確保！国語・接続詞の問題をその場で作って解説する授業法" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e495322e1d104ee094f4f3b039558656/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8823%E6%97%A5%2012_17_55%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板×生成AI Geminiで「演習量」を確保！国語・接続詞の問題をその場で作って解説する授業法" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                 </div>
                 
@@ -460,7 +460,7 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>接続詞（「しかし」「だから」など、文と文をつなぐ言葉）は、感覚で選んでしまいがちで、正しく使い分けるには演習量が欠かせない単元です。電子黒板と生成AI（文章や問題を自動でつくれるAI）を組み合わせると、教科書では足りない演習問題をその場で必要なだけ用意し、画面に書き込みながら解説できます。今回は、国語の接続詞の授業を例に、<strong>生成AIでつくった問題を電子黒板で解説する方法</strong>を3つの場面に分けてご紹介します。</p><h2 id="h6abb94967d">運用①：教科書で足りない演習問題を、生成AIに必要なだけ作ってもらう</h2><p>接続詞だけを集中的に練習できる問題は、教科書にそれほど多く載っているわけではありません。正しく使い分けられるようにするには、ある程度まとまった量を解く機会があると理想的です。そこで役立つのが、GoogleのGeminiのような生成AIです。「逆接・順接・言い換えを問う接続詞の穴うめ問題を、選択肢ア〜オつきで作って」と指示すれば、<strong>その場で必要な数だけ問題を用意できます</strong>。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/3db0e061c5884782bb372fe6612bd66b/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8823%E6%97%A5%2012_13_58%20(1).png" alt="" width="1448" height="1086"></figure><p>ただし、生成AIが作る問題は、選択肢や答えがまれに不自然なことがあります。授業で使うとき、先生が中身を確認してください。AIは「演習量を一気に増やす下書き役」と考えると、ちょうどよい距離感で使えます。答えはチャットに打ち込むと、教えてくれます。</p><h2 id="hd91edf170f">運用②：電子黒板に大きく映して、接続詞の「働き」を書き込みながら解説する</h2><p>作った問題は、電子黒板に大きく映します。クラス全員が同じ問題を見ながら進められるので、「今どこを解いているか」で迷う子がいなくなります。ここからが電子黒板の本領です。画面にそのままペンで書き込めるので、接続詞の「働き」を目に見える形にできます。たとえば——</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/99ecec746ac14288a51f0704e628999e/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8823%E6%97%A5%2012_11_34%20(1).png" alt="" width="1536" height="1024"></figure><ul><li>前後が「プラス→マイナス」に変わる文には「<strong>逆接</strong>」と書き込み、「しかしながら」を選ぶ</li><li>内容を付け足す文には「<strong>付けくわえ</strong>」と書いて「さらに」を示す</li><li>言い換えてまとめる文には「<strong>つまり</strong>」と添える</li></ul><p>感覚で「なんとなく『しかし』」と入れていた子も、<strong>働きを書き出して見せることで、根拠を持って接続詞を選べるようになります</strong>。</p><blockquote><p>電子黒板のホワイトボード機能の解説はこちら</p><a href="/columns/bansho/" class="internal-link-card" aria-label="電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる">
+                    <p>接続詞（「しかし」「だから」など、文と文をつなぐ言葉）は、感覚で選んでしまいがちで、正しく使い分けるには演習量が欠かせない単元です。電子黒板と生成AI（文章や問題を自動でつくれるAI）を組み合わせると、教科書では足りない演習問題をその場で必要なだけ用意し、画面に書き込みながら解説できます。今回は、国語の接続詞の授業を例に、<strong>生成AIでつくった問題を電子黒板で解説する方法</strong>を3つの場面に分けてご紹介します。</p><h2 id="h6abb94967d">運用①：教科書で足りない演習問題を、生成AIに必要なだけ作ってもらう</h2><p>接続詞だけを集中的に練習できる問題は、教科書にそれほど多く載っているわけではありません。正しく使い分けられるようにするには、ある程度まとまった量を解く機会があると理想的です。そこで役立つのが、GoogleのGeminiのような生成AIです。「逆接・順接・言い換えを問う接続詞の穴うめ問題を、選択肢ア〜オつきで作って」と指示すれば、<strong>その場で必要な数だけ問題を用意できます</strong>。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/3db0e061c5884782bb372fe6612bd66b/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8823%E6%97%A5%2012_13_58%20(1).png" alt="" width="1448" height="1086" loading="lazy" decoding="async"></figure><p>ただし、生成AIが作る問題は、選択肢や答えがまれに不自然なことがあります。授業で使うとき、先生が中身を確認してください。AIは「演習量を一気に増やす下書き役」と考えると、ちょうどよい距離感で使えます。答えはチャットに打ち込むと、教えてくれます。</p><h2 id="hd91edf170f">運用②：電子黒板に大きく映して、接続詞の「働き」を書き込みながら解説する</h2><p>作った問題は、電子黒板に大きく映します。クラス全員が同じ問題を見ながら進められるので、「今どこを解いているか」で迷う子がいなくなります。ここからが電子黒板の本領です。画面にそのままペンで書き込めるので、接続詞の「働き」を目に見える形にできます。たとえば——</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/99ecec746ac14288a51f0704e628999e/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8823%E6%97%A5%2012_11_34%20(1).png" alt="" width="1536" height="1024" loading="lazy" decoding="async"></figure><ul><li>前後が「プラス→マイナス」に変わる文には「<strong>逆接</strong>」と書き込み、「しかしながら」を選ぶ</li><li>内容を付け足す文には「<strong>付けくわえ</strong>」と書いて「さらに」を示す</li><li>言い換えてまとめる文には「<strong>つまり</strong>」と添える</li></ul><p>感覚で「なんとなく『しかし』」と入れていた子も、<strong>働きを書き出して見せることで、根拠を持って接続詞を選べるようになります</strong>。</p><blockquote><p>電子黒板のホワイトボード機能の解説はこちら</p><a href="/columns/bansho/" class="internal-link-card" aria-label="電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる">
     <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/017edae8c8d842c0861e5a182c584474/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8826%E6%97%A5%2014_39_56%20(1).png?fit=crop&w=320&h=180&q=80" alt="電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる" loading="lazy" decoding="async"></span>
     <span class="internal-link-card__body">
       <span class="internal-link-card__title">電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる</span>
@@ -516,7 +516,7 @@
                     
     <a href="/columns/monitor-or-denshikokuban/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -534,7 +534,7 @@
 
     <a href="/columns/65inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -552,7 +552,7 @@
 
     <a href="/columns/inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">

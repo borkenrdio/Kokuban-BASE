@@ -104,7 +104,7 @@
         .article-body {
             line-height: 1.8;
             letter-spacing: 0.03em;
-            word-break: break-all;
+            word-break: normal; overflow-wrap: break-word;
         }
 
         .article-body p { margin-bottom: 2em; }
@@ -188,7 +188,7 @@
         @media (max-width: 640px) {
             .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
             .article-body th,
-            .article-body td { min-width: 128px; padding: 12px 14px; white-space: nowrap; }
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -396,7 +396,7 @@
                 <!-- アイキャッチ -->
                 <div class="eyecatch-image mb-8 sm:mb-12">
                     <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
-                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d2c02cbeab744834af15c32dd601608a/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%2011_45_28%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板「StarBoard」の魅力とは？授業現場を変える3つの強みを紹介" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                        <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d2c02cbeab744834af15c32dd601608a/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%2011_45_28%20(1).png?fit=crop&w=1200&h=675&q=80" alt="電子黒板「StarBoard」の魅力とは？授業現場を変える3つの強みを紹介" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high" decoding="async">
                     </div>
                 </div>
                 
@@ -460,7 +460,7 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>電子黒板「StarBoard（スターボード）」は、株式会社スターボードソリューションズが届ける電子黒板です。発売は1998年。<strong>世界80カ国以上・50万台以上</strong>で使われてきた、長い歴史をもつ電子黒板ブランドのひとつです。20年以上にわたって教育現場の声を取り入れながら磨かれてきた、まさに「先生に育てられてきた電子黒板」と言えます。</p><p>今回は、そんなStarBoardが日々の授業現場でどんな力を発揮するのか、現場目線の3つの強みに絞って紹介します。</p><h2 id="h28b3905fe8">強み①：アプリを入れずに、授業中その場でAIが使える</h2><p>電子黒板でAIを活用しようとすると、一般的には少し準備が必要です。まずAI用のアプリをインストールし、学校や塾用のアカウントを用意して、ログインして…という手順です。どれも特別なことではなく、多くの環境で踏む自然なステップです。ただ、こうした下準備が挟まると、「結局、授業ではあまり使わなかった」となることもあります。</p><p>StarBoardの場合、その準備がそもそも要りません。<strong>ホワイトボードの中に、AIが最初から組み込まれている</strong>からです。</p><p>ホワイトボード上のボタンを1つ押すだけでAIのチャットが立ち上がり、返ってきた答えを長押しすれば、そのまま板書に貼り付けられます。図形はもちろん、<strong>関数のグラフを自動で作図したり、画像を生成して表示したり</strong>といったことまで、画面を離れずに完結します。</p><p>これが、授業のテンポを大きく変えます。たとえば数学で放物線のグラフを描くとき、フリーハンドだと形が崩れがちで、描くだけで時間も取られます。StarBoardならホワイトボード内のツールを活用し、正確なグラフをその場で板書に落とせるので、<strong>「描く時間」がまるごと「生徒に説明する時間」に変わります</strong>。思いついた瞬間にAIや専用ツールに聞ける環境が、特別な準備なしに手元にある——これは日々の授業でじわじわ効いてくる強みです。</p><h2 id="h8ea62a39fa">強み②：必要な資料だけを、手でつかんですぐ板書に取り込める</h2><p>授業では、「PDFのこの問題だけ」「資料のこの図だけ」を抜き出して見せたい場面が、何度も訪れます。スクリーンショット（画面キャプチャ）は、授業で一番よく使う機能のひとつと言ってもいいでしょう。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/c4886d878cd2449c916a6a4a1434c3f0/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%2011_44_42%2011(1).png" alt="" width="1196" height="676"></figure><p>スクリーンショットは、一般的には、メニューからスクショ機能を呼び出し、範囲指定モードにして、四隅を合わせて切り取る、という手順で撮ります。一つひとつは難しい操作ではありませんが、授業中に何度も繰り返すと、その都度ひと呼吸かかります。StarBoardは、ここをぐっと短くしてくれます。<strong>画面を5本指で押すと、そのままスクリーンショットのモードに切り替わり</strong>（※あらかじめ設定が必要です）、あとは指で囲うように選ぶだけ。選んだ部分は、テキストでも図でも、すぐ板書に貼り付けられます。「ボタンを探して、モードを選んで、範囲を指定して」という流れが、<strong>画面を手でつかむ1アクション</strong>に縮まります。授業の流れを止めずに「ここ、見て」をその場で見せられる。テスト問題の一部だけを大きく共有したいときなど、授業のテンポを大事にする現場ほど、この速さが効いてきます。</p><h2 id="h65c3a9e5f0">強み③：25人以上の一斉授業でも、後ろの席までしっかり見える</h2><p>3つ目は、教室の規模に合わせてサイズを選べることです。電子黒板というと65インチが定番ですが、StarBoardは<strong>65インチはもちろん、86インチ・98インチといった大型サイズまで対応</strong>しています。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/46c4315be9d24c1c88978bc72efe9b80/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%201111_51_06%20(1).png" alt="" width="1536" height="825"></figure><p>これは、大人数を一度に教える現場ほど効いてきます。<strong>25人以上が集まる教室</strong>では、65インチだと後方の席から文字が見えにくく、「黒板が見えづらい」がそのまま集中力の低下につながりかねません。大画面モデルなら、教室のいちばん後ろの生徒まで、板書も資料もしっかり届きます。少人数の個別指導から、大人数の一斉授業まで、教室に合わせて画面を選べる。大きな教室を持つ学校や、複数の教室を運営する学習塾にとって、「サイズで妥協しなくていい」のは、導入時の大きな安心材料になります。</p><blockquote><p>StarBoardが選ばれてきた背景は、開発担当者への独自取材でも掘り下げています。StarBoardの担当者に、20年以上選ばれ続ける理由や設計の考え方をうかがった独自取材記事です。</p><a href="/columns/starboard-ideaspot-education-talk/" class="internal-link-card" aria-label="〈Kokuban BASE独占取材〉世界50万台の実績 StarBoardが選ばれる理由とは？Starboard担当者に迫る ">
+                    <p>電子黒板「StarBoard（スターボード）」は、株式会社スターボードソリューションズが届ける電子黒板です。発売は1998年。<strong>世界80カ国以上・50万台以上</strong>で使われてきた、長い歴史をもつ電子黒板ブランドのひとつです。20年以上にわたって教育現場の声を取り入れながら磨かれてきた、まさに「先生に育てられてきた電子黒板」と言えます。</p><p>今回は、そんなStarBoardが日々の授業現場でどんな力を発揮するのか、現場目線の3つの強みに絞って紹介します。</p><h2 id="h28b3905fe8">強み①：アプリを入れずに、授業中その場でAIが使える</h2><p>電子黒板でAIを活用しようとすると、一般的には少し準備が必要です。まずAI用のアプリをインストールし、学校や塾用のアカウントを用意して、ログインして…という手順です。どれも特別なことではなく、多くの環境で踏む自然なステップです。ただ、こうした下準備が挟まると、「結局、授業ではあまり使わなかった」となることもあります。</p><p>StarBoardの場合、その準備がそもそも要りません。<strong>ホワイトボードの中に、AIが最初から組み込まれている</strong>からです。</p><p>ホワイトボード上のボタンを1つ押すだけでAIのチャットが立ち上がり、返ってきた答えを長押しすれば、そのまま板書に貼り付けられます。図形はもちろん、<strong>関数のグラフを自動で作図したり、画像を生成して表示したり</strong>といったことまで、画面を離れずに完結します。</p><p>これが、授業のテンポを大きく変えます。たとえば数学で放物線のグラフを描くとき、フリーハンドだと形が崩れがちで、描くだけで時間も取られます。StarBoardならホワイトボード内のツールを活用し、正確なグラフをその場で板書に落とせるので、<strong>「描く時間」がまるごと「生徒に説明する時間」に変わります</strong>。思いついた瞬間にAIや専用ツールに聞ける環境が、特別な準備なしに手元にある——これは日々の授業でじわじわ効いてくる強みです。</p><h2 id="h8ea62a39fa">強み②：必要な資料だけを、手でつかんですぐ板書に取り込める</h2><p>授業では、「PDFのこの問題だけ」「資料のこの図だけ」を抜き出して見せたい場面が、何度も訪れます。スクリーンショット（画面キャプチャ）は、授業で一番よく使う機能のひとつと言ってもいいでしょう。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/c4886d878cd2449c916a6a4a1434c3f0/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%2011_44_42%2011(1).png" alt="" width="1196" height="676" loading="lazy" decoding="async"></figure><p>スクリーンショットは、一般的には、メニューからスクショ機能を呼び出し、範囲指定モードにして、四隅を合わせて切り取る、という手順で撮ります。一つひとつは難しい操作ではありませんが、授業中に何度も繰り返すと、その都度ひと呼吸かかります。StarBoardは、ここをぐっと短くしてくれます。<strong>画面を5本指で押すと、そのままスクリーンショットのモードに切り替わり</strong>（※あらかじめ設定が必要です）、あとは指で囲うように選ぶだけ。選んだ部分は、テキストでも図でも、すぐ板書に貼り付けられます。「ボタンを探して、モードを選んで、範囲を指定して」という流れが、<strong>画面を手でつかむ1アクション</strong>に縮まります。授業の流れを止めずに「ここ、見て」をその場で見せられる。テスト問題の一部だけを大きく共有したいときなど、授業のテンポを大事にする現場ほど、この速さが効いてきます。</p><h2 id="h65c3a9e5f0">強み③：25人以上の一斉授業でも、後ろの席までしっかり見える</h2><p>3つ目は、教室の規模に合わせてサイズを選べることです。電子黒板というと65インチが定番ですが、StarBoardは<strong>65インチはもちろん、86インチ・98インチといった大型サイズまで対応</strong>しています。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/46c4315be9d24c1c88978bc72efe9b80/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%201111_51_06%20(1).png" alt="" width="1536" height="825" loading="lazy" decoding="async"></figure><p>これは、大人数を一度に教える現場ほど効いてきます。<strong>25人以上が集まる教室</strong>では、65インチだと後方の席から文字が見えにくく、「黒板が見えづらい」がそのまま集中力の低下につながりかねません。大画面モデルなら、教室のいちばん後ろの生徒まで、板書も資料もしっかり届きます。少人数の個別指導から、大人数の一斉授業まで、教室に合わせて画面を選べる。大きな教室を持つ学校や、複数の教室を運営する学習塾にとって、「サイズで妥協しなくていい」のは、導入時の大きな安心材料になります。</p><blockquote><p>StarBoardが選ばれてきた背景は、開発担当者への独自取材でも掘り下げています。StarBoardの担当者に、20年以上選ばれ続ける理由や設計の考え方をうかがった独自取材記事です。</p><a href="/columns/starboard-ideaspot-education-talk/" class="internal-link-card" aria-label="〈Kokuban BASE独占取材〉世界50万台の実績 StarBoardが選ばれる理由とは？Starboard担当者に迫る ">
     <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/635d5625d79a4fbf982f55496bf0f49c/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%888%E6%97%A5%2012_18_56%20(1).png?fit=crop&w=320&h=180&q=80" alt="〈Kokuban BASE独占取材〉世界50万台の実績 StarBoardが選ばれる理由とは？Starboard担当者に迫る " loading="lazy" decoding="async"></span>
     <span class="internal-link-card__body">
       <span class="internal-link-card__title">〈Kokuban BASE独占取材〉世界50万台の実績 StarBoardが選ばれる理由とは？Starboard担当者に迫る </span>
@@ -510,7 +510,7 @@
                     
     <a href="/columns/monitor-or-denshikokuban/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8d0d5317ba7446f69bee6d6da58f6b33/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2001_15_41%20(1).png?fit=crop&w=600&h=338&q=80" alt="電子黒板と大型モニターの違い｜学校・塾にはどちらが向いているか" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -528,7 +528,7 @@
 
     <a href="/columns/65inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/dc55769b8cfa4afb87701879d222ce57/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%881%E6%97%A5%2018_17_38%20(1).png?fit=crop&w=600&h=338&q=80" alt="65インチと75インチ、どちらを選ぶべき？人数と使い方で決める" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
@@ -546,7 +546,7 @@
 
     <a href="/columns/inch/" class="related-card group flex flex-col h-full bg-white transition-all">
         <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
-            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2175e367efa34eefbead37f57f4ee567/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8830%E6%97%A5%2004_14_01%20(1).png?fit=crop&w=600&h=338&q=80" alt="【豆知識】電子黒板の「インチ」とは？" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async">
         </div>
         <div class="flex flex-col flex-grow">
             <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
