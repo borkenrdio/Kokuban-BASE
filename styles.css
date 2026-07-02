@@ -94,6 +94,22 @@ a {
   text-decoration: none;
 }
 
+/* 【低-2】img全体安全網（予防措置）: CSSの当たらない画像（microCMS由来の本文画像など）が
+   1枚でも入った際の横スクロール発生を防ぐ。固定height指定を持つ既存コンポーネント（.class img）は
+   詳細度が上のため、この宣言より後方にあっても影響を受けない。 */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 【低-3】ヘッダー上書きレイヤー索引（最終適用＝勝ち順）— カスケード順に依存。閾値をずらさないこと。
+   1. ベース（このブロック以降）: PC横並びナビ。
+   2. ≤980px レイヤー: グローバルナビを横スクロール化（header-actions を電話＋2ボタンで維持）。
+   3. ≤760px レイヤー: .mobile-menu-button を display:block で表示＋左端固定。
+   4. ≤640px レイヤー: is-menu-open のドロップダウン定義（開閉スタイルの本体）。
+   5. MOBILE FIX LAYER (2026-07, ファイル末尾): 641〜760px 帯でナビ切替とドロップダウンを一致
+      （高-4/高-5）。ここが最後に勝つ。ハンバーガー「表示閾値・ナビ非表示・ドロップダウン定義」の
+      3点は必ず同一帯に揃えること（ズレると 641〜760px で「押せるのに開かない」再発）。 */
 .site-header {
   position: sticky;
   top: 0;
@@ -226,7 +242,7 @@ a {
   line-height: 1.2;
   border-right: 1px solid #c3cedd;
   font-size: 14px;
-  font-weight: 560;
+  font-weight: 500; /* 【低-4】560は未読込ウェイト（読込は400/500/700のみ）。合成/代替で端末により太さが揺れるため500へ */
 }
 
 .global-nav a:first-child {
@@ -1855,7 +1871,7 @@ a {
   transform: translateY(-50%);
 }
 
-/* 予約CTAカード（�E真＋電話番号�E�無料相諁E�Eタン�E�E*/
+/* 予約CTAカード（写真＋電話番号＋無料相談ボタン） */
 .online-cta-card {
   width: min(900px, 100%);
   margin: 24px auto 0;
@@ -2017,7 +2033,7 @@ a {
   }
 }
 
-/* 背景ボックスなし�Eバリエーション�E�タイトルはセクション見�Eしと同じ左バ�E�E�E*/
+/* 背景ボックスなしのバリエーション（タイトルはセクション見出しと同じ左バー） */
 .online-cta-card--bare {
   border: 0;
   border-radius: 0;
@@ -2329,7 +2345,7 @@ a {
 
 .support-feature-card h3 {
   margin: 0 0 13px;
-  min-height: 3.1em; /* 2行�Eの高さを確保し、E行�E2行が混在しても説明文の開始位置を揃える */
+  min-height: 3.1em; /* 2行分の高さを確保し、1行・2行が混在しても説明文の開始位置を揃える */
   display: flex;
   gap: 10px;
   align-items: center;
@@ -3263,7 +3279,7 @@ a {
 
 .lease-feature-grid h3 {
   margin: 0 0 10px;
-  min-height: 3.1em; /* 2行�Eの高さを確保し、E行�E2行が混在しても説明文の開始位置を揃える */
+  min-height: 3.1em; /* 2行分の高さを確保し、1行・2行が混在しても説明文の開始位置を揃える */
   color: #111827;
   font-size: 18px;
   font-weight: 700;
@@ -3757,7 +3773,7 @@ a {
   margin-top: 0;
 }
 
-/* idea spot カード�E背景帯(::before)は下に48px はみ出すため、E   直後�ECTAボタンが帯に重ならなぁE��ぁE��白を確保すめE*/
+/* idea spot カードの背景帯(::before)は下に48px はみ出すため、直後のCTAボタンが帯に重ならないよう余白を確保する */
 .operator-intro + .section-actions {
   margin-top: 64px;
 }
@@ -4890,7 +4906,7 @@ details p {
   color: var(--muted);
 }
 
-/* ===== ご利用ガイチEペ�Eジ ===== */
+/* ===== ご利用ガイドページ ===== */
 .guide-hero {
   position: relative;
   padding: 29px 20px 46px;
@@ -5148,7 +5164,7 @@ details p {
   }
 }
 
-/* トッチE ご利用ガイチE/ お問ぁE��わせ CTAカーチE*/
+/* トップ／ご利用ガイド／お問い合わせ CTAカード */
 section.top-guide-cta {
   width: min(1040px, calc(100% - 40px));
   margin: 0 auto;
@@ -6028,7 +6044,7 @@ section.top-guide-cta {
   }
 
   .lease-feature-grid h3 {
-    min-height: 0; /* 縦並びでは高さ揁E��が不要E*/
+    min-height: 0; /* 縦並びでは高さ揃えが不要 */
   }
 
   .lease-product-carousel {
@@ -6310,7 +6326,7 @@ section.top-guide-cta {
   }
 
   .support-feature-card h3 {
-    min-height: 0; /* 縦並びでは高さ揁E��が不要E*/
+    min-height: 0; /* 縦並びでは高さ揃えが不要 */
     align-items: flex-start;
     font-size: 17px;
     letter-spacing: .03em;
@@ -6334,7 +6350,7 @@ section.top-guide-cta {
     overflow: visible;
   }
 
-  /* リースペ�Eジなどでも、スマ�Eでは上部固定にする */
+  /* リースページなどでも、スマホでは上部固定にする */
   .lease-body .site-header {
     position: sticky;
     top: 0;
@@ -6508,7 +6524,7 @@ section.top-guide-cta {
     line-height: 1.3;
   }
 
-  /* メニューを開ぁE��もアイコンは×に変形させず、ハンバ�Eガーのまま�E�クリチE��で開閉�E�E*/
+  /* メニューを開いてもアイコンは×に変形させず、ハンバーガーのまま（クリックで開閉） */
 }
 
 @media (max-width: 640px) {
