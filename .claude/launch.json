@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8910"],
       "port": 8910
+    },
+    {
+      "name": "static-8911",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8911"],
+      "port": 8911
     }
   ]
 }
