@@ -1,0 +1,808 @@
+/* =========================================================
+   ラインナップ (/lineup/) 専用スタイル
+   「電子黒板とは」(denshikokuban/about.css) と同じトーンで、
+   旧 .lineup-* レイヤーに依存しない自己完結の再設計版
+   ========================================================= */
+
+.kb-lineup-page {
+  --lu-blue: #103f99;
+  --lu-navy: #14295e;
+  --lu-ink: #22314f;
+  --lu-pink: #e9558c;
+  --lu-line: #dee5f0;
+  --lu-soft: #eef3fa;
+  --lu-muted: #5a6b85;
+  --lu-radius: 12px;
+  --lu-shadow: 0 10px 26px rgba(20, 41, 94, .07);
+  background: #f2f5f9;
+  color: var(--lu-ink);
+}
+
+/* ---------- 共通: セクション幅・見出し ---------- */
+
+.kb-lu-section {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: clamp(22px, 3vw, 42px) 0 clamp(8px, 1.4vw, 16px);
+}
+
+.kb-lu-h {
+  margin: 0 0 clamp(16px, 2.2vw, 26px);
+  color: var(--lu-navy);
+  font-size: clamp(19px, 2vw, 25px);
+  font-weight: 900;
+  line-height: 1.5;
+  letter-spacing: .01em;
+}
+
+.kb-lu-h.is-center {
+  text-align: center;
+}
+
+/* ---------- 共通: ボタン ---------- */
+
+.kb-lu-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  min-width: 240px;
+  padding: 14px 44px 14px 28px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.3;
+  text-align: center;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.kb-lu-btn:hover {
+  opacity: .88;
+  transform: translateY(-1px);
+}
+
+.kb-lu-btn::after {
+  content: "›";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-52%);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.kb-lu-btn--pink {
+  background: var(--lu-pink);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(233, 85, 140, .24);
+}
+
+.kb-lu-btn--ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, .85);
+  color: #fff;
+}
+
+/* ---------- 1. ヒーロー ---------- */
+
+.kb-lu-hero {
+  background: linear-gradient(180deg, #e8edf4 0%, #e4eaf2 100%);
+}
+
+.kb-lu-hero__inner {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, .85fr);
+  gap: clamp(24px, 3.5vw, 56px);
+  align-items: center;
+  padding: clamp(28px, 3.6vw, 52px) 0;
+}
+
+.kb-lu-kicker {
+  margin: 0 0 10px;
+  color: var(--lu-blue);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+.kb-lu-hero h1 {
+  margin: 0;
+  color: var(--lu-navy);
+  font-size: clamp(26px, 2.9vw, 40px);
+  font-weight: 900;
+  line-height: 1.35;
+  letter-spacing: .01em;
+}
+
+.kb-lu-lead {
+  margin: 14px 0 0;
+  color: #3c4c68;
+  font-size: clamp(13px, 1.15vw, 15px);
+  line-height: 2;
+}
+
+.kb-lu-hero__stats {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kb-lu-hero__stats li {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 13px 18px;
+  border: 1px solid var(--lu-line);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: var(--lu-shadow);
+}
+
+.kb-lu-hero__stats strong {
+  color: var(--lu-blue);
+  font-family: "Assistant", "Noto Sans JP", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.kb-lu-hero__stats span {
+  color: var(--lu-muted);
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* ---------- 2. ブランドロゴバー ---------- */
+
+.kb-lu-brands {
+  padding-top: clamp(18px, 2.4vw, 32px);
+}
+
+.kb-lu-brandbar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--lu-line);
+  border-radius: var(--lu-radius);
+  background: #fff;
+  box-shadow: var(--lu-shadow);
+}
+
+.kb-lu-brandbar a {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 6px;
+  padding: 20px 12px 16px;
+  text-decoration: none;
+  transition: background .2s ease;
+}
+
+.kb-lu-brandbar a + a {
+  border-left: 1px solid #e7edf6;
+}
+
+.kb-lu-brandbar a:hover {
+  background: #f4f8fe;
+}
+
+.kb-lu-brandbar__logo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 46px;
+}
+
+.kb-lu-brandbar__logo img {
+  max-width: min(78%, 150px);
+  max-height: 42px;
+  object-fit: contain;
+}
+
+.kb-lu-brandbar strong {
+  margin-top: 4px;
+  color: var(--lu-navy);
+  font-size: 12.5px;
+  font-weight: 900;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.kb-lu-brandbar small {
+  color: var(--lu-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.kb-lu-brandbar em {
+  color: var(--lu-blue);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+/* ---------- 3. 選び方の基準 ---------- */
+
+.kb-lu-criteria {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  border: 1px solid var(--lu-line);
+  border-radius: var(--lu-radius);
+  background: #fff;
+  box-shadow: var(--lu-shadow);
+}
+
+.kb-lu-criteria li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  column-gap: 10px;
+  align-content: start;
+  padding: 22px 22px 20px;
+}
+
+.kb-lu-criteria li + li {
+  border-left: 1px solid #e7edf6;
+}
+
+.kb-lu-criteria i {
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--lu-blue);
+  color: #fff;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.kb-lu-criteria strong {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  color: var(--lu-navy);
+  font-size: 15.5px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.kb-lu-criteria em {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: start;
+  margin-top: 8px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #e9f0fc;
+  color: var(--lu-blue);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.kb-lu-criteria p {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin: 12px 0 0;
+  color: var(--lu-muted);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+/* 共通機能ストリップ */
+
+.kb-lu-features {
+  display: grid;
+  grid-template-columns: minmax(240px, .9fr) minmax(0, 2.1fr);
+  gap: clamp(18px, 2.4vw, 36px);
+  align-items: center;
+  margin-top: 14px;
+  padding: 20px 24px;
+  border: 1px solid var(--lu-line);
+  border-radius: var(--lu-radius);
+  background: #fff;
+  box-shadow: var(--lu-shadow);
+}
+
+.kb-lu-features__copy strong {
+  display: block;
+  color: var(--lu-navy);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.55;
+}
+
+.kb-lu-features__copy p {
+  margin: 8px 0 0;
+  color: var(--lu-muted);
+  font-size: 12px;
+  line-height: 1.85;
+}
+
+.kb-lu-features__icons {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kb-lu-features__icons li {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+}
+
+.kb-lu-features__icons img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.kb-lu-features__icons span {
+  max-width: 100%;
+  color: var(--lu-muted);
+  font-size: 9.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 4. 5ブランド比較 ---------- */
+
+.kb-lu-compare-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 22px;
+  margin-bottom: clamp(14px, 1.8vw, 22px);
+}
+
+.kb-lu-compare-head .kb-lu-h {
+  margin-bottom: 0;
+}
+
+.kb-lu-compare-head p {
+  margin: 0;
+  color: var(--lu-muted);
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+
+.kb-lu-compare {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+.kb-lu-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--lu-line);
+  border-radius: var(--lu-radius);
+  background: #fff;
+  box-shadow: var(--lu-shadow);
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+
+.kb-lu-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(20, 41, 94, .12);
+}
+
+.kb-lu-card__logo {
+  display: grid;
+  place-items: center;
+  height: 64px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #edf1f8;
+}
+
+.kb-lu-card__logo img {
+  max-width: min(80%, 140px);
+  max-height: 40px;
+  object-fit: contain;
+}
+
+.kb-lu-card__catch {
+  min-height: 3.1em;
+  margin: 12px 14px 0;
+  color: var(--lu-navy);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.55;
+}
+
+.kb-lu-card__badge {
+  align-self: flex-start;
+  margin: 8px 14px 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #e9f0fc;
+  color: var(--lu-blue);
+  font-size: 10.5px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.kb-lu-card__company {
+  margin: 8px 14px 0;
+  color: #8b98ad;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.kb-lu-card__text {
+  flex: 1;
+  margin: 8px 14px 0;
+  color: var(--lu-muted);
+  font-size: 11.5px;
+  line-height: 1.8;
+}
+
+.kb-lu-card__fit {
+  margin: 10px 14px 0;
+  padding-top: 10px;
+  border-top: 1px dashed #dde5f0;
+  color: #2c3f63;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.kb-lu-card__fit span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--lu-pink);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.kb-lu-card__sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 10px 14px 0;
+}
+
+.kb-lu-card__sizes span {
+  padding: 3px 8px;
+  border: 1px solid #d5e0f0;
+  border-radius: 6px;
+  background: #f6f9fe;
+  color: var(--lu-navy);
+  font-size: 10.5px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.kb-lu-card__btn {
+  display: grid;
+  place-items: center;
+  min-height: 40px;
+  margin: 14px 14px 0;
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: var(--lu-blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.3;
+  text-align: center;
+  transition: opacity .2s ease;
+}
+
+.kb-lu-card__btn:hover {
+  opacity: .88;
+}
+
+.kb-lu-card__links {
+  display: flex;
+  justify-content: center;
+  gap: 6px 14px;
+  flex-wrap: wrap;
+  margin: 10px 12px 14px;
+}
+
+.kb-lu-card__links a {
+  position: relative;
+  padding-left: 12px;
+  color: var(--lu-blue);
+  font-size: 10.5px;
+  font-weight: 800;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.kb-lu-card__links a::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 12px;
+}
+
+.kb-lu-card__links a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 5. 共通サポート ---------- */
+
+.kb-lu-support__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+  padding: 18px 26px;
+  border: 1px solid #cfdff5;
+  border-radius: var(--lu-radius);
+  background: #eaf1fb;
+}
+
+.kb-lu-support__inner strong {
+  color: var(--lu-navy);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.kb-lu-support__inner ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.kb-lu-support__inner li {
+  position: relative;
+  padding-left: 22px;
+  color: #2c3f63;
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.kb-lu-support__inner li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--lu-blue);
+  font-weight: 900;
+}
+
+/* ---------- 6. CTA ---------- */
+
+.kb-lu-cta {
+  margin-top: clamp(26px, 3.6vw, 52px);
+  background: var(--lu-navy);
+}
+
+.kb-lu-cta__inner {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(22px, 3vw, 48px);
+  align-items: center;
+  padding: clamp(28px, 3.4vw, 46px) 0;
+}
+
+.kb-lu-cta h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(19px, 2.1vw, 27px);
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.kb-lu-cta p {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, .75);
+  font-size: clamp(12.5px, 1.1vw, 14px);
+  line-height: 1.8;
+}
+
+.kb-lu-cta__actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.kb-lu-cta__actions .kb-lu-btn {
+  min-width: 230px;
+}
+
+/* =========================================================
+   レスポンシブ
+   ========================================================= */
+
+@media (max-width: 1080px) {
+  .kb-lu-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .kb-lu-hero__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .kb-lu-hero__stats li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    justify-items: center;
+    padding: 12px 10px;
+    text-align: center;
+  }
+
+  .kb-lu-brandbar {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .kb-lu-brandbar a {
+    padding: 14px 8px 12px;
+  }
+
+  .kb-lu-brandbar__logo {
+    height: 36px;
+  }
+
+  .kb-lu-brandbar__logo img {
+    max-width: 86%;
+    max-height: 32px;
+  }
+
+  .kb-lu-brandbar strong {
+    font-size: 11px;
+  }
+
+  .kb-lu-brandbar small {
+    font-size: 9.5px;
+  }
+
+  .kb-lu-brandbar em {
+    font-size: 10px;
+  }
+
+  .kb-lu-criteria {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-lu-criteria li + li {
+    border-left: 0;
+    border-top: 1px solid #e7edf6;
+  }
+
+  .kb-lu-features {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* 比較カード: 横スクロール（スナップ）で比較性を維持 */
+  .kb-lu-compare {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 12px;
+    padding-bottom: 10px;
+  }
+
+  .kb-lu-card {
+    flex: 0 0 min(300px, 82vw);
+    scroll-snap-align: start;
+  }
+
+  .kb-lu-cta__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-lu-cta__actions {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 760px) {
+  .kb-lu-section,
+  .kb-lu-hero__inner,
+  .kb-lu-cta__inner {
+    width: calc(100% - 32px);
+  }
+
+  .kb-lu-hero h1 {
+    font-size: clamp(23px, 6.4vw, 28px);
+  }
+
+  .kb-lu-hero h1 br {
+    display: none;
+  }
+
+  .kb-lu-hero__stats {
+    gap: 8px;
+  }
+
+  .kb-lu-hero__stats strong {
+    font-size: 15px;
+  }
+
+  .kb-lu-hero__stats span {
+    font-size: 10px;
+  }
+
+  /* ロゴバー: 2列のタイルに分割（5枚目は全幅） */
+  .kb-lu-brandbar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .kb-lu-brandbar a,
+  .kb-lu-brandbar a + a {
+    border: 1px solid var(--lu-line);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: var(--lu-shadow);
+  }
+
+  .kb-lu-brandbar a:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .kb-lu-features__icons {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px 6px;
+  }
+
+  .kb-lu-card {
+    flex-basis: min(280px, 84vw);
+  }
+
+  .kb-lu-support__inner {
+    padding: 16px 18px;
+  }
+
+  .kb-lu-support__inner ul {
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 14px;
+  }
+
+  .kb-lu-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .kb-lu-cta__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+}
