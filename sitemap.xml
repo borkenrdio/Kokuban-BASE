@@ -81,6 +81,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/columns/projector/</loc>
+    <lastmod>2026-07-03</lastmod>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/columns/monitor-or-denshikokuban/</loc>
     <lastmod>2026-07-02</lastmod>
     <priority>0.6</priority>
