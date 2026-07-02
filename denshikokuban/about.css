@@ -1215,7 +1215,12 @@
   }
 
   .kb-about-feature-map {
+    /* 単一カラムでは 1fr(=minmax(auto,1fr)) がコンテンツ最小幅まで広がり、
+       ピルがコンテナ幅を超えてはみ出すため minmax(0,1fr) で確実に収める */
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "board" "lt" "lb" "bottom" "rt" "rb";
+    max-width: 560px;
+    margin-inline: auto;
   }
 
   .kb-about-feature-map::before {

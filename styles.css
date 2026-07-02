@@ -12423,4 +12423,41 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
 @media (max-width: 360px) {
   .lp-hero-title { font-size: clamp(30px, 11vw, 40px); }
 }
+
+/* 【デザイン修正】ラインナップ ガイドタブ（選び方のポイント／カタログスペック／導入後の活用）
+   スマホでは3タブが1行に並ぶが、横並び（アイコン＋ラベル）だと幅~98pxに収まらずラベルが
+   不格好に折り返す。アイコンを上・ラベルを下の縦積み中央揃えにして整える。 */
+@media (max-width: 640px) {
+  .lineup-guide-tabs button.lineup-guide-tab {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    min-height: 66px;
+    padding: 9px 4px;
+    font-size: 12px;
+    line-height: 1.3;
+    text-align: center;
+  }
+  .lineup-guide-tabs button.lineup-guide-tab .lineup-guide-tab-icon {
+    width: 24px;
+    height: 24px;
+  }
+  .lineup-guide-tabs button.lineup-guide-tab .lineup-guide-tab-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+  /* ラベル<span>はレガシー .lineup-guide-tabs span{display:grid} を継承し、
+     文節ごとに分断されて3〜4行になるため通常のブロック折返しへ上書き */
+  .lineup-guide-tabs button.lineup-guide-tab span:not(.lineup-guide-tab-icon) {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    /* 2行を均等配分（「選び方の／ポイント」のように整える。1文字だけの泣き別れを防ぐ）。
+       display:grid だと文節ごとに縦積みされて崩れるため block に上書き済み */
+    text-wrap: balance;
+    word-break: normal;
+    line-height: 1.35;
+  }
+}
 /* ===== END MOBILE FIX LAYER ===== */
