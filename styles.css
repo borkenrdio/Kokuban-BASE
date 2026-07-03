@@ -9924,22 +9924,6 @@ body:has(.sticky-cta) .site-footer {
   padding: 18px 16px 17px;
 }
 
-.lp-pro-consult-icon {
-  position: absolute;
-  top: -24px;
-  right: 14px;
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
-  background: #fff;
-  color: var(--pink);
-  box-shadow: 0 10px 24px rgba(236, 72, 153, .2);
-}
-
-.lp-pro-consult-icon svg { width: 24px; height: 24px; }
-
 .lp-pro-consult-card h3 {
   margin: 0;
   color: #071b42;
@@ -10046,8 +10030,6 @@ body:has(.sticky-cta) .site-footer {
   .lp-pro-consult-card { display: grid; grid-template-columns: 42% 1fr; align-items: stretch; }
   .lp-pro-consult-card img { height: 100%; aspect-ratio: auto; }
   .lp-pro-consult-card-body { padding: 16px 14px; }
-  .lp-pro-consult-icon { top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 12px; }
-  .lp-pro-consult-icon svg { width: 20px; height: 20px; }
   .lp-feature-note img { width: 100%; height: 130px; }
   .lp-features-more { justify-self: start; }
   .lp-faqcta-inner { flex-direction: column; align-items: flex-start; }
