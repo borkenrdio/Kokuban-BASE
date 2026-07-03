@@ -454,11 +454,11 @@
 }
 
 .kb-lu-ftable tbody th.ft-feature img {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
   object-fit: contain;
-  vertical-align: -5px;
+  vertical-align: -11px;
 }
 
 .kb-lu-ftable i,
