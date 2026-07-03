@@ -460,23 +460,25 @@
 }
 
 .kb-lu-ftable tbody th.ft-feature .ft-icon {
-  width: 38px;
+  width: 34px;
   height: 34px;
-  margin-right: 10px;
+  margin-right: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   vertical-align: middle;
   flex: 0 0 auto;
+  color: var(--lu-blue);
 }
 
-.kb-lu-ftable tbody th.ft-feature .ft-icon img {
-  width: 62px;
-  height: 62px;
-  max-width: none;
-  object-fit: contain;
-  transform: translateY(-6px);
+.kb-lu-ftable tbody th.ft-feature .ft-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .kb-lu-ftable i,
