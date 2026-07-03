@@ -2258,3 +2258,188 @@
     text-align: center;
   }
 }
+
+/* =========================================================
+   追加 (2026-07-03): 12の標準搭載機能 / 関連コラムカード
+   ========================================================= */
+
+/* ---------- PC: 8. 12の標準搭載機能 ---------- */
+
+.kb-about-stdfn__lead {
+  max-width: 780px;
+  margin: -8px auto clamp(18px, 2.4vw, 26px);
+  color: #3c4c68;
+  text-align: center;
+  font-size: 13.5px;
+  line-height: 2;
+}
+
+.kb-about-stdfn__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* アイコン画像はラベル・枠込みのカード型（そのまま並べる） */
+.kb-about-stdfn__grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(20, 41, 94, .06);
+}
+
+.kb-about-stdfn__foot {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(16px, 2vw, 24px);
+}
+
+.kb-about-stdfn__foot a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 26px;
+  border: 1px solid rgba(16, 63, 153, .3);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--about-blue);
+  font-size: 13.5px;
+  font-weight: 800;
+  transition: background .2s ease;
+}
+
+.kb-about-stdfn__foot a:hover {
+  background: #f4f8fe;
+}
+
+/* ---------- 関連コラムカード（PC/SP共用） ---------- */
+
+.kb-about-refs {
+  margin-top: clamp(16px, 2.2vw, 24px);
+}
+
+.kb-about-refs__label {
+  margin: 0 0 8px;
+  color: var(--about-blue);
+  font-size: 11.5px;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+.kb-about-refs__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+}
+
+.kb-about-ref {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px 10px 10px;
+  border: 1px solid var(--about-line);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(20, 41, 94, .05);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.kb-about-ref:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(20, 41, 94, .1);
+}
+
+.kb-about-ref .ref-thumb {
+  flex: 0 0 104px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #eef1f6;
+}
+
+.kb-about-ref .ref-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kb-about-ref .ref-body {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.kb-about-ref .ref-title {
+  color: var(--about-navy);
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.kb-about-ref .ref-more {
+  color: var(--about-blue);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* ---------- SP: 12の標準搭載機能 ---------- */
+
+.sp-stdfn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sp-stdfn-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(20, 41, 94, .06);
+}
+
+.sp-stdfn-more {
+  margin: 14px 0 0;
+  text-align: center;
+}
+
+.sp-stdfn-more a {
+  color: var(--about-blue);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.sp-stdfn-more i {
+  margin-left: 6px;
+  font-style: normal;
+}
+
+/* ---------- レスポンシブ ---------- */
+
+@media (max-width: 760px) {
+  .kb-about-refs__row {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-about-ref .ref-thumb {
+    flex-basis: 96px;
+  }
+
+  .kb-about-ref .ref-title {
+    font-size: 12px;
+  }
+}

@@ -334,25 +334,17 @@
 .kb-bp-feat-grid li {
   display: grid;
   justify-items: center;
-  gap: 7px;
-  min-height: 94px;
+  gap: 8px;
   align-content: start;
 }
 
+/* アイコン画像はラベル・枠込みのカード型のため、そのまま大きく見せる */
 .kb-bp-feat-grid img {
-  width: 44px;
-  height: 44px;
+  width: min(100%, 120px);
+  height: auto;
+  aspect-ratio: 1;
   object-fit: contain;
-}
-
-.kb-bp-feat-grid span {
-  max-width: 100%;
-  color: var(--bp-muted);
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.45;
-  text-align: center;
-  overflow-wrap: anywhere;
+  border-radius: 12px;
 }
 
 .kb-bp-feat-grid i {
@@ -804,8 +796,8 @@
   }
 
   .kb-bp-feat-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px 8px;
   }
 
   .kb-bp-articles {

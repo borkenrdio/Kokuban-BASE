@@ -75,6 +75,46 @@
 
         /* 非表示制御 */
         .hidden-item { display: none; }
+
+        /* ===== モバイル一覧の圧縮（1画面で複数記事を比較しやすく） ===== */
+        @media (max-width: 760px) {
+            /* セクションの余白を詰める */
+            #new-arrivals, #columns { padding-top: 2.2rem; padding-bottom: 2.2rem; padding-left: 1rem; padding-right: 1rem; }
+            #interviews { padding-top: 2.2rem; padding-bottom: 2.2rem; }
+            #new-arrivals .mb-10, #columns .mb-10, #interviews .mb-10 { margin-bottom: 1.2rem; }
+
+            /* 新着・コラム: サムネイル左の横型コンパクトカード */
+            #new-arrivals-list, #column-list { gap: 10px; grid-template-columns: 1fr; }
+            #new-arrivals-list .article-card, #column-list .article-card {
+                flex-direction: row;
+                align-items: stretch;
+                border-radius: 10px;
+            }
+            #new-arrivals-list .article-card:hover, #column-list .article-card:hover { transform: none; }
+            #new-arrivals-list .img-container, #column-list .img-container {
+                flex: 0 0 124px;
+                aspect-ratio: auto;
+                min-height: 84px;
+            }
+            #new-arrivals-list .img-container img, #column-list .img-container img { height: 100%; object-fit: cover; }
+            #new-arrivals-list .article-card > div, #column-list .article-card > div { padding: 9px 12px 8px; min-width: 0; }
+            /* メタ情報（日付・カテゴリ）は1行・小さく */
+            #new-arrivals-list .article-card > div > div:first-child,
+            #column-list .article-card > div > div:first-child { margin-bottom: 4px; font-size: 10px; white-space: nowrap; overflow: hidden; }
+            /* タイトルの視認性を最優先（2行まで） */
+            #new-arrivals-list h3, #column-list h3 { font-size: 12.5px; line-height: 1.5; margin-bottom: 0; }
+            /* 抜粋文などタイトル以降の要素は畳む */
+            #new-arrivals-list .article-card h3 ~ *, #column-list .article-card h3 ~ * { display: none; }
+
+            /* 独自取材: 2列を維持しつつ余白・文字を圧縮 */
+            #interview-list { gap: 10px; }
+            #interview-list .article-card > div { padding: 9px 10px; }
+            #interview-list h3 { font-size: 12px; line-height: 1.45; margin-bottom: 0; }
+            #interview-list .article-card .text-\[10px\] { flex-wrap: wrap; gap: 4px; margin-bottom: 4px; }
+
+            /* もっと見るボタンの余白 */
+            #column-more-container, #interview-more-container { margin-top: 1.4rem; }
+        }
     </style>
 </head>
 <body class="bg-stone-50 flex flex-col min-h-screen">
