@@ -698,3 +698,78 @@
     width: 100%;
   }
 }
+
+/* =========================================================
+   モバイル可読性アップデート (2026-07-04)
+   既存ルールは変更せず、この追記層で上書き。PC(>760px)は非対象。
+   ========================================================= */
+@media (max-width: 760px) {
+  .kb-sup-lead {
+    font-size: 13.5px;
+    line-height: 1.85;
+  }
+
+  .kb-sup-timeline .tl-text strong small {
+    font-size: 11.5px;
+  }
+
+  .kb-sup-timeline .tl-text span {
+    font-size: 12.5px;
+    line-height: 1.6;
+  }
+
+  .kb-sup-step__lead {
+    font-size: 13.5px;
+    line-height: 1.85;
+  }
+
+  .kb-sup-checks strong {
+    font-size: 14px;
+  }
+
+  .kb-sup-checks span {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .kb-sup-point strong {
+    font-size: 12px;
+  }
+
+  .kb-sup-point p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .kb-sup-ok__grid h3 {
+    font-size: 14.5px;
+  }
+
+  .kb-sup-ok__grid p {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .kb-sup-flow__head p {
+    font-size: 13px;
+  }
+
+  .kb-sup-flow__row strong {
+    font-size: 13px;
+  }
+
+  .kb-sup-flow__row p {
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  .kb-sup-cta p {
+    font-size: 13.5px;
+    line-height: 1.8;
+  }
+
+  .kb-sup-btn {
+    min-height: 48px;
+    font-size: 14px;
+  }
+}

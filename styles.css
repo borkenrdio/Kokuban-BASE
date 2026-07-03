@@ -12671,3 +12671,363 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   }
 }
 /* ===== END MOBILE HEADER UNIFIED LAYER ===== */
+
+/* ============================================================================
+   ===== NAVIGATION & CTA LAYER (2026-07-04) =====
+   ユーザー導線ブラッシュアップで追加した新コンポーネント。
+   1) .lp-quicknav    : トップページ ヒーロー直下の目的別クイックナビ
+   2) .kb-next-links  : 下層ページ末尾の「次に見るページ」カードリンク
+   3) .kb-next-cta    : 下層ページ末尾の相談CTA帯
+   4) .lease-card-detail : リース製品カード内のブランド詳細リンク
+   既存デザイン（青・ピンク・白）のトンマナに合わせた追加のみ。既存ルールは変更しない。
+   ============================================================================ */
+
+.lp-quicknav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  width: min(var(--kb-wide-width), calc(100% - 32px));
+  margin: -26px auto 0;
+  position: relative;
+  z-index: 5;
+}
+
+.lp-quicknav-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 12px;
+  padding: 16px 34px 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 14px 30px rgba(16, 63, 153, .10);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.lp-quicknav-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(16, 63, 153, .45);
+  box-shadow: 0 18px 36px rgba(16, 63, 153, .16);
+}
+
+.lp-quicknav-icon {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--soft);
+  color: var(--blue);
+}
+
+.lp-quicknav-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.lp-quicknav-item strong {
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.lp-quicknav-item small {
+  color: #51607a;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.lp-quicknav-item i {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--blue);
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.lp-quicknav-item.is-pink .lp-quicknav-icon {
+  background: #fdeaf3;
+  color: var(--pink);
+}
+
+.lp-quicknav-item.is-pink strong,
+.lp-quicknav-item.is-pink i {
+  color: var(--pink);
+}
+
+@media (max-width: 980px) {
+  .lp-quicknav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 760px) {
+  .lp-quicknav {
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .lp-quicknav-item {
+    padding: 13px 28px 13px 12px;
+    column-gap: 10px;
+    border-radius: 14px;
+  }
+
+  .lp-quicknav-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .lp-quicknav-item strong {
+    font-size: 13.5px;
+  }
+
+  .lp-quicknav-item small {
+    font-size: 11px;
+  }
+}
+
+/* --- 下層ページ末尾: 次に見るページ --- */
+
+.kb-next-links {
+  width: min(var(--kb-wide-width), calc(100% - 32px));
+  margin: 34px auto 44px;
+}
+
+.kb-next-links__label {
+  margin: 0 0 12px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+
+.kb-next-links__row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.kb-next-links__row a {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  padding: 15px 34px 15px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(16, 63, 153, .07);
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.kb-next-links__row a::after {
+  content: "›";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--blue);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.kb-next-links__row a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(16, 63, 153, .45);
+  box-shadow: 0 14px 28px rgba(16, 63, 153, .12);
+}
+
+.kb-next-links__row strong {
+  color: var(--blue);
+  font-size: 14.5px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.kb-next-links__row span {
+  color: #51607a;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .kb-next-links__row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .kb-next-links__row strong {
+    font-size: 15px;
+  }
+
+  .kb-next-links__row span {
+    font-size: 13px;
+  }
+}
+
+/* --- 下層ページ末尾: 相談CTA帯 --- */
+
+.kb-next-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 22px;
+  width: min(var(--kb-wide-width), calc(100% - 32px));
+  margin: 34px auto 0;
+  padding: 22px 20px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f2f7ff, #fdf0f7);
+  border: 1px solid #e6ecf7;
+}
+
+.kb-next-cta p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.kb-next-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  background: var(--pink);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 900;
+  box-shadow: 0 10px 22px rgba(236, 72, 153, .28);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.kb-next-cta__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(236, 72, 153, .36);
+}
+
+.kb-next-cta__btn i {
+  font-style: normal;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .kb-next-cta {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .kb-next-cta p {
+    font-size: 14px;
+  }
+
+  .kb-next-cta__btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* --- リース製品カード: ブランド詳細リンク --- */
+
+.lease-card-detail {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--blue);
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(16, 63, 153, .35);
+  text-underline-offset: 3px;
+}
+
+.lease-card-detail:hover {
+  color: var(--pink);
+  text-decoration-color: rgba(236, 72, 153, .5);
+}
+
+/* ===== END NAVIGATION & CTA LAYER ===== */
+
+/* ============================================================================
+   ===== MOBILE READABILITY LAYER (2026-07-04) =====
+   スマートフォンでの可読性向上のため、小さすぎる文字（〜12px台）を底上げし、
+   行間・タップ寸法を整える。PC(>760px)には影響しない。
+   既存ルールは削除せず、カスケード末尾のこの層で上書きする。
+   ============================================================================ */
+@media (max-width: 760px) {
+  /* 下層ページ ヒーローのリード文 */
+  .page-hero p { font-size: 13px; }
+  .page-hero span { font-size: 13.5px; line-height: 1.8; }
+
+  /* トップ: プロ相談カード・機能ノート */
+  .lp-pro-consult-card p { font-size: 13px; line-height: 1.75; }
+  .lp-pro-consult-copy small { font-size: 12.5px; }
+  .lp-feature-note-text p { font-size: 13px; }
+  .lp-window-step em { font-size: 13px; }
+  .lp-window-step-num { font-size: 12px; }
+
+  /* NEWS・コラムカード */
+  .news-title { font-size: 14px; line-height: 1.6; }
+  .news-item time { font-size: 12.5px; }
+  .news-cat { font-size: 12px; }
+  .column-card time { font-size: 12.5px; }
+  .column-card h3 { font-size: 14.5px; line-height: 1.6; }
+
+  /* ご利用ガイド */
+  .guide-flow-card p { font-size: 13.5px; line-height: 1.85; }
+  .guide-breadcrumb { font-size: 12.5px; }
+  .guide-intro-right p { font-size: 13.5px; line-height: 1.9; }
+
+  /* お問い合わせCTAカード */
+  .online-cta-lead { font-size: 13.5px; line-height: 1.85; }
+  .online-note { font-size: 12.5px; }
+
+  /* サービス/でできること */
+  .service-list p { font-size: 13px; }
+  .showroom-options span { font-size: 12px; }
+  .showroom-map figcaption { font-size: 13px; line-height: 1.8; }
+  .rental-aim b { font-size: 12px; }
+  .rental-stand-week li small { font-size: 12px; }
+  .usecase-grid span { font-size: 12.5px; }
+  .usecase-grid p { font-size: 13.5px; line-height: 1.8; }
+  .flow-cta span { font-size: 12px; }
+  .flow-list span { font-size: 12px; }
+  .check-list--row li { font-size: 13.5px; line-height: 1.75; }
+  .lease-desc { font-size: 13.5px; line-height: 1.85; }
+
+  /* リース製品カード・注記 */
+  .lease-product-card .maker { font-size: 12px; }
+  .price small { font-size: 11px; }
+  .quote-btn { font-size: 13px; padding-top: 10px; padding-bottom: 10px; }
+  .lease-card-detail { font-size: 13px; }
+  .lease-price-notes li { font-size: 12.5px; }
+  .lease-section-heading span { font-size: 13px; line-height: 1.8; }
+
+  /* FAQ */
+  .faq-page-list summary { font-size: 14.5px; line-height: 1.6; }
+  .faq-page-list p { font-size: 13.5px; line-height: 1.85; }
+
+  /* 先生の体験談 */
+  .voice-badge { font-size: 11.5px; }
+  .voice-slide-card p { font-size: 13.5px; line-height: 1.8; }
+  .voices-note span { font-size: 12.5px; }
+
+  /* フッター（≤640の既存指定を760まで拡張） */
+  .footer-nav { font-size: 12px; }
+  .footer-copy { font-size: 12px; }
+
+  /* Sticky CTA */
+  .sticky-cta-phone small { font-size: 11.5px; }
+  .sticky-cta-badge { font-size: 11.5px; }
+}
+/* ===== END MOBILE READABILITY LAYER ===== */

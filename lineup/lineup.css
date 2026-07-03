@@ -918,3 +918,198 @@
     width: 100%;
   }
 }
+
+/* =========================================================
+   導線・モバイル可読性アップデート (2026-07-04)
+   既存ルールは変更せず、この追記層で上書き。
+   ========================================================= */
+
+/* --- 比較表ヘッダー: ブランド詳細リンク --- */
+.kb-lu-ftable thead th {
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.kb-lu-ftable-brandlink {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 4px;
+  border-radius: 8px;
+  transition: background .2s ease;
+}
+
+.kb-lu-ftable-brandlink:hover {
+  background: #eef4ff;
+}
+
+.kb-lu-ftable-brandlink span {
+  color: var(--lu-blue);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* --- 比較表の下: 次の導線 --- */
+.kb-lu-ftable-next {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: 14px;
+}
+
+.kb-lu-ftable-next__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 9px 18px;
+  border: 1px solid var(--lu-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--lu-navy);
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: var(--lu-shadow);
+  transition: transform .2s ease, border-color .2s ease;
+}
+
+.kb-lu-ftable-next__link:hover {
+  transform: translateY(-2px);
+  border-color: var(--lu-navy);
+}
+
+.kb-lu-ftable-next__link.is-pink {
+  background: var(--lu-pink, #ec4899);
+  border-color: transparent;
+  color: #fff;
+}
+
+/* --- 選び方基準カード内のリンク --- */
+.kb-lu-crit-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--lu-blue);
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(47, 111, 224, .35);
+  text-underline-offset: 3px;
+}
+
+.kb-lu-crit-link:hover {
+  color: var(--lu-pink, #ec4899);
+}
+
+/* --- モバイル: 文字サイズ・行間の底上げ --- */
+@media (max-width: 760px) {
+  .kb-lu-lead {
+    font-size: 13.5px;
+    line-height: 1.85;
+  }
+
+  .kb-lu-hero__stats strong {
+    font-size: 16px;
+  }
+
+  .kb-lu-hero__stats span {
+    font-size: 11.5px;
+  }
+
+  .kb-lu-brandbar small {
+    font-size: 11.5px;
+  }
+
+  .kb-lu-brandbar em {
+    font-size: 12.5px;
+  }
+
+  .kb-lu-ftable-legend {
+    font-size: 12.5px;
+  }
+
+  .kb-lu-ftable-note {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .kb-lu-ftable-next__link {
+    width: 100%;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .kb-lu-criteria p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .kb-lu-criteria em {
+    font-size: 12px;
+  }
+
+  .kb-lu-crit-link {
+    font-size: 13.5px;
+  }
+
+  .kb-lu-features__copy p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .kb-lu-compare-head p {
+    font-size: 13.5px;
+  }
+
+  /* ブランドカード（モバイルは1列表示のため文字を大きく） */
+  .kb-lu-card__catch {
+    font-size: 15px;
+  }
+
+  .kb-lu-card__badge {
+    font-size: 12px;
+  }
+
+  .kb-lu-card__company {
+    font-size: 11.5px;
+  }
+
+  .kb-lu-card__text {
+    font-size: 13.5px;
+    line-height: 1.8;
+  }
+
+  .kb-lu-card__fit {
+    font-size: 12.5px;
+  }
+
+  .kb-lu-card__fit span {
+    font-size: 11px;
+  }
+
+  .kb-lu-card__sizes span {
+    font-size: 11.5px;
+  }
+
+  .kb-lu-card__btn {
+    min-height: 46px;
+    font-size: 13.5px;
+  }
+
+  .kb-lu-card__links a {
+    font-size: 12.5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  /* CTAボタン */
+  .kb-lu-cta__actions .kb-lu-btn {
+    min-height: 48px;
+    font-size: 13.5px;
+  }
+
+  .kb-lu-cta p {
+    font-size: 13.5px;
+  }
+}

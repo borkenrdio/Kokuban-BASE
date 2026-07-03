@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260703-window2">
+  <link rel="stylesheet" href="styles.css?v=20260704-nav1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -70,7 +70,7 @@
 <body>
   <header class="site-header">
     <div class="header-main">
-      <a class="brand" href="#">
+      <a class="brand" href="./">
         <span class="brand-mark">K</span>
         <span>Kokuban BASE</span>
       </a>
@@ -118,6 +118,34 @@
         </div>
       </div>
     </section>
+
+    <!-- ===== 1.5 はじめての方向けクイックナビ ===== -->
+    <nav class="lp-quicknav" aria-label="目的別メニュー">
+      <a class="lp-quicknav-item" href="denshikokuban/">
+        <span class="lp-quicknav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="m7 12.5 2.2-2.7 2 1.6 3.2-3.9"/><path d="M9 21h6M12 17v4"/></svg></span>
+        <strong>電子黒板とは</strong>
+        <small>基本・価格・サイズを知る</small>
+        <i aria-hidden="true">›</i>
+      </a>
+      <a class="lp-quicknav-item" href="lineup/">
+        <span class="lp-quicknav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V10"/><path d="M11 21V4"/><path d="M17 21v-7"/><path d="M3 21h18"/></svg></span>
+        <strong>比較・選び方</strong>
+        <small>5ブランドを比較表で見る</small>
+        <i aria-hidden="true">›</i>
+      </a>
+      <a class="lp-quicknav-item" href="lease/">
+        <span class="lp-quicknav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 10.2h5M9.5 13.2h5M10 16.5l2-2 2 2"/></svg></span>
+        <strong>リース・導入費用</strong>
+        <small>月々定額で導入する</small>
+        <i aria-hidden="true">›</i>
+      </a>
+      <a class="lp-quicknav-item is-pink" href="contact/">
+        <span class="lp-quicknav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 10h8"/><path d="M8 14h5"/></svg></span>
+        <strong>相談・お問い合わせ</strong>
+        <small>無料で導入相談する</small>
+        <i aria-hidden="true">›</i>
+      </a>
+    </nav>
 
     <!-- ===== 2. 学校・学習塾向けの電子黒板選定・販売を、ひとつの窓口で ===== -->
     <section id="service" class="lp-window">
@@ -215,12 +243,12 @@
           <figure id="feature-pdf-preview" class="lp-feature-mobile-preview">
             <img src="assets/feature-pdf-demo.png" alt="電子黒板でPDFを表示しながら書き込みするデモ画面" loading="lazy" decoding="async">
           </figure>
-          <a class="lp-feature-card" href="#feature-split">
+          <a class="lp-feature-card" href="columns/gamenbunkatsu/">
             <span class="lp-feature-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></svg></span>
             <span class="lp-feature-card-label">画面分割</span>
             <i class="lp-feature-card-arrow" aria-hidden="true">›</i>
           </a>
-          <a class="lp-feature-card" href="#feature-qr">
+          <a class="lp-feature-card" href="columns/qrcode/">
             <span class="lp-feature-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 17v4h-4M17.5 17.5v.01"/></svg></span>
             <span class="lp-feature-card-label">QR共有</span>
             <i class="lp-feature-card-arrow" aria-hidden="true">›</i>
@@ -233,8 +261,7 @@
             <!-- TODO: 標準搭載機能の補足画像を assets/feature-standard.png に差し替え -->
             <img src="assets/feature-standard.png" alt="標準搭載機能のイメージ" loading="lazy" decoding="async">
           </div>
-          <!-- TODO: 全機能ページのURLに差し替え -->
-          <a class="lp-features-more" href="#all-features">すべての標準搭載機能を見る<i aria-hidden="true">›</i></a>
+          <a class="lp-features-more" href="denshikokuban/#functions">すべての標準搭載機能を見る<i aria-hidden="true">›</i></a>
         </div>
       </div>
     </section>
