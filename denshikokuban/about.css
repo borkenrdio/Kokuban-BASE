@@ -2443,3 +2443,86 @@
     font-size: 12px;
   }
 }
+
+
+/* 2026-07-03: standard feature cards with descriptions */
+.kb-about-stdfn__grid li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 206px;
+  padding: 18px 14px 16px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(20, 41, 94, .06);
+  text-align: center;
+}
+
+.kb-about-stdfn__grid img {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.kb-about-stdfn__grid strong {
+  display: block;
+  margin-top: 12px;
+  color: var(--about-navy);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.kb-about-stdfn__grid span {
+  display: block;
+  margin-top: 5px;
+  color: #52617a;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.sp-stdfn-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sp-stdfn-grid li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 188px;
+  padding: 14px 10px 13px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 14px rgba(20, 41, 94, .06);
+  text-align: center;
+}
+
+.sp-stdfn-grid img {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.sp-stdfn-grid strong {
+  display: block;
+  margin-top: 10px;
+  color: var(--about-navy);
+  font-size: 12.5px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.sp-stdfn-grid span {
+  display: block;
+  margin-top: 5px;
+  color: #52617a;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.5;
+}
