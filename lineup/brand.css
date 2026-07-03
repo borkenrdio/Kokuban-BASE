@@ -338,13 +338,21 @@
   align-content: start;
 }
 
-/* アイコン画像はラベル・枠込みのカード型のため、そのまま大きく見せる */
 .kb-bp-feat-grid img {
-  width: min(100%, 120px);
-  height: auto;
-  aspect-ratio: 1;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
-  border-radius: 12px;
+}
+
+/* アイコン下のテキストラベル */
+.kb-bp-feat-grid span {
+  max-width: 100%;
+  color: var(--bp-navy);
+  font-size: 11.5px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .kb-bp-feat-grid i {
