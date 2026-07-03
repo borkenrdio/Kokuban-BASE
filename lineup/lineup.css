@@ -460,22 +460,23 @@
 }
 
 .kb-lu-ftable tbody th.ft-feature .ft-icon {
-  width: 48px;
-  height: 42px;
-  margin-right: 12px;
+  width: 38px;
+  height: 34px;
+  margin-right: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   vertical-align: middle;
+  flex: 0 0 auto;
 }
 
 .kb-lu-ftable tbody th.ft-feature .ft-icon img {
-  width: 86px;
-  height: 86px;
+  width: 62px;
+  height: 62px;
   max-width: none;
   object-fit: contain;
-  transform: translateY(-9px);
+  transform: translateY(-6px);
 }
 
 .kb-lu-ftable i,
