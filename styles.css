@@ -13031,3 +13031,403 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   .sticky-cta-badge { font-size: 11.5px; }
 }
 /* ===== END MOBILE READABILITY LAYER ===== */
+
+/* ============================================================================
+   ===== LP MISSION SECTION (2026-07-04) =====
+   トップページ2番目「学校・学習塾の電子黒板 選定・販売サポート」刷新版。
+   ヒーローと同じ濃紺トーン＋ピンクアクセント。旧 .lp-window ルールは温存。
+   ============================================================================ */
+
+.lp-mission {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: var(--lp-home-blue-bg);
+  padding: clamp(56px, 6.5vw, 96px) 0 clamp(60px, 7vw, 104px);
+}
+
+.lp-mission-deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lp-mission-glow {
+  position: absolute;
+  left: 50%;
+  top: -220px;
+  width: 900px;
+  height: 620px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(72, 128, 255, .28), transparent 70%);
+}
+
+.lp-mission-curve {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lp-mission-inner {
+  position: relative;
+  width: min(var(--kb-wide-width), calc(100% - var(--kb-content-gutter)));
+  margin: 0 auto;
+  text-align: center;
+}
+
+.lp-mission-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+  color: #9db9ee;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.lp-mission-eyebrow span {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(236, 72, 153, .55);
+  background: rgba(236, 72, 153, .14);
+  color: #ff9ec9;
+  font-family: "Assistant", sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  white-space: nowrap;
+}
+
+.lp-mission-title {
+  margin: 0;
+  font-size: clamp(23px, 3.1vw, 40px);
+  font-weight: 900;
+  line-height: 1.55;
+  letter-spacing: .01em;
+}
+
+.lp-mission-title em {
+  position: relative;
+  font-style: normal;
+  color: #ff9ec9;
+}
+
+.lp-mission-title em::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #ec4899, rgba(236, 72, 153, .15));
+}
+
+.lp-mission-lead {
+  margin: 18px auto 0;
+  max-width: 760px;
+  color: rgba(255, 255, 255, .82);
+  font-size: clamp(13.5px, 1.3vw, 16px);
+  line-height: 2;
+}
+
+/* --- 学校向け / 学習塾向け 2枚カード --- */
+
+.lp-mission-audience {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.2vw, 26px);
+  max-width: 980px;
+  margin: clamp(30px, 3.6vw, 48px) auto 0;
+  text-align: left;
+}
+
+.lp-mission-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(140, 175, 240, .28);
+  box-shadow: 0 24px 50px rgba(3, 15, 45, .45);
+  backdrop-filter: blur(6px);
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.lp-mission-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(236, 72, 153, .6);
+  box-shadow: 0 30px 60px rgba(3, 15, 45, .55);
+}
+
+.lp-mission-card-photo {
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.lp-mission-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease;
+}
+
+.lp-mission-card:hover .lp-mission-card-photo img {
+  transform: scale(1.04);
+}
+
+.lp-mission-card-body {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  padding: 18px 44px 22px 22px;
+}
+
+.lp-mission-card-tag {
+  justify-self: start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ec4899, #f472b6);
+  color: #fff;
+  font-family: "Assistant", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+
+.lp-mission-card-body strong {
+  font-size: clamp(16px, 1.6vw, 19px);
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.lp-mission-card-body p {
+  margin: 0;
+  color: rgba(255, 255, 255, .78);
+  font-size: 13.5px;
+  line-height: 1.85;
+}
+
+.lp-mission-card-body i {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ff9ec9;
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* --- 3ステップ（細いステッパー） --- */
+
+.lp-mission-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 980px;
+  margin: clamp(28px, 3.4vw, 44px) auto 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.lp-mission-steps li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(140, 175, 240, .2);
+  text-align: left;
+}
+
+.lp-mission-steps li:not(:last-child)::after {
+  content: "›";
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: rgba(255, 158, 201, .8);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.lp-mission-steps i {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ec4899, #f472b6);
+  color: #fff;
+  font-style: normal;
+  font-family: "Assistant", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(236, 72, 153, .35);
+}
+
+.lp-mission-steps strong {
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.lp-mission-steps span {
+  color: rgba(255, 255, 255, .68);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* --- CTA --- */
+
+.lp-mission-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 18px;
+  margin-top: clamp(30px, 3.6vw, 46px);
+}
+
+.lp-mission-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 14px 30px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.lp-mission-btn i {
+  font-style: normal;
+  font-weight: 700;
+}
+
+.lp-mission-btn--pink {
+  background: linear-gradient(90deg, #ec4899, #f062a8);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(236, 72, 153, .38);
+}
+
+.lp-mission-btn--pink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(236, 72, 153, .48);
+}
+
+.lp-mission-btn--ghost {
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .45);
+  color: #fff;
+}
+
+.lp-mission-btn--ghost:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, .12);
+  border-color: #fff;
+}
+
+/* --- タブレット・モバイル --- */
+
+@media (max-width: 980px) {
+  .lp-mission-audience {
+    max-width: 640px;
+  }
+
+  .lp-mission-steps {
+    max-width: 640px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .lp-mission-steps li:not(:last-child)::after {
+    right: 18px;
+    top: auto;
+    bottom: -16px;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 760px) {
+  .lp-mission-br {
+    display: none;
+  }
+
+  .lp-mission-inner {
+    width: calc(100% - 32px);
+  }
+
+  .lp-mission-eyebrow {
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .lp-mission-title {
+    font-size: clamp(20px, 5.6vw, 25px);
+    line-height: 1.6;
+  }
+
+  .lp-mission-title br {
+    display: none;
+  }
+
+  .lp-mission-lead {
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  .lp-mission-audience {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .lp-mission-card-body {
+    padding: 15px 38px 18px 16px;
+  }
+
+  .lp-mission-card-body strong {
+    font-size: 15.5px;
+  }
+
+  .lp-mission-card-body p {
+    font-size: 12.5px;
+    line-height: 1.8;
+  }
+
+  .lp-mission-steps strong {
+    font-size: 14px;
+  }
+
+  .lp-mission-steps span {
+    font-size: 11.5px;
+  }
+
+  .lp-mission-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .lp-mission-btn {
+    width: 100%;
+  }
+}
+/* ===== END LP MISSION SECTION ===== */
