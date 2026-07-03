@@ -7870,7 +7870,7 @@ section.top-guide-cta {
 }
 
 body:has(.sticky-cta) .site-footer {
-  padding-bottom: 76px;
+  padding-bottom: 0;
 }
 
 @media (max-width: 640px) {
@@ -7891,6 +7891,72 @@ body:has(.sticky-cta) .site-footer {
   .sticky-cta-btn {
     padding: 9px 20px;
     font-size: 14px;
+  }
+}
+
+/* Mobile bottom CTA: remove footer spacer and paint the iOS safe area. */
+@supports (padding: max(0px)) {
+  body:has(.sticky-cta) {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  }
+
+  body:has(.sticky-cta) .sticky-cta {
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (max-width: 640px) {
+  body:has(.sticky-cta) {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  }
+
+  body:has(.sticky-cta) .site-footer {
+    padding-bottom: 0;
+  }
+
+  .sticky-cta {
+    min-height: 68px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .sticky-cta::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+    height: env(safe-area-inset-bottom, 0px);
+    background: #1f2937;
+    pointer-events: none;
+  }
+}
+
+/* Mobile: do not leave empty CTA placeholders on the top page. */
+@media (max-width: 640px) {
+  body:not(:has(.sticky-cta)) .lp-faqcta:empty,
+  body:not(:has(.sticky-cta)) .top-guide-cta:empty {
+    display: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  body:not(:has(.sticky-cta)) .lp-faqcta:not(:has(*)),
+  body:not(:has(.sticky-cta)) .top-guide-cta:not(:has(*)) {
+    display: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  body:not(:has(.sticky-cta)) .lp-faqcta,
+  body:not(:has(.sticky-cta)) .column-section,
+  body:not(:has(.sticky-cta)) .top-guide-cta {
+    display: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  body:not(:has(.sticky-cta)) .news-section {
+    padding-bottom: 18px;
   }
 }
 
