@@ -11,6 +11,11 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/denshikokuban/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/service/</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
@@ -26,12 +31,37 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://kokuban-base.com/online-consultation/</loc>
+    <loc>https://kokuban-base.com/guide/</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://kokuban-base.com/lineup/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokuban-base.com/lineup/starboard/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokuban-base.com/lineup/miraitouch/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokuban-base.com/lineup/sharp-bigpad/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokuban-base.com/lineup/benqboard/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokuban-base.com/lineup/promethean/</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -57,6 +87,11 @@
   </url>
   <url>
     <loc>https://kokuban-base.com/information/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokuban-base.com/contact/</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>

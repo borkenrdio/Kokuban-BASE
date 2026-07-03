@@ -1493,16 +1493,23 @@ function generateSitemap(articles) {
   xml += `  <url>\n    <loc>${BASE_URL}/article/</loc>\n    <priority>0.9</priority>\n    <changefreq>daily</changefreq>\n  </url>\n`;
 
   const staticPages = [
+    'denshikokuban',
     'service',
     'lease',
     'lease/first-time',
-    'online-consultation',
+    'guide',
     'lineup',
+    'lineup/starboard',
+    'lineup/miraitouch',
+    'lineup/sharp-bigpad',
+    'lineup/benqboard',
+    'lineup/promethean',
     'support',
     'voices',
     'company',
     'faq',
-    'information'
+    'information',
+    'contact'
   ];
   staticPages.forEach(page => {
     xml += `  <url>\n    <loc>${BASE_URL}/${page}/</loc>\n    <priority>0.8</priority>\n    <changefreq>monthly</changefreq>\n  </url>\n`;
