@@ -356,15 +356,46 @@
 }
 
 .kb-bp-feat-grid i {
-  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  min-height: 28px;
+  padding: 6px 12px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0;
   font-style: normal;
   font-weight: 900;
   line-height: 1;
+  white-space: nowrap;
 }
 
-.kb-bp-feat-grid .m-yes { color: #103f99; }
-.kb-bp-feat-grid .m-part { color: #d98b2b; }
-.kb-bp-feat-grid .m-no { color: #a7b2c4; }
+.kb-bp-feat-grid i::before {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.kb-bp-feat-grid .m-yes {
+  background: #e8f7ef;
+  color: #08733f;
+}
+
+.kb-bp-feat-grid .m-yes::before { content: "✓ 搭載"; }
+
+.kb-bp-feat-grid .m-part {
+  background: #fff5e6;
+  color: #b86511;
+}
+
+.kb-bp-feat-grid .m-part::before { content: "△ 条件付き"; }
+
+.kb-bp-feat-grid .m-no {
+  background: #fff1f2;
+  color: #c9233a;
+}
+
+.kb-bp-feat-grid .m-no::before { content: "× 非搭載"; }
 
 .kb-bp-featbox small {
   display: block;
