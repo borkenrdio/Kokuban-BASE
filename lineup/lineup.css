@@ -487,6 +487,38 @@
   object-fit: contain;
 }
 
+@media (max-width: 640px) {
+  .kb-lu-ftable-scroll {
+    position: relative;
+  }
+
+  .kb-lu-ftable {
+    min-width: 980px;
+  }
+
+  .kb-lu-ftable th.ft-feature {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    width: 190px;
+    min-width: 190px;
+    max-width: 190px;
+    background: #fff;
+    box-shadow: 8px 0 14px rgba(15, 40, 85, .08);
+  }
+
+  .kb-lu-ftable thead th.ft-feature {
+    z-index: 4;
+    background: #f8fafd;
+  }
+
+  .kb-lu-ftable thead th:not(.ft-feature),
+  .kb-lu-ftable tbody td {
+    width: 158px;
+    min-width: 158px;
+  }
+}
+
 .kb-lu-ftable i,
 .kb-lu-ftable-legend i {
   font-style: normal;

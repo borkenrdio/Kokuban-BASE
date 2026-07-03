@@ -773,44 +773,73 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  overflow: hidden;
-  border: 1px solid var(--about-line);
-  border-radius: var(--about-radius);
-  background: #fff;
-  box-shadow: var(--about-shadow);
+  gap: 12px;
+  counter-reset: about-check;
 }
 
 .kb-about-checklist li {
-  padding: 22px 16px 20px;
-  text-align: center;
+  position: relative;
+  min-height: 100%;
+  padding: 18px 14px 18px;
+  border: 1px solid #dce6f5;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--about-shadow);
+  text-align: left;
+  counter-increment: about-check;
 }
 
 .kb-about-checklist li + li {
-  border-left: 1px solid #e7edf6;
+  border-left: 1px solid #dce6f5;
+}
+
+.kb-about-checklist li::before {
+  content: counter(about-check);
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: var(--about-navy);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.kb-about-checklist li::after {
+  content: "";
+  position: absolute;
+  top: 24px;
+  right: 14px;
+  width: 18px;
+  height: 10px;
+  border-left: 3px solid #e83e8c;
+  border-bottom: 3px solid #e83e8c;
+  transform: rotate(-45deg);
+  opacity: .95;
 }
 
 .kb-about-checklist strong {
   display: block;
   color: var(--about-navy);
-  font-size: 14.5px;
+  font-size: 15.5px;
   font-weight: 900;
   line-height: 1.5;
 }
 
 .kb-about-checklist strong::after {
-  content: "";
-  display: block;
-  width: 28px;
-  height: 2px;
-  margin: 12px auto;
-  background: #cdd9ec;
+  display: none;
 }
 
 .kb-about-checklist span {
   display: block;
   color: var(--about-muted);
-  font-size: 12px;
-  line-height: 1.8;
+  margin-top: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.85;
 }
 
 /* ---------- 8. メーカー比較 ---------- */
@@ -1178,18 +1207,14 @@
 
   .kb-about-checklist {
     grid-template-columns: 1fr;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-    overflow: visible;
     gap: 10px;
   }
 
   .kb-about-checklist li {
     display: grid;
-    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    grid-template-columns: 36px minmax(0, 1fr);
     gap: 4px 16px;
-    align-items: center;
+    align-items: start;
     padding: 14px 18px;
     border: 1px solid var(--about-line);
     border-radius: 10px;
@@ -1200,6 +1225,18 @@
 
   .kb-about-checklist li + li {
     border-left: 1px solid var(--about-line);
+  }
+
+  .kb-about-checklist li::before {
+    grid-row: span 2;
+    margin-bottom: 0;
+  }
+
+  .kb-about-checklist li::after {
+    top: 18px;
+    right: 18px;
+    width: 15px;
+    height: 9px;
   }
 
   .kb-about-checklist strong::after {
@@ -1932,19 +1969,21 @@
 
   .sp-check-list {
     margin: 0;
-    padding: 4px 0;
+    padding: 0;
     list-style: none;
-    border: 1px solid var(--about-line);
-    border-radius: 12px;
-    background: #fff;
-    box-shadow: var(--about-shadow);
+    display: grid;
+    gap: 10px;
   }
 
   .sp-check-list li {
     display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 13px 14px;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 14px 15px;
+    border: 1px solid var(--about-line);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: var(--about-shadow);
     color: #2c3f63;
     font-size: 12px;
     font-weight: 700;
@@ -1952,7 +1991,7 @@
   }
 
   .sp-check-list li + li {
-    border-top: 1px solid #e7edf6;
+    border-top: 1px solid var(--about-line);
   }
 
   .sp-check-list .num {
@@ -1966,6 +2005,15 @@
     color: #fff;
     font-size: 11.5px;
     font-weight: 900;
+  }
+
+  .sp-check-list strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--about-navy);
+    font-size: 13.5px;
+    font-weight: 900;
+    line-height: 1.45;
   }
 
   /* ---------- メーカー ---------- */
