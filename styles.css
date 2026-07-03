@@ -9754,64 +9754,89 @@ body:has(.sticky-cta) .site-footer {
 
 .lp-features-more i { font-style: normal; }
 
-/* ===== 3. 選定に必要なことを、ひとつの窓口で ===== */
+/* ===== 3. 学校・学習塾向けの電子黒板選定・販売を、ひとつの窓口で ===== */
 .lp-window {
   color: #fff;
   background: var(--lp-home-blue-bg);
-  padding: clamp(48px, 6vw, 86px) 0 clamp(54px, 7vw, 94px);
+  padding: clamp(46px, 5.5vw, 78px) 0 clamp(50px, 6vw, 84px);
 }
 
 .lp-window-inner {
   width: min(var(--kb-wide-width), calc(100% - var(--kb-content-gutter)));
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(28px, 4vw, 56px);
-  align-items: center;
+  text-align: center;
 }
 
 .lp-window-eyebrow { margin: 0 0 12px; color: #7fa8ec; font-size: 13px; font-weight: 800; letter-spacing: .06em; }
-.lp-window-copy h2 { margin: 0; font-size: clamp(28px, 3.6vw, 46px); font-weight: 800; line-height: 1.28; }
-.lp-window-lead { margin: 16px 0 0; color: rgba(255, 255, 255, .8); font-size: clamp(14px, 1.35vw, 17px); line-height: 1.9; }
+.lp-window-inner h2 { margin: 0; font-size: clamp(21px, 2.9vw, 38px); font-weight: 800; line-height: 1.5; }
+.lp-window-lead { margin: 14px 0 0; color: rgba(255, 255, 255, .82); font-size: clamp(13.5px, 1.3vw, 16.5px); line-height: 1.9; }
 
-.lp-window-cards { margin: clamp(22px, 3vw, 32px) 0 0; display: grid; gap: 14px; }
+/* 相談する → 比べる → 導入する の3ステップ */
+.lp-window-steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: clamp(8px, 1.4vw, 16px);
+  align-items: stretch;
+  max-width: 980px;
+  margin: clamp(26px, 3.4vw, 40px) auto 0;
+  padding: 0;
+  list-style: none;
+}
 
-.lp-window-card {
+.lp-window-step {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 15px 20px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, .05);
-  border: 1px solid rgba(255, 255, 255, .13);
+  gap: 6px;
+  height: 100%;
+  padding: 22px 18px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .14);
   color: #fff;
   transition: background .2s ease, transform .2s ease;
 }
 
-.lp-window-card:hover { background: rgba(255, 255, 255, .1); transform: translateX(3px); }
+.lp-window-step:hover { background: rgba(255, 255, 255, .11); transform: translateY(-2px); }
 
-.lp-window-card-icon {
-  flex: 0 0 auto;
+.lp-window-step-num { color: #7fa8ec; font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+
+.lp-window-step-icon {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
+  margin-top: 4px;
   border-radius: 50%;
   color: #fff;
   background: linear-gradient(135deg, #f65aa6, #e83f91);
 }
 
-.lp-window-card-icon svg { width: 23px; height: 23px; }
+.lp-window-step-icon svg { width: 25px; height: 25px; }
 
-.lp-window-card-text { flex: 1; display: flex; flex-direction: column; line-height: 1.3; }
-.lp-window-card-text strong { font-size: 17px; font-weight: 800; }
-.lp-window-card-text em { margin-top: 2px; font-style: normal; font-size: 12.5px; color: rgba(255, 255, 255, .66); }
-.lp-window-card i { flex: 0 0 auto; font-style: normal; font-size: 20px; color: rgba(255, 255, 255, .5); }
+.lp-window-step strong { margin-top: 6px; font-size: clamp(16px, 1.5vw, 19px); font-weight: 800; }
+.lp-window-step em { font-style: normal; font-size: 12.5px; color: rgba(255, 255, 255, .68); line-height: 1.6; }
 
-.lp-window-visual { display: flex; flex-direction: column; align-items: center; }
-.lp-window-diagram { width: 100%; max-width: 440px; height: auto; }
-.lp-window-caption { margin: 10px 0 0; text-align: center; font-size: clamp(20px, 2.4vw, 30px); font-weight: 800; }
-.lp-accent-num { color: #ff5fa6; font-size: 1.3em; }
+.lp-window-step-sep { align-self: center; color: rgba(255, 255, 255, .4); font-size: 26px; font-weight: 800; line-height: 1; }
+
+.lp-window-actions { margin-top: clamp(22px, 3vw, 30px); }
+
+.lp-window-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 11px 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .4);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  transition: background .2s ease;
+}
+
+.lp-window-more:hover { background: rgba(255, 255, 255, .1); }
+.lp-window-more i { font-style: normal; color: rgba(255, 255, 255, .7); }
 
 /* ===== 2.5 プロが相談に乗ります ===== */
 .lp-pro-consult {
@@ -10016,7 +10041,9 @@ body:has(.sticky-cta) .site-footer {
 @media (max-width: 980px) {
   .lp-hero-inner { grid-template-columns: 1fr; gap: clamp(20px, 4vw, 32px); }
   .lp-features-body { grid-template-columns: 1fr; }
-  .lp-window-inner { grid-template-columns: 1fr; gap: 30px; }
+  .lp-window-inner h2 br { display: none; }
+  .lp-window-steps { grid-template-columns: 1fr; max-width: 460px; }
+  .lp-window-step-sep { justify-self: center; transform: rotate(90deg); }
   .lp-pro-consult-inner { grid-template-columns: 1fr; }
 }
 
