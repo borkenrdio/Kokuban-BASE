@@ -11866,7 +11866,8 @@ body:has(.lineup-page) .lineup-brand-guide .lineup-guide-panel {
 
 body:has(.lineup-page) .lineup-brand-guide .lineup-guide-featurebox,
 body:has(.lineup-page) .lineup-brand-guide .lineup-guide-tabpanel[data-guide-panel="1"] .lineup-guide-spec-hero {
-  grid-template-columns: minmax(180px, .34fr) minmax(0, 1fr);
+  grid-template-columns: 220px minmax(0, 1fr);
+  width: 100%;
 }
 
 /* カタログスペックタブ(panel 1)は縦積み：スペックグリッド全幅 → 注記。
@@ -11879,6 +11880,7 @@ body:has(.lineup-page) .lineup-brand-guide .lineup-guide-tabpanel[data-guide-pan
 body:has(.lineup-page) .lineup-brand-guide .lineup-guide-icon-grid {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   width: 100%;
+  align-items: stretch;
 }
 
 body:has(.lineup-page) .lineup-brand-guide .lineup-guide-bottom {
