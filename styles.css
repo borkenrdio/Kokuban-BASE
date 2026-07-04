@@ -7946,6 +7946,10 @@ section.top-guide-cta {
   font-weight: 700;
 }
 
+.mobile-check-float {
+  display: none;
+}
+
 body:has(.sticky-cta) .site-footer {
   padding-bottom: 0;
 }
@@ -7987,6 +7991,10 @@ body:has(.sticky-cta) .site-footer {
     padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
   }
 
+  body:has(.mobile-check-float) {
+    padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+  }
+
   body:has(.sticky-cta) .site-footer {
     padding-bottom: 0;
   }
@@ -8005,6 +8013,46 @@ body:has(.sticky-cta) .site-footer {
     height: env(safe-area-inset-bottom, 0px);
     background: #1f2937;
     pointer-events: none;
+  }
+
+  .mobile-check-float {
+    position: fixed;
+    left: 18px;
+    right: 18px;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 10px 18px;
+    border: 1px solid rgba(255, 255, 255, .78);
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ec4899, #ff5fa6);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.2;
+    box-shadow: 0 12px 30px rgba(236, 72, 153, .42), 0 4px 14px rgba(15, 23, 42, .2);
+  }
+
+  .mobile-check-float span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .22);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .mobile-check-float i {
+    font-style: normal;
+    font-size: 20px;
+    line-height: 1;
   }
 }
 
@@ -12916,7 +12964,7 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   position: relative;
   z-index: 5;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
   width: 100%;
   margin: 0;
@@ -13007,6 +13055,30 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   color: #fff;
 }
 
+.lp-quicknav-item.is-check {
+  border-color: rgba(255, 211, 228, .72);
+  background: linear-gradient(135deg, rgba(236, 72, 153, .28), rgba(255, 255, 255, .11));
+  box-shadow: 0 16px 32px rgba(236, 72, 153, .18);
+}
+
+.lp-quicknav-item.is-check .lp-quicknav-icon {
+  background: var(--pink);
+  color: #fff;
+}
+
+.lp-quicknav-item.is-check strong,
+.lp-quicknav-item.is-check i {
+  color: #fff;
+}
+
+.lp-quicknav-item.is-check small {
+  color: rgba(255, 255, 255, .88);
+}
+
+.lp-quicknav-item.is-check:hover {
+  background: linear-gradient(135deg, rgba(236, 72, 153, .38), rgba(255, 255, 255, .16));
+}
+
 .lp-quicknav-item.is-pink:hover {
   background: rgba(236, 72, 153, .20);
 }
@@ -13032,6 +13104,10 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   .lp-quicknav {
     padding-bottom: 26px;
     border-radius: 14px;
+  }
+
+  .lp-quicknav-item.is-check {
+    grid-column: 1 / -1;
   }
 
   .lp-quicknav-item {

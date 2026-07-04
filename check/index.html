@@ -246,6 +246,17 @@
 
     function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
+    function resultReasonsFor(brand, size, reasons) {
+      if (brand === 'MT' && size === 27) {
+        return [
+          '27インチモデルは、個別指導や1対1・1対2の近距離利用に向いたコンパクトな電子黒板です。',
+          '※ 27インチモデルはデュアルカメラ非搭載です。紙教材や手元の投影を重視する場合は、65インチ以上のMIRAI TOUCHをご相談ください。'
+        ];
+      }
+      var rs = reasons.slice(0, 3);
+      return rs.length ? rs : [BRANDS[brand].catch];
+    }
+
     function updateProgress() {
       var done = Math.min(state.step, QUESTIONS.length);
       document.getElementById('ckStep').textContent = Math.min(state.step + 1, QUESTIONS.length);
@@ -349,8 +360,7 @@
       var b = BRANDS[brand];
       var size = sizeFor(brand, q1);
       var price = priceHtml(brand, size);
-      var rs = reasons.slice(0, 3);
-      if (!rs.length) rs = [b.catch];
+      var rs = resultReasonsFor(brand, size, reasons);
 
       var html = '<article class="ck-card">';
       html += '<span class="ck-card__ribbon' + (second ? ' is-second' : '') + '">' + esc(ribbon) + '</span>';
