@@ -9869,11 +9869,15 @@ body:has(.sticky-cta) .site-footer {
   display: flex;
   align-items: center;
   gap: 16px;
+  width: 100%;
   padding: 17px 22px;
   border-radius: 12px;
   background: rgba(255, 255, 255, .05);
   border: 1px solid rgba(255, 255, 255, .14);
   color: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
   transition: background .2s ease, transform .2s ease;
 }
 
@@ -9896,23 +9900,29 @@ body:has(.sticky-cta) .site-footer {
 
 .lp-feature-card-arrow { flex: 0 0 auto; font-style: normal; font-size: 22px; color: rgba(255, 255, 255, .55); }
 
-.lp-feature-card--main {
+.lp-feature-card--main,
+.lp-feature-card.is-active {
   background: rgba(255, 255, 255, .1);
   border-color: rgba(123, 170, 255, .6);
   box-shadow: 0 12px 28px rgba(0, 0, 0, .22);
 }
 
-.lp-feature-card--main .lp-feature-card-icon { color: #fff; background: linear-gradient(135deg, #2f6fe0, #1e54c0); }
+.lp-feature-card--main .lp-feature-card-icon,
+.lp-feature-card.is-active .lp-feature-card-icon { color: #fff; background: linear-gradient(135deg, #2f6fe0, #1e54c0); }
 
 .lp-feature-card-check {
   flex: 0 0 auto;
-  display: grid;
+  display: none;
   place-items: center;
   width: 28px;
   height: 28px;
   border-radius: 50%;
   background: #2f6fe0;
   color: #fff;
+}
+
+.lp-feature-card.is-active .lp-feature-card-check {
+  display: grid;
 }
 
 .lp-feature-card-check svg { width: 16px; height: 16px; }
@@ -9956,6 +9966,55 @@ body:has(.sticky-cta) .site-footer {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.lp-feature-article {
+  display: none;
+  align-items: center;
+  gap: 14px;
+  margin: -4px 0 6px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: rgba(255, 255, 255, .06);
+  color: #fff;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.lp-feature-article.is-open {
+  display: flex;
+}
+
+.lp-feature-article:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, .11);
+}
+
+.lp-feature-article img {
+  flex: 0 0 auto;
+  width: 96px;
+  height: 58px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.lp-feature-article span {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.lp-feature-article small {
+  color: rgba(255, 255, 255, .62);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.lp-feature-article strong {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
 }
 
 .lp-feature-note {
@@ -11906,7 +11965,7 @@ body:has(.lineup-page) {
     box-sizing: border-box;
   }
 
-  .lp-feature-mobile-preview { display: block; }
+  .lp-feature-mobile-preview.is-open { display: block; }
 }
 
 /* モバイルヘッダー: 「相談する」をデスクトップと同じピンクの「お問い合わせ」ボタンに戻し、
