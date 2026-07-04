@@ -2825,3 +2825,105 @@
     width: 100%;
   }
 }
+
+/* ===== 目次（PC） ===== */
+.kb-about-toc {
+  width: min(1080px, calc(100% - 40px));
+  margin: 28px auto 8px;
+  padding: 22px 26px;
+  background: #f6f8fc;
+  border: 1px solid #dbe4f3;
+  border-radius: 14px;
+}
+
+.kb-about-toc__label {
+  margin: 0 0 12px;
+  color: #103f99;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.kb-about-toc__label small {
+  margin-left: 8px;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.kb-about-toc__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 18px;
+  counter-reset: toc;
+}
+
+.kb-about-toc__list li {
+  counter-increment: toc;
+}
+
+.kb-about-toc__list a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 2px;
+  color: #1f2937;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.kb-about-toc__list a::before {
+  content: counter(toc) ".";
+  color: #103f99;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.kb-about-toc__list a:hover {
+  color: #103f99;
+  text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .kb-about-toc {
+    display: none;
+  }
+}
+
+/* ===== 目次（モバイル） ===== */
+.sp-toc {
+  margin: 14px 16px 4px;
+  padding: 14px 16px;
+  background: #f6f8fc;
+  border: 1px solid #dbe4f3;
+  border-radius: 12px;
+}
+
+.sp-toc__label {
+  margin: 0 0 10px;
+  color: #103f99;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.sp-toc__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sp-toc__links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #c9d6ec;
+  color: #103f99;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}

@@ -285,7 +285,11 @@ img {
 }
 
 .global-nav a[href$="support/"] {
-  --nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 13a8 8 0 0 1 16 0'/%3E%3Crect x='3' y='12' width='4' height='6' rx='2'/%3E%3Crect x='17' y='12' width='4' height='6' rx='2'/%3E%3Cpath d='M19 18c-.7 2-2.4 3-5 3h-2'/%3E%3Crect x='9' y='19' width='4' height='2' rx='1'/%3E%3C/svg%3E");
+  --nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6.2C10.2 5.1 8.1 4.5 5.7 4.5H4v14h1.7c2.4 0 4.5.6 6.3 1.7M12 6.2c1.8-1.1 3.9-1.7 6.3-1.7H20v14h-1.7c-2.4 0-4.5.6-6.3 1.7M12 6.2v14'/%3E%3C/svg%3E");
+}
+
+.global-nav a[href$="experience/"] {
+  --nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9.5 11.5V5.5a1.6 1.6 0 0 1 3.2 0v5.3l3.5.9c1 .2 1.6 1.1 1.5 2.1l-.4 3.2a3 3 0 0 1-3 2.6h-2.9a3 3 0 0 1-2.4-1.2l-2.6-3.4a1.4 1.4 0 0 1 2-1.9l1.1 1Z'/%3E%3Cpath d='M6.5 5.5a4.2 4.2 0 0 1 6-1.9'/%3E%3C/svg%3E");
 }
 
 .global-nav a[href$="voices/"] {
@@ -7035,6 +7039,10 @@ section.top-guide-cta {
   line-height: 1;
 }
 
+.contact-field em.is-optional {
+  background: #9ca3af;
+}
+
 .contact-choice-grid,
 .contact-form-grid,
 .contact-checkbox-grid {
@@ -9581,9 +9589,9 @@ body:has(.sticky-cta) .site-footer {
 
 .lp-hero-title {
   margin: 0;
-  font-size: clamp(40px, 5.6vw, 82px);
+  font-size: clamp(36px, 4.8vw, 68px);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.2;
   letter-spacing: .01em;
   white-space: nowrap;
 }
@@ -13431,3 +13439,108 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   }
 }
 /* ===== END LP MISSION SECTION ===== */
+
+/* ===== LP BRANDS (トップ: 取り扱い5ブランド帯) ===== */
+.lp-brands {
+  padding: clamp(44px, 6vw, 80px) 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.lp-brands-head h2 {
+  margin: 0;
+  color: #0f2c66;
+  font-size: clamp(22px, 2.6vw, 34px);
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.lp-brands-head p {
+  margin: 12px 0 0;
+  color: #4b5563;
+  font-size: clamp(14px, 1.3vw, 16px);
+}
+
+.lp-brands-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(18px, 3.5vw, 48px);
+  margin: clamp(26px, 3.5vw, 42px) auto 0;
+  max-width: 1080px;
+}
+
+.lp-brands-logos a {
+  display: grid;
+  place-items: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.lp-brands-logos a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(16, 63, 153, .12);
+}
+
+.lp-brands-logos img {
+  max-height: clamp(30px, 4vw, 46px);
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+}
+
+.lp-brands-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: clamp(26px, 3.5vw, 40px);
+  padding: 14px 30px;
+  border-radius: 999px;
+  border: 2px solid #103f99;
+  color: #103f99;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease;
+}
+
+.lp-brands-link:hover {
+  background: #103f99;
+  color: #fff;
+}
+/* ===== END LP BRANDS ===== */
+
+/* ===== FAQ カテゴリ見出し ===== */
+.faq-cat {
+  margin: 34px 0 14px;
+  color: #103f99;
+  font-size: clamp(17px, 1.6vw, 20px);
+  font-weight: 800;
+  border-left: 4px solid #103f99;
+  padding-left: 12px;
+}
+
+.faq-cat:first-of-type {
+  margin-top: 0;
+}
+
+/* ===== コラム新着バッジ ===== */
+.column-card time {
+  display: inline-block;
+}
+
+.column-new {
+  display: inline-block;
+  margin: 18px 0 0 8px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #ed5b8c;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  line-height: 1.5;
+  vertical-align: 1px;
+}
