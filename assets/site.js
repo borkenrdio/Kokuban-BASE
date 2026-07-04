@@ -96,15 +96,94 @@
     });
   }
 
+  /* 30秒診断のフローティング誘導。
+     出すタイミング: セッション内3ページ目以降は少し待って表示、
+     それ以外はページを一定量スクロールしたときに表示。
+     × で閉じたら7日間は再表示しない。診断・問い合わせページでは出さない。 */
+  function setupCheckPromo() {
+    var path = window.location.pathname || '/';
+    if (/^\/(check|contact)(\/|$)/.test(path)) return;
+    if (document.querySelector('.kb-checkfloat')) return;
+
+    var DISMISS_KEY = 'kbCheckPromoDismissedAt';
+    var PV_KEY = 'kbSessionPageViews';
+    var DISMISS_DAYS = 7;
+
+    var pageViews = 1;
+    try {
+      pageViews = (parseInt(sessionStorage.getItem(PV_KEY), 10) || 0) + 1;
+      sessionStorage.setItem(PV_KEY, String(pageViews));
+    } catch (error) { /* storage不可でも動作継続 */ }
+
+    try {
+      var dismissedAt = parseInt(localStorage.getItem(DISMISS_KEY), 10) || 0;
+      if (Date.now() - dismissedAt < DISMISS_DAYS * 24 * 60 * 60 * 1000) return;
+    } catch (error) { /* storage不可なら常に表示候補 */ }
+
+    var el = null;
+    var shown = false;
+
+    function build() {
+      var wrap = document.createElement('div');
+      wrap.className = 'kb-checkfloat';
+      wrap.innerHTML =
+        '<button type="button" class="kb-checkfloat__close" aria-label="このお知らせを閉じる">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>' +
+        '</button>' +
+        '<a class="kb-checkfloat__link" href="/check/">' +
+          '<span class="kb-checkfloat__icon" aria-hidden="true">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6v3H9z"/><path d="M15 4.5h2A2 2 0 0 1 19 6.5V19a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2h2"/><path d="m8.8 13.2 2.3 2.3 4.2-4.6"/></svg>' +
+          '</span>' +
+          '<span class="kb-checkfloat__body">' +
+            '<small>かんたん30秒</small>' +
+            '<strong>電子黒板 診断</strong>' +
+            '<b>5問でうちに合う1台がわかる</b>' +
+          '</span>' +
+          '<i aria-hidden="true">›</i>' +
+        '</a>';
+      document.body.appendChild(wrap);
+
+      wrap.querySelector('.kb-checkfloat__close').addEventListener('click', function () {
+        wrap.classList.remove('is-visible');
+        try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch (error) {}
+        setTimeout(function () { wrap.remove(); }, 550);
+      });
+      return wrap;
+    }
+
+    function show() {
+      if (shown) return;
+      shown = true;
+      window.removeEventListener('scroll', onScroll);
+      if (!el) el = build();
+      /* 一度レイアウトを確定させてからクラスを付け、スライドインを確実に発火させる
+         （rAF はバックグラウンドタブで止まるため使わない） */
+      void el.offsetWidth;
+      setTimeout(function () { el.classList.add('is-visible'); }, 30);
+    }
+
+    function onScroll() {
+      if (window.scrollY > Math.max(700, window.innerHeight * 0.9)) show();
+    }
+
+    if (pageViews >= 3) {
+      setTimeout(show, 1200);
+    } else {
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       setupMobileMenu();
       setupCurrentNav();
       setupTopFeatureSwitcher();
+      setupCheckPromo();
     });
   } else {
     setupMobileMenu();
     setupCurrentNav();
     setupTopFeatureSwitcher();
+    setupCheckPromo();
   }
 })();
