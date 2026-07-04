@@ -16,6 +16,11 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/check/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/service/</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>

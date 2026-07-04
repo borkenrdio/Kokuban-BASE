@@ -1494,6 +1494,7 @@ function generateSitemap(articles) {
 
   const staticPages = [
     'denshikokuban',
+    'check',
     'service',
     'school',
     'juku',
