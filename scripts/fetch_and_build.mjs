@@ -1555,82 +1555,90 @@ function isInterview(article) {
   const cats = Array.isArray(rawCat) ? rawCat : [rawCat];
   return cats.some(c => {
     if (!c) return false;
-    if (typeof c === 'string') return ['interview', 'taidan', '対談記事'].includes(c);
+    if (typeof c === 'string') return ['interview', 'taidan', '対談記事', 'Kokuban BASE独自取材', '独自取材'].includes(c);
     if (typeof c === 'object' && c.id) return c.id === 'interview';
     return false;
   });
 }
 
 /**
- * 記事カードのHTMLを生成（article.html の静的生成用）
+ * カテゴリ名の正規化（旧名称・ID → 新カテゴリ名）
  */
-function buildCardHtml(article, type = 'standard') {
+function normalizeCategoryName(rawCat) {
+  let name = '';
+  if (!rawCat) return '';
+  if (typeof rawCat === 'string') name = rawCat;
+  else if (typeof rawCat === 'object') name = rawCat.name || rawCat.id || '';
+  const MAP = {
+    'interview': 'Kokuban BASE独自取材',
+    'taidan': 'Kokuban BASE独自取材',
+    '対談記事': 'Kokuban BASE独自取材',
+    '活用事例': '電子黒板の活用事例',
+    'column': 'コラム'
+  };
+  return MAP[name] || name;
+}
+
+/**
+ * 記事のカテゴリ名一覧（正規化済み・重複なし）
+ */
+function articleCategoryNames(article) {
+  const raw = article.category;
+  const arr = Array.isArray(raw) ? raw : [raw];
+  const names = arr.map(normalizeCategoryName).filter(Boolean);
+  return names.length ? [...new Set(names)] : ['コラム'];
+}
+
+/**
+ * 記事カードのHTMLを生成（article/index.html の静的生成用）
+ * 高密度カード: サムネ + カテゴリ + 日付 + タイトル + 説明文（著者は表示しない）
+ * data-cats はクライアント側のカテゴリ絞り込みで使用する
+ */
+function buildCardHtml(article) {
   const date = formatDateJST(article.publishedAt);
   const url = `/columns/${article.slug}/`;
   const img = article.eyecatchUrl
-    ? `${article.eyecatchUrl}?fit=crop&w=600&h=338&q=80`
+    ? `${article.eyecatchUrl}?fit=crop&w=480&h=270&q=80`
     : (article.eyecatch?.url
-      ? `${article.eyecatch.url}?fit=crop&w=600&h=338&q=80`
-      : 'https://placehold.co/600x338?text=No+Image');
+      ? `${article.eyecatch.url}?fit=crop&w=480&h=270&q=80`
+      : 'https://placehold.co/480x270?text=No+Image');
   const title = escapeHtml(article.title);
+  const desc = escapeHtml(String(article.description || '').trim());
+  const cats = articleCategoryNames(article);
+  const catAttr = escapeHtml(cats.join('|'));
+  const primary = cats[0];
+  const isPick = primary === 'Kokuban BASE独自取材';
 
-  // カテゴリラベルの解決
-  let categoryId = 'column';
-  let categoryName = 'コラム';
-  let rawCat = article.category;
-  if (Array.isArray(rawCat) && rawCat.length > 0) rawCat = rawCat[0];
-  if (rawCat) {
-    if (typeof rawCat === 'string') {
-      categoryId = rawCat;
-      categoryName = rawCat;
-    } else if (typeof rawCat === 'object' && rawCat.id) {
-      categoryId = rawCat.id;
-      categoryName = rawCat.name || categoryId;
-    }
-  }
-  if (['interview', '対談記事', 'taidan'].includes(categoryId)) {
-    categoryId = 'interview';
-    categoryName = 'Kokuban BASE独自取材';
-  } else if (['column', 'コラム'].includes(categoryId)) {
-    categoryId = 'column';
-    categoryName = 'コラム';
-  }
-
-  const categoryClass = categoryId === 'interview' ? 'bg-pink-500' : 'bg-[#103f99]';
-
-  if (type === 'interview') {
-    return `
-      <article class="article-card bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full border border-gray-100 group">
-        <a href="${url}" class="block img-container relative">
-          <img src="${img}" alt="${title}" class="w-full h-full object-cover" loading="lazy">
-        </a>
-        <div class="p-4 flex flex-col flex-grow">
-          <div class="text-[10px] text-gray-400 mb-1 flex items-center gap-2 font-bold">
-            <span><i class="far fa-calendar-alt"></i> ${date}</span>
-            <span class="${categoryClass} text-white px-2 py-0.5 rounded-full shadow-sm">${categoryName}</span>
+  return `
+      <article class="kb-art-card" data-cats="${catAttr}">
+        <a href="${url}">
+          <figure><img src="${img}" alt="${title}" loading="lazy" decoding="async"></figure>
+          <div class="kb-art-card__body">
+            <div class="kb-art-card__meta"><span class="cat${isPick ? ' is-pick' : ''}">${escapeHtml(primary)}</span><time>${date}</time></div>
+            <h2>${title}</h2>
+            ${desc ? `<p>${desc}</p>` : ''}
           </div>
-          <h3 class="text-sm font-bold mb-2 text-gray-800 line-clamp-2 group-hover:text-[#103f99] transition-colors leading-snug">
-            <a href="${url}">${title}</a>
-          </h3>
-        </div>
-      </article>`;
-  } else {
-    return `
-      <article class="article-card bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full group">
-        <a href="${url}" class="block img-container relative">
-          <img src="${img}" alt="${title}" class="w-full h-full object-cover" loading="lazy">
         </a>
-        <div class="p-5 flex flex-col flex-grow">
-          <div class="text-xs text-gray-400 mb-2 font-bold flex items-center gap-2">
-            <span>${date}</span>
-            <span class="${categoryClass} text-white text-[10px] px-2 py-0.5 rounded shadow-sm">${categoryName}</span>
-          </div>
-          <h3 class="font-bold text-gray-800 mb-2 line-clamp-2 text-sm md:text-base group-hover:text-[#103f99] transition-colors">
-            <a href="${url}">${title}</a>
-          </h3>
-        </div>
       </article>`;
-  }
+}
+
+/**
+ * 編集部Pick Up（サイドバー）1件分のHTML
+ */
+function buildPickupHtml(article) {
+  const date = formatDateJST(article.publishedAt);
+  const url = `/columns/${article.slug}/`;
+  const img = article.eyecatchUrl
+    ? `${article.eyecatchUrl}?fit=crop&w=240&h=150&q=80`
+    : (article.eyecatch?.url
+      ? `${article.eyecatch.url}?fit=crop&w=240&h=150&q=80`
+      : 'https://placehold.co/240x150?text=No+Image');
+  const title = escapeHtml(article.title);
+  return `
+      <a class="kb-art-pick" href="${url}">
+        <figure><img src="${img}" alt="" loading="lazy" decoding="async"></figure>
+        <div><h3>${title}</h3><time>${date}</time></div>
+      </a>`;
 }
 
 /**
@@ -1661,60 +1669,33 @@ async function buildArticleListPage(articles) {
   // 念のための保険: 何らかの理由で混入した git コンフリクトマーカー行を除去
   html = html.replace(/^[ \t]*(?:<{7}|={7}|>{7})[^\n]*\r?\n?/gm, '');
 
-  // カテゴリ分け
-  const interviewArticles = articles.filter(a => isInterview(a));
-  const columnArticles = articles.filter(a => !isInterview(a));
+  // ① 全記事を1つの高密度グリッドに注入（カテゴリ絞り込みはクライアント側の data-cats で行う）
+  const allHtml = articles.length > 0
+    ? articles.map(a => buildCardHtml(a)).join('\n')
+    : '<p class="kb-art-empty">記事が見つかりませんでした。</p>';
 
-  // 新着3件（全カテゴリから）
-  const newArrivalsHtml = articles.slice(0, 3).map(a => buildCardHtml(a, 'standard')).join('\n');
-
-  // Kokuban BASE独自取材（全件）
-  const interviewHtml = interviewArticles.length > 0
-    ? interviewArticles.map(a => buildCardHtml(a, 'interview')).join('\n')
-    : '<div class="col-span-full text-center text-gray-500 py-8">Kokuban BASE独自取材は現在準備中です。</div>';
-
-  // コラム（全件）
-  const columnHtml = columnArticles.length > 0
-    ? columnArticles.map(a => buildCardHtml(a, 'standard')).join('\n')
-    : '<div class="col-span-full text-center text-gray-500 py-8">記事が見つかりませんでした。</div>';
-
-  // ① 新着記事セクションを置換
   html = html.replace(
-    /<div id="new-arrivals-list"[\s\S]*?<\/div>\s*(?=<\/section>|<div class="mt)/,
-    `<div id="new-arrivals-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">\n${newArrivalsHtml}\n</div>\n`
+    /<div id="all-articles" class="kb-art-grid"><\/div>/,
+    `<div id="all-articles" class="kb-art-grid">\n${allHtml}\n</div>`
   );
 
-  // ② Kokuban BASE独自取材セクションを置換
+  // ② 編集部Pick Up: 独自取材の最新5件（足りなければ他カテゴリの新着で補完）
+  const interviews = articles.filter(a => isInterview(a));
+  const others = articles.filter(a => !isInterview(a));
+  const pickups = interviews.slice(0, 5);
+  for (const a of others) {
+    if (pickups.length >= 5) break;
+    pickups.push(a);
+  }
+  const pickupHtml = pickups.map(a => buildPickupHtml(a)).join('\n');
   html = html.replace(
-    /<div id="interview-list"[\s\S]*?<\/div>\s*(?=\n\s*<div class="mt)/,
-    `<div id="interview-list" class="grid grid-cols-2 lg:grid-cols-4 gap-6">\n${interviewHtml}\n</div>\n`
-  );
-
-  // ③ コラムセクションを置換
-  html = html.replace(
-    /<div id="column-list"[\s\S]*?<\/div>\s*(?=\n\s*<div class="mt)/,
-    `<div id="column-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">\n${columnHtml}\n</div>\n`
-  );
-
-  // ④ 「もっと読み込む」系のボタンは全件表示済みなので非表示に（冪等: 既に付与済みなら追加しない）
-  html = html.replace(
-    /id="interview-more-container"(?!\s+style="display:none")/g,
-    'id="interview-more-container" style="display:none"'
-  );
-  html = html.replace(
-    /id="column-more-container"(?!\s+style="display:none")/g,
-    'id="column-more-container" style="display:none"'
-  );
-
-  // ⑤ APIキーを含むscriptブロックを除去（静的生成済みのため不要、セキュリティ対策）
-  html = html.replace(
-    /<!--\s*JavaScript Logic\s*-->\s*<script>[\s\S]*?<\/script>/,
-    '<!-- Scripts removed: statically generated -->'
+    /<div id="pickup-list"><\/div>/,
+    `<div id="pickup-list">\n${pickupHtml}\n</div>`
   );
 
   try {
     fs.writeFileSync(ARTICLE_HTML_PATH, html);
-    console.log(`article.html の静的生成が完了しました（新着:${articles.slice(0, 3).length}件 / 対談:${interviewArticles.length}件 / コラム:${columnArticles.length}件）。`);
+    console.log(`article.html の静的生成が完了しました（全${articles.length}件 / Pick Up:${pickups.length}件）。`);
   } catch (err) {
     console.error('article.html の書き込みに失敗しました:', err);
   }
