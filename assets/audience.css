@@ -1,0 +1,508 @@
+/* =========================================================
+   学校向け (/school/)・学習塾向け (/juku/) 専用スタイル
+   「電子黒板とは」(about.css)・「ラインナップ」(lineup.css) と
+   同じトーンで統一したオーディエンス別ページ
+   ========================================================= */
+
+.kb-aud-page {
+  --aud-blue: #103f99;
+  --aud-navy: #14295e;
+  --aud-ink: #22314f;
+  --aud-pink: #e9558c;
+  --aud-line: #dee5f0;
+  --aud-soft: #eef3fa;
+  --aud-muted: #5a6b85;
+  --aud-radius: 12px;
+  --aud-shadow: 0 10px 26px rgba(20, 41, 94, .07);
+  background: #f2f5f9;
+  color: var(--aud-ink);
+}
+
+/* ---------- 共通: セクション幅・見出し ---------- */
+
+.kb-aud-section {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: clamp(26px, 3.4vw, 48px) 0 clamp(10px, 1.6vw, 20px);
+}
+
+.kb-aud-h {
+  margin: 0 0 clamp(18px, 2.4vw, 28px);
+  color: var(--aud-navy);
+  font-size: clamp(19px, 2.1vw, 26px);
+  font-weight: 900;
+  line-height: 1.5;
+  letter-spacing: .01em;
+}
+
+.kb-aud-h.is-center {
+  text-align: center;
+}
+
+.kb-aud-h-note {
+  margin: -10px 0 clamp(18px, 2.4vw, 28px);
+  text-align: center;
+  color: var(--aud-muted);
+  font-size: clamp(12.5px, 1.15vw, 14px);
+  line-height: 1.9;
+}
+
+/* ---------- 共通: ボタン ---------- */
+
+.kb-aud-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.kb-aud-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 56px;
+  min-width: 240px;
+  padding: 14px 44px 14px 28px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.3;
+  text-align: center;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.kb-aud-btn:hover {
+  opacity: .88;
+  transform: translateY(-1px);
+}
+
+.kb-aud-btn::after {
+  content: "›";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-52%);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.kb-aud-btn--navy {
+  background: var(--aud-navy);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(20, 41, 94, .24);
+}
+
+.kb-aud-btn--pink {
+  background: var(--aud-pink);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(233, 85, 140, .24);
+}
+
+.kb-aud-btn--ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, .85);
+  color: #fff;
+}
+
+/* ---------- ヒーロー ---------- */
+
+.kb-aud-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #e8edf4 0%, #e4eaf2 100%);
+}
+
+.kb-aud-hero__inner {
+  position: relative;
+  width: min(1240px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(360px, .94fr) minmax(420px, 1.06fr);
+  align-items: center;
+  min-height: clamp(360px, 32vw, 500px);
+}
+
+.kb-aud-hero__copy {
+  position: relative;
+  z-index: 2;
+  padding: clamp(34px, 4vw, 64px) 0;
+  max-width: 560px;
+}
+
+.kb-aud-kicker {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: var(--aud-blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.kb-aud-hero h1 {
+  margin: 0;
+  color: var(--aud-navy);
+  font-size: clamp(30px, 3.3vw, 48px);
+  font-weight: 900;
+  line-height: 1.28;
+  letter-spacing: .01em;
+}
+
+.kb-aud-hero .kb-aud-lead {
+  margin: 20px 0 0;
+  color: #3c4c68;
+  font-size: clamp(13px, 1.15vw, 15px);
+  line-height: 2;
+}
+
+.kb-aud-hero .kb-aud-actions {
+  margin-top: 28px;
+}
+
+.kb-aud-hero__visual {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 47%;
+  right: calc(50% - 50vw);
+  margin: 0;
+  overflow: hidden;
+}
+
+.kb-aud-hero__visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.kb-aud-hero__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #e7ecf3 0%, rgba(231, 236, 243, 0) 16%);
+}
+
+/* ---------- 検討段階（3カード / lineup の criteria と同型） ---------- */
+
+.kb-aud-criteria {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  border: 1px solid var(--aud-line);
+  border-radius: var(--aud-radius);
+  background: #fff;
+  box-shadow: var(--aud-shadow);
+}
+
+.kb-aud-criteria li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  column-gap: 10px;
+  align-content: start;
+  padding: 22px 22px 20px;
+}
+
+.kb-aud-criteria li + li {
+  border-left: 1px solid #e7edf6;
+}
+
+.kb-aud-criteria i {
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--aud-blue);
+  color: #fff;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.kb-aud-criteria strong {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  color: var(--aud-navy);
+  font-size: 15.5px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.kb-aud-criteria em {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: start;
+  margin-top: 8px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #e9f0fc;
+  color: var(--aud-blue);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+.kb-aud-criteria p {
+  grid-column: 2;
+  grid-row: 3;
+  margin: 10px 0 0;
+  color: var(--aud-muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+/* ---------- できること（カードグリッド） ---------- */
+
+.kb-aud-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 22px);
+}
+
+.kb-aud-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 22px 20px;
+  border: 1px solid var(--aud-line);
+  border-radius: var(--aud-radius);
+  background: #fff;
+  box-shadow: var(--aud-shadow);
+}
+
+.kb-aud-card__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  background: var(--aud-soft);
+  color: var(--aud-blue);
+  font-family: 'Assistant', 'Noto Sans JP', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.kb-aud-card h3 {
+  margin: 0;
+  color: var(--aud-navy);
+  font-size: 15.5px;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.kb-aud-card p {
+  margin: 10px 0 0;
+  color: var(--aud-muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.kb-aud-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 14px;
+  color: var(--aud-blue);
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.kb-aud-card__link::after {
+  content: "›";
+  font-size: 16px;
+  line-height: 1;
+}
+
+.kb-aud-card__link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 運営会社バンド（塾向け） ---------- */
+
+.kb-aud-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  margin-top: clamp(16px, 2vw, 24px);
+  padding: 18px 22px;
+  border-radius: var(--aud-radius);
+  border: 1px solid var(--aud-line);
+  background: #fff;
+  box-shadow: var(--aud-shadow);
+}
+
+.kb-aud-note__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--aud-navy);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  white-space: nowrap;
+}
+
+.kb-aud-note p {
+  margin: 0;
+  color: var(--aud-ink);
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+
+/* ---------- CTA（lineup と同型のネイビー帯） ---------- */
+
+.kb-aud-cta {
+  margin-top: clamp(26px, 3.6vw, 52px);
+  background: var(--aud-navy);
+}
+
+.kb-aud-cta__inner {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(22px, 3vw, 48px);
+  align-items: center;
+  padding: clamp(28px, 3.4vw, 46px) 0;
+}
+
+.kb-aud-cta h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(19px, 2.1vw, 27px);
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.kb-aud-cta p {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, .75);
+  font-size: clamp(12.5px, 1.1vw, 14px);
+  line-height: 1.8;
+}
+
+.kb-aud-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.kb-aud-cta__actions .kb-aud-btn {
+  min-width: 230px;
+}
+
+/* ---------- 次に見るページ（余白調整） ---------- */
+
+.kb-aud-page .kb-next-links {
+  width: min(1200px, calc(100% - 48px));
+  margin: clamp(26px, 3.4vw, 44px) auto clamp(34px, 4vw, 56px);
+}
+
+/* =========================================================
+   レスポンシブ
+   ========================================================= */
+
+@media (max-width: 1080px) {
+  .kb-aud-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .kb-aud-hero__inner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .kb-aud-hero__copy {
+    max-width: none;
+    padding: clamp(28px, 6vw, 40px) 0 10px;
+  }
+
+  .kb-aud-hero__visual {
+    position: relative;
+    left: auto;
+    right: auto;
+    height: clamp(180px, 40vw, 280px);
+    margin: 18px calc(50% - 50vw) 0;
+  }
+
+  .kb-aud-hero__visual::after {
+    background: none;
+  }
+
+  .kb-aud-criteria {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-aud-criteria li + li {
+    border-left: 0;
+    border-top: 1px solid #e7edf6;
+  }
+
+  .kb-aud-cta__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-aud-cta__actions .kb-aud-btn {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .kb-aud-section {
+    width: calc(100% - 32px);
+  }
+
+  .kb-aud-hero__inner,
+  .kb-aud-cta__inner {
+    width: calc(100% - 32px);
+  }
+
+  .kb-aud-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-aud-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .kb-aud-btn {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .kb-aud-note {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+}

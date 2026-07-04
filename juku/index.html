@@ -27,6 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=20260704-ux2">
+  <link rel="stylesheet" href="../assets/audience.css?v=20260704-aud1">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kokuban BASE","item":"https://kokuban-base.com/"},{"@type":"ListItem","position":2,"name":"学習塾向け導入支援","item":"https://kokuban-base.com/juku/"}]}
   </script>
@@ -45,56 +46,120 @@
     <nav class="global-nav" aria-label="主要メニュー"><a href="../denshikokuban/">電子黒板とは</a><a href="../service/">Kokuban BASEでできること</a><a href="../support/">ご利用ガイド</a><a href="../lease/">リース</a><a href="../lineup/">ラインナップ</a><a href="../experience/">実機体験</a><a href="../article/">コラム</a><a href="../voices/">先生の体験談</a></nav>
   </header>
 
-  <main class="subpage">
-    <section class="page-hero">
-      <p>For Juku</p>
-      <h1>学習塾向け 電子黒板導入支援</h1>
-      <span>1教室から、月々定額のリースで。個別指導・少人数・集団授業それぞれに合う一台を、塾を運営する会社ならではの目線でご提案します。</span>
+  <main class="kb-aud-page">
+
+    <!-- 1. ヒーロー -->
+    <section class="kb-aud-hero">
+      <div class="kb-aud-hero__inner">
+        <div class="kb-aud-hero__copy">
+          <p class="kb-aud-kicker">FOR JUKU</p>
+          <h1>学習塾向け<br>電子黒板導入支援</h1>
+          <p class="kb-aud-lead">1教室から、月々定額のリースで。個別指導・少人数・集団授業それぞれに合う一台を、京都で学習塾を運営する会社ならではの目線でご提案します。</p>
+          <div class="kb-aud-actions">
+            <a class="kb-aud-btn kb-aud-btn--pink" href="../contact/">無料で相談する</a>
+            <a class="kb-aud-btn kb-aud-btn--navy" href="#can">支援内容を見る</a>
+          </div>
+        </div>
+        <figure class="kb-aud-hero__visual">
+          <img src="../assets/usecase-01.png" alt="学習塾の少人数指導スペースに設置された電子黒板" loading="eager" decoding="async" onerror="this.style.display='none'">
+        </figure>
+      </div>
     </section>
 
-    <section class="page-section service-message">
-      <div class="split-panel">
-        <div>
-          <span>01</span>
-          <h2>塾ならではの悩みに合わせて</h2>
-        </div>
-        <p>学習塾の導入は、学校とは判断の仕方が違います。初期費用、教室数、授業形式に合わせて、無理のない導入プランを設計します。</p>
-      </div>
-      <ul class="check-list check-list--row">
-        <li><b>初期費用を抑えたい</b><br>一括購入だけでなく、月々定額の<a href="../lease/">Kokuban リース</a>で負担を分けて導入できます。</li>
-        <li><b>まず1教室から試したい</b><br>メイン教室や看板講座から導入し、手応えを見て広げる段階導入もご提案します。</li>
-        <li><b>授業の見せ方で差別化したい</b><br>個別・少人数・集団、それぞれの授業形式に合うサイズ・機種を選べます。</li>
-      </ul>
+    <!-- 2. 塾ならではの検討ポイント -->
+    <section class="kb-aud-section">
+      <h2 class="kb-aud-h is-center">塾ならではのお悩みに、合わせて設計します。</h2>
+      <ol class="kb-aud-criteria">
+        <li>
+          <i aria-hidden="true">1</i>
+          <strong>初期費用を抑えたい</strong>
+          <em>月々定額のリース</em>
+          <p>一括購入だけでなく、月々定額のKokuban リースで負担を分けて導入できます。開校や設備投資が重なる時期でも検討しやすい方法です。</p>
+        </li>
+        <li>
+          <i aria-hidden="true">2</i>
+          <strong>まず1教室から試したい</strong>
+          <em>段階導入OK</em>
+          <p>メイン教室や看板講座から導入し、手応えを見て広げる進め方もご提案します。教室数に合わせて無理なく計画できます。</p>
+        </li>
+        <li>
+          <i aria-hidden="true">3</i>
+          <strong>授業の見せ方で差別化したい</strong>
+          <em>授業形式に合わせて</em>
+          <p>個別・少人数・集団、それぞれの授業形式に合うサイズ・機種を選べます。生徒募集の場面でも「見せられる教室」になります。</p>
+        </li>
+      </ol>
     </section>
 
-    <section class="page-section service-message">
-      <div class="split-panel">
-        <div>
-          <span>02</span>
-          <h2>学習塾向けにできること</h2>
-        </div>
-        <p>運営会社の株式会社idea spotは、京都で会員制難関受験専門塾「エリオ」を運営しています。塾の現場で電子黒板を毎日使っているからこそ、導入前後のリアルなご相談に対応できます。</p>
+    <!-- 3. できること -->
+    <section class="kb-aud-section" id="can">
+      <h2 class="kb-aud-h is-center">学習塾向けに、Kokuban BASEができること。</h2>
+      <p class="kb-aud-h-note">機種選びから費用計画、導入後の授業活用まで、一つの窓口でご相談いただけます。</p>
+      <div class="kb-aud-cards">
+        <article class="kb-aud-card">
+          <span class="kb-aud-card__num" aria-hidden="true">01</span>
+          <h3>教室規模・授業形式に合わせた機種選定</h3>
+          <p>個別ブースから集団教室まで、取り扱い5ブランドから適した一台をご提案します。</p>
+          <a class="kb-aud-card__link" href="../lineup/">5ブランドを比較する</a>
+        </article>
+        <article class="kb-aud-card">
+          <span class="kb-aud-card__num" aria-hidden="true">02</span>
+          <h3>月々定額のリース導入</h3>
+          <p>65インチ・5年契約で月々14,190円（税込）〜の例など、初期費用を抑えたプランを整理します。リースには審査があります。</p>
+          <a class="kb-aud-card__link" href="../lease/">Kokuban リースを見る</a>
+        </article>
+        <article class="kb-aud-card">
+          <span class="kb-aud-card__num" aria-hidden="true">03</span>
+          <h3>実機体験・オンラインデモ</h3>
+          <p>京都のショールームや全国対応のオンラインデモで、導入前に見え方・書き心地を確認できます。</p>
+          <a class="kb-aud-card__link" href="../experience/">実機体験を見る</a>
+        </article>
+        <article class="kb-aud-card">
+          <span class="kb-aud-card__num" aria-hidden="true">04</span>
+          <h3>授業での活用支援</h3>
+          <p>板書のQR共有、画面分割、AI活用など、明日の授業で使える活用例を発信・ご提案しています。</p>
+          <a class="kb-aud-card__link" href="../article/">活用コラムを見る</a>
+        </article>
+        <article class="kb-aud-card">
+          <span class="kb-aud-card__num" aria-hidden="true">05</span>
+          <h3>開校・増床のタイミングにも</h3>
+          <p>新規開校や教室追加の設備計画と合わせて、導入台数・時期・費用のバランスを一緒に整理します。</p>
+        </article>
+        <article class="kb-aud-card">
+          <span class="kb-aud-card__num" aria-hidden="true">06</span>
+          <h3>導入後の相談窓口</h3>
+          <p>「この機能はどう使う？」という導入後の疑問も、引き続きご相談いただけます。導入して終わりにしません。</p>
+        </article>
       </div>
-      <ul class="check-list">
-        <li><strong>教室規模・授業形式に合わせた機種選定</strong>個別ブースから集団教室まで、<a href="../lineup/">取り扱い5ブランド</a>から適した一台をご提案します。</li>
-        <li><strong>月々定額のリース導入</strong>65インチ・5年契約で月々14,190円（税込）〜の例など、初期費用を抑えたプランを整理します。リースには審査があります。</li>
-        <li><strong>実機体験・オンラインデモ</strong>京都の<a href="../experience/">ショールーム</a>やオンラインデモで、導入前に見え方・書き心地を確認できます。</li>
-        <li><strong>授業での活用支援</strong>板書のQR共有、画面分割、AI活用など、<a href="../article/">授業がそのまま変わる活用例</a>を発信・ご提案しています。</li>
-        <li><strong>導入後の相談窓口</strong>「この機能はどう使う？」という導入後の疑問も、引き続きご相談いただけます。</li>
-      </ul>
-      <div class="kb-next-cta">
-        <p>教室数と授業形式をお聞かせいただければ、費用感を含めた進め方からご提案します。</p>
-        <a class="kb-next-cta__btn" href="../contact/">塾の導入について相談する<i aria-hidden="true">›</i></a>
+      <div class="kb-aud-note">
+        <span class="kb-aud-note__badge">運営会社は塾でもあります</span>
+        <p>Kokuban BASEを運営する株式会社idea spotは、京都で会員制難関受験専門塾「エリオ」を運営しています。塾の現場で電子黒板を毎日使っているからこそ、導入前後のリアルなご相談に対応できます。</p>
       </div>
-      <nav class="kb-next-links" aria-label="次に見るページ">
-        <p class="kb-next-links__label">あわせてよく見られているページ</p>
-        <div class="kb-next-links__row">
-          <a href="../lease/"><strong>Kokuban リース</strong><span>月々定額での導入を見る</span></a>
-          <a href="../lineup/"><strong>ブランドを比較する</strong><span>5ブランドの比較表を見る</span></a>
-          <a href="../experience/"><strong>実機体験</strong><span>ショールーム・オンラインデモ</span></a>
-        </div>
-      </nav>
     </section>
+
+    <!-- 4. CTA -->
+    <section class="kb-aud-cta">
+      <div class="kb-aud-cta__inner">
+        <div class="kb-aud-cta__copy">
+          <h2>教室数と授業形式だけ、まずお聞かせください。</h2>
+          <p>費用感を含めた進め方から、経験豊富なスタッフがご提案します。</p>
+        </div>
+        <div class="kb-aud-cta__actions">
+          <a class="kb-aud-btn kb-aud-btn--pink" href="../contact/">塾の導入について相談する</a>
+          <a class="kb-aud-btn kb-aud-btn--ghost" href="../lease/">リースを詳しく見る</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 次に見るページ -->
+    <nav class="kb-next-links" aria-label="次に見るページ">
+      <p class="kb-next-links__label">あわせてよく見られているページ</p>
+      <div class="kb-next-links__row">
+        <a href="../lease/"><strong>Kokuban リース</strong><span>月々定額での導入を見る</span></a>
+        <a href="../lineup/"><strong>ブランドを比較する</strong><span>5ブランドの比較表を見る</span></a>
+        <a href="../experience/"><strong>実機体験</strong><span>ショールーム・オンラインデモ</span></a>
+      </div>
+    </nav>
   </main>
 
   <footer class="site-footer">
