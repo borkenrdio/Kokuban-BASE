@@ -9854,10 +9854,10 @@ body:has(.sticky-cta) .site-footer {
   border: 1px solid rgba(255, 255, 255, .14);
   background: #091f49;
   box-shadow: 0 26px 54px rgba(0, 0, 0, .38);
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 16 / 9;
 }
 
-.lp-features-demo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.lp-features-demo img { display: block; width: 100%; height: 100%; object-fit: contain; }
 
 .lp-features-list {
   display: grid;
@@ -9939,7 +9939,7 @@ body:has(.sticky-cta) .site-footer {
   border: 1px solid rgba(255, 255, 255, .14);
   background: #091f49;
   box-shadow: 0 22px 44px rgba(0, 0, 0, .28);
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 16 / 9;
 }
 
 .lp-feature-mobile-preview img {
@@ -9947,7 +9947,7 @@ body:has(.sticky-cta) .site-footer {
   width: 100%;
   max-width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .lp-feature-card-preview {
@@ -9965,7 +9965,7 @@ body:has(.sticky-cta) .site-footer {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .lp-feature-article {
@@ -9995,7 +9995,8 @@ body:has(.sticky-cta) .site-footer {
   width: 96px;
   height: 58px;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
+  background: #fff;
 }
 
 .lp-feature-article span {
@@ -10029,7 +10030,7 @@ body:has(.sticky-cta) .site-footer {
 
 .lp-feature-note-text h3 { margin: 0 0 6px; font-size: 15px; font-weight: 800; }
 .lp-feature-note-text p { margin: 0; color: rgba(255, 255, 255, .74); font-size: 12.5px; line-height: 1.7; }
-.lp-feature-note img { flex: 0 0 auto; width: 104px; height: 66px; object-fit: cover; border-radius: 8px; }
+.lp-feature-note img { flex: 0 0 auto; width: 104px; height: 66px; object-fit: contain; border-radius: 8px; background: #fff; }
 
 .lp-features-more {
   justify-self: end;
