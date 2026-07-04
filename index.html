@@ -466,7 +466,7 @@
           const dateSource = item.publishedAt || item.date || item.createdAt;
           const href = item.url || (item.slug ? 'columns/' + encodeURIComponent(item.slug) + '/' : 'article/');
           const category = getCategoryName(item.category);
-          return '<li class="news-item"><a href="' + escapeHtml(href) + '">' +
+          return '<li class="news-item"><a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer">' +
             '<time datetime="' + escapeHtml(dateSource || '') + '">' + escapeHtml(formatDate(dateSource)) + '</time>' +
             '<span class="' + newsCategoryClass(category) + '">' + escapeHtml(category) + '</span>' +
             '<span class="news-title">' + escapeHtml(item.title) + '</span>' +
