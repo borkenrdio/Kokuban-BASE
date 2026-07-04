@@ -306,6 +306,12 @@
   line-height: 1.85;
 }
 
+.kb-lu-criteria .kb-lu-crit-link {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  justify-self: start;
+}
+
 /* 共通機能ストリップ（比較表への誘導） */
 
 .kb-lu-features {
@@ -988,17 +994,26 @@
 
 /* --- 選び方基準カード内のリンク --- */
 .kb-lu-crit-link {
-  display: inline-block;
-  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  margin-top: 14px;
+  padding: 7px 13px;
+  border: 1px solid #cfe0fb;
+  border-radius: 999px;
+  background: #f6f9ff;
   color: var(--lu-blue);
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 800;
-  text-decoration: underline;
-  text-decoration-color: rgba(47, 111, 224, .35);
-  text-underline-offset: 3px;
+  line-height: 1.35;
+  text-decoration: none;
+  white-space: normal;
 }
 
 .kb-lu-crit-link:hover {
+  border-color: var(--lu-pink, #ec4899);
+  background: #fff4fa;
   color: var(--lu-pink, #ec4899);
 }
 
@@ -1050,6 +1065,7 @@
   }
 
   .kb-lu-crit-link {
+    width: 100%;
     font-size: 13.5px;
   }
 

@@ -15,6 +15,7 @@
   --about-shadow: 0 10px 26px rgba(20, 41, 94, .07);
   background: #f2f5f9;
   color: var(--about-ink);
+  scroll-padding-top: 118px;
 }
 
 /* ---------- 共通: セクション幅・見出し ---------- */
@@ -23,6 +24,7 @@
   width: min(1200px, calc(100% - 48px));
   margin: 0 auto;
   padding: clamp(26px, 3.4vw, 48px) 0 clamp(10px, 1.6vw, 20px);
+  scroll-margin-top: 118px;
 }
 
 .kb-about-h {
@@ -32,6 +34,10 @@
   font-weight: 900;
   line-height: 1.5;
   letter-spacing: .01em;
+}
+
+.kb-about-h[id] {
+  scroll-margin-top: 118px;
 }
 
 .kb-about-h.is-center {
@@ -1393,6 +1399,9 @@
 }
 
 @media (max-width: 760px) {
+  .kb-about-page {
+    scroll-padding-top: 94px;
+  }
 
   /* PC用セクションと共通フッターを差し替え */
   .kb-about-page > section {
@@ -1413,6 +1422,7 @@
     width: calc(100% - 32px);
     margin: 0 auto;
     padding: 30px 0 6px;
+    scroll-margin-top: 94px;
   }
 
   .sp-h {

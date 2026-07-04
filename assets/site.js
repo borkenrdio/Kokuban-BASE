@@ -27,9 +27,42 @@
     });
   }
 
+  function normalizePath(path) {
+    return path.replace(/\/index\.html$/, '/').replace(/\/+$/, '/');
+  }
+
+  function setupCurrentNav() {
+    var currentPath = normalizePath(window.location.pathname || '/');
+
+    document.querySelectorAll('.global-nav').forEach(function (nav) {
+      nav.querySelectorAll('a[href]').forEach(function (link) {
+        var url;
+        try {
+          url = new URL(link.getAttribute('href'), window.location.href);
+        } catch (error) {
+          return;
+        }
+
+        var linkPath = normalizePath(url.pathname || '/');
+        var isCurrent = linkPath !== '/' && (currentPath === linkPath || currentPath.indexOf(linkPath) === 0);
+
+        link.classList.toggle('is-current', isCurrent);
+        if (isCurrent) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupMobileMenu);
+    document.addEventListener('DOMContentLoaded', function () {
+      setupMobileMenu();
+      setupCurrentNav();
+    });
   } else {
     setupMobileMenu();
+    setupCurrentNav();
   }
 })();
