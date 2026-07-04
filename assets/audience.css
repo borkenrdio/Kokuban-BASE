@@ -506,3 +506,516 @@
     justify-items: start;
   }
 }
+
+/* =========================================================
+   ビジュアル拡張（学習塾向けページ）
+   ========================================================= */
+
+/* ---------- 悩み3ポイント（ピクトグラム） ---------- */
+
+.kb-aud-points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 22px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kb-aud-points li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 26px 22px 24px;
+  border: 1px solid var(--aud-line);
+  border-radius: var(--aud-radius);
+  background: #fff;
+  box-shadow: var(--aud-shadow);
+}
+
+.kb-aud-points .pt-ico {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--aud-soft);
+  color: var(--aud-blue);
+}
+
+.kb-aud-points .pt-ico svg {
+  width: 38px;
+  height: 38px;
+}
+
+.kb-aud-points .pt-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kb-aud-points strong {
+  margin-top: 14px;
+  color: var(--aud-navy);
+  font-size: 15.5px;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.kb-aud-points em {
+  margin-top: 8px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #fdeaf2;
+  color: var(--aud-pink);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+.kb-aud-points p {
+  margin: 10px 0 0;
+  color: var(--aud-muted);
+  font-size: 12.5px;
+  line-height: 1.9;
+}
+
+/* ---------- 費用の図解バンド ---------- */
+
+.kb-aud-price {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(18px, 2.4vw, 34px);
+  align-items: center;
+  padding: clamp(22px, 2.8vw, 36px);
+  border: 1px solid var(--aud-line);
+  border-radius: var(--aud-radius);
+  background: #fff;
+  box-shadow: var(--aud-shadow);
+}
+
+.kb-aud-price__photo {
+  margin: 0;
+  text-align: center;
+}
+
+.kb-aud-price__photo img {
+  max-width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+}
+
+.kb-aud-price__photo figcaption {
+  margin-top: 8px;
+  color: var(--aud-muted);
+  font-size: 11.5px;
+}
+
+.kb-aud-price__num {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  color: var(--aud-navy);
+}
+
+.kb-aud-price__num .unit {
+  font-size: clamp(15px, 1.6vw, 19px);
+  font-weight: 900;
+}
+
+.kb-aud-price__num strong {
+  font-family: 'Assistant', 'Noto Sans JP', sans-serif;
+  font-size: clamp(46px, 5.6vw, 72px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.01em;
+  color: var(--aud-blue);
+}
+
+.kb-aud-price__num .yen {
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 900;
+}
+
+.kb-aud-price__num .tax {
+  color: var(--aud-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.kb-aud-price__notes {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  color: var(--aud-muted);
+  font-size: 11.5px;
+}
+
+.kb-aud-price__notes li::before {
+  content: "※ ";
+}
+
+.kb-aud-price__feats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.kb-aud-price__feats figure {
+  margin: 0;
+  padding: 12px 8px 10px;
+  border-radius: 10px;
+  background: var(--aud-soft);
+  text-align: center;
+}
+
+.kb-aud-price__feats img {
+  width: 100%;
+  max-height: 74px;
+  object-fit: contain;
+}
+
+.kb-aud-price__feats figcaption {
+  margin-top: 6px;
+  color: var(--aud-navy);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.kb-aud-price__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  color: var(--aud-blue);
+  font-size: 13.5px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.kb-aud-price__link::after {
+  content: "›";
+  font-size: 17px;
+}
+
+.kb-aud-price__link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 導入までの流れ（図解） ---------- */
+
+.kb-aud-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: flow;
+}
+
+.kb-aud-flow li {
+  position: relative;
+  counter-increment: flow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 14px 20px;
+  border: 1px solid var(--aud-line);
+  border-radius: var(--aud-radius);
+  background: #fff;
+  box-shadow: var(--aud-shadow);
+}
+
+.kb-aud-flow li:not(:last-child)::after {
+  content: "›";
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: var(--aud-blue);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.kb-aud-flow .fl-ico {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--aud-soft);
+  color: var(--aud-blue);
+}
+
+.kb-aud-flow .fl-ico::before {
+  content: counter(flow);
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--aud-blue);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 900;
+}
+
+.kb-aud-flow .fl-ico svg {
+  width: 32px;
+  height: 32px;
+}
+
+.kb-aud-flow strong {
+  margin-top: 12px;
+  color: var(--aud-navy);
+  font-size: 14.5px;
+  font-weight: 900;
+}
+
+.kb-aud-flow span {
+  margin-top: 6px;
+  color: var(--aud-muted);
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+
+/* ---------- 導入事例（写真カード） ---------- */
+
+.kb-aud-cases {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 22px);
+}
+
+.kb-aud-case {
+  overflow: hidden;
+  border: 1px solid var(--aud-line);
+  border-radius: var(--aud-radius);
+  background: #fff;
+  box-shadow: var(--aud-shadow);
+}
+
+.kb-aud-case figure {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.kb-aud-case figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kb-aud-case figure figcaption {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(20, 41, 94, .88);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+.kb-aud-case__body {
+  padding: 16px 18px 18px;
+}
+
+.kb-aud-case__result {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #fdeaf2;
+  color: var(--aud-pink);
+  font-size: 11.5px;
+  font-weight: 900;
+}
+
+.kb-aud-case h3 {
+  margin: 10px 0 0;
+  color: var(--aud-navy);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.kb-aud-case p {
+  margin: 8px 0 0;
+  color: var(--aud-muted);
+  font-size: 12.5px;
+  line-height: 1.9;
+}
+
+/* ---------- 実例・活用コラム（サムネイルカード） ---------- */
+
+.kb-aud-articles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 18px);
+}
+
+.kb-aud-article {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--aud-line);
+  border-radius: var(--aud-radius);
+  background: #fff;
+  box-shadow: var(--aud-shadow);
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.kb-aud-article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(20, 41, 94, .13);
+}
+
+.kb-aud-article figure {
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--aud-soft);
+}
+
+.kb-aud-article figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kb-aud-article h3 {
+  margin: 0;
+  padding: 12px 14px 4px;
+  color: var(--aud-ink);
+  font-size: 12.8px;
+  font-weight: 700;
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.kb-aud-article span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+  padding: 8px 14px 14px;
+  color: var(--aud-blue);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.kb-aud-article span::after {
+  content: "›";
+  font-size: 15px;
+}
+
+.kb-aud-articles-more {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.kb-aud-articles-more a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 2px solid var(--aud-blue);
+  border-radius: 999px;
+  color: var(--aud-blue);
+  font-size: 13.5px;
+  font-weight: 900;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease;
+}
+
+.kb-aud-articles-more a:hover {
+  background: var(--aud-blue);
+  color: #fff;
+}
+
+/* ---------- レスポンシブ（拡張分） ---------- */
+
+@media (max-width: 1080px) {
+  .kb-aud-articles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .kb-aud-points {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-aud-points li {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .kb-aud-points .pt-ico {
+    flex: 0 0 auto;
+  }
+
+  .kb-aud-points .pt-body {
+    align-items: flex-start;
+  }
+
+  .kb-aud-points .pt-body strong {
+    margin-top: 0;
+  }
+
+  .kb-aud-price {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-aud-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .kb-aud-flow li:not(:last-child)::after {
+    content: none;
+  }
+
+  .kb-aud-cases {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .kb-aud-articles {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-aud-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .kb-aud-price__feats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
