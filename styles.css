@@ -3625,8 +3625,13 @@ img {
   margin: 0;
   color: #0f1419;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.85;
+}
+
+.operator-accent {
+  color: var(--pink);
+  font-weight: 700;
 }
 
 .operator-achievement {
