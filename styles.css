@@ -9686,7 +9686,7 @@ body:has(.sticky-cta) .site-footer {
 .lp-accent { color: #ff5fa6; }
 
 :root {
-  --lp-home-blue-bg: radial-gradient(125% 95% at 76% 28%, #1a3e86 0%, #0c2b6a 44%, #071d4d 100%);
+  --lp-home-blue-bg: #123a84;
 }
 
 /* ===== 1. ヒーロー ===== */
