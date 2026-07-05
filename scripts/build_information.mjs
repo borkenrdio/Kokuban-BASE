@@ -109,15 +109,42 @@ function formatDate(dateSource) {
   });
 }
 
+function isNewsItem(item) {
+  const url = String(item.url || '');
+  return !url.includes('/columns/') && !item.slug && item.source !== 'columns';
+}
+
+function newsCategoryClass(category) {
+  const name = String(category || '');
+  if (name.includes('イベント')) return 'news-cat news-cat-event';
+  if (name.includes('メディア') || name.includes('取材')) return 'news-cat news-cat-media';
+  return 'news-cat';
+}
 
 function updateHomeLatestNews(items) {
   if (!fs.existsSync(HOME_PATH)) return;
 
   const html = fs.readFileSync(HOME_PATH, 'utf8');
-  const nextHtml = html.replace(
-    /<ul id="latest-news-list"[^>]*>[\s\S]*?<\/ul>/,
-    '<ul id="latest-news-list" class="news-list"></ul>'
-  );
+  const rows = items
+    .filter(isNewsItem)
+    .slice(0, 5)
+    .map((item) => {
+      const dateSource = item.publishedAt || item.date || item.createdAt || '';
+      const category = getCategoryName(item.category);
+      const href = item.url || 'information/';
+      return '<li class="news-item"><a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer">' +
+        '<time datetime="' + escapeHtml(dateSource) + '">' + escapeHtml(formatDate(dateSource)) + '</time>' +
+        '<span class="' + newsCategoryClass(category) + '">' + escapeHtml(category) + '</span>' +
+        '<span class="news-title">' + escapeHtml(item.title || '') + '</span>' +
+        '</a></li>';
+    })
+    .join('\n        ');
+
+  const newsInner = rows || '<li class="news-item"><a href="information/"><span class="news-title">最新NEWSを一覧で見る</span></a></li>';
+  const nextList = '<ul id="latest-news-list" class="news-list"><!-- BUILD:TOP-NEWS -->\n        ' +
+    newsInner +
+    '\n      <!-- /BUILD:TOP-NEWS --></ul>';
+  const nextHtml = html.replace(/<ul id="latest-news-list"[^>]*>[\s\S]*?<\/ul>/, nextList);
 
   if (nextHtml !== html) {
     fs.writeFileSync(HOME_PATH, nextHtml);
@@ -148,6 +175,7 @@ async function main() {
 
   const normalized = allContents
     .map(normalizeItem)
+    .filter(isNewsItem)
     .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
 
   fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });

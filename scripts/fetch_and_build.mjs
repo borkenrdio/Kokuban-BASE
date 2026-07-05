@@ -1426,7 +1426,7 @@ async function buildInformationJson() {
   try {
     while (true) {
       const response = await informationClient.get({
-        endpoint: 'information',
+        endpoint: process.env.INFORMATION_ENDPOINT || 'information',
         queries: {
           fields: 'id,title,publishedAt,category,url,photo',
           limit: limit,
@@ -1445,7 +1445,7 @@ async function buildInformationJson() {
     console.log(`合計 ${allItems.length} 件のお知らせを取得しました。`);
 
     // 表示用HTML(information/index.html)が読める形に整形
-    const formatted = allItems.map(item => {
+    const formatted = allItems.filter(item => String(item.url || '').indexOf('/columns/') === -1 && !item.slug).map(item => {
       // 画像: photo は複数画像(配列)。先頭を image として渡す
       let image = null;
       if (Array.isArray(item.photo) && item.photo.length > 0 && item.photo[0] && item.photo[0].url) {
