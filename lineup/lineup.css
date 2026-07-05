@@ -673,6 +673,84 @@
   line-height: 1.3;
 }
 
+/* 例外サイズ（27型など）は色を変えて区別する */
+.kb-lu-card__sizes .is-extra {
+  border-color: #f3cddd;
+  background: #fdf2f7;
+  color: #c91f76;
+}
+
+/* ---------- 5.5 個別指導向け 27型のご案内 ---------- */
+
+.kb-lu-mini27__card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  padding: clamp(18px, 2.4vw, 26px) clamp(18px, 2.6vw, 30px);
+  border: 1px solid #f3cddd;
+  border-radius: var(--lu-radius);
+  background: linear-gradient(120deg, #fff 0%, #fdf2f7 100%);
+  box-shadow: var(--lu-shadow);
+}
+
+.kb-lu-mini27__badge {
+  flex: 0 0 auto;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--lu-pink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.kb-lu-mini27__copy {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.kb-lu-mini27__copy strong {
+  display: block;
+  color: var(--lu-navy);
+  font-size: clamp(14.5px, 1.5vw, 17px);
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.kb-lu-mini27__copy p {
+  margin: 6px 0 0;
+  color: var(--lu-muted);
+  font-size: clamp(12px, 1.1vw, 13px);
+  line-height: 1.8;
+}
+
+.kb-lu-mini27__link {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 1.5px solid var(--lu-pink);
+  border-radius: 999px;
+  color: var(--lu-pink);
+  font-size: 13px;
+  font-weight: 900;
+  transition: all .15s ease;
+}
+
+.kb-lu-mini27__link:hover {
+  background: var(--lu-pink);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .kb-lu-mini27__link {
+    width: 100%;
+  }
+}
+
 .kb-lu-card__btn {
   display: grid;
   place-items: center;
