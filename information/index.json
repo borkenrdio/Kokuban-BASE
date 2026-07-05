@@ -5,8 +5,10 @@
     "publishedAt": "2026-07-05T12:15:00.000Z",
     "date": "2026-07-05T12:15:00.000Z",
     "category": "プレスリリース",
-    "url": "",
-    "image": null
+    "url": "/information/nf-qj8oletu4/",
+    "image": null,
+    "hasContent": true,
+    "description": "Kokuban BASEでは、このたび「ミライタッチ Move 27型」の取り扱いを開始しました。ミライタッチ Moveは、教室の大型電子黒板とは異なり、個別指導ブースや少人数でのグループワーク、面談スペースなどで使いやすい27型のモバイル…"
   },
   {
     "id": "f6k9e3sxok8",
@@ -15,7 +17,9 @@
     "date": "2026-05-30T15:00:00.000Z",
     "category": "メディア",
     "url": "https://www.shijyukukai.jp/2026/05/30191",
-    "image": null
+    "image": null,
+    "hasContent": false,
+    "description": ""
   },
   {
     "id": "b-z6wvm2s",
@@ -24,7 +28,9 @@
     "date": "2026-05-01T01:00:00.000Z",
     "category": "メディア",
     "url": "http://www.juku-kyoiku.com/news/30260.html",
-    "image": null
+    "image": null,
+    "hasContent": false,
+    "description": ""
   },
   {
     "id": "77jo1e1lzes",
@@ -33,7 +39,9 @@
     "date": "2025-11-01T01:00:00.000Z",
     "category": "プレスリリース",
     "url": "https://prtimes.jp/main/html/rd/p/000000001.000170903.html",
-    "image": null
+    "image": null,
+    "hasContent": false,
+    "description": ""
   },
   {
     "id": "2n6adgdho5",
@@ -42,6 +50,8 @@
     "date": "2025-10-30T15:00:00.000Z",
     "category": "メディア",
     "url": "https://www.shijyukukai.jp/2025/10/29126",
-    "image": null
+    "image": null,
+    "hasContent": false,
+    "description": ""
   }
 ]
