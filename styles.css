@@ -14508,3 +14508,51 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
     height: 96px;
   }
 }
+
+@media (max-width: 560px) {
+  section.top-guide-cta {
+    gap: 14px;
+  }
+
+  .top-guide-card {
+    min-height: 0;
+  }
+
+  .top-guide-content,
+  .top-guide-card--guide .top-guide-content {
+    max-width: none;
+    padding: 24px;
+  }
+
+  .top-guide-card--faq .top-guide-visual {
+    display: none;
+  }
+
+  .top-guide-cta .top-guide-card p {
+    margin-bottom: 18px;
+  }
+
+  .lp-brands-logos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 16px;
+    width: min(100%, 360px);
+    margin-top: 28px;
+  }
+
+  .lp-brands-logos a {
+    min-height: 58px;
+    padding: 10px 8px;
+  }
+
+  .lp-brands-logos a:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - 16px) / 2);
+  }
+
+  .lp-brands-logos img {
+    max-width: 132px;
+    max-height: 38px;
+  }
+}
