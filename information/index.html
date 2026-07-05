@@ -227,6 +227,7 @@
                 '<span class="information-tag information-tag--' + categoryType(category) + '">' + escapeHtml(category) + '</span>' +
               '</div>' +
               '<h2>' + escapeHtml(item.title || 'お知らせ') + '</h2>' +
+              (item.description ? '<p class="information-excerpt">' + escapeHtml(item.description) + '</p>' : '') +
               '<span class="information-more">' + (external ? '外部サイトで見る' : '詳しく見る') + '</span>' +
             '</div>' +
           '</a>' +

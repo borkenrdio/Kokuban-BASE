@@ -1,6 +1,7 @@
 import { createClient } from 'microcms-js-sdk';
 import fs from 'fs';
 import path from 'path';
+import { buildInformationArtifacts } from './information_lib.mjs';
 
 // --- 設定値 ---
 const BASE_URL = 'https://kokuban-base.com'; // サイトのドメイン (末尾スラッシュなし)
@@ -1388,11 +1389,12 @@ async function fetchAllArticles() {
  *   title       … タイトル (テキスト)
  *   publishedAt … 公開日 (日時)
  *   category    … カテゴリ (コンテンツ参照。{ id, name } のオブジェクト)
- *   url         … 外部リンクURL (テキスト。空ならクリックで画像モーダル表示)
+ *   url         … 外部リンクURL (テキスト。content が無い旧項目のリンク先)
  *   photo       … 関連画像 (複数画像 = 配列)
+ *   content     … 本文 (リッチエディタ。あれば /information/{id}/ に記事ページを生成)
  *
- * information/index.html の表示コードは item.image / item.thumbnail / item.category / item.url / item.date を見るため、
- * ここで読みやすい形に詰め替えて出力する。
+ * 実処理は scripts/information_lib.mjs に集約(build_information.mjs と共用)。
+ * @returns 正規化済みお知らせ一覧 (サイトマップ生成で使用)
  */
 async function buildInformationJson() {
   const infoServiceDomain = (
@@ -1410,95 +1412,31 @@ async function buildInformationJson() {
 
   if (!infoServiceDomain || !infoApiKey) {
     console.log('Skipping information JSON build: information microCMS env vars are not set.');
-    return;
+    return [];
   }
 
   const informationClient = createClient({
     serviceDomain: infoServiceDomain,
     apiKey: infoApiKey,
   });
-  console.log('お知らせ(information)データを取得開始...');
-  const allItems = [];
-  let offset = 0;
-  const limit = 50;
-  const now = new Date().toISOString();
 
   try {
-    while (true) {
-      const response = await informationClient.get({
-        endpoint: process.env.INFORMATION_ENDPOINT || 'information',
-        queries: {
-          fields: 'id,title,publishedAt,category,url,photo',
-          limit: limit,
-          offset: offset,
-          orders: '-publishedAt',
-          filters: `publishedAt[less_than]${now}`,
-        },
-      });
-
-      if (!response.contents || response.contents.length === 0) break;
-      allItems.push(...response.contents);
-      offset += response.contents.length;
-      if (offset >= response.totalCount) break;
-    }
-
-    console.log(`合計 ${allItems.length} 件のお知らせを取得しました。`);
-
-    // 表示用HTML(information/index.html)が読める形に整形
-    const formatted = allItems.filter(item => String(item.url || '').indexOf('/columns/') === -1 && !item.slug).map(item => {
-      // 画像: photo は複数画像(配列)。先頭を image として渡す
-      let image = null;
-      if (Array.isArray(item.photo) && item.photo.length > 0 && item.photo[0] && item.photo[0].url) {
-        image = { url: item.photo[0].url };
-      } else if (item.photo && typeof item.photo === 'object' && item.photo.url) {
-        // 念のため単一画像で返ってきた場合にも対応
-        image = { url: item.photo.url };
-      }
-
-      // カテゴリ: 参照オブジェクトの name を取り出す(色分けに使用)
-      // 単一参照なら文字列、複数参照なら配列で返す
-      let category = null;
-      if (item.category) {
-        if (Array.isArray(item.category)) {
-          category = item.category.map(c =>
-            (c && typeof c === 'object' && c.name) ? c.name : c
-          );
-        } else if (typeof item.category === 'object' && item.category.name) {
-          category = item.category.name;
-        } else {
-          category = item.category;
-        }
-      }
-
-      return {
-        id: item.id,
-        title: item.title || '',
-        publishedAt: item.publishedAt || null,
-        date: item.publishedAt || null,
-        category: category,
-        url: item.url || '',
-        image: image,
-      };
+    return await buildInformationArtifacts({
+      client: informationClient,
+      endpoint: process.env.INFORMATION_ENDPOINT || 'information',
+      baseUrl: BASE_URL,
     });
-
-    // 出力先ディレクトリが無ければ作成
-    const informationDir = path.dirname(INFORMATION_JSON_PATH);
-    if (!fs.existsSync(informationDir)) {
-      fs.mkdirSync(informationDir, { recursive: true });
-    }
-
-    fs.writeFileSync(INFORMATION_JSON_PATH, JSON.stringify(formatted, null, 2));
-    console.log(`information/index.json を ${INFORMATION_JSON_PATH} に保存しました(${formatted.length}件)。`);
   } catch (err) {
     // お知らせの取得に失敗しても、コラム側のビルド成果物は守りたいので throw しない
     console.error('お知らせ(information)の取得・保存に失敗しました:', err);
+    return [];
   }
 }
 
 /**
  * サイトマップ (sitemap.xml) を生成
  */
-function generateSitemap(articles) {
+function generateSitemap(articles, newsItems = []) {
   console.log('sitemap.xml を生成中...');
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
@@ -1551,6 +1489,12 @@ function generateSitemap(articles) {
       : article.publishedAt;
     const lastMod = getJSTDateKey(lastModSource);
     xml += `  <url>\n    <loc>${url}</loc>\n    <lastmod>${lastMod}</lastmod>\n    <priority>0.6</priority>\n    <changefreq>weekly</changefreq>\n  </url>\n`;
+  });
+
+  // サイト内で公開するお知らせ記事(/information/{id}/)
+  newsItems.filter(item => item && item.hasContent && item.id).forEach(item => {
+    const lastMod = getJSTDateKey(item.publishedAt);
+    xml += `  <url>\n    <loc>${BASE_URL}/information/${item.id}/</loc>\n${lastMod ? `    <lastmod>${lastMod}</lastmod>\n` : ''}    <priority>0.6</priority>\n    <changefreq>monthly</changefreq>\n  </url>\n`;
   });
 
   xml += `</urlset>\n`;
@@ -1780,10 +1724,12 @@ function buildHomepageStaticSections(summaryList) {
       .slice(0, 5)
       .map(item => {
         const dateSource = item.publishedAt || item.date || item.createdAt || '';
-        const href = item.url || 'article/';
+        const href = item.url || 'information/';
         const cat = categoryName(item.category);
+        // サイト内の記事ページ(/information/{id}/ など)は同一タブ、外部リンクのみ別タブ
+        const isExternal = /^https?:\/\//i.test(href) && !href.startsWith(BASE_URL);
         newsCount += 1;
-        return '<li class="news-item"><a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer">' +
+        return '<li class="news-item"><a href="' + escapeHtml(href) + '"' + (isExternal ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' +
           '<time datetime="' + escapeHtml(dateSource) + '">' + escapeHtml(formatDateJST(dateSource)) + '</time>' +
           '<span class="' + categoryClass(cat) + '">' + escapeHtml(cat) + '</span>' +
           '<span class="news-title">' + escapeHtml(item.title || '') + '</span>' +
@@ -1946,9 +1892,9 @@ async function buildStaticPages() {
   if (publishedArticles.length === 0) {
     console.warn('警告: 公開中の記事が見つかりませんでした。');
     fs.writeFileSync(JSON_OUTPUT_PATH, '[]');
-    generateSitemap([]);
     // コラムが無くても、お知らせは独立して生成する
-    await buildInformationJson();
+    const newsOnly = await buildInformationJson();
+    generateSitemap([], newsOnly);
     return;
   }
 
@@ -2168,8 +2114,12 @@ async function buildStaticPages() {
     console.error('columns/index.json の保存に失敗しました:', err);
   }
 
-  // 7. サイトマップ (sitemap.xml) を生成・保存
-  generateSitemap(publishedArticles);
+  // 7. お知らせ(information)のJSONと記事詳細ページを生成
+  //    (サイトマップに /information/{id}/ を載せるため、サイトマップより先に実行)
+  const newsItems = await buildInformationJson();
+
+  // 7.5. サイトマップ (sitemap.xml) を生成・保存
+  generateSitemap(publishedArticles, newsItems);
 
   // 8. 記事一覧ページ (article.html) を静的生成
   await buildArticleListPage(publishedArticles);
@@ -2182,9 +2132,6 @@ async function buildStaticPages() {
 
   // 11. 旧slugリダイレクトページを生成
   generateRedirectPages();
-
-  // 12. お知らせ(information)JSONを生成
-  await buildInformationJson();
 
   // 13. トップページの最新NEWS・コラム欄に初期HTMLを埋め込む
   //     (information/index.json 生成後に実行すること)

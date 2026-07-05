@@ -1,6 +1,14 @@
 import { createClient } from 'microcms-js-sdk';
 import fs from 'fs';
 import path from 'path';
+import {
+  buildInformationArtifacts,
+  escapeHtml,
+  formatDateDotJST,
+  getCategoryName,
+} from './information_lib.mjs';
+
+const BASE_URL = 'https://kokuban-base.com';
 
 const SERVICE_DOMAIN = (
   process.env.INFORMATION_SERVICE_DOMAIN ||
@@ -17,7 +25,6 @@ const API_KEY = (
 ).trim();
 
 const ENDPOINT = process.env.INFORMATION_ENDPOINT || 'information';
-const OUTPUT_PATH = path.resolve(process.cwd(), 'information', 'index.json');
 const HOME_PATH = path.resolve(process.cwd(), 'index.html');
 
 if (!SERVICE_DOMAIN || !API_KEY) {
@@ -31,89 +38,6 @@ const client = createClient({
   apiKey: API_KEY,
 });
 
-function normalizeCategory(category) {
-  if (!category) return null;
-  if (Array.isArray(category)) {
-    return category
-      .map((item) => {
-        if (item && typeof item === 'object') return item.name || item.id || '';
-        return item;
-      })
-      .filter(Boolean);
-  }
-  if (typeof category === 'object') return category.name || category.id || null;
-  return category;
-}
-
-function normalizeImage(item) {
-  const fields = [item.image, item.thumbnail, item.photo, item.eyecatch];
-
-  for (const field of fields) {
-    if (!field) continue;
-    if (typeof field === 'string') return field;
-    if (Array.isArray(field)) {
-      const found = field.find((image) => image && image.url);
-      if (found) return { url: found.url, width: found.width, height: found.height };
-    }
-    if (typeof field === 'object' && field.url) {
-      return { url: field.url, width: field.width, height: field.height };
-    }
-  }
-
-  return null;
-}
-
-function normalizeItem(item) {
-  const image = normalizeImage(item);
-  const date = item.publishedAt || item.date || item.createdAt || null;
-
-  return {
-    ...item,
-    id: item.id,
-    title: item.title || '',
-    publishedAt: item.publishedAt || null,
-    date,
-    category: normalizeCategory(item.category),
-    url: item.url || '',
-    image,
-  };
-}
-
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function getCategoryName(category) {
-  if (Array.isArray(category)) {
-    const first = category.find(Boolean);
-    if (!first) return 'その他';
-    return typeof first === 'object' ? (first.name || first.id || 'その他') : first;
-  }
-  if (category && typeof category === 'object') return category.name || category.id || 'その他';
-  return category || 'その他';
-}
-
-function formatDate(dateSource) {
-  const date = new Date(dateSource || 0);
-  if (Number.isNaN(date.getTime())) return '';
-  return date.toLocaleDateString('ja-JP', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    timeZone: 'Asia/Tokyo',
-  });
-}
-
-function isNewsItem(item) {
-  const url = String(item.url || '');
-  return !url.includes('/columns/') && !item.slug && item.source !== 'columns';
-}
-
 function newsCategoryClass(category) {
   const name = String(category || '');
   if (name.includes('イベント')) return 'news-cat news-cat-event';
@@ -126,14 +50,16 @@ function updateHomeLatestNews(items) {
 
   const html = fs.readFileSync(HOME_PATH, 'utf8');
   const rows = items
-    .filter(isNewsItem)
     .slice(0, 5)
     .map((item) => {
-      const dateSource = item.publishedAt || item.date || item.createdAt || '';
+      const dateSource = item.publishedAt || item.date || '';
       const category = getCategoryName(item.category);
       const href = item.url || 'information/';
-      return '<li class="news-item"><a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer">' +
-        '<time datetime="' + escapeHtml(dateSource) + '">' + escapeHtml(formatDate(dateSource)) + '</time>' +
+      // サイト内の記事ページは同一タブ、外部リンクのみ別タブで開く
+      const isExternal = /^https?:\/\//i.test(href) && !href.startsWith(BASE_URL);
+      const targetAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+      return '<li class="news-item"><a href="' + escapeHtml(href) + '"' + targetAttr + '>' +
+        '<time datetime="' + escapeHtml(dateSource) + '">' + escapeHtml(formatDateDotJST(dateSource)) + '</time>' +
         '<span class="' + newsCategoryClass(category) + '">' + escapeHtml(category) + '</span>' +
         '<span class="news-title">' + escapeHtml(item.title || '') + '</span>' +
         '</a></li>';
@@ -153,38 +79,15 @@ function updateHomeLatestNews(items) {
 }
 
 async function main() {
-  const allContents = [];
-  const limit = 100;
-  let offset = 0;
-
-  while (true) {
-    const data = await client.getList({
-      endpoint: ENDPOINT,
-      queries: {
-        limit,
-        offset,
-        orders: '-publishedAt',
-      },
-    });
-
-    allContents.push(...data.contents);
-    offset += data.contents.length;
-
-    if (offset >= data.totalCount || data.contents.length === 0) break;
-  }
-
-  const normalized = allContents
-    .map(normalizeItem)
-    .filter(isNewsItem)
-    .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
-
-  fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
-  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(normalized, null, 2));
-  updateHomeLatestNews(normalized);
-  console.log(`Generated ${OUTPUT_PATH} (${normalized.length} items)`);
+  const items = await buildInformationArtifacts({
+    client,
+    endpoint: ENDPOINT,
+    baseUrl: BASE_URL,
+  });
+  updateHomeLatestNews(items);
 }
 
 main().catch((error) => {
-  console.error('Failed to build information JSON:', error);
+  console.error('Failed to build information content:', error);
   process.exit(1);
 });
