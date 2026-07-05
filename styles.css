@@ -14157,17 +14157,27 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
 @media (max-width: 900px) {
   .lease-hero__inner {
     grid-template-columns: 1fr;
-    gap: 26px;
-    text-align: center;
+    gap: 18px;
+    padding: 28px 0 34px;
+    text-align: left;
   }
 
+  /* モバイルはヒーローのボタンを置かず、価格カード＋画面下部の固定CTAに導線を集約する */
   .lease-hero__actions {
-    justify-content: center;
+    display: none;
+  }
+
+  .lease-hero h1 {
+    font-size: 26px;
+  }
+
+  .lease-hero__lead {
+    margin-top: 8px;
   }
 
   .lease-hero__price {
-    margin: 6px auto 0;
-    width: min(440px, 100%);
+    margin: 10px auto 0;
+    width: 100%;
   }
 }
 
@@ -14430,5 +14440,71 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
 
   .kb-checkfloat__body b {
     display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .service-body #consultation.page-section {
+    padding-bottom: 0;
+  }
+
+  .service-body #consultation .operator-band {
+    margin-bottom: 0;
+  }
+
+  .service-body #showroom.page-section {
+    padding-top: 14px;
+  }
+
+  .service-body #showroom .split-panel {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .lease-feature-heading-renewed h2 {
+    font-size: clamp(30px, 8.2vw, 36px);
+    line-height: 1.22;
+  }
+
+  .lease-feature-heading-renewed span {
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .lease-feature-grid--renewed article {
+    grid-template-columns: minmax(0, 1fr) 96px;
+    column-gap: 16px;
+    row-gap: 16px;
+    min-height: auto;
+    padding: 28px 22px;
+  }
+
+  .lease-feature-number {
+    margin-bottom: 8px;
+    font-size: 30px;
+  }
+
+  .lease-feature-number::after {
+    width: 44px;
+    height: 3px;
+    margin-top: 10px;
+  }
+
+  .lease-feature-grid--renewed h3 {
+    margin-bottom: 12px;
+    font-size: 21px;
+    line-height: 1.45;
+  }
+
+  .lease-feature-grid--renewed p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .lease-feature-grid--renewed .lease-feature-icon,
+  .lease-feature-grid--renewed .lease-feature-icon img {
+    width: 96px;
+    height: 96px;
   }
 }
