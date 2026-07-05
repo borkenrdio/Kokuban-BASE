@@ -691,9 +691,9 @@
   display: grid;
   place-content: center;
   justify-items: center;
-  width: clamp(100px, 9.6vw, 118px);
+  width: clamp(128px, 13vw, 168px);
   aspect-ratio: 1;
-  padding: 8px;
+  padding: 10px;
   border-radius: 50%;
   text-align: center;
 }
@@ -706,28 +706,28 @@
 .cost-icon {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  margin-bottom: 8px;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 9px;
   color: var(--about-blue);
 }
 
 .cost-icon svg {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
 }
 
 .cost-chip strong {
   color: var(--about-navy);
-  font-size: clamp(11.5px, 1.05vw, 13px);
+  font-size: clamp(13.5px, 1.3vw, 16px);
   font-weight: 900;
   line-height: 1.35;
 }
 
 .cost-chip small {
-  margin-top: 3px;
+  margin-top: 4px;
   color: var(--about-muted);
-  font-size: 10.5px;
+  font-size: 11.5px;
   font-weight: 700;
 }
 
@@ -769,6 +769,20 @@
   font-size: 11.5px;
   font-weight: 700;
   line-height: 1.9;
+}
+
+.kb-about-cost-wall {
+  width: fit-content;
+  max-width: 100%;
+  margin: 18px auto 0;
+  padding: 10px 20px;
+  border: 1px dashed rgba(20, 41, 94, .35);
+  border-radius: 10px;
+  background: #fff;
+  color: #46597c;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.7;
 }
 
 /* ---------- 7. 5つのポイント ---------- */
@@ -896,29 +910,29 @@
   box-sizing: border-box;
 }
 
-.maker-item ul {
+.maker-item__body {
   flex: 1;
   margin: 10px 0 0;
-  padding: 12px 14px;
-  list-style: none;
+  padding: 13px 14px;
   border: 1px solid var(--about-line);
   border-radius: 10px;
   background: #fff;
-  display: grid;
-  gap: 6px;
-  align-content: start;
 }
 
-.maker-item li {
+.maker-item__body h3 {
+  margin: 0;
+  color: var(--about-navy);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.maker-item__body p {
+  margin: 6px 0 0;
   color: #44546e;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
-  line-height: 1.6;
-}
-
-.maker-item li::before {
-  content: "・";
-  color: var(--about-blue);
+  line-height: 1.75;
 }
 
 .maker-check {
@@ -1369,8 +1383,9 @@
     gap: 10px;
   }
 
-  .maker-item ul {
+  .maker-item__body {
     margin-top: 0;
+    display: grid;
     align-content: center;
   }
 
@@ -1961,9 +1976,9 @@
 
   .sp-cost-row {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
-    gap: 3px;
+    gap: 6px;
   }
 
   .sp-chip {
@@ -1972,9 +1987,9 @@
     display: grid;
     justify-items: center;
     align-content: center;
-    min-height: 84px;
-    padding: 8px 2px 7px;
-    border-radius: 10px;
+    min-height: 118px;
+    padding: 14px 6px 13px;
+    border-radius: 14px;
     background: #fff;
     box-shadow: 0 8px 18px rgba(20, 41, 94, .1);
     text-align: center;
@@ -1983,39 +1998,53 @@
   .chip-icon {
     display: grid;
     place-items: center;
-    width: 24px;
-    height: 24px;
-    margin-bottom: 6px;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 8px;
     color: var(--about-blue);
   }
 
   .chip-icon svg {
-    width: 22px;
-    height: 22px;
+    width: 30px;
+    height: 30px;
   }
 
   .sp-chip strong {
     color: var(--about-navy);
-    font-size: 8.5px;
+    font-size: 13.5px;
     font-weight: 900;
     line-height: 1.35;
     white-space: nowrap;
   }
 
   .sp-chip small {
-    margin-top: 2px;
+    margin-top: 3px;
     color: var(--about-muted);
-    font-size: 7.5px;
+    font-size: 10px;
     font-weight: 700;
     white-space: nowrap;
   }
 
   .sp-plus {
     flex: none;
+    align-self: center;
     color: var(--about-blue);
-    font-size: 13px;
+    font-size: 17px;
     font-weight: 900;
     line-height: 1;
+  }
+
+  .sp-cost-wall {
+    margin: 12px 0 0;
+    padding: 10px 14px;
+    border: 1px dashed rgba(20, 41, 94, .35);
+    border-radius: 10px;
+    background: #fff;
+    color: #46597c;
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.7;
+    text-align: center;
   }
 
   .sp-cost-arrow {
