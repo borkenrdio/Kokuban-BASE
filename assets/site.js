@@ -97,23 +97,15 @@
   }
 
   /* 30秒診断のフローティング誘導。
-     出すタイミング: セッション内3ページ目以降は少し待って表示、
-     それ以外はページを一定量スクロールしたときに表示。
+     出すタイミング: 通常ページでは少し待って表示、スクロール時にも表示。
      × で閉じたら7日間は再表示しない。診断・問い合わせページでは出さない。 */
   function setupCheckPromo() {
     var path = window.location.pathname || '/';
     if (/^\/(check|contact)(\/|$)/.test(path)) return;
     if (document.querySelector('.kb-checkfloat')) return;
 
-    var DISMISS_KEY = 'kbCheckPromoDismissedAt';
-    var PV_KEY = 'kbSessionPageViews';
+    var DISMISS_KEY = 'kbCheckPromoDismissedAtV2';
     var DISMISS_DAYS = 7;
-
-    var pageViews = 1;
-    try {
-      pageViews = (parseInt(sessionStorage.getItem(PV_KEY), 10) || 0) + 1;
-      sessionStorage.setItem(PV_KEY, String(pageViews));
-    } catch (error) { /* storage不可でも動作継続 */ }
 
     try {
       var dismissedAt = parseInt(localStorage.getItem(DISMISS_KEY), 10) || 0;
@@ -170,11 +162,8 @@
       if (window.scrollY > Math.max(700, window.innerHeight * 0.9)) show();
     }
 
-    if (pageViews >= 3) {
-      setTimeout(show, 1200);
-    } else {
-      window.addEventListener('scroll', onScroll, { passive: true });
-    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    setTimeout(show, 1400);
   }
 
   if (document.readyState === 'loading') {
