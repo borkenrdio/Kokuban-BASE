@@ -184,6 +184,13 @@
           '送信しました',
           'お問い合わせありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。'
         );
+
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            form_id: 'contact',
+            inquiry_type: String(formData.get('inquiry_type') || '')
+          });
+        }
       } catch (error) {
         showContactResult(
           'error',

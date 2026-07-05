@@ -969,6 +969,14 @@ function buildAuthorPages(allArticles) {
     const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GSSKLZ6EDH');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${escapeHtml(author.name)}(${escapeHtml(author.role)})｜執筆者プロフィール｜Kokuban BASE</title>
@@ -1184,6 +1192,14 @@ function buildAuthorPages(allArticles) {
   const teamIndexHtml = `<!DOCTYPE html>
 <html lang="ja">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GSSKLZ6EDH');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>運営チーム｜現役講師による電子黒板比較体験｜Kokuban BASE</title>

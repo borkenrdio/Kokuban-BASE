@@ -146,7 +146,11 @@
       wrap.querySelector('.kb-checkfloat__close').addEventListener('click', function () {
         wrap.classList.remove('is-visible');
         try { localStorage.setItem(DISMISS_KEY, String(Date.now())); } catch (error) {}
+        if (typeof gtag === 'function') gtag('event', 'checkfloat_dismiss', { page_path: path });
         setTimeout(function () { wrap.remove(); }, 550);
+      });
+      wrap.querySelector('.kb-checkfloat__link').addEventListener('click', function () {
+        if (typeof gtag === 'function') gtag('event', 'checkfloat_click', { page_path: path });
       });
       return wrap;
     }

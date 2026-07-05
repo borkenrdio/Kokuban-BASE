@@ -401,6 +401,15 @@
       var secondBrand = r.order[1];
       var isTie = r.scores[top] === r.scores[secondBrand] && r.scores[top] > 0;
 
+      if (typeof gtag === 'function') {
+        gtag('event', 'check_complete', {
+          brand: BRANDS[top].name,
+          brand_second: BRANDS[secondBrand].name,
+          tie: isTie ? 'yes' : 'no',
+          audience: q1 || ''
+        });
+      }
+
       var html = '<div class="ck-result">';
       html += '<div class="ck-result__head">';
       html += '<div class="deco" aria-hidden="true"><i></i><i></i><i></i></div>';
@@ -434,6 +443,18 @@
         state.answers = {};
         renderQuestion();
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* 診断結果からの相談クリックを計測 */
+      stage.querySelectorAll('.ck-card__btn--pink').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (typeof gtag !== 'function') return;
+          var card = btn.closest('.ck-card');
+          var logo = card ? card.querySelector('.ck-card__logo img') : null;
+          gtag('event', 'check_consult_click', {
+            brand: logo ? logo.alt : ''
+          });
+        });
       });
     }
 
