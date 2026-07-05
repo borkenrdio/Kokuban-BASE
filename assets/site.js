@@ -136,8 +136,8 @@
           '</span>' +
           '<span class="kb-checkfloat__body">' +
             '<small>かんたん30秒</small>' +
-            '<strong>電子黒板 診断</strong>' +
-            '<b>5問でうちに合う1台がわかる</b>' +
+            '<strong>あなたの教室に合う<br>電子黒板は？</strong>' +
+            '<b>5問で、ブランド・サイズ・選び方が分かる</b>' +
           '</span>' +
           '<i aria-hidden="true">›</i>' +
         '</a>';
