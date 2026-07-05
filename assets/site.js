@@ -98,10 +98,10 @@
 
   /* 30秒診断のフローティング誘導。
      出すタイミング: 通常ページでは少し待って表示、スクロール時にも表示。
-     × で閉じたら7日間は再表示しない。診断・問い合わせページでは出さない。 */
+     × で閉じたら7日間は再表示しない。コラム系・診断ページでは出さない。 */
   function setupCheckPromo() {
     var path = window.location.pathname || '/';
-    if (/^\/(check|contact)(\/|$)/.test(path)) return;
+    if (/^\/(check|article|columns)(\/|$)/.test(path)) return;
     if (document.querySelector('.kb-checkfloat')) return;
 
     var DISMISS_KEY = 'kbCheckPromoDismissedAtV2';
