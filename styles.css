@@ -8279,6 +8279,34 @@ body:has(.sticky-cta) .site-footer {
   line-height: 1;
 }
 
+#contract .section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  #contract .section-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    width: min(100%, calc(100% - 8px));
+    margin-top: 22px;
+  }
+
+  #contract .section-actions .page-btn {
+    width: 100%;
+    min-height: 54px;
+    margin: 0;
+    padding: 13px 18px;
+    box-sizing: border-box;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+  }
+}
+
 @media (max-width: 680px) {
   #flow .check-list.check-list--row {
     grid-template-columns: 1fr;
