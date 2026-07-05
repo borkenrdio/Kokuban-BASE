@@ -14266,119 +14266,116 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
 
 .kb-checkfloat {
   position: fixed;
-  left: 50%;
-  bottom: 86px;
+  right: 0;
+  bottom: 96px;
   z-index: 60;
-  width: min(1120px, calc(100% - 150px));
-  transform: translate(-50%, calc(100% + 110px));
+  transform: translateX(calc(100% + 24px));
   transition: transform .5s cubic-bezier(.2, .85, .3, 1);
 }
 
 .kb-checkfloat.is-visible {
-  transform: translate(-50%, 0);
+  transform: none;
 }
 
 .kb-checkfloat__link {
   display: grid;
-  grid-template-columns: 170px minmax(0, 1fr) 58px;
+  grid-template-columns: auto minmax(0, 1fr) 16px;
   align-items: center;
-  column-gap: clamp(24px, 4vw, 54px);
-  min-height: 250px;
-  padding: 32px 48px 32px 58px;
-  border: 1px solid rgba(210, 222, 240, .9);
-  border-radius: 42px;
+  column-gap: 12px;
+  padding: 12px 14px 12px 12px;
+  border: 1px solid var(--line);
+  border-right: 0;
+  border-radius: 16px 0 0 16px;
   background: #fff;
   color: var(--ink);
   text-decoration: none;
-  box-shadow: 0 18px 46px rgba(16, 45, 96, .16);
+  box-shadow: 0 16px 38px rgba(10, 30, 80, .22);
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .kb-checkfloat__link:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 24px 56px rgba(16, 45, 96, .22);
+  transform: translateX(-4px);
+  box-shadow: 0 20px 44px rgba(10, 30, 80, .28);
 }
 
 .kb-checkfloat__icon {
   display: grid;
   place-items: center;
-  width: 170px;
-  height: 170px;
-  border-radius: 42px;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
   background: linear-gradient(135deg, var(--pink), #f579ab);
   color: #fff;
-  box-shadow: 0 18px 42px rgba(233, 85, 140, .26);
+  box-shadow: 0 8px 16px rgba(233, 85, 140, .3);
 }
 
 .kb-checkfloat__icon svg {
-  width: 92px;
-  height: 92px;
+  width: 26px;
+  height: 26px;
 }
 
 .kb-checkfloat__body {
   display: block;
   min-width: 0;
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .kb-checkfloat__body small {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-width: 290px;
-  min-height: 54px;
-  padding: 8px 28px;
+  gap: 4px;
+  padding: 2px 9px;
   border-radius: 999px;
-  background: linear-gradient(180deg, #fde5ef, #fff1f7);
+  background: #fdeaf3;
   color: var(--pink);
-  font-size: clamp(22px, 2.35vw, 34px);
+  font-size: 10.5px;
   font-weight: 900;
   white-space: nowrap;
 }
 
 .kb-checkfloat__body strong {
   display: block;
-  margin-top: 24px;
+  margin-top: 5px;
   color: #0f2c66;
-  font-size: clamp(36px, 4.2vw, 64px);
+  font-size: 15.5px;
   font-weight: 900;
   letter-spacing: .01em;
-  line-height: 1.18;
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
 .kb-checkfloat__body b {
   display: block;
-  margin-top: 16px;
+  margin-top: 2px;
   color: #7285a3;
-  font-size: clamp(20px, 2.2vw, 34px);
-  font-weight: 900;
+  font-size: 10.5px;
+  font-weight: 700;
   white-space: nowrap;
 }
 
 .kb-checkfloat__link i {
   color: var(--blue);
   font-style: normal;
-  font-size: 72px;
-  font-weight: 900;
-  line-height: 1;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .kb-checkfloat__close {
   position: absolute;
-  top: -48px;
-  left: -40px;
+  top: -12px;
+  left: -12px;
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 86px;
-  height: 86px;
+  width: 27px;
+  height: 27px;
   padding: 0;
-  border: 2px solid #dbe4f2;
+  border: 1px solid var(--line);
   border-radius: 50%;
   background: #fff;
-  color: #50617c;
+  color: #64748b;
   cursor: pointer;
-  box-shadow: 0 12px 28px rgba(16, 45, 96, .16);
+  box-shadow: 0 4px 10px rgba(10, 30, 80, .18);
   transition: background .15s ease, color .15s ease;
 }
 
@@ -14389,125 +14386,37 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
 }
 
 .kb-checkfloat__close svg {
-  width: 38px;
-  height: 38px;
-}
-
-@media (max-width: 900px) {
-  .kb-checkfloat {
-    width: calc(100% - 40px);
-  }
-
-  .kb-checkfloat__link {
-    grid-template-columns: 100px minmax(0, 1fr) 34px;
-    column-gap: 22px;
-    min-height: 150px;
-    padding: 24px 26px;
-    border-radius: 32px;
-  }
-
-  .kb-checkfloat__icon {
-    width: 100px;
-    height: 100px;
-    border-radius: 28px;
-  }
-
-  .kb-checkfloat__icon svg {
-    width: 54px;
-    height: 54px;
-  }
-
-  .kb-checkfloat__body small {
-    min-width: 0;
-    min-height: 38px;
-    font-size: 18px;
-  }
-
-  .kb-checkfloat__body strong {
-    margin-top: 12px;
-    font-size: 34px;
-  }
-
-  .kb-checkfloat__body b {
-    margin-top: 8px;
-    font-size: 18px;
-    white-space: normal;
-  }
-
-  .kb-checkfloat__link i {
-    font-size: 46px;
-  }
-
-  .kb-checkfloat__close {
-    top: -30px;
-    left: -16px;
-    width: 62px;
-    height: 62px;
-  }
-
-  .kb-checkfloat__close svg {
-    width: 28px;
-    height: 28px;
-  }
+  width: 13px;
+  height: 13px;
 }
 
 @media (max-width: 640px) {
   .kb-checkfloat {
-    bottom: calc(86px + env(safe-area-inset-bottom, 0px));
-    width: calc(100% - 24px);
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
   }
 
   .kb-checkfloat__link {
-    grid-template-columns: 62px minmax(0, 1fr) 24px;
-    column-gap: 12px;
-    min-height: 96px;
-    padding: 16px 14px 16px 16px;
-    border-radius: 24px;
+    column-gap: 10px;
+    padding: 10px 11px 10px 10px;
+    border-radius: 14px 0 0 14px;
   }
 
   .kb-checkfloat__icon {
-    width: 62px;
-    height: 62px;
-    border-radius: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
   }
 
   .kb-checkfloat__icon svg {
-    width: 34px;
-    height: 34px;
-  }
-
-  .kb-checkfloat__body small {
-    min-width: 0;
-    min-height: 28px;
-    padding: 4px 14px;
-    font-size: 13px;
+    width: 22px;
+    height: 22px;
   }
 
   .kb-checkfloat__body strong {
-    margin-top: 8px;
-    font-size: 21px;
-    line-height: 1.24;
+    font-size: 14px;
   }
 
   .kb-checkfloat__body b {
-    margin-top: 6px;
-    font-size: 11.5px;
-    white-space: normal;
-  }
-
-  .kb-checkfloat__link i {
-    font-size: 34px;
-  }
-
-  .kb-checkfloat__close {
-    top: -22px;
-    left: -8px;
-    width: 48px;
-    height: 48px;
-  }
-
-  .kb-checkfloat__close svg {
-    width: 22px;
-    height: 22px;
+    display: none;
   }
 }
