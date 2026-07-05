@@ -67,9 +67,12 @@
         <p>Kokuban BASEに関するお知らせ、メディア掲載、プレスリリースを新しい順に掲載しています。</p>
       </div>
 
+      <div id="information-category-filter" class="information-filter" role="group" aria-label="カテゴリで絞り込み"></div>
+      <div id="information-year-filter" class="information-years" role="group" aria-label="年で絞り込み"></div>
+
       <div id="information-loading" class="information-state">お知らせを読み込んでいます。</div>
       <div id="information-error" class="information-state information-state--error" hidden aria-hidden="true"></div>
-      <div id="information-list" class="information-list" aria-live="polite"></div>
+      <ul id="information-list" class="information-rows" aria-live="polite"></ul>
       <nav id="information-pagination" class="information-pagination" aria-label="お知らせページ送り" hidden></nav>
     </section>
   </main>
@@ -86,13 +89,17 @@
   <script>
     (function () {
       const JSON_PATH = '/information/index.json';
-      const ITEMS_PER_PAGE = 8;
+      const ITEMS_PER_PAGE = 10;
       const list = document.getElementById('information-list');
       const loading = document.getElementById('information-loading');
       const error = document.getElementById('information-error');
       const pagination = document.getElementById('information-pagination');
+      const categoryFilter = document.getElementById('information-category-filter');
+      const yearFilter = document.getElementById('information-year-filter');
       let items = [];
       let currentPage = 1;
+      let currentCategory = 'all';
+      let currentYear = 'all';
 
       function escapeHtml(value) {
         return String(value || '').replace(/[&<>"']/g, function (char) {
@@ -104,26 +111,6 @@
             "'": '&#39;'
           }[char];
         });
-      }
-
-      function getImageUrl(value) {
-        if (!value) return '';
-        if (typeof value === 'string') return value.trim();
-        if (Array.isArray(value)) {
-          for (let i = 0; i < value.length; i += 1) {
-            const url = getImageUrl(value[i]);
-            if (url) return url;
-          }
-          return '';
-        }
-        if (typeof value === 'object') {
-          return getImageUrl(value.url || value.src || value.image || value.thumbnail || value.eyecatch || value.photo);
-        }
-        return '';
-      }
-
-      function getItemImage(item) {
-        return getImageUrl(item.image || item.thumbnail || item.photo || item.eyecatch || item.eyecatchUrl);
       }
 
       function getItemDate(item) {
@@ -207,31 +194,84 @@
         return response.json();
       }
 
+      function getItemYear(item) {
+        const date = getItemDate(item);
+        return date ? String(date.getFullYear()) : '';
+      }
+
+      function filteredItems() {
+        return items.filter(function (item) {
+          if (currentCategory !== 'all' && getCategory(item) !== currentCategory) return false;
+          if (currentYear !== 'all' && getItemYear(item) !== currentYear) return false;
+          return true;
+        });
+      }
+
       function renderItem(item) {
         const date = getItemDate(item);
         const category = getCategory(item);
-        const image = getItemImage(item);
         const href = item.url || '#';
         const external = isExternalLink(href);
         const target = external ? ' target="_blank" rel="noopener noreferrer"' : '';
-        const thumb = image
-          ? '<img src="' + escapeHtml(image) + '" alt="" loading="lazy" decoding="async">'
-          : '<span>Kokuban BASE</span>';
+        const externalMark = external ? '<i class="information-row-ext" aria-hidden="true">↗</i>' : '';
 
-        return '<article class="information-card">' +
-          '<a class="information-card-link" href="' + escapeHtml(href) + '"' + target + '>' +
-            '<figure class="information-thumb' + (image ? '' : ' information-thumb--empty') + '">' + thumb + '</figure>' +
-            '<div class="information-card-body">' +
-              '<div class="information-meta">' +
-                '<time datetime="' + escapeHtml(date ? date.toISOString() : '') + '">' + escapeHtml(formatDate(date)) + '</time>' +
-                '<span class="information-tag information-tag--' + categoryType(category) + '">' + escapeHtml(category) + '</span>' +
-              '</div>' +
-              '<h2>' + escapeHtml(item.title || 'お知らせ') + '</h2>' +
-              (item.description ? '<p class="information-excerpt">' + escapeHtml(item.description) + '</p>' : '') +
-              '<span class="information-more">' + (external ? '外部サイトで見る' : '詳しく見る') + '</span>' +
-            '</div>' +
+        return '<li class="information-row">' +
+          '<a href="' + escapeHtml(href) + '"' + target + '>' +
+            '<time datetime="' + escapeHtml(date ? date.toISOString() : '') + '">' + escapeHtml(formatDate(date)) + '</time>' +
+            '<span class="information-tag information-tag--' + categoryType(category) + '">' + escapeHtml(category) + '</span>' +
+            '<span class="information-row-title">' + escapeHtml(item.title || 'お知らせ') + externalMark + '</span>' +
           '</a>' +
-        '</article>';
+        '</li>';
+      }
+
+      function renderFilters() {
+        const categories = [];
+        const years = [];
+        items.forEach(function (item) {
+          const category = getCategory(item);
+          if (category && categories.indexOf(category) === -1) categories.push(category);
+          const year = getItemYear(item);
+          if (year && years.indexOf(year) === -1) years.push(year);
+        });
+        years.sort(function (a, b) { return Number(b) - Number(a); });
+
+        categoryFilter.innerHTML = ['all'].concat(categories).map(function (value) {
+          const label = value === 'all' ? '全て' : value;
+          return '<button type="button" data-category="' + escapeHtml(value) + '" aria-pressed="' + (currentCategory === value) + '">' + escapeHtml(label) + '</button>';
+        }).join('');
+
+        yearFilter.innerHTML = ['all'].concat(years).map(function (value) {
+          const label = value === 'all' ? '全て' : value + '年';
+          return '<button type="button" data-year="' + escapeHtml(value) + '" aria-pressed="' + (currentYear === value) + '">' + escapeHtml(label) + '</button>';
+        }).join('');
+      }
+
+      function updateFilterPressedState() {
+        categoryFilter.querySelectorAll('[data-category]').forEach(function (button) {
+          button.setAttribute('aria-pressed', String(button.dataset.category === currentCategory));
+        });
+        yearFilter.querySelectorAll('[data-year]').forEach(function (button) {
+          button.setAttribute('aria-pressed', String(button.dataset.year === currentYear));
+        });
+      }
+
+      function updateUrl() {
+        const url = new URL(window.location.href);
+        if (currentCategory === 'all') url.searchParams.delete('cat');
+        else url.searchParams.set('cat', currentCategory);
+        if (currentYear === 'all') url.searchParams.delete('year');
+        else url.searchParams.set('year', currentYear);
+        if (currentPage <= 1) url.searchParams.delete('page');
+        else url.searchParams.set('page', String(currentPage));
+        window.history.pushState({}, '', url);
+      }
+
+      function readStateFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        currentCategory = params.get('cat') || 'all';
+        currentYear = params.get('year') || 'all';
+        const pageParam = Number(params.get('page'));
+        currentPage = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
       }
 
       function renderPagination(totalPages) {
@@ -251,11 +291,13 @@
       }
 
       function renderPage(shouldScroll) {
-        const totalPages = Math.max(1, Math.ceil(items.length / ITEMS_PER_PAGE));
+        const visibleItems = filteredItems();
+        const totalPages = Math.max(1, Math.ceil(visibleItems.length / ITEMS_PER_PAGE));
         currentPage = Math.min(Math.max(currentPage, 1), totalPages);
         const start = (currentPage - 1) * ITEMS_PER_PAGE;
-        const pageItems = items.slice(start, start + ITEMS_PER_PAGE);
-        list.innerHTML = pageItems.length ? pageItems.map(renderItem).join('') : '<p class="information-state">最新情報は順次更新しています。</p>';
+        const pageItems = visibleItems.slice(start, start + ITEMS_PER_PAGE);
+        list.innerHTML = pageItems.length ? pageItems.map(renderItem).join('') : '<li class="information-state">該当するお知らせはありません。</li>';
+        updateFilterPressedState();
         renderPagination(totalPages);
         if (shouldScroll) {
           list.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -274,11 +316,11 @@
             const bTime = getItemDate(b);
             return (bTime ? bTime.getTime() : 0) - (aTime ? aTime.getTime() : 0);
           });
-          const pageParam = Number(new URLSearchParams(window.location.search).get('page'));
-          currentPage = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
+          readStateFromUrl();
+          renderFilters();
           renderPage(false);
         } catch (err) {
-          list.innerHTML = '<p class="information-state">最新情報は順次更新しています。</p>';
+          list.innerHTML = '<li class="information-state">最新情報は順次更新しています。</li>';
           pagination.hidden = true;
           console.error(err);
         } finally {
@@ -286,19 +328,34 @@
         }
       }
 
+      categoryFilter.addEventListener('click', function (event) {
+        const button = event.target.closest('[data-category]');
+        if (!button || button.dataset.category === currentCategory) return;
+        currentCategory = button.dataset.category;
+        currentPage = 1;
+        updateUrl();
+        renderPage(false);
+      });
+
+      yearFilter.addEventListener('click', function (event) {
+        const button = event.target.closest('[data-year]');
+        if (!button || button.dataset.year === currentYear) return;
+        currentYear = button.dataset.year;
+        currentPage = 1;
+        updateUrl();
+        renderPage(false);
+      });
+
       pagination.addEventListener('click', function (event) {
         const button = event.target.closest('[data-page]');
         if (!button || button.disabled) return;
         currentPage = Number(button.dataset.page);
-        const url = new URL(window.location.href);
-        url.searchParams.set('page', String(currentPage));
-        window.history.pushState({}, '', url);
+        updateUrl();
         renderPage(true);
       });
 
       window.addEventListener('popstate', function () {
-        const pageParam = Number(new URLSearchParams(window.location.search).get('page'));
-        currentPage = Number.isInteger(pageParam) && pageParam > 0 ? pageParam : 1;
+        readStateFromUrl();
         renderPage(false);
       });
 

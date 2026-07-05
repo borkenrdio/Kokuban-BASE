@@ -128,31 +128,23 @@ function addExternalLinkAttrs(html, baseHost) {
   });
 }
 
-// 一覧ページ(information/index.html)のカードと同じ見た目のHTML
-function buildNewsCardHtml(item) {
+// 一覧ページ(information/index.html)と同じ行形式のHTML(サムネイルなし・タイトルのみ)
+function buildNewsRowHtml(item) {
   const categoryName = getCategoryName(item.category);
   const date = formatDateDotJST(item.publishedAt || item.date);
   const isoDate = item.publishedAt || item.date || '';
   const external = /^https?:\/\//i.test(item.url || '');
   const href = item.url || '/information/';
   const targetAttr = external ? ' target="_blank" rel="noopener noreferrer"' : '';
-  const thumb = item.image && item.image.url
-    ? `<img src="${escapeHtml(item.image.url)}?fit=crop&w=480&h=270&q=80" alt="" loading="lazy" decoding="async">`
-    : '<span>Kokuban BASE</span>';
+  const externalMark = external ? '<i class="information-row-ext" aria-hidden="true">↗</i>' : '';
 
-  return `<article class="information-card">
-          <a class="information-card-link" href="${escapeHtml(href)}"${targetAttr}>
-            <figure class="information-thumb${item.image ? '' : ' information-thumb--empty'}">${thumb}</figure>
-            <div class="information-card-body">
-              <div class="information-meta">
-                <time datetime="${escapeHtml(isoDate)}">${escapeHtml(date)}</time>
-                <span class="information-tag information-tag--${categoryType(categoryName)}">${escapeHtml(categoryName)}</span>
-              </div>
-              <h2>${escapeHtml(item.title || 'お知らせ')}</h2>
-              <span class="information-more">${external ? '外部サイトで見る' : '詳しく見る'}</span>
-            </div>
+  return `<li class="information-row">
+          <a href="${escapeHtml(href)}"${targetAttr}>
+            <time datetime="${escapeHtml(isoDate)}">${escapeHtml(date)}</time>
+            <span class="information-tag information-tag--${categoryType(categoryName)}">${escapeHtml(categoryName)}</span>
+            <span class="information-row-title">${escapeHtml(item.title || 'お知らせ')}${externalMark}</span>
           </a>
-        </article>`;
+        </li>`;
 }
 
 function buildNewsArticlePage({ raw, item, allItems, templateHtml, baseUrl, log }) {
@@ -185,9 +177,9 @@ function buildNewsArticlePage({ raw, item, allItems, templateHtml, baseUrl, log 
   const relatedHtml = allItems
     .filter((other) => other.id !== item.id)
     .slice(0, 3)
-    .map(buildNewsCardHtml)
+    .map(buildNewsRowHtml)
     .join('\n        ')
-    || '<p class="information-state">最新情報は順次更新しています。</p>';
+    || '<li class="information-state">最新情報は順次更新しています。</li>';
 
   const jsonLdSafe = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
 
