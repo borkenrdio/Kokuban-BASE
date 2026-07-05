@@ -1733,18 +1733,107 @@ function getArticleCategoryName(category) {
 }
 
 
-function updateHomepageLatestNewsFromColumns(summaryList) {
+/**
+ * トップページ (index.html) の「最新NEWS」「コラム」欄に初期HTMLを静的に埋め込む
+ * クライアントJSは読み込み後に同じデータで再描画するため表示は変わらないが、
+ * 検索エンジンの初期HTMLに記事リンクが含まれ、「読み込み中」の一瞬の表示もなくなる。
+ * 差し替え範囲は <!-- BUILD:TOP-NEWS --> / <!-- BUILD:TOP-COLUMNS --> マーカーの内側のみ。
+ * 描画するHTMLは index.html 内クライアントJSの renderNews / renderColumns と揃えること。
+ */
+function buildHomepageStaticSections(summaryList) {
   if (!fs.existsSync(HOME_HTML_PATH)) return;
 
-  const html = fs.readFileSync(HOME_HTML_PATH, 'utf8');
-  const nextHtml = html.replace(
-    /<ul id="latest-news-list"[^>]*>[\s\S]*?<\/ul>/,
-    '<ul id="latest-news-list" class="news-list"></ul>'
+  let html = fs.readFileSync(HOME_HTML_PATH, 'utf8');
+  if (!html.includes('<!-- BUILD:TOP-NEWS -->') || !html.includes('<!-- BUILD:TOP-COLUMNS -->')) {
+    console.warn('index.html に BUILD:TOP マーカーが見つからないため、トップページの静的埋め込みをスキップします。');
+    return;
+  }
+
+  const categoryName = (category) => {
+    if (Array.isArray(category)) {
+      const first = category.find(Boolean);
+      if (!first) return 'お知らせ';
+      return typeof first === 'object' ? (first.name || first.id || 'お知らせ') : first;
+    }
+    if (category && typeof category === 'object') return category.name || category.id || 'お知らせ';
+    return category || 'お知らせ';
+  };
+  const categoryClass = (name) => {
+    if (name.includes('イベント')) return 'news-cat news-cat-event';
+    if (name.includes('メディア') || name.includes('取材')) return 'news-cat news-cat-media';
+    return 'news-cat';
+  };
+
+  // --- 最新NEWS: information/index.json の先頭5件（コラム記事由来の項目は除外） ---
+  let newsCount = 0;
+  let newsItems = null;
+  try {
+    const parsed = JSON.parse(fs.readFileSync(INFORMATION_JSON_PATH, 'utf8'));
+    if (Array.isArray(parsed)) newsItems = parsed;
+  } catch (err) {
+    console.warn('information/index.json を読み込めないため、NEWS欄は既存の内容を維持します:', err.message);
+  }
+
+  if (newsItems) {
+    const rows = newsItems
+      .filter(item => String(item.url || '').indexOf('/columns/') === -1 && !item.slug)
+      .slice(0, 5)
+      .map(item => {
+        const dateSource = item.publishedAt || item.date || item.createdAt || '';
+        const href = item.url || 'article/';
+        const cat = categoryName(item.category);
+        newsCount += 1;
+        return '<li class="news-item"><a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer">' +
+          '<time datetime="' + escapeHtml(dateSource) + '">' + escapeHtml(formatDateJST(dateSource)) + '</time>' +
+          '<span class="' + categoryClass(cat) + '">' + escapeHtml(cat) + '</span>' +
+          '<span class="news-title">' + escapeHtml(item.title || '') + '</span>' +
+          '</a></li>';
+      })
+      .join('\n        ');
+    const newsInner = rows || '<li class="news-item"><a href="information/"><span class="news-title">最新情報を一覧で見る</span></a></li>';
+    html = html.replace(
+      /<!-- BUILD:TOP-NEWS -->[\s\S]*?<!-- \/BUILD:TOP-NEWS -->/,
+      '<!-- BUILD:TOP-NEWS -->\n        ' + newsInner + '\n      <!-- /BUILD:TOP-NEWS -->'
+    );
+  }
+
+  // --- コラム: 公開記事の最新3件 ---
+  const latest = [...(summaryList || [])]
+    .filter(a => a && a.slug)
+    .sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0))
+    .slice(0, 3);
+
+  const cards = latest.map((item, index) => {
+    const title = escapeHtml(item.title || 'コラム');
+    const href = 'columns/' + encodeURIComponent(item.slug) + '/';
+    const dateSource = item.publishedAt || '';
+    const publishedTime = new Date(dateSource || 0).getTime();
+    const isNew = !Number.isNaN(publishedTime) && (Date.now() - publishedTime) < 21 * 24 * 60 * 60 * 1000;
+    const newBadge = isNew ? '<span class="column-new">NEW</span>' : '';
+    let thumb;
+    if (item.eyecatchUrl) {
+      const sep = item.eyecatchUrl.indexOf('?') >= 0 ? '&' : '?';
+      const src = escapeHtml(item.eyecatchUrl + sep + 'fit=crop&w=600&h=338&q=80');
+      thumb = '<div class="column-thumb column-thumb-img"><img src="' + src + '" alt="' + title + '" loading="lazy" decoding="async"></div>';
+    } else {
+      thumb = '<div class="column-thumb column-thumb-0' + ((index % 3) + 1) + '" aria-hidden="true"><span>' + title + '</span></div>';
+    }
+    return '<article class="column-card"><a href="' + href + '">' + thumb +
+      '<time datetime="' + escapeHtml(dateSource) + '">' + escapeHtml(formatDateJST(dateSource)) + '</time>' + newBadge +
+      '<h3>' + title + '</h3></a></article>';
+  }).join('\n        ');
+
+  const columnsInner = cards || '<p class="column-loading"><a href="article/">コラム一覧を見る</a></p>';
+  html = html.replace(
+    /<!-- BUILD:TOP-COLUMNS -->[\s\S]*?<!-- \/BUILD:TOP-COLUMNS -->/,
+    '<!-- BUILD:TOP-COLUMNS -->\n        ' + columnsInner + '\n      <!-- /BUILD:TOP-COLUMNS -->'
   );
 
-  if (nextHtml !== html) {
-    fs.writeFileSync(HOME_HTML_PATH, nextHtml);
-    console.log(`index.html の最新NEWSを columns/index.json 由来で更新しました(${Math.min(summaryList.length, 5)}件)。`);
+  try {
+    fs.writeFileSync(HOME_HTML_PATH, html);
+    console.log(`index.html の最新NEWS・コラム欄を静的に更新しました (NEWS:${newsCount}件 / コラム:${latest.length}件)。`);
+  } catch (err) {
+    console.error('index.html の書き込みに失敗しました:', err);
   }
 }
 
@@ -2096,6 +2185,10 @@ async function buildStaticPages() {
 
   // 12. お知らせ(information)JSONを生成
   await buildInformationJson();
+
+  // 13. トップページの最新NEWS・コラム欄に初期HTMLを埋め込む
+  //     (information/index.json 生成後に実行すること)
+  buildHomepageStaticSections(summaryList);
 
   console.log('静的ページ生成プロセスが完了しました。');
 }
