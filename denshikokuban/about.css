@@ -1561,107 +1561,189 @@
     margin-top: 20px;
   }
 
-  /* ---------- 4カード（見せる書く残す共有／基本機能） ---------- */
+  /* ---------- 「見せる・書く・残す・共有する」を一台に（ネイビーパネル） ---------- */
 
-  .sp-card-grid4 {
+  .sp-usebox {
+    padding: 16px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #14295e 0%, #103f99 100%);
+    box-shadow: 0 14px 30px rgba(20, 41, 94, .22);
+  }
+
+  .sp-usebox__grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
 
-  .sp-mini-card {
-    padding: 16px 6px 14px;
-    border: 1px solid var(--about-line);
+  .sp-use {
+    padding: 14px 12px 13px;
+    border: 1px solid rgba(255, 255, 255, .16);
     border-radius: 12px;
-    background: #fff;
-    box-shadow: var(--about-shadow);
+    background: rgba(255, 255, 255, .07);
     text-align: center;
   }
 
-  .sp-mini-icon {
+  .sp-use__icon {
     display: grid;
     place-items: center;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     margin: 0 auto;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
   }
 
-  .sp-mini-icon svg {
-    width: 27px;
-    height: 27px;
+  .sp-use__icon svg {
+    width: 22px;
+    height: 22px;
   }
 
-  .sp-mini-icon.is-blue { color: #2f6bd8; }
-  .sp-mini-icon.is-pink { color: var(--about-pink); }
-  .sp-mini-icon.is-navy { color: var(--about-navy); }
-
-  .sp-mini-card h3 {
-    margin: 8px 0 0;
-    color: var(--about-navy);
-    font-size: 13px;
+  .sp-use h3 {
+    margin: 9px 0 0;
+    color: #fff;
+    font-size: 14.5px;
     font-weight: 900;
-    line-height: 1.3;
-    white-space: nowrap;
   }
 
-  .sp-mini-card p {
-    margin: 8px 0 0;
-    color: var(--about-muted);
-    font-size: 9.5px;
+  .sp-use p {
+    margin: 7px 0 0;
+    color: rgba(255, 255, 255, .78);
+    font-size: 11.5px;
     line-height: 1.7;
   }
 
-  /* ---------- 4つのメリット ---------- */
+  /* ---------- 基本機能（写真＋機能ピル / PCの機能マップを踏襲） ---------- */
 
-  .sp-merit-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+  .sp-funcs {
+    padding: 12px;
+    border: 1px solid var(--about-line);
+    border-radius: 16px;
+    background: #eaf1fb;
   }
 
-  .sp-merit-card {
-    padding: 14px 12px 13px;
-    border: 1px solid var(--about-line);
+  .sp-funcs__photo {
+    margin: 0;
+    overflow: hidden;
     border-radius: 12px;
+    aspect-ratio: 16 / 9;
+    box-shadow: var(--about-shadow);
+  }
+
+  .sp-funcs__photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sp-funcs__pills {
+    display: grid;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .sp-func-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--about-line);
+    border-radius: 999px;
     background: #fff;
     box-shadow: var(--about-shadow);
   }
 
-  .merit-head {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .merit-icon {
+  .sp-func-pill__icon {
     flex: none;
     display: grid;
     place-items: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 9px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
     background: #e9f0fc;
     color: var(--about-blue);
   }
 
-  .merit-icon svg {
-    width: 20px;
-    height: 20px;
+  .sp-func-pill__icon svg {
+    width: 21px;
+    height: 21px;
   }
 
-  .sp-merit-card h3 {
-    margin: 0;
+  .sp-func-pill__text {
+    min-width: 0;
+    display: grid;
+    gap: 1px;
+  }
+
+  .sp-func-pill__text strong {
     color: var(--about-navy);
-    font-size: 12.5px;
+    font-size: 13.5px;
     font-weight: 900;
-    line-height: 1.4;
   }
 
-  .sp-merit-card p {
-    margin: 9px 0 0;
+  .sp-func-pill__text small {
     color: var(--about-muted);
-    font-size: 10.5px;
-    line-height: 1.75;
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  /* ---------- 4つのメリット（番号付きリスト / PCの理由リストを踏襲） ---------- */
+
+  .sp-merit-list {
+    margin: 0;
+    padding: 4px 16px;
+    border: 1px solid var(--about-line);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: var(--about-shadow);
+    counter-reset: sp-merit;
+    list-style: none;
+  }
+
+  .sp-merit-list li {
+    counter-increment: sp-merit;
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: start;
+    padding: 13px 0;
+  }
+
+  .sp-merit-list li + li {
+    border-top: 1px solid #edf1f8;
+  }
+
+  .sp-merit-list li::before {
+    content: counter(sp-merit);
+    grid-row: 1 / span 2;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: var(--about-blue);
+    color: #fff;
+    font-family: 'Assistant', 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .sp-merit-list strong {
+    color: var(--about-navy);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.5;
+  }
+
+  .sp-merit-list span {
+    grid-column: 2;
+    margin-top: 3px;
+    color: var(--about-muted);
+    font-size: 12px;
+    line-height: 1.7;
   }
 
   /* ---------- 比較カード ---------- */
@@ -2661,35 +2743,6 @@
   .sp-hero__lead {
     font-size: clamp(12px, 3.2vw, 14px);
     line-height: 1.75;
-  }
-
-  /* 4枚ミニカード: 4列→2列にして文字を読みやすく */
-  .sp-card-grid4 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-  }
-
-  .sp-mini-card {
-    padding: 16px 12px 14px;
-  }
-
-  .sp-mini-card h3 {
-    font-size: 14.5px;
-  }
-
-  .sp-mini-card p {
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
-  /* メリットカード */
-  .sp-merit-card h3 {
-    font-size: 13.5px;
-  }
-
-  .sp-merit-card p {
-    font-size: 12px;
-    line-height: 1.7;
   }
 
   /* 違い比較カード */
