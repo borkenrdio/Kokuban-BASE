@@ -14913,7 +14913,11 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   }
 
   .service-body #consultation .operator-band {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     margin-bottom: 0;
+    overflow: hidden;
   }
 
   .service-body #showroom.page-section {
@@ -14922,6 +14926,42 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
 
   .service-body #showroom .split-panel {
     padding-top: 0;
+  }
+}
+
+body.service-body {
+  overflow-x: hidden;
+}
+
+body.service-body .subpage {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body.service-body #consultation .operator-band {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 760px) {
+  body.service-body .svc-can,
+  body.service-body .page-section,
+  body.service-body .online-cta-card,
+  body.service-body .operator-intro,
+  body.service-body .showroom-guide,
+  body.service-body .showroom-options--rich,
+  body.service-body .rental-placement-grid,
+  body.service-body .usecase-grid {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  body.service-body img,
+  body.service-body svg {
+    max-width: 100%;
   }
 }
 
