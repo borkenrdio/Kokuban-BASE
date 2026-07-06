@@ -81,15 +81,19 @@ jobs:
         run: |
           set -euo pipefail
 
-          if git diff --quiet; then
+          # 先にステージしてから差分判定する。
+          # git diff --quiet だけだと追跡済みファイルの変更しか検知できず、
+          # 新規生成ファイル（新しいお知らせ記事ページ等）だけの場合にコミットされない。
+          git add -u
+          git add article columns information team index.html sitemap.xml
+
+          if git diff --cached --quiet; then
             echo "No generated content changes to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -u
-          git add article columns information team index.html sitemap.xml
           git commit -m "Update microCMS content"
 
           if [[ -z "${MICROCMS_UPDATE_TOKEN}" ]]; then
