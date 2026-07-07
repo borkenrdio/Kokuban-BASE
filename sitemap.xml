@@ -136,6 +136,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/columns/price/</loc>
+    <lastmod>2026-07-07</lastmod>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/columns/pdf/</loc>
     <lastmod>2026-07-05</lastmod>
     <priority>0.6</priority>
