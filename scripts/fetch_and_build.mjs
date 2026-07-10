@@ -33,9 +33,9 @@ const AUTHORS = [
     nameRomaji: 'Takeyama Junya',
     nameKana: 'たけやま じゅんや',
     role: '株式会社idea spot 代表取締役',
-    photoUrl: '/img/staff-a.jpg',
+    photoUrl: '/assets/team-takeyama-junya.jpg',
     specialties: ['中学受験算数', '電子黒板を活用したICT授業', '教育事業マネジメント'],
-    bio: '中学受験専門の現役トップ算数講師として、毎年多数の難関中学合格者を輩出。電子黒板の早期導入を決断し、ICT教材を駆使した算数授業は、生徒・保護者から高く評価されている。英俊社の塾・教育機関向けお役立ちコラムを執筆。',
+    bio: '大手進学塾で都内西部をはじめ中学受験の地域責任者を務める他、複数の基幹校舎で教室責任者として活躍。得点だけではなく、問題ごとの正誤を数値分析する独自の手法で子ども達の学びの癖を把握する。直接指導をする受験生の第一志望校合格率は80％を超える。',
     achievements: [
       '中学受験算数の現役トップ講師として10年以上の指導実績',
       '灘・東大寺・洛星・同志社女子など難関校への合格者を多数輩出',
@@ -51,9 +51,9 @@ const AUTHORS = [
     nameRomaji: 'Endo Koji',
     nameKana: 'えんどう こうじ',
     role: 'Kokuban BASE 運営責任者',
-    photoUrl: '/img/staff-b.jpg',
+    photoUrl: '/assets/team-endo-koji.jpg',
     specialties: ['電子黒板とICT教材の連携', '公教育・私教育双方への導入支援', '中学受験・中高生指導'],
-    bio: '首都圏の大手学習塾で活躍し、様々なICT教材を授業に導入。電子黒板とICT教材の連携に関する知識は業界トップクラスで、公教育への導入提案にも定評あり。現在も教壇に立ち、中学受験から中高生の定期考査対策まで幅広く指導。',
+    bio: '大手進学塾にて複数校舎の教室長や都立中学・高校専門ブランドの責任者を歴任したトップ講師。細やかな観察眼で生徒・保護者双方から厚い信頼を得ており、全国から指導要望が絶えない。最難関中学合格はもちろん、最難関都立高校の合格者も輩出し続けている。',
     achievements: [
       '首都圏の大手学習塾でICT教材導入の最前線で活躍',
       '電子黒板×ICT教材の連携知識は業界トップクラス',
@@ -69,9 +69,9 @@ const AUTHORS = [
     nameRomaji: 'Yamada Masaki',
     nameKana: 'やまだ まさき',
     role: 'Kokuban BASE 運営担当',
-    photoUrl: '/img/staff-c.jpg',
+    photoUrl: '/assets/team-yamada-masaki.jpg',
     specialties: ['中学受験社会科', '情報システム・Webサイト構築', 'ICTの教育現場導入'],
-    bio: '現役で社会科のトップ講師として活躍する一方、情報システムの専門家でもある。社内の管理システムや本LPサイトの作成も一気通貫で完結させる、教育業界トップレベルのICT知識を有する。電子黒板導入にあたる、新システムの導入支援・サービス開発も相談可能。',
+    bio: '東大寺学園・洛星中学校をはじめ、関西最難関中学校の社会科指導のプロフェッショナル。入試問題を細かく分解し本質を見抜く解析力をもとに、暗記に頼らない的確なアプローチで指導する。指導生徒の入試本番における社会科の平均得点率は80％以上、社会を圧倒的な得点源へと変える。',
     achievements: [
       '現役で社会科のトップ講師として活躍',
       '情報システムの専門家として教育業界トップレベルのICT知識',
@@ -981,7 +981,7 @@ function buildAuthorPages(allArticles) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${escapeHtml(author.name)}(${escapeHtml(author.role)})｜執筆者プロフィール｜Kokuban BASE</title>
-    <meta name="description" content="${escapeHtml(author.name)}(${escapeHtml(author.role)})のプロフィール。${escapeHtml(author.specialties[0])}を専門とし、電子黒板の比較体験倉庫Kokuban BASEで活動中。執筆記事一覧もこちらから。">
+    <meta name="description" content="${escapeHtml(author.name)}(${escapeHtml(author.role)})のプロフィール。${escapeHtml(author.specialties[0])}を専門とし、電子黒板選びの総合窓口Kokuban BASEで活動中。">
     <link rel="canonical" href="${profileUrl}">
     <meta property="og:url" content="${profileUrl}">
     <meta property="og:title" content="${escapeHtml(author.name)}｜執筆者プロフィール｜Kokuban BASE">
@@ -1036,7 +1036,7 @@ function buildAuthorPages(allArticles) {
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260710-eeat2">
+    <link rel="stylesheet" href="/styles.css?v=20260710-eeat3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -1081,7 +1081,7 @@ function buildAuthorPages(allArticles) {
             <div class="max-w-4xl mx-auto px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
                     <div class="flex-shrink-0">
-                        <img src="${author.photoUrl}" alt="${escapeHtml(author.name)}(${escapeHtml(author.role)})" class="w-48 h-48 sm:w-56 sm:h-56 rounded-full object-cover shadow-xl ring-4 ring-white" width="512" height="512">
+                        <img src="${author.photoUrl}" alt="${escapeHtml(author.name)}(${escapeHtml(author.role)})" class="w-48 h-48 sm:w-56 sm:h-56 rounded-full object-cover shadow-xl ring-4 ring-white" width="512" height="512" onerror="this.style.visibility='hidden'">
                     </div>
                     <div class="flex-grow text-center md:text-left">
                         <p class="text-sm text-gray-500 font-bold tracking-widest mb-1 uppercase">${escapeHtml(author.nameRomaji)}</p>
@@ -1114,21 +1114,6 @@ function buildAuthorPages(allArticles) {
             </div>
         </section>
 
-        <!-- 執筆記事 -->
-        <section class="py-12 sm:py-16 bg-gray-50">
-            <div class="max-w-6xl mx-auto px-6 lg:px-8">
-                <div class="text-center mb-10">
-                    <h2 class="text-2xl sm:text-3xl font-bold text-customBlue mb-3">${escapeHtml(author.name)} の執筆記事</h2>
-                    <p class="text-gray-600">${myArticles.length > 0 ? `${myArticles.length}件の記事を執筆しています` : '執筆記事は準備中です'}</p>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">${articleListHtml}</div>
-                <div class="mt-12 text-center">
-                    <a href="/article" class="inline-flex items-center bg-white text-customBlue font-bold px-8 py-3 rounded-full border-2 border-customBlue hover:bg-customBlue hover:text-white transition-all shadow-md">
-                        コラム一覧へ <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer class="site-footer"><div class="footer-inner"><div class="footer-brand"><strong>Kokuban BASE</strong><p>電子黒板選びの総合窓口</p></div><div class="footer-contact"><a class="footer-phone" href="tel:0752317711"><small>お電話で予約</small><span>075-231-7711</span></a><a class="footer-btn" href="/contact/">お問い合わせ</a></div><nav class="footer-nav" aria-label="フッターメニュー"><a href="/denshikokuban/">電子黒板とは</a><a href="/service/">Kokuban BASEでできること</a><a href="/lineup/">ラインナップ</a><a href="/experience/">実機体験</a><a href="/support/">ご利用ガイド</a><a href="/lease/">リース</a><a href="/article/">コラム</a><a href="/voices/">先生の体験談</a></nav><nav class="footer-nav footer-legal" aria-label="運営情報・ポリシー"><a href="/company/">運営会社</a><a href="/about-editors/">編集部紹介</a><a href="/editorial-policy/">編集ポリシー</a><a href="/privacy/">プライバシーポリシー</a><a href="/terms/">特定商取引法に基づく表記</a></nav><small class="footer-copy">© Kokuban BASE.</small></div></footer>
@@ -1157,11 +1142,10 @@ function buildAuthorPages(allArticles) {
     ).length;
     return `
         <a href="/team/${author.slug}/" class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all p-8 group border border-gray-100">
-            <img src="${author.photoUrl}" alt="${escapeHtml(author.name)}" class="w-32 h-32 rounded-full object-cover mx-auto shadow-md mb-5" width="256" height="256">
+            <img src="${author.photoUrl}" alt="${escapeHtml(author.name)}" class="w-32 h-32 rounded-full object-cover mx-auto shadow-md mb-5" width="256" height="256" onerror="this.style.visibility='hidden'">
             <h2 class="text-xl font-bold text-gray-900 text-center mb-1 group-hover:text-customBlue transition-colors">${escapeHtml(author.name)}</h2>
             <p class="text-sm text-pink-500 font-semibold text-center mb-3">${escapeHtml(author.role)}</p>
             <p class="text-sm text-gray-600 text-center line-clamp-2 mb-4">${escapeHtml(author.specialties.join(' / '))}</p>
-            <p class="text-xs text-gray-400 text-center">執筆記事 ${myArticleCount}件 →</p>
         </a>`;
   }).join('');
 
@@ -1188,7 +1172,7 @@ function buildAuthorPages(allArticles) {
     <meta property="og:site_name" content="Kokuban BASE">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260710-eeat2">
+    <link rel="stylesheet" href="/styles.css?v=20260710-eeat3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
