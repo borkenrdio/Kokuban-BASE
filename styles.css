@@ -6064,6 +6064,84 @@ section.top-guide-cta {
   font-size: 11px;
 }
 
+/* フッター2段目: 運営情報・法的ページへの常設リンク */
+.footer-legal {
+  padding-top: 10px;
+  border-top: 0;
+  color: rgba(255, 255, 255, .66);
+}
+
+.footer-legal a {
+  border-right: 1px solid rgba(255, 255, 255, .18);
+}
+
+/* 会社概要: 正規取扱ブランドのロゴ一覧 */
+.company-partner-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px 0 12px;
+}
+
+.company-partner-logos span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 168px;
+  height: 76px;
+  padding: 12px 18px;
+  background: #fff;
+  border: 1px solid #dbe3f0;
+  border-radius: 12px;
+}
+
+.company-partner-logos img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* 会社概要: メディア掲載リスト */
+.company-media-list {
+  max-width: 720px;
+  margin: 20px auto 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.company-media-list li {
+  background: #fff;
+  border: 1px solid #dbe3f0;
+  border-radius: 12px;
+}
+
+.company-media-list a {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  padding: 14px 18px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.company-media-list a:hover {
+  color: #103f99;
+}
+
+.company-media-list .media-name {
+  color: #103f99;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(16, 63, 153, .35);
+  border-radius: 999px;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+
 .btn,
 .btn-hero,
 .faq-link,
