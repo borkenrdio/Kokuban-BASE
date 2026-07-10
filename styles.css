@@ -4272,6 +4272,11 @@ img {
   width: min(760px, 100%);
   margin: 18px auto 0;
   text-align: center;
+  /* ボタンが折り返した際に行同士が重ならないよう、flex + gap で間隔を確保 */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 }
 
 .section-actions .page-btn {
