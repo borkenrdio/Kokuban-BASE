@@ -101,6 +101,16 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/about-editors/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://kokuban-base.com/editorial-policy/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/faq/</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>

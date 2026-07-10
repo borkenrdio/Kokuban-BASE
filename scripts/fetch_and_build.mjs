@@ -1155,6 +1155,7 @@ function buildAuthorPages(allArticles) {
         <div class="container mx-auto px-6 py-12">
             <div class="text-2xl font-bold text-white mb-4">Kokuban BASE</div>
             <p class="text-blue-200 mb-8">株式会社idea spot</p>
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-blue-200 mb-6" aria-label="運営情報・ポリシー"><a href="/company/" class="hover:text-white hover:underline">運営会社</a><a href="/about-editors/" class="hover:text-white hover:underline">編集部紹介</a><a href="/editorial-policy/" class="hover:text-white hover:underline">編集ポリシー</a><a href="/privacy/" class="hover:text-white hover:underline">プライバシーポリシー</a><a href="/terms/" class="hover:text-white hover:underline">特定商取引法に基づく表記</a></nav>
             <div class="border-t border-white/20 pt-8 text-center text-blue-200">&copy; 2025 株式会社idea spot. All Rights Reserved.</div>
         </div>
     </footer>
@@ -1276,6 +1277,7 @@ function buildAuthorPages(allArticles) {
         <div class="container mx-auto px-6 py-12 text-center">
             <div class="text-2xl font-bold text-white mb-2">Kokuban BASE</div>
             <p class="text-blue-200 mb-6">株式会社idea spot</p>
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-blue-200 mb-6" aria-label="運営情報・ポリシー"><a href="/company/" class="hover:text-white hover:underline">運営会社</a><a href="/about-editors/" class="hover:text-white hover:underline">編集部紹介</a><a href="/editorial-policy/" class="hover:text-white hover:underline">編集ポリシー</a><a href="/privacy/" class="hover:text-white hover:underline">プライバシーポリシー</a><a href="/terms/" class="hover:text-white hover:underline">特定商取引法に基づく表記</a></nav>
             <div class="border-t border-white/20 pt-6 text-blue-200">&copy; 2025 株式会社idea spot. All Rights Reserved.</div>
         </div>
     </footer>
@@ -1465,6 +1467,8 @@ function generateSitemap(articles, newsItems = []) {
     'support',
     'voices',
     'company',
+    'about-editors',
+    'editorial-policy',
     'faq',
     'information',
     'contact'
@@ -1986,37 +1990,13 @@ async function buildStaticPages() {
     const authorName = escapeHtml(rawAuthorName);
 
     // 構造化データ用の author JSON を生成
-    // 原則: microCMSに入力された値をそのまま name に使う(画面・JSONを完全一致)
-    // AUTHORS にマッチした場合は Person 型で url や jobTitle を追加付与
-    // マッチしない場合は Organization 型として扱う
-    const matchedAuthor = AUTHORS.find(a =>
-      a.matchKeys.some(key => rawAuthorName.includes(key))
-    );
-
-    let authorSchemaObj;
-    if (matchedAuthor) {
-      // 個人(Person 型): 入力値をそのまま name に使い、付加情報として URL や jobTitle を追加
-      const profileUrl = `${BASE_URL}/team/${matchedAuthor.slug}/`;
-      authorSchemaObj = {
-        '@type': 'Person',
-        name: rawAuthorName, // 画面表示と完全一致させる
-        jobTitle: matchedAuthor.role,
-        url: profileUrl,
-        image: `${BASE_URL}${matchedAuthor.photoUrl}`,
-        worksFor: {
-          '@type': 'Organization',
-          name: '株式会社idea spot',
-          url: 'https://www.idea-spot.co.jp/',
-        },
-      };
-    } else {
-      // 編集部などのチーム名 (Organization 型)
-      authorSchemaObj = {
-        '@type': 'Organization',
-        name: rawAuthorName,
-        url: `${BASE_URL}/`,
-      };
-    }
+    // E-E-A-T方針: 記事の author は編集部(Organization 型)で統一し、
+    // 編集部紹介ページ(/about-editors/)に紐付ける
+    const authorSchemaObj = {
+      '@type': 'Organization',
+      name: 'コクバンベース編集部',
+      url: `${BASE_URL}/about-editors/`,
+    };
     const authorSchemaJson = JSON.stringify(authorSchemaObj);
 
     // 関連記事HTML（ビルド時に確定。undefinedバグの根絶）
