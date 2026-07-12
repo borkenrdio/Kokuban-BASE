@@ -1170,7 +1170,7 @@
 
 .kb-about-maker__body {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(210px, 1.3fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr)) minmax(210px, 1.3fr);
   gap: 14px;
   align-items: stretch;
 }
