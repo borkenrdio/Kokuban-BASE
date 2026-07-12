@@ -811,6 +811,15 @@
   line-height: 1.8;
 }
 
+.kb-about-section__lead {
+  max-width: 920px;
+  margin: -6px auto 28px;
+  color: var(--about-muted);
+  font-size: clamp(13px, 1.18vw, 15px);
+  font-weight: 500;
+  line-height: 2;
+}
+
 .kb-about-concl__scroll {
   overflow-x: auto;
 }
@@ -1698,17 +1707,10 @@
     scroll-padding-top: 94px;
   }
 
-  /* PC用セクションと共通フッターを差し替え */
-  .kb-about-page > section {
-    display: none;
-  }
-
-  .kb-sp {
-    display: block;
-  }
-
-  .site-footer {
-    display: none;
+  .kb-about-section__lead {
+    margin: -4px auto 22px;
+    font-size: 13px;
+    line-height: 1.9;
   }
 
   /* ---------- 共通 ---------- */
