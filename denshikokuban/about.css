@@ -785,6 +785,59 @@
   line-height: 1.7;
 }
 
+/* ---------- 執筆・監修ブロック（E-E-A-T / PC・SP共通） ---------- */
+
+.kb-about-credit__box {
+  padding: clamp(20px, 2.6vw, 30px) clamp(20px, 3vw, 34px);
+  border: 1px solid var(--about-line);
+  border-radius: 16px;
+  background: #f7f9fc;
+}
+
+.kb-about-credit__label {
+  margin: 0 0 12px;
+  color: var(--about-muted);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.kb-about-credit__who {
+  margin: 0 0 4px;
+  color: var(--about-ink);
+  font-size: 13.5px;
+  font-weight: 800;
+}
+
+.kb-about-credit__who a {
+  color: var(--about-blue);
+  text-decoration: underline;
+}
+
+.kb-about-credit__desc {
+  margin: 12px 0 0;
+  color: var(--about-muted);
+  font-size: 12.5px;
+  line-height: 1.9;
+}
+
+.kb-about-credit__links {
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.9;
+}
+
+.kb-about-credit__links a {
+  color: var(--about-blue);
+  text-decoration: underline;
+}
+
+.kb-about-credit__links span {
+  margin: 0 8px;
+  color: #c3cede;
+}
+
 /* リース導線下の月額注記（PC・SP共通） */
 .kb-about-lease-note {
   margin: 14px 0 0;
