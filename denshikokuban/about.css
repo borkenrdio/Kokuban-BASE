@@ -785,6 +785,23 @@
   line-height: 1.7;
 }
 
+/* リース導線下の月額注記（PC・SP共通） */
+.kb-about-lease-note {
+  margin: 14px 0 0;
+  color: #46597c;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.75;
+  text-align: center;
+}
+
+.kb-about-lease-note strong {
+  color: var(--about-blue);
+  font-family: 'Assistant', 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
 /* ---------- 7. 5つのポイント ---------- */
 
 .kb-about-checklist {
