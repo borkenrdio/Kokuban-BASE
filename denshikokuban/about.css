@@ -848,6 +848,21 @@
   color: var(--about-blue);
 }
 
+.kb-about-concl__link {
+  display: block;
+  width: fit-content;
+  margin-top: 4px;
+  color: var(--about-blue);
+  font-size: .92em;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.kb-about-concl__link:hover {
+  color: var(--about-pink);
+}
+
 /* SP: 結論を縦積みリストで表示 */
 .sp-concl {
   margin: 0;
