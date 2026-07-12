@@ -128,6 +128,21 @@
   line-height: 2;
 }
 
+.kb-bp-hero__source {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--bp-blue);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.kb-bp-hero__source:hover {
+  opacity: .72;
+}
+
 .kb-bp-hero__sizes {
   display: flex;
   flex-wrap: wrap;
