@@ -785,6 +785,201 @@
   line-height: 1.7;
 }
 
+/* ---------- まず結論：推奨構成の早見表（PC・SP共通） ---------- */
+
+.kb-about-concl__box {
+  padding: clamp(20px, 2.8vw, 34px) clamp(16px, 3vw, 36px);
+  border: 2px solid rgba(16, 63, 153, .28);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--about-shadow);
+}
+
+.kb-about-concl__h {
+  margin: 0;
+  color: var(--about-navy);
+  font-size: clamp(16px, 1.9vw, 23px);
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.kb-about-concl__lead {
+  margin: 10px 0 16px;
+  color: var(--about-muted);
+  font-size: clamp(12px, 1.1vw, 13.5px);
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.kb-about-concl__scroll {
+  overflow-x: auto;
+}
+
+.kb-about-concl__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(12px, 1.05vw, 13.5px);
+}
+
+.kb-about-concl__table th,
+.kb-about-concl__table td {
+  padding: 10px 12px;
+  border: 1px solid var(--about-line);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.65;
+}
+
+.kb-about-concl__table thead th {
+  background: var(--about-navy);
+  color: #fff;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.kb-about-concl__table tbody th {
+  background: #eef3fa;
+  color: var(--about-navy);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.kb-about-concl__table td strong {
+  color: var(--about-blue);
+}
+
+/* SP: 結論を縦積みリストで表示 */
+.sp-concl {
+  margin: 0;
+  display: grid;
+}
+
+.sp-concl > div {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr);
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid #edf1f8;
+}
+
+.sp-concl > div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.sp-concl dt {
+  align-self: start;
+  justify-self: start;
+  padding: 3px 9px;
+  border-radius: 7px;
+  background: #eef3fa;
+  color: var(--about-navy);
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.sp-concl dd {
+  margin: 0;
+  min-width: 0;
+}
+
+.sp-concl dd strong {
+  display: block;
+  color: var(--about-blue);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.6;
+}
+
+.sp-concl dd small {
+  display: block;
+  margin-top: 2px;
+  color: var(--about-muted);
+  font-size: 11.5px;
+  line-height: 1.65;
+}
+
+/* ---------- スペックの足切りライン ---------- */
+
+.kb-about-cutoff__lead {
+  margin: 0 0 14px;
+  color: #44546e;
+  font-size: clamp(12.5px, 1.15vw, 14px);
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.kb-about-cutoff__points {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.kb-about-cutoff__points p {
+  margin: 0;
+  color: #44546e;
+  font-size: clamp(12.5px, 1.1vw, 13.5px);
+  line-height: 1.9;
+}
+
+.kb-about-cutoff__points strong {
+  color: var(--about-navy);
+}
+
+.kb-about-cutoff__points .kb-about-cutoff__note {
+  color: var(--about-muted);
+  font-size: clamp(11.5px, 1vw, 12.5px);
+}
+
+/* ---------- 導入して後悔する3つの失敗パターン ---------- */
+
+.kb-about-fail__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.kb-about-fail__card {
+  padding: 20px 18px;
+  border: 1px solid var(--about-line);
+  border-top: 3px solid var(--about-pink);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--about-shadow);
+}
+
+.kb-about-fail__num {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #fdeaf3;
+  color: #c91f76;
+  font-size: 11.5px;
+  font-weight: 900;
+}
+
+.kb-about-fail__card h3 {
+  margin: 10px 0 0;
+  color: var(--about-navy);
+  font-size: 14.5px;
+  font-weight: 900;
+  line-height: 1.55;
+}
+
+.kb-about-fail__card p {
+  margin: 8px 0 0;
+  color: var(--about-muted);
+  font-size: 12.5px;
+  line-height: 1.85;
+}
+
+@media (max-width: 980px) {
+  .kb-about-fail__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------- 執筆・監修ブロック（E-E-A-T / PC・SP共通） ---------- */
 
 .kb-about-credit__box {
