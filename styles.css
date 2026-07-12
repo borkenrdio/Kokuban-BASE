@@ -13986,6 +13986,24 @@ body:has(.lineup-brand-page) .lineup-story-card .lineup-story-body h2::after {
   line-height: 2;
 }
 
+.lp-mission-guide {
+  margin: 12px auto 0;
+  text-align: center;
+}
+
+.lp-mission-guide a {
+  color: #fff;
+  font-size: clamp(12px, 1.05vw, 14px);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, .55);
+  text-underline-offset: 4px;
+}
+
+.lp-mission-guide a:hover {
+  color: #ff70b2;
+}
+
 /* --- 学校向け / 学習塾向け 2枚カード --- */
 
 .lp-mission-audience {

@@ -820,6 +820,152 @@
   line-height: 2;
 }
 
+/* ---------- 電子黒板の種類 ---------- */
+
+.kb-about-types__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.kb-about-type-card {
+  position: relative;
+  padding: 24px 22px;
+  border: 1px solid var(--about-line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--about-shadow);
+}
+
+.kb-about-type-card.is-recommended {
+  border: 2px solid var(--about-blue);
+}
+
+.kb-about-type-card__badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 4px 9px;
+  border-radius: 4px;
+  background: var(--about-blue);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.kb-about-type-card h3 {
+  margin: 0;
+  color: var(--about-navy);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.kb-about-type-card p {
+  margin: 10px 0 16px;
+  color: #44546e;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.kb-about-type-card dl,
+.kb-about-type-card dl div {
+  margin: 0;
+}
+
+.kb-about-type-card dl div {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px solid var(--about-line);
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+
+.kb-about-type-card dt {
+  color: var(--about-blue);
+  font-weight: 900;
+}
+
+.kb-about-type-card dd {
+  margin: 0;
+  color: #44546e;
+  font-weight: 700;
+}
+
+/* ---------- デメリットと対策 ---------- */
+
+.kb-about-demerits__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.kb-about-demerits__grid article {
+  padding: 20px 18px;
+  border: 1px solid var(--about-line);
+  border-top: 4px solid #e49a2f;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: var(--about-shadow);
+}
+
+.kb-about-demerits__grid h3 {
+  margin: 0;
+  color: var(--about-navy);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.kb-about-demerits__grid p {
+  min-height: 5.5em;
+  margin: 9px 0 14px;
+  color: #52627a;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.kb-about-demerits__grid strong {
+  display: inline-block;
+  margin-right: 7px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: #eef3fa;
+  color: var(--about-blue);
+  font-size: 10px;
+}
+
+.kb-about-demerits__grid span {
+  color: #263957;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.kb-about-source {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-left: 3px solid var(--about-blue);
+  background: #f5f8fd;
+  color: #52627a;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.kb-about-source a,
+.maker-item__source {
+  color: var(--about-blue);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.maker-item__source {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 9.5px;
+}
+
 .kb-about-concl__scroll {
   overflow-x: auto;
 }
@@ -1491,6 +1637,11 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .kb-about-types__grid,
+  .kb-about-demerits__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .kb-about-duo {
     grid-template-columns: 1fr;
   }
@@ -1632,6 +1783,21 @@
 
   .kb-about-use-grid {
     gap: 10px;
+  }
+
+  .kb-about-types__grid,
+  .kb-about-demerits__grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .kb-about-type-card,
+  .kb-about-demerits__grid article {
+    padding: 18px 16px;
+  }
+
+  .kb-about-demerits__grid p {
+    min-height: 0;
   }
 
   .kb-about-use-card {
