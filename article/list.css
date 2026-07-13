@@ -17,6 +17,10 @@
 
 /* ---------- コンパクトなタイトル帯 ---------- */
 
+.site-header {
+  z-index: 80;
+}
+
 .kb-art-hero {
   border-top: 2px solid #fff;
   background: var(--art-blue);
@@ -50,8 +54,8 @@
 
 .kb-art-filter {
   position: sticky;
-  top: 0;
-  z-index: 20;
+  top: 130px;
+  z-index: 40;
   background: rgba(242, 245, 249, .94);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--art-line);
@@ -438,6 +442,18 @@
 }
 
 /* ---------- レスポンシブ ---------- */
+
+@media (max-width: 980px) {
+  .kb-art-filter {
+    top: 96px;
+  }
+}
+
+@media (max-width: 760px) {
+  .kb-art-filter {
+    top: 58px;
+  }
+}
 
 @media (max-width: 1080px) {
   .kb-art-grid {

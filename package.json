@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build:ogp": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/generate_ogp_assets.ps1",
+    "build:internal-links": "node scripts/apply_internal_links.mjs",
+    "build:contextual-links": "node scripts/apply_contextual_internal_cards.mjs",
     "build:information": "node scripts/build_information.mjs",
-    "build:columns": "node scripts/fetch_and_build.mjs"
+    "build:columns": "node scripts/fetch_and_build.mjs && node scripts/apply_internal_links.mjs && node scripts/apply_contextual_internal_cards.mjs"
   },
   "dependencies": {
     "microcms-js-sdk": "^3.0.0"
