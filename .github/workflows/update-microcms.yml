@@ -85,7 +85,7 @@ jobs:
           # git diff --quiet だけだと追跡済みファイルの変更しか検知できず、
           # 新規生成ファイル（新しいお知らせ記事ページ等）だけの場合にコミットされない。
           git add -u
-          git add article columns information team index.html sitemap.xml
+          git add article columns information team index.html sitemap.xml assets/eyecatch
 
           if git diff --cached --quiet; then
             echo "No generated content changes to commit."

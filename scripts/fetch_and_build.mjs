@@ -283,14 +283,93 @@ function allowBrTags(str) {
 
 /**
  * アイキャッチ画像のHTMLを生成
+ * localUrl が渡された場合はローカル化済み画像（1200x630）をそのまま使う
  */
-function createEyecatchHtml(eyecatch, alt) {
-  if (!eyecatch || !eyecatch.url) return '';
+function createEyecatchHtml(eyecatch, alt, localUrl = '') {
+  if (!localUrl && (!eyecatch || !eyecatch.url)) return '';
   const width = 1200;
-  const height = 675;
+  const height = localUrl ? 630 : 675;
   const altText = escapeHtml(alt);
-  const optimizedUrl = `${eyecatch.url}?fit=crop&w=1200&h=675&q=80`;
+  const optimizedUrl = localUrl || `${eyecatch.url}?fit=crop&w=1200&h=675&q=80`;
   return `<img src="${optimizedUrl}" alt="${altText}" width="${width}" height="${height}" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">`;
+}
+
+/* ---------- アイキャッチのセルフホスト化（SEO用ファイル名） ----------
+ * microCMSのアイキャッチは「ChatGPT Image ....png」のような無意味なファイル名になるため、
+ * ビルド時に assets/eyecatch/ へ「denshikokuban-<slug>.<ext>」というキーワード入りの
+ * ファイル名でダウンロードし、自ドメインから配信する（画像SEO対策）。
+ * ダウンロード済みかは manifest.json（ファイル名→元URL）で判定し、
+ * microCMS側で画像が差し替えられたときだけ再取得する。失敗時は従来のmicroCMS URLで動き続ける。
+ */
+const EYECATCH_DIR = path.resolve(process.cwd(), 'assets', 'eyecatch');
+const EYECATCH_MANIFEST_PATH = path.resolve(EYECATCH_DIR, 'manifest.json');
+let eyecatchManifest = null;
+
+function loadEyecatchManifest() {
+  if (eyecatchManifest) return eyecatchManifest;
+  try {
+    eyecatchManifest = JSON.parse(fs.readFileSync(EYECATCH_MANIFEST_PATH, 'utf8'));
+  } catch {
+    eyecatchManifest = {};
+  }
+  return eyecatchManifest;
+}
+
+function saveEyecatchManifest() {
+  if (!eyecatchManifest) return;
+  try {
+    fs.mkdirSync(EYECATCH_DIR, { recursive: true });
+    fs.writeFileSync(EYECATCH_MANIFEST_PATH, JSON.stringify(eyecatchManifest, null, 2));
+  } catch (err) {
+    console.warn('eyecatch manifest の保存に失敗しました:', err.message);
+  }
+}
+
+async function downloadImage(url, destPath) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+  const buf = Buffer.from(await res.arrayBuffer());
+  fs.mkdirSync(path.dirname(destPath), { recursive: true });
+  fs.writeFileSync(destPath, buf);
+}
+
+/**
+ * 記事のアイキャッチをSEO用ファイル名でローカル化する。
+ * 成功すると article.eyecatchLocalMain（1200x630・OG/ヒーロー用）と
+ * article.eyecatchLocalThumb（480x270・一覧カード用）にサイト内パスが入る。
+ */
+async function localizeEyecatch(article) {
+  const srcUrl = article.eyecatch?.url;
+  if (!srcUrl || !article.slug) return;
+
+  let ext = '.png';
+  try {
+    const m = new URL(srcUrl).pathname.match(/\.(png|jpe?g|webp|gif)$/i);
+    if (m) ext = `.${m[1].toLowerCase()}`;
+  } catch { /* URLが不正でもデフォルト拡張子で続行 */ }
+
+  const cleanSlug = String(article.slug).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  // 「電子黒板」のローマ字をキーワードとして先頭に付ける（既に含むslugは二重付与しない）
+  const base = cleanSlug.startsWith('denshikokuban') ? cleanSlug : `denshikokuban-${cleanSlug}`;
+  const variants = [
+    { name: `${base}${ext}`, params: '?fit=crop&w=1200&h=630&q=85', key: 'eyecatchLocalMain' },
+    { name: `${base}-thumb${ext}`, params: '?fit=crop&w=480&h=270&q=80', key: 'eyecatchLocalThumb' },
+  ];
+
+  const manifest = loadEyecatchManifest();
+  for (const v of variants) {
+    const destPath = path.resolve(EYECATCH_DIR, v.name);
+    try {
+      if (manifest[v.name] !== srcUrl || !fs.existsSync(destPath)) {
+        await downloadImage(`${srcUrl}${v.params}`, destPath);
+        manifest[v.name] = srcUrl;
+        console.log(`アイキャッチを取得しました: ${v.name}`);
+      }
+      article[v.key] = `/assets/eyecatch/${v.name}`;
+    } catch (err) {
+      console.warn(`アイキャッチのローカル化に失敗（${article.slug} / ${v.name}）: ${err.message}`);
+    }
+  }
 }
 
 /**
@@ -315,9 +394,11 @@ function buildRelatedPostsHtml(currentArticle, allArticles) {
     const date = article.publishedAt 
       ? formatDateJST(article.publishedAt)
       : '';
-    const imageUrl = article.eyecatch?.url 
-      ? `${article.eyecatch.url}?fit=crop&w=600&h=338&q=80`
-      : 'https://placehold.jp/24/cccccc/ffffff/800x450.png?text=No+Image';
+    const imageUrl = article.eyecatchLocalThumb
+      ? article.eyecatchLocalThumb
+      : (article.eyecatch?.url
+        ? `${article.eyecatch.url}?fit=crop&w=600&h=338&q=80`
+        : 'https://placehold.jp/24/cccccc/ffffff/800x450.png?text=No+Image');
     const linkUrl = `/columns/${article.slug}/`;
     const author = escapeHtml(article.author || 'Kokuban BASE 編集部');
 
@@ -366,9 +447,11 @@ function getArticleSlugFromUrl(rawUrl) {
 function buildInternalLinkCardHtml(article) {
   const title = escapeHtml(article.title || '関連記事');
   const description = escapeHtml(article.description || extractDescription(article.body, 110) || '');
-  const imageUrl = article.eyecatch?.url
-    ? `${article.eyecatch.url}?fit=crop&w=320&h=180&q=80`
-    : 'https://placehold.jp/24/103f99/ffffff/320x180.png?text=Kokuban%20BASE';
+  const imageUrl = article.eyecatchLocalThumb
+    ? article.eyecatchLocalThumb
+    : (article.eyecatch?.url
+      ? `${article.eyecatch.url}?fit=crop&w=320&h=180&q=80`
+      : 'https://placehold.jp/24/103f99/ffffff/320x180.png?text=Kokuban%20BASE');
   const linkUrl = `/columns/${article.slug}/`;
 
   return `<a href="${linkUrl}" class="internal-link-card" aria-label="${title}">
@@ -938,9 +1021,11 @@ function buildAuthorPages(allArticles) {
 
     const articleListHtml = myArticles.length > 0
       ? myArticles.map(a => {
-          const imageUrl = a.eyecatch?.url
-            ? `${a.eyecatch.url}?fit=crop&w=400&h=225&q=80`
-            : 'https://placehold.co/400x225/e0e7ff/1e3a8a?text=Kokuban+BASE';
+          const imageUrl = a.eyecatchLocalThumb
+            ? a.eyecatchLocalThumb
+            : (a.eyecatch?.url
+              ? `${a.eyecatch.url}?fit=crop&w=400&h=225&q=80`
+              : 'https://placehold.co/400x225/e0e7ff/1e3a8a?text=Kokuban+BASE');
           const date = a.publishedAt
             ? formatDateJST(a.publishedAt)
             : '';
@@ -1502,7 +1587,7 @@ function buildCardHtml(article) {
   const date = formatDateJST(article.publishedAt);
   const url = `/columns/${article.slug}/`;
   const img = article.eyecatchUrl
-    ? `${article.eyecatchUrl}?fit=crop&w=480&h=270&q=80`
+    ? (article.eyecatchUrl.includes('/assets/eyecatch/') ? article.eyecatchUrl : `${article.eyecatchUrl}?fit=crop&w=480&h=270&q=80`)
     : (article.eyecatch?.url
       ? `${article.eyecatch.url}?fit=crop&w=480&h=270&q=80`
       : 'https://placehold.co/480x270?text=No+Image');
@@ -1533,7 +1618,7 @@ function buildPickupHtml(article) {
   const date = formatDateJST(article.publishedAt);
   const url = `/columns/${article.slug}/`;
   const img = article.eyecatchUrl
-    ? `${article.eyecatchUrl}?fit=crop&w=240&h=150&q=80`
+    ? (article.eyecatchUrl.includes('/assets/eyecatch/') ? article.eyecatchUrl : `${article.eyecatchUrl}?fit=crop&w=240&h=150&q=80`)
     : (article.eyecatch?.url
       ? `${article.eyecatch.url}?fit=crop&w=240&h=150&q=80`
       : 'https://placehold.co/240x150?text=No+Image');
@@ -1702,8 +1787,9 @@ function buildHomepageStaticSections(summaryList) {
     const newBadge = isNew ? '<span class="column-new">NEW</span>' : '';
     let thumb;
     if (item.eyecatchUrl) {
+      const isLocal = item.eyecatchUrl.includes('/assets/eyecatch/');
       const sep = item.eyecatchUrl.indexOf('?') >= 0 ? '&' : '?';
-      const src = escapeHtml(item.eyecatchUrl + sep + 'fit=crop&w=600&h=338&q=80');
+      const src = escapeHtml(isLocal ? item.eyecatchUrl : item.eyecatchUrl + sep + 'fit=crop&w=600&h=338&q=80');
       thumb = '<div class="column-thumb column-thumb-img"><img src="' + src + '" alt="' + title + '" loading="lazy" decoding="async"></div>';
     } else {
       thumb = '<div class="column-thumb column-thumb-0' + ((index % 3) + 1) + '" aria-hidden="true"><span>' + title + '</span></div>';
@@ -1862,6 +1948,9 @@ async function buildStaticPages() {
       continue;
     }
 
+    // アイキャッチをSEO用ファイル名（denshikokuban-<slug>）でローカル化。失敗時はmicroCMS URLのまま
+    await localizeEyecatch(article);
+
     const articleDir = path.resolve(COLUMNS_DIR, article.slug);
     const outputHtmlPath = path.resolve(articleDir, 'index.html');
 
@@ -1881,9 +1970,11 @@ async function buildStaticPages() {
     );
 
     const canonicalUrl = `${BASE_URL}/columns/${article.slug}/`;
-    const ogImageUrl = article.eyecatch?.url
-      ? `${article.eyecatch.url}?fit=crop&w=1200&h=630`
-      : `${BASE_URL}/ogp.jpg`;
+    const ogImageUrl = article.eyecatchLocalMain
+      ? `${BASE_URL}${article.eyecatchLocalMain}`
+      : (article.eyecatch?.url
+        ? `${article.eyecatch.url}?fit=crop&w=1200&h=630`
+        : `${BASE_URL}/ogp.jpg`);
 
     // 日付の処理
     // - publishedAt: 公開日(常に存在)
@@ -1922,7 +2013,7 @@ async function buildStaticPages() {
       ? `<span class="revised-at-block ml-3 inline-flex items-center text-gray-500 text-sm"><i class="fas fa-pen-to-square text-gray-300 mr-1.5"></i>更新日: <time datetime="${revisedAtISO}" class="ml-1">${revisedAtFormatted}</time></span>`
       : '';
 
-    const eyecatchHtml = createEyecatchHtml(article.eyecatch, titlePlain);
+    const eyecatchHtml = createEyecatchHtml(article.eyecatch, titlePlain, article.eyecatchLocalMain || '');
 
     // 執筆者(ビルド時に確定)
     // microCMS の article.author フィールドの値をそのまま使う(画面・構造化データで一致)
@@ -2018,7 +2109,9 @@ async function buildStaticPages() {
       title: titlePlain,
       publishedAt: article.publishedAt,
       revisedAt: hasRevision ? revisedAtISO : null,
-      eyecatchUrl: article.eyecatch?.url || null,
+      eyecatchUrl: article.eyecatchLocalThumb
+        ? `${BASE_URL}${article.eyecatchLocalThumb}`
+        : (article.eyecatch?.url || null),
       description: description,
       category: article.category || null,
     });
@@ -2056,6 +2149,9 @@ async function buildStaticPages() {
   // 13. トップページの最新NEWS・コラム欄に初期HTMLを埋め込む
   //     (information/index.json 生成後に実行すること)
   buildHomepageStaticSections(summaryList);
+
+  // アイキャッチのローカル化状況を保存（次回ビルドで差分のみ再取得するため）
+  saveEyecatchManifest();
 
   console.log('静的ページ生成プロセスが完了しました。');
 }
