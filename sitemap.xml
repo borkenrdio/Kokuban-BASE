@@ -146,6 +146,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/columns/pc-connection/</loc>
+    <lastmod>2026-07-20</lastmod>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/columns/size/</loc>
     <lastmod>2026-07-17</lastmod>
     <priority>0.6</priority>
