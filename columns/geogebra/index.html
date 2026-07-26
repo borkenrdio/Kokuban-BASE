@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GSSKLZ6EDH');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載｜Kokuban BASE</title>
+    <meta name="description" content="電子黒板でGeoGebraを使えば、関数がスライダーで動きます。式を2つ入れるだけで交点と座標が表示され、動かすと連動します。導入7年目・5ブランドを扱う編集部が、テンプレート化とAI活用まで解説します。">
+    <link rel="canonical" href="https://kokuban-base.com/columns/geogebra/">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載｜Kokuban BASE">
+    <meta property="og:description" content="電子黒板でGeoGebraを使えば、関数がスライダーで動きます。式を2つ入れるだけで交点と座標が表示され、動かすと連動します。導入7年目・5ブランドを扱う編集部が、テンプレート化とAI活用まで解説します。">
+    <meta property="og:url" content="https://kokuban-base.com/columns/geogebra/">
+    <meta property="og:image" content="https://kokuban-base.com/assets/eyecatch/denshikokuban-geogebra.png">
+    <meta property="og:site_name" content="Kokuban BASE（コクバンベース）">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="article:published_time" content="2026-07-26T16:39:37.612Z">
+    <meta property="article:modified_time" content="2026-07-26T16:39:37.612Z">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載｜Kokuban BASE">
+    <meta name="twitter:description" content="電子黒板でGeoGebraを使えば、関数がスライダーで動きます。式を2つ入れるだけで交点と座標が表示され、動かすと連動します。導入7年目・5ブランドを扱う編集部が、テンプレート化とAI活用まで解説します。">
+    <meta name="twitter:image" content="https://kokuban-base.com/assets/eyecatch/denshikokuban-geogebra.png">
+    
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": "https://kokuban-base.com/columns/geogebra/" },
+            "headline": "電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載",
+            "description": "電子黒板でGeoGebraを使えば、関数がスライダーで動きます。式を2つ入れるだけで交点と座標が表示され、動かすと連動します。導入7年目・5ブランドを扱う編集部が、テンプレート化とAI活用まで解説します。",
+            "image": ["https://kokuban-base.com/assets/eyecatch/denshikokuban-geogebra.png"],
+            "datePublished": "2026-07-26T16:39:37.612Z",
+            "dateModified": "2026-07-26T16:39:37.612Z",
+            "author": {"@type":"Organization","name":"コクバンベース編集部","url":"https://kokuban-base.com/about-editors/"},
+            "publisher": { 
+                "@type": "Organization", 
+                "name": "Kokuban BASE（コクバンベース）", 
+                "logo": { "@type": "ImageObject", "url": "https://kokuban-base.com/ogp.jpg" } 
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kokuban-base.com/" },
+                { "@type": "ListItem", "position": 2, "name": "コラム", "item": "https://kokuban-base.com/article" },
+                { "@type": "ListItem", "position": 3, "name": "電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載", "item": "https://kokuban-base.com/columns/geogebra/" }
+            ]
+        }
+    ]
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        customBlue: '#103f99',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- サイト共通ヘッダー/フッターのスタイル -->
+    <link rel="stylesheet" href="/styles.css?v=20260710-eeat3">
+
+    <style>
+        /* styles.css の body { font-size: 80% } を本文では打ち消す */
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; line-height: 1.6; font-size: 16px; }
+        
+        .title-block { text-align: center; }
+        .title-block h1 { line-height: 1.4; }
+        
+        .subtitle-text {
+            display: block;
+            font-size: 0.55em;
+            font-weight: 700;
+            color: #6b7280;
+            margin-top: 1rem;
+            line-height: 1.5;
+            letter-spacing: 0.02em;
+        }
+
+        .publish-date, .author-name { font-size: 0.875rem; color: #6b7280; }
+
+        .article-body {
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+            word-break: normal; overflow-wrap: break-word;
+        }
+
+        .article-body p { margin-bottom: 2em; }
+        .article-body br { display: inline; }
+
+        .article-body ul,
+        .article-body ol {
+            margin: 1.5em 0 2em;
+            padding-left: 1.6em;
+        }
+        .article-body ul { list-style: disc; }
+        .article-body ol { list-style: decimal; }
+        .article-body li {
+            margin: 0.45em 0;
+            padding-left: 0.2em;
+        }
+        .article-body li > ul,
+        .article-body li > ol {
+            margin: 0.5em 0;
+        }
+        .article-body li::marker {
+            color: #103f99;
+            font-weight: 700;
+        }
+        
+        .article-body h2 { 
+            font-size: 1.75rem; 
+            font-weight: 900; 
+            margin: 3em 0 1.5em; 
+            padding-bottom: 0.5em; 
+            border-bottom: 3px solid #103f99; 
+            position: relative;
+        }
+        .article-body h3 { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            margin: 2.5em 0 1.2em; 
+            padding-left: 0.75rem;
+            border-left: 5px solid #103f99;
+        }
+        
+        .speaker-a { color: #103f99; font-weight: 800; }
+        .speaker-b { color: #ec4899; font-weight: 800; }
+        .speaker-c { color: #059669; font-weight: 800; }
+        .speaker-default { color: #374151; font-weight: 800; }
+
+        /* 画像下の余白を完全に排除するための設定 */
+        .eyecatch-image .image-wrapper {
+            display: flex;
+            flex-direction: column;
+            font-size: 0;
+            line-height: 0;
+            background-color: transparent;
+            isolation: isolate;
+        }
+        .eyecatch-image img,
+        .eyecatch-image figure {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            border: none;
+            vertical-align: bottom;
+        }
+        
+        .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .article-body img[src*=".gif"] { width: 100%; }
+        .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+        .article-body table { width: 100%; margin: 2rem 0; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
+        .article-body th,
+        .article-body td { padding: 14px 16px; border-right: 1px solid #dbe3f0; border-bottom: 1px solid #dbe3f0; color: #0f172a; text-align: left; vertical-align: middle; }
+        .article-body th:last-child,
+        .article-body td:last-child { border-right: 0; }
+        .article-body tr:last-child th,
+        .article-body tr:last-child td { border-bottom: 0; }
+        .article-body th { background: #eef5ff; color: #103f99; font-weight: 800; }
+        .article-body td p,
+        .article-body th p { margin: 0; }
+        .article-body tbody tr:nth-child(even) td { background: #f8fbff; }
+        @media (max-width: 640px) {
+            .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+            .article-body th,
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
+        }
+
+        /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
+        .article-body a.internal-link {
+            color: #103f99;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1.5px solid rgba(16, 63, 153, 0.3);
+            padding-bottom: 1px;
+            transition: all 0.2s ease;
+        }
+        .article-body a.internal-link:hover {
+            color: #ed5b8c;
+            border-bottom-color: #ed5b8c;
+            background-color: rgba(237, 91, 140, 0.05);
+        }
+
+        /* 目次(Table of Contents) */
+        .article-body .internal-link-card {
+            display: grid;
+            grid-template-columns: 160px minmax(0, 1fr);
+            align-items: start;
+            gap: 1rem;
+            margin: 2rem 0;
+            overflow: hidden;
+            border: 1px solid #d1d5db;
+            background: #fff;
+            color: inherit;
+            text-decoration: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .article-body .internal-link-card:hover {
+            border-color: #103f99;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+            transform: translateY(-2px);
+        }
+        .article-body .internal-link-card__image {
+            position: relative;
+            width: 160px;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+        .article-body .internal-link-card__image img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border-radius: 0;
+            object-fit: cover;
+            box-shadow: none;
+        }
+        .article-body .internal-link-card__image--external img {
+            padding: 0.75rem;
+            background: #f8fafc;
+            object-fit: contain;
+        }
+        .article-body .internal-link-card__body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+            height: 90px;
+            overflow: hidden;
+            padding: 0.5rem 1rem 0.5rem 0;
+        }
+        .article-body .internal-link-card__title {
+            display: -webkit-box;
+            margin: 0 0 0.35rem;
+            overflow: hidden;
+            color: #111827;
+            font-size: 0.9rem;
+            font-weight: 800;
+            line-height: 1.35;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .article-body .internal-link-card__description {
+            display: -webkit-box;
+            margin: 0;
+            overflow: hidden;
+            color: #6b7280;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .article-body .internal-link-card__site {
+            display: block;
+            margin-top: 0.45rem;
+            overflow: hidden;
+            color: #103f99;
+            font-size: 0.7rem;
+            font-weight: 700;
+            line-height: 1.3;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .article-body blockquote .internal-link-card {
+            margin: 1.25rem 0 0;
+        }
+        @media (max-width: 640px) {
+            .article-body .internal-link-card {
+                grid-template-columns: 1fr;
+            }
+            .article-body .internal-link-card__image {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 9;
+            }
+            .article-body .internal-link-card__body {
+                height: auto;
+                padding: 0 1rem 1rem;
+            }
+        }
+
+        .toc-container { max-width: 720px; margin-left: auto; margin-right: auto; }
+        .toc-list li { list-style: none; }
+        .toc-link {
+            position: relative;
+            border-left: 2px solid transparent;
+            padding-left: 12px;
+            margin-left: -14px;
+            transition: all 0.2s ease;
+        }
+        .toc-link:hover {
+            border-left-color: #103f99;
+            background-color: rgba(16, 63, 153, 0.03);
+        }
+
+        /* アンカークリック時、固定ヘッダー(高さ80px)に隠れないよう調整 */
+        .article-body h2[id],
+        .article-body h3[id] {
+            scroll-margin-top: 100px;
+        }
+
+        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+        
+        .share-button { display: inline-flex; width: 3.25rem; height: 3.25rem; align-items: center; justify-content: center; border-radius: 9999px; color: white; transition: all 0.2s ease; }
+        .share-button:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .share-twitter { background-color: #000000; }
+        .share-facebook { background-color: #1877F2; }
+        .share-line { background-color: #06C755; }
+
+        /* 関連記事カードのスタイル */
+        .related-card { transition: all 0.3s ease; }
+        .related-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-stone-50 antialiased text-gray-900">
+
+    <!-- Header (サイト共通) -->
+    <header class="site-header">
+        <div class="header-main">
+            <a class="brand" href="/"><span class="brand-mark">K</span><span>Kokuban BASE</span></a>
+            <div class="header-actions">
+                <a class="header-phone" href="tel:0752317711" aria-label="075-231-7711に電話する"><span class="phone-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg></span><span><small>お電話で予約</small><strong>075-231-7711</strong><small class="phone-hours">平日13:30〜20:30</small></span></a>
+                <a class="btn btn-outline" href="/support/"><svg class="icon-guide" viewBox="0 0 256 256" width="16" height="16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M128 8c-16 0-30 9-44 17-10 6-22 8-30 13-8 5-10 13-10 22v60c0 58 46 96 84 124 4 3 10 3 14 0 38-28 84-66 84-124V60c0-9-2-17-10-22-8-5-20-7-30-13-14-8-28-17-44-17zM150 56l34 19c4 2 6 6 6 11v54c0 6-3 11-7 14l-33 24V56z"/></svg>ご利用ガイド</a>
+                <a class="btn btn-primary" href="/contact/"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>お問い合わせ</a>
+            </div>
+            <button class="mobile-menu-button" type="button" aria-label="メニューを開く"><span></span><b>メニュー</b></button>
+        </div>
+        <nav class="global-nav" aria-label="主要メニュー"><a href="/denshikokuban/">電子黒板とは</a><a href="/service/">Kokuban BASEでできること</a><a href="/lineup/">ラインナップ</a><a href="/experience/">実機体験</a><a href="/support/">ご利用ガイド</a><a href="/lease/">リース</a><a href="/article/">コラム</a><a href="/voices/">先生の体験談</a></nav>
+    </header>
+
+    <main class="bg-white">
+        <!-- パンくずリスト(画面表示) -->
+        <nav aria-label="パンくずリスト" class="border-b border-gray-100">
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-3">
+                <ol class="flex items-center text-sm text-gray-600 flex-wrap gap-y-1" itemscope itemtype="https://schema.org/BreadcrumbList">
+                    <li class="flex items-center" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="/" class="hover:text-customBlue transition-colors" itemprop="item">
+                            <span itemprop="name">トップ</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li class="flex items-center" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="/article" class="hover:text-customBlue transition-colors" itemprop="item">
+                            <span itemprop="name">コラム</span>
+                        </a>
+                        <meta itemprop="position" content="2">
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <span aria-current="page" class="font-semibold text-gray-900 line-clamp-1" itemprop="name">電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載</span>
+                        <meta itemprop="position" content="3">
+                    </li>
+                </ol>
+            </div>
+        </nav>
+
+        <div class="max-w-screen-xl mx-auto px-4 py-8 sm:py-16">
+            <article class="max-w-4xl mx-auto">
+                <!-- アイキャッチ -->
+                <div class="eyecatch-image mb-8 sm:mb-12">
+                    <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
+                        <img src="/assets/eyecatch/denshikokuban-geogebra.png" alt="電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載" width="1200" height="630" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                    </div>
+                </div>
+                
+                <!-- タイトルブロック -->
+                <div class="title-block mb-12 sm:mb-16">
+                    <h1 id="main-article-title" class="text-[clamp(1.15rem,2.4vw,1.875rem)] font-black text-gray-900 mb-6 leading-[1.28]">電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載</h1>
+
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                        <div class="flex items-center space-x-2 flex-wrap justify-center">
+                            <span class="h-px w-4 bg-gray-300"></span>
+                            <p class="publish-date font-bold tracking-wider">公開日: <time datetime="2026-07-26T16:39:37.612Z">2026年7月27日</time></p>
+                            
+                            <span class="reading-time inline-flex items-center text-gray-500 text-sm ml-3"><i class="fas fa-clock text-gray-300 mr-1.5"></i>読了 約13分</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
+                            <p class="author-name font-bold tracking-wider flex items-center">
+                                <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
+                                執筆者: <span id="main-author-display">Kokuban BASE編集部</span>
+                            </p>
+                            <span class="h-px w-4 bg-gray-300"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 目次(見出し2個以上の場合のみ自動生成) -->
+                <div class="max-w-3xl mx-auto">
+                    
+<aside class="toc-container my-10 p-6 bg-gray-50 border-l-4 border-customBlue rounded-r-xl shadow-sm">
+    <h2 class="toc-title text-base font-bold text-customBlue mb-3 flex items-center">
+        <i class="fas fa-list-ul mr-2 text-sm" aria-hidden="true"></i>目次
+    </h2>
+    <nav aria-label="目次">
+        <ol class="toc-list text-sm space-y-0">
+        <li class="">
+            <a href="#had1291dac4" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>電子黒板でGeoGebraスイートを使うと何ができるのか
+            </a>
+        </li>
+        <li class="">
+            <a href="#h8ddf90f3c3" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>GeoGebraスイートとは｜教育目的なら無料、インストール不要で使える
+            </a>
+        </li>
+        <li class="">
+            <a href="#hbbd0d0c21d" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>関数の授業で効く3つの使い方
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#h63c83a1687" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>使い方1：「プラスならこう、マイナスならこう」を動きで見せる
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#h3514386e62" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>使い方2：交点も座標も、グラフに連動して動かす
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#h6739ba8cfe" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>使い方3：全員が同じ画面で、同じ瞬間の変化を見る
+            </a>
+        </li>
+        <li class="">
+            <a href="#h8041f24c8c" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>毎回描き直さない｜テンプレート化とスクリーンショット活用
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#hcbc9c0e988" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>アカウントを作れば、作ったグラフをワンクリックで呼び出せる
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#h4b8c735d7c" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>スクリーンショットでホワイトボードに持っていく
+            </a>
+        </li>
+        <li class="">
+            <a href="#h7147f1101c" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>正直なところ、使うのは3つの操作だけ｜先に知っておきたい注意点
+            </a>
+        </li>
+        <li class="">
+            <a href="#h13f629364c" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>まとめ：グラフはソフトに描かせて、考え方は手で書く
+            </a>
+        </li>
+        <li class="">
+            <a href="#h3ed3d99663" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>応用編：ツールそのものを、AIに作らせる
+            </a>
+        </li>
+        </ol>
+    </nav>
+</aside>
+
+                </div>
+
+                <!-- 本文 -->
+                <div class="article-body max-w-3xl mx-auto text-gray-800">
+                    <p>「aをマイナスにしたら、グラフはどうなると思う？」関数が苦手な生徒がつまずくのは、この「変えたらどうなるか」が頭の中で動かせないところです。電子黒板でGeoGebraスイートを開き、スライダーをつまんで動かすと、グラフも交点も座標も一斉に動きます。<strong>関数は「覚えて描くもの」から「動かして確かめるもの」に変わります。</strong></p><p>この記事は、京都で学習塾を運営し、電子黒板を導入して7年目、主要5ブランドの実機を並べて展示しているKokuban BASE編集部が書いています。GeoGebraスイートで関数をどう見せるか、そして描いたグラフを毎回描き直さずに使い回す方法まで紹介します。</p><h2 id="had1291dac4">電子黒板でGeoGebraスイートを使うと何ができるのか</h2><p>先に結論をまとめます。関数の授業でやることは、次の3つだけです。</p><table><tbody><tr><th colspan="1" rowspan="1"><p>やること</p></th><th colspan="1" rowspan="1"><p>操作</p></th><th colspan="1" rowspan="1"><p>画面で起きること</p></th></tr><tr><td colspan="1" rowspan="1"><p>式を入力する</p></td><td colspan="1" rowspan="1"><p>左の入力欄に <code>y=x+2</code> のように打つ</p></td><td colspan="1" rowspan="1"><p>グラフがすぐ描かれる</p></td></tr><tr><td colspan="1" rowspan="1"><p>値を動かす</p></td><td colspan="1" rowspan="1"><p>スライダーをドラッグする</p></td><td colspan="1" rowspan="1"><p>グラフの形と位置が連動して変わる</p></td></tr><tr><td colspan="1" rowspan="1"><p>交点を出す</p></td><td colspan="1" rowspan="1"><p>ツールから「2つのオブジェクトの交点」を選び、2本のグラフを順にタップ</p></td><td colspan="1" rowspan="1"><p>交点A・Bと座標が表示され、値を変えると座標も動く</p></td></tr></tbody></table><p><strong>GeoGebraスイートの本質は「グラフを描くソフト」ではなく、「グラフを動かせるソフト」です。</strong> そして電子黒板の役割は、その動きを教室の全員に、同じタイミングで届けることにあります。</p><a href="https://www.geogebra.org/calculator" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="Calculator Suite - GeoGebra">
+    <span class="internal-link-card__image internal-link-card__image--external"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJtZW51IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiNmZmZ9PC9zdHlsZT48L2RlZnM+PHBhdGggZD0iTTIgNWgyMHY0SDJ6bTAgNWgyMHY0SDJ6bTAgNWgyMHY0SDJ6IiBjbGFzcz0iY2xzLTEiLz48cGF0aCBkPSJNMyAxOGgxOHYtMkgzem0wLTVoMTh2LTJIM3ptMC03djJoMThWNnoiLz48L3N2Zz4=" alt="Calculator Suite - GeoGebra" loading="lazy" decoding="async"></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">Calculator Suite - GeoGebra</span>
+      <span class="internal-link-card__description">Interactive, free online calculator from GeoGebra: graph functions, plot data, drag sliders, create triangles, circles and much more!</span>
+      <span class="internal-link-card__site">geogebra.org</span>
+    </span>
+  </a><h2 id="h8ddf90f3c3">GeoGebraスイートとは｜教育目的なら無料、インストール不要で使える</h2><p>GeoGebraは、関数グラフ・図形・3D・表計算・統計を1つにまとめた動的数学ソフトです。動的（dynamic）とは「動かせる」という意味で、名前がそのまま特徴を表しています。教育目的での利用は無料で、ブラウザで開くだけで使えます。<strong>インストールも、授業のための特別な準備もいりません。</strong> Android搭載の電子黒板なら本体のブラウザだけで完結し、パソコンをつないで使う構成ならパソコン側のブラウザで開けば手順は同じです。</p><p>関数を扱うときは、上部のメニューから「関数グラフ」を選びます。画面は左が入力欄、右がグラフ、下に数式用のキーボードという構成です。<strong>キーボードには累乗や分数のボタンが並んでいるので、</strong><code>x²</code> や分数もそのまま打てます。</p><blockquote><p>あわせて読みたい</p><p>電子黒板とは｜Kokuban BASE <a href="https://kokuban-base.com/denshikokuban/" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="電子黒板とは？仕組み・できること・選び方・価格を分かりやすく解説 - Kokuban BASE">
+    <span class="internal-link-card__image internal-link-card__image--external"><img src="https://kokuban-base.com/assets/ogp-denshikokuban.png" alt="電子黒板とは？仕組み・できること・選び方・価格を分かりやすく解説 - Kokuban BASE" loading="lazy" decoding="async"></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">電子黒板とは？仕組み・できること・選び方・価格を分かりやすく解説 - Kokuban BASE</span>
+      <span class="internal-link-card__description">電子黒板の仕組み、基本機能、できること、サイズ、価格、選び方を初めての方にも分かりやすく解説します。</span>
+      <span class="internal-link-card__site">kokuban-base.com</span>
+    </span>
+  </a></p></blockquote><h2 id="hbbd0d0c21d">関数の授業で効く3つの使い方</h2><h3 id="h63c83a1687">使い方1：「プラスならこう、マイナスならこう」を動きで見せる</h3><p>関数が苦手な生徒の多くは、係数の符号や大きさが形にどう効くかを想像できません。<strong>言葉で「aが負なら下に凸です」と説明しても、頭の中でグラフは動いてくれません。</strong>スライダーなら、その説明が不要になります。aを2から−2までゆっくり動かせば、放物線が細くなり、平らになり、ひっくり返る——という一連の変化を、生徒は説明なしで目撃します。「aがマイナスになると上下がひっくり返る」は、聞いた知識ではなく、見た記憶として残ります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/fda0ebdf70f6452287586c46c9af7ccc/gif-3-slider-a-negative.gif" alt="" width="800" height="400"></figure><p>※GeoGebraの画面を分かりやすく、加工し、表示しています。（見本）</p><p>一次関数なら傾きaと切片b、二次関数ならa・平行移動と、同じやり方が単元をまたいで使えます。<strong>操作を覚えるのが1回で済むので、2単元目からは準備がほぼゼロになります。</strong></p><h3 id="h3514386e62">使い方2：交点も座標も、グラフに連動して動かす</h3><p>グラフを2本描いたら、ツールから「2つのオブジェクトの交点」を選び、2本のグラフを順にタップします。これだけで交点AとBに点が打たれ、座標が数値で表示されます。たとえば <code>f: y=0.5x²</code> と <code>g: y=x+1</code> を入れると、交点は<strong>A（2.73, 3.73）とB（−0.73, 0.27）</strong> になります。手計算だと 0.5x²＝x+1 を解いて x＝1±√3 を出す必要がありますが、画面には最初から小数で出ています。見づらいですが、以下実際の画面です。</p><p></p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/88c58e585fc84ced8ef7a57ffea842a0/image.png" alt="" width="1917" height="900"></figure><p>面白いのはここからです。スライダーを動かすと、<strong>グラフだけでなく座標の数字までリアルタイムで書き換わります。</strong> 「交点は方程式を解いた答え」という理屈が、動く数字として目の前に出てくる状態です。さらに、直線を平行移動させていくと、2つあった交点がだんだん近づき、ある瞬間に1つに重なり、その先で消えます。<code>y=0.5x²</code> と <code>y=x+b</code> なら、<strong>b＝−0.5 のときにちょうど接します。</strong> 判別式D＝0の意味を、公式より先に見せられる瞬間です。</p><h3 id="h6739ba8cfe">使い方3：全員が同じ画面で、同じ瞬間の変化を見る</h3><p>生徒それぞれの端末で操作させる使い方にも良さはありますが、単元の導入では「今、どこが、どう動いたか」を全員が同じ1枚の画面で見ておくほうが、そのあとの話が早くなります。大画面なら、教師が画面を指さして「ここ、いま動いたよね」と言えます。動かす前に「どうなると思う？」と予想させる進め方も取りやすくなります。この一瞬の間が、そのあとの説明の入りを良くします。</p><blockquote><p>あわせて読みたい</p><p>電子黒板の画面分割機能で「資料」と「板書」を1画面に並べる授業活用法 <a href="/columns/gamenbunkatsu/" class="internal-link-card" aria-label="電子黒板の画面分割機能で「資料」と「板書」を1画面に並べる授業活用法">
+    <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/6323173efb494007b6865a12a90cafe4/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%882%E6%97%A5%2011_49_50%20(1).png?fit=crop&w=320&h=180&q=80" alt="電子黒板の画面分割機能で「資料」と「板書」を1画面に並べる授業活用法" loading="lazy" decoding="async"></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">電子黒板の画面分割機能で「資料」と「板書」を1画面に並べる授業活用法</span>
+      <span class="internal-link-card__description">電子黒板の画面分割機能を使えば、デジタル教材や検索画面、AIの回答などの資料と、先生の板書を1画面に並べて表示できます。生徒が手元の資料と黒板を行き来する必要が少なくなり、資料と解説のつながりを見ながら授業に集中できます。</span>
+    </span>
+  </a></p></blockquote><h2 id="h8041f24c8c">毎回描き直さない｜テンプレート化とスクリーンショット活用</h2><p>ここまで読んで、「毎回この式を打ち込むのは面倒では？」と思われたかもしれません。実はここが、GeoGebraを日常的に使えるかどうかの分かれ目です。</p><h3 id="hcbc9c0e988">アカウントを作れば、作ったグラフをワンクリックで呼び出せる</h3><p>GeoGebraは無料のアカウントを作ると、作ったファイルを保存して一覧から呼び出せます。<strong>一度作ってしまえば、同じグラフを二度と描き直す必要はありません。</strong> 授業では保存したファイルを開いて、値だけ変えれば済みます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e9e353b55ae540c691d48abcd5d9351f/image.png" alt="" width="1894" height="469"></figure><p>※ テスト用 GeoGebra保存画面</p><p>そこで、よく使う型をテンプレートとして先に作っておくのがおすすめです。</p><ul><li>一次関数：傾きaと切片bにスライダーをつけたもの</li><li>二次関数：<code>y=ax²+bx+c</code> の3つにスライダーをつけたもの</li><li>交点：二次関数と一次関数を1本ずつ、交点表示つき</li></ul><p><strong>授業のたびに作るのではなく、学期の初めに3つ作っておく。</strong> これだけで、準備の手間はほぼ消えます。グラフは、いざ描こうとすると意外に手間がかかる教材です。だからこそテンプレート化の効果が大きくなります。</p><h3 id="h4b8c735d7c">スクリーンショットでホワイトボードに持っていく</h3><p>電子黒板ならではの使い方が、この後工程です。GeoGebraで出したグラフをスクリーンショットで切り取り、ホワイトボード機能に貼り付けます。貼ってしまえば、あとは自由です。交点に丸をつける、面積になる部分を塗る、問題文の横に並べて解説を書き込む——<strong>「正確なグラフ」はソフトに描かせて、「考え方」は手書きで乗せる。この分業が一番速いです。</strong> 板書としてそのまま保存でき、QRコードやクラウドで配ることもできます。</p><p>なお、面積を色で塗った状態をGeoGebra側で出すことも可能ですが、授業のテンポを考えると、スクリーンショットに手で塗るほうが速い場面は多いです。</p><blockquote><p>あわせて読みたい</p><p>電子黒板のスクリーンショット機能！PDF・答案・AI回答を切り取って授業で活用する方法 <a href="/columns/screenshot/" class="internal-link-card" aria-label="電子黒板のスクリーンショット機能！PDF・答案・AI回答を切り取って授業で活用する方法">
+    <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8c602e5624184d30bed26915601b9e1b/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%889%E6%97%A5%2012_19_05%20(1).png?fit=crop&w=320&h=180&q=80" alt="電子黒板のスクリーンショット機能！PDF・答案・AI回答を切り取って授業で活用する方法" loading="lazy" decoding="async"></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">電子黒板のスクリーンショット機能！PDF・答案・AI回答を切り取って授業で活用する方法</span>
+      <span class="internal-link-card__description">電子黒板のスクリーンショット機能を使えば、PDF教材の一部や生徒の答案、AI回答、Web資料を必要な範囲だけ切り取り、ホワイトボードに貼り付けて解説できます。理科の実験図、国語の記述答案添削、AI・Web資料の整理など、授業で使える活用例を紹介します。</span>
+    </span>
+  </a></p></blockquote><h2 id="h7147f1101c">正直なところ、使うのは3つの操作だけ｜先に知っておきたい注意点</h2><p>GeoGebraは大学レベルまで対応する多機能ソフトですが、<strong>関数の授業で使っているのは「式の入力」「スライダー」「交点ツール」の3つだけです。</strong> 3D表示もCAS（数式処理＝式のまま計算する機能）も、この単元では開いてすらいません。使う機能を絞れば、迷う場面はほとんどありません。</p><p>一方で、先に知っておくと安心な点が3つあります。</p><ul><li><strong>スライダーの範囲に0をまたがせない</strong>：<code>y=ax²</code> でaが0になると、放物線ではなく直線（x軸）になります。授業中に通過すると必ず「あれ？」となるので、範囲を0.1〜3のように設定しておくか、通過したら「aが0だと二次関数じゃなくなるね」と一言添えるのが安全です</li><li><strong>交点ツールは2回タップが必要</strong>：「2つのオブジェクトの交点」を選んだあと、グラフを1本ずつタップします。1本目で反応がないように見えるため、最初は戸惑いやすい操作です</li><li><strong>目盛りが細かいと後方から読めない</strong>：初期表示のままだと数字が小さいことがあります。ズームで表示範囲を絞ってから授業に入ると読みやすくなります</li></ul><p>Kokuban BASEでは主要5ブランドの電子黒板を並べて展示していますが、<strong>GeoGebraのようにブラウザで動く教材は、どのブランドでも同じように使えます。</strong> ブランドごとに差が出るのは、書き味・スクリーンショットの手数・保存の手順といった「まわりの操作」のほうです。たとえばStarBoardは書き込みアプリに教育現場向けのガイド線（方眼や座標軸などの背景）を多数備えており、手書きでグラフを添えたいときの下準備が短く済みます。</p><blockquote><p>あわせて読みたい</p><p>電子黒板「StarBoard」の魅力とは？授業現場を変える3つの強みを紹介 <a href="/columns/Starboard/" class="internal-link-card" aria-label="電子黒板「StarBoard」の魅力とは？授業現場を変える3つの強みを紹介">
+    <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d2c02cbeab744834af15c32dd601608a/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%2011_45_28%20(1).png?fit=crop&w=320&h=180&q=80" alt="電子黒板「StarBoard」の魅力とは？授業現場を変える3つの強みを紹介" loading="lazy" decoding="async"></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">電子黒板「StarBoard」の魅力とは？授業現場を変える3つの強みを紹介</span>
+      <span class="internal-link-card__description">電子黒板「StarBoard（スターボード）」の魅力を紹介します。世界80カ国・50万台以上の実績をもつ老舗ブランドが、アプリ不要のAI活用、手でつかむ直感スクリーンショット、大教室対応の大画面で、日々の授業現場を支えます。</span>
+    </span>
+  </a></p></blockquote><h2 id="h13f629364c">まとめ：グラフはソフトに描かせて、考え方は手で書く</h2><ul><li>GeoGebraスイートは教育目的なら無料。インストール不要で、式を打てばグラフが出る</li><li>関数の授業で使うのは「式の入力」「スライダー」「交点ツール」の3操作だけ</li><li>スライダーを動かすと、グラフ・交点・座標が連動して動く。「aがマイナスならどうなる」を説明せずに見せられる</li><li>直線を平行移動させて交点が2つ→1つ→0と変わる様子は、判別式の導入にそのまま使える</li><li>アカウントを作ってテンプレートを3つ用意しておけば、毎回描き直す必要がなくなる</li><li>スクリーンショットでホワイトボードに貼り、書き込み・塗り分けは手書きで乗せる</li></ul><p>関数が苦手な生徒に足りないのは、公式の暗記量ではなく、<strong>「値を変えたらどう動くか」を見た経験</strong>です。GeoGebraはその経験を作るための道具であり、電子黒板はそれを教室の全員に、同じ瞬間に届けるための画面です。</p><h2 id="h3ed3d99663">応用編：ツールそのものを、AIに作らせる</h2><p>ここからはおまけです。GeoGebraで足りない動きが欲しくなったとき、最近は「ツール自体をAIに作らせる」という選択肢が増えました。たとえば「一次関数と二次関数で囲まれた面積を、スライダーで動かしながら見せたい」。GeoGebraでも積分コマンドで出せますが、面積の数値・交点の座標・自動アニメーションを1画面にまとめた専用ツールが欲しいなら、生成AIに作らせたほうが早い場合があります。</p><p>実際に作らせたものを検算してみました。二次関数 y＝1.4x²−4、一次関数 y＝1.3x+1.9 のとき、交点はx＝−1.640と2.569、囲まれた面積は17.403です。ツールの表示は17.404でした。小数第3位まで合っています。</p><p>AI生成ツールの利点と、必ず守ること</p><p>・HTMLファイル1枚で完結させられる：電子黒板のブラウザで開くだけで動きます。ネット接続がなくても使えるように作らせることもできます<br>・その単元専用の見せ方にできる：汎用ソフトでは何手もかかる表示を、最初から1画面にまとめられます<br>・必ず自分で検算する：ここが最重要です。GeoGebraは数学教育ソフトとして長年検証されていますが、AIが書いたコードにその保証はありません。授業で使う前に、手計算できる値を1つ入れて答え合わせをしてください。 上の17.403のように、公式で確かめられる例を1つ通せば十分です</p><p>日常的に使うのはGeoGebraで十分です。その単元だけの特別な見せ方が欲しくなったときに、AIで補う。この使い分けが現実的だと考えています。</p><blockquote><p>そのまま使えるプロンプト</p><p>生成AIに投げる文章は、具体的に書くほど手戻りが減ります。以下は実際に使える形にしたものです。</p><p>以下の条件で、HTMLファイル1枚だけで動く授業用ツールを作ってください。</p><p>【目的】</p><p>中学〜高校の授業で電子黒板に映して使います。一次関数と二次関数の</p><p>位置関係と、2つのグラフで囲まれた面積を、動かしながら生徒に見せます。</p><p>【数式】</p><p>・二次関数 y = ax^2 + bx + c</p><p>・一次関数 y = mx + n</p><p>【操作】</p><p>・a, b, c, m, n の5つをスライダーで変更できる</p><p>  a: -3〜3（0.1刻み）／b・c・n: -10〜10（0.1刻み）／m: -5〜5（0.1刻み）</p><p>・「a を自動で動かす」トグルを置き、オンにすると a が範囲内を往復する</p><p>・各スライダーの現在値を数字でも表示する</p><p>【表示】</p><p>・2本のグラフを色分けして描き、座標軸と目盛りを表示する</p><p>・交点があれば x 座標を小数第3位まで表示し、グラフ上にも点を打つ</p><p>・2本のグラフで囲まれた部分を半透明で塗る</p><p>・囲まれた面積を小数第3位まで表示する</p><p>・「x=◯◯ から x=◯◯ までの、2つのグラフの差を積分しています」のように、</p><p>  いま何を計算しているかを日本語で1行表示する</p><p>【計算】</p><p>・面積は定積分で求める。交点の有無は判別式で先に判定する</p><p>・交点がないときは面積を出さず「交点なし」と表示する</p><p>・a = 0 のときは二次関数でなくなるため、その旨を表示する</p><p>【電子黒板で使うための条件】</p><p>・数値表示は24px以上、グラフの線は太めにする</p><p>・指で操作するため、スライダーのつまみを十分な大きさにする</p><p>・外部ライブラリやCDNを使わず、HTMLファイル1枚で完結させる</p><p>・明るい教室でも見やすい配色にする</p><p>・横1280px・16:9でレイアウトが崩れないようにする</p><p>【出力】</p><p>HTMLファイルの中身だけを出力してください。説明文は不要です。</p><p>出てきたファイルは、そのまま電子黒板のブラウザで開けます。うまく動かないときは「スライダーを動かしても面積が更新されません」のように症状を伝えれば直ります。 プログラムの知識は必要ありません。</p></blockquote><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d3c928735f434981aea9eeea1a0fa8e4/CPT2607270127-776x556%20(1).gif" alt="" width="776" height="556"></figure>
+                </div>
+
+                <!-- 執筆・監修（編集部プロフィール） -->
+                <div class="editorial-credit max-w-3xl mx-auto mt-16 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+                    <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">この記事の執筆・監修</h3>
+                    <p class="font-bold text-gray-800 mb-1"><i class="fas fa-pen-nib text-customBlue/70 mr-2" aria-hidden="true"></i>執筆：<a href="/about-editors/" class="text-customBlue hover:underline">Kokuban BASE編集部</a></p>
+                    <p class="font-bold text-gray-800 mb-4"><i class="fas fa-user-check text-customBlue/70 mr-2" aria-hidden="true"></i>監修：株式会社 idea spot 会員制難関指導専門塾 elio</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">Kokuban BASE編集部は、電子黒板選びの総合窓口「Kokuban BASE」を運営する株式会社idea spot（2016年創業・京都で学習塾を運営）のメンバーで構成されています。2020年に自社教室へ電子黒板を導入して以来、会員制難関指導専門塾elioの授業で毎日フル活用しながら、体験倉庫での実機検証に基づいて記事を執筆しています。</p>
+                    <p class="mt-4 text-sm font-bold"><a href="/editorial-policy/" class="text-customBlue hover:underline"><i class="fas fa-file-alt mr-1" aria-hidden="true"></i>編集ポリシー（比較・評価の基準と中立性の開示）</a><span class="mx-2 text-gray-300">|</span><a href="/about-editors/" class="text-customBlue hover:underline">編集部紹介</a></p>
+                </div>
+
+                <!-- お問い合わせCTA -->
+                <div class="mt-16">
+                    <div class="bg-gradient-to-br from-pink-50 to-white border border-pink-100 p-8 sm:p-10 rounded-3xl shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fas fa-comments text-8xl text-pink-500"></i>
+                        </div>
+                        <div class="relative z-10 text-center sm:text-left">
+                            <h3 class="text-2xl sm:text-3xl font-black text-pink-600 mb-4">電子黒板の導入・比較のご相談はこちら</h3>
+                            <p class="text-gray-700 leading-relaxed mb-8 max-w-2xl">
+                                Kokuban BASEでは、電子黒板の選び方から導入・運用まで、専門スタッフが無料でご相談を承っています。お気軽にお問い合わせください。
+                            </p>
+                            <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-4">
+                                <a href="/check/" class="w-full sm:w-auto inline-flex items-center justify-center bg-[#103f99] text-white font-black text-lg px-8 py-4 rounded-full hover:bg-[#0b2f73] transition-all shadow-lg hover:shadow-blue-200 transform hover:-translate-y-1">
+                                    30秒診断をはじめる <i class="fas fa-clipboard-check ml-3"></i>
+                                </a>
+                                <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center bg-pink-500 text-white font-black text-lg px-8 py-4 rounded-full hover:bg-pink-600 transition-all shadow-lg hover:shadow-pink-200 transform hover:-translate-y-1">
+                                    お問い合わせ <i class="fas fa-arrow-right ml-3"></i>
+                                </a>
+                                <a href="/denshikokuban/" class="w-full sm:w-auto inline-flex items-center justify-center bg-white text-[#103f99] border-2 border-[#103f99]/30 font-bold text-base px-7 py-3.5 rounded-full hover:border-[#103f99] hover:bg-blue-50 transition-all">
+                                    電子黒板の選び方を見る
+                                </a>
+                                <a href="/lineup/" class="w-full sm:w-auto inline-flex items-center justify-center bg-white text-[#103f99] border-2 border-[#103f99]/30 font-bold text-base px-7 py-3.5 rounded-full hover:border-[#103f99] hover:bg-blue-50 transition-all">
+                                    ブランドを比較する
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- シェアボタン -->
+                <div class="mt-20 py-10 border-t border-gray-100">
+                    <h3 class="text-base font-bold text-center text-gray-500 uppercase tracking-widest mb-6">Share this article</h3>
+                    <div class="flex justify-center items-center gap-6">
+                        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fgeogebra%2F&text=%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%C3%97GeoGebra%E3%81%A7%E6%95%B0%E5%AD%A6%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99%EF%BD%9CChatGPT%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E5%BF%9C%E7%94%A8%E7%B7%A8%E3%82%82%E6%8E%B2%E8%BC%89%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="X" class="share-button share-twitter"><i class="fab fa-x-twitter text-xl"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fgeogebra%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="share-button share-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fgeogebra%2F&text=%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%C3%97GeoGebra%E3%81%A7%E6%95%B0%E5%AD%A6%E3%82%92%E5%8B%95%E3%81%8B%E3%81%99%EF%BD%9CChatGPT%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%9F%E5%BF%9C%E7%94%A8%E7%B7%A8%E3%82%82%E6%8E%B2%E8%BC%89%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="LINE" class="share-button share-line"><i class="fab fa-line text-2xl"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 関連記事（ビルド時に静的生成） -->
+            <div class="mt-24 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between mb-10">
+                    <h3 class="text-2xl font-black text-gray-900">あわせて読みたい</h3>
+                    <a href="https://kokuban-base.com/article" class="text-sm font-bold text-customBlue hover:underline">すべて見る <i class="fas fa-chevron-right ml-1"></i></a>
+                </div>
+                <div id="related-posts-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+    <a href="/columns/spec/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://kokuban-base.com/assets/eyecatch/denshikokuban-spec.png" alt="電子黒板のスペックの見方｜OS・メモリ・CPUの見方を初心者向けに解説" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板のスペックの見方｜OS・メモリ・CPUの見方を初心者向けに解説
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.06.25</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+
+    <a href="/columns/price/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://kokuban-base.com/assets/eyecatch/denshikokuban-price.png" alt="電子黒板の価格・費用はいくら？本体・スタンド・保証の内訳と65インチの相場" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板の価格・費用はいくら？本体・スタンド・保証の内訳と65インチの相場
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.07.07</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+
+    <a href="/columns/bansho/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://kokuban-base.com/assets/eyecatch/denshikokuban-bansho.png" alt="電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.05.26</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+            </div>
+            
+            <!-- 戻るリンク -->
+            <div class="mt-16 text-center">
+                <a href="https://kokuban-base.com/article" class="inline-flex items-center text-gray-500 font-bold hover:text-gray-900 transition-colors">
+                    <i class="fas fa-long-arrow-alt-left mr-2"></i> コラム一覧へ戻る
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer (サイト共通) -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand"><strong>Kokuban BASE</strong><p>電子黒板選びの総合窓口</p></div>
+            <div class="footer-contact"><a class="footer-phone" href="tel:0752317711"><small>お電話で予約</small><span>075-231-7711</span></a><a class="footer-btn" href="/contact/">お問い合わせ</a></div>
+            <nav class="footer-nav" aria-label="フッターメニュー"><a href="/denshikokuban/">電子黒板とは</a><a href="/service/">Kokuban BASEでできること</a><a href="/lineup/">ラインナップ</a><a href="/experience/">実機体験</a><a href="/support/">ご利用ガイド</a><a href="/lease/">リース</a><a href="/article/">コラム</a><a href="/voices/">先生の体験談</a></nav>
+            <nav class="footer-nav footer-legal" aria-label="運営情報・ポリシー"><a href="/company/">運営会社</a><a href="/about-editors/">編集部紹介</a><a href="/editorial-policy/">編集ポリシー</a><a href="/privacy/">プライバシーポリシー</a><a href="/terms/">特定商取引法に基づく表記</a></nav><small class="footer-copy">© Kokuban BASE.</small>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // タイトルのサブタイトル化
+            const titleEl = document.getElementById('main-article-title');
+            if (titleEl && titleEl.innerHTML.includes('<br>')) {
+                const parts = titleEl.innerHTML.split(/<br\s?\/?>/i);
+                if (parts.length > 1) {
+                    titleEl.innerHTML = `${parts[0]}<span class="subtitle-text">${parts[1]}</span>`;
+                }
+            }
+        });
+    </script>
+  <script src="/assets/site.js" defer></script>
+  <div class="sticky-cta">
+    <a class="sticky-cta-phone" href="tel:0752317711" aria-label="075-231-7711に電話する">
+      <span class="phone-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg></span>
+      <span>
+        <small>お電話で予約</small>
+        <strong>075-231-7711</strong>
+      </span>
+    </a>
+    <span class="sticky-cta-hours">平日13:30〜20:30</span>
+    <a class="sticky-cta-btn" href="/contact/">
+      <span class="sticky-cta-badge">相談無料</span>
+      お問い合わせ<i aria-hidden="true">›</i>
+    </a>
+  </div>
+</body>
+</html>

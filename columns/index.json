@@ -1,5 +1,17 @@
 [
   {
+    "id": "6a6km_5x1j",
+    "slug": "geogebra",
+    "title": "電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載",
+    "publishedAt": "2026-07-26T16:39:37.612Z",
+    "revisedAt": null,
+    "eyecatchUrl": "https://kokuban-base.com/assets/eyecatch/denshikokuban-geogebra-thumb.png",
+    "description": "電子黒板でGeoGebraを使えば、関数がスライダーで動きます。式を2つ入れるだけで交点と座標が表示され、動かすと連動します。導入7年目・5ブランドを扱う編集部が、テンプレート化とAI活用まで解説します。",
+    "category": [
+      "教科別 / 授業アイデア"
+    ]
+  },
+  {
     "id": "80h_q0wu0sd",
     "slug": "demo-checklist",
     "title": "学習塾・学校担当者が電子黒板のデモで見るべき7つのポイント｜体験前と当日の確認順",
