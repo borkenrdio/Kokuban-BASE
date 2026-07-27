@@ -1,5 +1,17 @@
 [
   {
+    "id": "n86yl0ikv",
+    "slug": "desmos",
+    "title": "【数学×電子黒板】Desmos幾何学で“公式の意味”を見せる授業プラン",
+    "publishedAt": "2026-07-27T15:05:57.057Z",
+    "revisedAt": null,
+    "eyecatchUrl": "https://kokuban-base.com/assets/eyecatch/denshikokuban-desmos-thumb.png",
+    "description": "公式を「覚える」から「見える」へ。電子黒板とDesmos幾何学で点をドラッグしながら、点と直線の距離＝垂線の長さを全員で体感させる50分の指導案。手計算→画面で答え合わせの手順もそのまま使えます。",
+    "category": [
+      "教科別 / 授業アイデア"
+    ]
+  },
+  {
     "id": "6a6km_5x1j",
     "slug": "geogebra",
     "title": "電子黒板×GeoGebraで数学を動かす｜ChatGPTを使った応用編も掲載",
