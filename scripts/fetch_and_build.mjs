@@ -265,6 +265,54 @@ function escapeHtml(str) {
   return escapeHtmlSimple(str);
 }
 
+function getSpeakerPhotoUrl(speaker) {
+  const photo = speaker?.photo || speaker?.face || speaker?.image || speaker?.portrait || speaker?.avatar;
+  return typeof photo === 'string' ? photo : photo?.url;
+}
+
+/**
+ * class="talk-{slug}" の引用を speakers API の話者情報で吹き出しに変換する。
+ * slug はクラス名から動的に取得するため、話者追加時のコード変更は不要。
+ */
+function transformSpeakerQuotes(bodyHtml, speakersBySlug, articleSlug = '') {
+  if (!bodyHtml || speakersBySlug.size === 0) return bodyHtml;
+
+  return bodyHtml.replace(
+    /<blockquote\b([^>]*)>([\s\S]*?)<\/blockquote>/gi,
+    (match, attributes, quoteHtml) => {
+      const classMatch = attributes.match(/\bclass\s*=\s*(["'])(.*?)\1/i);
+      if (!classMatch) return match;
+
+      const classes = classMatch[2].split(/\s+/).filter(Boolean);
+      const talkClass = classes.find(className => /^talk-[a-z0-9][a-z0-9_-]*$/i.test(className));
+      if (!talkClass) return match;
+
+      const speakerSlug = talkClass.slice('talk-'.length);
+      const speaker = speakersBySlug.get(speakerSlug);
+      const photoUrl = getSpeakerPhotoUrl(speaker);
+      const speakerName = speaker?.name;
+
+      if (!speaker || !speakerName || !photoUrl) {
+        console.warn(`警告: ${articleSlug || '記事本文'} の ${talkClass} に対応する話者情報（name/photo）がありません。`);
+        return match;
+      }
+
+      const remainingClasses = classes.filter(className => className !== talkClass);
+      const remainingAttributes = attributes.replace(classMatch[0], '').trim();
+      const quoteAttributes = remainingAttributes ? ` ${remainingAttributes}` : '';
+      const quoteClasses = ['talk-bubble__message', ...remainingClasses].join(' ');
+
+      return `<figure class="talk-bubble" data-speaker-slug="${escapeHtml(speakerSlug)}">
+  <figcaption class="talk-bubble__speaker">
+    <img class="talk-bubble__photo" src="${escapeHtml(photoUrl)}" alt="" loading="lazy" decoding="async">
+    <span class="talk-bubble__name">${escapeHtml(speakerName)}</span>
+  </figcaption>
+  <blockquote class="${escapeHtml(quoteClasses)}"${quoteAttributes}>${quoteHtml}</blockquote>
+</figure>`;
+    }
+  );
+}
+
 /**
  * タイトル用のHTMLエスケープ。
  * <br>タグを見つけ、それ以降を <span class="subtitle"> で囲む
@@ -1409,6 +1457,47 @@ async function fetchAllArticles() {
 }
 
 /**
+ * speakers API の全話者を取得し、slug で引けるMapにする（ページング対応）。
+ */
+async function fetchAllSpeakers() {
+  console.log('microCMSから話者データを取得開始...');
+  const speakersBySlug = new Map();
+  let offset = 0;
+  const limit = 100;
+
+  try {
+    while (true) {
+      const response = await client.get({
+        endpoint: 'speakers',
+        queries: { limit, offset }
+      });
+      const contents = Array.isArray(response.contents) ? response.contents : [];
+
+      for (const speaker of contents) {
+        const slug = typeof speaker?.slug === 'string' ? speaker.slug.trim() : '';
+        if (!slug) {
+          console.warn(`警告: speakers API の話者 ${speaker?.id || '(ID不明)'} にslugがありません。`);
+          continue;
+        }
+        if (speakersBySlug.has(slug)) {
+          console.warn(`警告: speakers API に重複したslug "${slug}" があります。後のデータを使用します。`);
+        }
+        speakersBySlug.set(slug, { ...speaker, slug });
+      }
+
+      offset += contents.length;
+      if (contents.length === 0 || offset >= response.totalCount) break;
+    }
+
+    console.log(`合計 ${speakersBySlug.size} 件の話者データを取得しました。`);
+    return speakersBySlug;
+  } catch (err) {
+    console.error('話者データの取得に失敗しました:', err);
+    throw err;
+  }
+}
+
+/**
  * お知らせ(information エンドポイント)を取得し、
  * information/index.json として書き出す
  *
@@ -1914,7 +2003,10 @@ async function buildStaticPages() {
   }
 
   // 2. 全記事データをmicroCMSから取得
-  const allArticles = await fetchAllArticles();
+  const [allArticles, speakersBySlug] = await Promise.all([
+    fetchAllArticles(),
+    fetchAllSpeakers(),
+  ]);
 
   // 3. publishedAt が null でないことを確認
   const publishedArticles = allArticles.filter(article => article.publishedAt);
@@ -2043,6 +2135,7 @@ async function buildStaticPages() {
     const bodyBeforeLinks = article.body || '';
     const bodyWithCards = await replaceManualInternalLinksWithCards(bodyBeforeLinks, article.slug, publishedArticles);
     const bodyWithLinks = injectInternalLinks(bodyWithCards, article.slug, keywordIndex, 3);
+    const bodyWithSpeakerQuotes = transformSpeakerQuotes(bodyWithLinks, speakersBySlug, article.slug);
     const linksAdded = (bodyWithLinks.match(/class="internal-link"/g) || []).length;
     totalInternalLinksAdded += linksAdded;
     if (linksAdded > 0) {
@@ -2050,7 +2143,7 @@ async function buildStaticPages() {
     }
 
     // 目次を生成し、本文の h2/h3 に ID を付与
-    const { tocHtml, bodyWithIds, headingCount } = buildTocAndAnnotate(bodyWithLinks);
+    const { tocHtml, bodyWithIds, headingCount } = buildTocAndAnnotate(bodyWithSpeakerQuotes);
     if (headingCount >= 2) {
       console.log(`  📑 ${article.slug}: ${headingCount} 個の見出しから目次生成`);
     }
