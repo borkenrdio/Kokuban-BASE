@@ -174,6 +174,22 @@
         .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .article-body img[src*=".gif"] { width: 100%; }
         .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+        .article-body .talk-bubble { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 1rem; margin: 2.25rem 0; }
+        .article-body .talk-bubble__speaker { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; }
+        .article-body .talk-bubble__photo { width: 68px; height: 68px; margin: 0; border: 3px solid #fff; border-radius: 9999px; object-fit: cover; box-shadow: 0 3px 12px rgba(15, 23, 42, 0.16); }
+        .article-body .talk-bubble__name { color: #334155; font-size: 0.75rem; font-weight: 700; line-height: 1.4; }
+        .article-body .talk-bubble__message { position: relative; min-width: 0; margin: 0; padding: 1.25rem 1.4rem; border: 1px solid #dbe4f0; border-radius: 1rem; background: #f8fafc; }
+        .article-body .talk-bubble__message::before,
+        .article-body .talk-bubble__message::after { position: absolute; top: 24px; right: 100%; width: 0; height: 0; border: solid transparent; content: ""; }
+        .article-body .talk-bubble__message::before { border-width: 10px; border-right-color: #dbe4f0; }
+        .article-body .talk-bubble__message::after { margin-top: 1px; border-width: 9px; border-right-color: #f8fafc; }
+        .article-body .talk-bubble__message > :last-child { margin-bottom: 0; }
+        @media (max-width: 520px) {
+            .article-body .talk-bubble { grid-template-columns: 54px minmax(0, 1fr); gap: 0.7rem; }
+            .article-body .talk-bubble__photo { width: 50px; height: 50px; }
+            .article-body .talk-bubble__name { font-size: 0.68rem; }
+            .article-body .talk-bubble__message { padding: 1rem; }
+        }
         .article-body table { width: 100%; margin: 2rem 0; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
         .article-body th,
         .article-body td { padding: 14px 16px; border-right: 1px solid #dbe3f0; border-bottom: 1px solid #dbe3f0; color: #0f172a; text-align: left; vertical-align: middle; }
