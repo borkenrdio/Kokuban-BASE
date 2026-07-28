@@ -1,5 +1,17 @@
 [
   {
+    "id": "cklxsmr_7t6",
+    "slug": "minnano-sansu",
+    "title": "【算数×電子黒板】立体の切断｜Polypadで体積比を解く",
+    "publishedAt": "2026-07-28T17:18:28.511Z",
+    "revisedAt": null,
+    "eyecatchUrl": "https://kokuban-base.com/assets/eyecatch/denshikokuban-minnano-sansu-thumb.png",
+    "description": "中学受験算数の頻出単元「立体の切断」を、電子黒板と無料の立体切断シミュレーターで指導する授業アイデア。切断の3原則の確認から、立方体を回転させて体積を求める応用問題まで、小6直前期に使える授業の流れを紹介します。",
+    "category": [
+      "電子黒板の活用事例"
+    ]
+  },
+  {
     "id": "n86yl0ikv",
     "slug": "desmos",
     "title": "【数学×電子黒板】Desmos幾何学で“公式の意味”を見せる授業プラン",
