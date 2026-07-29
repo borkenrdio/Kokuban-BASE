@@ -1,5 +1,17 @@
 [
   {
+    "id": "ps6t-870s",
+    "slug": "probability-simulation",
+    "title": "電子黒板で確率を「実験」に変える数Aの授業｜大数の法則・モンティ・ホール活用法",
+    "publishedAt": "2026-07-29T23:40:35.355Z",
+    "revisedAt": null,
+    "eyecatchUrl": "https://kokuban-base.com/assets/eyecatch/denshikokuban-probability-simulation-thumb.png",
+    "description": "電子黒板を使えば、確率は「計算して終わり」から「その場で試して確かめる実験」に変わります。サイコロ1万回で大数の法則を見せる、クラス全員の結果をリアルタイム集計する、モンティ・ホール問題を1000回試すなど、高校数学Aの授業で使える活用法3つを紹介します。",
+    "category": [
+      "教科別 / 授業アイデア"
+    ]
+  },
+  {
     "id": "cklxsmr_7t6",
     "slug": "minnano-sansu",
     "title": "【算数×電子黒板】立体の切断｜みんなの算数の活用例",

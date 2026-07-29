@@ -146,6 +146,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/columns/probability-simulation/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/columns/minnano-sansu/</loc>
     <lastmod>2026-07-29</lastmod>
     <priority>0.6</priority>
