@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GSSKLZ6EDH');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>【Web等高線メーカー活用】等高線で尾根・谷・扇状地を見分ける｜Kokuban BASE</title>
+    <meta name="description" content="電子黒板と無料のWeb等高線メーカーを活用し、尾根・谷・扇状地を等高線から見分ける中学受験向け50分授業プランを紹介。航空写真との比較や書き込みを通して、地形図を読み解く力を育てます。">
+    <link rel="canonical" href="https://kokuban-base.com/columns/web-contour-map/">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="【Web等高線メーカー活用】等高線で尾根・谷・扇状地を見分ける｜Kokuban BASE">
+    <meta property="og:description" content="電子黒板と無料のWeb等高線メーカーを活用し、尾根・谷・扇状地を等高線から見分ける中学受験向け50分授業プランを紹介。航空写真との比較や書き込みを通して、地形図を読み解く力を育てます。">
+    <meta property="og:url" content="https://kokuban-base.com/columns/web-contour-map/">
+    <meta property="og:image" content="https://kokuban-base.com/assets/eyecatch/denshikokuban-web-contour-map.png">
+    <meta property="og:site_name" content="Kokuban BASE（コクバンベース）">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="article:published_time" content="2026-07-31T01:48:47.977Z">
+    <meta property="article:modified_time" content="2026-07-31T01:48:47.977Z">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="【Web等高線メーカー活用】等高線で尾根・谷・扇状地を見分ける｜Kokuban BASE">
+    <meta name="twitter:description" content="電子黒板と無料のWeb等高線メーカーを活用し、尾根・谷・扇状地を等高線から見分ける中学受験向け50分授業プランを紹介。航空写真との比較や書き込みを通して、地形図を読み解く力を育てます。">
+    <meta name="twitter:image" content="https://kokuban-base.com/assets/eyecatch/denshikokuban-web-contour-map.png">
+    
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": "https://kokuban-base.com/columns/web-contour-map/" },
+            "headline": "【Web等高線メーカー活用】等高線で尾根・谷・扇状地を見分ける",
+            "description": "電子黒板と無料のWeb等高線メーカーを活用し、尾根・谷・扇状地を等高線から見分ける中学受験向け50分授業プランを紹介。航空写真との比較や書き込みを通して、地形図を読み解く力を育てます。",
+            "image": ["https://kokuban-base.com/assets/eyecatch/denshikokuban-web-contour-map.png"],
+            "datePublished": "2026-07-31T01:48:47.977Z",
+            "dateModified": "2026-07-31T01:48:47.977Z",
+            "author": {"@type":"Organization","name":"コクバンベース編集部","url":"https://kokuban-base.com/about-editors/"},
+            "publisher": { 
+                "@type": "Organization", 
+                "name": "Kokuban BASE（コクバンベース）", 
+                "logo": { "@type": "ImageObject", "url": "https://kokuban-base.com/ogp.jpg" } 
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kokuban-base.com/" },
+                { "@type": "ListItem", "position": 2, "name": "コラム", "item": "https://kokuban-base.com/article" },
+                { "@type": "ListItem", "position": 3, "name": "【Web等高線メーカー活用】等高線で尾根・谷・扇状地を見分ける", "item": "https://kokuban-base.com/columns/web-contour-map/" }
+            ]
+        }
+    ]
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        customBlue: '#103f99',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- サイト共通ヘッダー/フッターのスタイル -->
+    <link rel="stylesheet" href="/styles.css?v=20260710-eeat3">
+
+    <style>
+        /* styles.css の body { font-size: 80% } を本文では打ち消す */
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; line-height: 1.6; font-size: 16px; }
+        
+        .title-block { text-align: center; }
+        .title-block h1 { line-height: 1.4; }
+        
+        .subtitle-text {
+            display: block;
+            font-size: 0.55em;
+            font-weight: 700;
+            color: #6b7280;
+            margin-top: 1rem;
+            line-height: 1.5;
+            letter-spacing: 0.02em;
+        }
+
+        .publish-date, .author-name { font-size: 0.875rem; color: #6b7280; }
+
+        .article-body {
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+            word-break: normal; overflow-wrap: break-word;
+        }
+
+        .article-body p { margin-bottom: 2em; }
+        .article-body br { display: inline; }
+
+        .article-body ul,
+        .article-body ol {
+            margin: 1.5em 0 2em;
+            padding-left: 1.6em;
+        }
+        .article-body ul { list-style: disc; }
+        .article-body ol { list-style: decimal; }
+        .article-body li {
+            margin: 0.45em 0;
+            padding-left: 0.2em;
+        }
+        .article-body li > ul,
+        .article-body li > ol {
+            margin: 0.5em 0;
+        }
+        .article-body li::marker {
+            color: #103f99;
+            font-weight: 700;
+        }
+        
+        .article-body h2 { 
+            font-size: 1.75rem; 
+            font-weight: 900; 
+            margin: 3em 0 1.5em; 
+            padding-bottom: 0.5em; 
+            border-bottom: 3px solid #103f99; 
+            position: relative;
+        }
+        .article-body h3 { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            margin: 2.5em 0 1.2em; 
+            padding-left: 0.75rem;
+            border-left: 5px solid #103f99;
+        }
+        
+        .speaker-a { color: #103f99; font-weight: 800; }
+        .speaker-b { color: #ec4899; font-weight: 800; }
+        .speaker-c { color: #059669; font-weight: 800; }
+        .speaker-default { color: #374151; font-weight: 800; }
+
+        /* 画像下の余白を完全に排除するための設定 */
+        .eyecatch-image .image-wrapper {
+            display: flex;
+            flex-direction: column;
+            font-size: 0;
+            line-height: 0;
+            background-color: transparent;
+            isolation: isolate;
+        }
+        .eyecatch-image img,
+        .eyecatch-image figure {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            border: none;
+            vertical-align: bottom;
+        }
+        
+        .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .article-body img[src*=".gif"] { width: 100%; }
+        .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+        .article-body .talk-bubble { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 1rem; margin: 2.25rem 0; }
+        .article-body .talk-bubble__speaker { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; }
+        .article-body .talk-bubble__photo { width: 68px; height: 68px; margin: 0; border: 3px solid #fff; border-radius: 9999px; object-fit: cover; box-shadow: 0 3px 12px rgba(15, 23, 42, 0.16); }
+        .article-body .talk-bubble__name { color: #334155; font-size: 0.75rem; font-weight: 700; line-height: 1.4; }
+        .article-body .talk-bubble__message { position: relative; min-width: 0; margin: 0; padding: 1.25rem 1.4rem; border: 1px solid #dbe4f0; border-radius: 1rem; background: #f8fafc; }
+        .article-body .talk-bubble__message::before,
+        .article-body .talk-bubble__message::after { position: absolute; top: 24px; right: 100%; width: 0; height: 0; border: solid transparent; content: ""; }
+        .article-body .talk-bubble__message::before { border-width: 10px; border-right-color: #dbe4f0; }
+        .article-body .talk-bubble__message::after { margin-top: 1px; border-width: 9px; border-right-color: #f8fafc; }
+        .article-body .talk-bubble__message > :last-child { margin-bottom: 0; }
+        @media (max-width: 520px) {
+            .article-body .talk-bubble { grid-template-columns: 54px minmax(0, 1fr); gap: 0.7rem; }
+            .article-body .talk-bubble__photo { width: 50px; height: 50px; }
+            .article-body .talk-bubble__name { font-size: 0.68rem; }
+            .article-body .talk-bubble__message { padding: 1rem; }
+        }
+        .article-body table { width: 100%; margin: 2rem 0; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
+        .article-body th,
+        .article-body td { padding: 14px 16px; border-right: 1px solid #dbe3f0; border-bottom: 1px solid #dbe3f0; color: #0f172a; text-align: left; vertical-align: middle; }
+        .article-body th:last-child,
+        .article-body td:last-child { border-right: 0; }
+        .article-body tr:last-child th,
+        .article-body tr:last-child td { border-bottom: 0; }
+        .article-body th { background: #eef5ff; color: #103f99; font-weight: 800; }
+        .article-body td p,
+        .article-body th p { margin: 0; }
+        .article-body tbody tr:nth-child(even) td { background: #f8fbff; }
+        @media (max-width: 640px) {
+            .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+            .article-body th,
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
+        }
+
+        /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
+        .article-body a.internal-link {
+            color: #103f99;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1.5px solid rgba(16, 63, 153, 0.3);
+            padding-bottom: 1px;
+            transition: all 0.2s ease;
+        }
+        .article-body a.internal-link:hover {
+            color: #ed5b8c;
+            border-bottom-color: #ed5b8c;
+            background-color: rgba(237, 91, 140, 0.05);
+        }
+
+        /* 目次(Table of Contents) */
+        .article-body .internal-link-card {
+            display: grid;
+            grid-template-columns: 160px minmax(0, 1fr);
+            align-items: start;
+            gap: 1rem;
+            margin: 2rem 0;
+            overflow: hidden;
+            border: 1px solid #d1d5db;
+            background: #fff;
+            color: inherit;
+            text-decoration: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .article-body .internal-link-card:hover {
+            border-color: #103f99;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+            transform: translateY(-2px);
+        }
+        .article-body .internal-link-card__image {
+            position: relative;
+            width: 160px;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+        .article-body .internal-link-card__image img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border-radius: 0;
+            object-fit: cover;
+            box-shadow: none;
+        }
+        .article-body .internal-link-card__image--external img {
+            padding: 0.75rem;
+            background: #f8fafc;
+            object-fit: contain;
+        }
+        .article-body .internal-link-card__body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+            height: 90px;
+            overflow: hidden;
+            padding: 0.5rem 1rem 0.5rem 0;
+        }
+        .article-body .internal-link-card__title {
+            display: -webkit-box;
+            margin: 0 0 0.35rem;
+            overflow: hidden;
+            color: #111827;
+            font-size: 0.9rem;
+            font-weight: 800;
+            line-height: 1.35;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .article-body .internal-link-card__description {
+            display: -webkit-box;
+            margin: 0;
+            overflow: hidden;
+            color: #6b7280;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .article-body .internal-link-card__site {
+            display: block;
+            margin-top: 0.45rem;
+            overflow: hidden;
+            color: #103f99;
+            font-size: 0.7rem;
+            font-weight: 700;
+            line-height: 1.3;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .article-body blockquote .internal-link-card {
+            margin: 1.25rem 0 0;
+        }
+        @media (max-width: 640px) {
+            .article-body .internal-link-card {
+                grid-template-columns: 1fr;
+            }
+            .article-body .internal-link-card__image {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 9;
+            }
+            .article-body .internal-link-card__body {
+                height: auto;
+                padding: 0 1rem 1rem;
+            }
+        }
+
+        .toc-container { max-width: 720px; margin-left: auto; margin-right: auto; }
+        .toc-list li { list-style: none; }
+        .toc-link {
+            position: relative;
+            border-left: 2px solid transparent;
+            padding-left: 12px;
+            margin-left: -14px;
+            transition: all 0.2s ease;
+        }
+        .toc-link:hover {
+            border-left-color: #103f99;
+            background-color: rgba(16, 63, 153, 0.03);
+        }
+
+        /* アンカークリック時、固定ヘッダー(高さ80px)に隠れないよう調整 */
+        .article-body h2[id],
+        .article-body h3[id] {
+            scroll-margin-top: 100px;
+        }
+
+        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+        
+        .share-button { display: inline-flex; width: 3.25rem; height: 3.25rem; align-items: center; justify-content: center; border-radius: 9999px; color: white; transition: all 0.2s ease; }
+        .share-button:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .share-twitter { background-color: #000000; }
+        .share-facebook { background-color: #1877F2; }
+        .share-line { background-color: #06C755; }
+
+        /* 関連記事カードのスタイル */
+        .related-card { transition: all 0.3s ease; }
+        .related-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-stone-50 antialiased text-gray-900">
+
+    <!-- Header (サイト共通) -->
+    <header class="site-header">
+        <div class="header-main">
+            <a class="brand" href="/"><span class="brand-mark">K</span><span>Kokuban BASE</span></a>
+            <div class="header-actions">
+                <a class="header-phone" href="tel:0752317711" aria-label="075-231-7711に電話する"><span class="phone-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg></span><span><small>お電話で予約</small><strong>075-231-7711</strong><small class="phone-hours">平日13:30〜20:30</small></span></a>
+                <a class="btn btn-outline" href="/support/"><svg class="icon-guide" viewBox="0 0 256 256" width="16" height="16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M128 8c-16 0-30 9-44 17-10 6-22 8-30 13-8 5-10 13-10 22v60c0 58 46 96 84 124 4 3 10 3 14 0 38-28 84-66 84-124V60c0-9-2-17-10-22-8-5-20-7-30-13-14-8-28-17-44-17zM150 56l34 19c4 2 6 6 6 11v54c0 6-3 11-7 14l-33 24V56z"/></svg>ご利用ガイド</a>
+                <a class="btn btn-primary" href="/contact/"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>お問い合わせ</a>
+            </div>
+            <button class="mobile-menu-button" type="button" aria-label="メニューを開く"><span></span><b>メニュー</b></button>
+        </div>
+        <nav class="global-nav" aria-label="主要メニュー"><a href="/denshikokuban/">電子黒板とは</a><a href="/service/">Kokuban BASEでできること</a><a href="/lineup/">ラインナップ</a><a href="/experience/">実機体験</a><a href="/support/">ご利用ガイド</a><a href="/lease/">リース</a><a href="/article/">コラム</a><a href="/voices/">先生の体験談</a></nav>
+    </header>
+
+    <main class="bg-white">
+        <!-- パンくずリスト(画面表示) -->
+        <nav aria-label="パンくずリスト" class="border-b border-gray-100">
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-3">
+                <ol class="flex items-center text-sm text-gray-600 flex-wrap gap-y-1" itemscope itemtype="https://schema.org/BreadcrumbList">
+                    <li class="flex items-center" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="/" class="hover:text-customBlue transition-colors" itemprop="item">
+                            <span itemprop="name">トップ</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li class="flex items-center" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="/article" class="hover:text-customBlue transition-colors" itemprop="item">
+                            <span itemprop="name">コラム</span>
+                        </a>
+                        <meta itemprop="position" content="2">
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <span aria-current="page" class="font-semibold text-gray-900 line-clamp-1" itemprop="name">【Web等高線メーカー活用】等高線で尾根・谷・扇状地を見分ける</span>
+                        <meta itemprop="position" content="3">
+                    </li>
+                </ol>
+            </div>
+        </nav>
+
+        <div class="max-w-screen-xl mx-auto px-4 py-8 sm:py-16">
+            <article class="max-w-4xl mx-auto">
+                <!-- アイキャッチ -->
+                <div class="eyecatch-image mb-8 sm:mb-12">
+                    <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
+                        <img src="/assets/eyecatch/denshikokuban-web-contour-map.png" alt="【Web等高線メーカー活用】等高線で尾根・谷・扇状地を見分ける" width="1200" height="630" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                    </div>
+                </div>
+                
+                <!-- タイトルブロック -->
+                <div class="title-block mb-12 sm:mb-16">
+                    <h1 id="main-article-title" class="text-[clamp(1.15rem,2.4vw,1.875rem)] font-black text-gray-900 mb-6 leading-[1.28]">【Web等高線メーカー活用】等高線で尾根・谷・扇状地を見分ける</h1>
+
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                        <div class="flex items-center space-x-2 flex-wrap justify-center">
+                            <span class="h-px w-4 bg-gray-300"></span>
+                            <p class="publish-date font-bold tracking-wider">公開日: <time datetime="2026-07-31T01:48:47.977Z">2026年7月31日</time></p>
+                            
+                            <span class="reading-time inline-flex items-center text-gray-500 text-sm ml-3"><i class="fas fa-clock text-gray-300 mr-1.5"></i>読了 約5分</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
+                            <p class="author-name font-bold tracking-wider flex items-center">
+                                <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
+                                執筆者: <span id="main-author-display">Kokuban BASE編集部</span>
+                            </p>
+                            <span class="h-px w-4 bg-gray-300"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 目次(見出し2個以上の場合のみ自動生成) -->
+                <div class="max-w-3xl mx-auto">
+                    
+<aside class="toc-container my-10 p-6 bg-gray-50 border-l-4 border-customBlue rounded-r-xl shadow-sm">
+    <h2 class="toc-title text-base font-bold text-customBlue mb-3 flex items-center">
+        <i class="fas fa-list-ul mr-2 text-sm" aria-hidden="true"></i>目次
+    </h2>
+    <nav aria-label="目次">
+        <ol class="toc-list text-sm space-y-0">
+        <li class="ml-5">
+            <a href="#h6c02e5a636" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>Web等高線メーカーとは？——好きな場所に、好きな間隔で等高線が引ける
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#ha9dfd63bec" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>導入｜まず自分の教室に等高線を引いてみる
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#hb51113b50e" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>展開1｜「尾根」と「谷」を等高線の向きで見分ける
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#h4ae41c05b0" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>展開2｜甲府盆地で「扇状地」の等高線を読む
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#h6fec35fcac" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>展開3・まとめ｜「自分の言葉」で判別法を言わせる
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#hcb12526ff3" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>まとめ：等高線を「読む」から「使える」に変える
+            </a>
+        </li>
+        </ol>
+    </nav>
+</aside>
+
+                </div>
+
+                <!-- 本文 -->
+                <div class="article-body max-w-3xl mx-auto text-gray-800">
+                    <p>等高線の問題は中学受験の地理で毎年のように出題されますが、紙の地形図だけでは「線の混み具合」と「実際の地形」が頭の中でつながらない子が少なくありません。今回は、電子黒板と無料サイト「<strong>Web等高線メーカー</strong>」を使って、実在の土地に等高線をその場で描き、<strong>尾根・谷・扇状地を等高線の形から判別できるようにする</strong>50分の授業プランをご紹介します。</p><blockquote><p>地形図を防災とつなげて読み解く授業はこちら</p><p><a href="/columns/onagawa-denshikokuban/" class="internal-link-card" aria-label="電子黒板×社会科地理・地形図で「まちの形」を読み解く。女川町に学ぶ地震・津波防災授業">
+    <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/7e68f3d1f415443aa137ff7680792d7c/%E8%B5%A4%20%E3%82%A4%E3%83%B3%E3%83%91%E3%82%AF%E3%83%88%20%E9%87%8D%E5%A4%A7%E7%99%BA%E8%A1%A8%20YouTube%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB%20(3)%20(1).png?fit=crop&w=320&h=180&q=80" alt="電子黒板×社会科地理・地形図で「まちの形」を読み解く。女川町に学ぶ地震・津波防災授業" loading="lazy" decoding="async"></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">電子黒板×社会科地理・地形図で「まちの形」を読み解く。女川町に学ぶ地震・津波防災授業</span>
+      <span class="internal-link-card__description">ハザードマップを活用し、宮城県女川町の復興と「女川いのちの石碑」を題材にした社会科の授業案を紹介します。東日本大震災を知らない世代の小学生が、地形からリスクを読み解き、自分事として防災やまちづくりを考える力を養うための、電子黒板を用いた実践的な指導方法を解説します。</span>
+    </span>
+  </a><br>地形図から土地の高低を読み取り、津波防災まで考える社会科授業のプランです。</p></blockquote><h3 id="h6c02e5a636">Web等高線メーカーとは？——好きな場所に、好きな間隔で等高線が引ける</h3><p>Web等高線メーカーは、埼玉大学教育学部の谷謙二研究室が公開している無料のWebサイトです。地図上の好きな場所に、<strong>指定した標高間隔（0.5m〜）で等高線をその場で描画</strong>できます。データは国土地理院の標高タイルを利用しており、ブラウザだけで動くため、電子黒板でサイトを開けばすぐ授業に使えます。</p><ul><li>Web等高線メーカー：<a href="https://ktgis.net/service/webcontour/index.html">https://ktgis.net/service/webcontour/index.html</a></li></ul><p>紙の地形図との一番の違いは、<strong>等高線の間隔を先生が自由に変えられる</strong>ことです。「10m間隔だとこう見える地形が、50m間隔だとどう見えるか」を、同じ場所で切り替えて見せられます。等高線が「誰かが引いた線」ではなく「土地の高さを表すルール」だと体感させるのに、これ以上の教材はなかなかありません。</p><p>↓等高線50m</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b3cadcf280ed4c639f7734ea75e153b2/image.png" alt="" width="1795" height="885"></figure><p>↓等高線10m</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/4c08ba46169649239379c78289e02e40/image.png" alt="" width="1792" height="873"></figure><h3 id="ha9dfd63bec">導入｜まず自分の教室に等高線を引いてみる</h3><p>電子黒板でWeb等高線メーカーを開き、<strong>教室のある場所を表示して等高線を引く</strong>ところから始めます。「うちの塾、標高何mだと思う？」と問いかけると、子どもは一気に前のめりになります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b3cadcf280ed4c639f7734ea75e153b2/image.png" alt="" width="1795" height="885"></figure><p>※ elio出町柳校の標高は53mでした。</p><p>ここで確認するのは基本の2つだけです。</p><h3 id="hb51113b50e">展開1｜「尾根」と「谷」を等高線の向きで見分ける</h3><p>地図を近くの山地（どの山でも構いません。関東なら高尾山周辺などが見やすいです）に移動し、等高線を描画します。</p><h4 id="h8d7cedc880">尾根＝低い方へ張り出す、谷＝高い方へ食い込む</h4><p>判別のルールはシンプルです。</p><ul><li><strong>尾根</strong>：等高線が<strong>標高の低い方へ</strong>張り出している</li><li><strong>谷</strong>：等高線が<strong>標高の高い方へ</strong>食い込んでいる</li></ul><p>ただ、紙の上でこのルールを暗記させても、本番で向きを取り違える子が続出します。そこで電子黒板の出番です。まずWeb等高線メーカーで対象地域の等高線を表示し、谷や尾根の形を確認します。次に、同じ場所の航空写真や3D地形を地理院地図やGoogle Earthで表示すると、谷の食い込みに沿って川や沢、濃い緑が伸びていることが分かります。</p><p>電子黒板ならそのまま画面にペンで書き込めるので、尾根線を赤、谷線を青でなぞらせると、山が「骨組み」として見えてきます。</p><h3 id="h4ae41c05b0">展開2｜甲府盆地で「扇状地」の等高線を読む</h3><p>次は入試頻出の扇状地です。地図を山梨県の甲府盆地に移動し、山地から盆地へ川が流れ出るあたりに等高線を引きます。</p><h4 id="hd11aa4994d">同心円状に、ゆるやかに広がる等高線</h4><p>扇状地の等高線は、<strong>谷の出口を中心に同心円状に広がる</strong>のが特徴です。山地の密な等高線が、盆地に出たとたんフワッと広がる様子は、画面で見ると一目瞭然。「扇を広げた形」という教科書の説明が、実在の土地の上で確かめられます。Google earthフライトシミュレーターを活用すると、より臨場感を演出できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/be0610034f624eb195aeec6a4f939720/image.png" alt="" width="1594" height="817"></figure><blockquote><p>地図で知識を「芋づる式」につなげる授業はこちら</p><p><a href="/columns/ifp-lesson-lab-googlemap/" class="internal-link-card" aria-label="〈電子黒板の活用〉Googleマップで中学受験対策―知識が「芋づる式」につながる社会科地理の授業アイデア">
+    <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/2511d88d2db147f3b18c9d8cfca5c48e/%E3%83%94%E3%83%B3%E3%82%AF%20%E3%82%B0%E3%83%AC%E3%83%BC%20%E7%9B%AE%E7%AB%8B%E3%81%A4%20YouTube%20%E3%82%B5%E3%83%A0%E3%83%8D%E3%82%A4%E3%83%AB%20(3).png?fit=crop&w=320&h=180&q=80" alt="〈電子黒板の活用〉Googleマップで中学受験対策―知識が「芋づる式」につながる社会科地理の授業アイデア" loading="lazy" decoding="async"></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">〈電子黒板の活用〉Googleマップで中学受験対策―知識が「芋づる式」につながる社会科地理の授業アイデア</span>
+      <span class="internal-link-card__description">電子黒板とGoogleマップを組み合わせた、社会科地理の授業案を紹介します。桜島を起点に、地形や交通、人々の暮らし、そして九州新幹線へと知識を「芋づる式」に繋げる指導法を解説。視覚的な情報と問いかけを連鎖させることで、中学入試にも通じる生きた知識を、楽しみながら立体的に習得させる実践例です。</span>
+    </span>
+  </a><br>地図を起点に、地名・産業・地形の知識を関連づけて覚える中学受験向けの授業アイデアです。</p></blockquote><h3 id="h6fec35fcac">展開3・まとめ｜「自分の言葉」で判別法を言わせる</h3><p>最後に、等高線だけを表示した画面（航空写真なし）を見せて、「ここは尾根？谷？」「この地形は何？」と入試風に問います。答え合わせは航空写真への切り替え1タップ。<strong>予想→根拠→検証</strong>のサイクルを短時間で何周も回せるのは、その場で表示を切り替えられる電子黒板ならではです。</p><p>締めくくりに、判別法を子ども自身の言葉でノートにまとめさせます。「低い方にツンと出てたら尾根」「川がある方が谷」——多少くだけた表現でも、自分の言葉になっていれば本番で使えます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/8f2825ad66864ad08b02e2c6378727ed/ChatGPT%20Image%202026%E5%B9%B47%E6%9C%882%E6%97%A5%2021_35_55.png" alt="" width="1672" height="941"></figure><p>なお、Web等高線メーカーで作成した画像をプリント等で配布する場合は、サイトの案内に従って出典（地理院タイルを「Web等高線メーカー」サイトで作成した旨）を明記してください。</p><h3 id="hcb12526ff3">まとめ：等高線を「読む」から「使える」に変える</h3><p>等高線問題の得点力は、線の形と実際の地形が結びついた瞬間に伸びます。電子黒板×Web等高線メーカーなら、好きな場所に・好きな間隔で等高線を引き、航空写真と往復しながら、尾根・谷・扇状地を判別する「目」を50分で育てられます。紙の地形図に戻ったとき、子どもの見え方は確実に変わっているはずです。</p>
+                </div>
+
+                <!-- 執筆・監修（編集部プロフィール） -->
+                <div class="editorial-credit max-w-3xl mx-auto mt-16 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+                    <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">この記事の執筆・監修</h3>
+                    <p class="font-bold text-gray-800 mb-1"><i class="fas fa-pen-nib text-customBlue/70 mr-2" aria-hidden="true"></i>執筆：<a href="/about-editors/" class="text-customBlue hover:underline">Kokuban BASE編集部</a></p>
+                    <p class="font-bold text-gray-800 mb-4"><i class="fas fa-user-check text-customBlue/70 mr-2" aria-hidden="true"></i>監修：株式会社 idea spot 会員制難関指導専門塾 elio</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">Kokuban BASE編集部は、電子黒板選びの総合窓口「Kokuban BASE」を運営する株式会社idea spot（2016年創業・京都で学習塾を運営）のメンバーで構成されています。2020年に自社教室へ電子黒板を導入して以来、会員制難関指導専門塾elioの授業で毎日フル活用しながら、体験倉庫での実機検証に基づいて記事を執筆しています。</p>
+                    <p class="mt-4 text-sm font-bold"><a href="/editorial-policy/" class="text-customBlue hover:underline"><i class="fas fa-file-alt mr-1" aria-hidden="true"></i>編集ポリシー（比較・評価の基準と中立性の開示）</a><span class="mx-2 text-gray-300">|</span><a href="/about-editors/" class="text-customBlue hover:underline">編集部紹介</a></p>
+                </div>
+
+                <!-- お問い合わせCTA -->
+                <div class="mt-16">
+                    <div class="bg-gradient-to-br from-pink-50 to-white border border-pink-100 p-8 sm:p-10 rounded-3xl shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fas fa-comments text-8xl text-pink-500"></i>
+                        </div>
+                        <div class="relative z-10 text-center sm:text-left">
+                            <h3 class="text-2xl sm:text-3xl font-black text-pink-600 mb-4">電子黒板の導入・比較のご相談はこちら</h3>
+                            <p class="text-gray-700 leading-relaxed mb-8 max-w-2xl">
+                                Kokuban BASEでは、電子黒板の選び方から導入・運用まで、専門スタッフが無料でご相談を承っています。お気軽にお問い合わせください。
+                            </p>
+                            <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-4">
+                                <a href="/check/" class="w-full sm:w-auto inline-flex items-center justify-center bg-[#103f99] text-white font-black text-lg px-8 py-4 rounded-full hover:bg-[#0b2f73] transition-all shadow-lg hover:shadow-blue-200 transform hover:-translate-y-1">
+                                    30秒診断をはじめる <i class="fas fa-clipboard-check ml-3"></i>
+                                </a>
+                                <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center bg-pink-500 text-white font-black text-lg px-8 py-4 rounded-full hover:bg-pink-600 transition-all shadow-lg hover:shadow-pink-200 transform hover:-translate-y-1">
+                                    お問い合わせ <i class="fas fa-arrow-right ml-3"></i>
+                                </a>
+                                <a href="/denshikokuban/" class="w-full sm:w-auto inline-flex items-center justify-center bg-white text-[#103f99] border-2 border-[#103f99]/30 font-bold text-base px-7 py-3.5 rounded-full hover:border-[#103f99] hover:bg-blue-50 transition-all">
+                                    電子黒板の選び方を見る
+                                </a>
+                                <a href="/lineup/" class="w-full sm:w-auto inline-flex items-center justify-center bg-white text-[#103f99] border-2 border-[#103f99]/30 font-bold text-base px-7 py-3.5 rounded-full hover:border-[#103f99] hover:bg-blue-50 transition-all">
+                                    ブランドを比較する
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- シェアボタン -->
+                <div class="mt-20 py-10 border-t border-gray-100">
+                    <h3 class="text-base font-bold text-center text-gray-500 uppercase tracking-widest mb-6">Share this article</h3>
+                    <div class="flex justify-center items-center gap-6">
+                        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fweb-contour-map%2F&text=%E3%80%90Web%E7%AD%89%E9%AB%98%E7%B7%9A%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E6%B4%BB%E7%94%A8%E3%80%91%E7%AD%89%E9%AB%98%E7%B7%9A%E3%81%A7%E5%B0%BE%E6%A0%B9%E3%83%BB%E8%B0%B7%E3%83%BB%E6%89%87%E7%8A%B6%E5%9C%B0%E3%82%92%E8%A6%8B%E5%88%86%E3%81%91%E3%82%8B%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="X" class="share-button share-twitter"><i class="fab fa-x-twitter text-xl"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fweb-contour-map%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="share-button share-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fweb-contour-map%2F&text=%E3%80%90Web%E7%AD%89%E9%AB%98%E7%B7%9A%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC%E6%B4%BB%E7%94%A8%E3%80%91%E7%AD%89%E9%AB%98%E7%B7%9A%E3%81%A7%E5%B0%BE%E6%A0%B9%E3%83%BB%E8%B0%B7%E3%83%BB%E6%89%87%E7%8A%B6%E5%9C%B0%E3%82%92%E8%A6%8B%E5%88%86%E3%81%91%E3%82%8B%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="LINE" class="share-button share-line"><i class="fab fa-line text-2xl"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 関連記事（ビルド時に静的生成） -->
+            <div class="mt-24 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between mb-10">
+                    <h3 class="text-2xl font-black text-gray-900">あわせて読みたい</h3>
+                    <a href="https://kokuban-base.com/article" class="text-sm font-bold text-customBlue hover:underline">すべて見る <i class="fas fa-chevron-right ml-1"></i></a>
+                </div>
+                <div id="related-posts-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+    <a href="/columns/spec/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://kokuban-base.com/assets/eyecatch/denshikokuban-spec.png" alt="電子黒板のスペックの見方｜OS・メモリ・CPUの見方を初心者向けに解説" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板のスペックの見方｜OS・メモリ・CPUの見方を初心者向けに解説
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.06.25</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+
+    <a href="/columns/price/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://kokuban-base.com/assets/eyecatch/denshikokuban-price.png" alt="電子黒板の価格・費用はいくら？本体・スタンド・保証の内訳と65インチの相場" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板の価格・費用はいくら？本体・スタンド・保証の内訳と65インチの相場
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.07.07</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+
+    <a href="/columns/bansho/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://kokuban-base.com/assets/eyecatch/denshikokuban-bansho.png" alt="電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.05.26</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+            </div>
+            
+            <!-- 戻るリンク -->
+            <div class="mt-16 text-center">
+                <a href="https://kokuban-base.com/article" class="inline-flex items-center text-gray-500 font-bold hover:text-gray-900 transition-colors">
+                    <i class="fas fa-long-arrow-alt-left mr-2"></i> コラム一覧へ戻る
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer (サイト共通) -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand"><strong>Kokuban BASE</strong><p>電子黒板選びの総合窓口</p></div>
+            <div class="footer-contact"><a class="footer-phone" href="tel:0752317711"><small>お電話で予約</small><span>075-231-7711</span></a><a class="footer-btn" href="/contact/">お問い合わせ</a></div>
+            <nav class="footer-nav" aria-label="フッターメニュー"><a href="/denshikokuban/">電子黒板とは</a><a href="/service/">Kokuban BASEでできること</a><a href="/lineup/">ラインナップ</a><a href="/experience/">実機体験</a><a href="/support/">ご利用ガイド</a><a href="/lease/">リース</a><a href="/article/">コラム</a><a href="/voices/">先生の体験談</a></nav>
+            <nav class="footer-nav footer-legal" aria-label="運営情報・ポリシー"><a href="/company/">運営会社</a><a href="/about-editors/">編集部紹介</a><a href="/editorial-policy/">編集ポリシー</a><a href="/privacy/">プライバシーポリシー</a><a href="/terms/">特定商取引法に基づく表記</a></nav><small class="footer-copy">© Kokuban BASE.</small>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // タイトルのサブタイトル化
+            const titleEl = document.getElementById('main-article-title');
+            if (titleEl && titleEl.innerHTML.includes('<br>')) {
+                const parts = titleEl.innerHTML.split(/<br\s?\/?>/i);
+                if (parts.length > 1) {
+                    titleEl.innerHTML = `${parts[0]}<span class="subtitle-text">${parts[1]}</span>`;
+                }
+            }
+        });
+    </script>
+  <script src="/assets/site.js" defer></script>
+  <div class="sticky-cta">
+    <a class="sticky-cta-phone" href="tel:0752317711" aria-label="075-231-7711に電話する">
+      <span class="phone-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg></span>
+      <span>
+        <small>お電話で予約</small>
+        <strong>075-231-7711</strong>
+      </span>
+    </a>
+    <span class="sticky-cta-hours">平日13:30〜20:30</span>
+    <a class="sticky-cta-btn" href="/contact/">
+      <span class="sticky-cta-badge">相談無料</span>
+      お問い合わせ<i aria-hidden="true">›</i>
+    </a>
+  </div>
+</body>
+</html>
