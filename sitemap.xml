@@ -146,12 +146,6 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://kokuban-base.com/columns/test2/</loc>
-    <lastmod>2026-07-31</lastmod>
-    <priority>0.6</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
     <loc>https://kokuban-base.com/columns/web-contour-map/</loc>
     <lastmod>2026-07-31</lastmod>
     <priority>0.6</priority>
