@@ -281,10 +281,19 @@ function transformSpeakerQuotes(bodyHtml, speakersBySlug, articleSlug = '') {
     /<blockquote\b([^>]*)>([\s\S]*?)<\/blockquote>/gi,
     (match, attributes, quoteHtml) => {
       const classMatch = attributes.match(/\bclass\s*=\s*(["'])(.*?)\1/i);
-      if (!classMatch) return match;
+      const classes = classMatch ? classMatch[2].split(/\s+/).filter(Boolean) : [];
+      let talkClass = classes.find(className => /^talk-[a-z0-9][a-z0-9_-]*$/i.test(className));
 
-      const classes = classMatch[2].split(/\s+/).filter(Boolean);
-      const talkClass = classes.find(className => /^talk-[a-z0-9][a-z0-9_-]*$/i.test(className));
+      // microCMSのカスタムclassは、blockquote本体ではなく内部のspan等に付く。
+      // 入稿画面の仕様差を吸収し、引用内のどこに付いていても話者slugとして扱う。
+      if (!talkClass) {
+        for (const descendantClassMatch of quoteHtml.matchAll(/\bclass\s*=\s*(["'])(.*?)\1/gi)) {
+          talkClass = descendantClassMatch[2]
+            .split(/\s+/)
+            .find(className => /^talk-[a-z0-9][a-z0-9_-]*$/i.test(className));
+          if (talkClass) break;
+        }
+      }
       if (!talkClass) return match;
 
       const speakerSlug = talkClass.slice('talk-'.length);
@@ -298,16 +307,26 @@ function transformSpeakerQuotes(bodyHtml, speakersBySlug, articleSlug = '') {
       }
 
       const remainingClasses = classes.filter(className => className !== talkClass);
-      const remainingAttributes = attributes.replace(classMatch[0], '').trim();
+      const remainingAttributes = classMatch ? attributes.replace(classMatch[0], '').trim() : attributes.trim();
       const quoteAttributes = remainingAttributes ? ` ${remainingAttributes}` : '';
       const quoteClasses = ['talk-bubble__message', ...remainingClasses].join(' ');
+      const normalizedQuoteHtml = quoteHtml.replace(
+        /\bclass\s*=\s*(["'])(.*?)\1/gi,
+        (classAttribute, quote, classNames) => {
+          const remaining = classNames
+            .split(/\s+/)
+            .filter(Boolean)
+            .filter(className => className !== talkClass);
+          return remaining.length ? `class=${quote}${remaining.join(' ')}${quote}` : '';
+        }
+      );
 
       return `<figure class="talk-bubble" data-speaker-slug="${escapeHtml(speakerSlug)}">
   <figcaption class="talk-bubble__speaker">
     <img class="talk-bubble__photo" src="${escapeHtml(photoUrl)}" alt="" loading="lazy" decoding="async">
     <span class="talk-bubble__name">${escapeHtml(speakerName)}</span>
   </figcaption>
-  <blockquote class="${escapeHtml(quoteClasses)}"${quoteAttributes}>${quoteHtml}</blockquote>
+  <blockquote class="${escapeHtml(quoteClasses)}"${quoteAttributes}>${normalizedQuoteHtml}</blockquote>
 </figure>`;
     }
   );
