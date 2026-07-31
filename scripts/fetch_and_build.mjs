@@ -270,6 +270,25 @@ function getSpeakerPhotoUrl(speaker) {
   return typeof photo === 'string' ? photo : photo?.url;
 }
 
+function getOptimizedSpeakerPhotoUrl(photoUrl) {
+  if (!photoUrl) return photoUrl;
+
+  try {
+    const url = new URL(photoUrl);
+    if (url.hostname !== 'images.microcms-assets.io') return photoUrl;
+
+    url.searchParams.set('fit', 'crop');
+    url.searchParams.set('crop', 'faces');
+    url.searchParams.set('w', '240');
+    url.searchParams.set('h', '240');
+    url.searchParams.set('q', '95');
+    url.searchParams.set('fm', 'webp');
+    return url.toString();
+  } catch {
+    return photoUrl;
+  }
+}
+
 /**
  * class="talk-{slug}" の引用を speakers API の話者情報で吹き出しに変換する。
  * slug はクラス名から動的に取得するため、話者追加時のコード変更は不要。
@@ -299,6 +318,7 @@ function transformSpeakerQuotes(bodyHtml, speakersBySlug, articleSlug = '') {
       const speakerSlug = talkClass.slice('talk-'.length);
       const speaker = speakersBySlug.get(speakerSlug);
       const photoUrl = getSpeakerPhotoUrl(speaker);
+      const optimizedPhotoUrl = getOptimizedSpeakerPhotoUrl(photoUrl);
       const speakerName = speaker?.name;
 
       if (!speaker || !speakerName || !photoUrl) {
@@ -323,7 +343,7 @@ function transformSpeakerQuotes(bodyHtml, speakersBySlug, articleSlug = '') {
 
       return `<figure class="talk-bubble" data-speaker-slug="${escapeHtml(speakerSlug)}">
   <figcaption class="talk-bubble__speaker">
-    <img class="talk-bubble__photo" src="${escapeHtml(photoUrl)}" alt="" loading="lazy" decoding="async">
+    <img class="talk-bubble__photo" src="${escapeHtml(optimizedPhotoUrl)}" alt="" width="68" height="68" loading="lazy" decoding="async">
     <span class="talk-bubble__name">${escapeHtml(speakerName)}</span>
   </figcaption>
   <blockquote class="${escapeHtml(quoteClasses)}"${quoteAttributes}>${normalizedQuoteHtml}</blockquote>
