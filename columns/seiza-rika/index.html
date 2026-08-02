@@ -173,7 +173,26 @@
         
         .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .article-body img[src*=".gif"] { width: 100%; }
-        .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+        .article-body blockquote:not(.talk-bubble__message) {
+            position: relative; margin: 2.5rem 0; padding: 2rem 2rem 1.8rem 4rem; overflow: hidden;
+            border: 1px solid #dbe7f8; border-left: 0; border-radius: 0 1.25rem 1.25rem 0;
+            background: linear-gradient(135deg, #f7faff 0%, #ffffff 72%); color: #26364d;
+            box-shadow: 0 12px 32px rgba(16, 63, 153, 0.08);
+        }
+        .article-body blockquote:not(.talk-bubble__message)::before {
+            position: absolute; inset: 0 auto 0 0; width: 6px;
+            background: linear-gradient(180deg, #103f99 0%, #3b82f6 100%); content: "";
+        }
+        .article-body blockquote:not(.talk-bubble__message)::after {
+            position: absolute; top: 0.6rem; left: 1.25rem; color: rgba(16, 63, 153, 0.16);
+            content: "\201C"; font-family: Georgia, "Times New Roman", serif; font-size: 4.5rem; font-weight: 700; line-height: 1;
+        }
+        .article-body blockquote:not(.talk-bubble__message) > :first-child { margin-top: 0; }
+        .article-body blockquote:not(.talk-bubble__message) > :last-child { margin-bottom: 0; }
+        @media (max-width: 640px) {
+            .article-body blockquote:not(.talk-bubble__message) { margin: 2rem 0; padding: 1.6rem 1.25rem 1.5rem 3rem; border-radius: 0 1rem 1rem 0; }
+            .article-body blockquote:not(.talk-bubble__message)::after { left: 0.9rem; font-size: 3.5rem; }
+        }
         .article-body .talk-bubble { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 1rem; margin: 2.25rem 0; }
         .article-body .talk-bubble__speaker { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; }
         .article-body .talk-bubble__photo { width: 68px; height: 68px; margin: 0; border: 3px solid #fff; border-radius: 9999px; object-fit: cover; box-shadow: 0 3px 12px rgba(15, 23, 42, 0.16); }
@@ -184,6 +203,37 @@
         .article-body .talk-bubble__message::before { border-width: 10px; border-right-color: #dbe4f0; }
         .article-body .talk-bubble__message::after { margin-top: 1px; border-width: 9px; border-right-color: #f8fafc; }
         .article-body .talk-bubble__message > :last-child { margin-bottom: 0; }
+        .article-body .reviewer-profile {
+            position: relative; margin: 3rem 0; padding: 2rem; overflow: hidden;
+            border: 1px solid #dbe7f8; border-radius: 1.5rem;
+            background: radial-gradient(circle at 100% 0%, rgba(59,130,246,.13), transparent 38%), linear-gradient(135deg, #f7faff 0%, #fff 65%);
+            box-shadow: 0 18px 45px rgba(16, 63, 153, 0.1);
+        }
+        .article-body .reviewer-profile::after {
+            position: absolute; right: -1.5rem; bottom: -3.5rem; color: rgba(16,63,153,.045);
+            content: "REVIEW"; font-family: Inter, sans-serif; font-size: 4.8rem; font-weight: 900; letter-spacing: -.05em; line-height: 1; pointer-events: none;
+        }
+        .article-body .reviewer-profile__label {
+            position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .45rem; margin-bottom: 1.35rem;
+            padding: .38rem .75rem; border-radius: 9999px; background: #103f99; color: #fff; font-size: .72rem; font-weight: 800; letter-spacing: .08em;
+        }
+        .article-body .reviewer-profile__label::before { width: .45rem; height: .45rem; border: 2px solid #fff; border-radius: 9999px; content: ""; }
+        .article-body .reviewer-profile__content { position: relative; z-index: 1; display: grid; grid-template-columns: 104px minmax(0,1fr); align-items: center; gap: 1.5rem; }
+        .article-body .reviewer-profile__photo { width: 104px; height: 104px; margin: 0; border: 4px solid #fff; border-radius: 1.35rem; object-fit: cover; box-shadow: 0 10px 24px rgba(15,23,42,.16); }
+        .article-body .reviewer-profile__photo--fallback { display: grid; place-items: center; background: linear-gradient(135deg,#103f99,#3b82f6); color: #fff; font-size: 2.25rem; font-weight: 900; }
+        .article-body .reviewer-profile__body { min-width: 0; }
+        .article-body .reviewer-profile__name { margin: 0 0 .45rem; color: #14233a; font-size: 1.35rem; font-weight: 900; line-height: 1.4; }
+        .article-body .reviewer-profile__details { color: #475569; font-size: .92rem; line-height: 1.8; }
+        .article-body .reviewer-profile__details p { margin: .35rem 0; }
+        .article-body .reviewer-profile__details p:first-child { color: #103f99; font-weight: 800; }
+        .article-body .reviewer-profile__details > :last-child { margin-bottom: 0; }
+        @media (max-width: 520px) {
+            .article-body .reviewer-profile { padding: 1.5rem; }
+            .article-body .reviewer-profile__content { grid-template-columns: 76px minmax(0,1fr); align-items: start; gap: 1rem; }
+            .article-body .reviewer-profile__photo { width: 76px; height: 76px; border-radius: 1rem; }
+            .article-body .reviewer-profile__name { font-size: 1.12rem; }
+            .article-body .reviewer-profile__details { font-size: .86rem; }
+        }
         @media (max-width: 520px) {
             .article-body .talk-bubble { grid-template-columns: 54px minmax(0, 1fr); gap: 0.7rem; }
             .article-body .talk-bubble__photo { width: 50px; height: 50px; }
@@ -224,26 +274,35 @@
 
         /* 目次(Table of Contents) */
         .article-body .internal-link-card {
+            position: relative;
             display: grid;
-            grid-template-columns: 160px minmax(0, 1fr);
-            align-items: start;
-            gap: 1rem;
+            grid-template-columns: 168px minmax(0, 1fr);
+            align-items: stretch;
+            gap: 0;
             margin: 2rem 0;
             overflow: hidden;
-            border: 1px solid #d1d5db;
+            border: 1px solid #dbe4f0;
+            border-radius: 1rem;
             background: #fff;
             color: inherit;
             text-decoration: none;
+            box-shadow: 0 8px 24px rgba(15,23,42,.07);
             transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .article-body .internal-link-card::after {
+            position: absolute; top: .75rem; right: .75rem; display: grid; width: 1.7rem; height: 1.7rem; place-items: center;
+            border-radius: 9999px; background: #eef4ff; color: #103f99; content: "\2197"; font-size: .82rem; font-weight: 900;
+            transition: background-color .2s ease, color .2s ease, transform .2s ease;
         }
         .article-body .internal-link-card:hover {
             border-color: #103f99;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
-            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(16,63,153,.14);
+            transform: translateY(-3px);
         }
+        .article-body .internal-link-card:hover::after { background: #103f99; color: #fff; transform: translate(2px,-2px); }
         .article-body .internal-link-card__image {
             position: relative;
-            width: 160px;
+            width: 168px;
             height: auto;
             aspect-ratio: 16 / 9;
             overflow: hidden;
@@ -269,9 +328,9 @@
             flex-direction: column;
             justify-content: center;
             min-width: 0;
-            height: 90px;
+            min-height: 94px;
             overflow: hidden;
-            padding: 0.5rem 1rem 0.5rem 0;
+            padding: .8rem 3.2rem .8rem 1.15rem;
         }
         .article-body .internal-link-card__title {
             display: -webkit-box;
@@ -318,8 +377,8 @@
                 aspect-ratio: 16 / 9;
             }
             .article-body .internal-link-card__body {
-                height: auto;
-                padding: 0 1rem 1rem;
+                min-height: 0;
+                padding: 1rem 3.2rem 1.1rem 1rem;
             }
         }
 
@@ -483,7 +542,14 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>天体をあえて若者の言葉を使って表現するなら、「暗記ゲー」と思っている子がたくさんいます。確かに、暗記しなければならない事項が多いこともたしかです。しかし、同時に「天体」を本質的に理解することがさらに重要で、そのうえで暗記を積み重ねるべきです。「オリオン座は見える季節が限られている」や「地球は太陽の周りを自転しながら公転している」などと教科書で読んでも、動いている実感が湧きません。天体観測の宿題を出しても、ほとんどのお子さんが見てこないでしょう。</p><p>そこで、Stellariumという天体シミュレーションサイトを電子黒板の大画面に映すと、天体が暗記から理解に変わります。今夜の京都の空でも、2000年前のローマの空でも、南極点の真上でも、スライダーひとつで瞬時に再現できます。「星が動く」ことを説明するのではなく、動いている星空をクラス全員でリアルタイムに見る授業へ。</p><h2 id="h8e6c76c434"><strong>Stellariumとは？：本物の夜空を教室に再現する無料プラネタリウム</strong></h2><p>Stellariumは、世界中で使われている無料のオープンソース天文シミュレーターです。ブラウザ版（<a href="http://stellarium-web.org" target="_blank" rel="noopener noreferrer"><strong><span style="color: #121ae1">stellarium-web.org</span></strong></a>）とデスクトップ版があり、ブラウザ版であればインストール不要で授業にすぐ使えます。120万個以上の星のデータをもとに、任意の場所・日時の夜空をリアルに再現します。</p><p> Stellarium Web: <a href="https://stellarium-web.org/" target="_blank" rel="noopener noreferrer"><strong><span style="color: #121ae1">https://stellarium-web.org/</span></strong></a></p><p>このツールを電子黒板で使うことの利点は、以下の3点です。</p><h3 id="h1242b50eff"><strong>1. 「時間を動かせる」</strong></h3><p>画面下部のスライダーで時刻を早送り・逆送りできます。日没から夜明けまでを1分で再現し、星が弧を描いて動く様子を全員で見られます。「星は1時間に約15度動く」という数字が、目の前の動きとして意味を持ちます。</p><h3 id="hab0c5ee39f"><strong>2. 「場所を変えられる」</strong></h3><p>観測地点を北極・赤道・南半球に変えると、星の見え方がまったく変わります。「北極点では北極星が真上に来る」「オーストラリアでは南十字星が見える」という概念を、説明ではなく画面上で体験させられます。</p><h3 id="hf2c7f6b2ea"><strong>3. 「過去・未来の空」も再現できる</strong></h3><p>日付を変えれば、紀元前の夜空も2000年後の夜空も表示できます。天体の動きが地球規模・時間規模であることを、直感的に理解させるための道具として機能します。</p><h2 id="he1e5b773b3"><strong>実践例①：今日の夜の星座の動きを見る</strong></h2><p>「今日の２０時の京都の空を見てみよう」この一言から授業を始め、生徒の関心を引きます。<br>Stellariumを起動し、観測地点を京都に設定。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/4a1dd23a46cc4dca8a008d7ba611043f/image.png" alt="" width="844" height="402"></figure><p>場所の見た目は京都っぽくなく、どの場所も同じような風景になっています。緯度や経度などから京都の位置を正確に再現しています。</p><p>以下は記事執筆時の４月２７日２０時ごろの京都市の上空です。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/9119b43ab0f64516a00490a50801c566/image.png" alt="" width="886" height="421"></figure><p><br>そして、未来や過去の日付を自由自在に設定できます。たとえば、2026年5月25日20時と設定するとこのようになります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/da920302a0854b1ba756f8a5cf806633/image.png" alt="" width="709" height="388"></figure><p>「あ、これが○○座だ」「あの星なんていう名前？」という声が自然に上がります。そして、京都市内を疑似演出しておりますので、「塾の帰りに同じ星があるか探してみよう」ということもできます。</p><h2 id="h59e60efa66"><strong>展開：時間を早送りして「動き」を見る</strong></h2><p>さらに、スライダーで時間を早送りすることもできます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/995975d652ca464999f6689fd9caaea6/CPT2604271149-2880x1367%20(1)%20(1).gif" alt="" width="2880" height="1367"></figure><p>当たり前ですが、このシミュレーションでは、地球は動いておらず、星座のみ動いているように見えます。本来は地動説からご存じのように、太陽が太陽系の中心にあり、地球が自転しながらその周りを公転しています。2024年度の漫才コンテストM-1グランプリで準優勝をしたバッテリィズのボケ役が地動説の説明に対して、「自転と公転さえ分かれば」とツッコんだことでも話題になりました。「自転」と「公転」をイメージできない人が一定数いるからこそ、ボケ・ツッコミとして成立し、笑いになりました。</p><p>そこで、地動説をきちんと理解してもらうために、こちらのサイト（<a href="https://www.solarsystemscope.com/" target="_blank" rel="noopener noreferrer"><strong><span style="color: #331dd8">https://www.solarsystemscope.com/</span></strong>）</a>のアニメーションを投影します。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/3ae9fd00646e4cdbb5f01e369cc81756/CPT2604271142-2858x1025%20(1).gif" alt="" width="2858" height="1025"></figure><p>地球が高速で回転しながら、地球を回っていることが一目瞭然です。これで「地球が自転しながらその周りを公転しています」という、自転と公転の意味も同時に分かるのではでしょうか。</p><p>ちなみに、Stellariumでは日付を西暦10万年後に設定すると、オリオン座の形が現在とは別物になっていることも観察できます。「星座は永遠に同じ形」という思い込みを崩すこの瞬間はとても驚きが生まれます。</p><h2 id="h9dc79cf515"><strong>まとめ：「暗記する天体」から「感じる天体」へ</strong></h2><p>このような授業を行うと、天体は決して「暗記ゲー」ではないことが分かります。この授業を受けた子たちも、天体の神秘さや面白さに気づいてくれる子も多いです。</p><p>Stellariumを電子黒板で使う授業の本質は、「体験できないことを体験させる」ことです。夜空を1時間眺め続けることも、季節の変化を早回しで見ることも、現実の授業時間では不可能です。Stellariumはその制約を外してくれます。星の動きは「覚えるもの」ではなく、「見て納得するもの」です。一度画面の中で星が弧を描いて動くのを目撃した生徒は、その動きをずっと覚えています。プラネタリウムに連れて行かなくても、電子黒板を開くだけで教室が星空になります。</p>
+                    <p>天体をあえて若者の言葉を使って表現するなら、「暗記ゲー」と思っている子がたくさんいます。確かに、暗記しなければならない事項が多いこともたしかです。しかし、同時に「天体」を本質的に理解することがさらに重要で、そのうえで暗記を積み重ねるべきです。「オリオン座は見える季節が限られている」や「地球は太陽の周りを自転しながら公転している」などと教科書で読んでも、動いている実感が湧きません。天体観測の宿題を出しても、ほとんどのお子さんが見てこないでしょう。</p><p>そこで、Stellariumという天体シミュレーションサイトを電子黒板の大画面に映すと、天体が暗記から理解に変わります。今夜の京都の空でも、2000年前のローマの空でも、南極点の真上でも、スライダーひとつで瞬時に再現できます。「星が動く」ことを説明するのではなく、動いている星空をクラス全員でリアルタイムに見る授業へ。</p><h2 id="h8e6c76c434"><strong>Stellariumとは？：本物の夜空を教室に再現する無料プラネタリウム</strong></h2><p>Stellariumは、世界中で使われている無料のオープンソース天文シミュレーターです。ブラウザ版（<a href="http://stellarium-web.org" target="_blank" rel="noopener noreferrer"><strong><span style="color: #121ae1">stellarium-web.org</span></strong></a>）とデスクトップ版があり、ブラウザ版であればインストール不要で授業にすぐ使えます。120万個以上の星のデータをもとに、任意の場所・日時の夜空をリアルに再現します。</p><p>Stellarium Web:</p><a href="https://stellarium-web.org/" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="Stellarium Web Online Star Map">
+    <span class="internal-link-card__image internal-link-card__image--external"><span class="flex h-full w-full items-center justify-center bg-[#e0f2fe] px-3 text-center text-xs font-black text-[#103f99]">stellarium-web.org</span></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">Stellarium Web Online Star Map</span>
+      <span class="internal-link-card__description">Stellarium Web is a planetarium running in your web browser. It shows a realistic star map, just like what you see with the naked eye, binoculars or a telescope.</span>
+      <span class="internal-link-card__site">stellarium-web.org</span>
+    </span>
+  </a><p>このツールを電子黒板で使うことの利点は、以下の3点です。</p><h3 id="h1242b50eff"><strong>1. 「時間を動かせる」</strong></h3><p>画面下部のスライダーで時刻を早送り・逆送りできます。日没から夜明けまでを1分で再現し、星が弧を描いて動く様子を全員で見られます。「星は1時間に約15度動く」という数字が、目の前の動きとして意味を持ちます。</p><h3 id="hab0c5ee39f"><strong>2. 「場所を変えられる」</strong></h3><p>観測地点を北極・赤道・南半球に変えると、星の見え方がまったく変わります。「北極点では北極星が真上に来る」「オーストラリアでは南十字星が見える」という概念を、説明ではなく画面上で体験させられます。</p><h3 id="hf2c7f6b2ea"><strong>3. 「過去・未来の空」も再現できる</strong></h3><p>日付を変えれば、紀元前の夜空も2000年後の夜空も表示できます。天体の動きが地球規模・時間規模であることを、直感的に理解させるための道具として機能します。</p><h2 id="he1e5b773b3"><strong>実践例①：今日の夜の星座の動きを見る</strong></h2><p>「今日の２０時の京都の空を見てみよう」この一言から授業を始め、生徒の関心を引きます。<br>Stellariumを起動し、観測地点を京都に設定。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/4a1dd23a46cc4dca8a008d7ba611043f/image.png" alt="" width="844" height="402"></figure><p>場所の見た目は京都っぽくなく、どの場所も同じような風景になっています。緯度や経度などから京都の位置を正確に再現しています。</p><p>以下は記事執筆時の４月２７日２０時ごろの京都市の上空です。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/9119b43ab0f64516a00490a50801c566/image.png" alt="" width="886" height="421"></figure><p><br>そして、未来や過去の日付を自由自在に設定できます。たとえば、2026年5月25日20時と設定するとこのようになります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/da920302a0854b1ba756f8a5cf806633/image.png" alt="" width="709" height="388"></figure><p>「あ、これが○○座だ」「あの星なんていう名前？」という声が自然に上がります。そして、京都市内を疑似演出しておりますので、「塾の帰りに同じ星があるか探してみよう」ということもできます。</p><h2 id="h59e60efa66"><strong>展開：時間を早送りして「動き」を見る</strong></h2><p>さらに、スライダーで時間を早送りすることもできます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/995975d652ca464999f6689fd9caaea6/CPT2604271149-2880x1367%20(1)%20(1).gif" alt="" width="2880" height="1367"></figure><p>当たり前ですが、このシミュレーションでは、地球は動いておらず、星座のみ動いているように見えます。本来は地動説からご存じのように、太陽が太陽系の中心にあり、地球が自転しながらその周りを公転しています。2024年度の漫才コンテストM-1グランプリで準優勝をしたバッテリィズのボケ役が地動説の説明に対して、「自転と公転さえ分かれば」とツッコんだことでも話題になりました。「自転」と「公転」をイメージできない人が一定数いるからこそ、ボケ・ツッコミとして成立し、笑いになりました。</p><p>そこで、地動説をきちんと理解してもらうために、こちらのサイト（<a href="https://www.solarsystemscope.com/" target="_blank" rel="noopener noreferrer"><strong><span style="color: #331dd8">https://www.solarsystemscope.com/</span></strong>）</a>のアニメーションを投影します。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/3ae9fd00646e4cdbb5f01e369cc81756/CPT2604271142-2858x1025%20(1).gif" alt="" width="2858" height="1025"></figure><p>地球が高速で回転しながら、地球を回っていることが一目瞭然です。これで「地球が自転しながらその周りを公転しています」という、自転と公転の意味も同時に分かるのではでしょうか。</p><p>ちなみに、Stellariumでは日付を西暦10万年後に設定すると、オリオン座の形が現在とは別物になっていることも観察できます。「星座は永遠に同じ形」という思い込みを崩すこの瞬間はとても驚きが生まれます。</p><h2 id="h9dc79cf515"><strong>まとめ：「暗記する天体」から「感じる天体」へ</strong></h2><p>このような授業を行うと、天体は決して「暗記ゲー」ではないことが分かります。この授業を受けた子たちも、天体の神秘さや面白さに気づいてくれる子も多いです。</p><p>Stellariumを電子黒板で使う授業の本質は、「体験できないことを体験させる」ことです。夜空を1時間眺め続けることも、季節の変化を早回しで見ることも、現実の授業時間では不可能です。Stellariumはその制約を外してくれます。星の動きは「覚えるもの」ではなく、「見て納得するもの」です。一度画面の中で星が弧を描いて動くのを目撃した生徒は、その動きをずっと覚えています。プラネタリウムに連れて行かなくても、電子黒板を開くだけで教室が星空になります。</p>
                 </div>
 
                 <!-- 執筆・監修（編集部プロフィール） -->

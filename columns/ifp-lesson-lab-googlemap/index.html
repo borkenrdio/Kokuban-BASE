@@ -173,7 +173,26 @@
         
         .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .article-body img[src*=".gif"] { width: 100%; }
-        .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+        .article-body blockquote:not(.talk-bubble__message) {
+            position: relative; margin: 2.5rem 0; padding: 2rem 2rem 1.8rem 4rem; overflow: hidden;
+            border: 1px solid #dbe7f8; border-left: 0; border-radius: 0 1.25rem 1.25rem 0;
+            background: linear-gradient(135deg, #f7faff 0%, #ffffff 72%); color: #26364d;
+            box-shadow: 0 12px 32px rgba(16, 63, 153, 0.08);
+        }
+        .article-body blockquote:not(.talk-bubble__message)::before {
+            position: absolute; inset: 0 auto 0 0; width: 6px;
+            background: linear-gradient(180deg, #103f99 0%, #3b82f6 100%); content: "";
+        }
+        .article-body blockquote:not(.talk-bubble__message)::after {
+            position: absolute; top: 0.6rem; left: 1.25rem; color: rgba(16, 63, 153, 0.16);
+            content: "\201C"; font-family: Georgia, "Times New Roman", serif; font-size: 4.5rem; font-weight: 700; line-height: 1;
+        }
+        .article-body blockquote:not(.talk-bubble__message) > :first-child { margin-top: 0; }
+        .article-body blockquote:not(.talk-bubble__message) > :last-child { margin-bottom: 0; }
+        @media (max-width: 640px) {
+            .article-body blockquote:not(.talk-bubble__message) { margin: 2rem 0; padding: 1.6rem 1.25rem 1.5rem 3rem; border-radius: 0 1rem 1rem 0; }
+            .article-body blockquote:not(.talk-bubble__message)::after { left: 0.9rem; font-size: 3.5rem; }
+        }
         .article-body .talk-bubble { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 1rem; margin: 2.25rem 0; }
         .article-body .talk-bubble__speaker { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; }
         .article-body .talk-bubble__photo { width: 68px; height: 68px; margin: 0; border: 3px solid #fff; border-radius: 9999px; object-fit: cover; box-shadow: 0 3px 12px rgba(15, 23, 42, 0.16); }
@@ -184,6 +203,37 @@
         .article-body .talk-bubble__message::before { border-width: 10px; border-right-color: #dbe4f0; }
         .article-body .talk-bubble__message::after { margin-top: 1px; border-width: 9px; border-right-color: #f8fafc; }
         .article-body .talk-bubble__message > :last-child { margin-bottom: 0; }
+        .article-body .reviewer-profile {
+            position: relative; margin: 3rem 0; padding: 2rem; overflow: hidden;
+            border: 1px solid #dbe7f8; border-radius: 1.5rem;
+            background: radial-gradient(circle at 100% 0%, rgba(59,130,246,.13), transparent 38%), linear-gradient(135deg, #f7faff 0%, #fff 65%);
+            box-shadow: 0 18px 45px rgba(16, 63, 153, 0.1);
+        }
+        .article-body .reviewer-profile::after {
+            position: absolute; right: -1.5rem; bottom: -3.5rem; color: rgba(16,63,153,.045);
+            content: "REVIEW"; font-family: Inter, sans-serif; font-size: 4.8rem; font-weight: 900; letter-spacing: -.05em; line-height: 1; pointer-events: none;
+        }
+        .article-body .reviewer-profile__label {
+            position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .45rem; margin-bottom: 1.35rem;
+            padding: .38rem .75rem; border-radius: 9999px; background: #103f99; color: #fff; font-size: .72rem; font-weight: 800; letter-spacing: .08em;
+        }
+        .article-body .reviewer-profile__label::before { width: .45rem; height: .45rem; border: 2px solid #fff; border-radius: 9999px; content: ""; }
+        .article-body .reviewer-profile__content { position: relative; z-index: 1; display: grid; grid-template-columns: 104px minmax(0,1fr); align-items: center; gap: 1.5rem; }
+        .article-body .reviewer-profile__photo { width: 104px; height: 104px; margin: 0; border: 4px solid #fff; border-radius: 1.35rem; object-fit: cover; box-shadow: 0 10px 24px rgba(15,23,42,.16); }
+        .article-body .reviewer-profile__photo--fallback { display: grid; place-items: center; background: linear-gradient(135deg,#103f99,#3b82f6); color: #fff; font-size: 2.25rem; font-weight: 900; }
+        .article-body .reviewer-profile__body { min-width: 0; }
+        .article-body .reviewer-profile__name { margin: 0 0 .45rem; color: #14233a; font-size: 1.35rem; font-weight: 900; line-height: 1.4; }
+        .article-body .reviewer-profile__details { color: #475569; font-size: .92rem; line-height: 1.8; }
+        .article-body .reviewer-profile__details p { margin: .35rem 0; }
+        .article-body .reviewer-profile__details p:first-child { color: #103f99; font-weight: 800; }
+        .article-body .reviewer-profile__details > :last-child { margin-bottom: 0; }
+        @media (max-width: 520px) {
+            .article-body .reviewer-profile { padding: 1.5rem; }
+            .article-body .reviewer-profile__content { grid-template-columns: 76px minmax(0,1fr); align-items: start; gap: 1rem; }
+            .article-body .reviewer-profile__photo { width: 76px; height: 76px; border-radius: 1rem; }
+            .article-body .reviewer-profile__name { font-size: 1.12rem; }
+            .article-body .reviewer-profile__details { font-size: .86rem; }
+        }
         @media (max-width: 520px) {
             .article-body .talk-bubble { grid-template-columns: 54px minmax(0, 1fr); gap: 0.7rem; }
             .article-body .talk-bubble__photo { width: 50px; height: 50px; }
@@ -224,26 +274,35 @@
 
         /* 目次(Table of Contents) */
         .article-body .internal-link-card {
+            position: relative;
             display: grid;
-            grid-template-columns: 160px minmax(0, 1fr);
-            align-items: start;
-            gap: 1rem;
+            grid-template-columns: 168px minmax(0, 1fr);
+            align-items: stretch;
+            gap: 0;
             margin: 2rem 0;
             overflow: hidden;
-            border: 1px solid #d1d5db;
+            border: 1px solid #dbe4f0;
+            border-radius: 1rem;
             background: #fff;
             color: inherit;
             text-decoration: none;
+            box-shadow: 0 8px 24px rgba(15,23,42,.07);
             transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .article-body .internal-link-card::after {
+            position: absolute; top: .75rem; right: .75rem; display: grid; width: 1.7rem; height: 1.7rem; place-items: center;
+            border-radius: 9999px; background: #eef4ff; color: #103f99; content: "\2197"; font-size: .82rem; font-weight: 900;
+            transition: background-color .2s ease, color .2s ease, transform .2s ease;
         }
         .article-body .internal-link-card:hover {
             border-color: #103f99;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
-            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(16,63,153,.14);
+            transform: translateY(-3px);
         }
+        .article-body .internal-link-card:hover::after { background: #103f99; color: #fff; transform: translate(2px,-2px); }
         .article-body .internal-link-card__image {
             position: relative;
-            width: 160px;
+            width: 168px;
             height: auto;
             aspect-ratio: 16 / 9;
             overflow: hidden;
@@ -269,9 +328,9 @@
             flex-direction: column;
             justify-content: center;
             min-width: 0;
-            height: 90px;
+            min-height: 94px;
             overflow: hidden;
-            padding: 0.5rem 1rem 0.5rem 0;
+            padding: .8rem 3.2rem .8rem 1.15rem;
         }
         .article-body .internal-link-card__title {
             display: -webkit-box;
@@ -318,8 +377,8 @@
                 aspect-ratio: 16 / 9;
             }
             .article-body .internal-link-card__body {
-                height: auto;
-                padding: 0 1rem 1rem;
+                min-height: 0;
+                padding: 1rem 3.2rem 1.1rem 1rem;
             }
         }
 
@@ -473,11 +532,11 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>Googleマップを電子黒板で活用した社会科地理の授業案をご紹介します。</p><p>Googleマップ活用の真髄は、一つの対象を起点に知識が「芋づる式」に連鎖していくダイナミズムにあります。従来の地図帳学習では、情報が断片化し、点としての知識で終わってしまいがちでした。しかし、Googleマップを授業で活用すると、地図上の一点から、その土地の起伏、周辺を走る交通網、あるいはストリートビューを通じた人々のリアルな暮らしや文化といった多層的な情報を、直感的かつ連続的に引き出すことが可能になります。</p><p>「なぜこの場所にこの産業があるのか」「地形がどのように人々の生活に影響を与えているのか」といった問いに対し、子どもたち自らが視覚的な情報を手がかりに、次の発見を自発的に手繰り寄せていく。この情報の連鎖こそが、断片的な知識を「生きた文脈」へと変え、地理をより立体的で深い理解へと導く仕掛けとなるのです。</p><p>では、実際に九州地方の学習を例にご紹介いたします。</p><h2 id="h20b4be75d3">授業の実践例：「桜島」について調べるとき</h2><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/9907e087e86f4950b40c396ba845dd34/Photo_26-02-02-16-11-46.795.jpg" alt="" width="1598" height="1200"></figure><p>まずはGoogleマップで「桜島」と検索します。マイクを搭載した電子黒板であれば、音声入力を使うと入力の手間が省け、授業のテンポもスムーズになります。検索結果が表示されれば、桜島がどこにあるかは一目瞭然です。</p><p>ここからが電子黒板のGoogleマップ活用の本番です。教師は生徒に次々と問いを投げかけ、思考を促していきます。</p><h2 id="h0315175aa0"><strong>1. 「地形と交通」への気づき</strong></h2><p>まず、「桜島は左側と右側の半島、どちらと陸続きになっていますか？」と尋ねます。 地図を指で拡大していくと、答えはすぐに分かります。「右側の大隅半島と繋がっている」ことが視覚的に確認できるはずです。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/4f8b91aef1644c1cba35c6abf542bed8/Photo_26-02-02-16-11-46.967.jpg" alt="" width="1598" height="1200"></figure><p>さらに左側の半島の左手に「薩摩川内市」という市があります。このことを話題に挙げ、「薩摩川内、何と読むでしょうか」とクイズ形式で生徒に問うと盛り上がります。ちなみに、このようにすることで左側の半島が「薩摩半島」であることと「川内原発」が鹿児島県にあることを同時に、自然に頭に入れることができます。</p><p>さらに詳しく見ていくと、左側の薩摩半島との間に「青い点線」があることに気づきます。そこで「鹿児島港 桜島フェリーターミナル」をクリックしてみます。すると、フェリーが運航していることだけでなく、投稿されている写真から「車を載せて移動できる」という事実まで、セットで理解することができます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/ccbbb54f832f431b8c937049f75ba95f/%E3%83%95%E3%82%A7%E3%83%AA%E3%83%BC.png" alt="" width="790" height="375"></figure><p>ちなみに、フェリー内ではうどんを食べることもできます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/0d0dd7503d0e461ab4ce598f2bd1eaab/spot-yabukin3.jpg" alt="" width="780" height="520"></figure><h2 id="h820604d2c7"><strong>2. 「生活と環境」への関心</strong></h2><p>次に、「桜島には人が住んでいると思いますか？」と尋ねてみます。実際にスーパーやコンビニがあるかを検索し、暮らしの実態を探ります。「桜島にセブンイレブンはあるかな？」とクラス全員で検索すると非常に盛り上がります。</p><p><br>実態としては、島内にセブンイレブンはありませんが、ファミリーマートとローソンは存在します。ここで一つ「おち」として紹介できるのが、景観に配慮した「茶色のファミリーマート」の存在です。なぜ色が違うのかを考えることで、地域の環境保護への意識にまで視点を広げることができます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/f0db710bd2164653aa59b0b3e0dd4682/%E3%83%95%E3%82%A1%E3%83%9F%E3%83%9E.png" alt="" width="697" height="354"></figure><h2 id="h8d8f3019a6"><strong>3. 「歴史とインフラ」への発展</strong></h2><p>さらに、桜島から視点を左側の薩摩半島へと移すと、九州新幹線の駅、鹿児島中央駅が目に入ります。 ここで、JR九州の開業記念動画（3分程度）を視聴することもよいでしょう。すると、クラス全体の関心は一気に新幹線の重要性や、それによって変わった地域の歴史へと広がっていきます。</p><a href="https://youtu.be/UNbJzCFgjnU?si=vaZfQ3mvDzSkP-ET" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="- YouTube">
+                    <p>Googleマップを電子黒板で活用した社会科地理の授業案をご紹介します。</p><p>Googleマップ活用の真髄は、一つの対象を起点に知識が「芋づる式」に連鎖していくダイナミズムにあります。従来の地図帳学習では、情報が断片化し、点としての知識で終わってしまいがちでした。しかし、Googleマップを授業で活用すると、地図上の一点から、その土地の起伏、周辺を走る交通網、あるいはストリートビューを通じた人々のリアルな暮らしや文化といった多層的な情報を、直感的かつ連続的に引き出すことが可能になります。</p><p>「なぜこの場所にこの産業があるのか」「地形がどのように人々の生活に影響を与えているのか」といった問いに対し、子どもたち自らが視覚的な情報を手がかりに、次の発見を自発的に手繰り寄せていく。この情報の連鎖こそが、断片的な知識を「生きた文脈」へと変え、地理をより立体的で深い理解へと導く仕掛けとなるのです。</p><p>では、実際に九州地方の学習を例にご紹介いたします。</p><h2 id="h20b4be75d3">授業の実践例：「桜島」について調べるとき</h2><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/9907e087e86f4950b40c396ba845dd34/Photo_26-02-02-16-11-46.795.jpg" alt="" width="1598" height="1200"></figure><p>まずはGoogleマップで「桜島」と検索します。マイクを搭載した電子黒板であれば、音声入力を使うと入力の手間が省け、授業のテンポもスムーズになります。検索結果が表示されれば、桜島がどこにあるかは一目瞭然です。</p><p>ここからが電子黒板のGoogleマップ活用の本番です。教師は生徒に次々と問いを投げかけ、思考を促していきます。</p><h2 id="h0315175aa0"><strong>1. 「地形と交通」への気づき</strong></h2><p>まず、「桜島は左側と右側の半島、どちらと陸続きになっていますか？」と尋ねます。 地図を指で拡大していくと、答えはすぐに分かります。「右側の大隅半島と繋がっている」ことが視覚的に確認できるはずです。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/4f8b91aef1644c1cba35c6abf542bed8/Photo_26-02-02-16-11-46.967.jpg" alt="" width="1598" height="1200"></figure><p>さらに左側の半島の左手に「薩摩川内市」という市があります。このことを話題に挙げ、「薩摩川内、何と読むでしょうか」とクイズ形式で生徒に問うと盛り上がります。ちなみに、このようにすることで左側の半島が「薩摩半島」であることと「川内原発」が鹿児島県にあることを同時に、自然に頭に入れることができます。</p><p>さらに詳しく見ていくと、左側の薩摩半島との間に「青い点線」があることに気づきます。そこで「鹿児島港 桜島フェリーターミナル」をクリックしてみます。すると、フェリーが運航していることだけでなく、投稿されている写真から「車を載せて移動できる」という事実まで、セットで理解することができます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/ccbbb54f832f431b8c937049f75ba95f/%E3%83%95%E3%82%A7%E3%83%AA%E3%83%BC.png" alt="" width="790" height="375"></figure><p>ちなみに、フェリー内ではうどんを食べることもできます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/0d0dd7503d0e461ab4ce598f2bd1eaab/spot-yabukin3.jpg" alt="" width="780" height="520"></figure><h2 id="h820604d2c7"><strong>2. 「生活と環境」への関心</strong></h2><p>次に、「桜島には人が住んでいると思いますか？」と尋ねてみます。実際にスーパーやコンビニがあるかを検索し、暮らしの実態を探ります。「桜島にセブンイレブンはあるかな？」とクラス全員で検索すると非常に盛り上がります。</p><p><br>実態としては、島内にセブンイレブンはありませんが、ファミリーマートとローソンは存在します。ここで一つ「おち」として紹介できるのが、景観に配慮した「茶色のファミリーマート」の存在です。なぜ色が違うのかを考えることで、地域の環境保護への意識にまで視点を広げることができます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/f0db710bd2164653aa59b0b3e0dd4682/%E3%83%95%E3%82%A1%E3%83%9F%E3%83%9E.png" alt="" width="697" height="354"></figure><h2 id="h8d8f3019a6"><strong>3. 「歴史とインフラ」への発展</strong></h2><p>さらに、桜島から視点を左側の薩摩半島へと移すと、九州新幹線の駅、鹿児島中央駅が目に入ります。 ここで、JR九州の開業記念動画（3分程度）を視聴することもよいでしょう。すると、クラス全体の関心は一気に新幹線の重要性や、それによって変わった地域の歴史へと広がっていきます。</p><a href="https://youtu.be/UNbJzCFgjnU?si=vaZfQ3mvDzSkP-ET" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="youtu.be">
     <span class="internal-link-card__image internal-link-card__image--external"><span class="flex h-full w-full items-center justify-center bg-[#e0f2fe] px-3 text-center text-xs font-black text-[#103f99]">youtu.be</span></span>
     <span class="internal-link-card__body">
-      <span class="internal-link-card__title">- YouTube</span>
-      <span class="internal-link-card__description">Enjoy the videos and music you love, upload original content, and share it all with friends, family, and the world on YouTube.</span>
+      <span class="internal-link-card__title">youtu.be</span>
+      <span class="internal-link-card__description">https://youtu.be/UNbJzCFgjnU?si=vaZfQ3mvDzSkP-ET</span>
       <span class="internal-link-card__site">youtu.be</span>
     </span>
   </a><p>ちなみに動画の最後のカットで開業日が記載されています。「2011.03.12」。日本人にとってはとても重要な日です。</p><p>当日のJR九州の社長の決断は下記の記事で一読いただけます。合わせて授業でご紹介すると、より深い学習となります。</p><a href="https://shuchi.php.co.jp/article/8366" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="九州新幹線の全線開業前日に襲った東日本大震災…JR九州社長が迫られた「苦渋の決断」">

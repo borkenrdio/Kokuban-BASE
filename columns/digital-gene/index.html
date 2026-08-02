@@ -173,7 +173,26 @@
         
         .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .article-body img[src*=".gif"] { width: 100%; }
-        .article-body blockquote { margin: 2em 0; padding: 1.5em; background-color: #f8fafc; border-left: 4px solid #103f99; border-radius: 0.5rem; }
+        .article-body blockquote:not(.talk-bubble__message) {
+            position: relative; margin: 2.5rem 0; padding: 2rem 2rem 1.8rem 4rem; overflow: hidden;
+            border: 1px solid #dbe7f8; border-left: 0; border-radius: 0 1.25rem 1.25rem 0;
+            background: linear-gradient(135deg, #f7faff 0%, #ffffff 72%); color: #26364d;
+            box-shadow: 0 12px 32px rgba(16, 63, 153, 0.08);
+        }
+        .article-body blockquote:not(.talk-bubble__message)::before {
+            position: absolute; inset: 0 auto 0 0; width: 6px;
+            background: linear-gradient(180deg, #103f99 0%, #3b82f6 100%); content: "";
+        }
+        .article-body blockquote:not(.talk-bubble__message)::after {
+            position: absolute; top: 0.6rem; left: 1.25rem; color: rgba(16, 63, 153, 0.16);
+            content: "\201C"; font-family: Georgia, "Times New Roman", serif; font-size: 4.5rem; font-weight: 700; line-height: 1;
+        }
+        .article-body blockquote:not(.talk-bubble__message) > :first-child { margin-top: 0; }
+        .article-body blockquote:not(.talk-bubble__message) > :last-child { margin-bottom: 0; }
+        @media (max-width: 640px) {
+            .article-body blockquote:not(.talk-bubble__message) { margin: 2rem 0; padding: 1.6rem 1.25rem 1.5rem 3rem; border-radius: 0 1rem 1rem 0; }
+            .article-body blockquote:not(.talk-bubble__message)::after { left: 0.9rem; font-size: 3.5rem; }
+        }
         .article-body .talk-bubble { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 1rem; margin: 2.25rem 0; }
         .article-body .talk-bubble__speaker { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; }
         .article-body .talk-bubble__photo { width: 68px; height: 68px; margin: 0; border: 3px solid #fff; border-radius: 9999px; object-fit: cover; box-shadow: 0 3px 12px rgba(15, 23, 42, 0.16); }
@@ -184,6 +203,37 @@
         .article-body .talk-bubble__message::before { border-width: 10px; border-right-color: #dbe4f0; }
         .article-body .talk-bubble__message::after { margin-top: 1px; border-width: 9px; border-right-color: #f8fafc; }
         .article-body .talk-bubble__message > :last-child { margin-bottom: 0; }
+        .article-body .reviewer-profile {
+            position: relative; margin: 3rem 0; padding: 2rem; overflow: hidden;
+            border: 1px solid #dbe7f8; border-radius: 1.5rem;
+            background: radial-gradient(circle at 100% 0%, rgba(59,130,246,.13), transparent 38%), linear-gradient(135deg, #f7faff 0%, #fff 65%);
+            box-shadow: 0 18px 45px rgba(16, 63, 153, 0.1);
+        }
+        .article-body .reviewer-profile::after {
+            position: absolute; right: -1.5rem; bottom: -3.5rem; color: rgba(16,63,153,.045);
+            content: "REVIEW"; font-family: Inter, sans-serif; font-size: 4.8rem; font-weight: 900; letter-spacing: -.05em; line-height: 1; pointer-events: none;
+        }
+        .article-body .reviewer-profile__label {
+            position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .45rem; margin-bottom: 1.35rem;
+            padding: .38rem .75rem; border-radius: 9999px; background: #103f99; color: #fff; font-size: .72rem; font-weight: 800; letter-spacing: .08em;
+        }
+        .article-body .reviewer-profile__label::before { width: .45rem; height: .45rem; border: 2px solid #fff; border-radius: 9999px; content: ""; }
+        .article-body .reviewer-profile__content { position: relative; z-index: 1; display: grid; grid-template-columns: 104px minmax(0,1fr); align-items: center; gap: 1.5rem; }
+        .article-body .reviewer-profile__photo { width: 104px; height: 104px; margin: 0; border: 4px solid #fff; border-radius: 1.35rem; object-fit: cover; box-shadow: 0 10px 24px rgba(15,23,42,.16); }
+        .article-body .reviewer-profile__photo--fallback { display: grid; place-items: center; background: linear-gradient(135deg,#103f99,#3b82f6); color: #fff; font-size: 2.25rem; font-weight: 900; }
+        .article-body .reviewer-profile__body { min-width: 0; }
+        .article-body .reviewer-profile__name { margin: 0 0 .45rem; color: #14233a; font-size: 1.35rem; font-weight: 900; line-height: 1.4; }
+        .article-body .reviewer-profile__details { color: #475569; font-size: .92rem; line-height: 1.8; }
+        .article-body .reviewer-profile__details p { margin: .35rem 0; }
+        .article-body .reviewer-profile__details p:first-child { color: #103f99; font-weight: 800; }
+        .article-body .reviewer-profile__details > :last-child { margin-bottom: 0; }
+        @media (max-width: 520px) {
+            .article-body .reviewer-profile { padding: 1.5rem; }
+            .article-body .reviewer-profile__content { grid-template-columns: 76px minmax(0,1fr); align-items: start; gap: 1rem; }
+            .article-body .reviewer-profile__photo { width: 76px; height: 76px; border-radius: 1rem; }
+            .article-body .reviewer-profile__name { font-size: 1.12rem; }
+            .article-body .reviewer-profile__details { font-size: .86rem; }
+        }
         @media (max-width: 520px) {
             .article-body .talk-bubble { grid-template-columns: 54px minmax(0, 1fr); gap: 0.7rem; }
             .article-body .talk-bubble__photo { width: 50px; height: 50px; }
@@ -224,26 +274,35 @@
 
         /* 目次(Table of Contents) */
         .article-body .internal-link-card {
+            position: relative;
             display: grid;
-            grid-template-columns: 160px minmax(0, 1fr);
-            align-items: start;
-            gap: 1rem;
+            grid-template-columns: 168px minmax(0, 1fr);
+            align-items: stretch;
+            gap: 0;
             margin: 2rem 0;
             overflow: hidden;
-            border: 1px solid #d1d5db;
+            border: 1px solid #dbe4f0;
+            border-radius: 1rem;
             background: #fff;
             color: inherit;
             text-decoration: none;
+            box-shadow: 0 8px 24px rgba(15,23,42,.07);
             transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .article-body .internal-link-card::after {
+            position: absolute; top: .75rem; right: .75rem; display: grid; width: 1.7rem; height: 1.7rem; place-items: center;
+            border-radius: 9999px; background: #eef4ff; color: #103f99; content: "\2197"; font-size: .82rem; font-weight: 900;
+            transition: background-color .2s ease, color .2s ease, transform .2s ease;
         }
         .article-body .internal-link-card:hover {
             border-color: #103f99;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
-            transform: translateY(-2px);
+            box-shadow: 0 16px 34px rgba(16,63,153,.14);
+            transform: translateY(-3px);
         }
+        .article-body .internal-link-card:hover::after { background: #103f99; color: #fff; transform: translate(2px,-2px); }
         .article-body .internal-link-card__image {
             position: relative;
-            width: 160px;
+            width: 168px;
             height: auto;
             aspect-ratio: 16 / 9;
             overflow: hidden;
@@ -269,9 +328,9 @@
             flex-direction: column;
             justify-content: center;
             min-width: 0;
-            height: 90px;
+            min-height: 94px;
             overflow: hidden;
-            padding: 0.5rem 1rem 0.5rem 0;
+            padding: .8rem 3.2rem .8rem 1.15rem;
         }
         .article-body .internal-link-card__title {
             display: -webkit-box;
@@ -318,8 +377,8 @@
                 aspect-ratio: 16 / 9;
             }
             .article-body .internal-link-card__body {
-                height: auto;
-                padding: 0 1rem 1rem;
+                min-height: 0;
+                padding: 1rem 3.2rem 1.1rem 1rem;
             }
         }
 
@@ -478,7 +537,14 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>「立体図形が苦手…」毎年、同じ悩みを抱える子どもたちは非常に多いです。</p><p>「展開図を折ったとき、この辺とこの辺が合わさる」——丁寧に説明しても、空間認識が苦手な子どもにはなかなか伝わりません。「頭の中でイメージして」と言えば言うほど、できない子は追い詰められていきます。そしてテスト当日、暗記して挑むが応用の問題で手が止まる——そんな場面が繰り返されます。</p><p>問題の核心は、立体的な動きを静止画で教えようとしているところにあります。</p><p>Digital gene（<a href="https://digital-gene.com/wgl/geometrynets/"><strong><span style="color: #1515e0"><u>https://digital-gene.com/wgl/geometrynets/</u></span></strong></a>）のインタラクティブ教材を電子黒板や生徒の端末で動かすと、この状況が変わります。11種類の展開図を一つずつ選択し、スライダーを動かすたびに展開図が立体へと変わっていきます。視点を変えれば裏側まで確認でき、「次の展開図はどうなるんだろう」という予測が自然と生まれます。</p><h2 id="hfe67794b5d"><strong>Digital gene×電子黒板—”自分で動かせる”が生む深い理解</strong></h2><p>Digital geneはブラウザ上でそのまま動くため、インストール不要で電子黒板にも生徒の端末にも使えます。</p><p>スライダーをドラッグすると展開図がリアルタイムに開閉し、マウスやタッチで視点を360度回転させて立体の裏側まで確認できます。再生するだけのアニメーションとは異なり、止めて、戻して、別の角度から見るという操作が可能なのが最大の特徴です。</p><p>授業で使う利点は、大きく3つあります。</p><p><strong>① 立体を動かし、見ることができる</strong><br>「この辺はどう動くと思う?」と問いかけてから実際に動かすことで、予測→確認のサイクルが自然に生まれます。</p><p><strong>② 視点を自由に変えられる</strong> <br>展開図の辺と辺の対応関係は、正面からだけでは見えないことがあります。立体を回転させて真横・真上・斜め下から確認することで、「なぜこの辺がくっつくのか」が視覚として入ってきます。</p><p><strong>③ 何度でも・どこでも確かめられる</strong> <br>授業中に理解が追いつかなかった子も、自分の端末で家から同じ操作ができます。「動かしてくる」という宿題が成立するのも、ブラウザツールならではの強みです。</p><h2 id="h6531e77d07"><strong>展開図が一目でわかる</strong></h2><p>立方体の展開図は全部で11種類あります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/cdc6faf526c144bf90781086c1a626eb/image.png" alt="" width="219" height="237"></figure><p>これをプリントで覚えようとすると、どうしても無理な暗記になり、発展的な問題に手も足も出なくなってしまいます。図形の空間認識は、中学校以降の数学でも繰り返し問われる基礎です。だからこそ、最初の授業が極めて重要になります。立体図形の分野は難関中学・公立高校入試でも頻出であり、展開図→立体の変換に加えて、切断や投影図との組み合わせ問題も出題されます。しかし「折る動き」を体験することで、展開図を頭で想像して解けるようになります。</p><h2 id="ha773f1892f"><strong>Digital geneの使い方</strong></h2><p>まず、Digatal geneで静止画の展開図を見せ、「これが立方体になるとき、どう動くと思う?」と子どもたちに想像させます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/f8e15aefd1734e7594437a662bd65bac/image.png" alt="" width="234" height="298"></figure><p>その後、電子黒板上でスライダーをゆっくり動かしながら立方体になる様子を全員で見ます。途中で止めて動きを確認することもできます。展開とはどういうことかが感覚として理解できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/63ce7cb1c0bd45bfbcd263c4e25a1e01/CPT2604071537-480x640.gif" alt="" width="480" height="640"></figure><h2 id="ha4fc33e967"><strong>展開：ほかの展開図はどうなるのか？</strong></h2><p>Digital geneでは11種類の展開図をすべて操作できます。口頭では説明しにくい複雑な展開図も画面上で確認でき、子どもたちからの「この展開図はどう動くの?」という問いに対しても即座に検証できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/4ee0b9f60c0849cfb518a4a878d4356a/image.png" alt="" width="241" height="297"></figure><p>画面右の立方体ボタンをクリックすると展開図が瞬時に立体になり、スライダーを逆に動かせば立方体を展開図に戻すこともできます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b80921cd17584d6e9fadf0a5fbab95b4/CPT2604071544-480x640.gif" alt="" width="480" height="640"></figure><h2 id="h594a8e2c15"><strong>発展：向かい合う面はどこ？</strong></h2><p>Digital geneでは指定した面に色をつけ、そのまま立体化する機能もあります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/babb48472c294cf1a0d655a4a0db5fcd/image.png" alt="" width="230" height="307"></figure><p>「向かい合う面はどれか」という定番の問いに対して、暗記に頼らず自分の目で確かめながら考えることができます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/0eab91f58a454d598e7feed4a1dbb176/CPT2604071553-480x640.gif" alt="" width="480" height="640"></figure><p>電子黒板で「折る→立体になる→展開する」のサイクルを何度も見た生徒は、問題文だけで同じ変換をイメージできる力を身につけています。</p><p>学習塾でこの授業を体験授業に取り入れると、保護者の反応が変わります。「図形が動く授業を見た保護者から『こういう教え方があるんですね』という驚きの声があがります。</p><h2 id="ha214098e44"><strong>まとめ</strong></h2><p>Digital geneが変えるのは、「頭の中でイメージして」という曖昧な指示を、「動かして確かめる」体験に置き換えることです。</p><p>展開図は動きのある概念です。動きは、自分の目で見て、イメージできるようになることで深く身につきます。無料・インストール不要のブラウザツールで、今すぐ授業に取り入れられます。図形が「暗記する単元」から「発見する単元」へ変わる瞬間を、ぜひ教室で体験してみてください。</p>
+                    <p>「立体図形が苦手…」毎年、同じ悩みを抱える子どもたちは非常に多いです。</p><p>「展開図を折ったとき、この辺とこの辺が合わさる」——丁寧に説明しても、空間認識が苦手な子どもにはなかなか伝わりません。「頭の中でイメージして」と言えば言うほど、できない子は追い詰められていきます。そしてテスト当日、暗記して挑むが応用の問題で手が止まる——そんな場面が繰り返されます。</p><p>問題の核心は、立体的な動きを静止画で教えようとしているところにあります。</p><p>Digital gene（）のインタラクティブ教材を電子黒板や生徒の端末で動かすと、この状況が変わります。11種類の展開図を一つずつ選択し、スライダーを動かすたびに展開図が立体へと変わっていきます。視点を変えれば裏側まで確認でき、「次の展開図はどうなるんだろう」という予測が自然と生まれます。</p><a href="https://digital-gene.com/wgl/geometrynets/" class="internal-link-card" target="_blank" rel="noopener noreferrer" aria-label="展開図アシスト (ウェブ版) -Digital Gene-">
+    <span class="internal-link-card__image internal-link-card__image--external"><img src="https://digital-gene.com/image/content_option_icon_play.png" alt="展開図アシスト (ウェブ版) -Digital Gene-" loading="lazy" decoding="async"></span>
+    <span class="internal-link-card__body">
+      <span class="internal-link-card__title">展開図アシスト (ウェブ版) -Digital Gene-</span>
+      <span class="internal-link-card__description">展開図アシスト (ウェブ版)</span>
+      <span class="internal-link-card__site">digital-gene.com</span>
+    </span>
+  </a><h2 id="hfe67794b5d"><strong>Digital gene×電子黒板—”自分で動かせる”が生む深い理解</strong></h2><p>Digital geneはブラウザ上でそのまま動くため、インストール不要で電子黒板にも生徒の端末にも使えます。</p><p>スライダーをドラッグすると展開図がリアルタイムに開閉し、マウスやタッチで視点を360度回転させて立体の裏側まで確認できます。再生するだけのアニメーションとは異なり、止めて、戻して、別の角度から見るという操作が可能なのが最大の特徴です。</p><p>授業で使う利点は、大きく3つあります。</p><p><strong>① 立体を動かし、見ることができる</strong><br>「この辺はどう動くと思う?」と問いかけてから実際に動かすことで、予測→確認のサイクルが自然に生まれます。</p><p><strong>② 視点を自由に変えられる</strong> <br>展開図の辺と辺の対応関係は、正面からだけでは見えないことがあります。立体を回転させて真横・真上・斜め下から確認することで、「なぜこの辺がくっつくのか」が視覚として入ってきます。</p><p><strong>③ 何度でも・どこでも確かめられる</strong> <br>授業中に理解が追いつかなかった子も、自分の端末で家から同じ操作ができます。「動かしてくる」という宿題が成立するのも、ブラウザツールならではの強みです。</p><h2 id="h6531e77d07"><strong>展開図が一目でわかる</strong></h2><p>立方体の展開図は全部で11種類あります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/cdc6faf526c144bf90781086c1a626eb/image.png" alt="" width="219" height="237"></figure><p>これをプリントで覚えようとすると、どうしても無理な暗記になり、発展的な問題に手も足も出なくなってしまいます。図形の空間認識は、中学校以降の数学でも繰り返し問われる基礎です。だからこそ、最初の授業が極めて重要になります。立体図形の分野は難関中学・公立高校入試でも頻出であり、展開図→立体の変換に加えて、切断や投影図との組み合わせ問題も出題されます。しかし「折る動き」を体験することで、展開図を頭で想像して解けるようになります。</p><h2 id="ha773f1892f"><strong>Digital geneの使い方</strong></h2><p>まず、Digatal geneで静止画の展開図を見せ、「これが立方体になるとき、どう動くと思う?」と子どもたちに想像させます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/f8e15aefd1734e7594437a662bd65bac/image.png" alt="" width="234" height="298"></figure><p>その後、電子黒板上でスライダーをゆっくり動かしながら立方体になる様子を全員で見ます。途中で止めて動きを確認することもできます。展開とはどういうことかが感覚として理解できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/63ce7cb1c0bd45bfbcd263c4e25a1e01/CPT2604071537-480x640.gif" alt="" width="480" height="640"></figure><h2 id="ha4fc33e967"><strong>展開：ほかの展開図はどうなるのか？</strong></h2><p>Digital geneでは11種類の展開図をすべて操作できます。口頭では説明しにくい複雑な展開図も画面上で確認でき、子どもたちからの「この展開図はどう動くの?」という問いに対しても即座に検証できます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/4ee0b9f60c0849cfb518a4a878d4356a/image.png" alt="" width="241" height="297"></figure><p>画面右の立方体ボタンをクリックすると展開図が瞬時に立体になり、スライダーを逆に動かせば立方体を展開図に戻すこともできます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b80921cd17584d6e9fadf0a5fbab95b4/CPT2604071544-480x640.gif" alt="" width="480" height="640"></figure><h2 id="h594a8e2c15"><strong>発展：向かい合う面はどこ？</strong></h2><p>Digital geneでは指定した面に色をつけ、そのまま立体化する機能もあります。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/babb48472c294cf1a0d655a4a0db5fcd/image.png" alt="" width="230" height="307"></figure><p>「向かい合う面はどれか」という定番の問いに対して、暗記に頼らず自分の目で確かめながら考えることができます。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/0eab91f58a454d598e7feed4a1dbb176/CPT2604071553-480x640.gif" alt="" width="480" height="640"></figure><p>電子黒板で「折る→立体になる→展開する」のサイクルを何度も見た生徒は、問題文だけで同じ変換をイメージできる力を身につけています。</p><p>学習塾でこの授業を体験授業に取り入れると、保護者の反応が変わります。「図形が動く授業を見た保護者から『こういう教え方があるんですね』という驚きの声があがります。</p><h2 id="ha214098e44"><strong>まとめ</strong></h2><p>Digital geneが変えるのは、「頭の中でイメージして」という曖昧な指示を、「動かして確かめる」体験に置き換えることです。</p><p>展開図は動きのある概念です。動きは、自分の目で見て、イメージできるようになることで深く身につきます。無料・インストール不要のブラウザツールで、今すぐ授業に取り入れられます。図形が「暗記する単元」から「発見する単元」へ変わる瞬間を、ぜひ教室で体験してみてください。</p>
                 </div>
 
                 <!-- 執筆・監修（編集部プロフィール） -->
