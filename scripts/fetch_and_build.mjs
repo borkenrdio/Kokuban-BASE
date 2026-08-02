@@ -301,6 +301,41 @@ function transformSpeakerQuotes(bodyHtml, speakersBySlug, articleSlug = '') {
     (match, attributes, quoteHtml) => {
       const classMatch = attributes.match(/\bclass\s*=\s*(["'])(.*?)\1/i);
       const classes = classMatch ? classMatch[2].split(/\s+/).filter(Boolean) : [];
+      const reviewerMarker = quoteHtml.match(/\[reviewer\s*:\s*([a-z0-9][a-z0-9_-]*)\s*\]/i);
+
+      if (reviewerMarker) {
+        const speakerSlug = reviewerMarker[1];
+        const speaker = speakersBySlug.get(speakerSlug);
+        const speakerName = speaker?.name;
+        const photoUrl = getSpeakerPhotoUrl(speaker);
+        const optimizedPhotoUrl = getOptimizedSpeakerPhotoUrl(photoUrl);
+
+        if (!speaker || typeof speakerName !== 'string' || !speakerName.trim()) {
+          console.warn(`警告: ${articleSlug || '記事本文'} のレビュアー ${speakerSlug} に対応する話者情報がありません。`);
+          return match;
+        }
+
+        const profileHtml = quoteHtml
+          .replace(/\[reviewer\s*:\s*[a-z0-9][a-z0-9_-]*\s*\]/i, '')
+          .replace(/<p>\s*(?:<br\s*\/?>\s*)*<\/p>/gi, '')
+          .trim();
+        const displayName = /先生\s*$/.test(speakerName) ? speakerName : `${speakerName}先生`;
+        const photoHtml = optimizedPhotoUrl
+          ? `<img class="reviewer-profile__photo" src="${escapeHtml(optimizedPhotoUrl)}" alt="${escapeHtml(displayName)}" width="104" height="104" loading="lazy" decoding="async">`
+          : `<span class="reviewer-profile__photo reviewer-profile__photo--fallback" aria-hidden="true">${escapeHtml(speakerName.charAt(0))}</span>`;
+
+        return `<aside class="reviewer-profile" aria-label="今回レビューした先生" data-speaker-slug="${escapeHtml(speakerSlug)}">
+  <span class="reviewer-profile__label">今回レビューした先生</span>
+  <div class="reviewer-profile__content">
+    ${photoHtml}
+    <div class="reviewer-profile__body">
+      <p class="reviewer-profile__name">${escapeHtml(displayName)}</p>
+      <div class="reviewer-profile__details">${profileHtml}</div>
+    </div>
+  </div>
+</aside>`;
+      }
+
       let talkClass = classes.find(className => /^talk-[a-z0-9][a-z0-9_-]*$/i.test(className));
 
       // microCMSのカスタムclassは、blockquote本体ではなく内部のspan等に付く。
@@ -551,7 +586,7 @@ function buildInternalLinkCardHtml(article) {
 }
 
 const externalLinkMetadataCache = new Map();
-const BARE_URL_REGEX = /https?:\/\/[^\s<"'）)、。,.]+/gi;
+const BARE_URL_REGEX = /https?:\/\/[^\s<>"'）)、。】」』\])]*[^\s<>"'）)、。】」』\]),.!?;:]/gi;
 const STATIC_EXTERNAL_LINK_METADATA = {
   'https://earth.google.com/web/': {
     title: 'Google Earth',
@@ -854,8 +889,18 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
     return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(rawUrl)}</a>`;
   };
 
-  const hasNonUrlText = (html) => html
-    .replace(BARE_URL_REGEX, '')
+  const isPastedUrlAnchor = (href, innerHtml) => {
+    const label = decodeHtmlEntities(innerHtml.replace(/<[^>]+>/g, '')).trim();
+    if (!/^https?:\/\//i.test(label)) return false;
+    try {
+      return new URL(label).href === new URL(href).href;
+    } catch {
+      return false;
+    }
+  };
+
+  const hasVisibleContent = (html) => html
+    .replace(/<br\s*\/?>/gi, '')
     .replace(/<[^>]+>/g, '')
     .replace(/&nbsp;/gi, ' ')
     .trim().length > 0;
@@ -898,24 +943,30 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
   html = html.replace(
     /<p([^>]*)>([\s\S]*?)<\/p>/gi,
     (match, attrs, innerHtml) => {
-      if (hasNonUrlText(innerHtml)) {
-        const linkedHtml = replaceBareUrlsInHtmlText(innerHtml, buildInlineLink);
-        return linkedHtml === innerHtml ? match : `<p${attrs}>${linkedHtml}</p>`;
-      }
-
-      let cardHtml = '';
-      const textHtml = replaceBareUrlsInHtmlText(
-        innerHtml,
-        (url) => {
-          const card = getCardPlaceholder(url);
-          if (!card) return url;
-          cardHtml += card;
+      const cards = [];
+      let textHtml = innerHtml.replace(
+        /<a\b[^>]*href=(["'])(.*?)\1[^>]*>([\s\S]*?)<\/a>/gi,
+        (anchorMatch, quote, href, anchorInner) => {
+          if (!isPastedUrlAnchor(href, anchorInner)) return anchorMatch;
+          const card = getCardPlaceholder(href);
+          if (!card) return anchorMatch;
+          cards.push(card);
           return '';
         }
-      ).trim();
+      );
 
-      if (!cardHtml) return match;
-      return `${textHtml ? `<p${attrs}>${textHtml}</p>` : ''}${cardHtml}`;
+      textHtml = replaceBareUrlsInHtmlText(
+        textHtml,
+        (url) => {
+          const card = getCardPlaceholder(url);
+          if (!card) return buildInlineLink(url);
+          cards.push(card);
+          return '';
+        }
+      );
+
+      if (cards.length === 0) return match;
+      return `${hasVisibleContent(textHtml) ? `<p${attrs}>${textHtml.trim()}</p>` : ''}${cards.join('')}`;
     }
   );
 
