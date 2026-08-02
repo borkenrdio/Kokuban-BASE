@@ -290,6 +290,21 @@ function getOptimizedSpeakerPhotoUrl(photoUrl) {
 }
 
 /**
+ * StarBoard本音レビューの既存プロフィール文を、レビュアーカード用の記法へ移行する。
+ * microCMS側に [reviewer:yoshimoto] が入った後は何もしない。
+ */
+function injectExistingReviewerProfile(bodyHtml, articleSlug = '') {
+  if (!bodyHtml || articleSlug !== 'starboard-review' || /\[reviewer\s*:/i.test(bodyHtml)) {
+    return bodyHtml;
+  }
+
+  return bodyHtml.replace(
+    /<p>\s*吉本\s*格先生\s*[｜|]\s*([\s\S]*?)<\/p>/i,
+    '<blockquote><p>[reviewer:yoshimoto]</p><p>$1</p></blockquote>'
+  );
+}
+
+/**
  * class="talk-{slug}" の引用を speakers API の話者情報で吹き出しに変換する。
  * slug はクラス名から動的に取得するため、話者追加時のコード変更は不要。
  */
@@ -2225,7 +2240,8 @@ async function buildStaticPages() {
     const bodyBeforeLinks = article.body || '';
     const bodyWithCards = await replaceManualInternalLinksWithCards(bodyBeforeLinks, article.slug, publishedArticles);
     const bodyWithLinks = injectInternalLinks(bodyWithCards, article.slug, keywordIndex, 3);
-    const bodyWithSpeakerQuotes = transformSpeakerQuotes(bodyWithLinks, speakersBySlug, article.slug);
+    const bodyWithReviewerProfile = injectExistingReviewerProfile(bodyWithLinks, article.slug);
+    const bodyWithSpeakerQuotes = transformSpeakerQuotes(bodyWithReviewerProfile, speakersBySlug, article.slug);
     const linksAdded = (bodyWithLinks.match(/class="internal-link"/g) || []).length;
     totalInternalLinksAdded += linksAdded;
     if (linksAdded > 0) {
