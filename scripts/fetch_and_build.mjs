@@ -290,18 +290,29 @@ function getOptimizedSpeakerPhotoUrl(photoUrl) {
 }
 
 /**
- * StarBoard本音レビューの既存プロフィール文を、レビュアーカード用の記法へ移行する。
+ * 本音レビュー記事の既存プロフィール文を、レビュアーカード用の記法へ移行する。
  * microCMS側に [reviewer:yoshimoto] が入った後は何もしない。
  */
 function injectExistingReviewerProfile(bodyHtml, articleSlug = '') {
-  if (!bodyHtml || articleSlug !== 'starboard-review' || /\[reviewer\s*:/i.test(bodyHtml)) {
+  if (!bodyHtml || /\[reviewer\s*:/i.test(bodyHtml)) {
     return bodyHtml;
   }
 
-  return bodyHtml.replace(
-    /<p>\s*吉本\s*格先生\s*[｜|]\s*([\s\S]*?)<\/p>/i,
-    '<blockquote><p>[reviewer:yoshimoto]</p><p>$1</p></blockquote>'
-  );
+  if (articleSlug === 'starboard-review') {
+    return bodyHtml.replace(
+      /<p>\s*吉本\s*格先生\s*[｜|]\s*([\s\S]*?)<\/p>/i,
+      '<blockquote><p>[reviewer:yoshimoto]</p><p>$1</p></blockquote>'
+    );
+  }
+
+  if (articleSlug === 'benqboard-review') {
+    return bodyHtml.replace(
+      /<p>\s*書き比べていただいたのは、前回に続き、[\s\S]*?吉本\s*格先生。[\s\S]*?<\/p>/i,
+      '<blockquote><p>[reviewer:yoshimoto]</p><p>会員制難関指導専門塾elio 中学受験理科主任。学習塾歴30年超。日常的に電子黒板を活用した授業を行う。本シリーズのレビューを担当。</p></blockquote><p>前回のStarBoardに続く、本音レビュー第2弾です。</p>'
+    );
+  }
+
+  return bodyHtml;
 }
 
 /**
