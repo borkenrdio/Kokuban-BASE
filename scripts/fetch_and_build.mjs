@@ -431,12 +431,12 @@ function allowBrTags(str) {
 
 /**
  * アイキャッチ画像のHTMLを生成
- * localUrl が渡された場合はローカル化済み画像（1200x630）をそのまま使う
+ * localUrl が渡された場合はローカル化済み画像（1200x675）をそのまま使う
  */
 function createEyecatchHtml(eyecatch, alt, localUrl = '') {
   if (!localUrl && (!eyecatch || !eyecatch.url)) return '';
   const width = 1200;
-  const height = localUrl ? 630 : 675;
+  const height = 675;
   const altText = escapeHtml(alt);
   const optimizedUrl = localUrl || `${eyecatch.url}?fit=crop&w=1200&h=675&q=80`;
   return `<img src="${optimizedUrl}" alt="${altText}" width="${width}" height="${height}" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">`;
@@ -483,8 +483,9 @@ async function downloadImage(url, destPath) {
 
 /**
  * 記事のアイキャッチをSEO用ファイル名でローカル化する。
- * 成功すると article.eyecatchLocalMain（1200x630・OG/ヒーロー用）と
- * article.eyecatchLocalThumb（480x270・一覧カード用）にサイト内パスが入る。
+ * 成功すると article.eyecatchLocalMain（1200x675・ヒーロー用）、
+ * article.eyecatchLocalThumb（480x270・一覧カード用）、
+ * article.eyecatchLocalOg（1200x630・SNSシェア用）にサイト内パスが入る。
  */
 async function localizeEyecatch(article) {
   const srcUrl = article.eyecatch?.url;
@@ -500,17 +501,19 @@ async function localizeEyecatch(article) {
   // 「電子黒板」のローマ字をキーワードとして先頭に付ける（既に含むslugは二重付与しない）
   const base = cleanSlug.startsWith('denshikokuban') ? cleanSlug : `denshikokuban-${cleanSlug}`;
   const variants = [
-    { name: `${base}${ext}`, params: '?fit=crop&w=1200&h=630&q=85', key: 'eyecatchLocalMain' },
+    { name: `${base}${ext}`, params: '?fit=crop&w=1200&h=675&q=85', key: 'eyecatchLocalMain' },
     { name: `${base}-thumb${ext}`, params: '?fit=crop&w=480&h=270&q=80', key: 'eyecatchLocalThumb' },
+    { name: `${base}-og${ext}`, params: '?fit=crop&w=1200&h=630&q=85', key: 'eyecatchLocalOg' },
   ];
 
   const manifest = loadEyecatchManifest();
   for (const v of variants) {
     const destPath = path.resolve(EYECATCH_DIR, v.name);
+    const sourceSignature = `${srcUrl}${v.params}`;
     try {
-      if (manifest[v.name] !== srcUrl || !fs.existsSync(destPath)) {
-        await downloadImage(`${srcUrl}${v.params}`, destPath);
-        manifest[v.name] = srcUrl;
+      if (manifest[v.name] !== sourceSignature || !fs.existsSync(destPath)) {
+        await downloadImage(sourceSignature, destPath);
+        manifest[v.name] = sourceSignature;
         console.log(`アイキャッチを取得しました: ${v.name}`);
       }
       article[v.key] = `/assets/eyecatch/${v.name}`;
@@ -2178,8 +2181,8 @@ async function buildStaticPages() {
     );
 
     const canonicalUrl = `${BASE_URL}/columns/${article.slug}/`;
-    const ogImageUrl = article.eyecatchLocalMain
-      ? `${BASE_URL}${article.eyecatchLocalMain}`
+    const ogImageUrl = article.eyecatchLocalOg
+      ? `${BASE_URL}${article.eyecatchLocalOg}`
       : (article.eyecatch?.url
         ? `${article.eyecatch.url}?fit=crop&w=1200&h=630`
         : `${BASE_URL}/ogp.jpg`);
