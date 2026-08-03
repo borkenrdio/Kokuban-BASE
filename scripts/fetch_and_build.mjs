@@ -501,7 +501,7 @@ async function localizeEyecatch(article) {
   // 「電子黒板」のローマ字をキーワードとして先頭に付ける（既に含むslugは二重付与しない）
   const base = cleanSlug.startsWith('denshikokuban') ? cleanSlug : `denshikokuban-${cleanSlug}`;
   const variants = [
-    { name: `${base}${ext}`, params: '?fit=crop&w=1200&h=675&q=85', key: 'eyecatchLocalMain' },
+    { name: `${base}-hero${ext}`, params: '?fit=crop&w=1200&h=675&q=85', key: 'eyecatchLocalMain' },
     { name: `${base}-thumb${ext}`, params: '?fit=crop&w=480&h=270&q=80', key: 'eyecatchLocalThumb' },
     { name: `${base}-og${ext}`, params: '?fit=crop&w=1200&h=630&q=85', key: 'eyecatchLocalOg' },
   ];
