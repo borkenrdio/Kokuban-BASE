@@ -146,6 +146,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/columns/benqboard-review/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/columns/starboard-review/</loc>
     <lastmod>2026-08-03</lastmod>
     <priority>0.6</priority>
