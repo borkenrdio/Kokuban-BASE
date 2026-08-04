@@ -312,6 +312,13 @@ function injectExistingReviewerProfile(bodyHtml, articleSlug = '') {
     );
   }
 
+  if (articleSlug === 'miraitouch-review') {
+    return bodyHtml.replace(
+      /<p>\s*書き比べていただいたのは、これまでと同じく、[\s\S]*?吉本\s*格先生。[\s\S]*?<\/p>/i,
+      '<blockquote><p>[reviewer:yoshimoto]</p><p>会員制難関指導専門塾elio 中学受験理科主任。学習塾歴30年超。日常的に電子黒板を活用した授業を行う。本シリーズのレビューを担当。</p></blockquote>'
+    );
+  }
+
   return bodyHtml;
 }
 
