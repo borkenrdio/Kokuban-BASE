@@ -624,6 +624,7 @@ function buildInternalLinkCardHtml(article) {
 const EXTERNAL_LINK_METADATA_CACHE_PATH = path.resolve(process.cwd(), 'assets', 'external-link-metadata-cache.json');
 const EXTERNAL_LINK_METADATA_MAX_AGE_MS = 90 * 24 * 60 * 60 * 1000;
 const externalLinkMetadataCache = new Map();
+const externalLinkMetadataCacheStats = { memoryHits: 0, persistedHits: 0, networkFetches: 0 };
 let persistedExternalLinkMetadataCache = null;
 let externalLinkMetadataCacheDirty = false;
 
@@ -763,11 +764,13 @@ async function fetchExternalLinkMetadata(rawUrl) {
 
   const normalizedUrl = url.href;
   if (externalLinkMetadataCache.has(normalizedUrl)) {
+    externalLinkMetadataCacheStats.memoryHits += 1;
     return externalLinkMetadataCache.get(normalizedUrl);
   }
 
   const persistedMetadata = getPersistedExternalLinkMetadata(normalizedUrl);
   if (persistedMetadata) {
+    externalLinkMetadataCacheStats.persistedHits += 1;
     externalLinkMetadataCache.set(normalizedUrl, persistedMetadata);
     return persistedMetadata;
   }
@@ -787,6 +790,7 @@ async function fetchExternalLinkMetadata(rawUrl) {
     return metadata;
   }
 
+  externalLinkMetadataCacheStats.networkFetches += 1;
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 4000);
@@ -2428,6 +2432,11 @@ async function buildStaticPages() {
   // アイキャッチのローカル化状況を保存（次回ビルドで差分のみ再取得するため）
   saveEyecatchManifest();
   saveExternalLinkMetadataCache();
+  console.log(
+    `External link metadata: ${externalLinkMetadataCacheStats.persistedHits} persisted hits, `
+    + `${externalLinkMetadataCacheStats.memoryHits} memory hits, `
+    + `${externalLinkMetadataCacheStats.networkFetches} network fetches.`
+  );
 
   console.log('静的ページ生成プロセスが完了しました。');
 }
