@@ -4,17 +4,23 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "scripts/**"
+      - "columns/template.html"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/update-microcms.yml"
   workflow_dispatch:
   repository_dispatch: {}
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "17 * * * *"
 
 permissions:
   contents: write
 
 concurrency:
   group: update-microcms-content
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   update:
@@ -86,6 +92,9 @@ jobs:
           # 新規生成ファイル（新しいお知らせ記事ページ等）だけの場合にコミットされない。
           git add -u
           git add article columns information team index.html sitemap.xml assets/eyecatch
+          if [[ -f assets/external-link-metadata-cache.json ]]; then
+            git add assets/external-link-metadata-cache.json
+          fi
 
           if git diff --cached --quiet; then
             echo "No generated content changes to commit."

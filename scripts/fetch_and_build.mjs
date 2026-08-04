@@ -621,7 +621,55 @@ function buildInternalLinkCardHtml(article) {
   </a>`;
 }
 
+const EXTERNAL_LINK_METADATA_CACHE_PATH = path.resolve(process.cwd(), 'assets', 'external-link-metadata-cache.json');
+const EXTERNAL_LINK_METADATA_MAX_AGE_MS = 90 * 24 * 60 * 60 * 1000;
 const externalLinkMetadataCache = new Map();
+let persistedExternalLinkMetadataCache = null;
+let externalLinkMetadataCacheDirty = false;
+
+function loadExternalLinkMetadataCache() {
+  if (persistedExternalLinkMetadataCache) return persistedExternalLinkMetadataCache;
+  try {
+    persistedExternalLinkMetadataCache = JSON.parse(
+      fs.readFileSync(EXTERNAL_LINK_METADATA_CACHE_PATH, 'utf8')
+    );
+  } catch {
+    persistedExternalLinkMetadataCache = {};
+  }
+  return persistedExternalLinkMetadataCache;
+}
+
+function getPersistedExternalLinkMetadata(url) {
+  const entry = loadExternalLinkMetadataCache()[url];
+  if (!entry?.metadata || !entry.fetchedAt) return null;
+  const fetchedAt = Date.parse(entry.fetchedAt);
+  if (!Number.isFinite(fetchedAt) || Date.now() - fetchedAt > EXTERNAL_LINK_METADATA_MAX_AGE_MS) {
+    return null;
+  }
+  return entry.metadata;
+}
+
+function persistExternalLinkMetadata(url, metadata) {
+  const cache = loadExternalLinkMetadataCache();
+  cache[url] = {
+    fetchedAt: new Date().toISOString(),
+    metadata,
+  };
+  externalLinkMetadataCacheDirty = true;
+}
+
+function saveExternalLinkMetadataCache() {
+  if (!externalLinkMetadataCacheDirty) return;
+  try {
+    fs.mkdirSync(path.dirname(EXTERNAL_LINK_METADATA_CACHE_PATH), { recursive: true });
+    fs.writeFileSync(
+      EXTERNAL_LINK_METADATA_CACHE_PATH,
+      `${JSON.stringify(loadExternalLinkMetadataCache(), null, 2)}\n`
+    );
+  } catch (error) {
+    console.warn(`Could not save external link metadata cache: ${error.message}`);
+  }
+}
 const BARE_URL_REGEX = /https?:\/\/[^\s<>"'）)、。】」』\])]*[^\s<>"'）)、。】」』\]),.!?;:]/gi;
 const STATIC_EXTERNAL_LINK_METADATA = {
   'https://earth.google.com/web/': {
@@ -718,6 +766,12 @@ async function fetchExternalLinkMetadata(rawUrl) {
     return externalLinkMetadataCache.get(normalizedUrl);
   }
 
+  const persistedMetadata = getPersistedExternalLinkMetadata(normalizedUrl);
+  if (persistedMetadata) {
+    externalLinkMetadataCache.set(normalizedUrl, persistedMetadata);
+    return persistedMetadata;
+  }
+
   const metadataKey = normalizedUrl.endsWith('/') ? normalizedUrl : `${normalizedUrl}/`;
   const staticMetadata = STATIC_EXTERNAL_LINK_METADATA[metadataKey] || STATIC_EXTERNAL_LINK_METADATA[normalizedUrl];
   const metadata = {
@@ -735,7 +789,7 @@ async function fetchExternalLinkMetadata(rawUrl) {
 
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
+    const timeout = setTimeout(() => controller.abort(), 4000);
     try {
       const response = await fetch(normalizedUrl, {
         signal: controller.signal,
@@ -772,6 +826,7 @@ async function fetchExternalLinkMetadata(rawUrl) {
   }
 
   externalLinkMetadataCache.set(normalizedUrl, metadata);
+  persistExternalLinkMetadata(normalizedUrl, metadata);
   return metadata;
 }
 
@@ -2372,6 +2427,7 @@ async function buildStaticPages() {
 
   // アイキャッチのローカル化状況を保存（次回ビルドで差分のみ再取得するため）
   saveEyecatchManifest();
+  saveExternalLinkMetadataCache();
 
   console.log('静的ページ生成プロセスが完了しました。');
 }
