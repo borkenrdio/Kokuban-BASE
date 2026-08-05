@@ -440,6 +440,12 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/columns/ai-security/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/columns/AI-education/</loc>
     <lastmod>2026-07-05</lastmod>
     <priority>0.6</priority>

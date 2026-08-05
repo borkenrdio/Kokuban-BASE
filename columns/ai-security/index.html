@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSSKLZ6EDH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GSSKLZ6EDH');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>電子黒板でAIを安全に使うには？学校＆学習塾が整えるべきAI利用におけるセキュリティ環境｜Kokuban BASE</title>
+    <meta name="description" content="教育現場におけるAIセキュリティを解説。電子黒板でAIを安全に活用するためには、どのような仕組みづくりが重要であるか。教育現場におけるAI利用の具体的なセキュアな運用方法をご紹介。">
+    <link rel="canonical" href="https://kokuban-base.com/columns/ai-security/">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="電子黒板でAIを安全に使うには？学校＆学習塾が整えるべきAI利用におけるセキュリティ環境｜Kokuban BASE">
+    <meta property="og:description" content="教育現場におけるAIセキュリティを解説。電子黒板でAIを安全に活用するためには、どのような仕組みづくりが重要であるか。教育現場におけるAI利用の具体的なセキュアな運用方法をご紹介。">
+    <meta property="og:url" content="https://kokuban-base.com/columns/ai-security/">
+    <meta property="og:image" content="https://kokuban-base.com/assets/eyecatch/denshikokuban-ai-security-og.png">
+    <meta property="og:site_name" content="Kokuban BASE（コクバンベース）">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="article:published_time" content="2026-05-27T17:31:50.655Z">
+    <meta property="article:modified_time" content="2026-05-27T17:31:50.655Z">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="電子黒板でAIを安全に使うには？学校＆学習塾が整えるべきAI利用におけるセキュリティ環境｜Kokuban BASE">
+    <meta name="twitter:description" content="教育現場におけるAIセキュリティを解説。電子黒板でAIを安全に活用するためには、どのような仕組みづくりが重要であるか。教育現場におけるAI利用の具体的なセキュアな運用方法をご紹介。">
+    <meta name="twitter:image" content="https://kokuban-base.com/assets/eyecatch/denshikokuban-ai-security-og.png">
+    
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": "https://kokuban-base.com/columns/ai-security/" },
+            "headline": "電子黒板でAIを安全に使うには？学校＆学習塾が整えるべきAI利用におけるセキュリティ環境",
+            "description": "教育現場におけるAIセキュリティを解説。電子黒板でAIを安全に活用するためには、どのような仕組みづくりが重要であるか。教育現場におけるAI利用の具体的なセキュアな運用方法をご紹介。",
+            "image": ["https://kokuban-base.com/assets/eyecatch/denshikokuban-ai-security-og.png"],
+            "datePublished": "2026-05-27T17:31:50.655Z",
+            "dateModified": "2026-05-27T17:31:50.655Z",
+            "author": {"@type":"Organization","name":"コクバンベース編集部","url":"https://kokuban-base.com/about-editors/"},
+            "publisher": { 
+                "@type": "Organization", 
+                "name": "Kokuban BASE（コクバンベース）", 
+                "logo": { "@type": "ImageObject", "url": "https://kokuban-base.com/ogp.jpg" } 
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "トップ", "item": "https://kokuban-base.com/" },
+                { "@type": "ListItem", "position": 2, "name": "コラム", "item": "https://kokuban-base.com/article" },
+                { "@type": "ListItem", "position": 3, "name": "電子黒板でAIを安全に使うには？学校＆学習塾が整えるべきAI利用におけるセキュリティ環境", "item": "https://kokuban-base.com/columns/ai-security/" }
+            ]
+        }
+    ]
+    </script>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        customBlue: '#103f99',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- サイト共通ヘッダー/フッターのスタイル -->
+    <link rel="stylesheet" href="/styles.css?v=20260710-eeat3">
+
+    <style>
+        /* styles.css の body { font-size: 80% } を本文では打ち消す */
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #ffffff; color: #333; overflow-x: hidden; line-height: 1.6; font-size: 16px; }
+        
+        .title-block { text-align: center; }
+        .title-block h1 { line-height: 1.4; }
+        
+        .subtitle-text {
+            display: block;
+            font-size: 0.55em;
+            font-weight: 700;
+            color: #6b7280;
+            margin-top: 1rem;
+            line-height: 1.5;
+            letter-spacing: 0.02em;
+        }
+
+        .publish-date, .author-name { font-size: 0.875rem; color: #6b7280; }
+
+        .article-body {
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+            word-break: normal; overflow-wrap: break-word;
+        }
+
+        .article-body p { margin-bottom: 2em; }
+        .article-body br { display: inline; }
+
+        .article-body ul,
+        .article-body ol {
+            margin: 1.5em 0 2em;
+            padding-left: 1.6em;
+        }
+        .article-body ul { list-style: disc; }
+        .article-body ol { list-style: decimal; }
+        .article-body li {
+            margin: 0.45em 0;
+            padding-left: 0.2em;
+        }
+        .article-body li > ul,
+        .article-body li > ol {
+            margin: 0.5em 0;
+        }
+        .article-body li::marker {
+            color: #103f99;
+            font-weight: 700;
+        }
+        
+        .article-body h2 { 
+            font-size: 1.75rem; 
+            font-weight: 900; 
+            margin: 3em 0 1.5em; 
+            padding-bottom: 0.5em; 
+            border-bottom: 3px solid #103f99; 
+            position: relative;
+        }
+        .article-body h3 { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            margin: 2.5em 0 1.2em; 
+            padding-left: 0.75rem;
+            border-left: 5px solid #103f99;
+        }
+        
+        .speaker-a { color: #103f99; font-weight: 800; }
+        .speaker-b { color: #ec4899; font-weight: 800; }
+        .speaker-c { color: #059669; font-weight: 800; }
+        .speaker-default { color: #374151; font-weight: 800; }
+
+        /* 画像下の余白を完全に排除するための設定 */
+        .eyecatch-image .image-wrapper {
+            display: flex;
+            flex-direction: column;
+            font-size: 0;
+            line-height: 0;
+            background-color: transparent;
+            isolation: isolate;
+        }
+        .eyecatch-image img,
+        .eyecatch-image figure {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 0;
+            padding: 0;
+            border: none;
+            vertical-align: bottom;
+        }
+        
+        .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .article-body img[src*=".gif"] { width: 100%; }
+        .article-body blockquote:not(.talk-bubble__message) {
+            position: relative; margin: 2.5rem 0; padding: 2rem 2rem 1.8rem 4rem; overflow: hidden;
+            border: 1px solid #dbe7f8; border-left: 0; border-radius: 0 1.25rem 1.25rem 0;
+            background: linear-gradient(135deg, #f7faff 0%, #ffffff 72%); color: #26364d;
+            box-shadow: 0 12px 32px rgba(16, 63, 153, 0.08);
+        }
+        .article-body blockquote:not(.talk-bubble__message)::before {
+            position: absolute; inset: 0 auto 0 0; width: 6px;
+            background: linear-gradient(180deg, #103f99 0%, #3b82f6 100%); content: "";
+        }
+        .article-body blockquote:not(.talk-bubble__message)::after {
+            position: absolute; top: 0.6rem; left: 1.25rem; color: rgba(16, 63, 153, 0.16);
+            content: "\201C"; font-family: Georgia, "Times New Roman", serif; font-size: 4.5rem; font-weight: 700; line-height: 1;
+        }
+        .article-body blockquote:not(.talk-bubble__message) > :first-child { margin-top: 0; }
+        .article-body blockquote:not(.talk-bubble__message) > :last-child { margin-bottom: 0; }
+        @media (max-width: 640px) {
+            .article-body blockquote:not(.talk-bubble__message) { margin: 2rem 0; padding: 1.6rem 1.25rem 1.5rem 3rem; border-radius: 0 1rem 1rem 0; }
+            .article-body blockquote:not(.talk-bubble__message)::after { left: 0.9rem; font-size: 3.5rem; }
+        }
+        .article-body .talk-bubble { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: start; gap: 1rem; margin: 2.25rem 0; }
+        .article-body .talk-bubble__speaker { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; }
+        .article-body .talk-bubble__photo { width: 68px; height: 68px; margin: 0; border: 3px solid #fff; border-radius: 9999px; object-fit: cover; box-shadow: 0 3px 12px rgba(15, 23, 42, 0.16); }
+        .article-body .talk-bubble__name { color: #334155; font-size: 0.75rem; font-weight: 700; line-height: 1.4; }
+        .article-body .talk-bubble__message { position: relative; min-width: 0; margin: 0; padding: 1.25rem 1.4rem; border: 1px solid #dbe4f0; border-radius: 1rem; background: #f8fafc; }
+        .article-body .talk-bubble__message::before,
+        .article-body .talk-bubble__message::after { position: absolute; top: 24px; right: 100%; width: 0; height: 0; border: solid transparent; content: ""; }
+        .article-body .talk-bubble__message::before { border-width: 10px; border-right-color: #dbe4f0; }
+        .article-body .talk-bubble__message::after { margin-top: 1px; border-width: 9px; border-right-color: #f8fafc; }
+        .article-body .talk-bubble__message > :last-child { margin-bottom: 0; }
+        .article-body .reviewer-profile {
+            position: relative; margin: 3rem 0; padding: 2rem; overflow: hidden;
+            border: 1px solid #dbe7f8; border-radius: 1.5rem;
+            background: radial-gradient(circle at 100% 0%, rgba(59,130,246,.13), transparent 38%), linear-gradient(135deg, #f7faff 0%, #fff 65%);
+            box-shadow: 0 18px 45px rgba(16, 63, 153, 0.1);
+        }
+        .article-body .reviewer-profile::after {
+            position: absolute; right: -1.5rem; bottom: -3.5rem; color: rgba(16,63,153,.045);
+            content: "REVIEW"; font-family: Inter, sans-serif; font-size: 4.8rem; font-weight: 900; letter-spacing: -.05em; line-height: 1; pointer-events: none;
+        }
+        .article-body .reviewer-profile__label {
+            position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .45rem; margin-bottom: 1.35rem;
+            padding: .38rem .75rem; border-radius: 9999px; background: #103f99; color: #fff; font-size: .72rem; font-weight: 800; letter-spacing: .08em;
+        }
+        .article-body .reviewer-profile__label::before { width: .45rem; height: .45rem; border: 2px solid #fff; border-radius: 9999px; content: ""; }
+        .article-body .reviewer-profile__content { position: relative; z-index: 1; display: grid; grid-template-columns: 104px minmax(0,1fr); align-items: center; gap: 1.5rem; }
+        .article-body .reviewer-profile__photo { width: 104px; height: 104px; margin: 0; border: 4px solid #fff; border-radius: 1.35rem; object-fit: cover; box-shadow: 0 10px 24px rgba(15,23,42,.16); }
+        .article-body .reviewer-profile__photo--fallback { display: grid; place-items: center; background: linear-gradient(135deg,#103f99,#3b82f6); color: #fff; font-size: 2.25rem; font-weight: 900; }
+        .article-body .reviewer-profile__body { min-width: 0; }
+        .article-body .reviewer-profile__name { margin: 0 0 .45rem; color: #14233a; font-size: 1.35rem; font-weight: 900; line-height: 1.4; }
+        .article-body .reviewer-profile__details { color: #475569; font-size: .92rem; line-height: 1.8; }
+        .article-body .reviewer-profile__details p { margin: .35rem 0; }
+        .article-body .reviewer-profile__details p:first-child { color: #103f99; font-weight: 800; }
+        .article-body .reviewer-profile__details > :last-child { margin-bottom: 0; }
+        @media (max-width: 520px) {
+            .article-body .reviewer-profile { padding: 1.5rem; }
+            .article-body .reviewer-profile__content { grid-template-columns: 76px minmax(0,1fr); align-items: start; gap: 1rem; }
+            .article-body .reviewer-profile__photo { width: 76px; height: 76px; border-radius: 1rem; }
+            .article-body .reviewer-profile__name { font-size: 1.12rem; }
+            .article-body .reviewer-profile__details { font-size: .86rem; }
+        }
+        @media (max-width: 520px) {
+            .article-body .talk-bubble { grid-template-columns: 54px minmax(0, 1fr); gap: 0.7rem; }
+            .article-body .talk-bubble__photo { width: 50px; height: 50px; }
+            .article-body .talk-bubble__name { font-size: 0.68rem; }
+            .article-body .talk-bubble__message { padding: 1rem; }
+        }
+        .article-body table { width: 100%; margin: 2rem 0; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
+        .article-body th,
+        .article-body td { padding: 14px 16px; border-right: 1px solid #dbe3f0; border-bottom: 1px solid #dbe3f0; color: #0f172a; text-align: left; vertical-align: middle; }
+        .article-body th:last-child,
+        .article-body td:last-child { border-right: 0; }
+        .article-body tr:last-child th,
+        .article-body tr:last-child td { border-bottom: 0; }
+        .article-body th { background: #eef5ff; color: #103f99; font-weight: 800; }
+        .article-body td p,
+        .article-body th p { margin: 0; }
+        .article-body tbody tr:nth-child(even) td { background: #f8fbff; }
+        @media (max-width: 640px) {
+            .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+            .article-body th,
+            .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
+        }
+
+        /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
+        .article-body a.internal-link {
+            color: #103f99;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1.5px solid rgba(16, 63, 153, 0.3);
+            padding-bottom: 1px;
+            transition: all 0.2s ease;
+        }
+        .article-body a.internal-link:hover {
+            color: #ed5b8c;
+            border-bottom-color: #ed5b8c;
+            background-color: rgba(237, 91, 140, 0.05);
+        }
+
+        /* 目次(Table of Contents) */
+        .article-body .internal-link-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: 168px minmax(0, 1fr);
+            align-items: stretch;
+            gap: 0;
+            margin: 2rem 0;
+            overflow: hidden;
+            border: 1px solid #dbe4f0;
+            border-radius: 1rem;
+            background: #fff;
+            color: inherit;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(15,23,42,.07);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .article-body .internal-link-card::after {
+            position: absolute; top: .75rem; right: .75rem; display: grid; width: 1.7rem; height: 1.7rem; place-items: center;
+            border-radius: 9999px; background: #eef4ff; color: #103f99; content: "\2197"; font-size: .82rem; font-weight: 900;
+            transition: background-color .2s ease, color .2s ease, transform .2s ease;
+        }
+        .article-body .internal-link-card:hover {
+            border-color: #103f99;
+            box-shadow: 0 16px 34px rgba(16,63,153,.14);
+            transform: translateY(-3px);
+        }
+        .article-body .internal-link-card:hover::after { background: #103f99; color: #fff; transform: translate(2px,-2px); }
+        .article-body .internal-link-card__image {
+            position: relative;
+            align-self: center;
+            width: 168px;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+        .article-body .internal-link-card__image img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border-radius: 0;
+            object-fit: cover;
+            box-shadow: none;
+        }
+        .article-body .internal-link-card__image--external img {
+            padding: 0.75rem;
+            background: #f8fafc;
+            object-fit: contain;
+        }
+        .article-body .internal-link-card__body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+            min-height: 94px;
+            overflow: hidden;
+            padding: .8rem 3.2rem .8rem 1.15rem;
+        }
+        .article-body .internal-link-card__title {
+            display: -webkit-box;
+            margin: 0 0 0.35rem;
+            overflow: hidden;
+            color: #111827;
+            font-size: 0.9rem;
+            font-weight: 800;
+            line-height: 1.35;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .article-body .internal-link-card__description {
+            display: -webkit-box;
+            margin: 0;
+            overflow: hidden;
+            color: #6b7280;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .article-body .internal-link-card__site {
+            display: block;
+            margin-top: 0.45rem;
+            overflow: hidden;
+            color: #103f99;
+            font-size: 0.7rem;
+            font-weight: 700;
+            line-height: 1.3;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .article-body blockquote .internal-link-card {
+            margin: 1.25rem 0 0;
+        }
+        @media (max-width: 640px) {
+            .article-body .internal-link-card {
+                grid-template-columns: 1fr;
+            }
+            .article-body .internal-link-card__image {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 9;
+            }
+            .article-body .internal-link-card__body {
+                min-height: 0;
+                padding: 1rem 3.2rem 1.1rem 1rem;
+            }
+        }
+
+        .toc-container { max-width: 720px; margin-left: auto; margin-right: auto; }
+        .toc-list li { list-style: none; }
+        .toc-link {
+            position: relative;
+            border-left: 2px solid transparent;
+            padding-left: 12px;
+            margin-left: -14px;
+            transition: all 0.2s ease;
+        }
+        .toc-link:hover {
+            border-left-color: #103f99;
+            background-color: rgba(16, 63, 153, 0.03);
+        }
+
+        /* アンカークリック時、固定ヘッダー(高さ80px)に隠れないよう調整 */
+        .article-body h2[id],
+        .article-body h3[id] {
+            scroll-margin-top: 100px;
+        }
+
+        .text-shadow { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+        
+        .share-button { display: inline-flex; width: 3.25rem; height: 3.25rem; align-items: center; justify-content: center; border-radius: 9999px; color: white; transition: all 0.2s ease; }
+        .share-button:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .share-twitter { background-color: #000000; }
+        .share-facebook { background-color: #1877F2; }
+        .share-line { background-color: #06C755; }
+
+        /* 関連記事カードのスタイル */
+        .related-card { transition: all 0.3s ease; }
+        .related-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-stone-50 antialiased text-gray-900">
+
+    <!-- Header (サイト共通) -->
+    <header class="site-header">
+        <div class="header-main">
+            <a class="brand" href="/"><span class="brand-mark">K</span><span>Kokuban BASE</span></a>
+            <div class="header-actions">
+                <a class="header-phone" href="tel:0752317711" aria-label="075-231-7711に電話する"><span class="phone-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg></span><span><small>お電話で予約</small><strong>075-231-7711</strong><small class="phone-hours">平日13:30〜20:30</small></span></a>
+                <a class="btn btn-outline" href="/support/"><svg class="icon-guide" viewBox="0 0 256 256" width="16" height="16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M128 8c-16 0-30 9-44 17-10 6-22 8-30 13-8 5-10 13-10 22v60c0 58 46 96 84 124 4 3 10 3 14 0 38-28 84-66 84-124V60c0-9-2-17-10-22-8-5-20-7-30-13-14-8-28-17-44-17zM150 56l34 19c4 2 6 6 6 11v54c0 6-3 11-7 14l-33 24V56z"/></svg>ご利用ガイド</a>
+                <a class="btn btn-primary" href="/contact/"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>お問い合わせ</a>
+            </div>
+            <button class="mobile-menu-button" type="button" aria-label="メニューを開く"><span></span><b>メニュー</b></button>
+        </div>
+        <nav class="global-nav" aria-label="主要メニュー"><a href="/denshikokuban/">電子黒板とは</a><a href="/service/">Kokuban BASEでできること</a><a href="/lineup/">ラインナップ</a><a href="/experience/">実機体験</a><a href="/support/">ご利用ガイド</a><a href="/lease/">リース</a><a href="/article/">コラム</a><a href="/voices/">先生の体験談</a></nav>
+    </header>
+
+    <main class="bg-white">
+        <!-- パンくずリスト(画面表示) -->
+        <nav aria-label="パンくずリスト" class="border-b border-gray-100">
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-6 py-3">
+                <ol class="flex items-center text-sm text-gray-600 flex-wrap gap-y-1" itemscope itemtype="https://schema.org/BreadcrumbList">
+                    <li class="flex items-center" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="/" class="hover:text-customBlue transition-colors" itemprop="item">
+                            <span itemprop="name">トップ</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li class="flex items-center" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="/article" class="hover:text-customBlue transition-colors" itemprop="item">
+                            <span itemprop="name">コラム</span>
+                        </a>
+                        <meta itemprop="position" content="2">
+                        <svg class="w-4 h-4 mx-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <span aria-current="page" class="font-semibold text-gray-900 line-clamp-1" itemprop="name">電子黒板でAIを安全に使うには？学校＆学習塾が整えるべきAI利用におけるセキュリティ環境</span>
+                        <meta itemprop="position" content="3">
+                    </li>
+                </ol>
+            </div>
+        </nav>
+
+        <div class="max-w-screen-xl mx-auto px-4 py-8 sm:py-16">
+            <article class="max-w-4xl mx-auto">
+                <!-- アイキャッチ -->
+                <div class="eyecatch-image mb-8 sm:mb-12">
+                    <div class="image-wrapper rounded-2xl overflow-hidden shadow-xl">
+                        <img src="/assets/eyecatch/denshikokuban-ai-security-hero.png" alt="電子黒板でAIを安全に使うには？学校＆学習塾が整えるべきAI利用におけるセキュリティ環境" width="1200" height="675" class="w-full h-auto rounded-lg mb-6 shadow-md" loading="eager" fetchpriority="high">
+                    </div>
+                </div>
+                
+                <!-- タイトルブロック -->
+                <div class="title-block mb-12 sm:mb-16">
+                    <h1 id="main-article-title" class="text-[clamp(1.15rem,2.4vw,1.875rem)] font-black text-gray-900 mb-6 leading-[1.28]">電子黒板でAIを安全に使うには？学校＆学習塾が整えるべきAI利用におけるセキュリティ環境</h1>
+
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                        <div class="flex items-center space-x-2 flex-wrap justify-center">
+                            <span class="h-px w-4 bg-gray-300"></span>
+                            <p class="publish-date font-bold tracking-wider">公開日: <time datetime="2026-05-27T17:31:50.655Z">2026年5月28日</time></p>
+                            
+                            <span class="reading-time inline-flex items-center text-gray-500 text-sm ml-3"><i class="fas fa-clock text-gray-300 mr-1.5"></i>読了 約8分</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="hidden sm:block h-3 w-px bg-gray-300"></span>
+                            <p class="author-name font-bold tracking-wider flex items-center">
+                                <i class="fas fa-user-edit mr-2 text-customBlue/60"></i>
+                                執筆者: <span id="main-author-display">Kokuban BASE編集部</span>
+                            </p>
+                            <span class="h-px w-4 bg-gray-300"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 目次(見出し2個以上の場合のみ自動生成) -->
+                <div class="max-w-3xl mx-auto">
+                    
+<aside class="toc-container my-10 p-6 bg-gray-50 border-l-4 border-customBlue rounded-r-xl shadow-sm">
+    <h2 class="toc-title text-base font-bold text-customBlue mb-3 flex items-center">
+        <i class="fas fa-list-ul mr-2 text-sm" aria-hidden="true"></i>目次
+    </h2>
+    <nav aria-label="目次">
+        <ol class="toc-list text-sm space-y-0">
+        <li class="">
+            <a href="#hf2beacef45" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>個人情報漏洩は、「少し怒られる」程度では済まない
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#h00ae8ede24" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>① 生徒情報を含んだ資料をAIにアップロードしてしまう
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#h632a14a68b" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>② 電子黒板に機密情報を映してしまう
+            </a>
+        </li>
+        <li class="ml-5">
+            <a href="#h718c633f0e" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet">— </span>③ 著作権法違反になる可能性のある教材データをAIに読み込ませてしまう
+            </a>
+        </li>
+        <li class="">
+            <a href="#h4bbaec718b" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>「ちゃんとルールを守って」では不十分
+            </a>
+        </li>
+        <li class="">
+            <a href="#h936519841e" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>ヒューマンエラーを前提に、管理できる仕組みにする
+            </a>
+        </li>
+        <li class="">
+            <a href="#h888cfd2f37" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>運用のコツ：3つの簡単なルール
+            </a>
+        </li>
+        <li class="">
+            <a href="#h05bed69098" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>① 使用するAIを決め、全員が同じAIを活用する。Gemini？Claude？ChatGPT？
+            </a>
+        </li>
+        <li class="">
+            <a href="#h09d2d90e17" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>② 教室・授業専用のアカウントを作成する
+            </a>
+        </li>
+        <li class="">
+            <a href="#h80e7a37f65" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>③ チャット履歴を確認し、FBできる体制を整える
+            </a>
+        </li>
+        <li class="">
+            <a href="#h073ec5631e" class="toc-link block py-1.5 text-gray-700 hover:text-customBlue transition-colors leading-snug">
+                <span class="toc-bullet"></span>まとめ：AI利用は「注意」ではなく「仕組み」で守る
+            </a>
+        </li>
+        </ol>
+    </nav>
+</aside>
+
+                </div>
+
+                <!-- 本文 -->
+                <div class="article-body max-w-3xl mx-auto text-gray-800">
+                    <p>前回の記事「<a href="https://kokuban-base.com/columns/AI-education/" target="_blank" rel="noopener noreferrer"><strong><span style="color: #2f4eda"><u>電子黒板×AIで学習塾の授業はどう変わる？先生の“優秀な助手”として使う３つの活用例</u></span></strong></a>」では、電子黒板とAIを組み合わせた授業活用を紹介しました。<br>AIは、先生の代わりではなく、授業を支える優秀な助手です。ただし、塾でAIを使うなら、便利さと同じくらい「管理の仕組み」が重要になります。<br>特に個人情報漏洩は、信頼を一気に失う重大事故です。今回は、電子黒板×AIを安全に使うための運用ルールを解説します。</p><h2 style="text-align: start" id="hf2beacef45">個人情報漏洩は、「少し怒られる」程度では済まない</h2><p style="text-align: start">学習塾でAIを使う場合、起こりうる事故の多くは悪意によるものではありません。ほとんどは「便利だから使った」「問題ないと思った」「個人情報だと気づかなかった」「著作権上の扱いが分からなかった」というヒューマンエラーが原因です。しかし、悪意がなかったとしても、個人情報漏洩が起きれば会社の責任になります。退塾、クレーム、返金対応、行政対応、報道リスク、採用への悪影響など、影響は教室内では終わりません。</p><p style="text-align: start">現代社会では、一度ネットニュース等に取り上げられてしまうと再起は難しいのが実情でしょう。個人情報漏洩は、「少し怒られる」程度の話ではありません。学習塾にとっては、本当に事業継続に関わる事故です。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/4f8d052a618d4734a545f69753fab607/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8828%E6%97%A5%2002_24_08%20(1).png" alt="" width="1536" height="1024"></figure><p style="text-align: start">以下に、教育現場で起こりうるAI活用による代表的な３つのヒューマンエラーをまとめました。</p><h3 style="text-align: start" id="h00ae8ede24"><strong>① 生徒情報を含んだ資料をAIにアップロードしてしまう</strong></h3><p style="text-align: start">たとえば、ある先生が授業準備のために、生徒の答案画像をAIにアップロードしたとします。名前が写っていることに気づかないまま、「この答案を分析して」と依頼してしまう。これも立派な個人情報の漏洩です。当の生徒本人は世界中の人々に”自分の答案が見られる”可能性があることを知らないでしょう。このように、先生に悪気はなくても、生徒の個人情報や学習状況を外部サービスへ送信してしまう可能性があります。答案だけではありません。成績表、志望校、面談メモ、学校名、授業中の発言内容なども、扱い方によっては個人情報や機密情報です。</p><p style="text-align: start">「名前を消したから大丈夫」と思っていても、複数の情報を組み合わせれば個人が特定できる場合もあります。AIの暗黙知への理解度は日々向上しています。</p><h3 style="text-align: start" id="h632a14a68b"><strong>② 電子黒板に機密情報を映してしまう</strong></h3><p style="text-align: start">先生が個人のGoogleアカウントで電子黒板にログインし、そのままAIアプリを使って授業を行うことがあります。この場合、授業中に過去のAIチャット履歴や個人的なファイル名が電子黒板に映ったりするかもしれません。次回の定期考査や学力模試の試験内容の相談履歴や生徒の成績データを含むＰＤＦ表示など。また、AIへのチャット履歴のタイトルが左側に表示されることもあります。電子黒板は大画面なので、表示ミスの影響は甚大です。生徒全員の前に表示されれば、それも立派な情報漏洩になります。</p><h3 style="text-align: start" id="h718c633f0e"><strong>③ 著作権法違反になる可能性のある教材データをAIに読み込ませてしまう</strong></h3><p style="text-align: start">市販教材や問題集のページを撮影し、そのままAIに読み込ませて確認問題を作らせるケースも考えられます。授業準備としては便利に見えますが、教材の著作権上の扱いを確認しないままAIへアップロードしてしまうと、後から問題になる可能性があります。特に、先生ごとに判断が分かれる運用は危険です。ある先生は「少しだけなら大丈夫」と考え、別の先生は「塾内利用なら問題ない」と考える。こうした曖昧な状態では、組織として管理できません。教材やプリントをAIに読み込ませる場合は、アップロードしてよい資料と、アップロードしてはいけない資料をあらかじめ決めておく必要があります。ただし、現実問題、各先生方に対して、「どの教材がOKで、どの教材がNGであるか」を教えることは難しいでしょう。</p><h2 style="text-align: start" id="h4bbaec718b"><strong>「ちゃんとルールを守って」では不十分</strong></h2><p style="text-align: start">AI利用ルールを作るとき、多くの場合は「個人情報は入力しない」「著作権に注意する」「AIの回答をうのみにしない」といった<strong>「人間の倫理観」に頼った管理になりがち</strong>です。もちろん、これらは間違っていません。しかし、それだけでは事故は防ぎきれません。理由はシンプルです。現場の先生に、毎回すべてを正しく判断してもらうのは難しいからです。絶対にヒューマンエラーは発生します。</p><p style="text-align: start">氏名や住所、電話番号は個人情報だと分かりやすいでしょう。しかし、答案画像、成績、学校名、志望校、面談メモ、授業中の発言内容はどうでしょうか。名前を消した答案なら使ってよいのか。学校名が入ったプリントはどうか。生徒の苦手単元をまとめたメモは個人情報に当たるのか。塾のオリジナル教材はAIに読み込ませてよいのか。市販教材の一部を撮影して類題を作らせるのはよいのか。学校の定期テスト問題を読み込ませてもよいのか。判断に迷う場面は必ず出てきます。だからこそ、AI利用を個々の倫理観や注意力だけに任せるのは危険です</p><p style="text-align: start">必要なのは、注意喚起ではなく、モニタリングできる仕組みです。管理者が利用状況を確認でき、危ない使い方があればフィードバックできる状態を作ることが重要です。先生を責めるためではなく、安全な使い方を組織として育てるためです。</p><h2 style="text-align: start" id="h936519841e"><strong>ヒューマンエラーを前提に、管理できる仕組みにする</strong></h2><p style="text-align: start">学習塾で電子黒板とAIを使うなら、「ミスをしない人だけが使う」という考え方ではなく、<strong>「ミスが起きても発見でき、改善できる仕組みにする」</strong>という考え方が必要です。</p><h2 style="text-align: start" id="h888cfd2f37"><strong>運用のコツ：3つの簡単なルール</strong></h2><p style="text-align: start">電子黒板とAIを学習塾で使うなら、最初に簡単な利用ルールを決めておくことが大切です。複雑なルールを大量に作っても、現場では運用しきれません。まずは、最低限守るべき3つのルールに絞るのがおすすめです。</p><h2 style="text-align: start" id="h05bed69098"><strong>① 使用するAIを決め、全員が同じAIを活用する。</strong>Gemini？Claude？ChatGPT？</h2><p style="text-align: start">まず、塾として使用するAIを決めます。AさんはGemini、BさんはChatGPT、CさんはClaudeというように、先生ごとに使うAIがバラバラになる運用は原則避けるべきです。<br>具体的には、「Gemini」か「Claude」か「ChatGPT」のいずれを活用するか決めてください。<br>迷われる方は、「Gemini」をお勧めします。</p><p style="text-align: start">自由に使わせるのではなく、使う道具をそろえる。これが法人利用の第一歩です。</p><figure><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b8bc9d686b024de890a6897692c35ea9/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8828%E6%97%A5%2002_29_20%20(1).png" alt="" width="1536" height="1024"></figure><h2 style="text-align: start" id="h09d2d90e17"><strong>② 教室・授業専用のアカウントを作成する</strong></h2><p style="text-align: start">次に、教室や授業で使う専用アカウントを作成します。先生個人のアカウントで電子黒板にログインする運用は避けましょう。個人アカウントを使うと、授業と関係のない通知や履歴が表示されるリスクがあります。また、授業で使ったプロンプトや教材データが、先生個人のアカウントに残ってしまう可能性もあります。教室・授業専用のアカウントを作れば、塾側で使用履歴をチェックできます。</p><h2 style="text-align: start" id="h80e7a37f65"><strong>③ チャット履歴を確認し、FBできる体制を整える</strong></h2><p style="text-align: start">最後には、導入３か月までを目安にチャット履歴を確認しましょう。管理者は定期的に使用履歴を確認し、必要に応じて先生へフィードバックすることが重要です。<br>そうすることで、実践的に線引きを研修できます。「ここの部分は個人情報に当たるからNGです」「この教材はアップロードしてはいけません」<br>もしくは「AI研究会」と題し、塾内や校内で話し合いの場を設けることも有意義でしょう。</p><h2 style="text-align: start" id="h073ec5631e"><strong>まとめ：AI利用は「注意」ではなく「仕組み」で守る</strong></h2><p style="text-align: start">電子黒板とAIは、学習塾の授業を大きく進化させます。前回の記事で紹介したように、AIは先生の優秀な助手として、生徒の質問対応、画像や図の表示、教材に基づく問題作成などを支えてくれます。しかし、その助手を安全に使うには、個々の先生の注意力だけに頼ってはいけません。「個人情報は入力しないでください」「著作権に注意してください」という呼びかけは必要ですが、それだけでは不十分です。</p><p style="text-align: start">人はミスをします。忙しい授業準備の中で、うっかりアップロードしてしまうこともあります。個人情報や著作権の判断に迷うこともあります。だからこそ、学習塾でAIを使うなら、ヒューマンエラーが起きる前提で仕組みを整える必要があります。使用するAIを決め、全員が同じAIを活用する。教室・授業専用のアカウントを作成する。生徒個人情報と著作権違反に該当するデータのアップロードを禁止する。管理者が使用履歴を確認し、必要に応じてフィードバックする。</p><p style="text-align: start">この仕組みがあれば、AIはより安心して授業に取り入れられます。AIを安全に使う塾は、先生に「気をつけて」と言うだけではありません。先生が安全に使える環境を、最初から用意しています。</p>
+                </div>
+
+                <!-- 執筆・監修（編集部プロフィール） -->
+                <div class="editorial-credit max-w-3xl mx-auto mt-16 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+                    <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">この記事の執筆・監修</h3>
+                    <p class="font-bold text-gray-800 mb-1"><i class="fas fa-pen-nib text-customBlue/70 mr-2" aria-hidden="true"></i>執筆：<a href="/about-editors/" class="text-customBlue hover:underline">Kokuban BASE編集部</a></p>
+                    <p class="font-bold text-gray-800 mb-4"><i class="fas fa-user-check text-customBlue/70 mr-2" aria-hidden="true"></i>監修：株式会社 idea spot 会員制難関指導専門塾 elio</p>
+                    <p class="text-sm text-gray-600 leading-relaxed">Kokuban BASE編集部は、電子黒板選びの総合窓口「Kokuban BASE」を運営する株式会社idea spot（2016年創業・京都で学習塾を運営）のメンバーで構成されています。2020年に自社教室へ電子黒板を導入して以来、会員制難関指導専門塾elioの授業で毎日フル活用しながら、体験倉庫での実機検証に基づいて記事を執筆しています。</p>
+                    <p class="mt-4 text-sm font-bold"><a href="/editorial-policy/" class="text-customBlue hover:underline"><i class="fas fa-file-alt mr-1" aria-hidden="true"></i>編集ポリシー（比較・評価の基準と中立性の開示）</a><span class="mx-2 text-gray-300">|</span><a href="/about-editors/" class="text-customBlue hover:underline">編集部紹介</a></p>
+                </div>
+
+                <!-- お問い合わせCTA -->
+                <div class="mt-16">
+                    <div class="bg-gradient-to-br from-pink-50 to-white border border-pink-100 p-8 sm:p-10 rounded-3xl shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fas fa-comments text-8xl text-pink-500"></i>
+                        </div>
+                        <div class="relative z-10 text-center sm:text-left">
+                            <h3 class="text-2xl sm:text-3xl font-black text-pink-600 mb-4">電子黒板の導入・比較のご相談はこちら</h3>
+                            <p class="text-gray-700 leading-relaxed mb-8 max-w-2xl">
+                                Kokuban BASEでは、電子黒板の選び方から導入・運用まで、専門スタッフが無料でご相談を承っています。お気軽にお問い合わせください。
+                            </p>
+                            <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-4">
+                                <a href="/check/" class="w-full sm:w-auto inline-flex items-center justify-center bg-[#103f99] text-white font-black text-lg px-8 py-4 rounded-full hover:bg-[#0b2f73] transition-all shadow-lg hover:shadow-blue-200 transform hover:-translate-y-1">
+                                    30秒診断をはじめる <i class="fas fa-clipboard-check ml-3"></i>
+                                </a>
+                                <a href="/contact/" class="w-full sm:w-auto inline-flex items-center justify-center bg-pink-500 text-white font-black text-lg px-8 py-4 rounded-full hover:bg-pink-600 transition-all shadow-lg hover:shadow-pink-200 transform hover:-translate-y-1">
+                                    お問い合わせ <i class="fas fa-arrow-right ml-3"></i>
+                                </a>
+                                <a href="/denshikokuban/" class="w-full sm:w-auto inline-flex items-center justify-center bg-white text-[#103f99] border-2 border-[#103f99]/30 font-bold text-base px-7 py-3.5 rounded-full hover:border-[#103f99] hover:bg-blue-50 transition-all">
+                                    電子黒板の選び方を見る
+                                </a>
+                                <a href="/lineup/" class="w-full sm:w-auto inline-flex items-center justify-center bg-white text-[#103f99] border-2 border-[#103f99]/30 font-bold text-base px-7 py-3.5 rounded-full hover:border-[#103f99] hover:bg-blue-50 transition-all">
+                                    ブランドを比較する
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- シェアボタン -->
+                <div class="mt-20 py-10 border-t border-gray-100">
+                    <h3 class="text-base font-bold text-center text-gray-500 uppercase tracking-widest mb-6">Share this article</h3>
+                    <div class="flex justify-center items-center gap-6">
+                        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fai-security%2F&text=%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%E3%81%A7AI%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF%EF%BC%9F%E5%AD%A6%E6%A0%A1%EF%BC%86%E5%AD%A6%E7%BF%92%E5%A1%BE%E3%81%8C%E6%95%B4%E3%81%88%E3%82%8B%E3%81%B9%E3%81%8DAI%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%92%B0%E5%A2%83%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="X" class="share-button share-twitter"><i class="fab fa-x-twitter text-xl"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fai-security%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="share-button share-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fkokuban-base.com%2Fcolumns%2Fai-security%2F&text=%E9%9B%BB%E5%AD%90%E9%BB%92%E6%9D%BF%E3%81%A7AI%E3%82%92%E5%AE%89%E5%85%A8%E3%81%AB%E4%BD%BF%E3%81%86%E3%81%AB%E3%81%AF%EF%BC%9F%E5%AD%A6%E6%A0%A1%EF%BC%86%E5%AD%A6%E7%BF%92%E5%A1%BE%E3%81%8C%E6%95%B4%E3%81%88%E3%82%8B%E3%81%B9%E3%81%8DAI%E5%88%A9%E7%94%A8%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E7%92%B0%E5%A2%83%EF%BD%9CKokuban%20BASE" target="_blank" rel="noopener noreferrer" aria-label="LINE" class="share-button share-line"><i class="fab fa-line text-2xl"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 関連記事（ビルド時に静的生成） -->
+            <div class="mt-24 max-w-5xl mx-auto">
+                <div class="flex items-center justify-between mb-10">
+                    <h3 class="text-2xl font-black text-gray-900">あわせて読みたい</h3>
+                    <a href="https://kokuban-base.com/article" class="text-sm font-bold text-customBlue hover:underline">すべて見る <i class="fas fa-chevron-right ml-1"></i></a>
+                </div>
+                <div id="related-posts-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+    <a href="/columns/spec/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://kokuban-base.com/assets/eyecatch/denshikokuban-spec-og.png" alt="電子黒板のスペックの見方｜OS・メモリ・CPUの見方を初心者向けに解説" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板のスペックの見方｜OS・メモリ・CPUの見方を初心者向けに解説
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.06.25</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+
+    <a href="/columns/price/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://kokuban-base.com/assets/eyecatch/denshikokuban-price-og.png" alt="電子黒板の価格・費用はいくら？本体・スタンド・保証の内訳と65インチの相場" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板の価格・費用はいくら？本体・スタンド・保証の内訳と65インチの相場
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.07.07</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+
+    <a href="/columns/bansho/" class="related-card group flex flex-col h-full bg-white transition-all">
+        <div class="relative aspect-video overflow-hidden rounded-xl bg-gray-100 mb-4">
+            <img src="https://kokuban-base.com/assets/eyecatch/denshikokuban-bansho-og.png" alt="電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy">
+        </div>
+        <div class="flex flex-col flex-grow">
+            <h4 class="text-lg font-bold text-gray-900 group-hover:text-customBlue transition-colors line-clamp-2 leading-snug mb-3">
+                電子黒板の板書は消さなくていい｜無限に広がるホワイトボード機能で学校＆学習塾の授業が変わる
+            </h4>
+            <div class="mt-auto flex items-center justify-between text-[11px] font-bold tracking-widest uppercase">
+                <time class="text-gray-400">2026.05.26</time>
+                <span class="text-gray-500 flex items-center">
+                    <i class="fas fa-user-edit mr-1 text-gray-300"></i>
+                    Kokuban BASE編集部
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+            </div>
+            
+            <!-- 戻るリンク -->
+            <div class="mt-16 text-center">
+                <a href="https://kokuban-base.com/article" class="inline-flex items-center text-gray-500 font-bold hover:text-gray-900 transition-colors">
+                    <i class="fas fa-long-arrow-alt-left mr-2"></i> コラム一覧へ戻る
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer (サイト共通) -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand"><strong>Kokuban BASE</strong><p>電子黒板選びの総合窓口</p></div>
+            <div class="footer-contact"><a class="footer-phone" href="tel:0752317711"><small>お電話で予約</small><span>075-231-7711</span></a><a class="footer-btn" href="/contact/">お問い合わせ</a></div>
+            <nav class="footer-nav" aria-label="フッターメニュー"><a href="/denshikokuban/">電子黒板とは</a><a href="/service/">Kokuban BASEでできること</a><a href="/lineup/">ラインナップ</a><a href="/experience/">実機体験</a><a href="/support/">ご利用ガイド</a><a href="/lease/">リース</a><a href="/article/">コラム</a><a href="/voices/">先生の体験談</a></nav>
+            <nav class="footer-nav footer-legal" aria-label="運営情報・ポリシー"><a href="/company/">運営会社</a><a href="/about-editors/">編集部紹介</a><a href="/editorial-policy/">編集ポリシー</a><a href="/privacy/">プライバシーポリシー</a><a href="/terms/">特定商取引法に基づく表記</a></nav><small class="footer-copy">© Kokuban BASE.</small>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // タイトルのサブタイトル化
+            const titleEl = document.getElementById('main-article-title');
+            if (titleEl && titleEl.innerHTML.includes('<br>')) {
+                const parts = titleEl.innerHTML.split(/<br\s?\/?>/i);
+                if (parts.length > 1) {
+                    titleEl.innerHTML = `${parts[0]}<span class="subtitle-text">${parts[1]}</span>`;
+                }
+            }
+        });
+    </script>
+  <script src="/assets/site.js" defer></script>
+  <div class="sticky-cta">
+    <a class="sticky-cta-phone" href="tel:0752317711" aria-label="075-231-7711に電話する">
+      <span class="phone-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg></span>
+      <span>
+        <small>お電話で予約</small>
+        <strong>075-231-7711</strong>
+      </span>
+    </a>
+    <span class="sticky-cta-hours">平日13:30〜20:30</span>
+    <a class="sticky-cta-btn" href="/contact/">
+      <span class="sticky-cta-badge">相談無料</span>
+      お問い合わせ<i aria-hidden="true">›</i>
+    </a>
+  </div>
+</body>
+</html>
