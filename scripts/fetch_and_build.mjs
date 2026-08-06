@@ -299,24 +299,39 @@ function injectExistingReviewerProfile(bodyHtml, articleSlug = '') {
   }
 
   if (articleSlug === 'starboard-review') {
-    return bodyHtml.replace(
+    const updatedHtml = bodyHtml.replace(
       /<p>\s*吉本\s*格先生\s*[｜|]\s*([\s\S]*?)<\/p>/i,
       '<blockquote><p>[reviewer:yoshimoto]</p><p>$1</p></blockquote>'
     );
+    if (updatedHtml !== bodyHtml) return updatedHtml;
   }
 
   if (articleSlug === 'benqboard-review') {
-    return bodyHtml.replace(
+    const updatedHtml = bodyHtml.replace(
       /<p>\s*書き比べていただいたのは、前回に続き、[\s\S]*?吉本\s*格先生。[\s\S]*?<\/p>/i,
       '<blockquote><p>[reviewer:yoshimoto]</p><p>会員制難関指導専門塾elio 中学受験理科主任。学習塾歴30年超。日常的に電子黒板を活用した授業を行う。本シリーズのレビューを担当。</p></blockquote><p>前回のStarBoardに続く、本音レビュー第2弾です。</p>'
     );
+    if (updatedHtml !== bodyHtml) return updatedHtml;
   }
 
   if (articleSlug === 'miraitouch-review') {
-    return bodyHtml.replace(
+    const updatedHtml = bodyHtml.replace(
       /<p>\s*書き比べていただいたのは、これまでと同じく、[\s\S]*?吉本\s*格先生。[\s\S]*?<\/p>/i,
       '<blockquote><p>[reviewer:yoshimoto]</p><p>会員制難関指導専門塾elio 中学受験理科主任。学習塾歴30年超。日常的に電子黒板を活用した授業を行う。本シリーズのレビューを担当。</p></blockquote>'
     );
+    if (updatedHtml !== bodyHtml) return updatedHtml;
+  }
+
+  // 新しい本音レビューも、microCMS側の本文修正なしで同じカードを表示する。
+  // 既存3記事は上の個別処理で元の紹介文を置き換え、それ以外は最初の見出し前へ挿入する。
+  if (/-review$/i.test(articleSlug)) {
+    const reviewerCard = '<blockquote><p>[reviewer:yoshimoto]</p><p>会員制難関指導専門塾elio 中学受験理科主任。学習塾歴30年超。日常的に電子黒板を活用した授業を行う。本シリーズのレビューを担当。</p></blockquote>';
+
+    if (/<h2\b/i.test(bodyHtml)) {
+      return bodyHtml.replace(/<h2\b/i, `${reviewerCard}<h2`);
+    }
+
+    return `${reviewerCard}${bodyHtml}`;
   }
 
   return bodyHtml;
