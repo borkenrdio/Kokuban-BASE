@@ -146,6 +146,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/columns/bigpad-review/</loc>
+    <lastmod>2026-08-06</lastmod>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/columns/miraitouch-review/</loc>
     <lastmod>2026-08-05</lastmod>
     <priority>0.6</priority>
