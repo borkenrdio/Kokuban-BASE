@@ -2068,5 +2068,25 @@
       "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/449b6658ea684a9ba6653488b4901c15/Photo_26-08-06-12-38-13.610.jpg",
       "image": ""
     }
+  },
+  "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e3dd015a246042c28c8c01ddc6ce76ef/image.png": {
+    "fetchedAt": "2026-08-07T00:44:44.397Z",
+    "metadata": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e3dd015a246042c28c8c01ddc6ce76ef/image.png",
+      "host": "images.microcms-assets.io",
+      "title": "images.microcms-assets.io",
+      "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e3dd015a246042c28c8c01ddc6ce76ef/image.png",
+      "image": ""
+    }
+  },
+  "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/44a7dd5b3f374d32bad42302572cea0e/_ST76000.jpg": {
+    "fetchedAt": "2026-08-07T00:44:44.446Z",
+    "metadata": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/44a7dd5b3f374d32bad42302572cea0e/_ST76000.jpg",
+      "host": "images.microcms-assets.io",
+      "title": "images.microcms-assets.io",
+      "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/44a7dd5b3f374d32bad42302572cea0e/_ST76000.jpg",
+      "image": ""
+    }
   }
 }
