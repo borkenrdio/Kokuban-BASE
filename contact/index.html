@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=20260710-eeat3">
+  <link rel="stylesheet" href="../styles.css?v=20260818-validation">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kokuban BASE","item":"https://kokuban-base.com/"},{"@type":"ListItem","position":2,"name":"お問い合わせ","item":"https://kokuban-base.com/contact/"}]}
   </script>
@@ -59,7 +59,7 @@
       <figure class="contact-hero-figure">
         <img src="../assets/contact-consultation.png" alt="お問い合わせ対応のイメージ" decoding="async">
       </figure>
-      <form class="contact-card" id="contactForm" action="#" method="post" data-google-script-url="https://script.google.com/macros/s/AKfycbz48wZGEHtC9-H0bJpeXxk7nCraU9F3rJRWKSWlV7_cIpQMZHeBbj2Yh-AlDI68zTnT/exec">
+      <form class="contact-card" id="contactForm" action="#" method="post" novalidate data-google-script-url="https://script.google.com/macros/s/AKfycbz48wZGEHtC9-H0bJpeXxk7nCraU9F3rJRWKSWlV7_cIpQMZHeBbj2Yh-AlDI68zTnT/exec">
         <div class="contact-card-head">
           <h1 id="contact-title">お問い合わせ</h1>
           <p>お気軽にご質問・ご相談ください</p>
@@ -67,7 +67,7 @@
 
         <label class="contact-field contact-field-full">
           <span>お問い合わせの種別<em>必須</em></span>
-          <select name="inquiry_type" required>
+          <select name="inquiry_type" required aria-describedby="inquiry-type-error">
             <option value="">選択してください</option>
             <option>電子黒板の無料相談</option>
             <option>ショールーム・オンラインデモについて</option>
@@ -76,16 +76,19 @@
             <option>導入サポート・研修について</option>
             <option>その他</option>
           </select>
+          <p class="contact-field-error" id="inquiry-type-error" aria-live="polite" hidden>お問い合わせの種別が未入力です。</p>
         </label>
 
         <label class="contact-field contact-field-full">
           <span>企業名／教室名<em>必須</em></span>
-          <input type="text" name="organization" autocomplete="organization" placeholder="例：株式会社〇〇" required>
+          <input type="text" name="organization" autocomplete="organization" placeholder="例：株式会社〇〇" required aria-describedby="organization-error">
+          <p class="contact-field-error" id="organization-error" aria-live="polite" hidden>企業名／教室名が未入力です。</p>
         </label>
 
         <label class="contact-field contact-field-full">
           <span>ご担当者様<em>必須</em></span>
-          <input type="text" name="name" autocomplete="name" placeholder="例：山田 太郎" required>
+          <input type="text" name="name" autocomplete="name" placeholder="例：山田 太郎" required aria-describedby="name-error">
+          <p class="contact-field-error" id="name-error" aria-live="polite" hidden>ご担当者様が未入力です。</p>
         </label>
 
         <label class="contact-field contact-field-full">
@@ -100,7 +103,8 @@
 
         <label class="contact-field contact-field-full">
           <span>メールアドレス<em>必須</em></span>
-          <input type="email" name="email" autocomplete="email" placeholder="例：example@kokuban.com" required>
+          <input type="email" name="email" autocomplete="email" placeholder="例：example@kokuban.com" required aria-describedby="email-error">
+          <p class="contact-field-error" id="email-error" aria-live="polite" hidden>メールアドレスが未入力です。</p>
         </label>
 
         <label class="contact-field contact-field-full">
@@ -110,7 +114,8 @@
 
         <label class="contact-field contact-field-full">
           <span>お問い合わせ内容<em>必須</em></span>
-          <textarea name="message" rows="7" placeholder="お問い合わせの詳細をご記入ください" required></textarea>
+          <textarea name="message" rows="7" placeholder="お問い合わせの詳細をご記入ください" required aria-describedby="message-error"></textarea>
+          <p class="contact-field-error" id="message-error" aria-live="polite" hidden>お問い合わせ内容が未入力です。</p>
         </label>
 
         <p class="contact-privacy-note" style="font-size:13px;color:#6b7280;line-height:1.7;">ご入力いただいた個人情報は、<a href="/privacy/" target="_blank" rel="noopener" style="color:#103f99;text-decoration:underline;">プライバシーポリシー</a>に基づき、お問い合わせへの回答およびご案内のためにのみ利用します。送信をもって同意いただいたものとみなします。</p>
@@ -141,19 +146,53 @@
     const contactResultTitle = contactFormResult.querySelector('strong');
     const contactResultMessage = contactFormResult.querySelector('span');
     const contactRequiredFields = Array.from(contactForm.querySelectorAll('[required]'));
+    const contactRequiredFieldNames = {
+      inquiry_type: 'お問い合わせの種別',
+      organization: '企業名／教室名',
+      name: 'ご担当者様',
+      email: 'メールアドレス',
+      message: 'お問い合わせ内容'
+    };
+
+    const validateContactField = (field, showError) => {
+      const fieldName = contactRequiredFieldNames[field.name] || '必須項目';
+      const isBlank = typeof field.value === 'string' && field.value.trim() === '';
+      const fieldWrap = field.closest('.contact-field');
+      const fieldError = fieldWrap.querySelector('.contact-field-error');
+
+      field.setCustomValidity(isBlank ? `${fieldName}が未入力です。` : '');
+
+      const isValid = field.validity.valid;
+      if (showError && !isValid) {
+        fieldError.textContent = isBlank
+          ? `${fieldName}が未入力です。`
+          : `${fieldName}を正しく入力してください。`;
+        fieldError.hidden = false;
+        fieldWrap.classList.add('is-invalid');
+        field.setAttribute('aria-invalid', 'true');
+      } else {
+        fieldError.hidden = true;
+        fieldWrap.classList.remove('is-invalid');
+        field.removeAttribute('aria-invalid');
+      }
+
+      return isValid;
+    };
 
     const validateContactRequiredFields = () => {
-      contactRequiredFields.forEach((field) => {
-        const isBlank = typeof field.value === 'string' && field.value.trim() === '';
-        field.setCustomValidity(isBlank ? 'この項目は必須です。' : '');
-      });
-
-      return contactForm.checkValidity();
+      return contactRequiredFields.map((field) => validateContactField(field, true)).every(Boolean);
     };
 
     contactRequiredFields.forEach((field) => {
-      field.addEventListener('input', () => field.setCustomValidity(''));
-      field.addEventListener('change', () => field.setCustomValidity(''));
+      const revalidateField = () => {
+        if (contactForm.classList.contains('has-validation-errors')) {
+          validateContactField(field, true);
+        } else {
+          field.setCustomValidity('');
+        }
+      };
+      field.addEventListener('input', revalidateField);
+      field.addEventListener('change', revalidateField);
     });
 
     const showContactResult = (type, title, message) => {
@@ -167,9 +206,14 @@
 
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
+      contactForm.classList.add('has-validation-errors');
 
       if (!validateContactRequiredFields()) {
-        contactForm.reportValidity();
+        const firstInvalidField = contactRequiredFields.find((field) => !field.validity.valid);
+        if (firstInvalidField) {
+          firstInvalidField.focus({ preventScroll: true });
+          firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         return;
       }
 

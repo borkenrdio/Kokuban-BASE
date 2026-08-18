@@ -7754,6 +7754,26 @@ section.top-guide-cta {
   box-shadow: 0 0 0 3px rgba(16, 63, 153, .12);
 }
 
+.contact-field.is-invalid input,
+.contact-field.is-invalid select,
+.contact-field.is-invalid textarea {
+  border-color: #dc2626;
+  background: #fff7f7;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, .1);
+}
+
+.contact-field.is-invalid > span {
+  color: #b91c1c;
+}
+
+.contact-field-error {
+  margin: 7px 0 0;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
 .contact-fieldset-compact {
   margin-bottom: 28px;
 }
