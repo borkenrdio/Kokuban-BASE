@@ -140,6 +140,21 @@
     const contactSubmit = contactForm.querySelector('.contact-submit');
     const contactResultTitle = contactFormResult.querySelector('strong');
     const contactResultMessage = contactFormResult.querySelector('span');
+    const contactRequiredFields = Array.from(contactForm.querySelectorAll('[required]'));
+
+    const validateContactRequiredFields = () => {
+      contactRequiredFields.forEach((field) => {
+        const isBlank = typeof field.value === 'string' && field.value.trim() === '';
+        field.setCustomValidity(isBlank ? 'この項目は必須です。' : '');
+      });
+
+      return contactForm.checkValidity();
+    };
+
+    contactRequiredFields.forEach((field) => {
+      field.addEventListener('input', () => field.setCustomValidity(''));
+      field.addEventListener('change', () => field.setCustomValidity(''));
+    });
 
     const showContactResult = (type, title, message) => {
       contactFormResult.classList.remove('is-success', 'is-error', 'is-loading');
@@ -153,7 +168,7 @@
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      if (!contactForm.checkValidity()) {
+      if (!validateContactRequiredFields()) {
         contactForm.reportValidity();
         return;
       }
