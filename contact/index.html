@@ -81,13 +81,13 @@
 
         <label class="contact-field contact-field-full">
           <span>企業名／教室名<em>必須</em></span>
-          <input type="text" name="organization" autocomplete="organization" placeholder="例：株式会社〇〇" required aria-describedby="organization-error">
+          <input type="text" name="company_name" autocomplete="organization" placeholder="例：株式会社〇〇" required aria-describedby="organization-error">
           <p class="contact-field-error" id="organization-error" aria-live="polite" hidden>企業名／教室名が未入力です。</p>
         </label>
 
         <label class="contact-field contact-field-full">
           <span>ご担当者様<em>必須</em></span>
-          <input type="text" name="name" autocomplete="name" placeholder="例：山田 太郎" required aria-describedby="name-error">
+          <input type="text" name="person_name" autocomplete="name" placeholder="例：山田 太郎" required aria-describedby="name-error">
           <p class="contact-field-error" id="name-error" aria-live="polite" hidden>ご担当者様が未入力です。</p>
         </label>
 
@@ -98,7 +98,7 @@
 
         <label class="contact-field contact-field-full">
           <span>お電話番号<em class="is-optional">任意</em></span>
-          <input type="tel" name="tel" autocomplete="tel" placeholder="例：090-1234-5678">
+          <input type="tel" name="phone_number" autocomplete="tel" placeholder="例：090-1234-5678">
         </label>
 
         <label class="contact-field contact-field-full">
@@ -114,7 +114,7 @@
 
         <label class="contact-field contact-field-full">
           <span>お問い合わせ内容<em>必須</em></span>
-          <textarea name="message" rows="7" placeholder="お問い合わせの詳細をご記入ください" required aria-describedby="message-error"></textarea>
+          <textarea name="inquiry_content" rows="7" placeholder="お問い合わせの詳細をご記入ください" required aria-describedby="message-error"></textarea>
           <p class="contact-field-error" id="message-error" aria-live="polite" hidden>お問い合わせ内容が未入力です。</p>
         </label>
 
@@ -148,10 +148,10 @@
     const contactRequiredFields = Array.from(contactForm.querySelectorAll('[required]'));
     const contactRequiredFieldNames = {
       inquiry_type: 'お問い合わせの種別',
-      organization: '企業名／教室名',
-      name: 'ご担当者様',
+      company_name: '企業名／教室名',
+      person_name: 'ご担当者様',
       email: 'メールアドレス',
-      message: 'お問い合わせ内容'
+      inquiry_content: 'お問い合わせ内容'
     };
 
     const validateContactField = (field, showError) => {
