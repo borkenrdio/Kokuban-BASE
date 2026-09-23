@@ -2098,5 +2098,95 @@
       "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/b65a0d89c7d54908b4810709837536a2/_ST75749.jpg",
       "image": ""
     }
+  },
+  "http://xn--mynd-4c4cx19t81yc.ai/": {
+    "fetchedAt": "2026-09-23T03:02:38.779Z",
+    "metadata": {
+      "url": "http://xn--mynd-4c4cx19t81yc.ai/",
+      "host": "xn--mynd-4c4cx19t81yc.ai",
+      "title": "xn--mynd-4c4cx19t81yc.ai",
+      "description": "http://xn--mynd-4c4cx19t81yc.ai/",
+      "image": ""
+    }
+  },
+  "https://kokuban-base.com/editorial-policy/": {
+    "fetchedAt": "2026-09-23T03:02:38.867Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/editorial-policy/",
+      "host": "kokuban-base.com",
+      "title": "編集ポリシー・中立性の開示｜Kokuban BASE",
+      "description": "関西ショールームでの実機検証に基づく記事作成、比較・評価の基準、価格情報の確認方法、収益構造と中立性の担保について開示します。",
+      "image": "https://kokuban-base.com/assets/ogp-company.png"
+    }
+  },
+  "https://kokuban-base.com/lineup/starboard/": {
+    "fetchedAt": "2026-09-23T03:02:38.868Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/lineup/starboard/",
+      "host": "kokuban-base.com",
+      "title": "StarBoard（スターボード）電子黒板の価格・評判・特徴｜Kokuban BASE",
+      "description": "StarBoard（スターボード）の電子黒板を、価格の目安・65・75・86・98型のサイズ展開・標準搭載機能まで整理しました。毎日の授業で使っている現役講師の評価と、導入前に確認したい点も掲載。はじめての導入・サイズを幅広く選びたい学校・学習塾に向いた1台です。見積もり・実機体験・リースのご相談は無料です。",
+      "image": "https://kokuban-base.com/assets/ogp-starboard.png"
+    }
+  },
+  "https://kokuban-base.com/lineup/miraitouch/": {
+    "fetchedAt": "2026-09-23T03:02:38.872Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/lineup/miraitouch/",
+      "host": "kokuban-base.com",
+      "title": "MIRAI TOUCH（ミライタッチ）電子黒板の価格・評判・特徴｜Kokuban BASE",
+      "description": "MIRAI TOUCH（ミライタッチ）の電子黒板を、価格の目安・65・75型（＋個別指導向けの27型）のサイズ展開・標準搭載機能まで整理しました。毎日の授業で使っている現役講師の評価と、導入前に確認したい点も掲載。全校導入・毎日の授業での定着を重視する学校、個別指導ブースのある学習塾に向いた1台です。見積もり・実機体験・リースのご相談は無料です。",
+      "image": "https://kokuban-base.com/assets/ogp-miraitouch.png"
+    }
+  },
+  "https://kokuban-base.com/lineup/benqboard/": {
+    "fetchedAt": "2026-09-23T03:02:38.877Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/lineup/benqboard/",
+      "host": "kokuban-base.com",
+      "title": "BenQ Board（ベンキューボード）電子黒板の価格・評判・特徴｜Kokuban BASE",
+      "description": "BenQ Board（ベンキューボード）の電子黒板を、価格の目安・65・75・86型のサイズ展開・標準搭載機能まで整理しました。毎日の授業で使っている現役講師の評価と、導入前に確認したい点も掲載。授業で積極的に使いたい学校・学習塾、英語教育や探究学習に取り組む現場に向いた1台です。見積もり・実機体験・リースのご相談は無料です。",
+      "image": "https://kokuban-base.com/assets/ogp-benqboard.png"
+    }
+  },
+  "https://kokuban-base.com/lineup/sharp-bigpad/": {
+    "fetchedAt": "2026-09-23T03:02:38.880Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/lineup/sharp-bigpad/",
+      "host": "kokuban-base.com",
+      "title": "SHARP BIG PAD（ビッグパッド）電子黒板の価格・評判・特徴｜Kokuban BASE",
+      "description": "SHARP BIG PAD（ビッグパッド）の電子黒板を、価格の目安・65・75・86型のサイズ展開・標準搭載機能まで整理しました。毎日の授業で使っている現役講師の評価と、導入前に確認したい点も掲載。国産の安心感と長期運用を重視する学校・学習塾に向いた1台です。見積もり・実機体験・リースのご相談は無料です。",
+      "image": "https://kokuban-base.com/assets/ogp-sharp-bigpad.png"
+    }
+  },
+  "https://kokuban-base.com/lineup/promethean/": {
+    "fetchedAt": "2026-09-23T03:02:38.893Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/lineup/promethean/",
+      "host": "kokuban-base.com",
+      "title": "Promethean（プロメシアン）電子黒板の価格・評判・特徴｜Kokuban BASE",
+      "description": "Promethean（プロメシアン）の電子黒板を、価格の目安・55・65・75・86型のサイズ展開・標準搭載機能まで整理しました。毎日の授業で使っている現役講師の評価と、導入前に確認したい点も掲載。生徒が画面に参加する双方向の授業をつくりたい学校・学習塾に向いた1台です。見積もり・実機体験・リースのご相談は無料です。",
+      "image": "https://kokuban-base.com/assets/ogp-promethean.png"
+    }
+  },
+  "https://kokuban-base.com/voices/": {
+    "fetchedAt": "2026-09-23T03:02:38.912Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/voices/",
+      "host": "kokuban-base.com",
+      "title": "先生の体験談 | 電子黒板の実機体験・活用の声 - Kokuban BASE",
+      "description": "電子黒板を体験・活用された先生方の声をご紹介します。",
+      "image": "https://kokuban-base.com/assets/ogp-voices.png"
+    }
+  },
+  "http://mynd.ai/": {
+    "fetchedAt": "2026-09-23T03:02:39.192Z",
+    "metadata": {
+      "url": "http://mynd.ai/",
+      "host": "mynd.ai",
+      "title": "Investors",
+      "description": "Seattle-based Mynd (NYSE American: MYND) is a global leader in interactive technology offering best-in-class hardware and software solutions that help organizations create and deliver dynamic content; simplify and streamline teaching, learning,…",
+      "image": "https://d1io3yog0oux5.cloudfront.net/_a6ec7d175977901e7e0158e07ccf6360/mynd/db/939/7881/social_image_resized.jpg"
+    }
   }
 }
