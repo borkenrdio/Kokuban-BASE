@@ -2188,5 +2188,35 @@
       "description": "Seattle-based Mynd (NYSE American: MYND) is a global leader in interactive technology offering best-in-class hardware and software solutions that help organizations create and deliver dynamic content; simplify and streamline teaching, learning,…",
       "image": "https://d1io3yog0oux5.cloudfront.net/_a6ec7d175977901e7e0158e07ccf6360/mynd/db/939/7881/social_image_resized.jpg"
     }
+  },
+  "https://kokuban-base.com/support/": {
+    "fetchedAt": "2026-09-23T08:50:07.514Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/support/",
+      "host": "kokuban-base.com",
+      "title": "ご利用ガイド | 電子黒板の相談から導入・活用までの流れ - Kokuban BASE",
+      "description": "電子黒板の選定・購入・導入後の活用まで、Kokuban BASEが一つの窓口でサポートします。",
+      "image": "https://kokuban-base.com/assets/ogp-support.png"
+    }
+  },
+  "https://kokuban-base.com/school/": {
+    "fetchedAt": "2026-09-23T08:50:07.539Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/school/",
+      "host": "kokuban-base.com",
+      "title": "学校向け電子黒板の導入支援 | 比較・見積もり・全校導入 - Kokuban BASE",
+      "description": "学校・学校法人向けに、電子黒板の機種選定、比較見積もり、稟議用資料、設置、教員研修まで一つの窓口で支援します。",
+      "image": "https://kokuban-base.com/assets/ogp-school.png"
+    }
+  },
+  "https://kokuban-base.com/juku/": {
+    "fetchedAt": "2026-09-23T08:50:07.539Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/juku/",
+      "host": "kokuban-base.com",
+      "title": "学習塾向け電子黒板の導入支援 | リース月々定額・1教室から - Kokuban BASE",
+      "description": "学習塾向けに、機種選定から月々定額のリース導入、授業活用まで支援。塾を運営する会社ならではの目線でご提案します。",
+      "image": "https://kokuban-base.com/assets/ogp-juku.png"
+    }
   }
 }
