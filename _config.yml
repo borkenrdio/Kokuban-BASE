@@ -1,0 +1,23 @@
+# GitHub Pages（Jekyll）の公開対象から社内資料・ビルド用ファイルを除外する。
+#
+# このサイトは main ブランチをそのまま GitHub Pages で配信している。
+# Jekyll が有効なため、これを設定しないと docs/ や *.md が HTML に変換されて
+# 公開されてしまう（例: docs/seo-report.md → https://kokuban-base.com/docs/seo-report.html）。
+#
+# exclude を明示すると Jekyll の既定値を置き換えるため、既定で除外されるものも書いている。
+# 先頭が . または _ のファイル・ディレクトリは、この一覧に書かなくても常に除外される。
+
+exclude:
+  # 社内資料（公開しない）
+  - docs
+  - kokuban-keyword-map.md
+  - README.txt
+  # ビルド・開発用
+  - scripts
+  - package.json
+  - package-lock.json
+  - yarn.lock
+  - node_modules
+  - Gemfile
+  - Gemfile.lock
+  - vendor

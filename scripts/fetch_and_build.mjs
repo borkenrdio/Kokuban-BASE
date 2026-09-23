@@ -179,6 +179,70 @@ function makeHeadingId(text, index) {
 }
 
 /**
+ * 本文HTMLの「よくある質問」セクションから FAQPage 構造化データを生成する
+ * 返り値: JSON-LD 配列に差し込める文字列（該当なしなら空文字）
+ *
+ * 想定する本文の書き方:
+ *   <h2>よくある質問</h2>
+ *   <h3>Q. 電子黒板の耐用年数は何年ですか？</h3>
+ *   <p>回答……</p>
+ *   <h3>次の質問</h3>
+ *   <p>回答……</p>
+ *
+ * - h2 の文言に「よくある質問」「よくあるご質問」「Q&A」のいずれかが含まれるものを探す
+ * - 直後の h3 を質問、次の h3 / h2 までの本文を回答として拾う
+ * - 質問が2個未満のときは生成しない（リッチリザルトの要件を満たさないため）
+ */
+function buildFaqSchema(bodyHtml) {
+  if (!bodyHtml) return '';
+
+  const faqHeading = /<h2[^>]*>((?:(?!<\/h2>)[\s\S])*?)<\/h2>/gi;
+  let faqStart = -1;
+  let match;
+  while ((match = faqHeading.exec(bodyHtml)) !== null) {
+    const text = escapeHtmlSimple(match[1]);
+    if (/よくある(ご)?質問|Q&amp;A|Q＆A/i.test(text)) {
+      faqStart = match.index + match[0].length;
+      break;
+    }
+  }
+  if (faqStart === -1) return '';
+
+  // 次の h2 までを FAQ セクションとみなす
+  const nextH2 = bodyHtml.slice(faqStart).search(/<h2[^>]*>/i);
+  const section = nextH2 === -1 ? bodyHtml.slice(faqStart) : bodyHtml.slice(faqStart, faqStart + nextH2);
+
+  const parts = section.split(/<h3[^>]*>/i).slice(1);
+  const entries = [];
+  for (const part of parts) {
+    const closeAt = part.search(/<\/h3>/i);
+    if (closeAt === -1) continue;
+    const question = escapeHtmlSimple(part.slice(0, closeAt))
+      .replace(/^\s*Q[.．:：、]?\s*/i, '')
+      .trim();
+    const answer = escapeHtmlSimple(part.slice(closeAt + 5))
+      .replace(/^\s*A[.．:：、]?\s*/i, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (!question || !answer) continue;
+    entries.push({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: { '@type': 'Answer', text: answer },
+    });
+  }
+
+  if (entries.length < 2) return '';
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: entries,
+  };
+  return ',\n        ' + JSON.stringify(schema);
+}
+
+/**
  * 本文HTMLから目次(Table of Contents)を生成し、本文側にもID属性を追加する
  * 返り値: { tocHtml, bodyWithIds, headingCount }
  *
@@ -2349,6 +2413,13 @@ async function buildStaticPages() {
       console.log(`  📑 ${article.slug}: ${headingCount} 個の見出しから目次生成`);
     }
 
+    // 本文の「よくある質問」から FAQPage 構造化データを生成
+    const faqSchemaBlock = buildFaqSchema(bodyWithIds);
+    if (faqSchemaBlock) {
+      const faqCount = (faqSchemaBlock.match(/"@type":"Question"/g) || []).length;
+      console.log(`  ❓ ${article.slug}: FAQPage を ${faqCount} 問で生成`);
+    }
+
     // 読了時間を計算
     const readingMinutes = calculateReadingTime(bodyBeforeLinks);
     const readingTimeHtml = `<span class="reading-time inline-flex items-center text-gray-500 text-sm ml-3"><i class="fas fa-clock text-gray-300 mr-1.5"></i>読了 約${readingMinutes}分</span>`;
@@ -2375,6 +2446,7 @@ async function buildStaticPages() {
       .replace(/\{\{AUTHOR\}\}/g, authorName)
       .replace(/\{\{author\}\}/g, authorName) // 旧テンプレ互換用
       .replace(/\{\{AUTHOR_SCHEMA_JSON\}\}/g, authorSchemaJson)
+      .replace(/\{\{FAQ_SCHEMA_BLOCK\}\}/g, faqSchemaBlock)
       .replace(/\{\{BODY_HTML\}\}/g, bodyWithIds)
       .replace(/\{\{SHARE_URL_TWITTER\}\}/g, shareUrlTwitter)
       .replace(/\{\{SHARE_URL_FACEBOOK\}\}/g, shareUrlFacebook)

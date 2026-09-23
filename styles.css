@@ -6005,6 +6005,13 @@ section.top-guide-cta {
   font-size: 12px;
 }
 
+.footer-brand .footer-operator {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, .62);
+  font-size: 11px;
+  letter-spacing: .02em;
+}
+
 .footer-contact {
   display: flex;
   align-items: center;
@@ -15180,4 +15187,104 @@ body.service-body #consultation .operator-band {
     max-width: 132px;
     max-height: 38px;
   }
+}
+
+/* =========================================================
+   電子黒板導線ボックス（教育ツール記事の本文内に自動挿入）
+   scripts/apply_contextual_internal_cards.mjs が生成する
+   ========================================================= */
+
+.kb-lesson-cta {
+  margin: 2.5em 0;
+  padding: 24px 26px;
+  border: 1px solid #dbe4f2;
+  border-left: 5px solid #103f99;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f5f8fd 0%, #ffffff 100%);
+  box-shadow: 0 10px 26px rgba(20, 41, 94, .07);
+}
+
+.kb-lesson-cta__title {
+  margin: 0 0 10px !important;
+  color: #103f99;
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.kb-lesson-cta__lead {
+  margin: 0 0 18px !important;
+  color: #33415c;
+  font-size: .95rem;
+  line-height: 1.9;
+}
+
+.kb-lesson-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 !important;
+}
+
+.kb-lesson-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 11px 22px;
+  border: 2px solid #103f99;
+  border-radius: 999px;
+  background: #103f99;
+  color: #fff !important;
+  font-size: .9rem;
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none !important;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.kb-lesson-cta__btn:hover {
+  opacity: .9;
+  transform: translateY(-1px);
+}
+
+.kb-lesson-cta__btn.is-ghost {
+  background: #fff;
+  color: #103f99 !important;
+}
+
+@media (max-width: 640px) {
+  .kb-lesson-cta {
+    padding: 18px 16px;
+  }
+
+  .kb-lesson-cta__btn {
+    width: 100%;
+  }
+}
+
+/* トップページ：新コラム「電子黒板おすすめ比較」への導線
+   scripts/enable_osusume_column.mjs で挿入される */
+
+.lp-osusume-link {
+  margin: 14px 0 0;
+}
+
+.lp-osusume-link a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 2px solid #103f99;
+  border-radius: 999px;
+  color: #103f99;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.lp-osusume-link a:hover {
+  background: #103f99;
+  color: #fff;
 }

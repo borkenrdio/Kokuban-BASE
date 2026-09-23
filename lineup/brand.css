@@ -1010,3 +1010,270 @@
     display: inline-block;
   }
 }
+
+/* =========================================================
+   価格の目安 / 現役講師の評価 / よくある質問（共通テンプレ追加分）
+   ========================================================= */
+
+/* ---------- 価格の目安 ---------- */
+
+.kb-bp-price {
+  padding: clamp(18px, 2.2vw, 26px);
+  border: 1px solid var(--bp-line);
+  border-radius: var(--bp-radius);
+  background: #fff;
+  box-shadow: var(--bp-shadow);
+}
+
+.kb-bp-price__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.kb-bp-price__table caption {
+  padding-bottom: 12px;
+  color: var(--bp-muted);
+  text-align: left;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.kb-bp-price__table th,
+.kb-bp-price__table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--bp-line);
+  text-align: left;
+  font-size: 13.5px;
+  line-height: 1.7;
+  vertical-align: top;
+}
+
+.kb-bp-price__table tbody tr:last-child th,
+.kb-bp-price__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.kb-bp-price__table th {
+  width: 26%;
+  color: var(--bp-navy);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.kb-bp-price__table td:nth-of-type(1) {
+  width: 26%;
+  color: var(--bp-deep);
+  font-weight: 800;
+}
+
+.kb-bp-price__table td:nth-of-type(2) {
+  color: var(--bp-muted);
+  font-size: 12.5px;
+}
+
+.kb-bp-price__note {
+  margin: 14px 0 0;
+  color: var(--bp-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.kb-bp-price__note a {
+  color: var(--bp-deep);
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.kb-bp-price__cta {
+  margin: 18px 0 0;
+}
+
+.kb-bp-btn--solid {
+  background: var(--bp-deep);
+  color: #fff;
+  box-shadow: var(--bp-shadow);
+}
+
+/* ---------- 現役講師の評価 ---------- */
+
+.kb-bp-review__lead {
+  margin: -6px 0 18px;
+  color: var(--bp-muted);
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+
+.kb-bp-review {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.kb-bp-review__col {
+  padding: 20px 22px;
+  border: 1px solid var(--bp-line);
+  border-radius: var(--bp-radius);
+  background: #fff;
+  box-shadow: var(--bp-shadow);
+}
+
+.kb-bp-review__col h3 {
+  margin: 0 0 12px;
+  padding-left: 26px;
+  position: relative;
+  color: var(--bp-navy);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.kb-bp-review__col h3::before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.kb-bp-review__col.is-good h3::before {
+  content: "＋";
+  background: var(--bp-accent);
+}
+
+.kb-bp-review__col.is-care h3::before {
+  content: "！";
+  background: #8a97ad;
+}
+
+.kb-bp-review__col ul {
+  margin: 0;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+
+.kb-bp-review__col li {
+  margin: 0 0 10px;
+  font-size: 13.5px;
+  line-height: 1.85;
+}
+
+.kb-bp-review__col li:last-child {
+  margin-bottom: 0;
+}
+
+.kb-bp-review__quote {
+  margin: 18px 0 0;
+  padding: 20px 24px;
+  border: 1px solid var(--bp-line);
+  border-left: 4px solid var(--bp-accent);
+  border-radius: var(--bp-radius);
+  background: var(--bp-tint);
+}
+
+.kb-bp-review__quote blockquote {
+  margin: 0;
+}
+
+.kb-bp-review__quote blockquote p {
+  margin: 0;
+  color: var(--bp-ink);
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.kb-bp-review__quote figcaption {
+  margin-top: 12px;
+  color: var(--bp-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.kb-bp-review__quote figcaption a {
+  color: var(--bp-deep);
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.kb-bp-review__pending {
+  margin: 18px 0 0;
+  padding: 16px 20px;
+  border: 1px dashed var(--bp-line);
+  border-radius: var(--bp-radius);
+  background: #fff;
+  color: var(--bp-muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+/* ---------- よくある質問 ---------- */
+
+.kb-bp-faq {
+  display: grid;
+  gap: 10px;
+}
+
+.kb-bp-faq details {
+  border: 1px solid var(--bp-line);
+  border-radius: var(--bp-radius);
+  background: #fff;
+  box-shadow: var(--bp-shadow);
+}
+
+.kb-bp-faq summary {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 16px 20px;
+  color: var(--bp-navy);
+  font-size: 14.5px;
+  font-weight: 800;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.kb-bp-faq summary i {
+  flex: none;
+  color: var(--bp-accent);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.kb-bp-faq details[open] summary {
+  border-bottom: 1px solid var(--bp-line);
+}
+
+.kb-bp-faq p {
+  margin: 0;
+  padding: 16px 20px 18px;
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+
+@media (max-width: 640px) {
+  .kb-bp-price {
+    padding: 16px 14px;
+  }
+
+  .kb-bp-price__table th,
+  .kb-bp-price__table td {
+    padding: 9px 8px;
+    font-size: 12.5px;
+  }
+
+  .kb-bp-price__table th {
+    width: 30%;
+    white-space: normal;
+  }
+
+  .kb-bp-price__cta .kb-bp-btn {
+    width: 100%;
+    min-width: 0;
+  }
+}

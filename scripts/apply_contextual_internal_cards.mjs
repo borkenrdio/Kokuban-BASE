@@ -5,6 +5,14 @@ const ROOT = process.cwd();
 const COLUMNS_DIR = path.join(ROOT, 'columns');
 const SITE_ORIGIN = 'https://kokuban-base.com';
 
+// 「【2026年版】電子黒板おすすめ比較」コラムの公開状況。
+// microCMS で公開したら OSUSUME_PUBLISHED を true にして再ビルドすると、
+// 電子黒板導線ボックスのリンク先が一斉に新コラムへ切り替わる。
+const OSUSUME_URL = '/columns/denshikokuban-osusume/';
+const OSUSUME_PUBLISHED = false;
+const OSUSUME_FALLBACK_URL = '/lineup/';
+const chooseUrl = () => (OSUSUME_PUBLISHED ? OSUSUME_URL : OSUSUME_FALLBACK_URL);
+
 const additions = [
   // Price cluster
   { source: 'price', target: '/columns/install-work/', section: '設置費用｜', description: '組み立てに必要な人数や壁補強の要否など、設置工事の実際の流れを解説しています。' },
@@ -100,6 +108,16 @@ const additions = [
   { source: 'camera1', target: '/columns/camera-cloud/', placement: 'article-end' },
   { source: 'camera1', target: '/columns/miraitouch/', placement: 'article-end' },
   { source: 'camera1', target: '/denshikokuban/', placement: 'article-end' },
+
+  // 電子黒板導線ボックス（教育ツール記事 → 電子黒板の検討導線）
+  { source: 'googleearth-Flight-simulator', kind: 'cta', section: '実践例③',
+    lead: '教室の前でフライトシミュレーターを動かすなら、投影するだけの大型モニターより、画面に直接書き込める電子黒板が向いています。飛んだ経路に線を引き、河川や山脈の位置をその場で書き足しながら進められるからです。' },
+  { source: 'chromemusiclab', kind: 'cta', section: '実践例②',
+    lead: 'Chrome Music Labを授業で使うなら、音の波形やリズムを映した画面に、そのまま書き込める電子黒板が向いています。「ここが山になっている」と指さしながら印を付け、その板書をQRコードで生徒の端末へ渡せます。' },
+  { source: 'javalab', kind: 'cta', placement: 'article-end',
+    lead: 'Java Labのシミュレーションを教室全体で共有するなら、画面に直接書き込める電子黒板が向いています。動かした結果に矢印や数値を書き足しながら、クラス全員で同じ画面を見て議論できます。' },
+  { source: 'web-contour-map', kind: 'cta', placement: 'article-end',
+    lead: '等高線の読み取りは、地図を映して尾根と谷をなぞりながら説明すると伝わりやすくなります。画面に直接書き込める電子黒板なら、線を引いた地図をそのまま保存して、次の授業でも使えます。' },
 ];
 
 function escapeHtml(value = '') {
@@ -151,8 +169,24 @@ function cardHtml(item) {
   </a></p></blockquote>`;
 }
 
+function ctaBoxHtml(item) {
+  const chooseHref = absoluteUrl(chooseUrl());
+  const experienceHref = absoluteUrl('/experience/');
+  const lead = escapeHtml(item.lead || '');
+  return `<aside class="kb-lesson-cta">
+    <p class="kb-lesson-cta__title">この授業を大画面でやるなら</p>
+    <p class="kb-lesson-cta__lead">${lead}</p>
+    <p class="kb-lesson-cta__actions">
+      <a class="kb-lesson-cta__btn" href="${chooseHref}">授業に合う電子黒板の選び方</a>
+      <a class="kb-lesson-cta__btn is-ghost" href="${experienceHref}">実機で試す</a>
+    </p>
+  </aside>`;
+}
+
 function removeGeneratedCards(html) {
-  return html.replace(/\n?<!-- contextual-link: .*?-->\s*<blockquote class="contextual-internal-card">[\s\S]*?<\/blockquote>\s*/g, '');
+  return html
+    .replace(/\n?<!-- contextual-link: .*?-->\s*<blockquote class="contextual-internal-card">[\s\S]*?<\/blockquote>\s*/g, '')
+    .replace(/\n?<!-- lesson-cta: .*?-->\s*<aside class="kb-lesson-cta">[\s\S]*?<\/aside>\s*/g, '');
 }
 
 function hasCard(html, target) {
@@ -239,17 +273,22 @@ for (const source of sources) {
   if (cleanupRules[source]) html = unwrapMatchingLinks(html, cleanupRules[source]);
 
   for (const item of additions.filter((entry) => entry.source === source)) {
-    if (hasCard(html, item.target)) {
+    const isCta = item.kind === 'cta';
+
+    if (!isCta && hasCard(html, item.target)) {
       skipped++;
       continue;
     }
-    const card = cardHtml(item);
+
+    const card = isCta ? ctaBoxHtml(item) : cardHtml(item);
     const at = insertIndex(html, item);
     if (!card || at < 0) {
       missing++;
       continue;
     }
-    const marker = `\n<!-- contextual-link: ${source} -> ${new URL(absoluteUrl(item.target)).pathname} -->\n`;
+    const marker = isCta
+      ? `\n<!-- lesson-cta: ${source} -->\n`
+      : `\n<!-- contextual-link: ${source} -> ${new URL(absoluteUrl(item.target)).pathname} -->\n`;
     html = `${html.slice(0, at)}${marker}${card}\n${html.slice(at)}`;
     added++;
   }

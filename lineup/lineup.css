@@ -1207,3 +1207,33 @@
     font-size: 13.5px;
   }
 }
+
+/* 新コラム「電子黒板おすすめ比較」への導線バナー
+   scripts/enable_osusume_column.mjs で挿入される */
+
+.kb-lu-osusume-banner {
+  margin: 18px 0 0;
+}
+
+.kb-lu-osusume-banner a {
+  display: inline-block;
+  padding: 12px 20px 12px 18px;
+  border: 1px solid #c9d8f2;
+  border-left: 4px solid #103f99;
+  border-radius: 10px;
+  background: #f3f7fd;
+  color: #103f99;
+  font-size: clamp(12.5px, 1.1vw, 14px);
+  font-weight: 800;
+  line-height: 1.7;
+  text-decoration: none;
+}
+
+.kb-lu-osusume-banner a::after {
+  content: " ›";
+  font-weight: 900;
+}
+
+.kb-lu-osusume-banner a:hover {
+  background: #e9f0fb;
+}
