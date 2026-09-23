@@ -77,7 +77,10 @@ function main() {
     const file = path.join(ROOT, edit.file);
     const html = fs.readFileSync(file, 'utf8');
 
-    if (html.includes(URL_PATH)) {
+    // 適用済み判定は「この挿入箇所が入っているか」で見る。
+    // ファイル内に URL があるかだけで判定すると、同じファイルへの2つ目の
+    // 挿入が「適用済み」と誤判定されて入らない。
+    if (html.includes(edit.html.trim())) {
       console.log(`  済  ${edit.name}`);
       already++;
       continue;
