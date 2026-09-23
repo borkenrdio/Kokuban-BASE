@@ -35,6 +35,12 @@ const RELATED_BY_SLUG = {
   'Starboard': ['starboard-ideaspot-education-talk', 'BenQBoard', 'miraitouch'],
   'starboard-ideaspot-education-talk': ['Starboard', 'sharp-bigpad', 'BenQBoard'],
 
+  'starboard-review': ['miraitouch-review', 'benqboard-review', 'Starboard'],
+  'miraitouch-review': ['starboard-review', 'bigpad-review', 'miraitouch'],
+  'bigpad-review': ['benqboard-review', 'miraitouch-review', 'sharp-bigpad'],
+  'benqboard-review': ['bigpad-review', 'promethean-review', 'BenQBoard'],
+  'promethean-review': ['starboard-review', 'benqboard-review', 'miraitouch-review'],
+
   'bansho': ['qrcode', 'cloud', 'whiteboard-chigai'],
   'qrcode': ['bansho', 'cloud', 'screenshot'],
   'cloud': ['qrcode', 'bansho', 'onenote'],

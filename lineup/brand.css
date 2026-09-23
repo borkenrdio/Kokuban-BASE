@@ -1277,3 +1277,18 @@
     min-width: 0;
   }
 }
+
+.kb-bp-review__fit {
+  margin: 16px 0 0;
+  padding: 14px 18px;
+  border: 1px solid var(--bp-line);
+  border-radius: var(--bp-radius);
+  background: #fff;
+  font-size: 13.5px;
+  line-height: 1.85;
+}
+
+.kb-bp-review__fit strong {
+  color: var(--bp-navy);
+  font-weight: 900;
+}

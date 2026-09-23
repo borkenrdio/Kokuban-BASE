@@ -109,6 +109,13 @@ const additions = [
   { source: 'camera1', target: '/columns/miraitouch/', placement: 'article-end' },
   { source: 'camera1', target: '/denshikokuban/', placement: 'article-end' },
 
+  // 本音レビュー（実機の書き心地） → 各ブランドページ
+  { source: 'starboard-review', target: '/lineup/starboard/', placement: 'article-end' },
+  { source: 'miraitouch-review', target: '/lineup/miraitouch/', placement: 'article-end' },
+  { source: 'bigpad-review', target: '/lineup/sharp-bigpad/', placement: 'article-end' },
+  { source: 'benqboard-review', target: '/lineup/benqboard/', placement: 'article-end' },
+  { source: 'promethean-review', target: '/lineup/promethean/', placement: 'article-end' },
+
   // 電子黒板導線ボックス（教育ツール記事 → 電子黒板の検討導線）
   { source: 'googleearth-Flight-simulator', kind: 'cta', section: '実践例③',
     lead: '教室の前でフライトシミュレーターを動かすなら、投影するだけの大型モニターより、画面に直接書き込める電子黒板が向いています。飛んだ経路に線を引き、河川や山脈の位置をその場で書き足しながら進められるからです。' },
