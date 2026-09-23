@@ -109,6 +109,28 @@ const additions = [
   { source: 'camera1', target: '/columns/miraitouch/', placement: 'article-end' },
   { source: 'camera1', target: '/denshikokuban/', placement: 'article-end' },
 
+  // 各所 → 新コラム「電子黒板おすすめ比較」（比較の受け皿に集約する）
+  { source: 'price', target: OSUSUME_URL, section: '本体価格の相場',
+    description: 'ブランドごとの価格・サイズ・スペックの違いを、5ブランドの比較表で確認できます。' },
+  { source: 'starboard-ideaspot-education-talk', target: OSUSUME_URL, placement: 'article-end',
+    description: '他の電子黒板と比べるなら。5ブランドの違いと、目的別のおすすめをまとめています。' },
+  { source: 'miraitouch-ideaspot-education-talk', target: OSUSUME_URL, placement: 'article-end',
+    description: '他の電子黒板と比べるなら。5ブランドの違いと、目的別のおすすめをまとめています。' },
+  { source: 'sharp-ideaspot-education-talk', target: OSUSUME_URL, placement: 'article-end',
+    description: '他の電子黒板と比べるなら。5ブランドの違いと、目的別のおすすめをまとめています。' },
+  { source: 'benq-ideaspot-education-talk', target: OSUSUME_URL, placement: 'article-end',
+    description: '他の電子黒板と比べるなら。5ブランドの違いと、目的別のおすすめをまとめています。' },
+  { source: 'starboard-review', target: OSUSUME_URL, placement: 'article-end',
+    description: '書き心地以外の違い（価格・サイズ・機能）も含めて、5ブランドを比較しています。' },
+  { source: 'miraitouch-review', target: OSUSUME_URL, placement: 'article-end',
+    description: '書き心地以外の違い（価格・サイズ・機能）も含めて、5ブランドを比較しています。' },
+  { source: 'bigpad-review', target: OSUSUME_URL, placement: 'article-end',
+    description: '書き心地以外の違い（価格・サイズ・機能）も含めて、5ブランドを比較しています。' },
+  { source: 'benqboard-review', target: OSUSUME_URL, placement: 'article-end',
+    description: '書き心地以外の違い（価格・サイズ・機能）も含めて、5ブランドを比較しています。' },
+  { source: 'promethean-review', target: OSUSUME_URL, placement: 'article-end',
+    description: '書き心地以外の違い（価格・サイズ・機能）も含めて、5ブランドを比較しています。' },
+
   // 本音レビュー（実機の書き心地） → 各ブランドページ
   { source: 'starboard-review', target: '/lineup/starboard/', placement: 'article-end' },
   { source: 'miraitouch-review', target: '/lineup/miraitouch/', placement: 'article-end' },
