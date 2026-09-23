@@ -240,6 +240,9 @@
             .article-body .talk-bubble__name { font-size: 0.68rem; }
             .article-body .talk-bubble__message { padding: 1rem; }
         }
+        /* 列数の多い表はページ幅を超えるため、外側の .table-scroll だけを横スクロールさせる */
+        .article-body .table-scroll { max-width: 100%; margin: 2rem 0; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
+        .article-body .table-scroll > table { margin: 0; border: 0; border-radius: 0; box-shadow: none; min-width: 100%; width: max-content; }
         .article-body table { width: 100%; margin: 2rem 0; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
         .article-body th,
         .article-body td { padding: 14px 16px; border-right: 1px solid #dbe3f0; border-bottom: 1px solid #dbe3f0; color: #0f172a; text-align: left; vertical-align: middle; }
@@ -252,9 +255,11 @@
         .article-body th p { margin: 0; }
         .article-body tbody tr:nth-child(even) td { background: #f8fbff; }
         @media (max-width: 640px) {
-            .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+            .article-body .table-scroll { border-radius: 12px; }
             .article-body th,
             .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
+            /* 横スクロールしても、何の行かが分かるように1列目を固定する */
+            .article-body .table-scroll > table th:first-child { position: sticky; left: 0; z-index: 1; min-width: 108px; background: #eef5ff; box-shadow: 1px 0 0 #dbe3f0; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -543,7 +548,7 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>電子黒板を入れると決めたあと、意外と気になるのが「設置や工事はどう進むの？」という点です。結論から言うと、設置方法はスタンド式と壁掛けの2通りで、必要な工事の有無が大きく変わります。スタンド式なら大がかりな工事は基本的に不要、壁掛けは壁の補強工事が必要になることがあります。この記事では、搬入・組み立ての実際から、壁補強・テナントの注意点、工事業者の手配まで、私たちが実機を組み立ててきた経験をもとに整理します。</p><h2 id="haba3ea70c9">まず結論：設置方法ごとの工事と費用の目安</h2><table><tbody><tr><th colspan="1" rowspan="1"><p>設置方法</p></th><th colspan="1" rowspan="1"><p>主な工事</p></th><th colspan="1" rowspan="1"><p>向いているケース</p></th></tr><tr><td colspan="1" rowspan="1"><p>スタンド式</p></td><td colspan="1" rowspan="1"><p>基本は組み立て・設置のみ（大がかりな工事は不要）</p></td><td colspan="1" rowspan="1"><p>賃貸・テナント、移動して使いたい、まず1台から始めたい</p></td></tr><tr><td colspan="1" rowspan="1"><p>壁掛け</p></td><td colspan="1" rowspan="1"><p>壁の補強工事が必要な場合あり</p></td><td colspan="1" rowspan="1"><p>動線を固定したい、長期的に同じ場所で使う</p></td></tr></tbody></table><p>本記事は「設置と工事が実際にどう進むか」に絞って解説します。スタンド式と壁掛けのどちらが自分の教室に向いているか、という選び方そのものは、別記事でメリット・デメリットを比較しています。</p><blockquote><p>あわせて読みたい</p><p>スタンドと壁掛けのどちらが向いているかは、こちらで比較しています。<br>電子黒板はスタンドと壁掛け、どっちがいい？メリット・デメリット徹底比較<br><a href="/columns/stand/" class="internal-link-card" aria-label="電子黒板はスタンドと壁掛け、どっちがいい？メリット・デメリット徹底比較">
+                    <p>電子黒板を入れると決めたあと、意外と気になるのが「設置や工事はどう進むの？」という点です。結論から言うと、設置方法はスタンド式と壁掛けの2通りで、必要な工事の有無が大きく変わります。スタンド式なら大がかりな工事は基本的に不要、壁掛けは壁の補強工事が必要になることがあります。この記事では、搬入・組み立ての実際から、壁補強・テナントの注意点、工事業者の手配まで、私たちが実機を組み立ててきた経験をもとに整理します。</p><h2 id="haba3ea70c9">まず結論：設置方法ごとの工事と費用の目安</h2><div class="table-scroll"><table><tbody><tr><th colspan="1" rowspan="1"><p>設置方法</p></th><th colspan="1" rowspan="1"><p>主な工事</p></th><th colspan="1" rowspan="1"><p>向いているケース</p></th></tr><tr><td colspan="1" rowspan="1"><p>スタンド式</p></td><td colspan="1" rowspan="1"><p>基本は組み立て・設置のみ（大がかりな工事は不要）</p></td><td colspan="1" rowspan="1"><p>賃貸・テナント、移動して使いたい、まず1台から始めたい</p></td></tr><tr><td colspan="1" rowspan="1"><p>壁掛け</p></td><td colspan="1" rowspan="1"><p>壁の補強工事が必要な場合あり</p></td><td colspan="1" rowspan="1"><p>動線を固定したい、長期的に同じ場所で使う</p></td></tr></tbody></table></div><p>本記事は「設置と工事が実際にどう進むか」に絞って解説します。スタンド式と壁掛けのどちらが自分の教室に向いているか、という選び方そのものは、別記事でメリット・デメリットを比較しています。</p><blockquote><p>あわせて読みたい</p><p>スタンドと壁掛けのどちらが向いているかは、こちらで比較しています。<br>電子黒板はスタンドと壁掛け、どっちがいい？メリット・デメリット徹底比較<br><a href="/columns/stand/" class="internal-link-card" aria-label="電子黒板はスタンドと壁掛け、どっちがいい？メリット・デメリット徹底比較">
     <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/059b5efeac384672b7ff4f01b5e4e2bc/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%8825%E6%97%A5%2011_53_07%20(1).png?fit=crop&w=320&h=180&q=80" alt="電子黒板はスタンドと壁掛け、どっちがいい？メリット・デメリット徹底比較" loading="lazy" decoding="async"></span>
     <span class="internal-link-card__body">
       <span class="internal-link-card__title">電子黒板はスタンドと壁掛け、どっちがいい？メリット・デメリット徹底比較</span>

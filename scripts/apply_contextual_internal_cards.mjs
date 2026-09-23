@@ -9,7 +9,7 @@ const SITE_ORIGIN = 'https://kokuban-base.com';
 // microCMS で公開したら OSUSUME_PUBLISHED を true にして再ビルドすると、
 // 電子黒板導線ボックスのリンク先が一斉に新コラムへ切り替わる。
 const OSUSUME_URL = '/columns/denshikokuban-osusume/';
-const OSUSUME_PUBLISHED = false;
+const OSUSUME_PUBLISHED = true;
 const OSUSUME_FALLBACK_URL = '/lineup/';
 const chooseUrl = () => (OSUSUME_PUBLISHED ? OSUSUME_URL : OSUSUME_FALLBACK_URL);
 

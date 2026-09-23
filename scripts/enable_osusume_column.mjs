@@ -25,7 +25,7 @@ import path from 'path';
 
 const ROOT = process.cwd();
 const URL_PATH = '/columns/denshikokuban-osusume/';
-const LABEL = '【2026年版】電子黒板おすすめ比較';
+const LABEL = '【2026年後期版】電子黒板おすすめ比較';
 const CHECK_ONLY = process.argv.includes('--check');
 
 /** @type {{file: string, name: string, anchor: string, html: string, where: 'after' | 'before'}[]} */
@@ -43,7 +43,7 @@ const EDITS = [
     name: '/lineup/ 機能表の下のボタン',
     where: 'before',
     anchor: '          <a class="kb-lu-ftable-next__link is-pink" href="../contact/">比較して迷ったら無料で相談する ›</a>',
-    html: `          <a class="kb-lu-ftable-next__link" href="${URL_PATH}#compare">価格・スペックの比較表を見る ›</a>
+    html: `          <a class="kb-lu-ftable-next__link" href="${URL_PATH}">価格・スペックの比較表を見る ›</a>
 `,
   },
   {

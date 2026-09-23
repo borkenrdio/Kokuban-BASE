@@ -240,6 +240,9 @@
             .article-body .talk-bubble__name { font-size: 0.68rem; }
             .article-body .talk-bubble__message { padding: 1rem; }
         }
+        /* 列数の多い表はページ幅を超えるため、外側の .table-scroll だけを横スクロールさせる */
+        .article-body .table-scroll { max-width: 100%; margin: 2rem 0; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
+        .article-body .table-scroll > table { margin: 0; border: 0; border-radius: 0; box-shadow: none; min-width: 100%; width: max-content; }
         .article-body table { width: 100%; margin: 2rem 0; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
         .article-body th,
         .article-body td { padding: 14px 16px; border-right: 1px solid #dbe3f0; border-bottom: 1px solid #dbe3f0; color: #0f172a; text-align: left; vertical-align: middle; }
@@ -252,9 +255,11 @@
         .article-body th p { margin: 0; }
         .article-body tbody tr:nth-child(even) td { background: #f8fbff; }
         @media (max-width: 640px) {
-            .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+            .article-body .table-scroll { border-radius: 12px; }
             .article-body th,
             .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
+            /* 横スクロールしても、何の行かが分かるように1列目を固定する */
+            .article-body .table-scroll > table th:first-child { position: sticky; left: 0; z-index: 1; min-width: 108px; background: #eef5ff; box-shadow: 1px 0 0 #dbe3f0; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */

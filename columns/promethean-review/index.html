@@ -240,6 +240,9 @@
             .article-body .talk-bubble__name { font-size: 0.68rem; }
             .article-body .talk-bubble__message { padding: 1rem; }
         }
+        /* 列数の多い表はページ幅を超えるため、外側の .table-scroll だけを横スクロールさせる */
+        .article-body .table-scroll { max-width: 100%; margin: 2rem 0; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
+        .article-body .table-scroll > table { margin: 0; border: 0; border-radius: 0; box-shadow: none; min-width: 100%; width: max-content; }
         .article-body table { width: 100%; margin: 2rem 0; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
         .article-body th,
         .article-body td { padding: 14px 16px; border-right: 1px solid #dbe3f0; border-bottom: 1px solid #dbe3f0; color: #0f172a; text-align: left; vertical-align: middle; }
@@ -252,9 +255,11 @@
         .article-body th p { margin: 0; }
         .article-body tbody tr:nth-child(even) td { background: #f8fbff; }
         @media (max-width: 640px) {
-            .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+            .article-body .table-scroll { border-radius: 12px; }
             .article-body th,
             .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
+            /* 横スクロールしても、何の行かが分かるように1列目を固定する */
+            .article-body .table-scroll > table th:first-child { position: sticky; left: 0; z-index: 1; min-width: 108px; background: #eef5ff; box-shadow: 1px 0 0 #dbe3f0; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -689,7 +694,7 @@
       <span class="internal-link-card__title">電子黒板の耐用年数は何年？導入して7年目の実体験を公開</span>
       <span class="internal-link-card__description">電子黒板の耐用年数を、製品寿命（4〜5年目安）と会計上の法定耐用年数（3・5年）に分けて解説します。買い替えは故障より「スペックの物足りなさ」が先に来ます。7年目の実機を使い続ける立場から、5年を区切りに入れ替える考え方を紹介します。</span>
     </span>
-  </a></p></blockquote><h2 id="h5dd676ed64">5台を書き比べて完成した「書き味の地図」</h2><p>シリーズを通して、同じ先生が同じ持ち方で5台を書き比べました。完成した一覧がこちらです。</p><table><tbody><tr><th colspan="1" rowspan="1"><p></p></th><th colspan="1" rowspan="1"><p>指先に返る感触</p></th><th colspan="1" rowspan="1"><p>摩擦</p></th><th colspan="1" rowspan="1"><p>音</p></th></tr><tr><td colspan="1" rowspan="1"><p>StarBoard</p></td><td colspan="1" rowspan="1"><p>しっかりしたガラス感</p></td><td colspan="1" rowspan="1"><p>大きい</p></td><td colspan="1" rowspan="1"><p>カツカツ</p></td></tr><tr><td colspan="1" rowspan="1"><p>MIRAI TOUCH</p></td><td colspan="1" rowspan="1"><p>ソフトに寄ったガラス感</p></td><td colspan="1" rowspan="1"><p>小さい</p></td><td colspan="1" rowspan="1"><p>コツコツ</p></td></tr><tr><td colspan="1" rowspan="1"><p>BenQ Board</p></td><td colspan="1" rowspan="1"><p>マットっぽいソフトタッチ</p></td><td colspan="1" rowspan="1"><p>かなり小さい</p></td><td colspan="1" rowspan="1"><p>あまり鳴らない</p></td></tr><tr><td colspan="1" rowspan="1"><p>SHARP BIG PAD</p></td><td colspan="1" rowspan="1"><p>ガラス感とソフトさの中間</p></td><td colspan="1" rowspan="1"><p>中くらい</p></td><td colspan="1" rowspan="1"><p>コツコツ</p></td></tr><tr><td colspan="1" rowspan="1"><p>Promethean</p></td><td colspan="1" rowspan="1"><p>硬めで擦れ感がある</p></td><td colspan="1" rowspan="1"><p>大きい</p></td><td colspan="1" rowspan="1"><p>カツカツ</p></td></tr></tbody></table><p><strong>5台とも「書きやすい」に分類されます。</strong> 違うのは、摩擦の大小と音の質だけです。この2軸のどこが自分に合うかは、書いてみないと分かりません。</p><blockquote><p>あわせて読みたい</p><p>StarBoardの書き心地を現役講師が正直レビュー｜塾講師歴30年超の講師がはじめてStarboardを触ってみた <a href="/columns/starboard-review/" class="internal-link-card" aria-label="Starboardの書き心地を現役講師が正直レビュー | 塾講師歴30年超の講師がはじめてStarboardを触ってみた">
+  </a></p></blockquote><h2 id="h5dd676ed64">5台を書き比べて完成した「書き味の地図」</h2><p>シリーズを通して、同じ先生が同じ持ち方で5台を書き比べました。完成した一覧がこちらです。</p><div class="table-scroll"><table><tbody><tr><th colspan="1" rowspan="1"><p></p></th><th colspan="1" rowspan="1"><p>指先に返る感触</p></th><th colspan="1" rowspan="1"><p>摩擦</p></th><th colspan="1" rowspan="1"><p>音</p></th></tr><tr><td colspan="1" rowspan="1"><p>StarBoard</p></td><td colspan="1" rowspan="1"><p>しっかりしたガラス感</p></td><td colspan="1" rowspan="1"><p>大きい</p></td><td colspan="1" rowspan="1"><p>カツカツ</p></td></tr><tr><td colspan="1" rowspan="1"><p>MIRAI TOUCH</p></td><td colspan="1" rowspan="1"><p>ソフトに寄ったガラス感</p></td><td colspan="1" rowspan="1"><p>小さい</p></td><td colspan="1" rowspan="1"><p>コツコツ</p></td></tr><tr><td colspan="1" rowspan="1"><p>BenQ Board</p></td><td colspan="1" rowspan="1"><p>マットっぽいソフトタッチ</p></td><td colspan="1" rowspan="1"><p>かなり小さい</p></td><td colspan="1" rowspan="1"><p>あまり鳴らない</p></td></tr><tr><td colspan="1" rowspan="1"><p>SHARP BIG PAD</p></td><td colspan="1" rowspan="1"><p>ガラス感とソフトさの中間</p></td><td colspan="1" rowspan="1"><p>中くらい</p></td><td colspan="1" rowspan="1"><p>コツコツ</p></td></tr><tr><td colspan="1" rowspan="1"><p>Promethean</p></td><td colspan="1" rowspan="1"><p>硬めで擦れ感がある</p></td><td colspan="1" rowspan="1"><p>大きい</p></td><td colspan="1" rowspan="1"><p>カツカツ</p></td></tr></tbody></table></div><p><strong>5台とも「書きやすい」に分類されます。</strong> 違うのは、摩擦の大小と音の質だけです。この2軸のどこが自分に合うかは、書いてみないと分かりません。</p><blockquote><p>あわせて読みたい</p><p>StarBoardの書き心地を現役講師が正直レビュー｜塾講師歴30年超の講師がはじめてStarboardを触ってみた <a href="/columns/starboard-review/" class="internal-link-card" aria-label="Starboardの書き心地を現役講師が正直レビュー | 塾講師歴30年超の講師がはじめてStarboardを触ってみた">
     <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/9d1f41869e884aa387ea7cba8a011349/2026-08-03-Starboard-review.png?fit=crop&w=320&h=180&q=80" alt="Starboardの書き心地を現役講師が正直レビュー | 塾講師歴30年超の講師がはじめてStarboardを触ってみた" loading="lazy" decoding="async"></span>
     <span class="internal-link-card__body">
       <span class="internal-link-card__title">Starboardの書き心地を現役講師が正直レビュー | 塾講師歴30年超の講師がはじめてStarboardを触ってみた</span>

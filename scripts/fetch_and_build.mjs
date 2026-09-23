@@ -179,6 +179,59 @@ function makeHeadingId(text, index) {
 }
 
 /**
+ * 本文中の表を横スクロール用のラッパーで包む
+ *
+ * 列数の多い比較表は、本文の幅を超えてページ全体を押し広げてしまう。
+ * table 自体を display:block にすると幅の狭い表が崩れるため、
+ * 外側に div.table-scroll を足して、そこだけ横スクロールさせる。
+ * すでに包まれている表は二重に包まない。
+ */
+function wrapTablesForScroll(bodyHtml) {
+  if (!bodyHtml || bodyHtml.indexOf('<table') === -1) return bodyHtml || '';
+
+  let result = '';
+  let index = 0;
+  const openTag = /<table\b[^>]*>/gi;
+  let match;
+
+  while ((match = openTag.exec(bodyHtml)) !== null) {
+    const start = match.index;
+
+    // 入れ子の table を考慮して、対応する </table> を探す
+    const tagRegex = /<\/?table\b[^>]*>/gi;
+    tagRegex.lastIndex = start;
+    let depth = 0;
+    let end = -1;
+    let tag;
+    while ((tag = tagRegex.exec(bodyHtml)) !== null) {
+      if (tag[0].charAt(1) === '/') {
+        depth--;
+        if (depth === 0) {
+          end = tag.index + tag[0].length;
+          break;
+        }
+      } else {
+        depth++;
+      }
+    }
+    if (end === -1) break;
+
+    // 直前がすでにラッパーなら包まない
+    const before = bodyHtml.slice(index, start);
+    if (/<div class="table-scroll"[^>]*>\s*$/i.test(before)) {
+      result += before + bodyHtml.slice(start, end);
+    } else {
+      result += before + '<div class="table-scroll">' + bodyHtml.slice(start, end) + '</div>';
+    }
+
+    index = end;
+    openTag.lastIndex = end;
+  }
+
+  return result + bodyHtml.slice(index);
+}
+
+/**
  * 本文HTMLの「よくある質問」セクションから FAQPage 構造化データを生成する
  * 返り値: JSON-LD 配列に差し込める文字列（該当なしなら空文字）
  *
@@ -1081,6 +1134,17 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
 
   let html = bodyHtml;
 
+  // 表の中はカード化の対象外にする。
+  // カード化は <p> や <blockquote> を丸ごと差し替えるため、セル内で実行すると
+  // </td></tr></tbody></table> まで巻き込んで消えてしまい、表が閉じられなくなる。
+  // 比較表のセルに大きなカードが入っても読みにくいので、表内はリンクのままにする。
+  const tableBlocks = [];
+  html = html.replace(/<table\b[^>]*>[\s\S]*?<\/table>/gi, (tableHtml) => {
+    const token = `@@KOKUBAN_TABLE_${tableBlocks.length}@@`;
+    tableBlocks.push(tableHtml);
+    return token;
+  });
+
   html = html.replace(
     /<p([^>]*)>\s*<a\b[^>]*href=(["'])(.*?)\2[^>]*>[\s\S]*?<\/a>\s*<\/p>/gi,
     (match, attrs, quote, href) => getCardPlaceholder(href) || match
@@ -1143,6 +1207,12 @@ async function replaceManualInternalLinksWithCards(bodyHtml, currentSlug, allArt
       return `${hasVisibleContent(textHtml) ? `<p${attrs}>${textHtml.trim()}</p>` : ''}${cards.join('')}`;
     }
   );
+
+  // 表を元に戻す。表内の裸のURLは、カードではなくインラインリンクにする。
+  tableBlocks.forEach((tableHtml, index) => {
+    const restored = replaceBareUrlsInHtmlText(tableHtml, (url) => buildInlineLink(url));
+    html = html.split(`@@KOKUBAN_TABLE_${index}@@`).join(restored);
+  });
 
   for (const { token, cardHtml } of cardPlaceholders) {
     html = html.split(token).join(cardHtml);
@@ -2413,6 +2483,9 @@ async function buildStaticPages() {
       console.log(`  📑 ${article.slug}: ${headingCount} 個の見出しから目次生成`);
     }
 
+    // 列数の多い表がページ幅を超えないよう、横スクロール枠で包む
+    const bodyForOutput = wrapTablesForScroll(bodyWithIds);
+
     // 本文の「よくある質問」から FAQPage 構造化データを生成
     const faqSchemaBlock = buildFaqSchema(bodyWithIds);
     if (faqSchemaBlock) {
@@ -2447,7 +2520,7 @@ async function buildStaticPages() {
       .replace(/\{\{author\}\}/g, authorName) // 旧テンプレ互換用
       .replace(/\{\{AUTHOR_SCHEMA_JSON\}\}/g, authorSchemaJson)
       .replace(/\{\{FAQ_SCHEMA_BLOCK\}\}/g, faqSchemaBlock)
-      .replace(/\{\{BODY_HTML\}\}/g, bodyWithIds)
+      .replace(/\{\{BODY_HTML\}\}/g, bodyForOutput)
       .replace(/\{\{SHARE_URL_TWITTER\}\}/g, shareUrlTwitter)
       .replace(/\{\{SHARE_URL_FACEBOOK\}\}/g, shareUrlFacebook)
       .replace(/\{\{SHARE_URL_LINE\}\}/g, shareUrlLine)

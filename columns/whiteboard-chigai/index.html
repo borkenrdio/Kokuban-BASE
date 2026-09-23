@@ -240,6 +240,9 @@
             .article-body .talk-bubble__name { font-size: 0.68rem; }
             .article-body .talk-bubble__message { padding: 1rem; }
         }
+        /* 列数の多い表はページ幅を超えるため、外側の .table-scroll だけを横スクロールさせる */
+        .article-body .table-scroll { max-width: 100%; margin: 2rem 0; overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
+        .article-body .table-scroll > table { margin: 0; border: 0; border-radius: 0; box-shadow: none; min-width: 100%; width: max-content; }
         .article-body table { width: 100%; margin: 2rem 0; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid #dbe3f0; border-radius: 14px; background: #fff; box-shadow: 0 12px 28px rgba(16, 63, 153, 0.08); }
         .article-body th,
         .article-body td { padding: 14px 16px; border-right: 1px solid #dbe3f0; border-bottom: 1px solid #dbe3f0; color: #0f172a; text-align: left; vertical-align: middle; }
@@ -252,9 +255,11 @@
         .article-body th p { margin: 0; }
         .article-body tbody tr:nth-child(even) td { background: #f8fbff; }
         @media (max-width: 640px) {
-            .article-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; }
+            .article-body .table-scroll { border-radius: 12px; }
             .article-body th,
             .article-body td { min-width: 128px; max-width: 70vw; padding: 12px 14px; white-space: normal; overflow-wrap: break-word; }
+            /* 横スクロールしても、何の行かが分かるように1列目を固定する */
+            .article-body .table-scroll > table th:first-child { position: sticky; left: 0; z-index: 1; min-width: 108px; background: #eef5ff; box-shadow: 1px 0 0 #dbe3f0; }
         }
 
         /* 内部リンク(自動生成): 本文中のキーワードから関連記事に飛ぶ */
@@ -543,7 +548,7 @@
 
                 <!-- 本文 -->
                 <div class="article-body max-w-3xl mx-auto text-gray-800">
-                    <p>「今あるホワイトボードで十分では？」——電子黒板を検討し始めた先生から、必ず出てくる声です。結論から言うと、両者の違いは大きく4つ（インターネット接続・拡張性・ランニングコスト・健康面）にまとまります。板書中心の毎日の授業なら電子黒板、来客用のちょっとした書き出しならホワイトボードで十分です。この記事では、意外と見落とされがちな「消す手間」「マーカー代」まで含めて、現場の実感で正直に比較します。</p><h2 id="h1c08d21af5">まず結論：4つの違いと、向いているのはどちらか</h2><p>細かい話に入る前に、全体像を早見表で示します。</p><table><tbody><tr><th colspan="1" rowspan="1"><p>比べる観点</p></th><th colspan="1" rowspan="1"><p>ホワイトボード</p></th><th colspan="1" rowspan="1"><p>電子黒板</p></th></tr><tr><td colspan="1" rowspan="1"><p>インターネット接続</p></td><td colspan="1" rowspan="1"><p>なし（書く・消すだけ）</p></td><td colspan="1" rowspan="1"><p>あり（教材・動画・AIをその場で表示）</p></td></tr><tr><td colspan="1" rowspan="1"><p>拡張性・書くスペース</p></td><td colspan="1" rowspan="1"><p>面積が有限。書いたら消す前提</p></td><td colspan="1" rowspan="1"><p>ページ追加・スクロールで実質無限。消さずに残せる</p></td></tr><tr><td colspan="1" rowspan="1"><p>ランニングコスト</p></td><td colspan="1" rowspan="1"><p>マーカー・イレイサー・詰め替えを買い続ける</p></td><td colspan="1" rowspan="1"><p>電気代（月数百円〜1,000円ほど）が中心</p></td></tr><tr><td colspan="1" rowspan="1"><p>健康面</p></td><td colspan="1" rowspan="1"><p>インクのにおい・肌への刺激が出る人もいる</p></td><td colspan="1" rowspan="1"><p>目の疲れ対策機能を備えた機種が主流</p></td></tr></tbody></table><p>この記事で「ホワイトボード」と呼ぶのは、マーカーで書いて消す、電源のいらないアナログのホワイトボードです。一方の「電子黒板」は、画面に直接書き込め、パソコンやインターネットにもつながる大型のタッチディスプレイを指します。それぞれ得意分野が違うので、「どちらが上か」ではなく「どんな使い方ならどちらか」で見ていきます。</p><h2 id="hc872a0030c">違い1：インターネットに&quot;つながるかどうか&quot;が最大の差</h2><p>一番大きな違いは、インターネットや教材データにつながるかどうかです。ホワイトボードは書いて消すことに特化した道具で、その潔さが強みでもあります。</p><p>電子黒板は、地図・動画・PDF教材・AIの回答などを画面にそのまま映し、その上に手で書き込めます。たとえば社会の授業で「川より土地が低い」を地形サイトの数字で見せたり、英語のリスニング音源を流しながらスクリプトに線を引いたりと、「見せる」と「書く」を一つの画面でつなげられます。授業のたびに資料を印刷して貼る必要がなくなるのが、日々の負担では大きく効いてきます。</p><p>「見せたい資料を大きく映せたら」と思う場面が多い教室ほど、この差は実感しやすいはずです。</p><blockquote><p>〈授業例〉社会の授業で「川より土地が低い」</p><a href="/columns/shakaika-kiso/" class="internal-link-card" aria-label="【社会科×電子黒板】小学4年「低い土地のくらし」|　木曽三川・輪中を読み解く 授業プラン">
+                    <p>「今あるホワイトボードで十分では？」——電子黒板を検討し始めた先生から、必ず出てくる声です。結論から言うと、両者の違いは大きく4つ（インターネット接続・拡張性・ランニングコスト・健康面）にまとまります。板書中心の毎日の授業なら電子黒板、来客用のちょっとした書き出しならホワイトボードで十分です。この記事では、意外と見落とされがちな「消す手間」「マーカー代」まで含めて、現場の実感で正直に比較します。</p><h2 id="h1c08d21af5">まず結論：4つの違いと、向いているのはどちらか</h2><p>細かい話に入る前に、全体像を早見表で示します。</p><div class="table-scroll"><table><tbody><tr><th colspan="1" rowspan="1"><p>比べる観点</p></th><th colspan="1" rowspan="1"><p>ホワイトボード</p></th><th colspan="1" rowspan="1"><p>電子黒板</p></th></tr><tr><td colspan="1" rowspan="1"><p>インターネット接続</p></td><td colspan="1" rowspan="1"><p>なし（書く・消すだけ）</p></td><td colspan="1" rowspan="1"><p>あり（教材・動画・AIをその場で表示）</p></td></tr><tr><td colspan="1" rowspan="1"><p>拡張性・書くスペース</p></td><td colspan="1" rowspan="1"><p>面積が有限。書いたら消す前提</p></td><td colspan="1" rowspan="1"><p>ページ追加・スクロールで実質無限。消さずに残せる</p></td></tr><tr><td colspan="1" rowspan="1"><p>ランニングコスト</p></td><td colspan="1" rowspan="1"><p>マーカー・イレイサー・詰め替えを買い続ける</p></td><td colspan="1" rowspan="1"><p>電気代（月数百円〜1,000円ほど）が中心</p></td></tr><tr><td colspan="1" rowspan="1"><p>健康面</p></td><td colspan="1" rowspan="1"><p>インクのにおい・肌への刺激が出る人もいる</p></td><td colspan="1" rowspan="1"><p>目の疲れ対策機能を備えた機種が主流</p></td></tr></tbody></table></div><p>この記事で「ホワイトボード」と呼ぶのは、マーカーで書いて消す、電源のいらないアナログのホワイトボードです。一方の「電子黒板」は、画面に直接書き込め、パソコンやインターネットにもつながる大型のタッチディスプレイを指します。それぞれ得意分野が違うので、「どちらが上か」ではなく「どんな使い方ならどちらか」で見ていきます。</p><h2 id="hc872a0030c">違い1：インターネットに&quot;つながるかどうか&quot;が最大の差</h2><p>一番大きな違いは、インターネットや教材データにつながるかどうかです。ホワイトボードは書いて消すことに特化した道具で、その潔さが強みでもあります。</p><p>電子黒板は、地図・動画・PDF教材・AIの回答などを画面にそのまま映し、その上に手で書き込めます。たとえば社会の授業で「川より土地が低い」を地形サイトの数字で見せたり、英語のリスニング音源を流しながらスクリプトに線を引いたりと、「見せる」と「書く」を一つの画面でつなげられます。授業のたびに資料を印刷して貼る必要がなくなるのが、日々の負担では大きく効いてきます。</p><p>「見せたい資料を大きく映せたら」と思う場面が多い教室ほど、この差は実感しやすいはずです。</p><blockquote><p>〈授業例〉社会の授業で「川より土地が低い」</p><a href="/columns/shakaika-kiso/" class="internal-link-card" aria-label="【社会科×電子黒板】小学4年「低い土地のくらし」|　木曽三川・輪中を読み解く 授業プラン">
     <span class="internal-link-card__image"><img src="https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/34cb382f7cea4f79ba0d140c5afff35e/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8819%E6%97%A5%2011_51_11%20(1).png?fit=crop&w=320&h=180&q=80" alt="【社会科×電子黒板】小学4年「低い土地のくらし」|　木曽三川・輪中を読み解く 授業プラン" loading="lazy" decoding="async"></span>
     <span class="internal-link-card__body">
       <span class="internal-link-card__title">【社会科×電子黒板】小学4年「低い土地のくらし」|　木曽三川・輪中を読み解く 授業プラン</span>
