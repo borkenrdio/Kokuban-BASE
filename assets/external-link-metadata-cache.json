@@ -2288,5 +2288,15 @@
       "description": "英検（実用英語技能検定）の公式ウェブサイトです。受験の申し込みや試験日程・検定料・過去問題の閲覧、合否の確認ができます。高校・大学への入試優遇や単位認定優遇、英語教育に従事される団体・学校関係者の方向け研修・セミナー情報もご覧ください。",
       "image": "https://www.eiken.or.jp/assets/ogp/ogp_eiken.png"
     }
+  },
+  "https://kokuban-base.com/contact/": {
+    "fetchedAt": "2026-10-20T03:22:50.528Z",
+    "metadata": {
+      "url": "https://kokuban-base.com/contact/",
+      "host": "kokuban-base.com",
+      "title": "お問い合わせ | 電子黒板の無料相談 - Kokuban BASE",
+      "description": "電子黒板の無料相談はこちら。メーカー比較、ショールーム、デモ機レンタル、購入・リース、導入サポートについてお問い合わせください。",
+      "image": "https://kokuban-base.com/assets/ogp-consultation.png"
+    }
   }
 }
