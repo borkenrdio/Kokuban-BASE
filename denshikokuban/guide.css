@@ -1,4 +1,7 @@
 /* Editorial guide; scoped so the shared header and footer retain their styling. */
+.guide-article > .guide-section{padding:0;margin:36px 0}
+.guide-article > .guide-section > :last-child{margin-bottom:0}
+@media(max-width:600px){.guide-article > .guide-section{margin:28px 0}}
 .guide-layout{background:#fff;color:#263348;padding:34px 24px 80px;font-size:17px;line-height:1.95;overflow-wrap:anywhere}
 .guide-article{max-width:820px;margin:0 auto}
 .guide-article a{color:#103f99;text-decoration:underline;text-underline-offset:3px}
