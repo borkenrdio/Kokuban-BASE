@@ -13,11 +13,13 @@
 .kb-guide-link{display:inline-block;margin-top:4px;font-size:15px;font-weight:700;color:var(--g-blue);text-decoration:underline;text-underline-offset:4px}
 
 /* ヒーロー */
-.kb-guide-hero{padding:64px 24px 56px;text-align:center;background:linear-gradient(115deg,#f2f8ff 0%,#eaf4ff 60%,#f9fcff 100%)}
-.kb-guide-hero h1{font-size:clamp(30px,3.4vw,44px);font-weight:700;line-height:1.55;margin:0 0 16px;color:#132c54}
+.kb-guide-hero{padding:56px 28px;background:linear-gradient(115deg,#f2f8ff 0%,#eaf4ff 60%,#f9fcff 100%)}
+.kb-guide-hero-inner{max-width:1120px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.kb-guide-hero .kb-guide-eyebrow{text-align:left}
+.kb-guide-hero-visual{margin:0}.kb-guide-hero-visual img{width:100%;max-width:440px;height:auto;display:block;margin-left:auto;border-radius:16px}
+.kb-guide-hero h1{font-size:clamp(30px,3.2vw,42px);font-weight:700;line-height:1.55;margin:0 0 16px;color:#132c54}
 .kb-guide-hero h1 span{color:#1049b4;background:linear-gradient(transparent 75%,#f8d9e9 75%,#f8d9e9 94%,transparent 94%)}
 .kb-guide-hero-sub{font-size:18px;font-weight:700;line-height:1.8;margin:0 0 26px;color:#223c63}
-.kb-guide-hero-note{font-size:13px;margin:14px 0 0;color:#536580}
 
 /* ご利用の流れ */
 .kb-guide-flow{padding:64px 24px;background:#fff}
@@ -43,9 +45,12 @@
 @media(max-width:760px){
   .kb-sp-br{display:inline}
   .kb-guide h2{font-size:21px;margin-bottom:24px}
-  .kb-guide-hero{padding:40px 22px 40px}
-  .kb-guide-hero h1{font-size:28px}
-  .kb-guide-hero-sub{font-size:16px;margin-bottom:22px}
+  .kb-guide-hero{padding:40px 22px 36px}
+  .kb-guide-hero-inner{grid-template-columns:1fr;gap:24px;text-align:center}
+  .kb-guide-hero .kb-guide-eyebrow{text-align:center}
+  .kb-guide-hero-visual img{max-width:320px;margin:0 auto}
+  .kb-guide-hero h1{font-size:25px}
+  .kb-guide-hero-sub{font-size:15px;margin-bottom:22px}
   .kb-guide-hero .kb-guide-btn,.kb-guide-close .kb-guide-btn{width:100%;box-sizing:border-box}
   .kb-guide-flow{padding:44px 22px}
   .kb-guide-steps{gap:36px}
