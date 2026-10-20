@@ -1,19 +1,4 @@
 /* Editorial guide; scoped so the shared header and footer retain their styling. */
-/* Compact masthead: keep the introduction above the fold. */
-html body .guide-layout{padding-top:8px}
-.guide-layout .guide-article .guide-breadcrumb{width:100%;max-width:none;padding:0;margin:0 0 6px;font-size:12px;line-height:1.5}
-.guide-layout .guide-article .guide-heading{padding:0 0 10px;margin:0 0 14px}
-.guide-layout .guide-article .guide-heading h1{font-size:30px;line-height:1.3;margin:0 0 10px}
-.guide-layout .guide-heading .guide-meta{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:11px;line-height:1.6;margin:0}
-.guide-layout .guide-heading .guide-meta span{display:inline}
-@media(max-width:600px){body .guide-layout{padding-top:8px}.guide-layout .guide-article .guide-heading h1{font-size:24px;line-height:1.35}}
-body .guide-layout{padding-top:18px}
-.guide-article .guide-breadcrumb{padding:0;margin:0 0 8px;line-height:1.6}
-.guide-article .guide-heading{padding:8px 0 14px;margin:0 0 20px}
-.guide-heading .guide-category{margin:0 0 8px;font-size:12px;line-height:1.6}
-.guide-layout .guide-heading h1{font-size:clamp(26px,3.4vw,34px);line-height:1.4;margin:0 0 12px}
-.guide-heading .guide-meta{margin:0;line-height:1.65;font-size:12px}
-@media(max-width:600px){body .guide-layout{padding-top:14px}.guide-layout .guide-heading h1{font-size:26px}.guide-article .guide-heading{padding-bottom:12px;margin-bottom:16px}}
 .guide-article > .guide-section{padding:0;margin:36px 0}
 .guide-article > .guide-section > :last-child{margin-bottom:0}
 @media(max-width:600px){.guide-article > .guide-section{margin:28px 0}}
@@ -21,11 +6,11 @@ body .guide-layout{padding-top:18px}
 .guide-article{max-width:820px;margin:0 auto}
 .guide-article a{color:#103f99;text-decoration:underline;text-underline-offset:3px}
 .guide-article a:hover{color:#285bc0}
-.guide-breadcrumb,.guide-meta{font-size:13px;color:#657084}
-.guide-heading{padding:20px 0 24px;border-bottom:1px solid #dce3ec;margin-bottom:30px}
-.guide-category{font-size:13px;color:#103f99;font-weight:700;letter-spacing:.08em;margin:0 0 12px}
-.guide-heading h1{font-size:clamp(28px,4.3vw,42px);line-height:1.55;letter-spacing:.01em;margin:0 0 20px;color:#14253f}
-.guide-meta{line-height:1.9;margin:0}.guide-lead{font-size:19px}.guide-article p{margin:0 0 24px}
+
+
+
+
+.guide-lead{font-size:19px}.guide-article p{margin:0 0 24px}
 .guide-cover{margin:32px 0}.guide-cover img{display:block;width:100%;height:auto;border-radius:8px;aspect-ratio:16/9;object-fit:cover}
 .guide-cover figcaption{font-size:13px;color:#657084;margin-top:8px;line-height:1.7}
 .guide-summary,.guide-toc{padding:26px 30px;margin:32px 0;background:#f3f7fc;border:1px solid #dae4f1;border-radius:8px}
@@ -51,3 +36,18 @@ body .guide-layout{padding-top:18px}
 @media(max-width:680px){.guide-experience{grid-template-columns:1fr}.guide-experience-photo{max-width:420px}.guide-experience-copy p{font-size:16px}}
 
 .guide-evidence{margin:24px 0}.guide-evidence img{display:block;width:100%;height:auto;border-radius:6px}.guide-evidence figcaption{font-size:13px;line-height:1.7;color:#657084;margin-top:8px}
+
+/* Article masthead: readable hierarchy without a tall hero. */
+html body .guide-layout{padding-top:20px}
+.guide-layout .guide-breadcrumb{width:100%;max-width:none;padding:0;margin:0 0 18px;font-size:13px;line-height:1.6;color:#68758a}
+.guide-layout .guide-heading{position:relative;padding:0 0 20px;margin:0 0 24px;border-bottom:1px solid #e2e8f0}
+.guide-layout .guide-heading h1{font-size:36px;line-height:1.4;letter-spacing:.015em;font-weight:700;color:#14253f;margin:0 0 18px}
+.guide-title-main{display:block}.guide-title-detail{display:block;margin-top:6px;font-size:23px;line-height:1.55;font-weight:600;letter-spacing:.01em}
+.guide-layout .guide-meta{font-size:13px;color:#64748b;line-height:1.8}
+.guide-heading .guide-meta-dates{display:flex;flex-wrap:wrap;gap:4px 20px;margin:0 0 4px;font-size:13px;line-height:1.8}
+.guide-meta-dates time{font-variant-numeric:tabular-nums;color:#43516a;margin-left:6px}
+.guide-heading .guide-meta-credit{margin:0;font-size:13px;line-height:1.9}.guide-meta-divider{margin:0 8px;color:#a2afc1}
+.guide-meta a{text-decoration:none;border-bottom:1px solid #b8c8df;color:#3f587b}.guide-meta a:hover{color:#103f99}
+.guide-layout .guide-lead{font-size:17px;line-height:1.95;font-weight:400;margin:0 0 20px}.guide-lead strong{font-weight:700;color:#14253f}
+.guide-layout .guide-experience-copy p{font-size:16px;line-height:1.9}
+@media(max-width:600px){html body .guide-layout{padding-top:16px}.guide-layout .guide-breadcrumb{margin-bottom:14px;font-size:12px}.guide-layout .guide-heading{padding-bottom:16px;margin-bottom:20px}.guide-layout .guide-heading h1{font-size:30px;line-height:1.4;margin-bottom:14px}.guide-title-detail{font-size:20px;line-height:1.55;margin-top:5px}.guide-layout .guide-lead{font-size:16px;line-height:1.95}.guide-meta-divider{margin:0 5px}}
