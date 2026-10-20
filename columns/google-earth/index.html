@@ -170,9 +170,14 @@
             border: none;
             vertical-align: bottom;
         }
-        
+        /* アイキャッチは記事枠いっぱいにせず、一回り小さく中央に置く */
+        .eyecatch-image { max-width: 640px; margin-left: auto; margin-right: auto; }
+
         .article-body img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 2rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .article-body img[src*=".gif"] { width: 100%; }
+        /* 本文の写真は本文幅いっぱいにせず、縦長写真も画面を占領しないよう上限を設ける（吹き出しの顔写真は対象外） */
+        .article-body figure:not(.talk-bubble) { margin: 2rem auto; text-align: center; }
+        .article-body figure:not(.talk-bubble) img { width: auto; max-width: min(100%, 560px); max-height: 480px; margin: 0 auto; object-fit: contain; }
         .article-body blockquote:not(.talk-bubble__message) {
             position: relative; margin: 2.5rem 0; padding: 2rem 2rem 1.8rem 4rem; overflow: hidden;
             border: 1px solid #dbe7f8; border-left: 0; border-radius: 0 1.25rem 1.25rem 0;
