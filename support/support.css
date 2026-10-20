@@ -50,7 +50,7 @@
   .kb-guide-flow{padding:44px 22px}
   .kb-guide-steps{gap:36px}
   .kb-guide-step{grid-template-columns:1fr;gap:16px}
-  .kb-guide-step h3{font-size:19px}
+  .kb-guide-step h3{font-size:18px}
   .kb-guide-step p,.kb-guide-checks li{font-size:15px}
   .kb-guide p,.kb-guide li{word-break:normal;overflow-wrap:break-word}
   .kb-guide-close{padding:44px 22px 56px}
