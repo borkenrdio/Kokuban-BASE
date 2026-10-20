@@ -146,6 +146,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://kokuban-base.com/columns/how-to-use-yamada/</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://kokuban-base.com/columns/chatgpt-english/</loc>
     <lastmod>2026-10-11</lastmod>
     <priority>0.6</priority>
