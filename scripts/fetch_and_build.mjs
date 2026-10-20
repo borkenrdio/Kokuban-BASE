@@ -1787,8 +1787,8 @@ async function fetchAllArticles() {
     // 次回の価格改訂は scripts/article-overrides/price.html と以下のメタ情報を更新する。
     return normalizedContents.map(article => article.slug === 'price' ? {
       ...article,
-      title: '電子黒板の価格相場はいくら？65インチは約43万円〜｜2026年版',
-      description: '電子黒板の価格は65インチで本体＋スタンド約43万円（税抜）から。自社取扱いの参考価格、サイズ別の確認点、リース費用の目安、設置・送料・保証を含む総額の考え方を解説します。',
+      title: '電子黒板の価格相場はいくら？65インチは送料込み約46万円〜｜2026年版',
+      description: '65インチの電子黒板は本体・スタンド・送料込みで約46万円（税別）から。導入予算はおおむね46万〜65万円（税別）が目安です。ブランドや5年保証による費用の違い、サイズ別の確認点、リースの目安を解説します。',
       body: fs.readFileSync(path.resolve(process.cwd(), 'scripts/article-overrides/price.html'), 'utf-8'),
       revisedAt: '2026-10-20T00:00:00+09:00',
     } : article);
