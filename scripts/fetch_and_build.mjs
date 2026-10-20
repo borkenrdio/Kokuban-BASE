@@ -1783,13 +1783,19 @@ async function fetchAllArticles() {
     });
 
     console.log(`合計 ${normalizedContents.length} 件の記事データを取得しました。`);
-    // 価格記事はGitHubで管理する改訂本文を使用する。CMSの定期取得で旧本文へ戻さない。
-    // 次回の価格改訂は scripts/article-overrides/price.html と以下のメタ情報を更新する。
+    // 改訂記事はGitHubで管理する本文を使用する。CMSの定期取得で旧本文へ戻さない。
+    // 次回改訂は scripts/article-overrides/ 内の本文と以下のメタ情報を更新する。
     return normalizedContents.map(article => article.slug === 'price' ? {
       ...article,
       title: '電子黒板の価格相場はいくら？65インチは送料込み約46万円〜｜2026年版',
       description: '65インチの電子黒板は本体・スタンド・送料込みで約46万円（税別）から。導入予算はおおむね46万〜65万円（税別）が目安です。ブランドや5年保証による費用の違い、サイズ別の確認点、リースの目安を解説します。',
       body: fs.readFileSync(path.resolve(process.cwd(), 'scripts/article-overrides/price.html'), 'utf-8'),
+      revisedAt: '2026-10-20T00:00:00+09:00',
+    } : article.slug === 'Starboard' ? {
+      ...article,
+      title: 'StarBoard電子黒板の特徴3選｜AI・スクリーンショット・ペン操作を解説',
+      description: 'StarBoard（スターボード）のAI連携、5本指スクリーンショット、ペンの太さ調整を授業でどう使う？メーカー資料・独自取材・実機レビューをもとに、対応モデルの違いと導入前の注意点を解説します。',
+      body: fs.readFileSync(path.resolve(process.cwd(), 'scripts/article-overrides/Starboard.html'), 'utf-8'),
       revisedAt: '2026-10-20T00:00:00+09:00',
     } : article);
   } catch (err) {
