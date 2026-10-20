@@ -23,7 +23,10 @@
 
 /* ご利用の流れ */
 .kb-guide-flow{padding:64px 24px;background:#fff}
-.kb-guide-steps{list-style:none;margin:0 auto;padding:0;max-width:1000px;display:grid;gap:40px}
+.kb-guide-steps{list-style:none;margin:0 auto;padding:0;max-width:1000px;display:grid;gap:64px}
+/* ステップの間に下向きの三角を置き、流れであることを示す */
+.kb-guide-step{position:relative}
+.kb-guide-step:not(:last-child)::after{content:"";position:absolute;left:50%;bottom:-44px;transform:translateX(-50%);border-left:22px solid transparent;border-right:22px solid transparent;border-top:18px solid #9db8e2}
 .kb-guide-step{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:40px;align-items:center}
 .kb-guide-step figure{margin:0}
 .kb-guide-step img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;display:block;border-radius:12px;box-shadow:0 10px 26px #274e7d1a;background:var(--g-soft)}
@@ -53,7 +56,8 @@
   .kb-guide-hero-sub{font-size:15px;margin-bottom:22px}
   .kb-guide-hero .kb-guide-btn,.kb-guide-close .kb-guide-btn{width:100%;box-sizing:border-box}
   .kb-guide-flow{padding:44px 22px}
-  .kb-guide-steps{gap:36px}
+  .kb-guide-steps{gap:56px}
+  .kb-guide-step:not(:last-child)::after{bottom:-38px;border-left-width:18px;border-right-width:18px;border-top-width:15px}
   .kb-guide-step{grid-template-columns:1fr;gap:16px}
   .kb-guide-step h3{font-size:18px}
   .kb-guide-step p,.kb-guide-checks li{font-size:15px}
