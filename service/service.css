@@ -38,9 +38,12 @@
 .svc-value-inner{max-width:1000px;margin:auto;display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:48px;align-items:center}
 .svc-value-photo{margin:0}.svc-value-photo img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;display:block;border-radius:12px;box-shadow:0 12px 32px #274e7d1f}
 .service-body .svc-value h2{font-size:28px;line-height:1.6;margin:0 0 18px;color:#162f55;letter-spacing:.02em}
-.service-body .svc-value-desc{font-size:16px;line-height:2;margin:0 0 14px;color:#4c6079}
-.service-body .svc-value-point{font-size:16px;line-height:1.9;margin:0;font-weight:700;color:#17345e}
+.service-body .svc-value-desc{font-size:16px;line-height:2;margin:0 0 18px;color:#4c6079}
 .service-body .svc-guide-cta{display:flex;justify-content:center;padding:36px 22px 64px;background:#f5f8fc}
+.svc-value-checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.svc-value-checks li{position:relative;padding-left:30px;font-size:16px;line-height:1.7;font-weight:700;color:#17345e}
+.svc-value-checks li:before{content:"";position:absolute;left:0;top:.2em;width:20px;height:20px;border-radius:50%;background:#eb419d}
+.svc-value-checks li:after{content:"";position:absolute;left:7px;top:calc(.2em + 4px);width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
 @media(max-width:900px){.svc-value-inner{grid-template-columns:1fr 1fr;gap:28px}.service-body .svc-value h2{font-size:23px}}
 @media(max-width:650px){
 /* スマホのヒーロー：見出し → 相談ボタン → 写真 → 説明文 の順に並べ替える */
@@ -50,8 +53,9 @@
 .svc-hero-actions{order:4}.service-body .svc-hero-note{order:5;margin-top:0}
 .svc-hero-scene{order:6}.service-body .svc-hero-desc{order:7;margin:0 0 32px}
 .service-body .svc-value{padding:40px 22px 8px}.svc-value-inner{grid-template-columns:1fr;gap:20px}
-.service-body .svc-value-desc,.service-body .svc-value-point{font-size:15px}
-.service-body .svc-guide-cta{padding:8px 22px 48px}.svc-guide-cta .svc-primary{width:100%;box-sizing:border-box}
+.service-body .svc-value-desc{font-size:15px}
+.svc-value-checks li{font-size:15px}
+.service-body .svc-guide-cta{padding:24px 22px 48px}.svc-guide-cta .svc-primary{width:100%;box-sizing:border-box}
 }
 @media(max-width:650px){
 /* スマホのヒーローは中央揃えで統一 */
