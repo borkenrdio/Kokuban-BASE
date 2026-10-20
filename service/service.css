@@ -34,20 +34,11 @@
 @media(max-width:900px){.svc-hero-inner{gap:24px}.service-body .svc-hero h1{font-size:32px}.svc-hero-scene{min-height:360px}.svc-bubble{font-size:12px;padding:10px 14px}.svc-bubble-one{left:-6px}.svc-bubble-two{right:-6px}.svc-scene-circle{width:310px;height:310px}.svc-proof-inner{gap:28px}.svc-proof-points{gap:18px}.service-body .svc-proof h2{font-size:26px}}
 @media(max-width:650px){.service-body .svc-hero{padding:30px 22px 0}.svc-hero-inner{grid-template-columns:1fr;gap:14px}.service-body .svc-hero h1{font-size:31px;line-height:1.5}.service-body .svc-hero-sub{font-size:18px;line-height:1.7}.service-body .svc-hero-desc{font-size:15px;line-height:1.9}.service-body .svc-eyebrow{font-size:12px;margin-bottom:12px}.svc-hero-actions .svc-primary{width:100%;padding:15px 12px;font-size:15px}.svc-hero-actions{gap:12px}.svc-hero-note{font-size:11px}.svc-hero-scene{min-height:350px;padding:52px 4px 46px;max-width:420px;width:100%;margin:auto}.svc-bubble-one{top:6px;left:0}.svc-bubble-two{top:18px;right:0}.svc-bubble-three{bottom:0;right:2px}.svc-scene-label{bottom:12px;max-width:160px;font-size:11px}.svc-scene-circle{width:280px;height:280px;right:-6px}.svc-hero-photo figcaption{font-size:10px}.svc-journey{margin-top:24px;display:grid;grid-template-columns:1fr 16px 1fr;gap:12px 6px;padding:16px 10px;font-size:13px;text-align:center}.svc-journey i:nth-of-type(2){display:none}.service-body .svc-proof{padding:40px 22px}.svc-proof-inner{grid-template-columns:1fr;gap:24px}.service-body .svc-proof h2{font-size:26px}.svc-proof-photo{max-width:420px}.svc-proof-points{grid-template-columns:1fr;gap:20px}.svc-proof-points h3{margin-top:4px}.svc-proof-points article{padding-top:12px}.service-body .svc-overview{padding:34px 22px 6px}.service-body .svc-overview h2{font-size:25px}.svc-overview>p:last-child{font-size:15px}.svc-overview br{display:none}.service-body .svc-consult-intro{margin-top:26px;display:block;padding:22px;width:calc(100% - 36px)}.svc-consult-intro h2{font-size:20px}.svc-consult-intro .svc-primary{margin-top:18px;width:100%;box-sizing:border-box}}
 /* 提供価値・そのほかのサポート（2026-10 改修） */
-.svc-pc-break{display:inline}
 .service-body .svc-value{padding:64px 28px;background:#f5f8fc;color:#263953}
-.svc-value-inner{max-width:1080px;margin:auto}
+.svc-value-inner{max-width:760px;margin:auto;text-align:center}
+.svc-value-photo{margin:0 0 24px}.svc-value-photo img{width:100%;height:auto;display:block;border-radius:12px;box-shadow:0 12px 32px #274e7d1f}
+.service-body .svc-value-desc{font-size:16px;line-height:2;margin:0;color:#4c6079;text-align:left}
 .service-body .svc-value h2{font-size:30px;line-height:1.65;margin:0 0 28px;color:#162f55;letter-spacing:.02em}
-.svc-value-lead{background:#fff;border:1px solid #dce6f3;border-left:5px solid #eb419d;border-radius:12px;padding:26px 30px;margin-bottom:22px}
-.svc-value-tag{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:#eb419d;border-radius:999px;padding:3px 12px;margin-bottom:12px}
-.service-body .svc-value-lead h3{font-size:21px;line-height:1.65;margin:0 0 10px;color:#17345e}
-.service-body .svc-value-lead p{font-size:15px;line-height:1.95;margin:0;color:#4c6079}
-.svc-value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.svc-value-grid article{background:#fff;border:1px solid #dce6f3;border-radius:12px;padding:20px 20px 22px}
-.svc-value-grid article>span{font-size:13px;font-weight:700;color:#1954b0}
-.service-body .svc-value-grid h3{font-size:16px;line-height:1.65;margin:6px 0 8px;color:#17345e}
-.service-body .svc-value-grid p{font-size:14px;line-height:1.85;margin:0;color:#52647b}
-.svc-value-grid a{display:inline-block;margin-top:8px;font-weight:700;color:#174ba5;text-decoration:underline;text-underline-offset:4px}
 .service-body .svc-more{padding:56px 28px;background:#f5f8fc}
 .svc-more-inner{max-width:1080px;margin:auto}
 .service-body .svc-more h2{font-size:26px;line-height:1.6;margin:0 0 22px;color:#162f55}
@@ -57,7 +48,6 @@
 .svc-more-grid strong{font-size:17px;color:#17345e}
 .svc-more-grid small{font-size:14px;line-height:1.85;color:#52647b}
 .svc-more-grid span{margin-top:auto;font-size:14px;font-weight:700;color:#174ba5}
-@media(max-width:900px){.svc-value-grid{grid-template-columns:repeat(2,1fr)}.svc-pc-break{display:none}}
 @media(max-width:650px){
 /* スマホのヒーロー：見出し → 相談ボタン → 写真 → 説明文 の順に並べ替える */
 .svc-hero-inner{display:flex;flex-direction:column}
@@ -66,8 +56,23 @@
 .svc-hero-actions{order:4}.service-body .svc-hero-note{order:5;margin-top:0}
 .svc-hero-scene{order:6}.service-body .svc-hero-desc{order:7;margin:0 0 32px}
 .service-body .svc-value{padding:40px 22px}.service-body .svc-value h2{font-size:23px;margin-bottom:20px}
-.svc-value-lead{padding:20px}.service-body .svc-value-lead h3{font-size:18px}
-.svc-value-grid{grid-template-columns:1fr;gap:12px}
+.service-body .svc-value-desc{font-size:15px;line-height:1.95}
 .service-body .svc-more{padding:40px 22px}.service-body .svc-more h2{font-size:22px}
 .svc-more-grid{grid-template-columns:1fr;gap:12px}
+}
+@media(max-width:650px){
+/* スマホのヒーローは中央揃えで統一 */
+.svc-hero-inner{align-items:center;text-align:center}
+.svc-hero-actions{align-items:stretch;width:100%}
+.service-body .svc-hero-desc{margin-left:auto;margin-right:auto}
+.svc-mobile-break{display:inline}
+}
+/* スマホの改行位置：本文は行末まで詰め、見出しは2行に収める */
+.svc-sp-br{display:none}
+@media(max-width:650px){
+.svc-sp-br{display:inline}
+.service-body main p:not(.svc-hero-sub),.service-body main small,.service-body main figcaption,.service-body main li{word-break:normal;overflow-wrap:break-word}
+.service-body .svc-proof h2{font-size:22px}
+.service-body .svc-value h2{font-size:21px}
+.service-body main .flow-cta{font-size:14px;letter-spacing:0;padding-left:14px;padding-right:38px}
 }
