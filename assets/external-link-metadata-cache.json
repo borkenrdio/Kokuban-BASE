@@ -2378,5 +2378,15 @@
       "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/64c1dd0439554b96b52b09fbd9125e05/_ST75567.jpg",
       "image": ""
     }
+  },
+  "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/88e8c4d39c0641ea95b204aa89c5f904/image.png": {
+    "fetchedAt": "2026-10-20T08:12:18.997Z",
+    "metadata": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/88e8c4d39c0641ea95b204aa89c5f904/image.png",
+      "host": "images.microcms-assets.io",
+      "title": "images.microcms-assets.io",
+      "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/88e8c4d39c0641ea95b204aa89c5f904/image.png",
+      "image": ""
+    }
   }
 }
