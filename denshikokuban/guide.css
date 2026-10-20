@@ -1,4 +1,11 @@
 /* Editorial guide; scoped so the shared header and footer retain their styling. */
+body .guide-layout{padding-top:18px}
+.guide-article .guide-breadcrumb{padding:0;margin:0 0 8px;line-height:1.6}
+.guide-article .guide-heading{padding:8px 0 14px;margin:0 0 20px}
+.guide-heading .guide-category{margin:0 0 8px;font-size:12px;line-height:1.6}
+.guide-layout .guide-heading h1{font-size:clamp(26px,3.4vw,34px);line-height:1.4;margin:0 0 12px}
+.guide-heading .guide-meta{margin:0;line-height:1.65;font-size:12px}
+@media(max-width:600px){body .guide-layout{padding-top:14px}.guide-layout .guide-heading h1{font-size:26px}.guide-article .guide-heading{padding-bottom:12px;margin-bottom:16px}}
 .guide-article > .guide-section{padding:0;margin:36px 0}
 .guide-article > .guide-section > :last-child{margin-bottom:0}
 @media(max-width:600px){.guide-article > .guide-section{margin:28px 0}}
@@ -34,3 +41,5 @@
 /* Shared CSS gives list items additional spacing; reset it inside the guide. */
 .guide-article ul,.guide-article ol{margin-top:12px;margin-bottom:14px}.guide-article li{margin:6px 0;padding-bottom:0}.guide-article li:last-child{margin-bottom:0}.guide-toc ol{margin-bottom:0}.guide-article li>p{margin:0 0 8px}.guide-article li>p:last-child{margin-bottom:0}
 @media(max-width:680px){.guide-experience{grid-template-columns:1fr}.guide-experience-photo{max-width:420px}.guide-experience-copy p{font-size:16px}}
+
+.guide-evidence{margin:24px 0}.guide-evidence img{display:block;width:100%;height:auto;border-radius:6px}.guide-evidence figcaption{font-size:13px;line-height:1.7;color:#657084;margin-top:8px}

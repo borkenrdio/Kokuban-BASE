@@ -14,6 +14,11 @@ const OSUSUME_FALLBACK_URL = '/lineup/';
 const chooseUrl = () => (OSUSUME_PUBLISHED ? OSUSUME_URL : OSUSUME_FALLBACK_URL);
 
 const additions = [
+  // Return paths to the core electronic-whiteboard guide (persist after CMS rebuilds).
+  ...['price', '65inch', 'denshikokuban-osusume', 'starboard-review', 'miraitouch-review', 'bigpad-review', 'benqboard-review', 'promethean-review', 'pdf', 'chatgpt-english'].map(source => ({
+    source, target: '/denshikokuban/', placement: 'article-end',
+    description: '電子黒板の機能・種類・導入費用・メーカーの違いをまとめて確認し、教室に合う選び方を整理する総合ガイドです。'
+  })),
   // Price cluster
   { source: 'price', target: '/columns/install-work/', section: '設置費用｜', description: '組み立てに必要な人数や壁補強の要否など、設置工事の実際の流れを解説しています。' },
   { source: 'price', target: '/columns/warranty/', section: '保証は「5年の延長保証」', description: '延長保証を実際に付けるべきかどうかを、導入7年目の実体験から解説しています。' },
@@ -290,7 +295,11 @@ const cleanupRules = {
   ],
 };
 
-const sources = new Set(additions.map(({ source }) => source));
+const sourceOption = process.argv.find(arg => arg.startsWith('--sources='));
+const selectedSources = sourceOption ? new Set(sourceOption.slice('--sources='.length).split(',')) : null;
+const targetOption = process.argv.find(arg => arg.startsWith('--target='));
+const selectedTarget = targetOption ? targetOption.slice('--target='.length) : null;
+const sources = new Set(additions.map(({ source }) => source).filter(source => !selectedSources || selectedSources.has(source)));
 let added = 0;
 let skipped = 0;
 let missing = 0;
@@ -298,10 +307,11 @@ let missing = 0;
 for (const source of sources) {
   const file = path.join(COLUMNS_DIR, source, 'index.html');
   if (!fs.existsSync(file)) continue;
-  let html = removeGeneratedCards(fs.readFileSync(file, 'utf8'));
-  if (cleanupRules[source]) html = unwrapMatchingLinks(html, cleanupRules[source]);
+  let html = fs.readFileSync(file, 'utf8');
+  if (!selectedTarget) html = removeGeneratedCards(html);
+  if (!selectedTarget && cleanupRules[source]) html = unwrapMatchingLinks(html, cleanupRules[source]);
 
-  for (const item of additions.filter((entry) => entry.source === source)) {
+  for (const item of additions.filter((entry) => entry.source === source && (!selectedTarget || entry.target === selectedTarget))) {
     const isCta = item.kind === 'cta';
 
     if (!isCta && hasCard(html, item.target)) {
