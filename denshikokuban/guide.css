@@ -1,4 +1,12 @@
 /* Editorial guide; scoped so the shared header and footer retain their styling. */
+/* Compact masthead: keep the introduction above the fold. */
+html body .guide-layout{padding-top:8px}
+.guide-layout .guide-article .guide-breadcrumb{width:100%;max-width:none;padding:0;margin:0 0 6px;font-size:12px;line-height:1.5}
+.guide-layout .guide-article .guide-heading{padding:0 0 10px;margin:0 0 14px}
+.guide-layout .guide-article .guide-heading h1{font-size:30px;line-height:1.3;margin:0 0 10px}
+.guide-layout .guide-heading .guide-meta{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:11px;line-height:1.6;margin:0}
+.guide-layout .guide-heading .guide-meta span{display:inline}
+@media(max-width:600px){body .guide-layout{padding-top:8px}.guide-layout .guide-article .guide-heading h1{font-size:24px;line-height:1.35}}
 body .guide-layout{padding-top:18px}
 .guide-article .guide-breadcrumb{padding:0;margin:0 0 8px;line-height:1.6}
 .guide-article .guide-heading{padding:8px 0 14px;margin:0 0 20px}
