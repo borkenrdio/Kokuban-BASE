@@ -65,9 +65,6 @@
           <p>電子黒板の導入・活用について、お気軽にご相談ください</p>
         </div>
 
-        <p class="contact-sales-policy">このフォームは電子黒板の導入・活用をご検討中のお客様向けです。<strong>広告・SEO・制作・人材紹介など、営業・売り込みの送信は受け付けていません。</strong></p>
-        <div class="contact-trap" aria-hidden="true"><label>Website<input type="text" name="website_url" tabindex="-1" autocomplete="off"></label></div>
-        <input type="hidden" name="form_started_at" id="contactStartedAt">
         <label class="contact-field contact-field-full">
           <span>お問い合わせの種別<em>必須</em></span>
           <select name="inquiry_type" required aria-describedby="inquiry-type-error">
@@ -78,7 +75,9 @@
             <option>購入・リースについて</option>
             <option>導入サポート・研修について</option>
             <option>その他</option>
+            <option value="sales">営業・ご提案</option>
           </select>
+          <p id="contactSalesNotice" role="status" hidden>営業・売り込みのご連絡は受け付けておりません。</p>
           <p class="contact-field-error" id="inquiry-type-error" aria-live="polite" hidden>お問い合わせの種別が未入力です。</p>
         </label>
 
@@ -117,14 +116,12 @@
 
         <label class="contact-field contact-field-full">
           <span>お問い合わせ内容<em>必須</em></span>
-          <textarea name="inquiry_content" rows="7" maxlength="2000" placeholder="ご相談内容を日本語でご記入ください（2,000文字以内）" required aria-describedby="message-help message-error"></textarea>
-          <p id="message-help">日本語でご記入ください。2,000文字以内。短いご質問でも構いません。</p>
+          <textarea name="inquiry_content" rows="7" maxlength="500" placeholder="ご質問・ご相談内容をご記入ください" required aria-describedby="message-error"></textarea>
           <p class="contact-field-error" id="message-error" aria-live="polite" hidden>お問い合わせ内容が未入力です。</p>
         </label>
 
         <p class="contact-privacy-note" style="font-size:13px;color:#6b7280;line-height:1.7;">ご入力いただいた個人情報は、<a href="/privacy/" target="_blank" rel="noopener" style="color:#103f99;text-decoration:underline;">プライバシーポリシー</a>に基づき、お問い合わせへの回答およびご案内のためにのみ利用します。送信をもって同意いただいたものとみなします。</p>
 
-        <label class="contact-confirm"><input type="checkbox" name="customer_inquiry" value="yes" required> 電子黒板についての問い合わせであり、営業・売り込みではありません。</label>
         <button class="contact-submit" type="submit">送信する</button>
 
         <div class="contact-form-result" id="contactFormResult" role="status" aria-live="polite" hidden>
@@ -148,11 +145,17 @@
     const contactForm = document.getElementById('contactForm');
     const contactFormResult = document.getElementById('contactFormResult');
     const contactSubmit = contactForm.querySelector('.contact-submit');
+    const salesNotice = document.getElementById('contactSalesNotice');
+    contactForm.elements.inquiry_type.addEventListener('change', () => {
+      const isSales = contactForm.elements.inquiry_type.value === 'sales';
+      salesNotice.hidden = !isSales;
+      contactSubmit.disabled = isSales;
+      contactFormResult.hidden = true;
+    });
     const contactResultTitle = contactFormResult.querySelector('strong');
     const contactResultMessage = contactFormResult.querySelector('span');
     const contactRequiredFields = Array.from(contactForm.querySelectorAll('.contact-field [required]'));
-    const startedAt = Date.now();
-    document.getElementById('contactStartedAt').value = String(startedAt);
+
     const contactRequiredFieldNames = {
       inquiry_type: 'お問い合わせの種別',
       company_name: '企業名／教室名',
@@ -169,7 +172,7 @@
 
       let error = isBlank ? `${fieldName}が未入力です。` : '';
       if (!error && field.name === 'inquiry_content') {
-        if (field.value.length > 2000) error = 'お問い合わせ内容は2,000文字以内でご記入ください。';
+        if (field.value.length > 500) error = 'お問い合わせ内容は500文字以内でご記入ください。';
         else if (!/[ぁ-んァ-ヶ一-龯]/u.test(field.value)) error = 'お問い合わせ内容は日本語でご記入ください。';
       }
       field.setCustomValidity(error);
@@ -216,6 +219,11 @@
 
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (contactForm.elements.inquiry_type.value === 'sales') {
+        document.getElementById('contactSalesNotice').hidden = false;
+        contactForm.elements.inquiry_type.focus();
+        return;
+      }
       contactForm.classList.add('has-validation-errors');
 
       if (!validateContactRequiredFields()) {
@@ -227,15 +235,6 @@
         return;
       }
 
-      if (contactForm.elements.website_url.value || Date.now() - startedAt < 3000) {
-        showContactResult('error', '送信を確認できませんでした', '入力内容をご確認のうえ、少し時間をおいて再度お試しください。');
-        return;
-      }
-      if (!contactForm.elements.customer_inquiry.checked) {
-        showContactResult('error', 'ご確認ください', '営業・売り込みではないことの確認欄にチェックしてください。');
-        contactForm.elements.customer_inquiry.focus();
-        return;
-      }
       const endpoint = contactForm.dataset.googleScriptUrl.trim();
 
       if (!endpoint) {
