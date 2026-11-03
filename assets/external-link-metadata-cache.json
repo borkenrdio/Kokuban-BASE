@@ -2458,5 +2458,15 @@
       "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d61a581a9b7b42dcae98ce30c9bb6745/image.png",
       "image": ""
     }
+  },
+  "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e7a1c47f02e84481a05e4e98ef5b303d/%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%9C%E3%83%BC%E3%83%89%E2%91%A5-rev.jpg": {
+    "fetchedAt": "2026-11-03T05:21:47.533Z",
+    "metadata": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e7a1c47f02e84481a05e4e98ef5b303d/%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%9C%E3%83%BC%E3%83%89%E2%91%A5-rev.jpg",
+      "host": "images.microcms-assets.io",
+      "title": "images.microcms-assets.io",
+      "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e7a1c47f02e84481a05e4e98ef5b303d/%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%9C%E3%83%BC%E3%83%89%E2%91%A5-rev.jpg",
+      "image": ""
+    }
   }
 }
