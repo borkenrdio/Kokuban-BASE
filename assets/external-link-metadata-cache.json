@@ -2448,5 +2448,15 @@
       "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/f08a6ac0b7d44b88abecb168a13f913e/010f30f7-fff5-4e6b-a631-b50a1498c4b1.png",
       "image": ""
     }
+  },
+  "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d61a581a9b7b42dcae98ce30c9bb6745/image.png": {
+    "fetchedAt": "2026-11-03T05:21:18.331Z",
+    "metadata": {
+      "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d61a581a9b7b42dcae98ce30c9bb6745/image.png",
+      "host": "images.microcms-assets.io",
+      "title": "images.microcms-assets.io",
+      "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/d61a581a9b7b42dcae98ce30c9bb6745/image.png",
+      "image": ""
+    }
   }
 }
