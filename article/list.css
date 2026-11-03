@@ -499,3 +499,11 @@
     font-size: 9.5px;
   }
 }
+
+/* Keep all seven category buttons visible on desktop, including case studies. */
+@media (min-width: 1100px) {
+  .kb-art-filter__inner { width: min(1280px, calc(100% - 40px)); gap: 6px; flex-wrap: nowrap; }
+  .kb-art-chip { padding: 8px 10px; gap: 5px; }
+  .kb-art-chip i { padding: 1px 5px; }
+}
+@media (min-width:1100px) and (max-width:1199px){.kb-art-filter__label{display:none}.kb-art-chip{padding-inline:8px}}
