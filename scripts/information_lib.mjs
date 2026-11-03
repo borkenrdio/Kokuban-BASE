@@ -317,6 +317,17 @@ export async function buildInformationArtifacts({ client, endpoint = 'informatio
     })
     .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
 
+  // 明示的に告知するコラム公開のお知らせは、定期同期後も保持する。
+  const announcementsPath = path.resolve(process.cwd(), 'scripts/information-announcements.json');
+  if (fs.existsSync(announcementsPath)) {
+    const announcements = JSON.parse(fs.readFileSync(announcementsPath, 'utf8'));
+    for (const item of announcements) {
+      if (new Date(item.publishedAt) > new Date(now)) continue;
+      if (!normalized.some((existing) => existing.id === item.id)) normalized.push(item);
+    }
+    normalized.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+  }
+
   // 記事詳細ページを生成
   const withContent = newsContents.filter((item) => item.content && String(item.content).trim());
   let templateHtml = null;
