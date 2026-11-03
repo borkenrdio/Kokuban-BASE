@@ -2179,7 +2179,7 @@ function buildHomepageStaticSections(summaryList) {
 
   if (newsItems) {
     const rows = newsItems
-      .filter(item => String(item.url || '').indexOf('/columns/') === -1 && !item.slug)
+      .filter(item => item.isAnnouncement === true || (String(item.url || '').indexOf('/columns/') === -1 && !item.slug))
       .slice(0, 5)
       .map(item => {
         const dateSource = item.publishedAt || item.date || item.createdAt || '';
