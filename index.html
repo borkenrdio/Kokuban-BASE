@@ -559,7 +559,7 @@
           .then(function (data) {
             const items = normalizeItems(data).filter(function (item) {
               const url = String(item.url || '');
-              return url.indexOf('/columns/') === -1 && !item.slug;
+              return item.isAnnouncement === true || (url.indexOf('/columns/') === -1 && !item.slug);
             });
             renderNews(items);
           })
