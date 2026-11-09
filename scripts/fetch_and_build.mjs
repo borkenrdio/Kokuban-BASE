@@ -1783,14 +1783,8 @@ async function fetchAllArticles() {
     });
 
     console.log(`合計 ${normalizedContents.length} 件の記事データを取得しました。`);
-    // StarBoardの改訂本文のみGitHubで管理。価格記事はmicroCMSを正として取得する。
-    return normalizedContents.map(article => article.slug === 'Starboard' ? {
-      ...article,
-      title: 'StarBoard電子黒板の特徴3選｜AI・スクリーンショット・ペン操作を解説',
-      description: 'StarBoard（スターボード）のAI連携、5本指スクリーンショット、ペンの太さ調整を授業でどう使う？メーカー資料・独自取材・実機レビューをもとに、対応モデルの違いと導入前の注意点を解説します。',
-      body: fs.readFileSync(path.resolve(process.cwd(), 'scripts/article-overrides/Starboard.html'), 'utf-8'),
-      revisedAt: '2026-10-20T00:00:00+09:00',
-    } : article);
+    // 記事のタイトル・本文・説明文・更新日はmicroCMSを正本とする。
+    return normalizedContents;
   } catch (err) {
     console.error('記事データの取得に失敗しました:', err);
     throw err;

@@ -42,6 +42,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify microCMS content remains authoritative
+        run: node --test scripts/tests/cms-source.test.mjs
+
       - name: Build content from microCMS
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
