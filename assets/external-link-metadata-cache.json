@@ -2488,5 +2488,65 @@
       "description": "電子黒板なら世界80カ国以上、50万台以上の実績のStarBoard | 福岡県柳川市立やまと小学校 | StarBoard | 電子黒板なら世界80カ国以上、50万台以上の実績",
       "image": "https://starboard-solutions.co.jp/wp-content/uploads/2025/08/ogp.png"
     }
+  },
+  "https://mirai-touch.com/information/3x-series/": {
+    "fetchedAt": "2026-11-09T05:50:24.129Z",
+    "metadata": {
+      "url": "https://mirai-touch.com/information/3x-series/",
+      "host": "mirai-touch.com",
+      "title": "Xシリーズ | 【公式】ミライタッチ",
+      "description": "https://mirai-touch.com/information/3x-series/",
+      "image": "https://mirai-touch.com/wp-content/themes/yma/assets/images/threex_series/sv_product.png"
+    }
+  },
+  "https://mirai-touch.com/information/4x-series/": {
+    "fetchedAt": "2026-11-09T05:50:24.253Z",
+    "metadata": {
+      "url": "https://mirai-touch.com/information/4x-series/",
+      "host": "mirai-touch.com",
+      "title": "Xシリーズ新型 | 【公式】ミライタッチ",
+      "description": "ミライタッチ Xシリーズ新型の製品情報ページです。デュアルカメラ、Wi-Fi 7、ローカルディミング、Google EDLA認証、AIチップ搭載など、教育現場に求められる次世代機能を備えた電子黒板の特長をご紹介します。",
+      "image": "https://mirai-touch.com/wp-content/themes/yma/assets/images/fourx_series/sv_product_new.png"
+    }
+  },
+  "https://mirai-touch.com/information/chromeos/": {
+    "fetchedAt": "2026-11-09T05:50:24.276Z",
+    "metadata": {
+      "url": "https://mirai-touch.com/information/chromeos/",
+      "host": "mirai-touch.com",
+      "title": "ChromeOS 搭載モデル | 【公式】ミライタッチ",
+      "description": "MIRAI TOUCHがGoogle の認証を取得し、ChromeOS を搭載。 ChromeOS の使い易さはそのままに、電子黒板で Google Workspace for Education の利用が可能です。",
+      "image": "https://mirai-touch.com/wp-content/themes/yma/assets/images/chrome-mvnone/img_sv_monitor-2.png"
+    }
+  },
+  "https://mirai-touch.com/faq/": {
+    "fetchedAt": "2026-11-09T05:50:24.292Z",
+    "metadata": {
+      "url": "https://mirai-touch.com/faq/",
+      "host": "mirai-touch.com",
+      "title": "よくある質問 | 【公式】ミライタッチ",
+      "description": "https://mirai-touch.com/faq/",
+      "image": "https://mirai-touch.com/wp-content/themes/yma/assets/images/common/logo.svg"
+    }
+  },
+  "https://mirai-touch.com/case/": {
+    "fetchedAt": "2026-11-09T05:50:24.469Z",
+    "metadata": {
+      "url": "https://mirai-touch.com/case/",
+      "host": "mirai-touch.com",
+      "title": "電子黒板の導入事例 | 【公式】ミライタッチ",
+      "description": "https://mirai-touch.com/case/",
+      "image": "https://mirai-touch.com/wp-content/uploads/2026/07/%E8%BF%BD%E5%8A%A0%E3%83%AA%E3%82%BF%E3%83%83%E3%83%81%E6%B8%88%E3%81%BF_IMG_8679.jpg"
+    }
+  },
+  "https://mirai-touch.com/information/p-series/": {
+    "fetchedAt": "2026-11-09T05:50:24.479Z",
+    "metadata": {
+      "url": "https://mirai-touch.com/information/p-series/",
+      "host": "mirai-touch.com",
+      "title": "Pシリーズ | 【公式】ミライタッチ",
+      "description": "https://mirai-touch.com/information/p-series/",
+      "image": "https://mirai-touch.com/wp-content/themes/yma/assets/images/p_series/main-new.png"
+    }
   }
 }
