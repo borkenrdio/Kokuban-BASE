@@ -640,7 +640,7 @@
     }
   },
   "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/c4886d878cd2449c916a6a4a1434c3f0/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%2011_44_42%2011(1": {
-    "fetchedAt": "2026-08-04T16:27:14.251Z",
+    "fetchedAt": "2026-11-09T04:27:23.327Z",
     "metadata": {
       "url": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/c4886d878cd2449c916a6a4a1434c3f0/ChatGPT%20Image%202026%E5%B9%B46%E6%9C%8822%E6%97%A5%2011_44_42%2011(1",
       "host": "images.microcms-assets.io",
@@ -2467,6 +2467,26 @@
       "title": "images.microcms-assets.io",
       "description": "https://images.microcms-assets.io/assets/55c151aecffc4472b4f77af5a6755e38/e7a1c47f02e84481a05e4e98ef5b303d/%E3%83%9B%E3%83%AF%E3%82%A4%E3%83%88%E3%83%9C%E3%83%BC%E3%83%89%E2%91%A5-rev.jpg",
       "image": ""
+    }
+  },
+  "https://www.hitachi-solutions.co.jp/company/press/news/2011/1102.html": {
+    "fetchedAt": "2026-11-09T04:27:22.852Z",
+    "metadata": {
+      "url": "https://www.hitachi-solutions.co.jp/company/press/news/2011/1102.html",
+      "host": "hitachi-solutions.co.jp",
+      "title": "マルタ共和国の公立小・中学校全教室に導入する電子黒板「StarBoard」を受注 教育現場へのICT普及を支援し、生徒の学力向上に貢献｜株式会社日立ソリューションズ",
+      "description": "日立ソリューションズのコーポレートサイトです。企業情報、ニュースリリース、CSR情報などを掲載しています。",
+      "image": "https://www.hitachi-solutions.co.jp/nres/image/jp/r1/common2/corp_id.png"
+    }
+  },
+  "https://starboard-solutions.co.jp/case/6661/": {
+    "fetchedAt": "2026-11-09T04:27:23.267Z",
+    "metadata": {
+      "url": "https://starboard-solutions.co.jp/case/6661/",
+      "host": "starboard-solutions.co.jp",
+      "title": "福岡県柳川市立やまと小学校 | StarBoard | 電子黒板なら世界80カ国以上、50万台以上の実績",
+      "description": "電子黒板なら世界80カ国以上、50万台以上の実績のStarBoard | 福岡県柳川市立やまと小学校 | StarBoard | 電子黒板なら世界80カ国以上、50万台以上の実績",
+      "image": "https://starboard-solutions.co.jp/wp-content/uploads/2025/08/ogp.png"
     }
   }
 }
