@@ -2548,5 +2548,25 @@
       "description": "https://mirai-touch.com/information/p-series/",
       "image": "https://mirai-touch.com/wp-content/themes/yma/assets/images/p_series/main-new.png"
     }
+  },
+  "https://youtu.be/O72VTNCoQ4c?si=c7vnni_5xqhwv45j": {
+    "fetchedAt": "2026-11-10T06:11:10.239Z",
+    "metadata": {
+      "url": "https://youtu.be/O72VTNCoQ4c?si=c7vnni_5xqhwv45j",
+      "host": "youtu.be",
+      "title": "- YouTube",
+      "description": "Enjoy the videos and music you love, upload original content, and share it all with friends, family, and the world on YouTube.",
+      "image": ""
+    }
+  },
+  "https://youtube.com/shorts/0RjQx7kLcQ4?si=cJhqpFWrwiiuj1SG": {
+    "fetchedAt": "2026-11-10T06:11:10.654Z",
+    "metadata": {
+      "url": "https://youtube.com/shorts/0RjQx7kLcQ4?si=cJhqpFWrwiiuj1SG",
+      "host": "youtube.com",
+      "title": "電子黒板でリアルタイム翻訳ができる！ #ミライタッチ #電子黒板",
+      "description": "Enjoy the videos and music you love, upload original content, and share it all with friends, family, and the world on YouTube.",
+      "image": "https://i.ytimg.com/vi/0RjQx7kLcQ4/sardefault.jpg?sqp=-oaymwEkCJUDENAFSFqQAgHyq4qpAxMIARUAAAAAJQAAyEI9AICiQ3gB&rs=AOn4CLAWdLFMvq9iNXc21idq-NsRxCsXNA"
+    }
   }
 }
