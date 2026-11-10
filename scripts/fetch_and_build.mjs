@@ -2092,13 +2092,16 @@ async function buildArticleListPage(articles) {
     `<div id="all-articles" class="kb-art-grid">\n${allHtml}\n</div>`
   );
 
-  // ② 編集部Pick Up: 独自取材の最新5件（足りなければ他カテゴリの新着で補完）
+  // ② 編集部Pick Up: 編集部指定の記事を先頭に、独自取材・新着で5件まで補完。
+  // CMSで再生成しても導入事例の掲載を維持する。タイトル・画像はCMSの記事情報を使う。
+  const featuredSlugs = ['benQboard-laurel-interview'];
+  const featured = featuredSlugs.map(slug => articles.find(a => a.slug === slug)).filter(Boolean);
   const interviews = articles.filter(a => isInterview(a));
   const others = articles.filter(a => !isInterview(a));
-  const pickups = interviews.slice(0, 5);
-  for (const a of others) {
+  const pickups = [];
+  for (const a of [...featured, ...interviews, ...others]) {
     if (pickups.length >= 5) break;
-    pickups.push(a);
+    if (!pickups.some(pick => pick.slug === a.slug)) pickups.push(a);
   }
   const pickupHtml = pickups.map(a => buildPickupHtml(a)).join('\n');
   html = html.replace(
