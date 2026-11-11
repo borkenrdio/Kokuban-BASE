@@ -43,6 +43,7 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kokuban BASE","item":"https://kokuban-base.com/"},{"@type":"ListItem","position":2,"name":"電子黒板選びチェック","item":"https://kokuban-base.com/check/"}]}
   </script>
+<script src="/assets/analytics.js?v=20261111" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -253,6 +254,11 @@
 
     /* ---------- 状態 ---------- */
     var state = { step: 0, answers: {} };
+    var measurement = { started: false, completed: false, steps: {} };
+    var answerPending = false;
+    function trackCheck(name, params) {
+      if (typeof window.kbTrack === 'function') window.kbTrack(name, params);
+    }
     var stage = document.getElementById('ckStage');
     var progWrap = document.getElementById('ckProgress');
 
@@ -311,6 +317,11 @@
 
       stage.querySelectorAll('.ck-opt').forEach(function (btn) {
         btn.addEventListener('click', function () {
+          if (answerPending) return;
+          if (!measurement.started) {
+            measurement.started = true;
+            trackCheck('check_start');
+          }
           var id = btn.getAttribute('data-opt');
           if (multi) {
             var arr = state.answers[q.id] || [];
@@ -325,6 +336,7 @@
             state.answers[q.id] = id;
             stage.querySelectorAll('.ck-opt').forEach(function (b) { b.classList.remove('is-selected'); });
             btn.classList.add('is-selected');
+            answerPending = true;
             setTimeout(advance, 260);
           }
         });
@@ -334,6 +346,16 @@
     }
 
     function advance() {
+      if (measurement.completed) return;
+      var question = QUESTIONS[state.step];
+      if (!question) return;
+      var answer = state.answers[question.id];
+      if (!answer || (question.multi && answer.length < question.multi)) return;
+      if (!measurement.steps[question.id]) {
+        measurement.steps[question.id] = true;
+        trackCheck('check_step', { question_id: question.id, step_number: state.step + 1 });
+      }
+      answerPending = false;
       if (state.step < QUESTIONS.length - 1) {
         state.step++;
         renderQuestion();
@@ -404,12 +426,14 @@
       var secondBrand = r.order[1];
       var isTie = r.scores[top] === r.scores[secondBrand] && r.scores[top] > 0;
 
-      if (typeof gtag === 'function') {
-        gtag('event', 'check_complete', {
+      if (!measurement.completed) {
+        measurement.completed = true;
+        trackCheck('check_complete', {
           brand: BRANDS[top].name,
-          brand_second: BRANDS[secondBrand].name,
+          brand_second: (isTie || r.scores[secondBrand] > 0) ? BRANDS[secondBrand].name : 'none',
           tie: isTie ? 'yes' : 'no',
-          audience: q1 || ''
+          audience: q1 || '',
+          result_size: String(sizeFor(top, q1))
         });
       }
 
@@ -442,6 +466,9 @@
 
       stage.innerHTML = html;
       document.getElementById('ckRetry').addEventListener('click', function () {
+        trackCheck('check_retry');
+        measurement = { started: false, completed: false, steps: {} };
+        answerPending = false;
         state.step = 0;
         state.answers = {};
         renderQuestion();
@@ -454,7 +481,7 @@
           if (typeof gtag !== 'function') return;
           var card = btn.closest('.ck-card');
           var logo = card ? card.querySelector('.ck-card__logo img') : null;
-          gtag('event', 'check_consult_click', {
+          trackCheck('check_consult_click', {
             brand: logo ? logo.alt : ''
           });
         });

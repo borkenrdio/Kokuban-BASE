@@ -43,7 +43,7 @@ jobs:
         run: npm ci
 
       - name: Verify microCMS content remains authoritative
-        run: node --test scripts/tests/cms-source.test.mjs
+        run: node --test scripts/tests/cms-source.test.mjs scripts/tests/analytics.test.mjs
 
       - name: Build content from microCMS
         env:
