@@ -150,11 +150,14 @@
     const contactFormResult = document.getElementById('contactFormResult');
     const contactSubmit = contactForm.querySelector('.contact-submit');
     const salesNotice = document.getElementById('contactSalesNotice');
-    contactForm.elements.inquiry_type.addEventListener('change', () => {
+    contactForm.elements.inquiry_type.addEventListener('change', (event) => {
       const isSales = contactForm.elements.inquiry_type.value === 'sales';
       salesNotice.hidden = !isSales;
       contactSubmit.disabled = isSales;
       contactFormResult.hidden = true;
+      if (isSales && event.isTrusted) {
+        window.kbTrack?.('contact_sales_select', { form_id: 'contact' });
+      }
     });
     const contactResultTitle = contactFormResult.querySelector('strong');
     const contactResultMessage = contactFormResult.querySelector('span');
@@ -227,6 +230,10 @@
         document.getElementById('contactSalesNotice').hidden = false;
         contactForm.elements.inquiry_type.focus();
         return;
+      }
+      // Count button and keyboard submissions, including attempts with incomplete fields.
+      if (event.isTrusted && !contactSubmit.disabled) {
+        window.kbTrack?.('contact_submit_attempt', { form_id: 'contact' });
       }
       contactForm.classList.add('has-validation-errors');
 
