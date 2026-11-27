@@ -2508,6 +2508,11 @@ async function buildStaticPages() {
     // 読了時間を計算
     const readingMinutes = calculateReadingTime(bodyBeforeLinks);
     const readingTimeHtml = `<span class="reading-time inline-flex items-center text-gray-500 text-sm ml-3"><i class="fas fa-clock text-gray-300 mr-1.5"></i>読了 約${readingMinutes}分</span>`;
+    const priceArticleCta = article.slug === 'price'
+      ? `<div class="my-6 text-center">
+                        <a class="btn min-h-[44px] bg-customBlue text-white" href="/contact/#contactForm">学校・塾の概算見積を相談する</a>
+                    </div>`
+      : '';
 
     let articleHtml = templateHtml
       .replace(/\{\{TITLE\}\}/g, title)
@@ -2525,6 +2530,7 @@ async function buildStaticPages() {
       .replace(/\{\{REVISED_AT_FORMATTED\}\}/g, revisedAtFormatted)
       .replace(/\{\{READING_TIME_HTML\}\}/g, readingTimeHtml)
       .replace(/\{\{READING_MINUTES\}\}/g, String(readingMinutes))
+      .replace(/\{\{PRICE_ARTICLE_CTA\}\}/g, priceArticleCta)
       .replace(/\{\{TOC_HTML\}\}/g, tocHtml)
       .replace(/\{\{EYECATCH_HTML\}\}/g, eyecatchHtml)
       // 著者プレースホルダーはBODY_HTML置換より前に処理
