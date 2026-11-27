@@ -150,10 +150,11 @@
     const contactFormResult = document.getElementById('contactFormResult');
     const contactSubmit = contactForm.querySelector('.contact-submit');
     const salesNotice = document.getElementById('contactSalesNotice');
+    let contactSubmitting = false;
     contactForm.elements.inquiry_type.addEventListener('change', (event) => {
       const isSales = contactForm.elements.inquiry_type.value === 'sales';
       salesNotice.hidden = !isSales;
-      contactSubmit.disabled = isSales;
+      contactSubmit.disabled = isSales || contactSubmitting;
       contactFormResult.hidden = true;
       if (isSales && event.isTrusted) {
         window.kbTrack?.('contact_sales_select', { form_id: 'contact' });
@@ -226,6 +227,9 @@
 
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (contactSubmitting) {
+        return;
+      }
       if (contactForm.elements.inquiry_type.value === 'sales') {
         document.getElementById('contactSalesNotice').hidden = false;
         contactForm.elements.inquiry_type.focus();
@@ -262,39 +266,50 @@
       formData.append('page_url', window.location.href);
       formData.append('user_agent', window.navigator.userAgent);
 
+      contactSubmitting = true;
       contactSubmit.disabled = true;
       contactSubmit.textContent = '送信中...';
       showContactResult('loading', '送信中です', '内容を送信しています。このまま少々お待ちください。');
 
       try {
-        await fetch(endpoint, {
+        const response = await fetch(endpoint, {
           method: 'POST',
-          mode: 'no-cors',
           body: formData
         });
-
-        contactForm.reset();
-        showContactResult(
-          'success',
-          '送信しました',
-          'お問い合わせありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。'
-        );
-
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', {
-            form_id: 'contact',
-            inquiry_type: String(formData.get('inquiry_type') || '')
-          });
+        if (!response.ok) {
+          throw new Error('The contact endpoint returned an unsuccessful HTTP status.');
+        }
+        const receipt = await response.json();
+        if (receipt?.result !== 'success') {
+          throw new Error('The contact endpoint did not confirm receipt.');
         }
       } catch (error) {
         showContactResult(
           'error',
-          '送信できませんでした',
-          '通信状況をご確認のうえ、時間をおいてもう一度お試しください。'
+          '受付を確認できませんでした',
+          '送信内容は画面に残っています。受付状況がご不明な場合は、お電話でお問い合わせください。'
         );
+        return;
       } finally {
-        contactSubmit.disabled = false;
+        contactSubmitting = false;
+        contactSubmit.disabled = contactForm.elements.inquiry_type.value === 'sales';
         contactSubmit.textContent = '送信する';
+      }
+
+      contactForm.reset();
+      salesNotice.hidden = true;
+      contactSubmit.disabled = false;
+      showContactResult(
+        'success',
+        '送信しました',
+        'お問い合わせありがとうございます。内容を確認のうえ、担当者よりご連絡いたします。'
+      );
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+          form_id: 'contact',
+          inquiry_type: String(formData.get('inquiry_type') || '')
+        });
       }
     });
   </script>
